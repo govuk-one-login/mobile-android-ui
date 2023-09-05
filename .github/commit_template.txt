@@ -1,0 +1,33 @@
+# 1. Separate subject from body with a blank line
+# 2. Limit the subject line to 50 characters
+# 3. Capitalise the subject line
+# 4. Don't end the subject line with a period
+# 5. Use the imperative mood in the subject line
+# No more than 50 chars. #### 50 chars is here:  #
+
+
+# Remember blank line between title and body.
+# 6. Wrap the body at 72 characters
+# 7. Use the body to explain what and why, not how.
+# - Use Hyphen bullet points or * asterisks.
+#   Extend past a line via hanging indents.
+# Wrap at 72 chars. ################################## which is here:  #
+
+# Remember blank line between body and additional headers
+
+# Reference JIRA tickets here:
+# Resolves: DCMAW-000, DCMAW-000
+
+# Optional: include Co-authored-by for all contributors, if pairing.
+# Include at least one empty line before the initial entry. Format:
+# Co-authored-by: name <user@users.noreply.github.com>
+
+# Co-authored-by: Alex Bradbury <18612852+alex-bradbury@users.noreply.github.com>
+# Co-authored-by: Chris Donnelly <110893375+chrisdondig@users.noreply.github.com>
+# Co-authored-by: Christopher Gedrim <113696444+cgedrim-co@users.noreply.github.com>
+# Co-authored-by: Chuddington <6558350+chuddington@users.noreply.github.com>
+# Co-authored-by: Shida <63816881+whoisshida@users.noreply.github.com>
+# Co-authored-by: Delphine <128810121+de1phine@users.noreply.github.com>
+
+# Optional: reference an organisation as part of a commit:
+# on-behalf-of: @organisation-handle <name@organization.com>"
