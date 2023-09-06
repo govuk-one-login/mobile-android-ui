@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore = "UnusedResources">
+    <attr format="color" name="colorIconBackground"/>
+    <attr format="color" name="colorIconForeground"/>
+    <attr format="dimension" name="dimenAppIconSize"/>
+    <attr format="dimension" name="dimenErrorIconSize"/>
+    <attr format="reference" name="textAppearanceBodyMediumBold" />
+    <attr format="reference" name="textAppearanceBodyMediumLink" />
+    <attr format="reference" name="textAppearanceSecondaryButton"/>
+    <attr format="reference" name="textAppearanceBodySmall" />
+    <attr format="color" name="textColorSecondary" />
+    <attr format="color" name="textColourSecondaryButton"/>
+    <attr format="dimension" name="bulletpointSize"/>
+    <declare-styleable name="TextView">
+        <attr name="linkUnderline" format="boolean" />
+        <attr name="linkBold" format="boolean" />
+        <attr name="linkColor" format="color" />
+    </declare-styleable>
+</resources>

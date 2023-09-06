@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="externalSite">External Site</string>
+
+    <!--  GDS Button  -->
+    <string name="preview__GdsButton__primary">Primary button</string>
+    <string name="preview__GdsButton__secondary">Secondary button</string>
+    <string name="preview__GdsButton__primary_icon">Primary icon button</string>
+    <string name="preview__GdsButton__secondary_icon">Secondary icon button</string>
+    <!--  GDS Content  -->
+    <string name="preview__GdsContent__oneLine_0">One line content resource component</string>
+    <string name="preview__GdsContent__twoLine_0">Two line</string>
+    <string name="preview__GdsContent__twoSection_0">Two Section</string>
+    <string name="preview__GdsContent__oneSection_0">One Section</string>
+    <string name="preview__GdsContent__twoLine_1">content resource component</string>
+    <string-array name="preview__GdsContent__array_oneLine">
+        <item>One line content resource array component</item>
+    </string-array>
+    <string-array name="preview__GdsContent__array_twoLine">
+        <item>Two line content</item>
+        <item>resource array component</item>
+    </string-array>
+    <string-array name="preview__GdsContent__array_twoSection_0">
+        <item>First two line section</item>
+        <item>resource array component 1</item>
+    </string-array>
+    <string-array name="preview__GdsContent__array_twoSection_1">
+        <item>Second two line section</item>
+        <item>resource array component 2</item>
+    </string-array>
+    <string name="preview__GdsHeading__subTitle1">Sub Title 1</string>
+    <string name="preview__GdsHeading__subTitle2">Sub Title 2</string>
+
+    <!--  GDS Heading  -->
+    <string name="preview__GdsHeading__h1">Heading H1</string>
+    <string name="preview__GdsHeading__h2">Heading H2</string>
+    <string name="preview__GdsHeading__h3">Heading H3</string>
+    <string name="preview__GdsHeading__h4">Heading H4</string>
+    <!--  GDS Vector Image -->
+    <string name="preview__GdsVectorImage__description">Image description</string>
+</resources>

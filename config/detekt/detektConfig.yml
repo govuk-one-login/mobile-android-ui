@@ -1,0 +1,30 @@
+# Suggested updates for compose-related issues:
+# https://detekt.dev/docs/introduction/compose/
+
+complexity:
+  LongParameterList:
+    active: true
+    ignoreAnnotated:
+      - 'Composable'
+
+naming:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated:
+      - 'Composable'
+  TopLevelPropertyNaming:
+    active: true
+    # composables use TitleCase / PascalCase, with no underscore.
+    # provided pattern covers currently existing constants as well.
+    constantPattern: '[A-Z][_A-Za-z0-9]*'
+
+style:
+  MagicNumber:
+    active: true
+    ignorePropertyDeclaration: true
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated:
+      - 'Composable'
+  MaxLineLength:
+    excludeCommentStatements: true

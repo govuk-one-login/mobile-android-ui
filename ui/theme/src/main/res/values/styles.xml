@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore = "UnusedResources">
+
+    <style name="Title" parent="@style/TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:accessibilityHeading">true</item>
+        <item name="fontFamily">@font/gds_transport_bold</item>
+    </style>
+
+    <style name="Title.Large" parent="Title">
+        <item name="android:textSize">@dimen/text_size__large</item>
+        <item name="lineHeight">@dimen/line_height__large</item>
+    </style>
+
+    <style name="Title.Medium" parent="Title">
+        <item name="android:textSize">@dimen/text_size__medium</item>
+        <item name="android:lineHeight">@dimen/line_height__medium</item>
+    </style>
+
+    <style name="Title.Small" parent="Title">
+        <item name="android:textSize">@dimen/text_size__small</item>
+        <item name="android:lineHeight">@dimen/line_height__small</item>
+    </style>
+
+    <style name="Body" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="android:lineHeight">22sp</item>
+        <item name="fontFamily">@font/gds_transport_light</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Body.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Body.Small">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/textColorSecondary</item>
+    </style>
+
+    <style name="Body.Link">
+        <item name="android:minHeight">@dimen/minimumTouchTarget</item>
+        <item name="android:minWidth">@dimen/minimumTouchTarget</item>
+        <item name="android:textColor">?attr/textColourSecondaryButton</item>
+    </style>
+
+    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:lineHeight">13sp</item>
+        <item name="fontFamily">@font/gds_transport_light</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Body.Button">
+        <item name="android:minHeight">@dimen/minimumTouchTarget</item>
+        <item name="android:minWidth">@dimen/minimumTouchTarget</item>
+        <item name="android:backgroundTint">@color/primary_button_color</item>
+        <item name="android:shadowColor">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/button__text_size</item>
+        <item name="android:lineHeight">@dimen/button__line_height</item>
+        <item name="android:layout_marginTop">@dimen/button__margin__top</item>
+        <item name="android:layout_marginEnd">@dimen/button__margin__right</item>
+        <item name="android:layout_marginBottom">@dimen/button__margin__bottom</item>
+        <item name="android:layout_marginStart">@dimen/button__margin__left</item>
+        <item name="android:paddingTop">@dimen/button__padding__top</item>
+        <item name="android:paddingEnd">@dimen/button__padding__right</item>
+        <item name="android:paddingBottom">@dimen/button__padding__bottom</item>
+        <item name="android:paddingStart">@dimen/button__padding__left</item>
+        <item name="android:insetTop">-3dp</item>
+        <item name="android:insetRight">-3dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">-3dp</item>
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+
+        <item name="strokeColor">@color/button_color</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="Body.Button.Secondary" parent="Body.Button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:shadowColor">@android:color/transparent</item>
+        <item name="android:textColor">?attr/textColourSecondaryButton</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="Body.Button.External" parent="Body.Button">
+        <item name="icon">@drawable/ic_external_site</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="Body.Button.External.Secondary" parent="Body.Button.Secondary">
+        <item name="icon">@drawable/ic_external_site</item>
+        <item name="iconGravity">textEnd</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconTint">?attr/textColourSecondaryButton</item>
+    </style>
+
+    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/radio_button_color</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
+
+    <style name="snackbarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="cornerRadius">0dp</item>
+        <item name="android:dialogCornerRadius">0dp</item>
+        <item name="android:buttonCornerRadius">0dp</item>
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_snackbar</item>
+    </style>
+
+    <style name="Body.Bullet">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="externalSite">External Site</string>
+
+    <string name="preview__BrpInstructions__title">Title</string>
+    <string name="preview__BrpInstructions__subtitle_1">Sub Title 1</string>
+    <string name="preview__BrpInstructions__subtitle_2">Sub Title 2</string>
+    <string-array name="preview__BrpInstructions__array_0">
+        <item>Content line 1</item>
+        <item>Content line 2</item>
+    </string-array>
+    <string-array name="preview__BrpInstructions__array_1">
+        <item>Content line 3</item>
+        <item>Content line 4</item>
+    </string-array>
+    <string name="preview__BrpInstructions__primary_button">Primary button</string>
+    <string name="preview__BrpInstructions__secondary_button">Secondary button</string>
+    <string name="preview__BrpInstructions__help_text">Help text</string>
+</resources>
