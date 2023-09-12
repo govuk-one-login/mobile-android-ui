@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 ext {
-    dep_detekt = "1.21.0-RC1"
+    dep_detekt = "1.23.1"
 }
 
 detekt {

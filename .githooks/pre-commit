@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Update versions
+git fetch --all --tags
+RAW_TAG=$(git describe --match "v*" --abbrev=0 --tags $(git rev-list --tags --max-count=1))
+TAG="${RAW_TAG:1}"
+cat app/gradle.properties \
+    | sed "s/versionName=.*/versionName=$TAG/" \
+    | sed "s/versionCode=.*/versionCode=`date +%s`/" \
+    > app/gradle.properties.new \
+    && mv app/gradle.properties.new app/gradle.properties \
+    && git add app/gradle.properties
+
+# Run checks
+# Linting is done on a per-environment basis, due to the differing values that exist.
+./gradlew \
+  detekt \
+  ktlintCheck \
+  lintBuildDebug \
+  lintDevDebug \
+  lintIntegrationDebug \
+  lintProductionDebug \
+  lintStagingDebug \
+  testBuildDebugUnitTest \
+  testDebugUnitTest \
+  verifyPaparazziDebug \
+  vale \
+  --daemon
