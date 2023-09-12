@@ -6,7 +6,6 @@ pluginManagement {
     }
 
     plugins {
-        id("com.android.application") version "7.3.1"
         id("com.android.library") version "7.4.2"
         id("org.jetbrains.kotlin.android") version "1.7.20"
         id("de.fayard.refreshVersions") version "0.60.2"
@@ -31,7 +30,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "di-mobile-android-ui"
-include(":app")
-include(":ui:theme")
-include(":ui:components")
-include(":ui:pages")
+include(":theme")
+include(":components")
+include(":pages")
