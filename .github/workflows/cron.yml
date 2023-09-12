@@ -26,7 +26,7 @@ jobs:
           echo "JAVA_HOME=$(/usr/libexec/java_home -v 17)" >> $GITHUB_ENV
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: 'true'
           fetch-depth: 0
