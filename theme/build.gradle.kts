@@ -28,6 +28,7 @@ android {
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        compileSdkPreview = "UpsideDownCake"
     }
 
     buildTypes {
@@ -105,8 +106,8 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = (
-                rootProject.extra["composeKotlinCompilerVersion"] as String
-                )
+            rootProject.extra["composeKotlinCompilerVersion"] as String
+            )
     }
 }
 
