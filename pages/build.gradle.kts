@@ -30,6 +30,7 @@ android {
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        compileSdkPreview = "UpsideDownCake"
     }
 
     buildFeatures {
@@ -145,7 +146,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "uk.gov.android"
-            version = "1.0"
+            version = rootProject.extra["packageVersion"] as String
 
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
         }

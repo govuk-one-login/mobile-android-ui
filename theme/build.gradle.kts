@@ -28,6 +28,7 @@ android {
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        compileSdkPreview = "UpsideDownCake"
     }
 
     buildTypes {
@@ -105,8 +106,8 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = (
-                rootProject.extra["composeKotlinCompilerVersion"] as String
-                )
+            rootProject.extra["composeKotlinCompilerVersion"] as String
+            )
     }
 }
 
@@ -138,7 +139,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "uk.gov.android"
-            version = "1.0"
+            version = rootProject.extra["packageVersion"] as String
 
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
         }
