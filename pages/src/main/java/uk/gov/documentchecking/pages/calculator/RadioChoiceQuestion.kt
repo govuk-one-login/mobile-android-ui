@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -27,11 +29,12 @@ import uk.gov.ui.components.GdsButton
 import uk.gov.ui.components.GdsHeading
 import uk.gov.ui.components.HeadingParameters
 import uk.gov.ui.components.HeadingSize
-import uk.gov.ui.components.content.BulletListParameters
 import uk.gov.ui.components.content.ContentParameters
-import uk.gov.ui.components.content.GdsBulletList
 import uk.gov.ui.components.content.GdsContent
 import uk.gov.ui.components.content.GdsContentText.GdsContentTextArray
+import uk.gov.ui.components.inputs.radio.GdsRadioSelection
+import uk.gov.ui.components.inputs.radio.RadioOption
+import uk.gov.ui.components.inputs.radio.RadioSelectionParameters
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.mediumPadding
 import uk.gov.ui.theme.smallPadding
@@ -39,10 +42,10 @@ import uk.gov.ui.theme.xsmallPadding
 
 @Suppress("LongMethod")
 @Composable
-fun InformationScreen(
-    informationScreenParameters: InformationScreenParameters
+fun RadioChoiceQuestion(
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
 ) {
-    informationScreenParameters.apply {
+    radioChoiceQuestionParameters.apply {
         GdsTheme {
             Column(
                 modifier = Modifier
@@ -54,8 +57,8 @@ fun InformationScreen(
                     ),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Content(informationScreenParameters)
-                Buttons(informationScreenParameters)
+                Content(radioChoiceQuestionParameters)
+                Buttons(radioChoiceQuestionParameters)
             }
         }
     }
@@ -64,9 +67,9 @@ fun InformationScreen(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    informationScreenParameters: InformationScreenParameters
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
 ) {
-    informationScreenParameters.apply {
+    radioChoiceQuestionParameters.apply {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -104,9 +107,10 @@ internal fun Content(
                     textAlign = contentAlign
                 )
             )
-            GdsBulletList(
-                bulletListParameters = BulletListParameters(
-                    contentText = GdsContentTextArray(text = bulletContent)
+            GdsRadioSelection(
+                radioSelectionParams = RadioSelectionParameters(
+                    radioOptions = radioOptions,
+                    radioState = radioState
                 )
             )
         }
@@ -115,9 +119,9 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    informationScreenParameters: InformationScreenParameters
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
 ) {
-    informationScreenParameters.apply {
+    radioChoiceQuestionParameters.apply {
         Column(
             modifier = Modifier
                 .padding(
@@ -133,18 +137,19 @@ internal fun Buttons(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
-                    onClick = onPrimary
+                    onClick = onPrimary,
+                    enabled = radioChoiceQuestionParameters.radioState.value.isNotEmpty()
                 )
             )
         }
     }
 }
 
-data class InformationScreenParameters(
+data class RadioChoiceQuestionParameters(
     @ArrayRes
     val content: Int,
-    @ArrayRes
-    val bulletContent: Int,
+    val radioOptions: List<RadioOption>,
+    val radioState: MutableState<String>,
     val contentAlign: TextAlign = TextAlign.Start,
     var onPrimary: () -> Unit = {},
     var onHelp: () -> Unit = {},
@@ -156,12 +161,26 @@ data class InformationScreenParameters(
     val titleBottomPadding: Dp = mediumPadding
 )
 
-class InformationScreenProvider : PreviewParameterProvider<InformationScreenParameters> {
-    override val values: Sequence<InformationScreenParameters> = sequenceOf(
-        InformationScreenParameters(
+class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestionParameters> {
+    override val values: Sequence<RadioChoiceQuestionParameters> = sequenceOf(
+        RadioChoiceQuestionParameters(
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
-            bulletContent = pagesR.array.preview__BrpInstructions__array_0,
+            radioOptions = listOf(
+                RadioOption("option one"),
+                RadioOption("option two")
+            ),
+            radioState = mutableStateOf("option one"),
+            primaryButtonText = string.preview__BrpInstructions__primary_button
+        ),
+        RadioChoiceQuestionParameters(
+            title = string.preview__BrpInstructions__title,
+            content = pagesR.array.preview__BrpInstructions__array_1,
+            radioOptions = listOf(
+                RadioOption("option one"),
+                RadioOption("option two")
+            ),
+            radioState = mutableStateOf(""),
             primaryButtonText = string.preview__BrpInstructions__primary_button
         )
     )
@@ -181,10 +200,10 @@ class InformationScreenProvider : PreviewParameterProvider<InformationScreenPara
 )
 @Composable
 private fun Preview(
-    @PreviewParameter(InformationScreenProvider::class)
-    parameters: InformationScreenParameters
+    @PreviewParameter(RadioChoiceQuestionProvider::class)
+    parameters: RadioChoiceQuestionParameters
 ) {
-    InformationScreen(
+    RadioChoiceQuestion(
         parameters
     )
 }
