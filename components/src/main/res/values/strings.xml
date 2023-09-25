@@ -38,4 +38,10 @@
     <string name="preview__GdsHeading__h4">Heading H4</string>
     <!--  GDS Vector Image -->
     <string name="preview__GdsVectorImage__description">Image description</string>
+    <!--  Radio Options  -->
+    <string-array name="radio_options">
+        <item>Option one</item>
+        <item>Option two</item>
+        <item>Option three</item>
+    </string-array>
 </resources>

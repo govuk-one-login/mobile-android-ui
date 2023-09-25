@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.ui.components.content
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -25,7 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import uk.gov.ui.components.content.GdsContentText
+import uk.gov.ui.components.R
+import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.smallPadding
 
 @Composable
@@ -119,7 +120,9 @@ private fun Preview(
     @PreviewParameter(BulletListProvider::class)
     bulletListParameters: BulletListParameters
 ) {
-    GdsBulletList(
-        bulletListParameters
-    )
+    GdsTheme {
+        GdsBulletList(
+            bulletListParameters
+        )
+    }
 }

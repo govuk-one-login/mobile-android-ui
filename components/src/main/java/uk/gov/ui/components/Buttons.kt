@@ -32,6 +32,7 @@ import uk.gov.ui.components.R.string
 import uk.gov.ui.components.images.icon.GdsIcon
 import uk.gov.ui.components.images.icon.IconParameters
 import uk.gov.ui.theme.GdsTheme
+import uk.gov.ui.theme.disabled_button
 import uk.gov.ui.theme.minimumTouchTarget
 import uk.gov.ui.theme.smallPadding
 
@@ -55,7 +56,8 @@ fun GdsButton(
                     .widthIn(min = minimumTouchTarget)
                     .then(modifier),
                 onClick = onClick,
-                shape = RoundedCornerShape(0.dp)
+                shape = RoundedCornerShape(0.dp),
+                enabled = enabled
             ) {
                 buttonContent(buttonParameters, colors).invoke(this)
             }
@@ -96,6 +98,7 @@ data class ButtonParameters(
     val buttonType: ButtonType,
     val textStyle: TextStyle? = null,
     var modifier: Modifier = Modifier,
+    var enabled: Boolean = true,
     val onClick: () -> Unit,
     @StringRes
     val text: Int
@@ -106,13 +109,17 @@ data class ButtonParameters(
 @Composable
 internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     backgroundColor = MaterialTheme.colors.primary,
-    contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
+    contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
+    disabledBackgroundColor = disabled_button,
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
 )
 
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     backgroundColor = MaterialTheme.colors.secondary,
-    contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.secondary)
+    contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.secondary),
+    disabledBackgroundColor = disabled_button,
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
 )
 
 sealed class ButtonType(
@@ -146,12 +153,18 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
         ButtonParameters(
             buttonType = ButtonType.PRIMARY(),
             onClick = {},
-            text = R.string.preview__GdsButton__primary
+            text = string.preview__GdsButton__primary
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.PRIMARY(),
+            onClick = {},
+            text = string.preview__GdsButton__primary,
+            enabled = false
         ),
         ButtonParameters(
             buttonType = ButtonType.SECONDARY(),
             onClick = {},
-            text = R.string.preview__GdsButton__secondary
+            text = string.preview__GdsButton__secondary
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -162,7 +175,7 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 )
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__primary_icon
+            text = string.preview__GdsButton__primary_icon
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -173,7 +186,7 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 )
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__secondary_icon
+            text = string.preview__GdsButton__secondary_icon
         )
     )
 }
