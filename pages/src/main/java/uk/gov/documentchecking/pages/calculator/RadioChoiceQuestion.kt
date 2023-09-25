@@ -87,26 +87,28 @@ internal fun Content(
                     )
                 )
             )
-            GdsContent(
-                contentParameters = ContentParameters(
-                    modifier = Modifier
-                        .padding(
-                            end = smallPadding,
-                            start = smallPadding,
-                            bottom = xsmallPadding
+            content?.let {
+                GdsContent(
+                    contentParameters = ContentParameters(
+                        modifier = Modifier
+                            .padding(
+                                end = smallPadding,
+                                start = smallPadding,
+                                bottom = xsmallPadding
+                            ),
+                        internalColumnModifier = Modifier
+                            .padding(
+                                bottom = xsmallPadding
+                            ),
+                        resource = listOf(
+                            GdsContentTextArray(
+                                text = content
+                            )
                         ),
-                    internalColumnModifier = Modifier
-                        .padding(
-                            bottom = xsmallPadding
-                        ),
-                    resource = listOf(
-                        GdsContentTextArray(
-                            text = content
-                        )
-                    ),
-                    textAlign = contentAlign
+                        textAlign = contentAlign
+                    )
                 )
-            )
+            }
             GdsRadioSelection(
                 radioSelectionParams = RadioSelectionParameters(
                     radioOptions = radioOptions,
@@ -147,7 +149,7 @@ internal fun Buttons(
 
 data class RadioChoiceQuestionParameters(
     @ArrayRes
-    val content: Int,
+    val content: Int? = null,
     val radioOptions: List<RadioOption>,
     val radioState: MutableState<String>,
     val contentAlign: TextAlign = TextAlign.Start,

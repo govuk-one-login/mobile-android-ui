@@ -84,31 +84,35 @@ internal fun Content(
                     )
                 )
             )
-            GdsContent(
-                contentParameters = ContentParameters(
-                    modifier = Modifier
-                        .padding(
-                            end = smallPadding,
-                            start = smallPadding,
-                            bottom = xsmallPadding
+            content?.let {
+                GdsContent(
+                    contentParameters = ContentParameters(
+                        modifier = Modifier
+                            .padding(
+                                end = smallPadding,
+                                start = smallPadding,
+                                bottom = xsmallPadding
+                            ),
+                        internalColumnModifier = Modifier
+                            .padding(
+                                bottom = xsmallPadding
+                            ),
+                        resource = listOf(
+                            GdsContentTextArray(
+                                text = content
+                            )
                         ),
-                    internalColumnModifier = Modifier
-                        .padding(
-                            bottom = xsmallPadding
-                        ),
-                    resource = listOf(
-                        GdsContentTextArray(
-                            text = content
-                        )
-                    ),
-                    textAlign = contentAlign
+                        textAlign = contentAlign
+                    )
                 )
-            )
-            GdsBulletList(
-                bulletListParameters = BulletListParameters(
-                    contentText = GdsContentTextArray(text = bulletContent)
+            }
+            bulletContent?.let {
+                GdsBulletList(
+                    bulletListParameters = BulletListParameters(
+                        contentText = GdsContentTextArray(text = bulletContent)
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -142,9 +146,9 @@ internal fun Buttons(
 
 data class InformationScreenParameters(
     @ArrayRes
-    val content: Int,
+    val content: Int? = null,
     @ArrayRes
-    val bulletContent: Int,
+    val bulletContent: Int? = null,
     val contentAlign: TextAlign = TextAlign.Start,
     var onPrimary: () -> Unit = {},
     var onHelp: () -> Unit = {},

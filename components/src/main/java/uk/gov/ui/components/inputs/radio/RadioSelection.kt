@@ -2,6 +2,7 @@ package uk.gov.ui.components.inputs.radio
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,7 +60,8 @@ fun GdsRadioSelection(
                     )
                     Text(
                         color = color ?: colors.contentColorFor(colors.background),
-                        modifier = textModifier,
+                        modifier = textModifier
+                            .clickable { onOptionSelected(it.text) },
                         style = textStyle ?: MaterialTheme.typography.body1,
                         text = it.text,
                         textAlign = textAlign
