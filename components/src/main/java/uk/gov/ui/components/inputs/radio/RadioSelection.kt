@@ -25,8 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.smallPadding
 
@@ -77,7 +75,6 @@ data class RadioSelectionParameters(
     val radioState: MutableState<String>,
     val color: Color? = null,
     val textStyle: TextStyle? = null,
-    val indent: Dp = 50.dp,
     val colModifier: Modifier = Modifier
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
@@ -110,11 +107,11 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
 @Composable
 private fun Preview(
     @PreviewParameter(RadioSelectionProvider::class)
-    bulletListParameters: RadioSelectionParameters
+    radioSelectionParameters: RadioSelectionParameters
 ) {
     GdsTheme {
         GdsRadioSelection(
-            bulletListParameters
+            radioSelectionParameters
         )
     }
 }

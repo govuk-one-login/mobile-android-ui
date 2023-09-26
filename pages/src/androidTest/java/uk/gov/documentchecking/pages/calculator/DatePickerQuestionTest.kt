@@ -5,6 +5,7 @@ import androidx.annotation.ArrayRes
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
@@ -14,8 +15,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class RadioChoiceQuestionTest(
-    private val parameters: RadioChoiceQuestionParameters
+class DatePickerQuestionTest(
+    private val parameters: DatePickerQuestionParameters
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -25,10 +26,10 @@ class RadioChoiceQuestionTest(
     val composeTestRule = createComposeRule()
 
     @Test
-    fun informationScreenTests() {
+    fun datePickerTests() {
         composeTestRule.apply {
             setContent {
-                RadioChoiceQuestion(parameters)
+                DatePickerQuestion(parameters)
             }
 
             onNodeWithText(
@@ -39,20 +40,20 @@ class RadioChoiceQuestionTest(
 
             parameters.content?.let { checkContentSection(this, it) }
 
-            parameters.radioOptions.forEach {
+            onNodeWithTag(
+                "datePicker"
+            ).apply {
+                performScrollTo()
+                assertIsDisplayed()
+            }
+
+            parameters.hintText?.let {
                 onNodeWithText(
-                    it.text
+                    resources.getString(it)
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
                 }
-            }
-
-            onNodeWithText(
-                resources.getString(parameters.primaryButtonText)
-            ).apply {
-                performScrollTo()
-                assertIsDisplayed()
             }
         }
     }
@@ -74,6 +75,6 @@ class RadioChoiceQuestionTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values() = RadioChoiceQuestionProvider().values.toList()
+        fun values() = DatePickerQuestionProvider().values.toList()
     }
 }

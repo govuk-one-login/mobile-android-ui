@@ -13,6 +13,7 @@ val spacingSingle = 8.dp
 val spacingDouble = 16.dp
 val spacingTriple = 24.dp
 val textSizeBody = 16.sp
+val textSizeBody2 = 12.sp
 val textSizeH1 = 34.sp
 val textSizeH2 = 24.sp
 val textSizeH3 = 20.sp
