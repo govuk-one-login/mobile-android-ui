@@ -127,6 +127,7 @@ dependencies {
     implementation(AndroidX.compose.ui.tooling)
     implementation(AndroidX.constraintLayout.compose)
     implementation(AndroidX.core.ktx)
+    implementation(Google.android.material)
     implementation(project(":theme"))
 
     listOf(
