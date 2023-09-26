@@ -13,6 +13,11 @@ val Typography = Typography(
         fontSize = textSizeBody,
         fontWeight = FontWeight.Normal
     ),
+    body2 = TextStyle(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = textSizeBody2,
+        fontWeight = FontWeight.ExtraLight
+    ),
     h1 = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,

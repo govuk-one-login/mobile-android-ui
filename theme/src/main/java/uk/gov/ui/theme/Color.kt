@@ -3,6 +3,7 @@ package uk.gov.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val disabled_button = Color(0xFFB1B4B6)
+val hintTextGrey = Color(0xFF505A5F)
 
 val md_theme_light_background = Color(0xFFFBFDF8)
 val md_theme_light_error = Color(0xFFBA1A1A)
