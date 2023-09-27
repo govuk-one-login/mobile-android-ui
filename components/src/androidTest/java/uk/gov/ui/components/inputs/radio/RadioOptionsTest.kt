@@ -1,23 +1,20 @@
-package uk.gov.ui.components
+package uk.gov.ui.components.inputs.radio
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.components.inputs.date.DatePickerParameters
-import uk.gov.ui.components.inputs.date.DatePickerProvider
-import uk.gov.ui.components.inputs.date.GdsDatePicker
 import uk.gov.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class)
-class DatePickerTest {
+class RadioOptionsTest {
     private val expectedParameterSize = 1
-    private val parameterList = DatePickerProvider().values.toList()
+    private val parameterList = RadioSelectionProvider().values.toList()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -32,19 +29,22 @@ class DatePickerTest {
     }
 
     @Test
-    fun verifyFirstParameters() = datePickerTests(parameterList[0])
+    fun verifyFirstParameters() = radioOptionsTests(parameterList[0])
 
-    private fun datePickerTests(parameters: DatePickerParameters) {
+    private fun radioOptionsTests(parameters: RadioSelectionParameters) {
         composeTestRule.apply {
             setContent {
                 GdsTheme {
-                    GdsDatePicker(
+                    GdsRadioSelection(
                         parameters
                     )
                 }
             }
-            onNodeWithTag("datePicker").apply {
-                assertIsDisplayed()
+
+            parameters.radioOptions.forEach {
+                onNodeWithText(it.text).apply {
+                    assertIsDisplayed()
+                }
             }
         }
     }
