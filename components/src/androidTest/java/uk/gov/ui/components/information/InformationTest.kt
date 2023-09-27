@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.ui.components.information
 
 import android.content.Context
 import android.content.res.Resources
@@ -11,9 +11,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.components.information.Information
-import uk.gov.ui.components.information.InformationParameters
-import uk.gov.ui.components.information.InformationProvider
+import uk.gov.ui.components.content.verifyComposable
+import uk.gov.ui.components.verifyComposable
 import uk.gov.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class) // Parameterized runner seems to crash

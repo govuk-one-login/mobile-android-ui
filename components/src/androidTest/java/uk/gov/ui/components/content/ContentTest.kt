@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.ui.components.content
 
 import android.content.Context
 import android.content.res.Resources
@@ -13,10 +13,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.components.content.ContentParameters
-import uk.gov.ui.components.content.ContentProvider
-import uk.gov.ui.components.content.GdsContent
-import uk.gov.ui.components.content.GdsContentText
 import uk.gov.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class)

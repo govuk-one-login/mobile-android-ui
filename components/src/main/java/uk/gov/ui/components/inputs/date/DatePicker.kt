@@ -29,6 +29,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -59,7 +60,8 @@ fun GdsDatePicker(
                     getDatePickerDialog(
                         datePickerTitle,
                         onDateChanged,
-                        dateFormatString
+                        dateFormatString,
+                        calendarConstraint
                     ).show(
                         it,
                         "datePicker"
@@ -108,12 +110,15 @@ fun GdsDatePicker(
 private fun getDatePickerDialog(
     pickerTitleRes: Int,
     saveDate: (LocalDate?) -> Unit,
-    dateFormatString: String
+    dateFormatString: String,
+    constraint: CalendarConstraints?
 ): MaterialDatePicker<Long> {
     val datePickerDialog = MaterialDatePicker.Builder.datePicker()
         .setTitleText(pickerTitleRes)
         .setTextInputFormat(SimpleDateFormat(dateFormatString, Locale.getDefault()))
+        .setCalendarConstraints(constraint)
         .build()
+
     datePickerDialog.addOnPositiveButtonClickListener {
         val date = LocalDateTime.ofInstant(Instant.ofEpochMilli(it), ZoneId.systemDefault())
         saveDate(date.toLocalDate())
@@ -126,6 +131,7 @@ data class DatePickerParameters(
     @StringRes
     val datePickerTitle: Int,
     val dateFormatString: String = "dd/MM/yyyy",
+    val calendarConstraint: CalendarConstraints? = null,
     val textStyle: TextStyle? = null,
     val colModifier: Modifier = Modifier
         .padding(bottom = smallPadding)

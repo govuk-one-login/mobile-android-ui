@@ -32,12 +32,13 @@ import uk.gov.ui.components.content.ContentParameters
 import uk.gov.ui.components.content.GdsBulletList
 import uk.gov.ui.components.content.GdsContent
 import uk.gov.ui.components.content.GdsContentText.GdsContentTextArray
+import uk.gov.ui.components.content.GdsLinkText
+import uk.gov.ui.components.content.LinkTextParameters
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.mediumPadding
 import uk.gov.ui.theme.smallPadding
 import uk.gov.ui.theme.xsmallPadding
 
-@Suppress("LongMethod")
 @Composable
 fun InformationScreen(
     informationScreenParameters: InformationScreenParameters
@@ -62,7 +63,6 @@ fun InformationScreen(
 }
 
 @Composable
-@Suppress("LongMethod")
 internal fun Content(
     informationScreenParameters: InformationScreenParameters
 ) {
@@ -113,6 +113,18 @@ internal fun Content(
                     )
                 )
             }
+            linkText?.let {
+                GdsLinkText(
+                    params = LinkTextParameters(
+                        contentText = linkText,
+                        uri = linkUri,
+                        colModifier = Modifier.padding(
+                            start = smallPadding,
+                            bottom = smallPadding
+                        )
+                    )
+                )
+            }
         }
     }
 }
@@ -122,24 +134,26 @@ internal fun Buttons(
     informationScreenParameters: InformationScreenParameters
 ) {
     informationScreenParameters.apply {
-        Column(
-            modifier = Modifier
-                .padding(
-                    end = smallPadding,
-                    start = smallPadding,
-                    top = mediumPadding
+        primaryButtonText?.let {
+            Column(
+                modifier = Modifier
+                    .padding(
+                        end = smallPadding,
+                        start = smallPadding,
+                        top = mediumPadding
+                    )
+            ) {
+                GdsButton(
+                    buttonParameters = ButtonParameters(
+                        buttonType = ButtonType.PRIMARY(),
+                        text = primaryButtonText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = xsmallPadding),
+                        onClick = onPrimary
+                    )
                 )
-        ) {
-            GdsButton(
-                buttonParameters = ButtonParameters(
-                    buttonType = ButtonType.PRIMARY(),
-                    text = primaryButtonText,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = xsmallPadding),
-                    onClick = onPrimary
-                )
-            )
+            }
         }
     }
 }
@@ -149,11 +163,14 @@ data class InformationScreenParameters(
     val content: Int? = null,
     @ArrayRes
     val bulletContent: Int? = null,
+    @StringRes
+    val linkText: Int? = null,
+    val linkUri: String = "",
     val contentAlign: TextAlign = TextAlign.Start,
     var onPrimary: () -> Unit = {},
     var onHelp: () -> Unit = {},
     @StringRes
-    val primaryButtonText: Int,
+    val primaryButtonText: Int? = null,
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,

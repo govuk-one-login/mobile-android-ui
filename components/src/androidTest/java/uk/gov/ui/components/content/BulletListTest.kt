@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.ui.components.content
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -11,10 +11,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.components.content.BulletListParameters
-import uk.gov.ui.components.content.BulletListProvider
-import uk.gov.ui.components.content.GdsBulletList
-import uk.gov.ui.components.content.GdsContentText
 import uk.gov.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class)

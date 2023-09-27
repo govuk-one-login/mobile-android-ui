@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
+import com.google.android.material.datepicker.CalendarConstraints
 import java.time.LocalDate
 import uk.gov.documentchecking.pages.R as pagesR
 import uk.gov.documentchecking.pages.R.string
@@ -116,7 +117,8 @@ internal fun Content(
             GdsDatePicker(
                 params = DatePickerParameters(
                     dateState = dateState,
-                    datePickerTitle = datePickerTitle
+                    datePickerTitle = datePickerTitle,
+                    calendarConstraint = calendarConstraints
                 )
             )
             hintText?.let {
@@ -174,6 +176,7 @@ data class DatePickerQuestionParameters(
     val dateState: MutableState<LocalDate?>,
     @StringRes
     val datePickerTitle: Int,
+    val calendarConstraints: CalendarConstraints? = null,
     @StringRes
     val hintText: Int? = null,
     @ArrayRes
