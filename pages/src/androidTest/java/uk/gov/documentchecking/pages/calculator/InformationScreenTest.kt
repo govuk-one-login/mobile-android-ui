@@ -40,11 +40,13 @@ class InformationScreenTest(
             parameters.content?.let { checkContentSection(this, it) }
             parameters.bulletContent?.let { checkContentSection(this, it) }
 
-            onNodeWithText(
-                resources.getString(parameters.primaryButtonText)
-            ).apply {
-                performScrollTo()
-                assertIsDisplayed()
+            parameters.primaryButtonText?.let {
+                onNodeWithText(
+                    resources.getString(it)
+                ).apply {
+                    performScrollTo()
+                    assertIsDisplayed()
+                }
             }
         }
     }

@@ -140,7 +140,7 @@ internal fun Buttons(
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = onPrimary,
-                    enabled = radioChoiceQuestionParameters.radioState.value.isNotEmpty()
+                    enabled = radioChoiceQuestionParameters.radioState.value != null
                 )
             )
         }
@@ -151,7 +151,7 @@ data class RadioChoiceQuestionParameters(
     @ArrayRes
     val content: Int? = null,
     val radioOptions: List<RadioOption>,
-    val radioState: MutableState<String>,
+    val radioState: MutableState<RadioOption?>,
     val contentAlign: TextAlign = TextAlign.Start,
     var onPrimary: () -> Unit = {},
     var onHelp: () -> Unit = {},
@@ -172,7 +172,7 @@ class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestion
                 RadioOption("option one"),
                 RadioOption("option two")
             ),
-            radioState = mutableStateOf("option one"),
+            radioState = mutableStateOf(RadioOption("option one")),
             primaryButtonText = string.preview__BrpInstructions__primary_button
         ),
         RadioChoiceQuestionParameters(
@@ -182,7 +182,7 @@ class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestion
                 RadioOption("option one"),
                 RadioOption("option two")
             ),
-            radioState = mutableStateOf(""),
+            radioState = mutableStateOf(null),
             primaryButtonText = string.preview__BrpInstructions__primary_button
         )
     )
