@@ -27,6 +27,10 @@ fun GdsHeading(
     headingParameters: HeadingParameters
 ) {
     headingParameters.apply {
+        textVar?.let {
+            println(it)
+            println(stringResource(id = text, it))
+        }
         Text(
             color = color ?: MaterialTheme.colors.contentColorFor(
                 backgroundColor = MaterialTheme.colors.background
@@ -40,7 +44,7 @@ fun GdsHeading(
                     padding
                 ),
             style = size.style(),
-            text = stringResource(id = text),
+            text = textVar?.let { stringResource(id = text, it) } ?: stringResource(id = text),
             textAlign = textAlign
         )
     }
@@ -53,6 +57,7 @@ data class HeadingParameters(
     val backgroundColor: Color? = null,
     @StringRes
     val text: Int,
+    val textVar: String? = null,
     val textAlign: TextAlign? = TextAlign.Start,
     val padding: PaddingValues = PaddingValues(bottom = mediumPadding)
 ) {

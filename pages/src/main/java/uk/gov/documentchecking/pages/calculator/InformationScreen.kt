@@ -68,7 +68,11 @@ internal fun Content(
 ) {
     informationScreenParameters.apply {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(
+                end = smallPadding,
+                start = smallPadding
+            )
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -76,10 +80,9 @@ internal fun Content(
                         .fillMaxWidth(),
                     size = HeadingSize.H1(),
                     text = title,
+                    textVar = titleVar,
                     textAlign = titleAlign,
                     padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
                         bottom = titleBottomPadding
                     )
                 )
@@ -89,8 +92,6 @@ internal fun Content(
                     contentParameters = ContentParameters(
                         modifier = Modifier
                             .padding(
-                                end = smallPadding,
-                                start = smallPadding,
                                 bottom = xsmallPadding
                             ),
                         internalColumnModifier = Modifier
@@ -119,7 +120,6 @@ internal fun Content(
                         contentText = linkText,
                         uri = linkUri,
                         colModifier = Modifier.padding(
-                            start = smallPadding,
                             bottom = smallPadding
                         )
                     )
@@ -173,6 +173,7 @@ data class InformationScreenParameters(
     val primaryButtonText: Int? = null,
     @StringRes
     val title: Int,
+    val titleVar: String? = null,
     val titleAlign: TextAlign = TextAlign.Start,
     val titleBottomPadding: Dp = mediumPadding
 )

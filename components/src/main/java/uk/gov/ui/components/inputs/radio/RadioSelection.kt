@@ -47,19 +47,22 @@ fun GdsRadioSelection(
         ) {
             radioSelectionParams.radioOptions.forEach {
                 Row(
+                    modifier = Modifier
+                        .clickable {
+                            onOptionSelected(it)
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = (it.text == selectedOption),
-                        onClick = { onOptionSelected(it.text) },
+                        selected = (it.text == selectedOption?.text),
+                        onClick = { onOptionSelected(it) },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = colors.primary
                         )
                     )
                     Text(
                         color = color ?: colors.contentColorFor(colors.background),
-                        modifier = textModifier
-                            .clickable { onOptionSelected(it.text) },
+                        modifier = textModifier,
                         style = textStyle ?: MaterialTheme.typography.body1,
                         text = it.text,
                         textAlign = textAlign
@@ -72,7 +75,7 @@ fun GdsRadioSelection(
 
 data class RadioSelectionParameters(
     val radioOptions: List<RadioOption>,
-    val radioState: MutableState<String>,
+    val radioState: MutableState<RadioOption?>,
     val color: Color? = null,
     val textStyle: TextStyle? = null,
     val colModifier: Modifier = Modifier
@@ -91,7 +94,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
                 RadioOption("option one"),
                 RadioOption("option two")
             ),
-            radioState = mutableStateOf("option one")
+            radioState = mutableStateOf(RadioOption("option one"))
         )
     )
 }
