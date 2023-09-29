@@ -7,7 +7,7 @@ buildscript {
         set("compileAndroidVersion", 33)
         set("androidBuildToolsVersion", "33.0.0")
         set("composeKotlinCompilerVersion", "1.5.0")
-        set("packageVersion", "1.4.0")
+        set("packageVersion", "1.4.1")
     }
 }
 
