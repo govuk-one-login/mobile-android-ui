@@ -1,0 +1,20 @@
+name: 'Upload dokka'
+description: 'Zip and upload dokka-produced documentation'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bundle Dokka documentation
+      id: zipDokka
+      run: |
+        zip -9 -r documentation.zip ./build/dokka
+      shell: bash
+
+    - name: Upload Dokka Documentation
+      id: uploadDokka
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation
+        retention-days: 14
+        path: |
+          documentation.zip

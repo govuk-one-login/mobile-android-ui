@@ -1,0 +1,26 @@
+name: 'Version name'
+description: 'Combines the inputs into a version name'
+
+inputs:
+  version-code:
+    description: 'Version code'
+    required: true
+  version-name:
+    description: 'Version name'
+    required: true
+
+outputs:
+  version-name:
+    value: ${{ steps.version-name.outputs.version-name }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate version name
+      id: version-name
+      shell: bash
+      run: |
+        echo "version-name=${INPUT_VERSION_CODE}-${INPUT_VERSION_NAME}" >> $GITHUB_OUTPUT
+      env:
+        INPUT_VERSION_CODE: ${{ inputs.version-code }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}

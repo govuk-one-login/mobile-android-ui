@@ -1,0 +1,42 @@
+name: 'Run gradle check'
+description: 'Run the "check" command for a Gradle project'
+
+inputs:
+  architecture:
+    description: 'AVD architecture to use'
+    required: false
+    default: 'x86_64'
+  device-profile:
+    description: 'AVD device profile to use'
+    required: false
+    default: 'pixel_5'
+  locale:
+    description: 'Locale used within the emulator'
+    required: false
+    default: 'en-GB'
+  version-code:
+    description: 'Version code'
+    required: true
+  version-name:
+    description: 'Version name'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run gradle connected test
+      uses: reactivecircus/android-emulator-runner@v2
+      env:
+        INPUT_VERSION_CODE: ${{ inputs.version-code }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}
+      with:
+        api-level: 29
+        arch: ${{ inputs.architecture }}
+        avd-name: ${{ inputs.device-profile }}
+        disable-animations: true
+        disable-linux-hw-accel: false
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -change-locale ${{ inputs.locale }}
+        profile: ${{ inputs.device-profile }}
+        script: |
+          ./gradlew connectedBuildDebugAndroidTest connectedDebugAndroidTest combinedBuildDebugJacocoTestReport combinedDebugJacocoTestReport pullBuildDebugScreenshotsFromDevice -PversionCode=$INPUT_VERSION_CODE -PversionName=$INPUT_VERSION_NAME --continue --stacktrace
+        target: playstore

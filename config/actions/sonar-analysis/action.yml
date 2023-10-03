@@ -1,0 +1,36 @@
+name: 'Run sonar analysis'
+description: 'Run sonar analysis on a PR or branch'
+
+inputs:
+  sonar-token:
+    description: "Sonarqube access token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Sonarqube PR Analysis
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        ./gradlew sonarqube \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.pullrequest.key=${{ github.event.number }} \
+          -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
+          -Dsonar.pullrequest.base=develop
+      shell: bash
+      env:
+        CI: true
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+    - name: Run Sonarqube Branch Analysis
+      if: ${{ github.event_name != 'pull_request' }}
+      run: |
+        ./gradlew sonarqube \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
+      shell: bash
+      env:
+        CI: true
+        SONAR_TOKEN: ${{ inputs.sonar-token }}

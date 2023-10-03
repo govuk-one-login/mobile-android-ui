@@ -1,12 +1,17 @@
-name: On Branch Push (non-develop/release/main)
+name: On Pull Request (develop/release/main)
 
 on:
-  push:
+  pull_request:
     branches:
-      - "**"
-      - "!develop"
-      - "!release/**"
-      - "!main"
+      - develop
+      - main
+      - release/*
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  merge_group:
   workflow_dispatch:
 
 concurrency:
@@ -14,10 +19,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  onPushJob:
-    name: Verify code base when pushed
+  onPullRequestJob:
+    name: Verify code base when pull request is published/updated
     runs-on: android-runner-prod
-#    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+
     steps:
       - name: Run checkout github action
         uses: actions/checkout@v4
@@ -49,11 +54,26 @@ jobs:
           version-code: ${{ steps.version-code.outputs.version-code }}
           version-name: ${{ steps.latest-tag.outputs.current-tag }}
 
-      - name: Run gradle unit tests
-        uses: ./config/actions/gradle-check
+      - name: Run gradle instrumentation tests
+        uses: ./config/actions/gradle-connected-test
+        with:
+          architecture: 'arm64-v8a'
+          device-profile: 'pixel_xl'
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: "${{ steps.latest-tag.outputs.current-tag }}-${{ steps.version-code.outputs.version-code }}"
+        if: steps.detect-arch.outputs.arch-in-use == 'arm64'
+
+      - name: Run gradle instrumentation tests
+        uses: ./config/actions/gradle-connected-test
         with:
           version-code: ${{ steps.version-code.outputs.version-code }}
-          version-name: ${{ steps.version-name.outputs.version-name }}
+          version-name: "${{ steps.latest-tag.outputs.current-tag }}-${{ steps.version-code.outputs.version-code }}"
+        if: steps.detect-arch.outputs.arch-in-use != 'arm64'
+
+      - name: Run sonar analysis
+        uses: ./config/actions/sonar-analysis
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports

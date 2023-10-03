@@ -1,0 +1,47 @@
+name: 'Ensure version number is correct'
+description: 'Ensures the <major>.<minor> version is greater than the current and bumps the <patch> if necessary'
+
+inputs:
+  current-version:
+    description: 'Current version number'
+    required: true
+  next-version:
+    description: 'Next version number'
+    required: true
+
+outputs:
+  version:
+    description: 'Finalised version number after bumping'
+    value: ${{ steps.get-latest-tag.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest tagged version
+      id: get-latest-tag
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const current = process.env.CURRENT
+          const next = process.env.NEXT
+          const [cMaj, cMin, cPat] = current.split(".")
+          const [nMaj, nMin, nPat] = next.split(".")
+          
+          if (
+            nMaj > cMaj ||
+            (nMaj == cMaj && nMin > cMin) ||
+            (nMaj == cMaj && nMin == cMin && nPat > cPat)
+          ) {
+            console.log(`Setting version to ${next}`)
+            core.setOutput('version', next)
+          } else if (nMaj == cMaj && nMin == cMin && nPat == cPat) {
+            const newVersion = [nMaj, nMin, parseInt(nPat) + 1].join(".")
+            console.log(`Setting version to ${newVersion} - Patch bump`)
+            core.setOutput('version', newVersion)
+          } else {
+            console.error(`Next version (${next}) is behind current (${current})`)
+            process.exit(1)
+          }
+      env:
+        CURRENT: ${{ inputs.current-version }}
+        NEXT: ${{ inputs.next-version }}

@@ -1,0 +1,35 @@
+name: 'Get next version from branch'
+description: 'Gets the next version number from the release branch'
+
+outputs:
+  next-version:
+    description: 'Next version number determined from the release branch name'
+    value: ${{ steps.get-latest-tag.outputs.next-version }}
+  next-version-pattern:
+    description: 'Pattern used in git describe calls for the next version number'
+    value: ${{ steps.get-next-version.outputs.next-version-pattern }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest tagged version
+      id: get-latest-tag
+      run: |
+        IFS=/ read -r BRANCH_PREFIX BRANCH_SUFFIX <<< "${GITHUB_REF#refs/heads/}"
+        
+        if [[ "$BRANCH_SUFFIX" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+        then
+          NEXT_VERSION="${BASH_REMATCH[0]}"
+        else
+          echo "Invalid version in branch name ($GITHUB_REF)"
+          exit 1
+        fi
+        
+        echo "NEXT_VERSION = $NEXT_VERSION"
+        
+        echo "next-version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+        
+        IFS=. read -r MAJOR MINOR PATCH <<< $NEXT_VERSION
+        
+        echo "next-version-pattern=v${MAJOR}.${MINOR}.*" >> $GITHUB_OUTPUT
+      shell: bash

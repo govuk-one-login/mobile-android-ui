@@ -1,0 +1,37 @@
+name: 'Determine semver bump'
+description: 'Determines which semver value to bump (major, minor, patch)'
+
+outputs:
+  bump:
+    description: 'Semver value to bump (major, minor, patch)'
+    value: ${{ steps.determine-semver-bump.outputs.bump }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Determine semver bump
+      id: determine-semver-bump
+      uses: actions/github-script@v6
+      env:
+        PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+      with:
+        script: |
+          const majorRegex = new RegExp('\(MAJOR\)');
+          const minorRegex = new RegExp('\(MINOR\)');
+          
+          switch (true) {
+            case majorRegex.test(process.env.PULL_REQUEST_TITLE):
+            case majorRegex.test(process.env.COMMIT_MESSAGE): {
+              core.setOutput('bump', 'major')
+              break
+            }
+            case minorRegex.test(process.env.PULL_REQUEST_TITLE):
+            case minorRegex.test(process.env.COMMIT_MESSAGE): {
+              core.setOutput('bump', 'minor')
+              break
+            }
+            default: {
+              core.setOutput('bump', 'patch')
+              break
+            }
+          }

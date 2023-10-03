@@ -1,0 +1,30 @@
+name: 'Get the latest annotated tag'
+description: 'Gets the latest tag on a branch'
+
+inputs:
+  pattern:
+    description: 'Tag pattern to search for'
+    required: false
+    default: 'release-v*'
+
+outputs:
+  current-tag:
+    description: 'Current tag'
+    value: ${{ steps.get-latest-tag.outputs.current-tag }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get latest tagged version
+      id: get-latest-tag
+      run: |
+        echo "PATTERN = $PATTERN"
+        git fetch --tags
+        RAW_TAG=$(git describe --match "$PATTERN" --abbrev=0 --tags || echo "${PATTERN%?}0.0.0")
+        echo "RAW_TAG = $RAW_TAG"
+        TAG=$(echo $RAW_TAG | cut -c ${#PATTERN}-${#RAW_TAG})
+        echo "TAG = $TAG"
+        echo "current-tag=$TAG" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        PATTERN: ${{ inputs.pattern }}
