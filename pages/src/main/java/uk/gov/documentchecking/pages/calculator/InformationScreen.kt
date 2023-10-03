@@ -62,6 +62,7 @@ fun InformationScreen(
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 internal fun Content(
     informationScreenParameters: InformationScreenParameters

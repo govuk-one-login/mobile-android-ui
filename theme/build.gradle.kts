@@ -46,8 +46,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     lint {
@@ -133,6 +133,16 @@ dependencies {
 
 jacoco {
     toolVersion = (rootProject.extra["dep_jacoco"] as String)
+}
+
+kotlin {
+    jvmToolchain(11)
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 publishing {
