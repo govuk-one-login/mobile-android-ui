@@ -9,7 +9,7 @@ on:
 jobs:
   onPushDevelopJob:
     name: Verify code base when pushed
-    runs-on: android-runner-prod
+    runs-on: macos-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     permissions:
 #      id-token: write

@@ -21,7 +21,7 @@ concurrency:
 jobs:
   onPullRequestJob:
     name: Verify code base when pull request is published/updated
-    runs-on: android-runner-prod
+    runs-on: macos-latest
 
     steps:
       - name: Run checkout github action
