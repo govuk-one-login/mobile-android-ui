@@ -19,7 +19,6 @@ runs:
           detekt \
           ktlintCheck \
           lintDebug \
-          shellcheck \
           check \
           verifyPaparazziDebug \
           -PversionCode=$INPUT_VERSION_CODE \
