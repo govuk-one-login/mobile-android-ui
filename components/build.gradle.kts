@@ -165,14 +165,21 @@ publishing {
     }
     repositories {
         maven {
-            val propsFile = rootProject.file("github.properties")
-            val props = Properties()
-            props.load(FileInputStream(propsFile))
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/alphagov/di-mobile-android-ui")
-            credentials {
-                username = props["username"].toString()
-                password = props["token"].toString()
+            if (file("${rootProject.projectDir.path}/github.properties").exists()) {
+                val propsFile = File("${rootProject.projectDir.path}/github.properties")
+                val props = Properties().also { it.load(FileInputStream(propsFile)) }
+                val ghUsername = props["username"] as String?
+                val ghToken = props["token"] as String?
+
+                credentials {
+                    username = ghUsername
+                    password = ghToken
+                }
+            } else {
+                credentials {
+                    username = System.getenv("USERNAME")
+                    password = System.getenv("TOKEN")
+                }
             }
         }
     }
