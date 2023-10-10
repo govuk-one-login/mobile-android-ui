@@ -54,14 +54,13 @@ jobs:
         id: bundle-release
         uses: ./config/actions/gradle-assemble-and-bundle
         with:
-          flavors: 'build,dev,staging,integration'
           version-code: ${{ steps.version-code.outputs.version-code }}
           version-name: ${{ steps.version-name.outputs.version-name }}
 
-      - name: Upload to play store
-        uses: ./config/actions/upload-to-play-store
+      - name: Release package
+        uses: ./config/actions/maven-publish
         with:
-          aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
+          package-version: ${{ steps.version-name.outputs.version-name }}
 
       - name: Git tag bundles
         uses: ./config/actions/git-tag-bundles

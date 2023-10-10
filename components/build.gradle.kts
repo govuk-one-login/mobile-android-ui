@@ -164,7 +164,7 @@ publishing {
         }
     }
     repositories {
-        maven {
+        maven("https://maven.pkg.github.com/alphagov/di-mobile-android-ui") {
             if (file("${rootProject.projectDir.path}/github.properties").exists()) {
                 val propsFile = File("${rootProject.projectDir.path}/github.properties")
                 val props = Properties().also { it.load(FileInputStream(propsFile)) }

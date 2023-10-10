@@ -1,0 +1,23 @@
+name: 'Run gradle publish'
+description: 'Publish the current build to GitHub Packages'
+
+inputs:
+  package-version:
+    description: 'Package Version'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Publish package
+      id: maven-publish
+      run: |
+        echo "Package Version = ${INPUT_PACKAGE_VERSION}"
+        
+        ./gradlew \
+          publish \
+          -PpackageVersion=INPUT_PACKAGE_VERSION
+      shell: bash
+      env:
+        CI: true
+        INPUT_PACKAGE_VERSION: ${{ inputs.package-version }}

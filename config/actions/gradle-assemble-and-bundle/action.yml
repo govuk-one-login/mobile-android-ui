@@ -30,22 +30,8 @@ runs:
         
         ./gradlew \
           assembleRelease \
-          bundleRelease \
-          dokkaGfmMultiModule \
-          dokkaHtmlMultiModule \
           -PversionCode=$INPUT_VERSION_CODE \
           -PversionName=$INPUT_VERSION_NAME
-        
-        FLAVORS=($(echo $INPUT_FLAVORS | tr "," "\n"))
-        OUTPUT=""
-        
-        for FLAVOR in "${FLAVORS[@]}"
-        do
-          OUTPUT+="$FLAVOR:app/build/outputs/bundle/${FLAVOR}Release/app-${FLAVOR}-release.aab;"
-        done
-        
-        echo "aab paths = ${OUTPUT}"
-        echo "aab-paths=${OUTPUT}" >> $GITHUB_OUTPUT
       shell: bash
       env:
         CI: true
