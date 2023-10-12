@@ -1,0 +1,86 @@
+buildscript {
+    ext {
+        androidFilter = [
+                // Android
+                '**/R.class',
+                '**/R$*.class',
+                '**/BuildConfig.*',
+                '**/Manifest*.*',
+                '**/*Test*.*',
+                'android/**/*.*',
+                '**/*FileManager*',
+                '**/*AndroidCamera*',
+                '**/*AndroidBiometrics*',
+                '**/*ContactsProvider*',
+                '**/*IntentProvider*',
+        ]
+
+        dataBindingFilter = [
+                'android/databinding/**/*.class',
+                '**/android/databinding/*Binding.class',
+                '**/android/databinding/*',
+                '**/androidx/databinding/*',
+                '**/databinding/*',
+                '**/BR.*',
+        ]
+
+        kotlinFilter = [
+                '**/*MapperImpl*.*',
+                '**/*$ViewInjector*.*',
+                '**/*$ViewBinder*.*',
+                '**/BuildConfig.*',
+                '**/*Component*.*',
+                '**/*BR*.*',
+                '**/Manifest*.*',
+                '**/*$Lambda$*.*',
+                '**/*Companion*.*',
+                '**/*MembersInjector*.*',
+                '**/*_MembersInjector.class',
+                '**/*_Factory*.*',
+                '**/*_Provide*Factory*.*',
+                '**/*Extensions*.*',
+                '**/*Extension*.*',
+                '**/*$Result.*',
+                '**/*$Result$*.*'
+        ]
+
+        userInterfaceFilter = [
+                '**/*Activity*',
+                '**/*Adapter*',
+                '**/*BindingAdapter*',
+                '**/*Dialog*',
+                '**/*DiffCallback*',
+                '**/*Fragment*',
+                '**/*ItemDecoration*',
+                '**/*LayoutManager*',
+                '**/*Service*',
+                '**/*ViewHolder*'
+        ]
+
+        androidInstrumentationTestFilter = [
+                dataBindingFilter,
+                androidFilter,
+                kotlinFilter
+        ].collectMany { it }
+
+        androidUnitTestFilter = [
+                androidInstrumentationTestFilter,
+                userInterfaceFilter
+        ].collectMany { it }
+
+        productionSourceSets = [
+                "**/src/debug/java/\$",
+                "**/src/debug*/java/\$",
+                "**/src/main/java/\$",
+                "**/src/release/java/\$",
+                "**/src/release*/java/\$",
+        ]
+        testSourceSets = [
+                "**/src/test/java/\$",
+                "**/src/test*/java/\$",
+                "**/src/androidTest*/java/\$",
+                "**/src/androidTest/java/\$"
+        ]
+
+    }
+}

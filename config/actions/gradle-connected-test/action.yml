@@ -38,5 +38,5 @@ runs:
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -change-locale ${{ inputs.locale }}
         profile: ${{ inputs.device-profile }}
         script: |
-          ./gradlew connectedBuildDebugAndroidTest connectedDebugAndroidTest combinedBuildDebugJacocoTestReport combinedDebugJacocoTestReport pullBuildDebugScreenshotsFromDevice -PversionCode=$INPUT_VERSION_CODE -PversionName=$INPUT_VERSION_NAME --continue --stacktrace
+          ./gradlew connectedDebugAndroidTest combinedDebugJacocoTestReport -PversionCode=$INPUT_VERSION_CODE -PversionName=$INPUT_VERSION_NAME --continue --stacktrace
         target: playstore

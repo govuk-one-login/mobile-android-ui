@@ -1,3 +1,6 @@
+import com.android.build.gradle.api.AndroidBasePlugin
+import com.google.testing.platform.plugin.android.proto.AndroidDevicePluginProto.AndroidDevicePlugin
+
 buildscript {
     val dep_jacoco by rootProject.extra { "0.8.8" }
     val minAndroidVersion by rootProject.extra { 29 }
@@ -27,6 +30,29 @@ buildscript {
     }
 
     val packageVersion by rootProject.extra { findPackageVersion() }
+
+    dependencies {
+        classpath(
+            "org.jacoco",
+            "org.jacoco.core",
+            "_"
+        )
+        classpath(
+            "org.jacoco",
+            "org.jacoco.ant",
+            "_"
+        )
+        classpath(
+            "org.jacoco",
+            "org.jacoco.report",
+            "_"
+        )
+        classpath(
+            "org.jacoco",
+            "org.jacoco.agent",
+            "_"
+        )
+    }
 }
 
 plugins {
@@ -36,6 +62,10 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.0" apply false
     id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
     id("app.cash.paparazzi") apply false
+}
+
+subprojects {
+    apply { from("$rootDir/config/jacoco/config.gradle") }
 }
 
 apply {
