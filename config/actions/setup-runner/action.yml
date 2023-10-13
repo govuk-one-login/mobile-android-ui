@@ -37,6 +37,7 @@ runs:
     - name: Install brew dependencies
       run: |
         brew install vale rbenv ruby-build
+        brew install npm
       shell: bash
       if: runner.os == 'macOS'
 
@@ -75,6 +76,12 @@ runs:
         egrep --count '(vmx|svm)' /proc/cpuinfo
       shell: bash
       if: runner.os == 'Linux'
+
+    - name: Install git-conventional-commits
+      run: |
+        npm install --global git-conventional-commits
+      shell: bash
+      if: runner.os == 'macOS'
 
     - name: Setup Gradle
       id: setupGradle

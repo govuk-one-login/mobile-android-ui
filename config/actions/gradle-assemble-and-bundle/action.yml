@@ -6,9 +6,6 @@ inputs:
     description: 'App flavors to return paths for, comma separated'
     required: false
     default: 'production'
-  version-code:
-    description: 'Version code'
-    required: true
   version-name:
     description: 'Version name'
     required: true
@@ -25,18 +22,15 @@ runs:
       id: gradle-assemble-and-bundle
       run: |
         echo "Flavors = ${INPUT_FLAVORS}"
-        echo "Version code = ${INPUT_VERSION_CODE}"
         echo "Version name = ${INPUT_VERSION_NAME}"
         
         ./gradlew \
           assembleRelease \
-          -PversionCode=$INPUT_VERSION_CODE \
           -PversionName=$INPUT_VERSION_NAME
       shell: bash
       env:
         CI: true
         INPUT_FLAVORS:  ${{ inputs.flavors }}
-        INPUT_VERSION_CODE: ${{ inputs.version-code }}
         INPUT_VERSION_NAME: ${{ inputs.version-name }}
         READID_API_KEY: ${{ env.READID_API_KEY }}
         SIGNING_KEY_ALIAS: ${{ env.KEYSTORE_KEY_ALIAS }}

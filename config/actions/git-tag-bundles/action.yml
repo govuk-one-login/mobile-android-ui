@@ -2,16 +2,6 @@ name: 'Get the latest annotated tag'
 description: 'Gets the latest tag on a branch'
 
 inputs:
-  aab-paths:
-    description: 'Paths to build flavor aab'
-    required: true
-  package-name:
-    description: 'App package name'
-    required: false
-    default: 'uk.gov.documentchecking'
-  version-code:
-    description: 'Version code'
-    required: true
   version-name:
     description: 'Version name'
     required: true
@@ -26,34 +16,9 @@ runs:
   steps:
     - name: Git tag bundles
       run: |
-        BUNDLES=($(echo $INPUT_AAB_PATHS | tr ";" "\n"))
-  
-        for BUNDLE in ${BUNDLES[@]}
-        do
-          echo "Bundle = $BUNDLE"
-          IFS=: VER=(${BUNDLE})
-      
-          FLAVOR=${VER[0]}
-          AAB_PATH=${VER[1]}
-          echo "Flavor = $FLAVOR"
-          echo "AAB path = $AAB_PATH"
+        echo "Tagging with $INPUT_VERSION_NAME"
         
-          case $FLAVOR in
-            production*)
-              git tag -a "${INPUT_VERSION_NAME}-${INPUT_VERSION_CODE}" -m "Publish ${INPUT_VERSION_NAME} - ${INPUT_VERSION_CODE} - uk.gov.documentchecking - internal"
-              git push origin "${INPUT_VERSION_NAME}-${INPUT_VERSION_CODE}"
-              git tag -a "v${INPUT_VERSION_NAME}" -m "${INPUT_VERSION_NAME} - ${INPUT_VERSION_CODE}"
-              git push origin "v${INPUT_VERSION_NAME}"
-              ;;
-            *)
-              git tag -a "${FLAVOR}-${INPUT_VERSION_NAME}-${INPUT_VERSION_CODE}" -m "Publish ${INPUT_VERSION_NAME} - ${INPUT_PACKAGE_NAME}.${FLAVOR} - ${INPUT_VERSION_CODE} - internal"
-              git push origin "${FLAVOR}-${INPUT_VERSION_NAME}-${INPUT_VERSION_CODE}"
-              ;;
-          esac
-        done
+        git tag -a "v$INPUT_VERSION_NAME" -m "Publishing v$INPUT_VERSION_NAME"
       shell: bash
       env:
-        INPUT_AAB_PATHS: ${{ inputs.aab-paths }}
-        INPUT_PACKAGE_NAME: ${{ inputs.package-name }}
-        INPUT_VERSION_CODE: ${{ inputs.version-code }}
         INPUT_VERSION_NAME: ${{ inputs.version-name }}

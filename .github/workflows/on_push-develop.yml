@@ -39,10 +39,6 @@ jobs:
         with:
           pattern: 'v*'
 
-      - name: Generate version code
-        id: version-code
-        uses: ./config/actions/generate-version-code
-
       - name: Generate version name
         id: version-name
         uses: ./config/actions/version-name
@@ -54,7 +50,6 @@ jobs:
         id: bundle-release
         uses: ./config/actions/gradle-assemble-and-bundle
         with:
-          version-code: ${{ steps.version-code.outputs.version-code }}
           version-name: ${{ steps.version-name.outputs.version-name }}
 
       - name: Release package
@@ -66,7 +61,6 @@ jobs:
         uses: ./config/actions/git-tag-bundles
         with:
           aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
-          version-code: ${{ steps.version-code.outputs.version-code }}
           version-name: ${{ steps.version-name.outputs.version-name }}
 
       - name: Upload documentation

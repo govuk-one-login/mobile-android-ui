@@ -11,6 +11,7 @@ inputs:
 
 outputs:
   version-name:
+    description: 'Version name'
     value: ${{ steps.version-name.outputs.version-name }}
 
 runs:
@@ -20,7 +21,8 @@ runs:
       id: version-name
       shell: bash
       run: |
-        echo "version-name=${INPUT_VERSION_CODE}-${INPUT_VERSION_NAME}" >> $GITHUB_OUTPUT
+        version = $(git-conventional-commits version)
+        echo "version-name=version" >> $GITHUB_OUTPUT
       env:
         INPUT_VERSION_CODE: ${{ inputs.version-code }}
         INPUT_VERSION_NAME: ${{ inputs.version-name }}
