@@ -21,10 +21,10 @@ runs:
       id: version-name
       shell: bash
       run: |
-        let version = $(git-conventional-commits version)
+        version=$(git-conventional-commits version)
         
         echo "new version name: $version"
-        echo "version-name=version" >> $GITHUB_OUTPUT
+        echo "version-name=$version" >> $GITHUB_OUTPUT
       env:
         INPUT_VERSION_CODE: ${{ inputs.version-code }}
         INPUT_VERSION_NAME: ${{ inputs.version-name }}
