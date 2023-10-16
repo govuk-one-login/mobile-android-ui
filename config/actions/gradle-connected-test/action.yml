@@ -21,13 +21,13 @@ runs:
     - name: Run gradle connected test
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 31
+        api-level: 30
         arch: ${{ inputs.architecture }}
+        avd-name: ${{ inputs.device-profile }}
         disable-animations: true
         disable-linux-hw-accel: false
-        force-avd-creation: false
+        force-avd-creation: true
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -change-locale ${{ inputs.locale }}
         profile: ${{ inputs.device-profile }}
         script: |
           ./gradlew connectedDebugAndroidTest combinedDebugJacocoTestReport --continue --stacktrace
-        target: playstore
