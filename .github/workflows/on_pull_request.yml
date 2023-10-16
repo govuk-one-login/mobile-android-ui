@@ -58,7 +58,7 @@ jobs:
         uses: ./config/actions/gradle-connected-test
         with:
           architecture: 'arm64-v8a'
-          device-profile: 'pixel_xl'
+          device-profile: 'Nexus 6'
         if: steps.detect-arch.outputs.arch-in-use == 'arm64'
 
       - name: Run gradle instrumentation tests
