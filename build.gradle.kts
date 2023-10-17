@@ -1,6 +1,3 @@
-import com.android.build.gradle.api.AndroidBasePlugin
-import com.google.testing.platform.plugin.android.proto.AndroidDevicePluginProto.AndroidDevicePlugin
-
 buildscript {
     val dep_jacoco by rootProject.extra { "0.8.8" }
     val minAndroidVersion by rootProject.extra { 29 }
@@ -62,14 +59,19 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "11.5.0" apply false
     id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
     id("app.cash.paparazzi") apply false
-}
-
-subprojects {
-    apply { from("$rootDir/config/jacoco/config.gradle") }
+    id("org.sonarqube") version "4.3.0.3225"
 }
 
 apply {
     from("$rootDir/config/styles/tasks.gradle")
+    from("$rootDir/config/sonarqube/config.gradle")
+}
+
+subprojects {
+     apply {
+        from("$rootDir/config/jacoco/config.gradle")
+        from("$rootDir/config/sonarqube/moduleConfig.gradle")
+    }
 }
 
 tasks.register("check") {
