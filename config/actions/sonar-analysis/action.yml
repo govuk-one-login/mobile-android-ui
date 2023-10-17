@@ -12,7 +12,7 @@ runs:
     - name: Run Sonarqube PR Analysis
       if: ${{ github.event_name == 'pull_request' }}
       run: |
-        ./gradlew sonarqube \
+        ./gradlew sonar \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.pullrequest.key=${{ github.event.number }} \
@@ -26,7 +26,7 @@ runs:
     - name: Run Sonarqube Branch Analysis
       if: ${{ github.event_name != 'pull_request' }}
       run: |
-        ./gradlew sonarqube \
+        ./gradlew sonar \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.branch.name=${{ github.head_ref || github.ref_name }}
