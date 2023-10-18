@@ -93,4 +93,7 @@ public object Libs {
     public const val junit_bom: String = "org.junit:junit-bom:_"
 
     public const val mockito_core: String = "org.mockito:mockito-core:_"
+
+    public const val org_sonarqube_gradle_plugin: String =
+            "org.sonarqube:org.sonarqube.gradle.plugin:_"
 }
