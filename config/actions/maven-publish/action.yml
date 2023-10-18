@@ -22,7 +22,7 @@ runs:
         
         ./gradlew \
           publish \
-          -PpackageVersion=INPUT_PACKAGE_VERSION
+          -PpackageVersion=$INPUT_PACKAGE_VERSION
       shell: bash
       env:
         CI: true
