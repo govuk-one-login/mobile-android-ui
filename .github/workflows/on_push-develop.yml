@@ -50,7 +50,9 @@ jobs:
       - name: Release package
         uses: ./config/actions/maven-publish
         with:
+          access-token: ${{ secrets.PACKAGES_PAT }}
           package-version: ${{ steps.version-name.outputs.version-name }}
+          username: ${{ secrets.PACKAGES_USER }}
 
       - name: Git tag bundles
         uses: ./config/actions/git-tag-bundles
