@@ -28,11 +28,6 @@ jobs:
       - name: Setup GitHub Runner workflow
         uses: ./config/actions/setup-runner
 
-      - name: Retrieve secrets
-        uses: ./config/actions/retrieve-secrets
-        with:
-          actions-role-arn: ${{ secrets.GITHUBRUNNER_EC2_ACTIONS_ROLE_ARN }}
-
       - name: Get latest tag
         id: latest-tag
         uses: ./config/actions/get-latest-tag
