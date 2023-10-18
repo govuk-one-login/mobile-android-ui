@@ -60,6 +60,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
     id("app.cash.paparazzi") apply false
     id("org.sonarqube") version "4.3.0.3225"
+    id("uk.gov.ui.sonarqube-root-config")
 }
 
 apply {
