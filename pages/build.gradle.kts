@@ -17,7 +17,8 @@ plugins {
         "app.cash.paparazzi",
         "kotlin-parcelize",
         "maven-publish",
-        "uk.gov.ui.jvm-toolchains"
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config"
     ).forEach(::id)
 }
 

@@ -32,22 +32,22 @@ buildscript {
         classpath(
             "org.jacoco",
             "org.jacoco.core",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.ant",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.report",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.agent",
-            "_"
+            "_",
         )
     }
 }
@@ -65,13 +65,11 @@ plugins {
 
 apply {
     from("$rootDir/config/styles/tasks.gradle")
-    from("$rootDir/config/sonarqube/config.gradle")
 }
 
 subprojects {
-     apply {
+    apply {
         from("$rootDir/config/jacoco/config.gradle")
-        from("$rootDir/config/sonarqube/moduleConfig.gradle")
     }
 }
 

@@ -15,7 +15,8 @@ plugins {
         "io.gitlab.arturbosch.detekt",
         "jacoco",
         "maven-publish",
-        "uk.gov.ui.jvm-toolchains"
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config"
     ).forEach(::id)
 }
 

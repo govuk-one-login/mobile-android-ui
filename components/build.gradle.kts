@@ -17,7 +17,8 @@ plugins {
         "jacoco",
         "app.cash.paparazzi",
         "maven-publish",
-        "uk.gov.ui.jvm-toolchains"
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config"
     ).forEach(::id)
 }
 
