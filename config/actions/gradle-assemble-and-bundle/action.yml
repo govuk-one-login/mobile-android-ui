@@ -1,0 +1,38 @@
+name: 'Run gradle assemble and bundle (release build type)'
+description: 'Run the "assembleRelease" and "bundleRelease" commands for a Gradle project'
+
+inputs:
+  flavors:
+    description: 'App flavors to return paths for, comma separated'
+    required: false
+    default: 'production'
+  version-name:
+    description: 'Version name'
+    required: true
+
+outputs:
+  aab-paths:
+    description: 'Paths to build flavor aab'
+    value: ${{ steps.gradle-assemble-and-bundle.outputs.aab-paths }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bundle release
+      id: gradle-assemble-and-bundle
+      run: |
+        echo "Flavors = ${INPUT_FLAVORS}"
+        echo "Version name = ${INPUT_VERSION_NAME}"
+        
+        ./gradlew \
+          assembleRelease \
+          -PversionName=$INPUT_VERSION_NAME
+      shell: bash
+      env:
+        CI: true
+        INPUT_FLAVORS:  ${{ inputs.flavors }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}
+        READID_API_KEY: ${{ env.READID_API_KEY }}
+        SIGNING_KEY_ALIAS: ${{ env.KEYSTORE_KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ env.KEYSTORE_KEY_PASSWORD }}
+        SIGNING_STORE_PASSWORD: ${{ env.KEYSTORE_PASSWORD }}

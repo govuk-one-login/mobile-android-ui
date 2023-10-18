@@ -58,10 +58,23 @@ public object Libs {
 
     public const val hilt_android_testing: String = "com.google.dagger:hilt-android-testing:_"
 
+    public const val ktlint: String = "com.pinterest:ktlint:_"
+
     public const val de_fayard_buildsrclibs_gradle_plugin: String =
             "de.fayard.buildSrcLibs:de.fayard.buildSrcLibs.gradle.plugin:_"
 
+    public const val io_gitlab_arturbosch_detekt_gradle_plugin: String =
+            "io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:_"
+
     public const val junit_junit: String = "junit:junit:_"
+
+    public const val org_jacoco_agent: String = "org.jacoco:org.jacoco.agent:_"
+
+    public const val org_jacoco_ant: String = "org.jacoco:org.jacoco.ant:_"
+
+    public const val org_jacoco_core: String = "org.jacoco:org.jacoco.core:_"
+
+    public const val org_jacoco_report: String = "org.jacoco:org.jacoco.report:_"
 
     public const val org_jetbrains_kotlin_android_gradle_plugin: String =
             "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:_"
@@ -71,6 +84,13 @@ public object Libs {
 
     public const val kotlin_parcelize_runtime: String =
             "org.jetbrains.kotlin:kotlin-parcelize-runtime:_"
+
+    public const val org_jlleitschuh_gradle_ktlint_gradle_plugin: String =
+            "org.jlleitschuh.gradle.ktlint:org.jlleitschuh.gradle.ktlint.gradle.plugin:_"
+
+    public const val junit_jupiter: String = "org.junit.jupiter:junit-jupiter"
+
+    public const val junit_bom: String = "org.junit:junit-bom:_"
 
     public const val mockito_core: String = "org.mockito:mockito-core:_"
 }

@@ -1,0 +1,116 @@
+name: On Branch Push (release)
+
+on:
+  push:
+    branches:
+      - "release/**"
+  workflow_dispatch:
+
+jobs:
+  prepareForRelease:
+    name: Verify code base when pushed
+    runs-on: macos-latest
+    #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+    permissions:
+      #      id-token: write
+      contents: write
+    outputs:
+      version: ${{ steps.version-number.outputs.version }}
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Retrieve secrets
+        uses: ./config/actions/retrieve-secrets
+        with:
+          actions-role-arn: ${{ secrets.GITHUBRUNNER_EC2_ACTIONS_ROLE_ARN }}
+
+      - name: Get latest tag
+        id: latest-tag
+        uses: ./config/actions/get-latest-tag
+        with:
+          pattern: 'v*'
+
+      - name: Get next version from branch
+        id: next-version
+        uses: ./config/actions/get-next-version-from-branch
+
+      - name: Ensure version is correct
+        id: version-number
+        uses: ./config/actions/ensure-version-is-correct
+        with:
+          current-version: ${{ steps.latest-tag.outputs.current-tag }}
+          next-version: ${{ steps.next-version.outputs.next-version }}
+
+      - name: Display version jump
+        run: |
+          echo "Moving from $CURRENT_VERSION to $NEXT_VERSION"
+        shell: bash
+        env:
+          CURRENT_VERSION: ${{ steps.latest-tag.outputs.current-tag }}
+          NEXT_VERSION: ${{ steps.version-number.outputs.version }}
+
+  buildAndPublishRelease:
+    name: Verify code base when pushed
+    needs: prepareForRelease
+    runs-on: android-runner-prod
+    environment: release
+
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Retrieve secrets
+        uses: ./config/actions/retrieve-secrets
+        with:
+          actions-role-arn: ${{ secrets.GITHUBRUNNER_EC2_ACTIONS_ROLE_ARN }}
+
+      - name: Generate version code
+        id: version-code
+        uses: ./config/actions/generate-version-code
+
+      - name: Bundle release
+        id: bundle-release
+        uses: ./config/actions/gradle-assemble-and-bundle
+        with:
+          flavors: 'staging,production'
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ needs.prepareForRelease.outputs.version }}
+
+      - name: Upload to play store
+        uses: ./config/actions/upload-to-play-store
+        with:
+          aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
+
+      - name: Git tag bundles
+        uses: ./config/actions/git-tag-bundles
+        with:
+          aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ steps.version-name.outputs.version-name }}
+
+      - name: Upload documentation
+        uses: ./config/actions/upload-dokka
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace

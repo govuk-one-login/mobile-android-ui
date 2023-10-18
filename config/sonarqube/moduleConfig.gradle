@@ -1,0 +1,105 @@
+apply plugin: 'org.sonarqube'
+
+// the 'project' variable is the sub-project declared via the `subProjects` block in the root
+// build.gradle file
+
+def moduleSourceFolder = file("$project.projectDir/src")
+def sourceFolders = ""
+def testFolders = ""
+
+if (moduleSourceFolder.exists()) {
+
+    sourceFolders = moduleSourceFolder.listFiles(
+            new FilenameFilter() {
+                @Override
+                boolean accept(File dir, String name) {
+                    return dir != null && dir.isDirectory() && !name.containsIgnoreCase("test")
+                }
+            }
+    ).toList().stream().filter { it != null }.collect()
+            .join(",")
+
+    testFolders = moduleSourceFolder.listFiles(
+            new FilenameFilter() {
+                @Override
+                boolean accept(File dir, String name) {
+                    return dir != null && dir.isDirectory() && name.containsIgnoreCase("test")
+                }
+            }
+    ).toList().stream().filter { it != null }.collect()
+            .join(",")
+}
+
+def androidLintReportPathsArgs = [
+        dir     : "$project.projectDir",
+        includes: [
+                "**/reports/lint-results-*.xml"
+        ]
+]
+
+def jacocoReportPathsArgs = [
+        dir     : "$project.projectDir",
+        includes: [
+                "**/reports/coverage/**/*.xml", // android instrumentation test reports
+                "**/reports/jacoco/**/*.xml" // unit test reports
+        ]
+]
+
+def detektReportPathArgs = [
+        dir     : "$project.projectDir",
+        includes: [
+                "**/reports/detekt/*.xml",
+        ]
+]
+
+def junitReportConnectedTestPath = [
+        dir     : "$project.projectDir",
+        includes: [
+                "**/outputs/androidTest-results/connected/flavors/*/", // instrumentation
+                "**/test-results", // unit tests
+        ]
+]
+
+def ktlintReportPathsArgs = [
+        dir     : "$project.projectDir",
+        includes: [
+                "**/reports/ktlint/**/*.xml"
+        ]
+]
+
+def sonarExclusions = [
+        [
+                '*.json',
+                '**/.gradle/**',
+                '**/*.gradle*'
+        ],
+        project.ext.testSourceSets,
+        project.ext.androidInstrumentationTestFilter
+].collectMany { it }.join(',')
+
+// sonarqube configuration
+sonar {
+    properties {
+        property "sonar.sources", sourceFolders
+        property "sonar.tests", testFolders
+        property "sonar.exclusions", sonarExclusions
+        property "sonar.androidLint.reportPaths", fileTree(androidLintReportPathsArgs).files.collect {
+            it.absolutePath
+        }.join(',')
+        property "sonar.coverage.jacoco.xmlReportPaths", fileTree(jacocoReportPathsArgs).files.collect {
+            it.absolutePath
+        }.join(',')
+        property "sonar.kotlin.detekt.reportPaths", fileTree(detektReportPathArgs).files.collect {
+            it.absolutePath
+        }.join(',')
+        property "sonar.kotlin.ktlint.reportPaths", fileTree(ktlintReportPathsArgs).files.collect {
+            it.absolutePath
+        }.join(',')
+        property "sonar.junit.reportPaths", fileTree(junitReportConnectedTestPath).files.collect {
+            it.absolutePath
+        }.join(',')
+
+        property "sonar.dependencyCheck.htmlReportPath", "$project.buildDir/reports/dependency-check-report.html"
+        property "sonar.dependencyCheck.jsonReportPath", "$project.buildDir/reports/dependency-check-report.json"
+    }
+}

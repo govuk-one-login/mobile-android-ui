@@ -1,0 +1,49 @@
+name: 'Bump version'
+description: 'Bumps the provided version name by the provided semver value'
+
+inputs:
+  bump:
+    description: 'Semver value to bump'
+    required: false
+    default: 'patch'
+  version-name:
+    description: 'Version name'
+    required: true
+
+outputs:
+  version-name:
+    description: 'Version name'
+    value: ${{ steps.bump-version.outputs.version-name }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bump version
+      id: bump-version
+      uses: actions/github-script@v6
+      env:
+        INPUT_BUMP: ${{ inputs.bump }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}
+      with:
+        script: |
+          let [major, minor, patch] = process.env.INPUT_VERSION_NAME.split('.')
+
+          switch (process.env.INPUT_BUMP) {
+            case 'major': {
+              major++
+              minor = 0
+              patch = 0
+              break
+            }
+            case 'minor': {
+              minor++
+              patch = 0
+              break
+            }
+            default: {
+              patch++
+              break
+            }
+          }
+          
+          core.setOutput('version-name', [major, minor, patch].join('.'))

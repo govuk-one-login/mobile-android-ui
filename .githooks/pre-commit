@@ -16,12 +16,7 @@ cat app/gradle.properties \
 ./gradlew \
   detekt \
   ktlintCheck \
-  lintBuildDebug \
-  lintDevDebug \
-  lintIntegrationDebug \
-  lintProductionDebug \
-  lintStagingDebug \
-  testBuildDebugUnitTest \
+  lintDebug \
   testDebugUnitTest \
   verifyPaparazziDebug \
   vale \
