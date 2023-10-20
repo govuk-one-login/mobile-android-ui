@@ -16,7 +16,8 @@ plugins {
         "jacoco",
         "maven-publish",
         "uk.gov.ui.jvm-toolchains",
-        "uk.gov.ui.sonarqube-module-config"
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -74,9 +75,6 @@ android {
         warningsAsErrors = true
         xmlReport = true
     }
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
-    }
 
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -126,10 +124,6 @@ dependencies {
     testImplementation(Testing.junit.jupiter)
     testImplementation(Testing.mockito.core)
     testImplementation(platform(Testing.junit.bom))
-}
-
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
 }
 
 publishing {

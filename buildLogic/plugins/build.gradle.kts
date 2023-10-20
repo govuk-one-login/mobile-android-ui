@@ -16,10 +16,4 @@ dependencies {
     ).forEach { dependency ->
         implementation(dependency)
     }
-
-    listOf(
-        "org.junit:junit:4.12"
-    ).forEach { dependency ->
-        testImplementation(dependency)
-    }
 }

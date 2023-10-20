@@ -1,5 +1,6 @@
 import org.sonarqube.gradle.SonarExtension
 import uk.gov.ui.Filters
+import uk.gov.ui.SourceSetFolder
 
 plugins {
     id("org.sonarqube")
@@ -56,7 +57,7 @@ val sonarExclusions by project.extra(
     ).flatten().joinToString(separator = ","),
 )
 
-val moduleSourceFolder = file("${project.projectDir}/src")
+val moduleSourceFolder = SourceSetFolder(project)
 var sourceFolders by project.extra("")
 var testFolders by project.extra("")
 
@@ -65,15 +66,9 @@ var projectSonarProperties by project.extra(
 )
 
 configure<SonarExtension> {
-    if (moduleSourceFolder.exists()) {
-        sourceFolders = moduleSourceFolder.listFiles(Filters.sourceFilenameFilter)
-            ?.filterNotNull()
-            ?.joinToString(separator = ",") { it.absolutePath }
-            ?: ""
-        testFolders = moduleSourceFolder.listFiles(Filters.testFilenameFilter)
-            ?.filterNotNull()
-            ?.joinToString(separator = ",") { it.absolutePath }
-            ?: ""
+    if (moduleSourceFolder.srcExists()) {
+        sourceFolders = moduleSourceFolder.sourceFolders
+        testFolders = moduleSourceFolder.testFolders
     }
 
     projectSonarProperties = mapOf<String, Any>(

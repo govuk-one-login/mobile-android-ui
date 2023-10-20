@@ -46,6 +46,19 @@ object Filters {
         "**/*\$Result$*.*",
     )
 
+    val userInterfaces = listOf(
+        "**/*Activity*",
+        "**/*Adapter*",
+        "**/*BindingAdapter*",
+        "**/*Dialog*",
+        "**/*DiffCallback*",
+        "**/*Fragment*",
+        "**/*ItemDecoration*",
+        "**/*LayoutManager*",
+        "**/*Service*",
+        "**/*ViewHolder*",
+    )
+
     val sonar = listOf(
         "*.json",
         "**/.gradle/**",
@@ -56,6 +69,11 @@ object Filters {
         dataBinding,
         android,
         kotlin,
+    ).flatten()
+
+    val androidUnitTests = listOf(
+        androidInstrumentationTests,
+        userInterfaces,
     ).flatten()
 
     val testSourceSets = listOf(

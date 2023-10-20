@@ -4,15 +4,10 @@ plugins {
     id("org.sonarqube")
 }
 
-private val _packageVersion: String = if (rootProject.hasProperty("packageVersion")) {
-    rootProject.property("packageVersion") as String
-} else {
-    "1.0.0"
-}
-
-val packageVersion: String by rootProject.extra(
-    _packageVersion,
-)
+/**
+ * Defined within the git repository's `build.gradle.kts` file
+ */
+val packageVersion: String by rootProject.extra
 
 val rootSonarProperties by rootProject.extra(
     mapOf(

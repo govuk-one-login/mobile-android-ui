@@ -1,5 +1,5 @@
 buildscript {
-    val dep_jacoco by rootProject.extra { "0.8.8" }
+    val jacocoVersion by rootProject.extra("0.8.11")
     val minAndroidVersion by rootProject.extra { 29 }
     val compileAndroidVersion by rootProject.extra { 33 }
     val androidBuildToolsVersion by rootProject.extra { "33.0.0" }
@@ -65,12 +65,6 @@ plugins {
 
 apply {
     from("$rootDir/config/styles/tasks.gradle")
-}
-
-subprojects {
-    apply {
-        from("$rootDir/config/jacoco/config.gradle")
-    }
 }
 
 tasks.register("check") {

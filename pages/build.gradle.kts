@@ -18,7 +18,8 @@ plugins {
         "kotlin-parcelize",
         "maven-publish",
         "uk.gov.ui.jvm-toolchains",
-        "uk.gov.ui.sonarqube-module-config"
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -87,10 +88,6 @@ android {
         xmlReport = true
     }
 
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
-    }
-
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -134,10 +131,6 @@ dependencies {
     ).forEach { testDependency ->
         testImplementation(testDependency)
     }
-}
-
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
 }
 
 publishing {
