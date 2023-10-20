@@ -61,8 +61,5 @@ jobs:
           aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
           version-name: ${{ steps.version-name.outputs.version-name }}
 
-      - name: Upload documentation
-        uses: ./config/actions/upload-dokka
-
       - name: Clean workspace
         uses: ./config/actions/clean-workspace
