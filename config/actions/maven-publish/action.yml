@@ -14,12 +14,12 @@ inputs:
 
 runs:
   using: "composite"
+  packages: write
   steps:
     - name: Publish package
       id: maven-publish
       run: |
         echo "Package Version = ${INPUT_PACKAGE_VERSION}"
-        echo "Github username = ${USERNAME}"
         
         ./gradlew \
           publish \
