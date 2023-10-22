@@ -58,7 +58,6 @@ jobs:
       - name: Git tag bundles
         uses: ./config/actions/git-tag-bundles
         with:
-          aab-paths: ${{ steps.bundle-release.outputs.aab-paths }}
           version-name: ${{ steps.version-name.outputs.version-name }}
 
       - name: Clean workspace

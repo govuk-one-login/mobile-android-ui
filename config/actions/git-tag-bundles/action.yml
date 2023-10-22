@@ -19,6 +19,7 @@ runs:
         echo "Tagging with $INPUT_VERSION_NAME"
         
         git tag -a "v$INPUT_VERSION_NAME" -m "Publishing v$INPUT_VERSION_NAME"
+        git push origin "v$INPUT_VERSION_NAME"
       shell: bash
       env:
         INPUT_VERSION_NAME: ${{ inputs.version-name }}
