@@ -22,7 +22,6 @@ buildscript {
             version = localProperties.getProperty("packageVersion") as String
         }
 
-        println("packageVersion is set to $version")
         return version
     }
 

@@ -1,5 +1,6 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
+echo "Checking commit message conforms to conventional commit template"
 commit_message="$1"
 # exit with a non zero exit code incase of an invalid commit message
 
