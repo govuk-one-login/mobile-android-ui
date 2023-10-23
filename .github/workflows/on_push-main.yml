@@ -1,9 +1,9 @@
-name: On Branch Push (develop)
+name: On Branch Push (main)
 
 on:
   push:
     branches:
-      - "develop"
+      - "main"
   workflow_dispatch:
 
 jobs:
