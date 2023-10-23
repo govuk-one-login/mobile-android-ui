@@ -65,10 +65,11 @@ jobs:
         uses: ./config/actions/gradle-connected-test
         if: steps.detect-arch.outputs.arch-in-use != 'arm64'
 
-#      - name: Run sonar analysis
-#        uses: ./config/actions/sonar-analysis
-#        with:
-#          sonar-token: ${{ secrets.SONAR_TOKEN }}
+      - name: Run sonar analysis
+        uses: ./config/actions/sonar-analysis
+        with:
+          project-version: ${{ steps.version-name.outputs.version-name }}
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports
