@@ -18,13 +18,13 @@ runs:
         role-skip-session-tagging: true
 
     - name: Store GitHub actions ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@v2
+      uses: say8425/aws-secrets-manager-actions@v2.2.1
       with:
         AWS_DEFAULT_REGION: "eu-west-2"
         SECRET_NAME: "di-ipv-dca-mob-android/github-actions-env-v2"
 
     - name: Store Google Play Service ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@v2
+      uses: say8425/aws-secrets-manager-actions@v2.2.1
       with:
         AWS_DEFAULT_REGION: "eu-west-2"
         SECRET_NAME: "di-ipv-dca-mob-android/google-play-service-account-json-v2"
