@@ -4,29 +4,40 @@ import org.gradle.api.Project
 import org.gradle.api.file.FileTree
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import uk.gov.ui.ext.ProjectExt.debugLog
 
+/**
+ * [FileTreeFetcher] implementation designed to obtain the output files from compiling kotlin files
+ * into java files.
+ *
+ * @param project The Gradle [Project] to base the [getBaseFileTree] output from.
+ * @param variant The name of the build variant. Used as a parameter to obtain relevant Gradle
+ * tasks.
+ * @param capitalisedVariantFlavorName The TitleCase representation of the Android app or library's
+ * product flavor. Used as a parameter to obtain relevant Gradle tasks.
+ */
 class KotlinCompileFileTreeFetcher(
-    moduleProject: Project,
-    variantName: String,
+    project: Project,
+    variant: String,
     capitalisedVariantFlavorName: String,
 ) : BaseFileTreeFetcher(
-    moduleProject,
-    variantName,
+    project,
+    variant,
     capitalisedVariantFlavorName,
 ) {
 
     override fun getBaseFileTree(): Provider<FileTree> {
-        return moduleProject.provider {
+        return project.provider {
             getKotlinCompileFileTree(
                 "compile${capitalisedVariantName}Kotlin",
             ) ?: getKotlinCompileFileTree(
                 "compile${capitalisedVariantFlavorName}Kotlin",
-            ) ?: moduleProject.fileTree(
-                "${moduleProject.buildDir}/tmp/kotlin-classes/$variantName",
+            ) ?: project.fileTree(
+                "${project.buildDir}/tmp/kotlin-classes/$variant",
             )
         }.also {
-            println(
-                "${moduleProject.name}: KotlinCompileFileTreeFetcher: ${it.get().files}",
+            project.debugLog(
+                "KotlinCompileFileTreeFetcher: ${it.get().files}",
             )
         }
     }

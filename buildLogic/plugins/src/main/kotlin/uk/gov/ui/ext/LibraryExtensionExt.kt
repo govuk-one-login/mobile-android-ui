@@ -1,28 +1,50 @@
 package uk.gov.ui.ext
 
-import com.android.build.api.dsl.LibraryExtension as DslLibraryExtension
 import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension as DslLibraryExtension
 
-fun LibraryExtension.decorateLibraryExtensionWithJacoco(jacocoVersion: String) {
-    testCoverage.jacocoVersion = jacocoVersion
-    buildTypes {
-        debug {
-            this.enableAndroidTestCoverage = true
-            this.enableUnitTestCoverage = true
-            this.isTestCoverageEnabled = true
+/**
+ * Wrapper object for containing extension functions relating to various implementations of the
+ * [LibraryExtension], such as the [DslLibraryExtension] variant.
+ */
+object LibraryExtensionExt {
+    /**
+     * Apply Jacoco configurations to the `android` block of a gradle module.
+     *
+     * Sets up the `android.testCoverage.jacocoVersion` property with the [version] parameter.
+     * Also enables instrumentation and unit test coverage.
+     *
+     * @param version The Jacoco version number as a string.
+     */
+    fun LibraryExtension.decorateLibraryExtensionWithJacoco(version: String) {
+        testCoverage.jacocoVersion = version
+        buildTypes {
+            debug {
+                this.enableAndroidTestCoverage = true
+                this.enableUnitTestCoverage = true
+                this.isTestCoverageEnabled = true
+            }
         }
     }
-}
 
-fun DslLibraryExtension.decorateDslLibraryExtensionWithJacoco(
-    jacocoVersion: String
-) {
-    testCoverage.jacocoVersion = jacocoVersion
-    buildTypes {
-        debug {
-            this.enableAndroidTestCoverage = true
-            this.enableUnitTestCoverage = true
-            this.isTestCoverageEnabled = true
+    /**
+     * Apply Jacoco configurations to the `android` block of a gradle module.
+     *
+     * Sets up the `android.testCoverage.jacocoVersion` property with the [version] parameter.
+     * Also enables instrumentation and unit test coverage.
+     *
+     * @param version The Jacoco version number as a string.
+     */
+    fun DslLibraryExtension.decorateDslLibraryExtensionWithJacoco(
+        version: String,
+    ) {
+        testCoverage.jacocoVersion = version
+        buildTypes {
+            debug {
+                this.enableAndroidTestCoverage = true
+                this.enableUnitTestCoverage = true
+                this.isTestCoverageEnabled = true
+            }
         }
     }
 }

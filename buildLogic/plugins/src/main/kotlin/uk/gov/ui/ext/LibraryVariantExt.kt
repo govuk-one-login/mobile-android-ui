@@ -2,7 +2,7 @@ package uk.gov.ui.ext
 
 import com.android.build.gradle.api.LibraryVariant
 import org.gradle.api.Project
-import uk.gov.ui.ext.BaseVariantExt.capitalisedFlavorName
+import org.gradle.configurationcache.extensions.capitalized
 import uk.gov.ui.filetree.fetcher.AsmFileTreeFetcher
 import uk.gov.ui.filetree.fetcher.FileTreesFetcher
 import uk.gov.ui.filetree.fetcher.JavaCompileFileTreeFetcher
@@ -15,6 +15,7 @@ import uk.gov.ui.jacoco.tasks.JacocoUnitTestTaskGenerator
 fun LibraryVariant.generateDebugJacocoTasks(
     project: Project
 ) {
+    val capitalisedFlavorName = flavorName.capitalized()
     if (buildType.name == "debug") {
         val classDirectoriesFetcher = FileTreesFetcher(
             project,
@@ -50,8 +51,8 @@ fun LibraryVariant.generateDebugJacocoTasks(
         val combinedTestReportGenerator = JacocoCombinedTestTaskGenerator(
             project = project,
             classDirectoriesFetcher = classDirectoriesFetcher,
-            variantName = name,
-            configs = listOf(
+            variant = name,
+            configurations = listOf(
                 unitTestReportGenerator,
                 connectedTestReportGenerator,
             ),

@@ -1,10 +1,10 @@
 import com.android.build.gradle.LibraryExtension
-import uk.gov.ui.ext.decorateDslLibraryExtensionWithJacoco
-import uk.gov.ui.ext.decorateLibraryExtensionWithJacoco
-import uk.gov.ui.ext.decorateTestTasksWithJacoco
+import uk.gov.ui.ext.LibraryExtensionExt.decorateDslLibraryExtensionWithJacoco
+import uk.gov.ui.ext.LibraryExtensionExt.decorateLibraryExtensionWithJacoco
+import uk.gov.ui.ext.ProjectExt.debugLog
+import uk.gov.ui.ext.TestExt.decorateTestTasksWithJacoco
 import uk.gov.ui.ext.generateDebugJacocoTasks
 import com.android.build.api.dsl.LibraryExtension as DslLibraryExtension
-import uk.gov.ui.ext.debugLog
 
 plugins {
     jacoco

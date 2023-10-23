@@ -4,29 +4,42 @@ import com.android.build.gradle.tasks.TransformClassesWithAsmTask
 import org.gradle.api.Project
 import org.gradle.api.file.FileTree
 import org.gradle.api.provider.Provider
+import uk.gov.ui.ext.ProjectExt.debugLog
 
+/**
+ * [FileTreeFetcher] implementation designed to obtain the output files from the
+ * [ASM bytecode framework](https://asm.ow2.io/).
+ *
+ * Used by android app Gradle modules as part of pro-guard obfuscation.
+ *
+ * @param project The Gradle [Project] to base the [getBaseFileTree] output from.
+ * @param variant The name of the build variant. Used as a parameter to obtain relevant Gradle
+ * tasks.
+ * @param capitalisedVariantFlavorName The TitleCase representation of the Android app or library's
+ * product flavor. Used as a parameter to obtain relevant Gradle tasks.
+ */
 class AsmFileTreeFetcher(
-    moduleProject: Project,
-    variantName: String,
+    project: Project,
+    variant: String,
     capitalisedVariantFlavorName: String,
 ) : BaseFileTreeFetcher(
-    moduleProject,
-    variantName,
+    project,
+    variant,
     capitalisedVariantFlavorName,
 ) {
 
     override fun getBaseFileTree(): Provider<FileTree> {
-        return moduleProject.provider {
+        return project.provider {
             getAsmClassesFileTree(
                 "transform${capitalisedVariantName}ClassesWithAsm",
             ) ?: getAsmClassesFileTree(
                 "transform${capitalisedVariantFlavorName}ClassesWithAsm",
-            ) ?: moduleProject.fileTree(
-                "${moduleProject.buildDir}/intermediates/asm_instrumented_project_classes/$variantName/",
+            ) ?: project.fileTree(
+                "${project.buildDir}/intermediates/asm_instrumented_project_classes/$variant/",
             )
         }.also {
-            println(
-                "${moduleProject.name}: AsmFileTreeFetcher: ${it.get().files}",
+            project.debugLog(
+                "AsmFileTreeFetcher: ${it.get().files}",
             )
         }
     }

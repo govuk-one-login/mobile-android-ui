@@ -2,6 +2,9 @@ package uk.gov.ui
 
 import java.io.FilenameFilter
 
+/**
+ * Wrapper object that contains regular expression exclusion patterns for file names.
+ */
 object Filters {
     val android = listOf(
         "**/R.class",
@@ -17,7 +20,7 @@ object Filters {
         "**/*IntentProvider*",
     )
 
-    val dataBinding = listOf(
+    private val dataBindingFilters = listOf(
         "android/databinding/**/*.class",
         "**/android/databinding/*Binding.class",
         "**/android/databinding/*",
@@ -66,7 +69,7 @@ object Filters {
     )
 
     val androidInstrumentationTests = listOf(
-        dataBinding,
+        dataBindingFilters,
         android,
         kotlin,
     ).flatten()
@@ -83,12 +86,20 @@ object Filters {
         "**/src/androidTest/java/\$",
     )
 
+    /**
+     * [FilenameFilter] for filtering out any source set folders that contain 'test', such as
+     * `main`.
+     */
     val sourceFilenameFilter = FilenameFilter { parentFile, fileName ->
         parentFile != null &&
             parentFile.isDirectory &&
             !(fileName?.contains("test", ignoreCase = true) ?: false)
     }
 
+    /**
+     * [FilenameFilter] for obtaining all source set folders that contain 'test', such as
+     * `androidTest`.
+     */
     val testFilenameFilter = FilenameFilter { parentFile, fileName ->
         parentFile != null &&
             parentFile.isDirectory &&

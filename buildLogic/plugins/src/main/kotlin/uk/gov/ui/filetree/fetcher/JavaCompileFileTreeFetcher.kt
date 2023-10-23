@@ -4,29 +4,40 @@ import org.gradle.api.Project
 import org.gradle.api.file.FileTree
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.compile.JavaCompile
+import uk.gov.ui.ext.ProjectExt.debugLog
 
+/**
+ * [FileTreeFetcher] implementation designed to obtain the output files from compiling intermediary
+ * java files into class files.
+ *
+ * @param project The Gradle [Project] to base the [getBaseFileTree] output from.
+ * @param variant The name of the build variant. Used as a parameter to obtain relevant Gradle
+ * tasks.
+ * @param capitalisedVariantFlavorName The TitleCase representation of the Android app or library's
+ * product flavor. Used as a parameter to obtain relevant Gradle tasks.
+ */
 class JavaCompileFileTreeFetcher(
-    moduleProject: Project,
-    variantName: String,
+    project: Project,
+    variant: String,
     capitalisedVariantFlavorName: String,
 ) : BaseFileTreeFetcher(
-    moduleProject,
-    variantName,
+    project,
+    variant,
     capitalisedVariantFlavorName,
 ) {
 
     override fun getBaseFileTree(): Provider<FileTree> {
-        return moduleProject.provider {
+        return project.provider {
             getJavaCompileFileTree(
                 "compile${capitalisedVariantName}JavaWithJavac",
             ) ?: getJavaCompileFileTree(
                 "compile${capitalisedVariantFlavorName}JavaWithJavac",
-            ) ?: moduleProject.fileTree(
-                "${moduleProject.buildDir}/intermediates/javac/$variantName/classes",
+            ) ?: project.fileTree(
+                "${project.buildDir}/intermediates/javac/$variant/classes",
             )
         }.also {
-            println(
-                "${moduleProject.name}: JavaCompileFileTreeFetcher: ${it.get().files}"
+            project.debugLog(
+                "JavaCompileFileTreeFetcher: ${it.get().files}",
             )
         }
     }
