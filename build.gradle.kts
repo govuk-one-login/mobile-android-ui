@@ -55,7 +55,7 @@ plugins {
     id("maven-publish")
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
     id("com.android.library") apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.0" apply false
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1" apply false
     id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
     id("app.cash.paparazzi") apply false
     id("org.sonarqube") version "4.3.0.3225"
