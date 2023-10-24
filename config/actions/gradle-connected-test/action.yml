@@ -30,4 +30,4 @@ runs:
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -change-locale ${{ inputs.locale }}
         profile: ${{ inputs.device-profile }}
         script: |
-          ./gradlew connectedDebugAndroidTest combinedDebugJacocoTestReport --continue --stacktrace
+          ./gradlew connectedDebugAndroidTest jacocoDebugCombinedTestReport --continue --stacktrace
