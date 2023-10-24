@@ -1,0 +1,288 @@
+apply plugin: 'jacoco'
+apply from: file("$configDir/filters.gradle")
+
+jacoco {
+    toolVersion = dep_jacoco
+}
+
+static def getAsmIntermediate(
+        Project moduleProject,
+        String variant,
+        String productFlavor,
+        List<String> excludes
+) {
+    def result
+
+    if (moduleProject.tasks.findByName("transform${variant.capitalize()}ClassesWithAsm")) {
+        result = moduleProject.tasks.named(
+                "transform${variant.capitalize()}ClassesWithAsm"
+        ).flatMap { asmTask ->
+            moduleProject.provider {
+                asmTask.classesOutputDir.getAsFileTree()
+                        .matching(new PatternSet().exclude(excludes))
+            }
+        }
+    } else if (moduleProject.tasks.findByName("transform${productFlavor.capitalize()}ClassesWithAsm")) {
+        result = moduleProject.tasks.named(
+                "transform${productFlavor.capitalize()}ClassesWithAsm"
+        ).flatMap { asmTask ->
+            moduleProject.provider {
+                asmTask.classesOutputDir.getAsFileTree()
+                        .matching(new PatternSet().exclude(excludes))
+            }
+        }
+    } else {
+        result = moduleProject.provider {
+            moduleProject.fileTree(
+                    "$moduleProject.buildDir/intermediates/asm_instrumented_project_classes/$variant/"
+            ).matching(new PatternSet().exclude(excludes))
+        }
+    }
+
+    return result
+}
+
+static def getJavacIntermediate(
+        Project moduleProject,
+        String variant,
+        String productFlavor,
+        List<String> excludes
+) {
+    def result
+
+    if (moduleProject.tasks.findByName("compile${variant.capitalize()}JavaWithJavac")) {
+        result = moduleProject.tasks.named(
+                "compile${variant.capitalize()}JavaWithJavac"
+        ).flatMap { javacTask ->
+            moduleProject.provider {
+                javacTask.getDestinationDirectory().getAsFileTree()
+                        .matching(new PatternSet().exclude(excludes))
+            }
+        }
+    } else if (moduleProject.tasks.findByName("compile${productFlavor.capitalize()}JavaWithJavac")) {
+        result = moduleProject.tasks.named(
+                "transform${productFlavor.capitalize()}JavaWithJavac"
+        ).flatMap { javacTask ->
+            moduleProject.provider {
+                javacTask.getDestinationDirectory().getAsFileTree()
+                        .matching(new PatternSet().exclude(excludes))
+            }
+        }
+    } else {
+        result = moduleProject.provider {
+            moduleProject.fileTree(
+                    "$moduleProject.buildDir/intermediates/javac/$variant/classes"
+            ).matching(new PatternSet().exclude(excludes))
+        }
+    }
+
+    return result
+}
+
+def createJacocoReportTask(
+        Map<String, ?> args
+) {
+    Iterable<?> dependsOn = args["dependsOn"]
+
+    FileTree executionDataTree = args["executionData"]
+    List<String> excludes = args["fileFilters"]
+    def sourceDirs = args["sourceDirs"]
+
+    String description = args["description"]
+    Project moduleProject = args["module"]
+    String productFlavor = args["productFlavor"]
+    String outputDir = args["outputDir"]
+    String taskName = args["name"]
+    String variant = args["variant"]
+
+    Provider<FileTree> asmIntermediateClasses = getAsmIntermediate(
+            moduleProject,
+            variant,
+            productFlavor,
+            excludes
+    )
+    Provider<FileTree> javacIntermediateClasses = getJavacIntermediate(
+            moduleProject,
+            variant,
+            productFlavor,
+            excludes
+    )
+
+    def classDirectoriesTree = asmIntermediateClasses.get() + javacIntermediateClasses.get()
+
+    def jacocoTask = moduleProject.tasks.register(
+            taskName,
+            JacocoReport
+    ) {
+        it.dependsOn dependsOn
+        it.description description
+        it.group "jacoco"
+
+        it.additionalSourceDirs.setFrom(files(sourceDirs))
+        it.classDirectories.setFrom(files(classDirectoriesTree))
+        it.executionData.setFrom(executionDataTree)
+        it.sourceDirectories.setFrom(files(sourceDirs))
+
+        it.reports {
+            csv {
+                required = true
+                outputLocation = file("$outputDir/report.csv")
+            }
+            xml {
+                required = true
+                outputLocation = file("$outputDir/report.xml")
+            }
+            html {
+                required = true
+                outputLocation = file("$outputDir/html")
+            }
+        }
+
+        it.doLast {
+            [
+                    "Execution Data Files: ${executionDataTree.files.collect { it.absolutePath }}",
+                    "Source Files: ${files(sourceDirs).collect { it.absolutePath }}",
+                    "Class Directories: ${files(classDirectoriesTree).collect { it.absolutePath }}",
+                    "XML Output File: ${file("$outputDir/report.xml").absolutePath}"
+            ].forEach { message ->
+                logger.lifecycle("JaCoCo Report: $message\n")
+            }
+        }
+    }
+
+    return jacocoTask
+}
+
+def setupAndroidReporting(Project moduleProject, variants) {
+    moduleProject.tasks.withType(Test).configureEach {
+        jacoco.includeNoLocationClasses true
+        jacoco.excludes = ['jdk.internal.*']
+    }
+
+    variants.all { moduleVariant ->
+        def buildTypeName = "${moduleVariant.buildType.name}"
+        if (buildTypeName == "debug") {
+            def variantName = moduleVariant.name
+            def capitalisedVariantName = variantName.capitalize()
+            def productFlavorName = "${moduleVariant.mergedFlavor.name}"
+            def reportPrefix = "$moduleProject.buildDir/reports/jacoco/${variantName}"
+
+            def kotlinCompileTask = moduleProject.tasks.named(
+                    "compile${capitalisedVariantName}Kotlin"
+            )
+            def coverageSourceDirs = kotlinCompileTask.flatMap { kcTask ->
+                moduleProject.provider {
+                    kcTask.sources.files.collect { it.absolutePath }
+                }
+            }
+
+            def customUnitJacocoReportTaskName = "jacoco${capitalisedVariantName}UnitTestReport"
+            def androidUnitJacocoReportTask = moduleProject.tasks.named(
+                    "create${capitalisedVariantName}UnitTestCoverageReport"
+            )
+            def unitReportPrefix = "$reportPrefix/unit"
+            def unitTestTask = moduleProject.tasks.named("test${capitalisedVariantName}UnitTest")
+            def unitTestExecutionDataFile = unitTestTask.flatMap { utTask ->
+                moduleProject.provider {
+                    utTask.getJacocoCoverageOutputFile().get().asFile
+                            .parentFile
+                            .absolutePath
+                }
+            }
+
+            // build/jacoco folder and build/outputs/unit_test_code_coverage folders
+            ConfigurableFileTree unitTestExecutionData = fileTree([
+                    dir     : unitTestExecutionDataFile,
+                    includes: [
+                            "${unitTestTask.name}.exec"
+                    ]
+            ])
+
+            def customUnitTestReportTask = createJacocoReportTask(
+                    dependsOn: [unitTestTask, androidUnitJacocoReportTask],
+                    description: "Create coverage report from the '${capitalisedVariantName}' unit tests.",
+                    executionData: unitTestExecutionData,
+                    fileFilters: moduleProject.ext.androidUnitTestFilter,
+                    module: moduleProject,
+                    name: customUnitJacocoReportTaskName,
+                    outputDir: unitReportPrefix,
+                    productFlavor: productFlavorName,
+                    sourceDirs: coverageSourceDirs,
+                    variant: variantName
+            )
+            unitTestTask.configure {
+                it.finalizedBy(customUnitTestReportTask)
+            }
+
+            def customConnectedJacocoReportTaskName = "connected${capitalisedVariantName}JacocoTestReport"
+            def androidConnectedJacocoReportTask = moduleProject.tasks.named(
+                    "create${capitalisedVariantName}AndroidTestCoverageReport"
+            )
+            def connectedReportPrefix = "$reportPrefix/connected"
+            def connectedTestTask = moduleProject.tasks.named(
+                    "connected${capitalisedVariantName}AndroidTest"
+            )
+            def connectedTestExecutionDirectory = connectedTestTask.flatMap { conTask ->
+                moduleProject.provider {
+                    DirectoryProperty something = conTask.getCoverageDirectory()
+                    something.asFile.get().absolutePath
+                }
+            }
+            ConfigurableFileTree connectedTestExecutionData = fileTree([
+                    dir     : connectedTestExecutionDirectory,
+                    includes: ["**/*.ec"]
+            ])
+
+            def customConnectedReportTask = createJacocoReportTask(
+                    dependsOn: [
+                            connectedTestTask,
+                            androidConnectedJacocoReportTask
+                    ],
+                    description: "Create coverage report from the '${capitalisedVariantName}' instrumentation tests.",
+                    executionData: connectedTestExecutionData,
+                    fileFilters: moduleProject.ext.androidInstrumentationTestFilter,
+                    module: moduleProject,
+                    name: customConnectedJacocoReportTaskName,
+                    outputDir: connectedReportPrefix,
+                    productFlavor: productFlavorName,
+                    sourceDirs: coverageSourceDirs,
+                    variant: variantName
+            )
+            connectedTestTask.configure {
+                it.finalizedBy(customConnectedReportTask)
+            }
+
+            def jacocoCombinedTaskName = "combined${capitalisedVariantName}JacocoTestReport"
+            def combinedReportPrefix = "$reportPrefix/combined"
+            FileTree combinedTestExecutionData = unitTestExecutionData + connectedTestExecutionData
+
+            createJacocoReportTask(
+                    dependsOn: [customConnectedReportTask, customUnitTestReportTask],
+                    description: "Combine coverage data from the '${capitalisedVariantName}' tests.",
+                    executionData: combinedTestExecutionData,
+                    fileFilters: moduleProject.ext.androidInstrumentationTestFilter,
+                    module: moduleProject,
+                    name: jacocoCombinedTaskName,
+                    outputDir: combinedReportPrefix,
+                    productFlavor: productFlavorName,
+                    sourceDirs: coverageSourceDirs,
+                    variant: variantName
+            )
+        }
+    }
+}
+
+afterEvaluate { Project moduleProject ->
+    if (moduleProject.plugins.hasPlugin('com.android.application')) {
+        setupAndroidReporting(
+                moduleProject,
+                moduleProject.android.applicationVariants
+        )
+    } else if (moduleProject.plugins.hasPlugin('com.android.library')) {
+        setupAndroidReporting(
+                moduleProject,
+                moduleProject.android.libraryVariants
+        )
+    }
+}
+

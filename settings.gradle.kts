@@ -6,11 +6,13 @@ pluginManagement {
     }
 
     plugins {
-        id("com.android.library") version "7.4.2"
-        id("org.jetbrains.kotlin.android") version "1.7.20"
+        id("com.android.library")
+        id("org.jetbrains.kotlin.android") version "1.9.0"
         id("de.fayard.refreshVersions") version "0.60.2"
-        id("app.cash.paparazzi") version "1.2.0"
+        id("app.cash.paparazzi")
     }
+
+    includeBuild("buildLogic")
 }
 
 plugins {

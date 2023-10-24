@@ -2,9 +2,8 @@ package uk.gov.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val GovGreen = Color(0xFF00703C)
-val IconBackground = Color(0xFF1D70B8)
-val IconForeground = Color.White
+val disabled_button = Color(0xFFB1B4B6)
+val hintTextGrey = Color(0xFF505A5F)
 
 val md_theme_light_background = Color(0xFFFBFDF8)
 val md_theme_light_error = Color(0xFFBA1A1A)

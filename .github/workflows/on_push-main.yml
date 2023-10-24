@@ -1,0 +1,64 @@
+name: On Branch Push (main)
+
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+jobs:
+  onPushDevelopJob:
+    name: Verify code base when pushed
+    runs-on: macos-latest
+    #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
+    permissions:
+#      id-token: write
+      contents: write
+      packages: write
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Get latest tag
+        id: latest-tag
+        uses: ./config/actions/get-latest-tag
+        with:
+          pattern: 'v*'
+
+      - name: Generate version name
+        id: version-name
+        uses: ./config/actions/version-name
+        with:
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ steps.latest-tag.outputs.current-tag }}
+
+      - name: Bundle release
+        id: bundle-release
+        uses: ./config/actions/gradle-assemble-and-bundle
+        with:
+          version-name: ${{ steps.version-name.outputs.version-name }}
+
+      - name: Release package
+        uses: ./config/actions/maven-publish
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          package-version: ${{ steps.version-name.outputs.version-name }}
+          username: ${{ github.actor }}
+
+      - name: Git tag bundles
+        uses: ./config/actions/git-tag-bundles
+        with:
+          version-name: ${{ steps.version-name.outputs.version-name }}
+
+      - name: Clean workspace
+        uses: ./config/actions/clean-workspace

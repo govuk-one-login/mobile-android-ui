@@ -1,0 +1,75 @@
+name: On Pull Request (develop/release/main)
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+      - release/*
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+  merge_group:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  onPullRequestJob:
+    name: Verify code base when pull request is published/updated
+    runs-on: macos-latest
+
+    steps:
+      - name: Run checkout github action
+        uses: actions/checkout@v4
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Get latest tag
+        id: latest-tag
+        uses: ./config/actions/get-latest-tag
+        with:
+          pattern: 'v*'
+
+      - name: Generate version code
+        id: version-code
+        uses: ./config/actions/generate-version-code
+
+      - name: Generate version name
+        id: version-name
+        uses: ./config/actions/version-name
+        with:
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ steps.latest-tag.outputs.current-tag }}
+
+      - name: Run gradle instrumentation tests
+        uses: ./config/actions/gradle-connected-test
+        with:
+          architecture: 'arm64-v8a'
+          device-profile: 'Nexus 6'
+        if: steps.detect-arch.outputs.arch-in-use == 'arm64'
+
+      - name: Run gradle instrumentation tests
+        uses: ./config/actions/gradle-connected-test
+        if: steps.detect-arch.outputs.arch-in-use != 'arm64'
+
+      - name: Run sonar analysis
+        uses: ./config/actions/sonar-analysis
+        with:
+          project-version: ${{ steps.version-name.outputs.version-name }}
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Bundle reports folder
+        uses: ./config/actions/bundle-reports

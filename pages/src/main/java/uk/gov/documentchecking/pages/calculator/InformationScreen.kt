@@ -21,23 +21,24 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import uk.gov.documentchecking.pages.R as pagesR
 import uk.gov.documentchecking.pages.R.string
-import uk.gov.ui.components.BulletListParameters
 import uk.gov.ui.components.ButtonParameters
 import uk.gov.ui.components.ButtonType
-import uk.gov.ui.components.GdsBulletList
 import uk.gov.ui.components.GdsButton
 import uk.gov.ui.components.GdsHeading
 import uk.gov.ui.components.HeadingParameters
 import uk.gov.ui.components.HeadingSize
+import uk.gov.ui.components.content.BulletListParameters
 import uk.gov.ui.components.content.ContentParameters
+import uk.gov.ui.components.content.GdsBulletList
 import uk.gov.ui.components.content.GdsContent
 import uk.gov.ui.components.content.GdsContentText.GdsContentTextArray
+import uk.gov.ui.components.content.GdsLinkText
+import uk.gov.ui.components.content.LinkTextParameters
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.mediumPadding
 import uk.gov.ui.theme.smallPadding
 import uk.gov.ui.theme.xsmallPadding
 
-@Suppress("LongMethod")
 @Composable
 fun InformationScreen(
     informationScreenParameters: InformationScreenParameters
@@ -61,14 +62,18 @@ fun InformationScreen(
     }
 }
 
-@Composable
 @Suppress("LongMethod")
+@Composable
 internal fun Content(
     informationScreenParameters: InformationScreenParameters
 ) {
     informationScreenParameters.apply {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(
+                end = smallPadding,
+                start = smallPadding
+            )
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -76,39 +81,51 @@ internal fun Content(
                         .fillMaxWidth(),
                     size = HeadingSize.H1(),
                     text = title,
+                    textVar = titleVar,
                     textAlign = titleAlign,
                     padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
                         bottom = titleBottomPadding
                     )
                 )
             )
-            GdsContent(
-                contentParameters = ContentParameters(
-                    modifier = Modifier
-                        .padding(
-                            end = smallPadding,
-                            start = smallPadding,
-                            bottom = xsmallPadding
+            content?.let {
+                GdsContent(
+                    contentParameters = ContentParameters(
+                        modifier = Modifier
+                            .padding(
+                                bottom = xsmallPadding
+                            ),
+                        internalColumnModifier = Modifier
+                            .padding(
+                                bottom = xsmallPadding
+                            ),
+                        resource = listOf(
+                            GdsContentTextArray(
+                                text = content
+                            )
                         ),
-                    internalColumnModifier = Modifier
-                        .padding(
-                            bottom = xsmallPadding
-                        ),
-                    resource = listOf(
-                        GdsContentTextArray(
-                            text = content
+                        textAlign = contentAlign
+                    )
+                )
+            }
+            bulletContent?.let {
+                GdsBulletList(
+                    bulletListParameters = BulletListParameters(
+                        contentText = GdsContentTextArray(text = bulletContent)
+                    )
+                )
+            }
+            linkText?.let {
+                GdsLinkText(
+                    params = LinkTextParameters(
+                        contentText = linkText,
+                        uri = linkUri,
+                        colModifier = Modifier.padding(
+                            bottom = smallPadding
                         )
-                    ),
-                    textAlign = contentAlign
+                    )
                 )
-            )
-            GdsBulletList(
-                bulletListParameters = BulletListParameters(
-                    contentText = GdsContentTextArray(text = bulletContent)
-                )
-            )
+            }
         }
     }
 }
@@ -118,40 +135,46 @@ internal fun Buttons(
     informationScreenParameters: InformationScreenParameters
 ) {
     informationScreenParameters.apply {
-        Column(
-            modifier = Modifier
-                .padding(
-                    end = smallPadding,
-                    start = smallPadding,
-                    top = mediumPadding
+        primaryButtonText?.let {
+            Column(
+                modifier = Modifier
+                    .padding(
+                        end = smallPadding,
+                        start = smallPadding,
+                        top = mediumPadding
+                    )
+            ) {
+                GdsButton(
+                    buttonParameters = ButtonParameters(
+                        buttonType = ButtonType.PRIMARY(),
+                        text = primaryButtonText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = xsmallPadding),
+                        onClick = onPrimary
+                    )
                 )
-        ) {
-            GdsButton(
-                buttonParameters = ButtonParameters(
-                    buttonType = ButtonType.PRIMARY(),
-                    text = primaryButtonText,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = xsmallPadding),
-                    onClick = onPrimary
-                )
-            )
+            }
         }
     }
 }
 
 data class InformationScreenParameters(
     @ArrayRes
-    val content: Int,
+    val content: Int? = null,
     @ArrayRes
-    val bulletContent: Int,
+    val bulletContent: Int? = null,
+    @StringRes
+    val linkText: Int? = null,
+    val linkUri: String = "",
     val contentAlign: TextAlign = TextAlign.Start,
     var onPrimary: () -> Unit = {},
     var onHelp: () -> Unit = {},
     @StringRes
-    val primaryButtonText: Int,
+    val primaryButtonText: Int? = null,
     @StringRes
     val title: Int,
+    val titleVar: String? = null,
     val titleAlign: TextAlign = TextAlign.Start,
     val titleBottomPadding: Dp = mediumPadding
 )
@@ -180,7 +203,7 @@ class InformationScreenProvider : PreviewParameterProvider<InformationScreenPara
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun Preview(
+private fun Preview(
     @PreviewParameter(InformationScreenProvider::class)
     parameters: InformationScreenParameters
 ) {

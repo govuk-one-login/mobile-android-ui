@@ -1,0 +1,21 @@
+name: 'Bundle reports'
+description: 'Zip and upload build reports'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Bundle build reports
+      id: bundleReports
+      run: |
+        zip -9 -r reports.zip **/build/reports
+      shell: bash
+
+    - name: Upload build reports
+      id: uploadBuildReports
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-reports
+        retention-days: 1
+        if-no-files-found: error
+        path: |
+          reports.zip

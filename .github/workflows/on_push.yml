@@ -1,10 +1,12 @@
-name: On Push
+name: On Branch Push (non-develop/release/main)
 
 on:
   push:
     branches:
       - "**"
       - "!develop"
+      - "!release/**"
+      - "!main"
   workflow_dispatch:
 
 concurrency:
@@ -12,82 +14,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    runs-on: self-hosted
-    name: On Push
-
+  onPushJob:
+    name: Verify code base when pushed
+    runs-on: macos-latest
+#    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     steps:
-      - name: Add path globally
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-
-      - name: Add JAVA_HOME globally
-        run: |
-          echo "JAVA_HOME=$(/usr/libexec/java_home -v 17)" >> $GITHUB_ENV
-
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Run checkout github action
+        uses: actions/checkout@v4
         with:
           lfs: 'true'
           fetch-depth: 0
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.4.2
-        env:
-          CI: true
+      - name: Detect Arch
+        id: detect-arch
+        uses: ./config/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./config/actions/setup-runner
+
+      - name: Get latest tag
+        id: latest-tag
+        uses: ./config/actions/get-latest-tag
         with:
-          gradle-version: "wrapper"
+          pattern: 'v*'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+      - name: Generate version code
+        id: version-code
+        uses: ./config/actions/generate-version-code
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
+      - name: Generate version name
+        id: version-name
+        uses: ./config/actions/version-name
         with:
-          aws-region: eu-west-2
-          role-to-assume: ${{ secrets.GITHUBRUNNER_EC2_ACTIONS_ROLE_ARN }}
-          role-duration-seconds: 1200
-          role-skip-session-tagging: true
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ steps.latest-tag.outputs.current-tag }}
 
-      - name: Store GitHub actions ENV from AWS SecretManager
-        id: secrets
-        uses: say8425/aws-secrets-manager-actions@v2
+      - name: Run gradle unit tests
+        uses: ./config/actions/gradle-check
         with:
-          AWS_DEFAULT_REGION: "eu-west-2"
-          SECRET_NAME: "di-ipv-dca-mob-android/github-actions-env"
+          version-code: ${{ steps.version-code.outputs.version-code }}
+          version-name: ${{ steps.version-name.outputs.version-name }}
 
-      - name: Decode Keystore
-        env:
-          ENCODED_STRING: ${{ env.KEYSTORE_BASE64 }}
-        run: |
-          echo "${ENCODED_STRING}" | base64 --decode > config/keystore.jks
-
-      - name: Decode Service Account
-        env:
-          ENCODED_STRING: ${{ env.SERVICE_ACCOUNT_JSON_BASE64 }}
-        run: |
-          echo "${ENCODED_STRING}" | base64 --decode > config/service-account.json
-
-      - name: Check
-        run: |
-          ./gradlew check detekt shellcheck verifyPaparazziDebug --stacktrace
-        env:
-          CI: true
-          SIGNING_KEY_ALIAS: ${{ env.KEYSTORE_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ env.KEYSTORE_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ env.KEYSTORE_PASSWORD }}
-          READID_API_KEY: ${{ env.READID_API_KEY }}
-
-      - name: Bundle build reports
-        if: always()
-        run: |
-          zip -9 -r --exclude=**/build/reports/screenshots reports.zip **/build/reports
-
-      - name: Upload build reports
-        id: uploadBuildReports
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: build-reports
-          retention-days: 14
-          path: |
-            reports.zip
+      - name: Bundle reports folder
+        uses: ./config/actions/bundle-reports

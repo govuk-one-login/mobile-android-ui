@@ -1,0 +1,18 @@
+name: 'Detect Architecture'
+description: 'Determines the current runner architecture'
+
+outputs:
+  arch-in-use:
+    description: 'The architecture currently in use'
+    value: ${{ steps.detect-arch.outputs.arc-in-use }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Detect Arch
+      id: detect-arch
+      run: |
+        unameM="$(uname -m)"
+        echo "ARCH_IN_USE: $unameM"
+        echo "arch-in-use=$unameM" >> $GITHUB_OUTPUT
+      shell: bash

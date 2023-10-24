@@ -1,0 +1,44 @@
+name: 'Run sonar analysis'
+description: 'Run sonar analysis on a PR or branch'
+
+inputs:
+  project-version:
+    description: "Version of the project to use. Passed in as the `-Dsonar.projectVersion` property"
+    required: false
+    default: "0.0.1"
+  sonar-token:
+    description: "Sonarqube access token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Sonarqube PR Analysis
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        ./gradlew sonar \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.projectVersion=$PROJECT_VERSION \
+          -Dsonar.pullrequest.base=develop \
+          -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
+          -Dsonar.pullrequest.key=${{ github.event.number }}
+      shell: bash
+      env:
+        CI: true
+        PROJECT_VERSION: ${{ inputs.project-version }}
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+    - name: Run Sonarqube Branch Analysis
+      if: ${{ github.event_name != 'pull_request' }}
+      run: |
+        ./gradlew sonar \
+          -Dsonar.branch.name=${{ github.head_ref || github.ref_name }} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.projectVersion=$PROJECT_VERSION
+      shell: bash
+      env:
+        CI: true
+        PROJECT_VERSION: ${{ inputs.project-version }}
+        SONAR_TOKEN: ${{ inputs.sonar-token }}

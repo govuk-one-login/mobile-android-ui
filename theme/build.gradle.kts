@@ -14,7 +14,10 @@ plugins {
         "org.jlleitschuh.gradle.ktlint",
         "io.gitlab.arturbosch.detekt",
         "jacoco",
-        "maven-publish"
+        "maven-publish",
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -45,11 +48,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
     lint {
         abortOnError = true
         absolutePaths = true
@@ -76,9 +74,6 @@ android {
         textReport = true
         warningsAsErrors = true
         xmlReport = true
-    }
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
     }
 
     testOptions {
@@ -131,10 +126,6 @@ dependencies {
     testImplementation(platform(Testing.junit.bom))
 }
 
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
-}
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -145,15 +136,22 @@ publishing {
         }
     }
     repositories {
-        maven {
-            val propsFile = rootProject.file("github.properties")
-            val props = Properties()
-            props.load(FileInputStream(propsFile))
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/alphagov/di-mobile-android-ui")
-            credentials {
-                username = props["username"].toString()
-                password = props["token"].toString()
+        maven("https://maven.pkg.github.com/alphagov/di-mobile-android-ui") {
+            if (file("${rootProject.projectDir.path}/github.properties").exists()) {
+                val propsFile = File("${rootProject.projectDir.path}/github.properties")
+                val props = Properties().also { it.load(FileInputStream(propsFile)) }
+                val ghUsername = props["username"] as String?
+                val ghToken = props["token"] as String?
+
+                credentials {
+                    username = ghUsername
+                    password = ghToken
+                }
+            } else {
+                credentials {
+                    username = System.getenv("USERNAME")
+                    password = System.getenv("TOKEN")
+                }
             }
         }
     }

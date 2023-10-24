@@ -23,7 +23,7 @@ class ButtonsTest {
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 4
+    private val expectedParameterSize = 5
     private val parameterList = ButtonProvider().values.toList()
 
     @get:Rule
@@ -50,6 +50,8 @@ class ButtonsTest {
     @Test
     fun verifyFourthButton() = buttonTests(parameterList[3])
 
+    @Test
+    fun verifyFifthButton() = buttonTests(parameterList[4])
     private fun buttonTests(buttonParameters: ButtonParameters) {
         composeTestRule.setContent {
             GdsTheme {

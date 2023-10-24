@@ -1,0 +1,44 @@
+name: 'Run gradle check'
+description: 'Run the "check" command for a Gradle project'
+
+inputs:
+  actions-role-arn:
+    description: "AWS role ARN to assume"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-region: eu-west-2
+        role-to-assume: ${{ inputs.actions-role-arn }}
+        role-duration-seconds: 1200
+        role-skip-session-tagging: true
+
+    - name: Store GitHub actions ENV from AWS SecretManager
+      uses: say8425/aws-secrets-manager-actions@v2.2.1
+      with:
+        AWS_DEFAULT_REGION: "eu-west-2"
+        SECRET_NAME: "di-ipv-dca-mob-android/github-actions-env-v2"
+
+    - name: Store Google Play Service ENV from AWS SecretManager
+      uses: say8425/aws-secrets-manager-actions@v2.2.1
+      with:
+        AWS_DEFAULT_REGION: "eu-west-2"
+        SECRET_NAME: "di-ipv-dca-mob-android/google-play-service-account-json-v2"
+
+    - name: Decode Keystore
+      env:
+        ENCODED_STRING: ${{ env.KEYSTORE_BASE64 }}
+      run: |
+        echo "${ENCODED_STRING}" | base64 --decode > config/keystore.jks
+      shell: bash
+
+    - name: Decode Service Account
+      env:
+        ENCODED_STRING: ${{ env.SERVICE_ACCOUNT_JSON_BASE64 }}
+      run: |
+        echo "${ENCODED_STRING}" | base64 --decode > config/service-account.json
+      shell: bash

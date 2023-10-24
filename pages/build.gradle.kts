@@ -16,7 +16,10 @@ plugins {
         "jacoco",
         "app.cash.paparazzi",
         "kotlin-parcelize",
-        "maven-publish"
+        "maven-publish",
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -35,11 +38,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 
     composeOptions {
@@ -90,10 +88,6 @@ android {
         xmlReport = true
     }
 
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
-    }
-
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -120,6 +114,7 @@ dependencies {
     implementation(AndroidX.compose.ui.tooling)
     implementation(AndroidX.constraintLayout.compose)
     implementation(AndroidX.core.ktx)
+    implementation(Google.android.material)
     implementation(project(":components"))
     implementation(project(":theme"))
 
@@ -138,10 +133,6 @@ dependencies {
     }
 }
 
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
-}
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -152,15 +143,22 @@ publishing {
         }
     }
     repositories {
-        maven {
-            val propsFile = rootProject.file("github.properties")
-            val props = Properties()
-            props.load(FileInputStream(propsFile))
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/alphagov/di-mobile-android-ui")
-            credentials {
-                username = props["username"].toString()
-                password = props["token"].toString()
+        maven("https://maven.pkg.github.com/alphagov/di-mobile-android-ui") {
+            if (file("${rootProject.projectDir.path}/github.properties").exists()) {
+                val propsFile = File("${rootProject.projectDir.path}/github.properties")
+                val props = Properties().also { it.load(FileInputStream(propsFile)) }
+                val ghUsername = props["username"] as String?
+                val ghToken = props["token"] as String?
+
+                credentials {
+                    username = ghUsername
+                    password = ghToken
+                }
+            } else {
+                credentials {
+                    username = System.getenv("USERNAME")
+                    password = System.getenv("TOKEN")
+                }
             }
         }
     }

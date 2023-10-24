@@ -6,7 +6,6 @@ git lfs pre-push "$@"
   detekt \
   ktlintCheck \
   lint \
-  testBuildDebugUnitTest \
   testDebugUnitTest \
   verifyPaparazziDebug \
   vale \
