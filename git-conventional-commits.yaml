@@ -1,3 +1,5 @@
+# `npm install --global git-conventional-commits`
+
 ---
 convention:
   commitTypes:

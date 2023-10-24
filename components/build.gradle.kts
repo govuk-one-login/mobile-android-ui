@@ -16,7 +16,10 @@ plugins {
         "io.gitlab.arturbosch.detekt",
         "jacoco",
         "app.cash.paparazzi",
-        "maven-publish"
+        "maven-publish",
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -31,11 +34,6 @@ android {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         compileSdkPreview = "UpsideDownCake"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 
     buildTypes {
@@ -78,9 +76,6 @@ android {
         textReport = true
         warningsAsErrors = true
         xmlReport = true
-    }
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
     }
 
     testOptions {
@@ -137,20 +132,6 @@ dependencies {
         Testing.mockito.core
     ).forEach { testDependency ->
         testImplementation(testDependency)
-    }
-}
-
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
-}
-
-kotlin {
-    jvmToolchain(11)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 

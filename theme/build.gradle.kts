@@ -14,7 +14,10 @@ plugins {
         "org.jlleitschuh.gradle.ktlint",
         "io.gitlab.arturbosch.detekt",
         "jacoco",
-        "maven-publish"
+        "maven-publish",
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -45,11 +48,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
     lint {
         abortOnError = true
         absolutePaths = true
@@ -76,9 +74,6 @@ android {
         textReport = true
         warningsAsErrors = true
         xmlReport = true
-    }
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
     }
 
     testOptions {
@@ -129,20 +124,6 @@ dependencies {
     testImplementation(Testing.junit.jupiter)
     testImplementation(Testing.mockito.core)
     testImplementation(platform(Testing.junit.bom))
-}
-
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
-}
-
-kotlin {
-    jvmToolchain(11)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
 }
 
 publishing {

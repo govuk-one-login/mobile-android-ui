@@ -1,5 +1,5 @@
 buildscript {
-    val dep_jacoco by rootProject.extra { "0.8.8" }
+    val jacocoVersion by rootProject.extra("0.8.11")
     val minAndroidVersion by rootProject.extra { 29 }
     val compileAndroidVersion by rootProject.extra { 33 }
     val androidBuildToolsVersion by rootProject.extra { "33.0.0" }
@@ -31,22 +31,22 @@ buildscript {
         classpath(
             "org.jacoco",
             "org.jacoco.core",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.ant",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.report",
-            "_"
+            "_",
         )
         classpath(
             "org.jacoco",
             "org.jacoco.agent",
-            "_"
+            "_",
         )
     }
 }
@@ -59,18 +59,11 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.23.1" apply false
     id("app.cash.paparazzi") apply false
     id("org.sonarqube") version "4.3.0.3225"
+    id("uk.gov.ui.sonarqube-root-config")
 }
 
 apply {
     from("$rootDir/config/styles/tasks.gradle")
-    from("$rootDir/config/sonarqube/config.gradle")
-}
-
-subprojects {
-     apply {
-        from("$rootDir/config/jacoco/config.gradle")
-        from("$rootDir/config/sonarqube/moduleConfig.gradle")
-    }
 }
 
 tasks.register("check") {

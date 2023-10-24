@@ -1,4 +1,3 @@
-# Template for Conventional Commit Messages
 <type>(<optional scope>): <description>
 
 # [optional body]

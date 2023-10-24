@@ -19,7 +19,7 @@ static def getAsmIntermediate(
         ).flatMap { asmTask ->
             moduleProject.provider {
                 asmTask.classesOutputDir.getAsFileTree()
-                    .matching(new PatternSet().exclude(excludes))
+                        .matching(new PatternSet().exclude(excludes))
             }
         }
     } else if (moduleProject.tasks.findByName("transform${productFlavor.capitalize()}ClassesWithAsm")) {
@@ -28,7 +28,7 @@ static def getAsmIntermediate(
         ).flatMap { asmTask ->
             moduleProject.provider {
                 asmTask.classesOutputDir.getAsFileTree()
-                    .matching(new PatternSet().exclude(excludes))
+                        .matching(new PatternSet().exclude(excludes))
             }
         }
     } else {

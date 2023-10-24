@@ -16,7 +16,10 @@ plugins {
         "jacoco",
         "app.cash.paparazzi",
         "kotlin-parcelize",
-        "maven-publish"
+        "maven-publish",
+        "uk.gov.ui.jvm-toolchains",
+        "uk.gov.ui.sonarqube-module-config",
+        "uk.gov.ui.jacoco-module-config"
     ).forEach(::id)
 }
 
@@ -35,11 +38,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 
     composeOptions {
@@ -90,10 +88,6 @@ android {
         xmlReport = true
     }
 
-    testCoverage {
-        jacocoVersion = (rootProject.extra["dep_jacoco"] as String)
-    }
-
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -136,20 +130,6 @@ dependencies {
         Testing.mockito.core
     ).forEach { testDependency ->
         testImplementation(testDependency)
-    }
-}
-
-jacoco {
-    toolVersion = (rootProject.extra["dep_jacoco"] as String)
-}
-
-kotlin {
-    jvmToolchain(11)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
