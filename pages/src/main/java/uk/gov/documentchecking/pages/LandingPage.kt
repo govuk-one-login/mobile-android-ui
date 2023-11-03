@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -53,7 +54,7 @@ import uk.gov.ui.theme.xsmallPadding
                             bottom = mediumPadding,
                             top = mediumPadding
                         ),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Content(landingPageParameters)
                     Buttons(landingPageParameters)
@@ -62,38 +63,7 @@ import uk.gov.ui.theme.xsmallPadding
         }
     }
 
-class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
-    override val values: Sequence<LandingPageParameters> = sequenceOf(
-        LandingPageParameters(
-            topIcon = R.drawable.ic_photo_camera,
-            title = R.string.preview__BrpInstructions__title,
-            content = listOf(
-                LandingPageContentSection(
-                    subTitle = R.string.preview__BrpInstructions__subtitle_1,
-                    text = R.array.preview__BrpInstructions__array_0
-                ),
-                LandingPageContentSection(
-                    subTitle = R.string.preview__BrpInstructions__subtitle_2,
-                    text = R.array.preview__BrpInstructions__array_1
-                )
-            ),
-            image = R.drawable.preview__brpinstructions,
-            primaryButtonText = R.string.preview__BrpInstructions__primary_button,
-            secondaryButtonText = R.string.preview__BrpInstructions__secondary_button,
-            helpTextParameters = HelpTextParameters(
-                text = R.string.preview__BrpInstructions__help_text,
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_warning_icon
-                ),
-                rowModifier = Modifier.padding(
-                    end = smallPadding,
-                    start = smallPadding,
-                    top = smallPadding
-                )
-            )
-        )
-    )
-}
+
 
 @Composable
 @Suppress("LongMethod")
@@ -102,7 +72,10 @@ internal fun Content(
 ) {
     landingPageParameters.apply {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxHeight()
+
         ) {
             topIcon?.let {
                 GdsVectorImage(
@@ -148,18 +121,7 @@ internal fun Content(
                     textAlign = contentAlign
                 )
             )
-            image?.let {
-                GdsVectorImage(
-                    VectorImageParameters(
-                        description = imageDescription,
-                        image = it,
-                        scale = imageScale
-                    )
-                )
-            }
-            helpTextParameters?.let {
-                GdsHelpText(it)
-            }
+
         }
     }
 }
@@ -187,21 +149,6 @@ internal fun Buttons(
                     onClick = onPrimary
                 )
             )
-            GdsButton(
-                buttonParameters = ButtonParameters(
-                    buttonType = ButtonType.ICON(
-                        buttonType = ButtonType.SECONDARY(),
-                        iconParameters = IconParameters(
-                            image = R.drawable.ic_external_site,
-                            description = R.string.externalSite
-                        )
-                    ),
-                    text = secondaryButtonText,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    onClick = onSecondary
-                )
-            )
         }
     }
 }
@@ -210,29 +157,50 @@ internal fun Buttons(
 data class LandingPageParameters(
     @DrawableRes
     var topIcon: Int? = null,
-    var topIconScale: ContentScale = ContentScale.Fit,
+    var topIconScale: ContentScale = ContentScale.FillWidth,
     val content: List<LandingPageContentSection>,
-    val contentAlign: TextAlign = TextAlign.Start,
-    @DrawableRes
-    var image: Int? = null,
-    var imageScale: ContentScale = ContentScale.FillWidth,
-    @StringRes
-    var imageDescription: Int? = null,
+    val contentAlign: TextAlign = TextAlign.Center,
     var onPrimary: () -> Unit = {},
-    var onSecondary: () -> Unit = {},
-    var onHelp: () -> Unit = {},
     @StringRes
     val primaryButtonText: Int,
     @StringRes
     val secondaryButtonText: Int,
     @StringRes
     val title: Int,
-    val titleAlign: TextAlign = TextAlign.Start,
+    val titleAlign: TextAlign = TextAlign.Center,
     val titleBottomPadding: Dp = mediumPadding,
     val helpTextParameters: HelpTextParameters? = null,
     val subTitle: Int? = null
 
 )
+
+class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
+    override val values: Sequence<LandingPageParameters> = sequenceOf(
+        LandingPageParameters(
+            topIcon = R.drawable.ic_photo_camera,
+            title = R.string.preview__BrpInstructions__title,
+            content = listOf(
+                LandingPageContentSection(
+                    text = R.array.preview__BrpInstructions__array_0
+                ),
+
+            ),
+            primaryButtonText = R.string.preview__BrpInstructions__primary_button,
+            secondaryButtonText = R.string.preview__BrpInstructions__secondary_button,
+            helpTextParameters = HelpTextParameters(
+                text = R.string.preview__BrpInstructions__help_text,
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_warning_icon
+                ),
+                rowModifier = Modifier.padding(
+                    end = smallPadding,
+                    start = smallPadding,
+                    top = smallPadding
+                )
+            )
+        )
+    )
+}
 
 @Preview(
     backgroundColor = 0xFFFBFDF8,
