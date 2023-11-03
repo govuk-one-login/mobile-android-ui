@@ -25,16 +25,13 @@ import uk.gov.ui.components.ButtonParameters
 import uk.gov.ui.components.ButtonType
 import uk.gov.ui.components.GdsButton
 import uk.gov.ui.components.GdsHeading
-import uk.gov.ui.components.GdsHelpText
 import uk.gov.ui.components.GdsVectorImage
 import uk.gov.ui.components.HeadingParameters
 import uk.gov.ui.components.HeadingSize
-import uk.gov.ui.components.HelpTextParameters
 import uk.gov.ui.components.VectorImageParameters
 import uk.gov.ui.components.content.ContentParameters
 import uk.gov.ui.components.content.GdsContent
 import uk.gov.ui.components.content.GdsContentText
-import uk.gov.ui.components.images.icon.IconParameters
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.mediumPadding
 import uk.gov.ui.theme.smallPadding
@@ -54,16 +51,16 @@ import uk.gov.ui.theme.xsmallPadding
                             bottom = mediumPadding,
                             top = mediumPadding
                         ),
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceAround
                 ) {
                     Content(landingPageParameters)
                     Buttons(landingPageParameters)
+
                 }
+
             }
         }
     }
-
-
 
 @Composable
 @Suppress("LongMethod")
@@ -74,8 +71,7 @@ internal fun Content(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxHeight()
-
+            modifier = Modifier.fillMaxHeight(),
         ) {
             topIcon?.let {
                 GdsVectorImage(
@@ -148,7 +144,9 @@ internal fun Buttons(
                         .padding(bottom = xsmallPadding),
                     onClick = onPrimary
                 )
+
             )
+
         }
     }
 }
@@ -164,12 +162,9 @@ data class LandingPageParameters(
     @StringRes
     val primaryButtonText: Int,
     @StringRes
-    val secondaryButtonText: Int,
-    @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Center,
     val titleBottomPadding: Dp = mediumPadding,
-    val helpTextParameters: HelpTextParameters? = null,
     val subTitle: Int? = null
 
 )
@@ -186,18 +181,6 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
 
             ),
             primaryButtonText = R.string.preview__BrpInstructions__primary_button,
-            secondaryButtonText = R.string.preview__BrpInstructions__secondary_button,
-            helpTextParameters = HelpTextParameters(
-                text = R.string.preview__BrpInstructions__help_text,
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_warning_icon
-                ),
-                rowModifier = Modifier.padding(
-                    end = smallPadding,
-                    start = smallPadding,
-                    top = smallPadding
-                )
-            )
         )
     )
 }

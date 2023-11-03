@@ -16,9 +16,4 @@
     <string name="preview__BrpInstructions__primary_button">Primary button</string>
     <string name="preview__BrpInstructions__secondary_button">Secondary button</string>
     <string name="preview__BrpInstructions__help_text">Help text</string>
-
-    <!-- Sign in -->
-    <string name="signinTitle">GOV.UK One Login</string>
-    <string name="signinSubTitle">Sign in with the same email address you use for your GOV.UK One Login.</string>
-    <string name="signinButton">Sign in</string>
 </resources>
