@@ -6,7 +6,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,128 +34,93 @@ import uk.gov.ui.components.content.GdsContentText
 import uk.gov.ui.theme.GdsTheme
 import uk.gov.ui.theme.mediumPadding
 import uk.gov.ui.theme.smallPadding
-import uk.gov.ui.theme.xsmallPadding
 
-@Composable
-    fun LandingPage(
-        landingPageParameters:LandingPageParameters
-    ) {
-    landingPageParameters.apply {
-            GdsTheme {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(
-                            bottom = mediumPadding,
-                            top = mediumPadding
-                        ),
-                    verticalArrangement = Arrangement.SpaceAround
-                ) {
-                    Content(landingPageParameters)
-                    Buttons(landingPageParameters)
-
-                }
-
-            }
-        }
-    }
-
-@Composable
 @Suppress("LongMethod")
-internal fun Content(
-    landingPageParameters:LandingPageParameters
+@Composable
+fun LandingPage(
+    landingPageParameters: LandingPageParameters
 ) {
     landingPageParameters.apply {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxHeight(),
-        ) {
-            topIcon?.let {
-                GdsVectorImage(
-                    VectorImageParameters(
-                        modifier = Modifier.padding(bottom = mediumPadding),
-                        image = it,
-                        scale = topIconScale
+        GdsTheme {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(
+                        bottom = mediumPadding,
+                        top = mediumPadding
+                    ),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    topIcon?.let {
+                        GdsVectorImage(
+                            VectorImageParameters(
+                                modifier = Modifier.padding(bottom = mediumPadding),
+                                image = it,
+                                scale = topIconScale
+                            )
+                        )
+                    }
+                    GdsHeading(
+                        headingParameters = HeadingParameters(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            size = HeadingSize.H1(),
+                            text = title,
+                            textAlign = titleAlign,
+                            padding = PaddingValues(
+                                end = smallPadding,
+                                start = smallPadding,
+                                bottom = titleBottomPadding
+                            )
+                        )
+                    )
+                    GdsContent(
+                        contentParameters = ContentParameters(
+                            modifier = Modifier
+                                .padding(
+                                    end = smallPadding,
+                                    start = smallPadding,
+                                    bottom = smallPadding
+                                ),
+                            internalColumnModifier = Modifier
+                                .padding(
+                                    bottom = mediumPadding
+                                ),
+                            resource = content,
+                            textAlign = contentAlign
+                        )
+                    )
+                }
+                GdsButton(
+                    buttonParameters = ButtonParameters(
+                        buttonType = ButtonType.PRIMARY(),
+                        text = primaryButtonText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                start = smallPadding,
+                                end = smallPadding
+                            ),
+                        onClick = onPrimary
                     )
                 )
             }
-            GdsHeading(
-                headingParameters = HeadingParameters(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    size = HeadingSize.H1(),
-                    text = title,
-                    textAlign = titleAlign,
-                    padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
-                        bottom = titleBottomPadding
-                    )
-                )
-            )
-            GdsContent(
-                contentParameters = ContentParameters(
-                    modifier = Modifier
-                        .padding(
-                            end = smallPadding,
-                            start = smallPadding,
-                            bottom = smallPadding
-                        ),
-                    internalColumnModifier = Modifier
-                        .padding(
-                            bottom = mediumPadding
-                        ),
-                    resource = content.map {
-                        GdsContentText.GdsContentTextArray(
-                            subTitle = it.subTitle,
-                            text = it.text
-                        )
-                    },
-                    textAlign = contentAlign
-                )
-            )
-
         }
     }
 }
-
-@Composable
-internal fun Buttons(
-    landingPageParameters:LandingPageParameters
-) {
-    landingPageParameters.apply {
-        Column(
-            modifier = Modifier
-                .padding(
-                    end = smallPadding,
-                    start = smallPadding,
-                    top = mediumPadding
-                )
-        ) {
-            GdsButton(
-                buttonParameters = ButtonParameters(
-                    buttonType = ButtonType.PRIMARY(),
-                    text = primaryButtonText,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = xsmallPadding),
-                    onClick = onPrimary
-                )
-
-            )
-
-        }
-    }
-}
-
 
 data class LandingPageParameters(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.FillWidth,
-    val content: List<LandingPageContentSection>,
+    val content: List<GdsContentText>,
     val contentAlign: TextAlign = TextAlign.Center,
     var onPrimary: () -> Unit = {},
     @StringRes
@@ -164,9 +128,7 @@ data class LandingPageParameters(
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Center,
-    val titleBottomPadding: Dp = mediumPadding,
-    val subTitle: Int? = null
-
+    val titleBottomPadding: Dp = mediumPadding
 )
 
 class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
@@ -175,12 +137,11 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
-                LandingPageContentSection(
-                    text = R.array.preview__BrpInstructions__array_0
-                ),
-
+                GdsContentText.GdsContentTextString(
+                    intArrayOf(R.string.preview__BrpInstructions__subtitle_1)
+                )
             ),
-            primaryButtonText = R.string.preview__BrpInstructions__primary_button,
+            primaryButtonText = R.string.preview__BrpInstructions__primary_button
         )
     )
 }
