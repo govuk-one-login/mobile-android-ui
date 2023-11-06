@@ -31,9 +31,4 @@ runs:
         profile: ${{ inputs.device-profile }}
         # connectedDebugAndroidTest fails intermittently in the pipeline as no tests are found for :theme
         script: |
-          ./gradlew \
-            :components:connectedDebugAndroidTest \
-            :pages:connectedDebugAndroidTest \
-            jacocoDebugCombinedTestReport \
-            --continue \
-            --stacktrace
+          ./gradlew :components:connectedDebugAndroidTest :pages:connectedDebugAndroidTest jacocoDebugCombinedTestReport --continue --stacktrace
