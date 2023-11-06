@@ -29,5 +29,6 @@ runs:
         force-avd-creation: true
         emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -change-locale ${{ inputs.locale }}
         profile: ${{ inputs.device-profile }}
+        # connectedDebugAndroidTest fails intermittently in the pipeline as no tests are found for :theme
         script: |
-          ./gradlew connectedDebugAndroidTest jacocoDebugCombinedTestReport --continue --stacktrace
+          ./gradlew :components:connectedDebugAndroidTest :pages:connectedDebugAndroidTest jacocoDebugCombinedTestReport --continue --stacktrace
