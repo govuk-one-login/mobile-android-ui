@@ -17,6 +17,7 @@ JIRA
 JRE
 Jacoco
 Jetpack
+jetpack
 Jira
 LFS
 MAM
