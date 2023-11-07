@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.content.BulletListParameters
-import uk.gov.ui.components.content.BulletListProvider
-import uk.gov.ui.components.content.GdsBulletList
+import uk.gov.android.ui.components.content.BulletListParameters
+import uk.gov.android.ui.components.content.BulletListProvider
+import uk.gov.android.ui.components.content.GdsBulletList
 
 @RunWith(Parameterized::class)
 class BulletListTest(

@@ -1,4 +1,4 @@
-package uk.gov.ui.components.images.icon
+package uk.gov.android.ui.components.images.icon
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes

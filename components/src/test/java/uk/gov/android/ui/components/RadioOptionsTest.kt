@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.inputs.radio.GdsRadioSelection
-import uk.gov.ui.components.inputs.radio.RadioSelectionParameters
-import uk.gov.ui.components.inputs.radio.RadioSelectionProvider
+import uk.gov.android.ui.components.inputs.radio.GdsRadioSelection
+import uk.gov.android.ui.components.inputs.radio.RadioSelectionParameters
+import uk.gov.android.ui.components.inputs.radio.RadioSelectionProvider
 
 @RunWith(Parameterized::class)
 class RadioOptionsTest(

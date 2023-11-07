@@ -1,4 +1,4 @@
-package uk.gov.ui.components.inputs.date
+package uk.gov.android.ui.components.inputs.date
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
@@ -38,9 +38,9 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import uk.gov.ui.components.R
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.R
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsDatePicker(

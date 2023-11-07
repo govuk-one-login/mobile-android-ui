@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.images.icon.GdsIconPreview
-import uk.gov.ui.components.images.icon.GdsIconProvider
-import uk.gov.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.components.images.icon.GdsIconPreview
+import uk.gov.android.ui.components.images.icon.GdsIconProvider
+import uk.gov.android.ui.components.images.icon.IconParameters
 
 @RunWith(Parameterized::class)
 class IconScreenshotTest(

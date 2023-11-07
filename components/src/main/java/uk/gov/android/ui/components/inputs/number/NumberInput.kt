@@ -1,4 +1,4 @@
-package uk.gov.ui.components.inputs.number
+package uk.gov.android.ui.components.inputs.number
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
@@ -25,9 +25,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.ui.components.R
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.R
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsNumberInput(

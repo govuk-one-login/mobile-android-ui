@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.inputs.date.DatePickerParameters
-import uk.gov.ui.components.inputs.date.DatePickerProvider
-import uk.gov.ui.components.inputs.date.GdsDatePicker
+import uk.gov.android.ui.components.inputs.date.DatePickerParameters
+import uk.gov.android.ui.components.inputs.date.DatePickerProvider
+import uk.gov.android.ui.components.inputs.date.GdsDatePicker
 
 @RunWith(Parameterized::class)
 class DatePickerTest(

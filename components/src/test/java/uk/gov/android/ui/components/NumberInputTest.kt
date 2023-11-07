@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.inputs.number.GdsNumberInput
-import uk.gov.ui.components.inputs.number.NumberInputParameters
-import uk.gov.ui.components.inputs.number.NumberInputProvider
+import uk.gov.android.ui.components.inputs.number.GdsNumberInput
+import uk.gov.android.ui.components.inputs.number.NumberInputParameters
+import uk.gov.android.ui.components.inputs.number.NumberInputProvider
 
 @RunWith(Parameterized::class)
 class NumberInputTest(

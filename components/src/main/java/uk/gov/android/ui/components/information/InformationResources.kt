@@ -1,12 +1,12 @@
-package uk.gov.ui.components.information
+package uk.gov.android.ui.components.information
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import uk.gov.ui.components.content.GdsContentText
-import uk.gov.ui.components.images.icon.IconResources
+import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.components.images.icon.IconResources
 
 @Keep
 @Parcelize

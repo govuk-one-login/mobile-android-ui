@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.Context
 import androidx.compose.ui.test.assertHeightIsAtLeast
@@ -14,8 +14,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.minimumTouchTarget
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.minimumTouchTarget
 
 @RunWith(AndroidJUnit4::class)
 class ButtonsTest {

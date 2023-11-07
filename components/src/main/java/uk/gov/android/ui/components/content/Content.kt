@@ -1,4 +1,4 @@
-package uk.gov.ui.components.content
+package uk.gov.android.ui.components.content
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -15,11 +15,11 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import uk.gov.ui.components.GdsHeading
-import uk.gov.ui.components.HeadingParameters
-import uk.gov.ui.components.content.GdsContentText.GdsContentTextArray
-import uk.gov.ui.components.content.GdsContentText.GdsContentTextString
-import uk.gov.ui.theme.GdsTheme
+import uk.gov.android.ui.components.GdsHeading
+import uk.gov.android.ui.components.HeadingParameters
+import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
+import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
+import uk.gov.android.ui.theme.GdsTheme
 
 @Composable
 fun GdsContent(

@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -27,14 +27,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import uk.gov.ui.components.R.drawable
-import uk.gov.ui.components.R.string
-import uk.gov.ui.components.images.icon.GdsIcon
-import uk.gov.ui.components.images.icon.IconParameters
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.disabled_button
-import uk.gov.ui.theme.minimumTouchTarget
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.R.drawable
+import uk.gov.android.ui.components.R.string
+import uk.gov.android.ui.components.images.icon.GdsIcon
+import uk.gov.android.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.disabled_button
+import uk.gov.android.ui.theme.minimumTouchTarget
+import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsButton(

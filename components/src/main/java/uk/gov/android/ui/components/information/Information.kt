@@ -1,4 +1,4 @@
-package uk.gov.ui.components.information
+package uk.gov.android.ui.components.information
 
 import android.content.res.Configuration
 import androidx.annotation.VisibleForTesting
@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.layoutId
-import uk.gov.ui.components.content.GdsContent
-import uk.gov.ui.components.images.icon.GdsIcon
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.content.GdsContent
+import uk.gov.android.ui.components.images.icon.GdsIcon
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
 /**
  * DCMAW-5886

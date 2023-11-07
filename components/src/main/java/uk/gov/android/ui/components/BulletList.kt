@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import uk.gov.ui.components.content.GdsContentText
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsBulletList(

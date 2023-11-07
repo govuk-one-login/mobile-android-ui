@@ -1,4 +1,4 @@
-package uk.gov.ui.utils.extensions
+package uk.gov.android.ui.utils.extensions
 
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull

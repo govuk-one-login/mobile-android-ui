@@ -1,8 +1,8 @@
-package uk.gov.ui.components.images.icon
+package uk.gov.android.ui.components.images.icon
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.ui.components.R.drawable
+import uk.gov.android.ui.components.R.drawable
 
 /**
  * Collection of [IconParameters] for use within Android Studio previews.

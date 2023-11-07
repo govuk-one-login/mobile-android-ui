@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -12,17 +12,17 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.lineHeightH1
-import uk.gov.ui.theme.lineHeightH2
-import uk.gov.ui.theme.lineHeightH3
-import uk.gov.ui.theme.lineHeightH4
-import uk.gov.ui.theme.textSizeH1
-import uk.gov.ui.theme.textSizeH2
-import uk.gov.ui.theme.textSizeH3
-import uk.gov.ui.theme.textSizeH4
-import uk.gov.ui.utils.extensions.assertFontSize
-import uk.gov.ui.utils.extensions.assertLineHeight
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.lineHeightH1
+import uk.gov.android.ui.theme.lineHeightH2
+import uk.gov.android.ui.theme.lineHeightH3
+import uk.gov.android.ui.theme.lineHeightH4
+import uk.gov.android.ui.theme.textSizeH1
+import uk.gov.android.ui.theme.textSizeH2
+import uk.gov.android.ui.theme.textSizeH3
+import uk.gov.android.ui.theme.textSizeH4
+import uk.gov.android.ui.utils.extensions.assertFontSize
+import uk.gov.android.ui.utils.extensions.assertLineHeight
 
 @RunWith(AndroidJUnit4::class)
 class HeadingsTest {

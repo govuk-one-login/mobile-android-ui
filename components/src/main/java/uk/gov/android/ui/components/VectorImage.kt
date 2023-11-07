@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
@@ -24,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.mediumPadding
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.mediumPadding
 
 @Composable
 fun GdsVectorImage(

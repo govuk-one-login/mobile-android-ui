@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.DeviceConfig
@@ -9,7 +9,7 @@ import com.android.resources.NightMode.NIGHT
 import com.android.resources.NightMode.NOTNIGHT
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.GdsTheme
 
 /**
  * Base implementation for tests that utilise the Paparazzi testing library.

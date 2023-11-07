@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.content.ContentParameters
-import uk.gov.ui.components.content.ContentProvider
-import uk.gov.ui.components.content.GdsContent
+import uk.gov.android.ui.components.content.ContentParameters
+import uk.gov.android.ui.components.content.ContentProvider
+import uk.gov.android.ui.components.content.GdsContent
 
 @RunWith(Parameterized::class)
 class ContentTest(

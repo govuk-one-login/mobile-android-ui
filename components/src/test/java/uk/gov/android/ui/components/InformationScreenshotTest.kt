@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.information.InformationParameters
-import uk.gov.ui.components.information.InformationPreview
-import uk.gov.ui.components.information.InformationProvider
+import uk.gov.android.ui.components.information.InformationParameters
+import uk.gov.android.ui.components.information.InformationPreview
+import uk.gov.android.ui.components.information.InformationProvider
 
 @RunWith(Parameterized::class)
 class InformationScreenshotTest(

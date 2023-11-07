@@ -1,4 +1,4 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -11,8 +11,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.components.content.GdsContentText
-import uk.gov.ui.theme.GdsTheme
+import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class)
 class BulletListTest {
@@ -57,6 +57,9 @@ class BulletListTest {
 
                 is GdsContentText.GdsContentTextArray ->
                     resources.getStringArray(contentText.text)
+
+                else ->
+                    arrayOf()
             }
 
             stringResources.forEach {

@@ -1,13 +1,13 @@
-package uk.gov.ui.components.information
+package uk.gov.android.ui.components.information
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.ui.components.HeadingSize.H1
-import uk.gov.ui.components.R.drawable
-import uk.gov.ui.components.R.string
-import uk.gov.ui.components.content.ContentParameters
-import uk.gov.ui.components.content.GdsContentText.GdsContentTextString
-import uk.gov.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.components.HeadingSize.H1
+import uk.gov.android.ui.components.R.drawable
+import uk.gov.android.ui.components.R.string
+import uk.gov.android.ui.components.content.ContentParameters
+import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
+import uk.gov.android.ui.components.images.icon.IconParameters
 
 class InformationProvider : PreviewParameterProvider<InformationParameters> {
     override val values: Sequence<InformationParameters> = sequenceOf(

@@ -1,4 +1,4 @@
-package uk.gov.ui.components.inputs.radio
+package uk.gov.android.ui.components.inputs.radio
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.GdsTheme
 
 @RunWith(AndroidJUnit4::class)
 class RadioOptionsTest {

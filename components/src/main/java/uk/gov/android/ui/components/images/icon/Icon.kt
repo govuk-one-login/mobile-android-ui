@@ -1,4 +1,4 @@
-package uk.gov.ui.components.images.icon
+package uk.gov.android.ui.components.images.icon
 
 import android.content.res.Configuration
 import androidx.annotation.VisibleForTesting
@@ -20,21 +20,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.constraintlayout.compose.layoutId
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
 /**
  * Composable for showing an [Icon] to the User.
  *
  * This is for when having the option to change the color of the image is useful. For images that
- * don't change their color, a [uk.gov.ui.components.GdsVectorImage] may be more appropriate, due
+ * don't change their color, a [uk.gov.android.ui.components.GdsVectorImage] may be more appropriate, due
  * to how the [androidx.compose.foundation.Image] performs tinting instead of color overrides.
  *
  * @param parameters The configuration of this Composable.
  * @param colors The theme colors to override. Defaults to [MaterialTheme.colors] due to how the
  * [GdsTheme] handles coloring.
  *
- * @see uk.gov.ui.components.GdsVectorImage
+ * @see uk.gov.android.ui.components.GdsVectorImage
 ]
  */
 @Composable

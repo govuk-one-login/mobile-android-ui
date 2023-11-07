@@ -1,4 +1,4 @@
-package uk.gov.ui.components.content
+package uk.gov.android.ui.components.content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -6,11 +6,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.ui.components.R.array
-import uk.gov.ui.components.R.string
-import uk.gov.ui.components.content.GdsContentText.GdsContentTextArray
-import uk.gov.ui.components.content.GdsContentText.GdsContentTextString
-import uk.gov.ui.theme.spacingSingle
+import uk.gov.android.ui.components.R.array
+import uk.gov.android.ui.components.R.string
+import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
+import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
+import uk.gov.android.ui.theme.spacingSingle
 
 class ContentProvider : PreviewParameterProvider<ContentParameters> {
     override val values: Sequence<ContentParameters> = sequenceOf(

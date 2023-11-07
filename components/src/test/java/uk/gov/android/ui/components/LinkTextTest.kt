@@ -1,12 +1,12 @@
-package uk.gov.ui.components
+package uk.gov.android.ui.components
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.ui.components.content.GdsLinkText
-import uk.gov.ui.components.content.LinkTextParameters
-import uk.gov.ui.components.content.LinkTextProvider
+import uk.gov.android.ui.components.content.GdsLinkText
+import uk.gov.android.ui.components.content.LinkTextParameters
+import uk.gov.android.ui.components.content.LinkTextProvider
 
 @RunWith(Parameterized::class)
 class LinkTextTest(

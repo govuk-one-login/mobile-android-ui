@@ -1,4 +1,4 @@
-package uk.gov.ui.components.content
+package uk.gov.android.ui.components.content
 
 import android.os.Parcelable
 import androidx.annotation.ArrayRes

@@ -1,4 +1,4 @@
-package uk.gov.ui.components.information
+package uk.gov.android.ui.components.information
 
 object InformationTags {
     const val icon = "Icon"
