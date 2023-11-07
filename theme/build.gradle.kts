@@ -31,7 +31,6 @@ android {
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        compileSdkPreview = "UpsideDownCake"
     }
 
     buildTypes {

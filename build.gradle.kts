@@ -1,8 +1,8 @@
 buildscript {
     val jacocoVersion by rootProject.extra("0.8.11")
     val minAndroidVersion by rootProject.extra { 29 }
-    val compileAndroidVersion by rootProject.extra { 33 }
-    val androidBuildToolsVersion by rootProject.extra { "33.0.0" }
+    val compileAndroidVersion by rootProject.extra { 34 }
+    val androidBuildToolsVersion by rootProject.extra { "34.0.0" }
     val composeKotlinCompilerVersion by rootProject.extra { "1.5.0" }
     val configDir by rootProject.extra { "$rootDir/config" }
 
