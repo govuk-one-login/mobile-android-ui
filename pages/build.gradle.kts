@@ -27,7 +27,7 @@ apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
 apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
 
 android {
-    namespace = "uk.gov.documentchecking.pages"
+    namespace = "${rootProject.extra["baseNamespace"]}.pages"
     compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
 
     defaultConfig {

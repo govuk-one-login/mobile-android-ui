@@ -1,4 +1,4 @@
-package uk.gov.ui.theme
+package uk.gov.android.ui.theme
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals

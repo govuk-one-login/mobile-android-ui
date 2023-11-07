@@ -5,6 +5,7 @@ buildscript {
     val androidBuildToolsVersion by rootProject.extra { "34.0.0" }
     val composeKotlinCompilerVersion by rootProject.extra { "1.5.0" }
     val configDir by rootProject.extra { "$rootDir/config" }
+    val baseNamespace by rootProject.extra { "uk.gov.android.ui" }
 
     val localProperties = java.util.Properties()
     if (rootProject.file("local.properties").exists()) {

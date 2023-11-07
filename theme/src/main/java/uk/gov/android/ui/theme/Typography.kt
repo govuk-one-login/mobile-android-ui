@@ -1,4 +1,4 @@
-package uk.gov.ui.theme
+package uk.gov.android.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
