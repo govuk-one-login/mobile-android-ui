@@ -52,6 +52,7 @@ class ButtonsTest {
 
     @Test
     fun verifyFifthButton() = buttonTests(parameterList[4])
+
     @Test
     fun verifySixthButton() = buttonTests(parameterList[5])
 

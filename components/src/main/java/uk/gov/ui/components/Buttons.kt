@@ -119,8 +119,8 @@ private fun DisplayIcon(
             backGroundColor = buttonColors.backgroundColor(true).value,
             foreGroundColor = buttonColors.contentColor(true).value,
             modifier = modifier.then(
-                    iconButtonType.iconParameters.modifier
-                )
+                iconButtonType.iconParameters.modifier
+            )
         ),
         colors = colors
     )
