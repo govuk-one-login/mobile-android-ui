@@ -77,7 +77,8 @@ private fun buttonContent(
         DisplayIcon(
             iconButtonType = parameters.buttonType,
             colors = colors,
-            buttonColors = buttonColors
+            buttonColors = buttonColors,
+            imagePositionAtEnd = false
         )
     }
 
@@ -93,7 +94,8 @@ private fun buttonContent(
         DisplayIcon(
             iconButtonType = parameters.buttonType,
             colors = colors,
-            buttonColors = buttonColors
+            buttonColors = buttonColors,
+            imagePositionAtEnd = true
         )
     }
 }
@@ -102,15 +104,21 @@ private fun buttonContent(
 private fun DisplayIcon(
     iconButtonType: ButtonType.ICON,
     colors: Colors,
-    buttonColors: ButtonColors
+    buttonColors: ButtonColors,
+    imagePositionAtEnd: Boolean
 ) {
+    val modifier = if (imagePositionAtEnd) {
+        Modifier
+            .padding(start = smallPadding)
+    } else {
+        Modifier
+            .padding(end = smallPadding)
+    }
     GdsIcon(
         parameters = iconButtonType.iconParameters.copy(
             backGroundColor = buttonColors.backgroundColor(true).value,
             foreGroundColor = buttonColors.contentColor(true).value,
-            modifier = Modifier
-                .padding(start = smallPadding)
-                .then(
+            modifier = modifier.then(
                     iconButtonType.iconParameters.modifier
                 )
         ),
@@ -219,8 +227,7 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = drawable.ic_external_site,
                     description = string.externalSite,
-                    imagePositionAtEnd = false,
-                    modifier = Modifier.padding(end = 8.dp)
+                    imagePositionAtEnd = false
                 )
             ),
             onClick = {},
@@ -232,8 +239,7 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = drawable.ic_external_site,
                     description = string.externalSite,
-                    imagePositionAtEnd = false,
-                    modifier = Modifier.padding(end = 8.dp)
+                    imagePositionAtEnd = false
                 )
             ),
             onClick = {},
