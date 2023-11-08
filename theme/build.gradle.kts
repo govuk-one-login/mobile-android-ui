@@ -25,13 +25,12 @@ apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
 apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
 
 android {
-    namespace = "uk.gov.ui.theme"
+    namespace = "${rootProject.extra["baseNamespace"]}.theme"
     compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
 
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        compileSdkPreview = "UpsideDownCake"
     }
 
     buildTypes {

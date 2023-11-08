@@ -4,7 +4,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.ui.components.R
+import uk.gov.android.ui.components.R
 
 class GdsNavigationBarProvider : PreviewParameterProvider<GdsNavigationBar> {
     private val baselineNavItem = GdsNavigationItem(
