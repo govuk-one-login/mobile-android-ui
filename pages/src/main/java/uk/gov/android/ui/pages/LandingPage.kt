@@ -1,4 +1,4 @@
-package uk.gov.documentchecking.pages
+package uk.gov.android.ui.pages
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
@@ -20,20 +20,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.ui.components.ButtonParameters
-import uk.gov.ui.components.ButtonType
-import uk.gov.ui.components.GdsButton
-import uk.gov.ui.components.GdsHeading
-import uk.gov.ui.components.GdsVectorImage
-import uk.gov.ui.components.HeadingParameters
-import uk.gov.ui.components.HeadingSize
-import uk.gov.ui.components.VectorImageParameters
-import uk.gov.ui.components.content.ContentParameters
-import uk.gov.ui.components.content.GdsContent
-import uk.gov.ui.components.content.GdsContentText
-import uk.gov.ui.theme.GdsTheme
-import uk.gov.ui.theme.mediumPadding
-import uk.gov.ui.theme.smallPadding
+import uk.gov.android.ui.components.ButtonParameters
+import uk.gov.android.ui.components.ButtonType
+import uk.gov.android.ui.components.GdsButton
+import uk.gov.android.ui.components.GdsHeading
+import uk.gov.android.ui.components.GdsVectorImage
+import uk.gov.android.ui.components.HeadingParameters
+import uk.gov.android.ui.components.HeadingSize
+import uk.gov.android.ui.components.VectorImageParameters
+import uk.gov.android.ui.components.content.ContentParameters
+import uk.gov.android.ui.components.content.GdsContent
+import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.mediumPadding
+import uk.gov.android.ui.theme.smallPadding
 
 @Suppress("LongMethod")
 @Composable
