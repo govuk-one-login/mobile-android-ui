@@ -1,32 +1,32 @@
-package uk.gov.ui.themeM3
+package uk.gov.android.ui.themeM3
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import uk.gov.ui.theme.md_theme_dark_background
-import uk.gov.ui.theme.md_theme_dark_error
-import uk.gov.ui.theme.md_theme_dark_onBackground
-import uk.gov.ui.theme.md_theme_dark_onError
-import uk.gov.ui.theme.md_theme_dark_onPrimary
-import uk.gov.ui.theme.md_theme_dark_onSecondary
-import uk.gov.ui.theme.md_theme_dark_onSurface
-import uk.gov.ui.theme.md_theme_dark_primary
-import uk.gov.ui.theme.md_theme_dark_primaryVariant
-import uk.gov.ui.theme.md_theme_dark_secondary
-import uk.gov.ui.theme.md_theme_dark_surface
-import uk.gov.ui.theme.md_theme_light_background
-import uk.gov.ui.theme.md_theme_light_error
-import uk.gov.ui.theme.md_theme_light_onBackground
-import uk.gov.ui.theme.md_theme_light_onError
-import uk.gov.ui.theme.md_theme_light_onPrimary
-import uk.gov.ui.theme.md_theme_light_onSecondary
-import uk.gov.ui.theme.md_theme_light_onSurface
-import uk.gov.ui.theme.md_theme_light_primary
-import uk.gov.ui.theme.md_theme_light_primaryVariant
-import uk.gov.ui.theme.md_theme_light_secondary
-import uk.gov.ui.theme.md_theme_light_surface
+import uk.gov.android.ui.theme.md_theme_dark_background
+import uk.gov.android.ui.theme.md_theme_dark_error
+import uk.gov.android.ui.theme.md_theme_dark_onBackground
+import uk.gov.android.ui.theme.md_theme_dark_onError
+import uk.gov.android.ui.theme.md_theme_dark_onPrimary
+import uk.gov.android.ui.theme.md_theme_dark_onSecondary
+import uk.gov.android.ui.theme.md_theme_dark_onSurface
+import uk.gov.android.ui.theme.md_theme_dark_primary
+import uk.gov.android.ui.theme.md_theme_dark_primaryVariant
+import uk.gov.android.ui.theme.md_theme_dark_secondary
+import uk.gov.android.ui.theme.md_theme_dark_surface
+import uk.gov.android.ui.theme.md_theme_light_background
+import uk.gov.android.ui.theme.md_theme_light_error
+import uk.gov.android.ui.theme.md_theme_light_onBackground
+import uk.gov.android.ui.theme.md_theme_light_onError
+import uk.gov.android.ui.theme.md_theme_light_onPrimary
+import uk.gov.android.ui.theme.md_theme_light_onSecondary
+import uk.gov.android.ui.theme.md_theme_light_onSurface
+import uk.gov.android.ui.theme.md_theme_light_primary
+import uk.gov.android.ui.theme.md_theme_light_primaryVariant
+import uk.gov.android.ui.theme.md_theme_light_secondary
+import uk.gov.android.ui.theme.md_theme_light_surface
 
 private val DarkColorPalette = darkColorScheme(
     background = md_theme_dark_background,

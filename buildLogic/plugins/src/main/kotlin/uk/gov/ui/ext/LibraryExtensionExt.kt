@@ -22,7 +22,6 @@ object LibraryExtensionExt {
             debug {
                 this.enableAndroidTestCoverage = true
                 this.enableUnitTestCoverage = true
-                this.isTestCoverageEnabled = true
             }
         }
     }
@@ -43,7 +42,6 @@ object LibraryExtensionExt {
             debug {
                 this.enableAndroidTestCoverage = true
                 this.enableUnitTestCoverage = true
-                this.isTestCoverageEnabled = true
             }
         }
     }

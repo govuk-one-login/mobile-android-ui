@@ -1,23 +1,23 @@
-package uk.gov.ui.themeM3
+package uk.gov.android.ui.themeM3
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import uk.gov.ui.theme.R
-import uk.gov.ui.theme.buttonLineHeight
-import uk.gov.ui.theme.buttonTextSize
-import uk.gov.ui.theme.lineHeightH1
-import uk.gov.ui.theme.lineHeightH2
-import uk.gov.ui.theme.lineHeightH3
-import uk.gov.ui.theme.lineHeightH4
-import uk.gov.ui.theme.textSizeBody
-import uk.gov.ui.theme.textSizeBody2
-import uk.gov.ui.theme.textSizeH1
-import uk.gov.ui.theme.textSizeH2
-import uk.gov.ui.theme.textSizeH3
-import uk.gov.ui.theme.textSizeH4
+import uk.gov.android.ui.theme.R
+import uk.gov.android.ui.theme.buttonLineHeight
+import uk.gov.android.ui.theme.buttonTextSize
+import uk.gov.android.ui.theme.lineHeightH1
+import uk.gov.android.ui.theme.lineHeightH2
+import uk.gov.android.ui.theme.lineHeightH3
+import uk.gov.android.ui.theme.lineHeightH4
+import uk.gov.android.ui.theme.textSizeBody
+import uk.gov.android.ui.theme.textSizeBody2
+import uk.gov.android.ui.theme.textSizeH1
+import uk.gov.android.ui.theme.textSizeH2
+import uk.gov.android.ui.theme.textSizeH3
+import uk.gov.android.ui.theme.textSizeH4
 
 // Set of Material typography styles to start with
 val TypographyM3 = Typography(
