@@ -7,7 +7,7 @@ pluginManagement {
 
     plugins {
         id("com.android.library")
-        id("org.jetbrains.kotlin.android") version "1.9.0"
+        id("org.jetbrains.kotlin.android") version "1.9.20"
         id("de.fayard.refreshVersions") version "0.60.3"
         id("app.cash.paparazzi")
     }
