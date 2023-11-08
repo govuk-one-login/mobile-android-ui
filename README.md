@@ -23,7 +23,7 @@ To use these libraries please refer to the Github Packages to find the latest ve
 
 ### Gradle
 
-Include `maven("https://maven.pkg.github.com/alphagov/di-mobile-android-ui")` in the 
+Include `maven("https://github.com/govuk-one-login/mobile-android-ui")` in the 
 ```
 repositories {
 ...
