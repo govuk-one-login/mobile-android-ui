@@ -27,13 +27,12 @@ apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
 apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
 
 android {
-    namespace = "uk.gov.documentchecking.pages"
+    namespace = "${rootProject.extra["baseNamespace"]}.pages"
     compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
 
     defaultConfig {
         minSdk = (rootProject.extra["minAndroidVersion"] as Int)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        compileSdkPreview = "UpsideDownCake"
     }
 
     buildFeatures {
@@ -143,7 +142,7 @@ publishing {
         }
     }
     repositories {
-        maven("https://maven.pkg.github.com/alphagov/di-mobile-android-ui") {
+        maven("https://maven.pkg.github.com/govuk-one-login/mobile-android-ui") {
             if (file("${rootProject.projectDir.path}/github.properties").exists()) {
                 val propsFile = File("${rootProject.projectDir.path}/github.properties")
                 val props = Properties().also { it.load(FileInputStream(propsFile)) }

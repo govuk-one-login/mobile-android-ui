@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
-import uk.gov.ui.themeM3.GdsThemeM3
+import uk.gov.android.ui.themeM3.GdsThemeM3
 
 /**
  * Wrapper data class for the [NavigationBar] Composable.
