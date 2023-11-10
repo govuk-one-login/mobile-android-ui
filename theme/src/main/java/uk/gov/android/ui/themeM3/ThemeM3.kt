@@ -1,12 +1,16 @@
 package uk.gov.android.ui.themeM3
 
 import android.app.Activity
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -77,18 +81,25 @@ fun GdsThemeM3(
         typography = TypographyM3,
         shapes = ShapesM3
     ) {
+        val backgroundColor = colors.background
         val view = LocalView.current
+
         if (!view.isInEditMode) {
-            val statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
             SideEffect {
                 val window = (view.context as Activity).window
-                window.statusBarColor = statusBarColor
+                window.statusBarColor = backgroundColor.toArgb()
                 WindowCompat
                     .getInsetsController(window, view)
                     .isAppearanceLightStatusBars = !darkTheme
             }
         }
 
-        content()
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(backgroundColor)
+        ) {
+            content()
+        }
     }
 }
