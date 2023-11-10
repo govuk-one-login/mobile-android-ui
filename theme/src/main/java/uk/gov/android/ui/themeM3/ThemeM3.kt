@@ -1,19 +1,36 @@
 package uk.gov.android.ui.themeM3
 
 import android.app.Activity
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Typography
+import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import uk.gov.android.ui.ext.isDark
+import uk.gov.android.ui.ext.toHexString
 import uk.gov.android.ui.theme.md_theme_dark_background
 import uk.gov.android.ui.theme.md_theme_dark_error
 import uk.gov.android.ui.theme.md_theme_dark_onBackground
@@ -67,8 +84,11 @@ private val LightColorPalette = lightColorScheme(
 
 @Composable
 fun GdsThemeM3(
+    modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    shapes: Shapes = ShapesM3,
+    typography: Typography = TypographyM3,
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -78,8 +98,8 @@ fun GdsThemeM3(
 
     MaterialTheme(
         colorScheme = colors,
-        typography = TypographyM3,
-        shapes = ShapesM3
+        shapes = shapes,
+        typography = typography
     ) {
         val backgroundColor = colors.background
         val view = LocalView.current
@@ -98,8 +118,145 @@ fun GdsThemeM3(
             modifier = Modifier
                 .fillMaxSize()
                 .background(backgroundColor)
+                .then(modifier)
         ) {
             content()
+        }
+    }
+}
+@Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    widthDp = 840,
+    heightDp = 920
+)
+@Preview(
+    backgroundColor = 0xFF000000,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    widthDp = 840,
+    heightDp = 920
+)
+@Composable
+fun Theme() {
+    GdsThemeM3(
+        modifier = Modifier.padding(20.dp)
+    ) {
+        Column {
+            Row {
+                Swatch(MaterialTheme.colorScheme.primary, "Primary")
+                Swatch(MaterialTheme.colorScheme.secondary, "Secondary")
+                Swatch(MaterialTheme.colorScheme.tertiary, "Tertiary")
+                Swatch(MaterialTheme.colorScheme.error, "Error")
+            }
+            Row {
+                Swatch(MaterialTheme.colorScheme.onPrimary, "On Primary", color = MaterialTheme.colorScheme.primary)
+                Swatch(MaterialTheme.colorScheme.onSecondary, "On Secondary", color = MaterialTheme.colorScheme.secondary)
+                Swatch(MaterialTheme.colorScheme.onTertiary, "On Tertiary", color = MaterialTheme.colorScheme.tertiary)
+                Swatch(MaterialTheme.colorScheme.onError, "On Error", color = MaterialTheme.colorScheme.error)
+            }
+            Spacer(
+                modifier = Modifier.height(20.dp)
+            )
+            Row {
+                Swatch(MaterialTheme.colorScheme.primaryContainer, "Primary Container")
+                Swatch(MaterialTheme.colorScheme.secondaryContainer, "Secondary Container")
+                Swatch(MaterialTheme.colorScheme.tertiaryContainer, "Tertiary Container")
+                Swatch(MaterialTheme.colorScheme.errorContainer, "Error Container")
+            }
+            Row {
+                Swatch(MaterialTheme.colorScheme.inversePrimary, "Inverse Primary")
+                Swatch(MaterialTheme.colorScheme.inverseSurface, "Inverse Surface")
+                Swatch(MaterialTheme.colorScheme.inverseOnSurface, "Inverse On Surface")
+                Swatch(MaterialTheme.colorScheme.scrim, "Scrim")
+            }
+            Spacer(
+                modifier = Modifier.height(20.dp)
+            )
+            Row {
+                Swatch(MaterialTheme.colorScheme.onPrimaryContainer, "On Primary Container", color = MaterialTheme.colorScheme.primaryContainer)
+                Swatch(MaterialTheme.colorScheme.onSecondaryContainer, "On Secondary Container", color = MaterialTheme.colorScheme.secondaryContainer)
+                Swatch(MaterialTheme.colorScheme.onTertiaryContainer, "On Tertiary Container", color = MaterialTheme.colorScheme.tertiaryContainer)
+                Swatch(MaterialTheme.colorScheme.onErrorContainer, "On Error Container", color = MaterialTheme.colorScheme.errorContainer)
+            }
+            Spacer(
+                modifier = Modifier.height(20.dp)
+            )
+            Row {
+                Swatch(MaterialTheme.colorScheme.surface, "Surface")
+                Swatch(MaterialTheme.colorScheme.surfaceVariant, "Surface Variant")
+                Swatch(MaterialTheme.colorScheme.surfaceTint, "Surface Tint")
+            }
+            Row {
+                Swatch(MaterialTheme.colorScheme.onSurface, "On Surface", color = MaterialTheme.colorScheme.surface)
+                Swatch(MaterialTheme.colorScheme.onSurfaceVariant, "On Surface Variant", color = MaterialTheme.colorScheme.surfaceVariant)
+            }
+            Spacer(
+                modifier = Modifier.height(20.dp)
+            )
+            Row {
+                Swatch(MaterialTheme.colorScheme.outline, "Outline")
+                Swatch(MaterialTheme.colorScheme.outlineVariant, "Outline Variant")
+            }
+        }
+    }
+}
+
+@Composable
+private fun Swatch(
+    backgroundColor: Color,
+    label: String,
+    height: Int = 100,
+    width: Int = 200,
+    color: Color = Color.Unspecified
+) {
+    Box(
+        modifier = Modifier
+            .background(backgroundColor)
+            .height(height.dp)
+            .width(width.dp)
+            .padding(16.dp),
+    ) {
+        Column(
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = label,
+                color = if (color != Color.Unspecified) {
+                    color
+                } else {
+                    MaterialTheme.colorScheme.contentColorFor(backgroundColor).let {
+                        if (it == Color.Unspecified) {
+                            if (backgroundColor.isDark()) {
+                                Color.White
+                            } else {
+                                Color.Black
+                            }
+                        } else {
+                            it
+                        }
+                    }
+                }
+            )
+            Text(
+                text = backgroundColor.toHexString(),
+                color = if (color != Color.Unspecified) {
+                    color
+                } else {
+                    MaterialTheme.colorScheme.contentColorFor(backgroundColor).let {
+                        if (it == Color.Unspecified) {
+                            if (backgroundColor.isDark()) {
+                                Color.White
+                            } else {
+                                Color.Black
+                            }
+                        } else {
+                            it
+                        }
+                    }
+                }
+            )
         }
     }
 }
