@@ -147,7 +147,7 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
 }
 
 @Preview(
-    backgroundColor = 0xFFFBFDF8,
+    backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO
