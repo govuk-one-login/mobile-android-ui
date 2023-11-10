@@ -27,8 +27,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-import uk.gov.android.ui.ext.isDark
-import uk.gov.android.ui.ext.toHexString
+import uk.gov.android.ui.theme.ext.isDark
+import uk.gov.android.ui.theme.ext.toHexString
 
 private val DarkColorPalette = darkColors(
     background = md_theme_dark_background,

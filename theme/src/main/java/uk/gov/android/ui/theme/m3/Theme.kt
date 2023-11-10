@@ -1,4 +1,4 @@
-package uk.gov.android.ui.themeM3
+package uk.gov.android.ui.theme.m3
 
 import android.app.Activity
 import android.content.res.Configuration
@@ -29,8 +29,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-import uk.gov.android.ui.ext.isDark
-import uk.gov.android.ui.ext.toHexString
+import uk.gov.android.ui.theme.ext.isDark
+import uk.gov.android.ui.theme.ext.toHexString
 import uk.gov.android.ui.theme.md_theme_dark_background
 import uk.gov.android.ui.theme.md_theme_dark_error
 import uk.gov.android.ui.theme.md_theme_dark_onBackground
@@ -83,11 +83,11 @@ private val LightColorPalette = lightColorScheme(
 )
 
 @Composable
-fun GdsThemeM3(
+fun GdsTheme(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = ShapesM3,
-    typography: Typography = TypographyM3,
+    shapes: Shapes = Shape,
+    typography: Typography = Typography,
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
@@ -149,7 +149,7 @@ internal const val PALLETTE_HEIGHT = 920
 @Composable
 @Suppress("LongMethod")
 fun Theme() {
-    GdsThemeM3(
+    GdsTheme(
         modifier = Modifier.padding(PALETTE_PADDING.dp)
     ) {
         Column {
