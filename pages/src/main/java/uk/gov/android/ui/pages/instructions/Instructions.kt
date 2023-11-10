@@ -20,11 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.components.ButtonParameters
 import uk.gov.android.ui.components.ButtonParametersM3
-import uk.gov.android.ui.components.ButtonType
 import uk.gov.android.ui.components.ButtonTypeM3
-import uk.gov.android.ui.components.GdsButton
 import uk.gov.android.ui.components.GdsButtonM3
 import uk.gov.android.ui.components.GdsHeading
 import uk.gov.android.ui.components.GdsHelpText
@@ -85,7 +82,6 @@ data class InstructionsParametersM3(
                 }
             }
         }
-
 }
 
 @Composable

@@ -12,10 +12,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
@@ -67,7 +67,6 @@ private fun buttonContent(
     parameters: ButtonParametersM3,
     colors: ColorScheme
 ): @Composable RowScope.() -> Unit = {
-
     if (parameters.buttonType is ButtonTypeM3.ICON &&
         !parameters.buttonType.iconParameters.imagePositionAtEnd
     ) {
