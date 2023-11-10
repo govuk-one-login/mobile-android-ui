@@ -88,7 +88,7 @@ fun GdsThemeM3(
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = ShapesM3,
     typography: Typography = TypographyM3,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -124,80 +124,172 @@ fun GdsThemeM3(
         }
     }
 }
+
+internal const val SWATCH_SIZE = 200
+internal const val SWATCH_SIZE_HALF = SWATCH_SIZE / 2
+internal const val SWATCH_PADDING = 16
+internal const val PALETTE_PADDING = 20
+internal const val PALETTE_WIDTH = (SWATCH_SIZE * 4) + (PALETTE_PADDING * 2)
+internal const val PALLETTE_HEIGHT = 920
+
 @Preview(
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
-    widthDp = 840,
-    heightDp = 920
+    widthDp = PALETTE_WIDTH,
+    heightDp = PALLETTE_HEIGHT
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    widthDp = 840,
-    heightDp = 920
+    widthDp = PALETTE_WIDTH,
+    heightDp = PALLETTE_HEIGHT
 )
 @Composable
+@Suppress("LongMethod")
 fun Theme() {
     GdsThemeM3(
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier.padding(PALETTE_PADDING.dp)
     ) {
         Column {
             Row {
-                Swatch(MaterialTheme.colorScheme.primary, "Primary")
-                Swatch(MaterialTheme.colorScheme.secondary, "Secondary")
-                Swatch(MaterialTheme.colorScheme.tertiary, "Tertiary")
-                Swatch(MaterialTheme.colorScheme.error, "Error")
+                Swatch(
+                    MaterialTheme.colorScheme.primary,
+                    "Primary"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.secondary,
+                    "Secondary"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.tertiary,
+                    "Tertiary"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.error,
+                    "Error"
+                )
             }
             Row {
-                Swatch(MaterialTheme.colorScheme.onPrimary, "On Primary", color = MaterialTheme.colorScheme.primary)
-                Swatch(MaterialTheme.colorScheme.onSecondary, "On Secondary", color = MaterialTheme.colorScheme.secondary)
-                Swatch(MaterialTheme.colorScheme.onTertiary, "On Tertiary", color = MaterialTheme.colorScheme.tertiary)
-                Swatch(MaterialTheme.colorScheme.onError, "On Error", color = MaterialTheme.colorScheme.error)
+                Swatch(
+                    MaterialTheme.colorScheme.onPrimary,
+                    "On Primary",
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onSecondary,
+                    "On Secondary",
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onTertiary,
+                    "On Tertiary",
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onError,
+                    "On Error",
+                    color = MaterialTheme.colorScheme.error
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colorScheme.primaryContainer, "Primary Container")
-                Swatch(MaterialTheme.colorScheme.secondaryContainer, "Secondary Container")
-                Swatch(MaterialTheme.colorScheme.tertiaryContainer, "Tertiary Container")
-                Swatch(MaterialTheme.colorScheme.errorContainer, "Error Container")
+                Swatch(
+                    MaterialTheme.colorScheme.primaryContainer,
+                    "Primary Container"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.secondaryContainer,
+                    "Secondary Container"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.tertiaryContainer,
+                    "Tertiary Container"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.errorContainer,
+                    "Error Container"
+                )
             }
             Row {
-                Swatch(MaterialTheme.colorScheme.inversePrimary, "Inverse Primary")
-                Swatch(MaterialTheme.colorScheme.inverseSurface, "Inverse Surface")
-                Swatch(MaterialTheme.colorScheme.inverseOnSurface, "Inverse On Surface")
-                Swatch(MaterialTheme.colorScheme.scrim, "Scrim")
+                Swatch(
+                    MaterialTheme.colorScheme.inversePrimary,
+                    "Inverse Primary"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.inverseSurface,
+                    "Inverse Surface"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.inverseOnSurface,
+                    "Inverse On Surface"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.scrim,
+                    "Scrim"
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colorScheme.onPrimaryContainer, "On Primary Container", color = MaterialTheme.colorScheme.primaryContainer)
-                Swatch(MaterialTheme.colorScheme.onSecondaryContainer, "On Secondary Container", color = MaterialTheme.colorScheme.secondaryContainer)
-                Swatch(MaterialTheme.colorScheme.onTertiaryContainer, "On Tertiary Container", color = MaterialTheme.colorScheme.tertiaryContainer)
-                Swatch(MaterialTheme.colorScheme.onErrorContainer, "On Error Container", color = MaterialTheme.colorScheme.errorContainer)
+                Swatch(
+                    MaterialTheme.colorScheme.onPrimaryContainer,
+                    "On Primary Container",
+                    color = MaterialTheme.colorScheme.primaryContainer
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onSecondaryContainer,
+                    "On Secondary Container",
+                    color = MaterialTheme.colorScheme.secondaryContainer
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onTertiaryContainer,
+                    "On Tertiary Container",
+                    color = MaterialTheme.colorScheme.tertiaryContainer
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onErrorContainer,
+                    "On Error Container",
+                    color = MaterialTheme.colorScheme.errorContainer
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colorScheme.surface, "Surface")
-                Swatch(MaterialTheme.colorScheme.surfaceVariant, "Surface Variant")
-                Swatch(MaterialTheme.colorScheme.surfaceTint, "Surface Tint")
+                Swatch(
+                    MaterialTheme.colorScheme.surface,
+                    "Surface"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.surfaceVariant,
+                    "Surface Variant"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.surfaceTint,
+                    "Surface Tint"
+                )
             }
             Row {
-                Swatch(MaterialTheme.colorScheme.onSurface, "On Surface", color = MaterialTheme.colorScheme.surface)
-                Swatch(MaterialTheme.colorScheme.onSurfaceVariant, "On Surface Variant", color = MaterialTheme.colorScheme.surfaceVariant)
+                Swatch(
+                    MaterialTheme.colorScheme.onSurface,
+                    "On Surface",
+                    color = MaterialTheme.colorScheme.surface
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.onSurfaceVariant,
+                    "On Surface Variant",
+                    color = MaterialTheme.colorScheme.surfaceVariant
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colorScheme.outline, "Outline")
-                Swatch(MaterialTheme.colorScheme.outlineVariant, "Outline Variant")
+                Swatch(
+                    MaterialTheme.colorScheme.outline,
+                    "Outline"
+                )
+                Swatch(
+                    MaterialTheme.colorScheme.outlineVariant,
+                    "Outline Variant"
+                )
             }
         }
     }
@@ -207,8 +299,8 @@ fun Theme() {
 private fun Swatch(
     backgroundColor: Color,
     label: String,
-    height: Int = 100,
-    width: Int = 200,
+    height: Int = SWATCH_SIZE_HALF,
+    width: Int = SWATCH_SIZE,
     color: Color = Color.Unspecified
 ) {
     Box(
@@ -216,7 +308,7 @@ private fun Swatch(
             .background(backgroundColor)
             .height(height.dp)
             .width(width.dp)
-            .padding(16.dp),
+            .padding(SWATCH_PADDING.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween
@@ -259,4 +351,11 @@ private fun Swatch(
             )
         }
     }
+}
+
+@Composable
+private fun PalletteSpacer() {
+    Spacer(
+        modifier = Modifier.height(uk.gov.android.ui.theme.PALETTE_PADDING.dp)
+    )
 }

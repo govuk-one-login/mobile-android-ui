@@ -102,24 +102,35 @@ fun GdsTheme(
     }
 }
 
+internal const val SWATCH_SIZE = 200
+internal const val SWATCH_SIZE_HALF = SWATCH_SIZE / 2
+internal const val SWATCH_COL_4 = (SWATCH_SIZE * 4)
+internal const val SWATCH_COL_3 = (SWATCH_COL_4) / 3
+internal const val SWATCH_COL_2 = SWATCH_COL_4 / 2
+internal const val SWATCH_PADDING = 16
+internal const val PALETTE_PADDING = 20
+internal const val PALETTE_WIDTH = SWATCH_COL_4 + (PALETTE_PADDING * 2)
+internal const val PALLETTE_HEIGHT = 600
+
 @Preview(
     backgroundColor = 0xFFFFFFFF,
-    heightDp = 600,
+    heightDp = PALLETTE_HEIGHT,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
-    widthDp = 840
+    widthDp = PALETTE_WIDTH
 )
 @Preview(
     backgroundColor = 0xFF000000,
-    heightDp = 600,
+    heightDp = PALLETTE_HEIGHT,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
-    widthDp = 840
+    widthDp = PALETTE_WIDTH
 )
 @Composable
+@Suppress("LongMethod")
 fun Theme() {
     GdsTheme(
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier.padding(PALETTE_PADDING.dp)
     ) {
         Column {
             Row {
@@ -128,28 +139,62 @@ fun Theme() {
                 Swatch(MaterialTheme.colors.secondary, "Secondary")
                 Swatch(MaterialTheme.colors.secondaryVariant, "Secondary Variant")
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colors.background, "Background", 100, 800 / 3)
-                Swatch(MaterialTheme.colors.surface, "Surface", 100, 800 / 3)
-                Swatch(MaterialTheme.colors.error, "Error", 100, 800 / 3)
+                Swatch(
+                    MaterialTheme.colors.background,
+                    "Background",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
+                Swatch(
+                    MaterialTheme.colors.surface,
+                    "Surface",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
+                Swatch(
+                    MaterialTheme.colors.error,
+                    "Error",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colors.onPrimary, "On Primary", 100, 800 / 2)
-                Swatch(MaterialTheme.colors.onSecondary, "On Secondary", 100, 800 / 2)
+                Swatch(
+                    MaterialTheme.colors.onPrimary,
+                    "On Primary",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_2
+                )
+                Swatch(
+                    MaterialTheme.colors.onSecondary,
+                    "On Secondary",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_2
+                )
             }
-            Spacer(
-                modifier = Modifier.height(20.dp)
-            )
+            PalletteSpacer()
             Row {
-                Swatch(MaterialTheme.colors.onBackground, "On Background", 100, 800 / 3)
-                Swatch(MaterialTheme.colors.onSurface, "On Surface", 100, 800 / 3)
-                Swatch(MaterialTheme.colors.onError, "On Error", 100, 800 / 3)
+                Swatch(
+                    MaterialTheme.colors.onBackground,
+                    "On Background",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
+                Swatch(
+                    MaterialTheme.colors.onSurface,
+                    "On Surface",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
+                Swatch(
+                    MaterialTheme.colors.onError,
+                    "On Error",
+                    SWATCH_SIZE_HALF,
+                    SWATCH_COL_3
+                )
             }
         }
     }
@@ -157,7 +202,7 @@ fun Theme() {
 
 @Composable
 private fun Swatch(
-    backgroundColor:Color,
+    backgroundColor: Color,
     label: String,
     height: Int = 200,
     width: Int = 200
@@ -167,7 +212,7 @@ private fun Swatch(
             .background(backgroundColor)
             .height(height.dp)
             .width(width.dp)
-            .padding(16.dp),
+            .padding(SWATCH_PADDING.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween
@@ -202,4 +247,11 @@ private fun Swatch(
             )
         }
     }
+}
+
+@Composable
+private fun PalletteSpacer() {
+    Spacer(
+        modifier = Modifier.height(PALETTE_PADDING.dp)
+    )
 }
