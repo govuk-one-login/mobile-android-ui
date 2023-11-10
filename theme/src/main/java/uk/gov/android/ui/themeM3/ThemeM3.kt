@@ -1,10 +1,15 @@
 package uk.gov.android.ui.themeM3
 
+import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 import uk.gov.android.ui.theme.md_theme_dark_background
 import uk.gov.android.ui.theme.md_theme_dark_error
 import uk.gov.android.ui.theme.md_theme_dark_onBackground
@@ -70,7 +75,20 @@ fun GdsThemeM3(
     MaterialTheme(
         colorScheme = colors,
         typography = TypographyM3,
-        shapes = ShapesM3,
-        content = content
-    )
+        shapes = ShapesM3
+    ) {
+        val view = LocalView.current
+        if (!view.isInEditMode) {
+            val statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
+            SideEffect {
+                val window = (view.context as Activity).window
+                window.statusBarColor = statusBarColor
+                WindowCompat
+                    .getInsetsController(window, view)
+                    .isAppearanceLightStatusBars = !darkTheme
+            }
+        }
+
+        content()
+    }
 }
