@@ -1,4 +1,4 @@
-package uk.gov.android.ui.components
+package uk.gov.android.ui.components.m3
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -28,12 +28,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import uk.gov.android.ui.components.images.icon.GdsIconM3
+import uk.gov.android.ui.components.R
+import uk.gov.android.ui.components.m3.images.icon.GdsIconM3
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.theme.disabled_button
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.minimumTouchTarget
 import uk.gov.android.ui.theme.smallPadding
-import uk.gov.android.ui.themeM3.GdsThemeM3
 
 @Composable
 fun GdsButtonM3(
@@ -265,7 +266,7 @@ fun ButtonM3Preview(
     @PreviewParameter(ButtonProviderM3::class)
     buttonParameters: ButtonParametersM3
 ) {
-    GdsThemeM3 {
+    GdsTheme {
         GdsButtonM3(buttonParameters)
     }
 }

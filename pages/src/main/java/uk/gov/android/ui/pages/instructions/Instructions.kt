@@ -20,26 +20,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.components.ButtonParametersM3
-import uk.gov.android.ui.components.ButtonTypeM3
-import uk.gov.android.ui.components.GdsButtonM3
-import uk.gov.android.ui.components.GdsHeading
+import uk.gov.android.ui.components.m3.ButtonParametersM3
+import uk.gov.android.ui.components.m3.ButtonTypeM3
+import uk.gov.android.ui.components.m3.GdsButtonM3
 import uk.gov.android.ui.components.GdsHelpText
 import uk.gov.android.ui.components.GdsVectorImage
-import uk.gov.android.ui.components.HeadingParameters
-import uk.gov.android.ui.components.HeadingSizeM3
+import uk.gov.android.ui.components.m3.HeadingSizeM3
 import uk.gov.android.ui.components.HelpTextParameters
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.components.m3.HeadingParametersM3
 import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
-import uk.gov.android.ui.themeM3.GdsThemeM3
 
 sealed class Instructions {
     abstract val generate: @Composable () -> Unit
@@ -66,7 +65,7 @@ data class InstructionsParametersM3(
 ) : Instructions() {
     override val generate: @Composable () -> Unit
         get() = {
-            GdsThemeM3 {
+            GdsTheme {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -102,20 +101,18 @@ internal fun Content(
                     )
                 )
             }
-            GdsHeading(
-                headingParameters = HeadingParameters(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    size = HeadingSizeM3.H1(),
-                    text = title,
-                    textAlign = titleAlign,
-                    padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
-                        bottom = titleBottomPadding
-                    )
+            HeadingParametersM3(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                size = HeadingSizeM3.H1(),
+                text = title,
+                textAlign = titleAlign,
+                padding = PaddingValues(
+                    end = smallPadding,
+                    start = smallPadding,
+                    bottom = titleBottomPadding
                 )
-            )
+            ).generate()
             GdsContent(
                 contentParameters = ContentParameters(
                     modifier = Modifier
