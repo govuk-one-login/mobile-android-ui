@@ -104,7 +104,7 @@ fun GdsTheme(
         val backgroundColor = colors.background
         val view = LocalView.current
 
-        if (!view.isInEditMode) {
+        if (!view.isInEditMode && view.context is Activity) {
             SideEffect {
                 val window = (view.context as Activity).window
                 window.statusBarColor = backgroundColor.toArgb()

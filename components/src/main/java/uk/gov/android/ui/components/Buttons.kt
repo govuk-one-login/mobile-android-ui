@@ -71,26 +71,59 @@ private fun buttonContent(
 ): @Composable RowScope.() -> Unit = {
     val buttonColors = parameters.buttonType.buttonColour()
 
+    if (parameters.buttonType is ButtonType.ICON &&
+        !parameters.buttonType.iconParameters.imagePositionAtEnd
+    ) {
+        DisplayIcon(
+            iconButtonType = parameters.buttonType,
+            colors = colors,
+            buttonColors = buttonColors,
+            imagePositionAtEnd = false
+        )
+    }
+
     Text(
         fontWeight = parameters.buttonType.fontWeight,
         style = parameters.textStyle ?: MaterialTheme.typography.button,
         text = stringResource(id = parameters.text)
     )
 
-    if (parameters.buttonType is ButtonType.ICON) {
-        GdsIcon(
-            parameters = parameters.buttonType.iconParameters.copy(
-                backGroundColor = buttonColors.backgroundColor(true).value,
-                foreGroundColor = buttonColors.contentColor(true).value,
-                modifier = Modifier
-                    .padding(start = smallPadding)
-                    .then(
-                        parameters.buttonType.iconParameters.modifier
-                    )
-            ),
-            colors = colors
+    if (parameters.buttonType is ButtonType.ICON &&
+        parameters.buttonType.iconParameters.imagePositionAtEnd
+    ) {
+        DisplayIcon(
+            iconButtonType = parameters.buttonType,
+            colors = colors,
+            buttonColors = buttonColors,
+            imagePositionAtEnd = true
         )
     }
+}
+
+@Composable
+private fun DisplayIcon(
+    iconButtonType: ButtonType.ICON,
+    colors: Colors,
+    buttonColors: ButtonColors,
+    imagePositionAtEnd: Boolean
+) {
+    val modifier = if (imagePositionAtEnd) {
+        Modifier
+            .padding(start = smallPadding)
+    } else {
+        Modifier
+            .padding(end = smallPadding)
+    }
+    GdsIcon(
+        parameters = iconButtonType.iconParameters.copy(
+            backGroundColor = buttonColors.backgroundColor(true).value,
+            foreGroundColor = buttonColors.contentColor(true).value,
+            modifier = modifier.then(
+                iconButtonType.iconParameters.modifier
+            )
+        ),
+        colors = colors
+    )
 }
 
 @Keep
@@ -183,6 +216,30 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = drawable.ic_external_site,
                     description = string.externalSite
+                )
+            ),
+            onClick = {},
+            text = string.preview__GdsButton__secondary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.PRIMARY(),
+                iconParameters = IconParameters(
+                    image = drawable.ic_external_site,
+                    description = string.externalSite,
+                    imagePositionAtEnd = false
+                )
+            ),
+            onClick = {},
+            text = string.preview__GdsButton__primary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.SECONDARY(),
+                iconParameters = IconParameters(
+                    image = drawable.ic_external_site,
+                    description = string.externalSite,
+                    imagePositionAtEnd = false
                 )
             ),
             onClick = {},

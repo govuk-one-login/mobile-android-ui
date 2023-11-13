@@ -114,6 +114,7 @@ dependencies {
     implementation(AndroidX.constraintLayout.compose)
     implementation(AndroidX.core.ktx)
     implementation(Google.android.material)
+    implementation(AndroidX.compose.material3)
     implementation(project(":components"))
     implementation(project(":theme"))
 
