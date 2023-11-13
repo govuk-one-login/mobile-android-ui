@@ -71,7 +71,9 @@ data class HeadingParametersM3(
             }
             Text(
                 color = color
-                    ?: MaterialTheme.colorScheme.contentColorFor(MaterialTheme.colorScheme.background),
+                    ?: MaterialTheme.colorScheme.contentColorFor(
+                        MaterialTheme.colorScheme.background
+                    ),
                 modifier = modifier
                     .background(
                         color = backgroundColor
