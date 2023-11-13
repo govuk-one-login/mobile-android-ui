@@ -54,7 +54,7 @@ class HeadingsM3Test {
     @Test
     fun verifyFourthHeading() = headingTests(parameterList[3])
 
-    private fun headingTests(parameters: HeadingParametersM3) {
+    private fun headingTests(parameters: HeadingM3) {
         composeTestRule.apply {
             setContent {
                 GdsTheme {

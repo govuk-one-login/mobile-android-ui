@@ -51,7 +51,7 @@ sealed class HeadingSizeM3(
     )
 }
 
-data class HeadingParametersM3(
+data class HeadingM3(
     var modifier: Modifier = Modifier,
     val size: HeadingSizeM3,
     val color: Color? = null,
@@ -90,21 +90,21 @@ data class HeadingParametersM3(
         }
 }
 
-class HeadingsM3Provider : PreviewParameterProvider<HeadingParametersM3> {
-    override val values: Sequence<HeadingParametersM3> = sequenceOf(
-        HeadingParametersM3(
+class HeadingsM3Provider : PreviewParameterProvider<HeadingM3> {
+    override val values: Sequence<HeadingM3> = sequenceOf(
+        HeadingM3(
             text = R.string.preview__GdsHeading__h1,
             size = HeadingSizeM3.H1()
         ),
-        HeadingParametersM3(
+        HeadingM3(
             text = R.string.preview__GdsHeading__h2,
             size = HeadingSizeM3.H2()
         ),
-        HeadingParametersM3(
+        HeadingM3(
             text = R.string.preview__GdsHeading__h3,
             size = HeadingSizeM3.H3()
         ),
-        HeadingParametersM3(
+        HeadingM3(
             text = R.string.preview__GdsHeading__h4,
             size = HeadingSizeM3.H4()
         )
@@ -122,7 +122,7 @@ class HeadingsM3Provider : PreviewParameterProvider<HeadingParametersM3> {
 @Composable
 private fun Preview(
     @PreviewParameter(HeadingsM3Provider::class)
-    headingParameters: HeadingParametersM3
+    headingParameters: HeadingM3
 ) {
     GdsTheme {
         headingParameters.generate()

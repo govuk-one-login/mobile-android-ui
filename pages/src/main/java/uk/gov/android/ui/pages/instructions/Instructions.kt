@@ -41,7 +41,7 @@ import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
-data class InstructionsParameters(
+data class Instructions(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.Fit,
@@ -59,7 +59,7 @@ data class InstructionsParameters(
     val titleBottomPadding: Dp = mediumPadding,
     val helpTextParameters: HelpTextParameters? = null,
     val buttonParameters: List<ButtonParameters>? = null
-) : Instructions() {
+) : BaseInstructions() {
     override val generate: @Composable () -> Unit
         get() = {
             GdsTheme {
@@ -73,8 +73,8 @@ data class InstructionsParameters(
                         ),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Content(instructionsParameters = this@InstructionsParameters)
-                    Buttons(instructionsParameters = this@InstructionsParameters)
+                    Content(instructionsParameters = this@Instructions)
+                    Buttons(instructionsParameters = this@Instructions)
                 }
             }
         }
@@ -83,7 +83,7 @@ data class InstructionsParameters(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    instructionsParameters: InstructionsParameters
+    instructionsParameters: Instructions
 ) {
     instructionsParameters.apply {
         Column(
@@ -151,7 +151,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    instructionsParameters: InstructionsParameters
+    instructionsParameters: Instructions
 ) {
     instructionsParameters.buttonParameters?.let {
         Column(
@@ -169,9 +169,9 @@ internal fun Buttons(
     }
 }
 
-class InstructionsProvider : PreviewParameterProvider<InstructionsParameters> {
-    override val values: Sequence<InstructionsParameters> = sequenceOf(
-        InstructionsParameters(
+class InstructionsProvider : PreviewParameterProvider<Instructions> {
+    override val values: Sequence<Instructions> = sequenceOf(
+        Instructions(
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
@@ -238,7 +238,7 @@ class InstructionsProvider : PreviewParameterProvider<InstructionsParameters> {
 @Composable
 fun Preview(
     @PreviewParameter(InstructionsProvider::class)
-    parameters: InstructionsParameters
+    parameters: Instructions
 ) {
     parameters.generate()
 }

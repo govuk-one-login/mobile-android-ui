@@ -31,7 +31,7 @@ import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.components.m3.ButtonParametersM3
 import uk.gov.android.ui.components.m3.ButtonTypeM3
 import uk.gov.android.ui.components.m3.GdsButtonM3
-import uk.gov.android.ui.components.m3.HeadingParametersM3
+import uk.gov.android.ui.components.m3.HeadingM3
 import uk.gov.android.ui.components.m3.HeadingSizeM3
 import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
@@ -40,11 +40,11 @@ import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
-sealed class Instructions {
+sealed class BaseInstructions {
     abstract val generate: @Composable () -> Unit
 }
 
-data class InstructionsParametersM3(
+data class InstructionsM3(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.Fit,
@@ -62,7 +62,7 @@ data class InstructionsParametersM3(
     val titleBottomPadding: Dp = mediumPadding,
     val helpTextParameters: HelpTextParameters? = null,
     val buttonParameters: List<ButtonParametersM3>? = null
-) : Instructions() {
+) : BaseInstructions() {
     override val generate: @Composable () -> Unit
         get() = {
             GdsTheme {
@@ -76,8 +76,8 @@ data class InstructionsParametersM3(
                         ),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Content(instructionsParameters = this@InstructionsParametersM3)
-                    Buttons(instructionsParameters = this@InstructionsParametersM3)
+                    Content(instructionsParameters = this@InstructionsM3)
+                    Buttons(instructionsParameters = this@InstructionsM3)
                 }
             }
         }
@@ -86,7 +86,7 @@ data class InstructionsParametersM3(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    instructionsParameters: InstructionsParametersM3
+    instructionsParameters: InstructionsM3
 ) {
     instructionsParameters.apply {
         Column(
@@ -101,7 +101,7 @@ internal fun Content(
                     )
                 )
             }
-            HeadingParametersM3(
+            HeadingM3(
                 modifier = Modifier
                     .fillMaxWidth(),
                 size = HeadingSizeM3.H1(),
@@ -152,7 +152,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    instructionsParameters: InstructionsParametersM3
+    instructionsParameters: InstructionsM3
 ) {
     instructionsParameters.buttonParameters?.let {
         Column(
@@ -170,9 +170,9 @@ internal fun Buttons(
     }
 }
 
-class InstructionsM3Provider : PreviewParameterProvider<InstructionsParametersM3> {
-    override val values: Sequence<InstructionsParametersM3> = sequenceOf(
-        InstructionsParametersM3(
+class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
+    override val values: Sequence<InstructionsM3> = sequenceOf(
+        InstructionsM3(
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
@@ -239,7 +239,7 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsParametersM3
 @Composable
 fun Preview(
     @PreviewParameter(InstructionsM3Provider::class)
-    parameters: InstructionsParametersM3
+    parameters: InstructionsM3
 ) {
     parameters.generate()
 }

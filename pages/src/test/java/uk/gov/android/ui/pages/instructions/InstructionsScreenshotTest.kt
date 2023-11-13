@@ -8,7 +8,7 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class InstructionsScreenshotTest(
-    private val parameters: Pair<InstructionsParameters, NightMode>
+    private val parameters: Pair<Instructions, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         parameters.first.generate()
@@ -17,8 +17,8 @@ class InstructionsScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values(): List<Pair<InstructionsParameters, NightMode>> {
-            val result: MutableList<Pair<InstructionsParameters, NightMode>> =
+        fun values(): List<Pair<Instructions, NightMode>> {
+            val result: MutableList<Pair<Instructions, NightMode>> =
                 mutableListOf()
 
             InstructionsProvider().values.forEach(applyNightMode(result))

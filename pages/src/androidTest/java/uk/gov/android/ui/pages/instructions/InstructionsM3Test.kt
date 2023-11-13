@@ -16,7 +16,7 @@ import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 
 @RunWith(Parameterized::class)
 class InstructionsM3Test(
-    private val parameters: InstructionsParametersM3
+    private val parameters: InstructionsM3
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
