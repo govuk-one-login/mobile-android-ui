@@ -1,4 +1,4 @@
-package uk.gov.android.ui.themeM3
+package uk.gov.android.ui.theme.m3
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -20,7 +20,7 @@ import uk.gov.android.ui.theme.textSizeH3
 import uk.gov.android.ui.theme.textSizeH4
 
 // Set of Material typography styles to start with
-val TypographyM3 = Typography(
+val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeBody,
