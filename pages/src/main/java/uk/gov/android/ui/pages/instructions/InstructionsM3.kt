@@ -20,28 +20,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.components.ButtonParameters
-import uk.gov.android.ui.components.ButtonType
-import uk.gov.android.ui.components.GdsButton
-import uk.gov.android.ui.components.GdsHeading
 import uk.gov.android.ui.components.GdsHelpText
 import uk.gov.android.ui.components.GdsVectorImage
-import uk.gov.android.ui.components.HeadingParameters
-import uk.gov.android.ui.components.HeadingSize
 import uk.gov.android.ui.components.HelpTextParameters
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.components.m3.ButtonParametersM3
+import uk.gov.android.ui.components.m3.ButtonTypeM3
+import uk.gov.android.ui.components.m3.GdsButtonM3
+import uk.gov.android.ui.components.m3.HeadingParametersM3
+import uk.gov.android.ui.components.m3.HeadingSizeM3
 import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
-data class InstructionsParametersM2(
+sealed class Instructions {
+    abstract val generate: @Composable () -> Unit
+}
+
+data class InstructionsParametersM3(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.Fit,
@@ -58,7 +61,7 @@ data class InstructionsParametersM2(
     val titleAlign: TextAlign = TextAlign.Start,
     val titleBottomPadding: Dp = mediumPadding,
     val helpTextParameters: HelpTextParameters? = null,
-    val buttonParameters: List<ButtonParameters>? = null
+    val buttonParameters: List<ButtonParametersM3>? = null
 ) : Instructions() {
     override val generate: @Composable () -> Unit
         get() = {
@@ -73,8 +76,8 @@ data class InstructionsParametersM2(
                         ),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Content(instructionsParameters = this@InstructionsParametersM2)
-                    Buttons(instructionsParameters = this@InstructionsParametersM2)
+                    Content(instructionsParameters = this@InstructionsParametersM3)
+                    Buttons(instructionsParameters = this@InstructionsParametersM3)
                 }
             }
         }
@@ -83,7 +86,7 @@ data class InstructionsParametersM2(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    instructionsParameters: InstructionsParametersM2
+    instructionsParameters: InstructionsParametersM3
 ) {
     instructionsParameters.apply {
         Column(
@@ -98,20 +101,18 @@ internal fun Content(
                     )
                 )
             }
-            GdsHeading(
-                headingParameters = HeadingParameters(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    size = HeadingSize.H1(),
-                    text = title,
-                    textAlign = titleAlign,
-                    padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
-                        bottom = titleBottomPadding
-                    )
+            HeadingParametersM3(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                size = HeadingSizeM3.H1(),
+                text = title,
+                textAlign = titleAlign,
+                padding = PaddingValues(
+                    end = smallPadding,
+                    start = smallPadding,
+                    bottom = titleBottomPadding
                 )
-            )
+            ).generate()
             GdsContent(
                 contentParameters = ContentParameters(
                     modifier = Modifier
@@ -151,7 +152,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    instructionsParameters: InstructionsParametersM2
+    instructionsParameters: InstructionsParametersM3
 ) {
     instructionsParameters.buttonParameters?.let {
         Column(
@@ -163,15 +164,15 @@ internal fun Buttons(
                 )
         ) {
             it.forEach { parameters ->
-                GdsButton(parameters)
+                GdsButtonM3(parameters)
             }
         }
     }
 }
 
-class InstructionsM2Provider : PreviewParameterProvider<InstructionsParametersM2> {
-    override val values: Sequence<InstructionsParametersM2> = sequenceOf(
-        InstructionsParametersM2(
+class InstructionsM3Provider : PreviewParameterProvider<InstructionsParametersM3> {
+    override val values: Sequence<InstructionsParametersM3> = sequenceOf(
+        InstructionsParametersM3(
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
@@ -197,17 +198,17 @@ class InstructionsM2Provider : PreviewParameterProvider<InstructionsParametersM2
                 )
             ),
             buttonParameters = listOf(
-                ButtonParameters(
-                    buttonType = ButtonType.PRIMARY(),
+                ButtonParametersM3(
+                    buttonType = ButtonTypeM3.PRIMARY(),
                     text = R.string.preview__BrpInstructions__primary_button,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = {}
                 ),
-                ButtonParameters(
-                    buttonType = ButtonType.ICON(
-                        buttonType = ButtonType.SECONDARY(),
+                ButtonParametersM3(
+                    buttonType = ButtonTypeM3.ICON(
+                        buttonType = ButtonTypeM3.SECONDARY(),
                         iconParameters = IconParameters(
                             image = R.drawable.ic_external_site,
                             description = R.string.externalSite
@@ -237,8 +238,8 @@ class InstructionsM2Provider : PreviewParameterProvider<InstructionsParametersM2
 )
 @Composable
 fun Preview(
-    @PreviewParameter(InstructionsM2Provider::class)
-    parameters: InstructionsParametersM2
+    @PreviewParameter(InstructionsM3Provider::class)
+    parameters: InstructionsParametersM3
 ) {
     parameters.generate()
 }

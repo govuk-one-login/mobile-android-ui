@@ -15,8 +15,8 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 
 @RunWith(Parameterized::class)
-class InstructionsM2Test(
-    private val parameters: InstructionsParametersM2
+class InstructionsM3Test(
+    private val parameters: InstructionsParametersM3
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -114,6 +114,6 @@ class InstructionsM2Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values() = InstructionsM2Provider().values.toList()
+        fun values() = InstructionsM3Provider().values.toList()
     }
 }

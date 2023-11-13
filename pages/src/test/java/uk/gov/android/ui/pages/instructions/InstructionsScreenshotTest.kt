@@ -5,12 +5,11 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.pages.BaseScreenshotTest
-import uk.gov.android.ui.pages.BaseScreenshotTestM3
 
 @RunWith(Parameterized::class)
 class InstructionsScreenshotTest(
-    private val parameters: Pair<InstructionsParametersM3, NightMode>
-) : BaseScreenshotTestM3(parameters.second) {
+    private val parameters: Pair<InstructionsParameters, NightMode>
+) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         parameters.first.generate()
     }
@@ -18,11 +17,11 @@ class InstructionsScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values(): List<Pair<InstructionsParametersM3, NightMode>> {
-            val result: MutableList<Pair<InstructionsParametersM3, NightMode>> =
+        fun values(): List<Pair<InstructionsParameters, NightMode>> {
+            val result: MutableList<Pair<InstructionsParameters, NightMode>> =
                 mutableListOf()
 
-            InstructionsM3Provider().values.forEach(BaseScreenshotTest.applyNightMode(result))
+            InstructionsProvider().values.forEach(applyNightMode(result))
 
             return result
         }

@@ -16,7 +16,7 @@ import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 
 @RunWith(Parameterized::class)
 class InstructionsTest(
-    private val parameters: InstructionsParametersM3
+    private val parameters: InstructionsParameters
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -114,6 +114,6 @@ class InstructionsTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values() = InstructionsM3Provider().values.toList()
+        fun values() = InstructionsProvider().values.toList()
     }
 }
