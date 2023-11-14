@@ -75,7 +75,7 @@ private fun buttonContent(
             iconButtonType = parameters.buttonType,
             colors = colors,
             imagePositionAtEnd = false,
-            isPrimary = parameters.buttonType.buttonType is ButtonTypeM3.PRIMARY
+            parentButtonType = parameters.buttonType.buttonType
         )
     }
 
@@ -92,7 +92,7 @@ private fun buttonContent(
             iconButtonType = parameters.buttonType,
             colors = colors,
             imagePositionAtEnd = true,
-            isPrimary = parameters.buttonType.buttonType is ButtonTypeM3.PRIMARY
+            parentButtonType = parameters.buttonType.buttonType
         )
     }
 }
@@ -102,7 +102,7 @@ private fun DisplayIcon(
     iconButtonType: ButtonTypeM3.ICON,
     colors: ColorScheme,
     imagePositionAtEnd: Boolean,
-    isPrimary: Boolean
+    parentButtonType: ButtonTypeM3
 ) {
     val modifier = if (imagePositionAtEnd) {
         Modifier
@@ -111,11 +111,12 @@ private fun DisplayIcon(
         Modifier
             .padding(end = smallPadding)
     }
-    val fgColor = if (isPrimary) {
-        MaterialTheme.colorScheme.onPrimary
-    } else {
-        MaterialTheme.colorScheme.onSecondary
+    val fgColor = when (parentButtonType) {
+        is ButtonTypeM3.PRIMARY -> MaterialTheme.colorScheme.onPrimary
+        is ButtonTypeM3.SECONDARY -> MaterialTheme.colorScheme.onSecondary
+        else -> MaterialTheme.colorScheme.primary
     }
+
     GdsIconM3(
         parameters = iconButtonType.iconParameters.copy(
             foreGroundColor = fgColor,
@@ -157,6 +158,13 @@ sealed class ButtonTypeM3(
         fontWeight = FontWeight.Light
     )
 
+    open class TERTIARY : ButtonTypeM3(
+        buttonColour = {
+            tertiaryButtonColorsM3()
+        },
+        fontWeight = FontWeight.Light
+    )
+
     data class ICON(
         val buttonType: ButtonTypeM3,
         val iconParameters: IconParameters
@@ -178,6 +186,14 @@ internal fun primaryButtonColorsM3() = ButtonDefaults.buttonColors(
 internal fun secondaryButtonColorsM3() = ButtonDefaults.buttonColors(
     containerColor = MaterialTheme.colorScheme.secondary,
     contentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.secondary),
+    disabledContainerColor = disabled_button,
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
+)
+
+@Composable
+internal fun tertiaryButtonColorsM3() = ButtonDefaults.buttonColors(
+    containerColor = MaterialTheme.colorScheme.secondary,
+    contentColor = MaterialTheme.colorScheme.primary,
     disabledContainerColor = disabled_button,
     disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
 )
@@ -235,7 +251,8 @@ class ButtonProviderM3 : PreviewParameterProvider<ButtonParametersM3> {
                 )
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__primary_icon
+            text = R.string.preview__GdsButton__primary_icon,
+            textStyle = TextStyle()
         ),
         ButtonParametersM3(
             buttonType = ButtonTypeM3.ICON(
@@ -249,6 +266,36 @@ class ButtonProviderM3 : PreviewParameterProvider<ButtonParametersM3> {
             ),
             onClick = {},
             text = R.string.preview__GdsButton__secondary_icon
+        ),
+        ButtonParametersM3(
+            buttonType = ButtonTypeM3.TERTIARY(),
+            onClick = {},
+            text = R.string.preview__GdsButton__tertiary
+        ),
+        ButtonParametersM3(
+            buttonType = ButtonTypeM3.ICON(
+                buttonType = ButtonTypeM3.TERTIARY(),
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_external_site,
+                    description = R.string.externalSite,
+                    backGroundColor = Color.Transparent
+                )
+            ),
+            onClick = {},
+            text = R.string.preview__GdsButton__tertiary_icon
+        ),
+        ButtonParametersM3(
+            buttonType = ButtonTypeM3.ICON(
+                buttonType = ButtonTypeM3.TERTIARY(),
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_external_site,
+                    description = R.string.externalSite,
+                    imagePositionAtEnd = false,
+                    backGroundColor = Color.Transparent
+                )
+            ),
+            onClick = {},
+            text = R.string.preview__GdsButton__tertiary_icon
         )
     )
 }

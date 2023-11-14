@@ -19,6 +19,7 @@ import androidx.compose.material.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -155,6 +156,16 @@ internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
 )
 
+@Composable
+internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
+    backgroundColor = MaterialTheme.colors.secondary,
+    contentColor = MaterialTheme.colors.primary,
+    disabledBackgroundColor = disabled_button,
+    disabledContentColor = androidx.compose.material3.contentColorFor(
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primary
+    )
+)
+
 sealed class ButtonType(
     val buttonColour: @Composable () -> ButtonColors,
     val fontWeight: FontWeight = FontWeight.Bold
@@ -168,6 +179,13 @@ sealed class ButtonType(
     open class SECONDARY : ButtonType(
         buttonColour = {
             secondaryButtonColors()
+        },
+        fontWeight = FontWeight.Light
+    )
+
+    open class TERTIARY : ButtonType(
+        buttonColour = {
+            tertiaryButtonColors()
         },
         fontWeight = FontWeight.Light
     )
@@ -244,6 +262,36 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
             ),
             onClick = {},
             text = string.preview__GdsButton__secondary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.TERTIARY(),
+            onClick = {},
+            text = string.preview__GdsButton__tertiary
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.TERTIARY(),
+                iconParameters = IconParameters(
+                    image = drawable.ic_external_site,
+                    description = string.externalSite,
+                    backGroundColor = Color.Transparent
+                )
+            ),
+            onClick = {},
+            text = string.preview__GdsButton__tertiary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.TERTIARY(),
+                iconParameters = IconParameters(
+                    image = drawable.ic_external_site,
+                    description = string.externalSite,
+                    imagePositionAtEnd = false,
+                    backGroundColor = Color.Transparent
+                )
+            ),
+            onClick = {},
+            text = string.preview__GdsButton__tertiary_icon
         )
     )
 }
