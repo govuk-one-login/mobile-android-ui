@@ -59,8 +59,8 @@ data class Instructions(
     val titleBottomPadding: Dp = mediumPadding,
     val helpTextParameters: HelpTextParameters? = null,
     val buttonParameters: List<ButtonParameters>? = null
-) : BaseInstructions() {
-    override val generate: @Composable () -> Unit
+) {
+    val generate: @Composable () -> Unit
         get() = {
             GdsTheme {
                 Column(
