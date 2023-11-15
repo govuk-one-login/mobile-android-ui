@@ -4,22 +4,25 @@ import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import uk.gov.android.ui.components.m3.buttons.ButtonParameters
+import uk.gov.android.ui.components.m3.buttons.ButtonProvider
+import uk.gov.android.ui.components.m3.buttons.GdsButton
 
 @RunWith(Parameterized::class)
 class ButtonsM3Test(
-    private val parameters: Pair<ButtonParametersM3, NightMode>
+    private val parameters: Pair<ButtonParameters, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsButtonM3(buttonParameters = parameters.first)
+        GdsButton(buttonParameters = parameters.first)
     }
 
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: GdsButtonM3")
-        fun values(): List<Pair<ButtonParametersM3, NightMode>> {
-            val result: MutableList<Pair<ButtonParametersM3, NightMode>> = mutableListOf()
+        fun values(): List<Pair<ButtonParameters, NightMode>> {
+            val result: MutableList<Pair<ButtonParameters, NightMode>> = mutableListOf()
 
-            ButtonProviderM3().values.forEach(applyNightMode(result))
+            ButtonProvider().values.forEach(applyNightMode(result))
 
             return result
         }

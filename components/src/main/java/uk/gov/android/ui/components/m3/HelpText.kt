@@ -20,12 +20,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.components.R
 import uk.gov.android.ui.components.R.drawable
 import uk.gov.android.ui.components.images.icon.IconParameters
-import uk.gov.android.ui.components.m3.images.icon.GdsIconM3
+import uk.gov.android.ui.components.m3.images.icon.GdsIcon
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
-data class HelpTextM3(
+data class HelpText(
     @StringRes
     val text: Int,
     val rowModifier: Modifier = Modifier
@@ -51,12 +51,12 @@ data class HelpTextM3(
                 verticalAlignment = rowAlignment
             ) {
                 key(iconParameters) {
-                    GdsIconM3(iconParameters)
+                    GdsIcon(iconParameters)
                 }
 
-                HeadingM3(
+                Heading(
                     modifier = textModifier,
-                    size = HeadingSizeM3.H4(),
+                    size = HeadingSize.H4(),
                     text = text,
                     padding = PaddingValues(
                         start = xsmallPadding
@@ -67,9 +67,9 @@ data class HelpTextM3(
         }
 }
 
-class HelpTextProvider : PreviewParameterProvider<HelpTextM3> {
-    override val values: Sequence<HelpTextM3> = sequenceOf(
-        HelpTextM3(
+class HelpTextProvider : PreviewParameterProvider<HelpText> {
+    override val values: Sequence<HelpText> = sequenceOf(
+        HelpText(
             text = R.string.preview__GdsContent__oneLine_0,
             iconParameters = IconParameters(
                 image = drawable.ic_warning_icon
@@ -89,7 +89,7 @@ class HelpTextProvider : PreviewParameterProvider<HelpTextM3> {
 @Composable
 private fun Preview(
     @PreviewParameter(HelpTextProvider::class)
-    helpTextParameters: HelpTextM3
+    helpTextParameters: HelpText
 ) {
     GdsTheme {
         helpTextParameters.generate()

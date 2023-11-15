@@ -2,10 +2,9 @@ package uk.gov.android.ui.pages.errors
 
 import androidx.annotation.Keep
 import androidx.compose.ui.Modifier
-import uk.gov.android.ui.components.ButtonParameters
-import uk.gov.android.ui.components.ButtonType.PRIMARY
-import uk.gov.android.ui.components.ButtonType.SECONDARY
 import uk.gov.android.ui.components.HeadingSize.H1
+import uk.gov.android.ui.components.buttons.ButtonParameters
+import uk.gov.android.ui.components.buttons.ButtonType
 import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.components.information.InformationParameters
@@ -40,12 +39,12 @@ fun generateParameters(
         )
     ),
     primaryButtonParameters = ButtonParameters(
-        buttonType = PRIMARY(),
+        buttonType = ButtonType.PRIMARY(),
         onClick = onPrimaryClick,
         text = model.primaryButtonText
     ),
     secondaryButtonParameters = ButtonParameters(
-        buttonType = SECONDARY(),
+        buttonType = ButtonType.SECONDARY(),
         onClick = onSecondaryClick,
         text = model.secondaryButtonText!!
     )

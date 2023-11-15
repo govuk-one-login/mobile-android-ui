@@ -4,26 +4,26 @@ import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.components.m3.content.ContentM3Parameters
-import uk.gov.android.ui.components.m3.content.ContentM3Provider
-import uk.gov.android.ui.components.m3.content.GdsContentM3
+import uk.gov.android.ui.components.m3.content.ContentParameters
+import uk.gov.android.ui.components.m3.content.ContentProvider
+import uk.gov.android.ui.components.m3.content.GdsContent
 
 @RunWith(Parameterized::class)
 class ContentM3Test(
-    private val parameters: Pair<ContentM3Parameters, NightMode>
+    private val parameters: Pair<ContentParameters, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsContentM3(parameters.first)
+        GdsContent(parameters.first)
     }
 
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: GdsContent")
-        fun values(): List<Pair<ContentM3Parameters, NightMode>> {
-            val result: MutableList<Pair<ContentM3Parameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<ContentParameters, NightMode>> {
+            val result: MutableList<Pair<ContentParameters, NightMode>> = mutableListOf()
 
-            ContentM3Provider().values.forEach(applyNightMode(result))
+            ContentProvider().values.forEach(applyNightMode(result))
 
             return result
         }

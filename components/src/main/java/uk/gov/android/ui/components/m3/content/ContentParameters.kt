@@ -7,13 +7,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import uk.gov.android.ui.components.content.GdsContentText
-import uk.gov.android.ui.components.m3.HeadingSizeM3
+import uk.gov.android.ui.components.m3.HeadingSize
 import uk.gov.android.ui.theme.smallPadding
 
-data class ContentM3Parameters(
+data class ContentParameters(
     val resource: List<GdsContentText>,
     val color: Color? = null,
-    val headingSize: HeadingSizeM3 = HeadingSizeM3.H4(),
+    val headingSize: HeadingSize = HeadingSize.H4(),
     val textStyle: TextStyle? = null,
     val modifier: Modifier = Modifier,
     val internalColumnModifier: Modifier =

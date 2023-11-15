@@ -12,9 +12,9 @@ import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
 import uk.gov.android.ui.theme.spacingSingle
 
-class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
-    override val values: Sequence<ContentM3Parameters> = sequenceOf(
-        ContentM3Parameters(
+class ContentProvider : PreviewParameterProvider<ContentParameters> {
+    override val values: Sequence<ContentParameters> = sequenceOf(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
@@ -23,7 +23,7 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     subTitle = string.preview__GdsHeading__subTitle1,
@@ -34,7 +34,7 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
             ),
             textAlign = TextAlign.Center
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
@@ -44,7 +44,7 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     subTitle = string.preview__GdsHeading__subTitle1,
@@ -61,21 +61,21 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
                     text = array.preview__GdsContent__array_oneLine
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
                     text = array.preview__GdsContent__array_twoLine
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
                     subTitle = string.preview__GdsHeading__subTitle1,
@@ -87,7 +87,7 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
                 )
             )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
                     text = array.preview__GdsContent__array_oneLine
@@ -109,7 +109,7 @@ class ContentM3Provider : PreviewParameterProvider<ContentM3Parameters> {
                     all = spacingSingle
                 )
         ),
-        ContentM3Parameters(
+        ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(

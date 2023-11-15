@@ -24,14 +24,14 @@ import uk.gov.android.ui.components.GdsVectorImage
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.images.icon.IconParameters
-import uk.gov.android.ui.components.m3.ButtonParametersM3
-import uk.gov.android.ui.components.m3.ButtonTypeM3
-import uk.gov.android.ui.components.m3.GdsButtonM3
-import uk.gov.android.ui.components.m3.HeadingM3
-import uk.gov.android.ui.components.m3.HeadingSizeM3
-import uk.gov.android.ui.components.m3.HelpTextM3
-import uk.gov.android.ui.components.m3.content.ContentM3Parameters
-import uk.gov.android.ui.components.m3.content.GdsContentM3
+import uk.gov.android.ui.components.m3.Heading
+import uk.gov.android.ui.components.m3.HeadingSize
+import uk.gov.android.ui.components.m3.HelpText
+import uk.gov.android.ui.components.m3.buttons.ButtonParameters
+import uk.gov.android.ui.components.m3.buttons.ButtonType
+import uk.gov.android.ui.components.m3.buttons.GdsButton
+import uk.gov.android.ui.components.m3.content.ContentParameters
+import uk.gov.android.ui.components.m3.content.GdsContent
 import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -59,8 +59,8 @@ data class InstructionsM3(
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,
     val titleBottomPadding: Dp = mediumPadding,
-    val helpTextParameters: HelpTextM3? = null,
-    val buttonParameters: List<ButtonParametersM3>? = null
+    val helpTextParameters: HelpText? = null,
+    val buttonParameters: List<ButtonParameters>? = null
 ) : BaseInstructions() {
     override val generate: @Composable () -> Unit
         get() = {
@@ -100,10 +100,10 @@ internal fun Content(
                     )
                 )
             }
-            HeadingM3(
+            Heading(
                 modifier = Modifier
                     .fillMaxWidth(),
-                size = HeadingSizeM3.H1(),
+                size = HeadingSize.H1(),
                 text = title,
                 textAlign = titleAlign,
                 padding = PaddingValues(
@@ -112,8 +112,8 @@ internal fun Content(
                     bottom = titleBottomPadding
                 )
             ).generate()
-            GdsContentM3(
-                contentParameters = ContentM3Parameters(
+            GdsContent(
+                contentParameters = ContentParameters(
                     modifier = Modifier
                         .padding(
                             end = smallPadding,
@@ -163,7 +163,7 @@ internal fun Buttons(
                 )
         ) {
             it.forEach { parameters ->
-                GdsButtonM3(parameters)
+                GdsButton(parameters)
             }
         }
     }
@@ -185,7 +185,7 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
                 )
             ),
             image = R.drawable.preview__brpinstructions,
-            helpTextParameters = HelpTextM3(
+            helpTextParameters = HelpText(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
                     image = R.drawable.ic_warning_icon
@@ -197,17 +197,17 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
                 )
             ),
             buttonParameters = listOf(
-                ButtonParametersM3(
-                    buttonType = ButtonTypeM3.PRIMARY(),
+                ButtonParameters(
+                    buttonType = ButtonType.PRIMARY(),
                     text = R.string.preview__BrpInstructions__primary_button,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = {}
                 ),
-                ButtonParametersM3(
-                    buttonType = ButtonTypeM3.ICON(
-                        buttonType = ButtonTypeM3.TERTIARY(),
+                ButtonParameters(
+                    buttonType = ButtonType.ICON(
+                        buttonType = ButtonType.TERTIARY(),
                         iconParameters = IconParameters(
                             image = R.drawable.ic_external_site,
                             description = R.string.externalSite

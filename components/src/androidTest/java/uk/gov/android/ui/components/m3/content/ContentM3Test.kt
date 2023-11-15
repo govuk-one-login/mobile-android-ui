@@ -18,7 +18,7 @@ import uk.gov.android.ui.theme.GdsTheme
 
 @RunWith(Parameterized::class)
 class ContentM3Test(
-    private val parameters: ContentM3Parameters
+    private val parameters: ContentParameters
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -43,7 +43,7 @@ class ContentM3Test(
         composeTestRule.apply {
             setContent {
                 GdsTheme {
-                    GdsContentM3(
+                    GdsContent(
                         parameters
                     )
                 }
@@ -56,12 +56,12 @@ class ContentM3Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: {0}")
-        fun values() = ContentM3Provider().values.toList()
+        fun values() = ContentProvider().values.toList()
     }
 }
 
 @Suppress("NestedBlockDepth")
-fun ContentM3Parameters.verifyComposable(
+fun ContentParameters.verifyComposable(
     composeTestRule: ComposeContentTestRule,
     resources: Resources
 ) = composeTestRule.let { rule ->

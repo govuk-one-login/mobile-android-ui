@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class HelpTextM3Test(
-    private val parameters: Pair<HelpTextM3, NightMode>
+    private val parameters: Pair<HelpText, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -17,8 +17,8 @@ class HelpTextM3Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: GdsHelpText")
-        fun values(): List<Pair<HelpTextM3, NightMode>> {
-            val result: MutableList<Pair<HelpTextM3, NightMode>> = mutableListOf()
+        fun values(): List<Pair<HelpText, NightMode>> {
+            val result: MutableList<Pair<HelpText, NightMode>> = mutableListOf()
             HelpTextProvider().values.forEach(applyNightMode(result))
 
             return result

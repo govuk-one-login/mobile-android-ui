@@ -10,8 +10,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.constraintlayout.compose.layoutId
-import uk.gov.android.ui.components.ButtonParameters
-import uk.gov.android.ui.components.GdsButton
+import uk.gov.android.ui.components.buttons.ButtonParameters
+import uk.gov.android.ui.components.buttons.GdsButton
 import uk.gov.android.ui.components.information.Information
 import uk.gov.android.ui.pages.errors.ErrorPageParameters
 import uk.gov.android.ui.pages.errors.ErrorPageTags

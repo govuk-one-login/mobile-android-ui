@@ -28,7 +28,7 @@ class HeadingsM3Test {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
     private val expectedParameterSize = 4
-    private val parameterList = HeadingsM3Provider().values.toList()
+    private val parameterList = HeadingsProvider().values.toList()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -54,7 +54,7 @@ class HeadingsM3Test {
     @Test
     fun verifyFourthHeading() = headingTests(parameterList[3])
 
-    private fun headingTests(parameters: HeadingM3) {
+    private fun headingTests(parameters: Heading) {
         composeTestRule.apply {
             setContent {
                 GdsTheme {
@@ -66,18 +66,18 @@ class HeadingsM3Test {
                 assertIsDisplayed()
                 assertFontSize(
                     when (parameters.size) {
-                        is HeadingSizeM3.H4 -> textSizeH4
-                        is HeadingSizeM3.H3 -> textSizeH3
-                        is HeadingSizeM3.H2 -> textSizeH2
-                        is HeadingSizeM3.H1 -> textSizeH1
+                        is HeadingSize.H4 -> textSizeH4
+                        is HeadingSize.H3 -> textSizeH3
+                        is HeadingSize.H2 -> textSizeH2
+                        is HeadingSize.H1 -> textSizeH1
                     }
                 )
                 assertLineHeight(
                     when (parameters.size) {
-                        is HeadingSizeM3.H4 -> lineHeightH4
-                        is HeadingSizeM3.H3 -> lineHeightH3
-                        is HeadingSizeM3.H2 -> lineHeightH2
-                        is HeadingSizeM3.H1 -> lineHeightH1
+                        is HeadingSize.H4 -> lineHeightH4
+                        is HeadingSize.H3 -> lineHeightH3
+                        is HeadingSize.H2 -> lineHeightH2
+                        is HeadingSize.H1 -> lineHeightH1
                     }
                 )
             }

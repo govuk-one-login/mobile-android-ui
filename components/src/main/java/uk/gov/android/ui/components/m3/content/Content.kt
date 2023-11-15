@@ -15,12 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.components.content.GdsContentText
-import uk.gov.android.ui.components.m3.HeadingM3
+import uk.gov.android.ui.components.m3.Heading
 import uk.gov.android.ui.theme.GdsTheme
 
 @Composable
-fun GdsContentM3(
-    contentParameters: ContentM3Parameters,
+fun GdsContent(
+    contentParameters: ContentParameters,
     colors: ColorScheme = MaterialTheme.colorScheme
 ) {
     Column(
@@ -39,7 +39,7 @@ fun GdsContentM3(
                     modifier = internalColumnModifier
                 ) {
                     contentText.subTitle?.let { subTitle ->
-                        HeadingM3(
+                        Heading(
                             modifier = headingModifier,
                             padding = PaddingValues(),
                             size = headingSize,
@@ -80,11 +80,11 @@ fun GdsContentM3(
 )
 @Composable
 private fun Preview(
-    @PreviewParameter(ContentM3Provider::class)
-    contentParameters: ContentM3Parameters
+    @PreviewParameter(ContentProvider::class)
+    contentParameters: ContentParameters
 ) {
     GdsTheme {
-        GdsContentM3(
+        GdsContent(
             contentParameters
         )
     }
