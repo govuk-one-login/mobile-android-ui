@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.instructions
+package uk.gov.android.ui.pages.m3.instructions
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -13,10 +13,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
+import uk.gov.android.ui.pages.instructions.m3.Instructions
+import uk.gov.android.ui.pages.instructions.m3.InstructionsProvider
 
 @RunWith(Parameterized::class)
-class InstructionsM3Test(
-    private val parameters: InstructionsM3
+class InstructionsTest(
+    private val parameters: Instructions
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -114,6 +116,6 @@ class InstructionsM3Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters
-        fun values() = InstructionsM3Provider().values.toList()
+        fun values() = InstructionsProvider().values.toList()
     }
 }

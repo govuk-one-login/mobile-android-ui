@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages
+package uk.gov.android.ui.pages.m3
 
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.DeviceConfig

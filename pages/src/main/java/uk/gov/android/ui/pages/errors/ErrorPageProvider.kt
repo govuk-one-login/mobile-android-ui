@@ -2,13 +2,11 @@ package uk.gov.android.ui.pages.errors
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.components.ButtonParameters
-import uk.gov.android.ui.components.ButtonType.ICON
-import uk.gov.android.ui.components.ButtonType.PRIMARY
-import uk.gov.android.ui.components.ButtonType.SECONDARY
 import uk.gov.android.ui.components.HeadingSize.H1
 import uk.gov.android.ui.components.R.drawable
 import uk.gov.android.ui.components.R.string
+import uk.gov.android.ui.components.buttons.ButtonParameters
+import uk.gov.android.ui.components.buttons.ButtonType
 import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
 import uk.gov.android.ui.components.images.icon.IconParameters
@@ -18,7 +16,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
     override val values: Sequence<ErrorPageParameters> = sequenceOf(
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
-                buttonType = PRIMARY(),
+                buttonType = ButtonType.PRIMARY(),
                 onClick = {},
                 text = string.preview__GdsButton__primary
             ),
@@ -38,13 +36,13 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
-                buttonType = PRIMARY(),
+                buttonType = ButtonType.PRIMARY(),
                 onClick = {},
                 text = string.preview__GdsButton__primary
             ),
             secondaryButtonParameters = ButtonParameters(
-                buttonType = ICON(
-                    buttonType = SECONDARY(),
+                buttonType = ButtonType.ICON(
+                    buttonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
                         image = drawable.ic_external_site
@@ -69,13 +67,13 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
-                buttonType = PRIMARY(),
+                buttonType = ButtonType.PRIMARY(),
                 onClick = {},
                 text = string.preview__GdsButton__primary
             ),
             secondaryButtonParameters = ButtonParameters(
-                buttonType = ICON(
-                    buttonType = SECONDARY(),
+                buttonType = ButtonType.ICON(
+                    buttonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
                         image = drawable.ic_external_site

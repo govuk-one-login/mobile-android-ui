@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class HeadingM3Test(
-    private val parameters: Pair<HeadingM3, NightMode>
+    private val parameters: Pair<Heading, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         parameters.first.generate()
@@ -16,9 +16,9 @@ class HeadingM3Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: GdsHeadingM3")
-        fun values(): List<Pair<HeadingM3, NightMode>> {
-            val result: MutableList<Pair<HeadingM3, NightMode>> = mutableListOf()
-            HeadingsM3Provider().values.forEach(applyNightMode(result))
+        fun values(): List<Pair<Heading, NightMode>> {
+            val result: MutableList<Pair<Heading, NightMode>> = mutableListOf()
+            HeadingsProvider().values.forEach(applyNightMode(result))
 
             return result
         }

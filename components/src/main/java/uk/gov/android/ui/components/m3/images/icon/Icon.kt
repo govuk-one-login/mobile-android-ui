@@ -41,7 +41,7 @@ import uk.gov.android.ui.theme.smallPadding
 ]
  */
 @Composable
-fun GdsIconM3(
+fun GdsIcon(
     parameters: IconParameters,
     colors: ColorScheme = MaterialTheme.colorScheme
 ) {
@@ -83,7 +83,7 @@ fun GdsIconM3(
 }
 
 /**
- * Generates the Android Studio preview for [GdsIconM3].
+ * Generates the Android Studio preview for [GdsIcon].
  */
 @Preview(
     showBackground = true,
@@ -114,7 +114,7 @@ fun GdsIconM3Preview(
                 .background(MaterialTheme.colorScheme.background)
                 .then(modifier)
         ) {
-            GdsIconM3(
+            GdsIcon(
                 parameters
             )
         }

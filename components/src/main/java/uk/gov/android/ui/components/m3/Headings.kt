@@ -23,37 +23,37 @@ import uk.gov.android.ui.components.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 
-sealed class HeadingSizeM3(
+sealed class HeadingSize(
     val style: @Composable () -> TextStyle
 ) {
-    class H1 : HeadingSizeM3(
+    class H1 : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineLarge
         }
     )
 
-    class H2 : HeadingSizeM3(
+    class H2 : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineMedium
         }
     )
 
-    class H3 : HeadingSizeM3(
+    class H3 : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineSmall
         }
     )
 
-    class H4 : HeadingSizeM3(
+    class H4 : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.titleMedium
         }
     )
 }
 
-data class HeadingM3(
+data class Heading(
     var modifier: Modifier = Modifier,
-    val size: HeadingSizeM3,
+    val size: HeadingSize,
     val color: Color? = null,
     val backgroundColor: Color? = null,
     @StringRes
@@ -90,23 +90,23 @@ data class HeadingM3(
         }
 }
 
-class HeadingsM3Provider : PreviewParameterProvider<HeadingM3> {
-    override val values: Sequence<HeadingM3> = sequenceOf(
-        HeadingM3(
+class HeadingsProvider : PreviewParameterProvider<Heading> {
+    override val values: Sequence<Heading> = sequenceOf(
+        Heading(
             text = R.string.preview__GdsHeading__h1,
-            size = HeadingSizeM3.H1()
+            size = HeadingSize.H1()
         ),
-        HeadingM3(
+        Heading(
             text = R.string.preview__GdsHeading__h2,
-            size = HeadingSizeM3.H2()
+            size = HeadingSize.H2()
         ),
-        HeadingM3(
+        Heading(
             text = R.string.preview__GdsHeading__h3,
-            size = HeadingSizeM3.H3()
+            size = HeadingSize.H3()
         ),
-        HeadingM3(
+        Heading(
             text = R.string.preview__GdsHeading__h4,
-            size = HeadingSizeM3.H4()
+            size = HeadingSize.H4()
         )
     )
 }
@@ -121,8 +121,8 @@ class HeadingsM3Provider : PreviewParameterProvider<HeadingM3> {
 )
 @Composable
 private fun Preview(
-    @PreviewParameter(HeadingsM3Provider::class)
-    headingParameters: HeadingM3
+    @PreviewParameter(HeadingsProvider::class)
+    headingParameters: Heading
 ) {
     GdsTheme {
         headingParameters.generate()

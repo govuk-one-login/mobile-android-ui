@@ -13,16 +13,19 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import uk.gov.android.ui.components.m3.buttons.ButtonParameters
+import uk.gov.android.ui.components.m3.buttons.ButtonProvider
+import uk.gov.android.ui.components.m3.buttons.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.minimumTouchTarget
 
 @RunWith(Parameterized::class)
 class ButtonsM3Test(
-    private val parameters: ButtonParametersM3
+    private val parameters: ButtonParameters
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val expectedParameterSize = 7
+    private val expectedParameterSize = 10
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -40,7 +43,7 @@ class ButtonsM3Test(
     fun buttonTests() {
         composeTestRule.setContent {
             GdsTheme {
-                GdsButtonM3(
+                GdsButton(
                     parameters
                 )
             }
@@ -58,6 +61,6 @@ class ButtonsM3Test(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}: {0}")
-        fun values() = ButtonProviderM3().values.toList()
+        fun values() = ButtonProvider().values.toList()
     }
 }

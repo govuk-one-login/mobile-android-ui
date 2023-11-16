@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import uk.gov.android.ui.components.buttons.ButtonParameters
+import uk.gov.android.ui.components.buttons.ButtonProvider
+import uk.gov.android.ui.components.buttons.GdsButton
 
 @RunWith(Parameterized::class)
 class ButtonsTest(

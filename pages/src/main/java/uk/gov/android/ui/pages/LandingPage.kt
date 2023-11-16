@@ -20,14 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.components.ButtonParameters
-import uk.gov.android.ui.components.ButtonType
-import uk.gov.android.ui.components.GdsButton
 import uk.gov.android.ui.components.GdsHeading
 import uk.gov.android.ui.components.GdsVectorImage
 import uk.gov.android.ui.components.HeadingParameters
 import uk.gov.android.ui.components.HeadingSize
 import uk.gov.android.ui.components.VectorImageParameters
+import uk.gov.android.ui.components.buttons.ButtonParameters
+import uk.gov.android.ui.components.buttons.ButtonType
+import uk.gov.android.ui.components.buttons.GdsButton
 import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText

@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.instructions
+package uk.gov.android.ui.pages.instructions.m3
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
@@ -20,19 +20,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.components.GdsHelpText
 import uk.gov.android.ui.components.GdsVectorImage
-import uk.gov.android.ui.components.HelpTextParameters
 import uk.gov.android.ui.components.VectorImageParameters
-import uk.gov.android.ui.components.content.ContentParameters
-import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.images.icon.IconParameters
-import uk.gov.android.ui.components.m3.ButtonParametersM3
-import uk.gov.android.ui.components.m3.ButtonTypeM3
-import uk.gov.android.ui.components.m3.GdsButtonM3
-import uk.gov.android.ui.components.m3.HeadingM3
-import uk.gov.android.ui.components.m3.HeadingSizeM3
+import uk.gov.android.ui.components.m3.Heading
+import uk.gov.android.ui.components.m3.HeadingSize
+import uk.gov.android.ui.components.m3.HelpText
+import uk.gov.android.ui.components.m3.buttons.ButtonParameters
+import uk.gov.android.ui.components.m3.buttons.ButtonType
+import uk.gov.android.ui.components.m3.buttons.GdsButton
+import uk.gov.android.ui.components.m3.content.ContentParameters
+import uk.gov.android.ui.components.m3.content.GdsContent
 import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -40,11 +39,7 @@ import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
-sealed class BaseInstructions {
-    abstract val generate: @Composable () -> Unit
-}
-
-data class InstructionsM3(
+data class Instructions(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.Fit,
@@ -60,10 +55,10 @@ data class InstructionsM3(
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,
     val titleBottomPadding: Dp = mediumPadding,
-    val helpTextParameters: HelpTextParameters? = null,
-    val buttonParameters: List<ButtonParametersM3>? = null
-) : BaseInstructions() {
-    override val generate: @Composable () -> Unit
+    val helpTextParameters: HelpText? = null,
+    val buttonParameters: List<ButtonParameters>? = null
+) {
+    val generate: @Composable () -> Unit
         get() = {
             GdsTheme {
                 Column(
@@ -76,8 +71,8 @@ data class InstructionsM3(
                         ),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Content(instructionsParameters = this@InstructionsM3)
-                    Buttons(instructionsParameters = this@InstructionsM3)
+                    Content(instructionsParameters = this@Instructions)
+                    Buttons(instructionsParameters = this@Instructions)
                 }
             }
         }
@@ -86,7 +81,7 @@ data class InstructionsM3(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    instructionsParameters: InstructionsM3
+    instructionsParameters: Instructions
 ) {
     instructionsParameters.apply {
         Column(
@@ -101,10 +96,10 @@ internal fun Content(
                     )
                 )
             }
-            HeadingM3(
+            Heading(
                 modifier = Modifier
                     .fillMaxWidth(),
-                size = HeadingSizeM3.H1(),
+                size = HeadingSize.H1(),
                 text = title,
                 textAlign = titleAlign,
                 padding = PaddingValues(
@@ -144,7 +139,7 @@ internal fun Content(
                 )
             }
             helpTextParameters?.let {
-                GdsHelpText(it)
+                it.generate()
             }
         }
     }
@@ -152,7 +147,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    instructionsParameters: InstructionsM3
+    instructionsParameters: Instructions
 ) {
     instructionsParameters.buttonParameters?.let {
         Column(
@@ -164,15 +159,15 @@ internal fun Buttons(
                 )
         ) {
             it.forEach { parameters ->
-                GdsButtonM3(parameters)
+                GdsButton(parameters)
             }
         }
     }
 }
 
-class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
-    override val values: Sequence<InstructionsM3> = sequenceOf(
-        InstructionsM3(
+class InstructionsProvider : PreviewParameterProvider<Instructions> {
+    override val values: Sequence<Instructions> = sequenceOf(
+        Instructions(
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
@@ -186,7 +181,7 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
                 )
             ),
             image = R.drawable.preview__brpinstructions,
-            helpTextParameters = HelpTextParameters(
+            helpTextParameters = HelpText(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
                     image = R.drawable.ic_warning_icon
@@ -198,17 +193,17 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
                 )
             ),
             buttonParameters = listOf(
-                ButtonParametersM3(
-                    buttonType = ButtonTypeM3.PRIMARY(),
+                ButtonParameters(
+                    buttonType = ButtonType.PRIMARY(),
                     text = R.string.preview__BrpInstructions__primary_button,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = {}
                 ),
-                ButtonParametersM3(
-                    buttonType = ButtonTypeM3.ICON(
-                        buttonType = ButtonTypeM3.SECONDARY(),
+                ButtonParameters(
+                    buttonType = ButtonType.ICON(
+                        buttonType = ButtonType.TERTIARY(),
                         iconParameters = IconParameters(
                             image = R.drawable.ic_external_site,
                             description = R.string.externalSite
@@ -238,8 +233,8 @@ class InstructionsM3Provider : PreviewParameterProvider<InstructionsM3> {
 )
 @Composable
 fun Preview(
-    @PreviewParameter(InstructionsM3Provider::class)
-    parameters: InstructionsM3
+    @PreviewParameter(InstructionsProvider::class)
+    parameters: Instructions
 ) {
     parameters.generate()
 }
