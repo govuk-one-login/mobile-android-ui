@@ -5,8 +5,6 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.pages.BaseScreenshotTest
-import uk.gov.android.ui.pages.instructions.m3.Instructions
-import uk.gov.android.ui.pages.instructions.m3.InstructionsProvider
 import uk.gov.android.ui.pages.m3.BaseScreenshotTestM3
 
 @RunWith(Parameterized::class)
