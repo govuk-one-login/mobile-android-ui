@@ -45,7 +45,6 @@ fun LandingPage(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
                     .padding(
                         bottom = mediumPadding,
                         top = mediumPadding
@@ -56,6 +55,7 @@ fun LandingPage(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
+                        .verticalScroll(rememberScrollState())
                         .weight(1f)
                 ) {
                     topIcon?.let {
