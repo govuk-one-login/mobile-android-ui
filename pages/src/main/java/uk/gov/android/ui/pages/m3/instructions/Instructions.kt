@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.instructions.m3
+package uk.gov.android.ui.pages.m3.instructions
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
