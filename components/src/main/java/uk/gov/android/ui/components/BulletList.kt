@@ -47,7 +47,7 @@ fun GdsBulletList(
                     mc_theme_light_inverseOnSurface
                 }
             } else {
-                MaterialTheme.colors.background
+                colors.background
             }
 
         Column(

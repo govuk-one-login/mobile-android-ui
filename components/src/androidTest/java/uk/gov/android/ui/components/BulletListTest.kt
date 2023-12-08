@@ -20,7 +20,7 @@ class BulletListTest {
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 2
+    private val expectedParameterSize = 3
     private val parameterList = BulletListProvider().values.toList()
 
     @get:Rule

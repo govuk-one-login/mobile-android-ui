@@ -218,9 +218,6 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                         .fillMaxWidth(),
                     onClick = {}
                 )
-            ),
-            subTitlePadding = PaddingValues(
-                bottom = smallPadding
             )
         )
     )
