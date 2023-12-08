@@ -55,11 +55,7 @@ fun GdsBulletList(
             bulletListParameters.title?.let { title ->
                 Heading(
                     modifier = headingModifier,
-                    padding = PaddingValues(
-                        end = smallPadding,
-                        start = smallPadding,
-                        bottom = smallPadding
-                    ),
+                    padding = headingPadding,
                     size = headingSize,
                     text = title,
                     textAlign = textAlign,
@@ -115,7 +111,11 @@ data class BulletListParameters(
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val textAlign: TextAlign = TextAlign.Start,
     val headingSize: HeadingSize = HeadingSize.H4(),
-    val headingModifier: Modifier = Modifier.fillMaxWidth()
+    val headingModifier: Modifier = Modifier.fillMaxWidth(),
+    val headingPadding: PaddingValues = PaddingValues(
+        start = smallPadding,
+        end = smallPadding
+    )
 ) {
     override fun toString(): String = this::class.java.simpleName
 }

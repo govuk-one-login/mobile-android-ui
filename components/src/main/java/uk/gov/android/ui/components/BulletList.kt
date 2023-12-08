@@ -2,7 +2,9 @@ package uk.gov.android.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,6 +28,10 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.components.m3.Heading
+import uk.gov.android.ui.components.m3.HeadingSize
+import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
+import uk.gov.android.ui.theme.mc_theme_light_inverseOnSurface
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
@@ -33,17 +39,37 @@ fun GdsBulletList(
     bulletListParameters: BulletListParameters
 ) {
     bulletListParameters.apply {
+        val background =
+            if (highlight == true) {
+                if (isSystemInDarkTheme()) {
+                    mc_theme_dark_inverseOnSurface
+                } else {
+                    mc_theme_light_inverseOnSurface
+                }
+            } else {
+                MaterialTheme.colors.background
+            }
+
         Column(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
-                .background(
-                    colors.background
-                )
+                .background(background)
                 .then(
                     colModifier
                 ),
             horizontalAlignment = colAlignment
         ) {
+            bulletListParameters.title?.let { title ->
+                Heading(
+                    modifier = headingModifier,
+                    padding = headingPadding,
+                    size = headingSize,
+                    text = title,
+                    textAlign = textAlign,
+                    backgroundColor = background
+                ).generate()
+            }
+
             when (contentText) {
                 is GdsContentText.GdsContentTextString ->
                     contentText.text.map {
@@ -53,7 +79,7 @@ fun GdsBulletList(
                 is GdsContentText.GdsContentTextArray ->
                     stringArrayResource(id = contentText.text)
             }.forEach {
-                Row() {
+                Row {
                     Text(
                         color = color ?: colors.contentColorFor(colors.background),
                         text = "\u2022",
@@ -75,15 +101,23 @@ fun GdsBulletList(
 }
 
 data class BulletListParameters(
+    val title: Int? = null,
     val contentText: GdsContentText,
     val color: Color? = null,
+    val highlight: Boolean? = null,
     val textStyle: TextStyle? = null,
     val indent: Dp = 50.dp,
     val colModifier: Modifier = Modifier
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
-    val textAlign: TextAlign = TextAlign.Start
+    val textAlign: TextAlign = TextAlign.Start,
+    val headingSize: HeadingSize = HeadingSize.H4(),
+    val headingModifier: Modifier = Modifier.fillMaxWidth(),
+    val headingPadding: PaddingValues = PaddingValues(
+        start = smallPadding,
+        end = smallPadding
+    )
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -91,16 +125,25 @@ data class BulletListParameters(
 class BulletListProvider : PreviewParameterProvider<BulletListParameters> {
     override val values: Sequence<BulletListParameters> = sequenceOf(
         BulletListParameters(
+            title = R.string.preview__GdsHeading__subTitle1,
             contentText = GdsContentText.GdsContentTextString(
                 text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray()
             )
         ),
         BulletListParameters(
+            title = R.string.preview__GdsHeading__subTitle2,
             contentText = GdsContentText.GdsContentTextString(
                 text = arrayOf(
                     R.string.preview__GdsContent__oneLine_0,
                     R.string.preview__GdsContent__twoLine_0
                 ).toIntArray()
+            )
+        ),
+        BulletListParameters(
+            highlight = true,
+            title = R.string.preview__GdsHeading__subTitle1,
+            contentText = GdsContentText.GdsContentTextString(
+                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray()
             )
         )
     )
