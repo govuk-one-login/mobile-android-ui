@@ -55,7 +55,8 @@ data class Instructions(
     val titleAlign: TextAlign = TextAlign.Start,
     val titlePadding: PaddingValues = PaddingValues(
         start = smallPadding,
-        end = smallPadding
+        end = smallPadding,
+        bottom = mediumPadding
     ),
     val helpTextParameters: HelpText? = null,
     val buttonParameters: List<ButtonParameters>? = null,
