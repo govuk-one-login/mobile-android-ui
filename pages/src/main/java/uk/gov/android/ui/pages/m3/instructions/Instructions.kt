@@ -85,6 +85,7 @@ data class Instructions(
 
 @Composable
 @Suppress("LongMethod")
+// Make function public
 fun Content(
     instructionsParameters: Instructions
 ) {
