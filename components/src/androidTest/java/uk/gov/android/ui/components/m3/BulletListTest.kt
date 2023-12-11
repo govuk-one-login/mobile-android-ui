@@ -1,4 +1,4 @@
-package uk.gov.android.ui.components
+package uk.gov.android.ui.components.m3
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
