@@ -35,6 +35,7 @@ import uk.gov.android.ui.theme.mc_theme_light_inverseOnSurface
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
+@Suppress("LongMethod")
 fun GdsBulletList(
     bulletListParameters: BulletListParameters
 ) {
