@@ -32,10 +32,12 @@ class InstructionsTest(
                 parameters.generate()
             }
 
-            onNodeWithText(
-                resources.getString(parameters.title)
-            ).apply {
-                assertIsDisplayed()
+            parameters.title?.let {
+                onNodeWithText(
+                    resources.getString(it)
+                ).apply {
+                    assertIsDisplayed()
+                }
             }
 
             parameters.content.forEach {

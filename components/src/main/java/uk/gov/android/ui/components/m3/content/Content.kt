@@ -3,7 +3,7 @@ package uk.gov.android.ui.components.m3.content
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,7 +41,7 @@ fun GdsContent(
                     contentText.subTitle?.let { subTitle ->
                         Heading(
                             modifier = headingModifier,
-                            padding = PaddingValues(),
+                            padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
                             textAlign = textAlign
@@ -58,7 +58,7 @@ fun GdsContent(
                     }.forEach {
                         Text(
                             color = color ?: colors.contentColorFor(colors.background),
-                            modifier = textModifier,
+                            modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.bodyLarge,
                             text = it,
                             textAlign = textAlign

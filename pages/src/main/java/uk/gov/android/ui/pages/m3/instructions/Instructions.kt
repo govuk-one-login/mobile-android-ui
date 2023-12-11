@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.components.GdsVectorImage
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.content.GdsContentText
@@ -52,11 +51,17 @@ data class Instructions(
     var imageDescription: Int? = null,
     var onHelp: () -> Unit = {},
     @StringRes
-    val title: Int,
+    val title: Int? = null,
     val titleAlign: TextAlign = TextAlign.Start,
-    val titleBottomPadding: Dp = mediumPadding,
+    val titlePadding: PaddingValues = PaddingValues(
+        start = smallPadding,
+        end = smallPadding,
+        bottom = mediumPadding
+    ),
     val helpTextParameters: HelpText? = null,
-    val buttonParameters: List<ButtonParameters>? = null
+    val buttonParameters: List<ButtonParameters>? = null,
+    val subTitlePadding: PaddingValues = PaddingValues(),
+    val contentPadding: PaddingValues = PaddingValues()
 ) {
     val generate: @Composable () -> Unit
         get() = {
@@ -80,7 +85,7 @@ data class Instructions(
 
 @Composable
 @Suppress("LongMethod")
-internal fun Content(
+fun Content(
     instructionsParameters: Instructions
 ) {
     instructionsParameters.apply {
@@ -96,18 +101,16 @@ internal fun Content(
                     )
                 )
             }
-            Heading(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                size = HeadingSize.H1(),
-                text = title,
-                textAlign = titleAlign,
-                padding = PaddingValues(
-                    end = smallPadding,
-                    start = smallPadding,
-                    bottom = titleBottomPadding
-                )
-            ).generate()
+            title?.let {
+                Heading(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    size = HeadingSize.H1(),
+                    text = title,
+                    textAlign = titleAlign,
+                    padding = titlePadding
+                ).generate()
+            }
             GdsContent(
                 contentParameters = ContentParameters(
                     modifier = Modifier
@@ -126,7 +129,9 @@ internal fun Content(
                             text = it.text
                         )
                     },
-                    textAlign = contentAlign
+                    textAlign = contentAlign,
+                    headingPadding = subTitlePadding,
+                    textPadding = contentPadding
                 )
             )
             image?.let {
