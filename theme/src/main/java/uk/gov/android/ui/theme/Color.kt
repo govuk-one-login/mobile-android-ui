@@ -1,5 +1,7 @@
 package uk.gov.android.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val disabled_button = Color(0xFFB1B4B6)
@@ -34,3 +36,15 @@ val md_theme_dark_onPrimary = Color(0xFFFFFFFF)
 val md_theme_dark_onSecondary = Color(0xFFFFFFFF)
 val md_theme_dark_onSurface = Color(0xFFFFFFFF)
 val mc_theme_dark_inverseOnSurface = Color(0xFF262626)
+
+/**
+ * Allows to change the [Theme] colors if requirements are different from the standard.
+ */
+@Composable
+fun inverseOnSurface(darkMode: Color, lightMode: Color): Color {
+    return if (isSystemInDarkTheme()) {
+        darkMode
+    } else {
+        lightMode
+    }
+}

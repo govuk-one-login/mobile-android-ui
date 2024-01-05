@@ -16,17 +16,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.m3.Heading
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.inverseOnSurface
+import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
 
 @Composable
 fun GdsContent(
     contentParameters: ContentParameters,
-    colors: ColorScheme = MaterialTheme.colorScheme
+    colors: ColorScheme = MaterialTheme.colorScheme,
+    changeBackgroundDefault: Boolean = false
 ) {
     Column(
         modifier = Modifier
             .background(
-                color = colors.background
+                color = if (changeBackgroundDefault) {
+                    inverseOnSurface(
+                        darkMode = mc_theme_dark_inverseOnSurface,
+                        lightMode = colors.background
+                    )
+                } else {
+                    colors.background
+                }
             )
             .then(
                 contentParameters.modifier
