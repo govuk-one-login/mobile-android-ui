@@ -1,6 +1,6 @@
-Android
+[Aa]ndroid
 APIs
-ASM
+(?i)ASM
 Composable
 Coroutine
 Coroutines
@@ -11,13 +11,12 @@ Dp
 GNU
 GPG
 GOV
-Gradle
+[Gg]radle
 JDK
 JIRA
 JRE
 Jacoco
-Jetpack
-jetpack
+[Jj]etpack
 Jira
 LFS
 MAM
@@ -30,8 +29,6 @@ Snackbar
 VIZes
 Zsh
 alphagov
-android
-asm
 async
 avdmanager
 clazz
@@ -41,11 +38,9 @@ coroutines
 crashlytics
 enum
 gov
-gradle
 iProov
 mockito
-kotlin
-Kotlin
+[Kk]otlin
 ktlint
 refreshVersions
 runBlocking

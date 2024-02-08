@@ -17,7 +17,6 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -46,7 +45,8 @@ fun GdsButton(
                     .then(modifier),
                 onClick = onClick,
                 shape = RoundedCornerShape(0.dp),
-                enabled = enabled
+                enabled = enabled,
+                contentPadding = contentPadding ?: ButtonDefaults.ContentPadding
             ) {
                 buttonContent(buttonParameters, colors).invoke(this)
             }
@@ -73,7 +73,7 @@ private fun buttonContent(
         fontWeight = parameters.buttonType.fontWeight,
         style = parameters.textStyle ?: MaterialTheme.typography.labelMedium,
         text = stringResource(id = parameters.text),
-        textAlign = TextAlign.Center
+        textAlign = parameters.textAlign
     )
 
     if (parameters.buttonType is ButtonType.ICON &&
