@@ -18,7 +18,7 @@ runs:
       run: |
         ./gradlew sonar \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.token=$SONAR_TOKEN \
           -Dsonar.projectVersion=$PROJECT_VERSION \
           -Dsonar.pullrequest.base=develop \
           -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
@@ -35,7 +35,7 @@ runs:
         ./gradlew sonar \
           -Dsonar.branch.name=${{ github.head_ref || github.ref_name }} \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.token=$SONAR_TOKEN \
           -Dsonar.projectVersion=$PROJECT_VERSION
       shell: bash
       env:
