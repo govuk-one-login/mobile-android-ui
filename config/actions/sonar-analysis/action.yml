@@ -20,7 +20,7 @@ runs:
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.token=$SONAR_TOKEN \
           -Dsonar.projectVersion=$PROJECT_VERSION \
-          -Dsonar.pullrequest.base=develop \
+          -Dsonar.pullrequest.base=main \
           -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
           -Dsonar.pullrequest.key=${{ github.event.number }}
       shell: bash
