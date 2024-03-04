@@ -9,6 +9,11 @@ inputs:
   sonar-token:
     description: "Sonarqube access token"
     required: true
+  check-quality-gate-passes:
+    description: "Whether or not to check if the Sonar Quality Gate check passes"
+    required: false
+    type: boolean
+    default: false
 
 runs:
   using: "composite"
@@ -41,4 +46,12 @@ runs:
       env:
         CI: true
         PROJECT_VERSION: ${{ inputs.project-version }}
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+    - name: Check SonarCloud Results
+      if: ${{ inputs.check-quality-gate-passes == true }}
+      uses: sonarsource/sonarqube-quality-gate-action@master
+      # Force to fail step after specific time
+      timeout-minutes: 5
+      env:
         SONAR_TOKEN: ${{ inputs.sonar-token }}
