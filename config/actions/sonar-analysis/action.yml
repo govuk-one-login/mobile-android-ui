@@ -9,11 +9,11 @@ inputs:
   sonar-token:
     description: "Sonarqube access token"
     required: true
-  check-quality-gate-passes:
-    description: "Whether or not to check if the Sonar Quality Gate check passes"
-    required: false
-    type: boolean
-    default: false
+  # check-quality-gate-passes:
+  #   description: "Whether or not to check if the Sonar Quality Gate check passes"
+  #   required: false
+  #   type: boolean
+  #   default: false
 
 runs:
   using: "composite"
@@ -27,7 +27,8 @@ runs:
           -Dsonar.projectVersion=$PROJECT_VERSION \
           -Dsonar.pullrequest.base=main \
           -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
-          -Dsonar.pullrequest.key=${{ github.event.number }}
+          -Dsonar.pullrequest.key=${{ github.event.number }} \
+          -Dsonar.qualitygate.wait=true
       shell: bash
       env:
         CI: true
@@ -48,8 +49,8 @@ runs:
         PROJECT_VERSION: ${{ inputs.project-version }}
         SONAR_TOKEN: ${{ inputs.sonar-token }}
 
-    - name: Check SonarCloud Results
-      if: ${{ inputs.check-quality-gate-passes == true }}
-      uses: sonarsource/sonarqube-quality-gate-action@master
-      env:
-        SONAR_TOKEN: ${{ inputs.sonar-token }}
+    # - name: Check SonarCloud Results
+    #   if: ${{ inputs.check-quality-gate-passes == true }}
+    #   uses: sonarsource/sonarqube-quality-gate-action@master
+    #   env:
+    #     SONAR_TOKEN: ${{ inputs.sonar-token }}
