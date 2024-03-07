@@ -70,6 +70,7 @@ jobs:
         with:
           project-version: ${{ steps.version-name.outputs.version-name }}
           sonar-token: ${{ secrets.SONAR_TOKEN }}
+        timeout-minutes: 10
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports

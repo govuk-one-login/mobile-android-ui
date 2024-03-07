@@ -22,7 +22,8 @@ runs:
           -Dsonar.projectVersion=$PROJECT_VERSION \
           -Dsonar.pullrequest.base=main \
           -Dsonar.pullrequest.branch=${{ github.head_ref || github.ref_name }} \
-          -Dsonar.pullrequest.key=${{ github.event.number }}
+          -Dsonar.pullrequest.key=${{ github.event.number }} \
+          -Dsonar.qualitygate.wait=true
       shell: bash
       env:
         CI: true
