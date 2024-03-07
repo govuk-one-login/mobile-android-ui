@@ -1,8 +1,6 @@
 package uk.gov.android.ui.components.inputs.date
 
-import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -56,9 +54,6 @@ fun GdsDatePicker(
         val interactionSource = remember { MutableInteractionSource() }
         val isPressed: Boolean by interactionSource.collectIsPressedAsState()
         LaunchedEffect(isPressed) {
-            val sharedPrefs = activity?.getSharedPreferences("SHARED_PREFS_ID", Context.MODE_PRIVATE)
-            val password: String? = sharedPrefs?.getString("secure_key_password", "password")
-            Log.d("GdsDatePicker", "GdsDatePicker: password exists: $password")
             if (isPressed) {
                 println("clicked")
                 activity?.supportFragmentManager?.let {
