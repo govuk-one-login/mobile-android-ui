@@ -12,12 +12,12 @@ jobs:
     runs-on: macos-latest
     #    runs-on: ubuntu-20.04-16core # Larger github runner, with KVM acceleration
     permissions:
-#      id-token: write
+      #      id-token: write
       contents: write
       packages: write
     steps:
       - name: Run checkout github action
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # pin@v4
         with:
           lfs: 'true'
           fetch-depth: 0

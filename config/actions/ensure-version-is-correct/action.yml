@@ -19,14 +19,14 @@ runs:
   steps:
     - name: Get latest tagged version
       id: get-latest-tag
-      uses: actions/github-script@v6
+      uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # pin@v6
       with:
         script: |
           const current = process.env.CURRENT
           const next = process.env.NEXT
           const [cMaj, cMin, cPat] = current.split(".")
           const [nMaj, nMin, nPat] = next.split(".")
-          
+
           if (
             nMaj > cMaj ||
             (nMaj == cMaj && nMin > cMin) ||
