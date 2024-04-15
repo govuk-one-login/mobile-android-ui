@@ -10,7 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1-node16
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # pin@v4.0.2
       with:
         aws-region: eu-west-2
         role-to-assume: ${{ inputs.actions-role-arn }}
@@ -18,13 +18,13 @@ runs:
         role-skip-session-tagging: true
 
     - name: Store GitHub actions ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@v2.2.1
+      uses: say8425/aws-secrets-manager-actions@d4ec1a7bf14738c1224d9842b57ea45bd1b2892f # pin@v2.2.1
       with:
         AWS_DEFAULT_REGION: "eu-west-2"
         SECRET_NAME: "di-ipv-dca-mob-android/github-actions-env-v2"
 
     - name: Store Google Play Service ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@v2.2.1
+      uses: say8425/aws-secrets-manager-actions@d4ec1a7bf14738c1224d9842b57ea45bd1b2892f # pin@v2.2.1
       with:
         AWS_DEFAULT_REGION: "eu-west-2"
         SECRET_NAME: "di-ipv-dca-mob-android/google-play-service-account-json-v2"
