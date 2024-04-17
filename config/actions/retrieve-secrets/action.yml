@@ -17,17 +17,26 @@ runs:
         role-duration-seconds: 1200
         role-skip-session-tagging: true
 
-    - name: Store GitHub actions ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@d4ec1a7bf14738c1224d9842b57ea45bd1b2892f # pin@v2.2.1
+    - name: Store github-actions-env secret from AWS SecretManager
+      uses: aws-actions/aws-secretsmanager-get-secrets@f91b2a3e784edce744f972af1685eca7e24d2302 # pin@v2.0.2
       with:
-        AWS_DEFAULT_REGION: "eu-west-2"
-        SECRET_NAME: "di-ipv-dca-mob-android/github-actions-env-v2"
+        secret-ids: |
+          ,di-mobile-android-onelogin-app/github-actions-env-v2
+        parse-json-secrets: true
 
-    - name: Store Google Play Service ENV from AWS SecretManager
-      uses: say8425/aws-secrets-manager-actions@d4ec1a7bf14738c1224d9842b57ea45bd1b2892f # pin@v2.2.1
+    - name: Store google-play-service-account-json secret from AWS SecretManager
+      uses: aws-actions/aws-secretsmanager-get-secrets@f91b2a3e784edce744f972af1685eca7e24d2302 # pin@v2.0.2
       with:
-        AWS_DEFAULT_REGION: "eu-west-2"
-        SECRET_NAME: "di-ipv-dca-mob-android/google-play-service-account-json-v2"
+        secret-ids: |
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON,di-ipv-dca-mob-android/google-play-service-account-json-v2
+        parse-json-secrets: false
+
+    - name: Parse google-play-service-account-json variable
+      run: |
+        JSON_KEY_DATA=$(echo "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" | jq -r '.json_key_data')
+        echo "::add-mask::$JSON_KEY_DATA" 
+        echo "JSON_KEY_DATA=$JSON_KEY_DATA" >> $GITHUB_ENV
+      shell: bash
 
     - name: Decode Keystore
       env:
