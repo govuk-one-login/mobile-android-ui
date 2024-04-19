@@ -21,7 +21,7 @@ class ContentTest {
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 9
+    private val expectedParameterSize = 10
     private val parameterList = ContentProvider().values.toList()
 
     @get:Rule
@@ -62,6 +62,9 @@ class ContentTest {
 
     @Test
     fun testNinthParameters() = contentTests(parameterList[8])
+
+    @Test
+    fun testTenthParameters() = contentTests(parameterList[9])
 
     private fun contentTests(parameters: ContentParameters) {
         composeTestRule.apply {

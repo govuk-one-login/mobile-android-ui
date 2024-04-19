@@ -24,7 +24,7 @@ class ContentM3Test(
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 9
+    private val expectedParameterSize = 10
 
     @get:Rule
     val composeTestRule = createComposeRule()
