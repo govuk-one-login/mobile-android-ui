@@ -64,6 +64,7 @@ fun GdsContent(
                             padding = headingPadding,
                             size = subHeadingSize,
                             text = subTitle,
+                            textVar = contentText.subTitle2Var,
                             textAlign = textAlign
                         ).generate()
                     }

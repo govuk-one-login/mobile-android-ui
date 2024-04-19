@@ -123,7 +123,8 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
             resource = listOf(
                 GdsContentTextString(
                     subTitle = string.preview__GdsHeading__subTitle1,
-                    subTitle2 = string.preview__GdsHeading__subTitle2,
+                    subTitle2 = string.preview__GdsHeading__subTitle2var,
+                    subTitle2Var = "404",
                     text = arrayOf(
                         string.preview__GdsContent__oneLine_0
                     ).toIntArray()
