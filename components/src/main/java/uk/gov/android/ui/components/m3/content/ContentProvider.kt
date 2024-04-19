@@ -10,6 +10,7 @@ import uk.gov.android.ui.components.R.array
 import uk.gov.android.ui.components.R.string
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
+import uk.gov.android.ui.components.m3.HeadingSize
 import uk.gov.android.ui.theme.spacingSingle
 
 class ContentProvider : PreviewParameterProvider<ContentParameters> {
@@ -118,6 +119,19 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                 )
             ),
             color = Color.Red
+        ),
+        ContentParameters(
+            resource = listOf(
+                GdsContentTextString(
+                    subTitle = string.preview__GdsHeading__subTitle1,
+                    subTitle2 = string.preview__GdsHeading__subTitle2,
+                    text = arrayOf(
+                        string.preview__GdsContent__oneLine_0
+                    ).toIntArray()
+                )
+            ),
+            textAlign = TextAlign.Center,
+            headingSize = HeadingSize.H1()
         )
     )
 }

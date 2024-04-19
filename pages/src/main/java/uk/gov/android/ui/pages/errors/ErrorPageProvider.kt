@@ -71,22 +71,12 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                 onClick = {},
                 text = string.preview__GdsButton__primary
             ),
-            secondaryButtonParameters = ButtonParameters(
-                buttonType = ButtonType.ICON(
-                    buttonType = ButtonType.SECONDARY(),
-                    iconParameters = IconParameters(
-                        foreGroundColor = Color.Unspecified,
-                        image = drawable.ic_external_site
-                    )
-                ),
-                onClick = {},
-                text = string.preview__GdsButton__secondary
-            ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
                             subTitle = string.preview__GdsHeading__subTitle1,
+                            subTitle2 = string.preview__GdsHeading__subTitle2,
                             text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
                         )
                     ),

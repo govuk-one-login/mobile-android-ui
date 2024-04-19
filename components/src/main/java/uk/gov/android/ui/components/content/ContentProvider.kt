@@ -118,6 +118,18 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                 )
             ),
             color = Color.Red
+        ),
+        ContentParameters(
+            resource = listOf(
+                GdsContentTextString(
+                    subTitle = string.preview__GdsHeading__subTitle1,
+                    subTitle2 = string.preview__GdsHeading__subTitle2,
+                    text = arrayOf(
+                        string.preview__GdsContent__oneLine_0
+                    ).toIntArray()
+                )
+            ),
+            textAlign = TextAlign.Center
         )
     )
 }
