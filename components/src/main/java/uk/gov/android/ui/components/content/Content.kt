@@ -51,6 +51,17 @@ fun GdsContent(
                         )
                         GdsHeading(headingParameters)
                     }
+                    contentText.subTitle2?.let { subTitle2 ->
+                        val headingParameters = HeadingParameters(
+                            modifier = headingModifier,
+                            padding = headingPadding,
+                            size = subHeadingSize,
+                            text = subTitle2,
+                            textVar = contentText.subTitle2Var,
+                            textAlign = textAlign
+                        )
+                        GdsHeading(headingParameters)
+                    }
                     when (contentText) {
                         is GdsContentTextString ->
                             contentText.text.map {

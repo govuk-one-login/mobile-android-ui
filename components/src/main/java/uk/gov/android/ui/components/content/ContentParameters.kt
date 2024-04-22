@@ -23,7 +23,8 @@ data class ContentParameters(
     val headingModifier: Modifier = Modifier.fillMaxWidth(),
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val headingPadding: PaddingValues = PaddingValues(),
-    val textPadding: PaddingValues = PaddingValues()
+    val textPadding: PaddingValues = PaddingValues(),
+    val subHeadingSize: HeadingSize = H4()
 ) {
     fun getSubtitleEntry(resourceIndex: Int = 0) = resource[resourceIndex].subTitle
 
