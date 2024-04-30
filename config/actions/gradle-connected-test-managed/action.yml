@@ -51,7 +51,8 @@ runs:
         USERNAME: ${{ inputs.github-actor }}
       run: |
         ./gradlew \
-        :app:googleAtdPixel5Api30BuildDebugAndroidTest \
+        :components:googleAtdPixel5Api30BuildDebugAndroidTest \
+        :pages:googleAtdPixel5Api30BuildDebugAndroidTest \
         --continue \
         --max-workers=1 \
         --stacktrace \
