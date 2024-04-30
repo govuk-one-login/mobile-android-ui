@@ -34,13 +34,6 @@ runs:
       shell: bash
       if: runner.os == 'Linux'
 
-    - name: Install nvm and npm
-      run: |
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-        nvm install node
-      shell: bash
-      if: runner.os == 'Linux'
-
     - name: Install brew dependencies
       run: |
         brew install vale rbenv ruby-build
