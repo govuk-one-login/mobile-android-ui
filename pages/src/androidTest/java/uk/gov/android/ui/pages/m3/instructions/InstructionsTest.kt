@@ -13,8 +13,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
-import uk.gov.android.ui.pages.instructions.m3.Instructions
-import uk.gov.android.ui.pages.instructions.m3.InstructionsProvider
 
 @RunWith(Parameterized::class)
 class InstructionsTest(
@@ -34,10 +32,12 @@ class InstructionsTest(
                 parameters.generate()
             }
 
-            onNodeWithText(
-                resources.getString(parameters.title)
-            ).apply {
-                assertIsDisplayed()
+            parameters.title?.let {
+                onNodeWithText(
+                    resources.getString(it)
+                ).apply {
+                    assertIsDisplayed()
+                }
             }
 
             parameters.content.forEach {

@@ -20,7 +20,7 @@ class BulletListTest {
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 2
+    private val expectedParameterSize = 3
     private val parameterList = BulletListProvider().values.toList()
 
     @get:Rule
@@ -40,6 +40,9 @@ class BulletListTest {
 
     @Test
     fun verifySecondParameters() = bulletListTests(parameterList[1])
+
+    @Test
+    fun verifyThirdParameters() = bulletListTests(parameterList[2])
 
     private fun bulletListTests(parameters: BulletListParameters) {
         composeTestRule.apply {

@@ -4,7 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.contentColorFor
@@ -44,9 +44,20 @@ fun GdsContent(
                     contentText.subTitle?.let { subTitle ->
                         val headingParameters = HeadingParameters(
                             modifier = headingModifier,
-                            padding = PaddingValues(),
+                            padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
+                            textAlign = textAlign
+                        )
+                        GdsHeading(headingParameters)
+                    }
+                    contentText.subTitle2?.let { subTitle2 ->
+                        val headingParameters = HeadingParameters(
+                            modifier = headingModifier,
+                            padding = headingPadding,
+                            size = subHeadingSize,
+                            text = subTitle2,
+                            textVar = contentText.subTitle2Var,
                             textAlign = textAlign
                         )
                         GdsHeading(headingParameters)
@@ -62,7 +73,7 @@ fun GdsContent(
                     }.forEach {
                         Text(
                             color = color ?: colors.contentColorFor(colors.background),
-                            modifier = textModifier,
+                            modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.body1,
                             text = it,
                             textAlign = textAlign

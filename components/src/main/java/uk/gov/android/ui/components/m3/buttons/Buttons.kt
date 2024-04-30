@@ -45,7 +45,8 @@ fun GdsButton(
                     .then(modifier),
                 onClick = onClick,
                 shape = RoundedCornerShape(0.dp),
-                enabled = enabled
+                enabled = enabled,
+                contentPadding = contentPadding ?: ButtonDefaults.ContentPadding
             ) {
                 buttonContent(buttonParameters, colors).invoke(this)
             }
@@ -71,7 +72,8 @@ private fun buttonContent(
     Text(
         fontWeight = parameters.buttonType.fontWeight,
         style = parameters.textStyle ?: MaterialTheme.typography.labelMedium,
-        text = stringResource(id = parameters.text)
+        text = stringResource(id = parameters.text),
+        textAlign = parameters.textAlign
     )
 
     if (parameters.buttonType is ButtonType.ICON &&
