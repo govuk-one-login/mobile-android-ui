@@ -3,7 +3,7 @@ package uk.gov.android.ui.components.m3.content
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,17 +16,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.m3.Heading
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.inverseOnSurface
+import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
 
 @Composable
+@Suppress("LongMethod")
 fun GdsContent(
     contentParameters: ContentParameters,
-    colors: ColorScheme = MaterialTheme.colorScheme
+    colors: ColorScheme = MaterialTheme.colorScheme,
+    changeBackgroundDefault: Boolean = false
 ) {
     Column(
         modifier = Modifier
             .background(
-                color = colors.background
+                color = if (changeBackgroundDefault) {
+                    inverseOnSurface(
+                        darkMode = mc_theme_dark_inverseOnSurface,
+                        lightMode = colors.background
+                    )
+                } else {
+                    colors.background
+                }
             )
             .then(
                 contentParameters.modifier
@@ -41,9 +52,19 @@ fun GdsContent(
                     contentText.subTitle?.let { subTitle ->
                         Heading(
                             modifier = headingModifier,
-                            padding = PaddingValues(),
+                            padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
+                            textAlign = textAlign
+                        ).generate()
+                    }
+                    contentText.subTitle2?.let { subTitle ->
+                        Heading(
+                            modifier = headingModifier,
+                            padding = headingPadding,
+                            size = subHeadingSize,
+                            text = subTitle,
+                            textVar = contentText.subTitle2Var,
                             textAlign = textAlign
                         ).generate()
                     }
@@ -58,7 +79,7 @@ fun GdsContent(
                     }.forEach {
                         Text(
                             color = color ?: colors.contentColorFor(colors.background),
-                            modifier = textModifier,
+                            modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.bodyLarge,
                             text = it,
                             textAlign = textAlign

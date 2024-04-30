@@ -32,6 +32,7 @@
     </string-array>
     <string name="preview__GdsHeading__subTitle1">Sub Title 1</string>
     <string name="preview__GdsHeading__subTitle2">Sub Title 2</string>
+    <string name="preview__GdsHeading__subTitle2var">Error code: %1$s</string>
 
     <!--  GDS Heading  -->
     <string name="preview__GdsHeading__h1">Heading H1</string>

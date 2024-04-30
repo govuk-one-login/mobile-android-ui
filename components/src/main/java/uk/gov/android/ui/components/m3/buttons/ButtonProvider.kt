@@ -1,10 +1,13 @@
 package uk.gov.android.ui.components.m3.buttons
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.components.R
 import uk.gov.android.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.theme.buttonMarginLeft
 
 class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
     override val values: Sequence<ButtonParameters> = sequenceOf(
@@ -104,6 +107,23 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
             ),
             onClick = {},
             text = R.string.preview__GdsButton__tertiary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.TERTIARY(),
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_external_site,
+                    description = R.string.externalSite,
+                    imagePositionAtEnd = true,
+                    backGroundColor = Color.Transparent
+                )
+            ),
+            onClick = {},
+            text = R.string.preview__GdsButton__tertiary_icon,
+            textAlign = TextAlign.Start,
+            contentPadding = PaddingValues(
+                start = buttonMarginLeft
+            )
         )
     )
 }

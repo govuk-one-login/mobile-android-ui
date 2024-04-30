@@ -1,5 +1,6 @@
 package uk.gov.android.ui.components.m3.content
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -20,7 +21,10 @@ data class ContentParameters(
         Modifier.padding(bottom = smallPadding),
     val textAlign: TextAlign? = TextAlign.Center,
     val headingModifier: Modifier = Modifier.fillMaxWidth(),
-    val textModifier: Modifier = Modifier.fillMaxWidth()
+    val textModifier: Modifier = Modifier.fillMaxWidth(),
+    val headingPadding: PaddingValues = PaddingValues(),
+    val textPadding: PaddingValues = PaddingValues(),
+    val subHeadingSize: HeadingSize = HeadingSize.H4()
 ) {
     fun getSubtitleEntry(resourceIndex: Int = 0) = resource[resourceIndex].subTitle
 
