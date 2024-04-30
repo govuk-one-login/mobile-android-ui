@@ -1,0 +1,61 @@
+name: 'Run gradle check'
+description: 'Run the "check" command for a Gradle project'
+
+inputs:
+  github-token:
+    description: 'Service account access token that allows publishing packages'
+    required: true
+  locale:
+    description: 'Locale used within the emulator'
+    required: false
+    default: 'en-GB'
+  github-actor:
+    description: 'Service account name that allows publishing packages'
+    required: true
+  version-code:
+    description: 'Version code'
+    required: true
+  version-name:
+    description: 'Version name'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    -  name: Stop all emulators
+       run: |
+         .sh/stopAllEmulators.sh
+       shell: bash
+
+    - name: Set up Gradle managed devices
+      env:
+        INPUT_VERSION_CODE: ${{ inputs.version-code }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}
+      run: |
+        ./gradlew \
+        googleAtdPixel5Api30Setup \
+        --continue \
+        --max-workers=1 \
+        --stacktrace \
+        -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect \
+        -PversionCode=${INPUT_VERSION_CODE} \
+        -PversionName=${INPUT_VERSION_NAME} \
+      shell: bash
+
+    - name: Run Gradle managed device test suites
+      env:
+        INPUT_SHARD_COUNT: ${{ inputs.shard-count }}
+        INPUT_VERSION_CODE: ${{ inputs.version-code }}
+        INPUT_VERSION_NAME: ${{ inputs.version-name }}
+        TOKEN: ${{ inputs.github-token }}
+        USERNAME: ${{ inputs.github-actor }}
+      run: |
+        ./gradlew \
+        :app:googleAtdPixel5Api30BuildDebugAndroidTest \
+        --continue \
+        --max-workers=1 \
+        --stacktrace \
+        -Pandroid.testoptions.manageddevices.emulator.gpu=swiftshader_indirect \
+        -PversionCode=${INPUT_VERSION_CODE} \
+        -PversionName=${INPUT_VERSION_NAME} \
+      shell: bash
