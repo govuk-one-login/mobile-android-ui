@@ -129,6 +129,12 @@ dependencies {
     ).forEach { testDependency ->
         testImplementation(testDependency)
     }
+
+    listOf(
+        AndroidX.test.orchestrator
+    ).forEach {
+        androidTestUtil(it)
+    }
 }
 
 publishing {
