@@ -80,7 +80,6 @@ runs:
       run: |
         npm install --global git-conventional-commits
       shell: bash
-      if: runner.os == 'macOS'
 
     - name: Setup Gradle
       id: setupGradle

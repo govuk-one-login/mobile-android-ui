@@ -16,7 +16,8 @@ plugins {
         "maven-publish",
         "uk.gov.ui.jvm-toolchains",
         "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config"
+        "uk.gov.ui.jacoco-module-config",
+        "uk.gov.ui.emulator-config"
     ).forEach(::id)
 }
 
@@ -127,6 +128,12 @@ dependencies {
         Testing.mockito.core
     ).forEach { testDependency ->
         testImplementation(testDependency)
+    }
+
+    listOf(
+        AndroidX.test.orchestrator
+    ).forEach {
+        androidTestUtil(it)
     }
 }
 
