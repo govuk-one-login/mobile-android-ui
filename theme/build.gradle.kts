@@ -14,7 +14,8 @@ plugins {
         "maven-publish",
         "uk.gov.ui.jvm-toolchains",
         "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config"
+        "uk.gov.ui.jacoco-module-config",
+        "uk.gov.ui.emulator-config"
     ).forEach(::id)
 }
 
