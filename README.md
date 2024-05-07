@@ -36,3 +36,7 @@ dependencies {
   ...
 }
 ```
+
+## v4.0.0 Breaking Changes
+- Configured the GdsButton to work with `AnnotatedString` in the `components/m3/buttons` to allow the IconButton to persist within the button and increase size/ move to another line accordingly when increasing font/ display size on device.
+The `GdsButton` and any pages using it (e.g. `ErrorPage`) need to be the same version in order to be used in the same codebase.
