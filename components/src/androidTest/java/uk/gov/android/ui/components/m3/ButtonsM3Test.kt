@@ -50,7 +50,7 @@ class ButtonsM3Test(
         }
 
         composeTestRule.apply {
-            onNodeWithText(resources.getString(parameters.text)).apply {
+            onNodeWithText(resources.getString(parameters.text), substring = true).apply {
                 assertIsDisplayed()
                 assertHeightIsAtLeast(minimumTouchTarget)
                 assertWidthIsAtLeast(minimumTouchTarget)

@@ -9,6 +9,7 @@
     <string name="preview__GdsButton__primary_icon">Primary icon button</string>
     <string name="preview__GdsButton__secondary_icon">Secondary icon button</string>
     <string name="preview__GdsButton__tertiary_icon">Tertiary icon button</string>
+    <string name="inLine__IconId">inlineIconId</string>
     <!--  GDS Content  -->
     <string name="preview__GdsContent__oneLine_0">One line content resource component</string>
     <string name="preview__GdsContent__twoLine_0">Two line</string>

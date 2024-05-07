@@ -12,6 +12,8 @@ data class ButtonParameters(
     val buttonType: ButtonType,
     val textStyle: TextStyle? = null,
     val textAlign: TextAlign? = TextAlign.Center,
+    var textWeight: Boolean? = false,
+    var inLineContentIcon: Boolean? = false,
     var modifier: Modifier = Modifier,
     var enabled: Boolean = true,
     val onClick: () -> Unit,
