@@ -16,4 +16,6 @@
     <string name="preview__BrpInstructions__primary_button">Primary button</string>
     <string name="preview__BrpInstructions__secondary_button">Secondary button</string>
     <string name="preview__BrpInstructions__help_text">Help text</string>
+
+    <string name="preview__titledPage__title">Title</string>
 </resources>
