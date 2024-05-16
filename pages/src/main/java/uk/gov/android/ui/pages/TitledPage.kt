@@ -78,10 +78,14 @@ class TitledPageParametersProvider : PreviewParameterProvider<TitledPageParamete
 }
 
 @Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
     showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
+    backgroundColor = 0xFFFFFFFF,
+    showBackground = true,
     showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
