@@ -18,6 +18,7 @@ sealed class GdsContentText(
     @Parcelize
     data class GdsContentTextString(
         @StringRes val text: IntArray,
+        val textVar: String? = null,
         @StringRes override val subTitle: Int? = null,
         @StringRes override val subTitle2: Int? = null,
         override val subTitle2Var: String? = null
