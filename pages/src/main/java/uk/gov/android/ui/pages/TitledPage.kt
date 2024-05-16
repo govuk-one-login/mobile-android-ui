@@ -18,11 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.components.GdsHeading
 import uk.gov.android.ui.components.HeadingParameters
 import uk.gov.android.ui.components.HeadingSize
 import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.ui.components.appbar.GdsTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ fun TitledPage(parameters: TitledPageParameters) {
                                     text = titleId,
                                     textAlign = TextAlign.Center,
                                     backgroundColor = MaterialTheme.colorScheme.background,
-                                    padding = PaddingValues(vertical = 18.dp)
+                                    padding = PaddingValues(vertical = mediumPadding)
                                 )
                             )
                         },
@@ -54,7 +54,7 @@ fun TitledPage(parameters: TitledPageParameters) {
                         },
                         scrollBehavior = scrollBehavior
                     ).generate()
-                },
+                }
             ) { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -66,7 +66,6 @@ fun TitledPage(parameters: TitledPageParameters) {
                 }
             }
         }
-
     }
 }
 
