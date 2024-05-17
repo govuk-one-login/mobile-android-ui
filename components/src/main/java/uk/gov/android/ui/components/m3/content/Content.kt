@@ -71,7 +71,11 @@ fun GdsContent(
                     when (contentText) {
                         is GdsContentText.GdsContentTextString ->
                             contentText.text.map {
-                                stringResource(id = it)
+                                contentText.textVar?.let { arg ->
+                                    stringResource(id = it, arg)
+                                } ?: run {
+                                    stringResource(id = it)
+                                }
                             }.toTypedArray()
 
                         is GdsContentText.GdsContentTextArray ->

@@ -21,6 +21,7 @@ import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
 import uk.gov.android.ui.theme.GdsTheme
 
+@Suppress("LongMethod")
 @Composable
 fun GdsContent(
     contentParameters: ContentParameters,
@@ -65,7 +66,11 @@ fun GdsContent(
                     when (contentText) {
                         is GdsContentTextString ->
                             contentText.text.map {
-                                stringResource(id = it)
+                                contentText.textVar?.let { arg ->
+                                    stringResource(id = it, arg)
+                                } ?: run {
+                                    stringResource(id = it)
+                                }
                             }.toTypedArray()
 
                         is GdsContentTextArray ->

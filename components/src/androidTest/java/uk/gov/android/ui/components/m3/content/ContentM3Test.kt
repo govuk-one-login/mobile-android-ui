@@ -24,7 +24,7 @@ class ContentM3Test(
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 10
+    private val expectedParameterSize = 11
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -74,7 +74,13 @@ fun ContentParameters.verifyComposable(
 
         val stringResources = when (contentText) {
             is GdsContentText.GdsContentTextString ->
-                contentText.text.map(resources::getString).toTypedArray()
+                contentText.textVar?.let {
+                    contentText.text.map { text ->
+                        resources.getString(text, contentText.textVar)
+                    }.toTypedArray()
+                } ?: run {
+                    contentText.text.map(resources::getString).toTypedArray()
+                }
 
             is GdsContentText.GdsContentTextArray ->
                 resources.getStringArray(contentText.text)

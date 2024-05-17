@@ -131,6 +131,17 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                 )
             ),
             textAlign = TextAlign.Center
+        ),
+        ContentParameters(
+            resource = listOf(
+                GdsContentTextString(
+                    text = arrayOf(
+                        string.preview__GdsHeading__subTitle2var
+                    ).toIntArray(),
+                    textVar = "404"
+                )
+            ),
+            textAlign = TextAlign.Center
         )
     )
 }

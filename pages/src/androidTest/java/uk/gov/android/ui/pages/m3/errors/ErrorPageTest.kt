@@ -32,7 +32,7 @@ class ErrorPageTest {
     }
 
     private val errorPageParameterList = ErrorPageProvider().values.toList()
-    private val expectedParameterListSize = 4
+    private val expectedParameterListSize = 5
 
     @Before
     fun setUp() {
@@ -54,6 +54,9 @@ class ErrorPageTest {
 
     @Test
     fun verifySubHeaderErrorPage() = errorScreenTests(errorPageParameterList[3])
+
+    @Test
+    fun verifyTextWithArgErrorPage() = errorScreenTests(errorPageParameterList[4])
 
     private fun errorScreenTests(parameters: ErrorPageParameters) {
         composeTestRule.apply {
