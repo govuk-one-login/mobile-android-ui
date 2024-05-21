@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
@@ -35,7 +36,7 @@ constructor(
     @OptIn(ExperimentalMaterial3Api::class)
     val generate: @Composable () -> Unit
         get() = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = title,
                 modifier = modifier,
                 actions = actions,

@@ -11,14 +11,14 @@ runs:
   steps:
     - name: Determine semver bump
       id: determine-semver-bump
-      uses: actions/github-script@v6
+      uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # pin@v6
       env:
         PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
       with:
         script: |
           const majorRegex = new RegExp('\(MAJOR\)');
           const minorRegex = new RegExp('\(MINOR\)');
-          
+
           switch (true) {
             case majorRegex.test(process.env.PULL_REQUEST_TITLE):
             case majorRegex.test(process.env.COMMIT_MESSAGE): {

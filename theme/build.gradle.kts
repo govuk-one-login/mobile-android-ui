@@ -1,6 +1,3 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 buildscript {
     dependencies {
         classpath(Android.tools.build.gradlePlugin)
@@ -17,7 +14,8 @@ plugins {
         "maven-publish",
         "uk.gov.ui.jvm-toolchains",
         "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config"
+        "uk.gov.ui.jacoco-module-config",
+        "uk.gov.ui.emulator-config"
     ).forEach(::id)
 }
 
@@ -136,21 +134,9 @@ publishing {
     }
     repositories {
         maven("https://maven.pkg.github.com/govuk-one-login/mobile-android-ui") {
-            if (file("${rootProject.projectDir.path}/github.properties").exists()) {
-                val propsFile = File("${rootProject.projectDir.path}/github.properties")
-                val props = Properties().also { it.load(FileInputStream(propsFile)) }
-                val ghUsername = props["username"] as String?
-                val ghToken = props["token"] as String?
-
-                credentials {
-                    username = ghUsername
-                    password = ghToken
-                }
-            } else {
-                credentials {
-                    username = System.getenv("USERNAME")
-                    password = System.getenv("TOKEN")
-                }
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }

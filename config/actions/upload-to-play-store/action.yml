@@ -48,7 +48,7 @@ runs:
           echo "Package name = $PACKAGE_NAME"
         
           export SUPPLY_UPLOAD_MAX_RETRIES=5
-          bundle exec fastlane supply --package_name "${PACKAGE_NAME}" --json_key_data "${json_key_data}" --aab ${AAB_PATH} --track internal
+          bundle exec fastlane supply --package_name "${PACKAGE_NAME}" --json_key_data "${JSON_KEY_DATA}" --aab ${AAB_PATH} --track internal
         done
       shell: bash
       env:

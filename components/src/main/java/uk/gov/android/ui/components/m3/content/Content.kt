@@ -21,6 +21,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
 
 @Composable
+@Suppress("LongMethod")
 fun GdsContent(
     contentParameters: ContentParameters,
     colors: ColorScheme = MaterialTheme.colorScheme,
@@ -57,10 +58,24 @@ fun GdsContent(
                             textAlign = textAlign
                         ).generate()
                     }
+                    contentText.subTitle2?.let { subTitle ->
+                        Heading(
+                            modifier = headingModifier,
+                            padding = headingPadding,
+                            size = subHeadingSize,
+                            text = subTitle,
+                            textVar = contentText.subTitle2Var,
+                            textAlign = textAlign
+                        ).generate()
+                    }
                     when (contentText) {
                         is GdsContentText.GdsContentTextString ->
                             contentText.text.map {
-                                stringResource(id = it)
+                                contentText.textVar?.let { arg ->
+                                    stringResource(id = it, arg)
+                                } ?: run {
+                                    stringResource(id = it)
+                                }
                             }.toTypedArray()
 
                         is GdsContentText.GdsContentTextArray ->

@@ -3,6 +3,7 @@ package uk.gov.android.ui.pages
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -61,7 +62,11 @@ fun LandingPage(
                     topIcon?.let {
                         GdsVectorImage(
                             VectorImageParameters(
-                                modifier = Modifier.padding(bottom = mediumPadding),
+                                modifier = Modifier
+                                    .padding(bottom = mediumPadding)
+                                    .clickable(enabled = onTopIconClick != null) {
+                                        onTopIconClick?.invoke()
+                                    },
                                 image = it,
                                 scale = topIconScale
                             )
@@ -120,6 +125,7 @@ data class LandingPageParameters(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.FillWidth,
+    val onTopIconClick: (() -> Unit)? = null,
     val content: List<GdsContentText>,
     val contentAlign: TextAlign = TextAlign.Center,
     var onPrimary: () -> Unit = {},

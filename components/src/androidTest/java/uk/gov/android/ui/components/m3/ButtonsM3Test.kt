@@ -25,7 +25,7 @@ class ButtonsM3Test(
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val expectedParameterSize = 10
+    private val expectedParameterSize = 11
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -50,7 +50,7 @@ class ButtonsM3Test(
         }
 
         composeTestRule.apply {
-            onNodeWithText(resources.getString(parameters.text)).apply {
+            onNodeWithText(resources.getString(parameters.text), substring = true).apply {
                 assertIsDisplayed()
                 assertHeightIsAtLeast(minimumTouchTarget)
                 assertWidthIsAtLeast(minimumTouchTarget)
