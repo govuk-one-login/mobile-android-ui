@@ -8,7 +8,7 @@ pluginManagement {
     plugins {
         id("com.android.library")
         id("org.jetbrains.kotlin.android") version "1.9.22"
-        id("de.fayard.refreshVersions") version "0.60.3"
+        id("de.fayard.refreshVersions") version "0.60.5"
         id("app.cash.paparazzi")
     }
 
