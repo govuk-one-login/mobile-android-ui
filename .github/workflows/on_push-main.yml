@@ -44,12 +44,14 @@ jobs:
 
       - name: Bundle release
         id: bundle-release
+        if: steps.latest-tag.outputs.current-tag != steps.version-name.outputs.version-name
         uses: ./config/actions/gradle-assemble-and-bundle
         with:
           version-name: ${{ steps.version-name.outputs.version-name }}
 
       - name: Release package
         uses: ./config/actions/maven-publish
+        if: steps.latest-tag.outputs.current-tag != steps.version-name.outputs.version-name
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
           package-version: ${{ steps.version-name.outputs.version-name }}
@@ -57,6 +59,7 @@ jobs:
 
       - name: Git tag bundles
         uses: ./config/actions/git-tag-bundles
+        if: steps.latest-tag.outputs.current-tag != steps.version-name.outputs.version-name
         with:
           version-name: ${{ steps.version-name.outputs.version-name }}
 
