@@ -54,7 +54,7 @@ import uk.gov.android.ui.theme.md_theme_light_primaryVariant
 import uk.gov.android.ui.theme.md_theme_light_secondary
 import uk.gov.android.ui.theme.md_theme_light_surface
 
-private val DarkColorPalette = darkColorScheme(
+val DarkColorPalette = darkColorScheme(
     background = md_theme_dark_background,
     error = md_theme_dark_error,
     onBackground = md_theme_dark_onBackground,
@@ -68,7 +68,7 @@ private val DarkColorPalette = darkColorScheme(
     surface = md_theme_dark_surface
 )
 
-private val LightColorPalette = lightColorScheme(
+val LightColorPalette = lightColorScheme(
     background = md_theme_light_background,
     error = md_theme_light_error,
     onBackground = md_theme_light_onBackground,
