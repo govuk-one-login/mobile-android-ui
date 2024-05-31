@@ -59,7 +59,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0" apply false
     id("io.gitlab.arturbosch.detekt") version "1.23.6" apply false
     id("app.cash.paparazzi") apply false
-    id("org.sonarqube") version "4.4.1.3373"
+    id("org.sonarqube") version "5.0.0.4638"
     id("uk.gov.ui.sonarqube-root-config")
 }
 
