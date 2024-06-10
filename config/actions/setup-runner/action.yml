@@ -43,6 +43,7 @@ runs:
 
     - name: Install KVM hardware acceleration Dependencies
       run: |
+        sudo apt-get update
         sudo apt-get install \
           bridge-utils \
           cpu-checker \
