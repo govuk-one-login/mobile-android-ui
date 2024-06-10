@@ -37,6 +37,8 @@ val md_theme_dark_onSecondary = Color(0xFFFFFFFF)
 val md_theme_dark_onSurface = Color(0xFFFFFFFF)
 val mc_theme_dark_inverseOnSurface = Color(0xFF262626)
 
+val adminButton = Color(0xFF4C2C92)
+
 /**
  * Allows to change the [Theme] colors if requirements are different from the standard.
  */

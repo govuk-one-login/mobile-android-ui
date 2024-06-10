@@ -28,6 +28,11 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
             text = R.string.preview__GdsButton__secondary
         ),
         ButtonParameters(
+            buttonType = ButtonType.ADMIN(),
+            onClick = {},
+            text = R.string.preview__GdsButton__admin
+        ),
+        ButtonParameters(
             buttonType = ButtonType.ICON(
                 buttonType = ButtonType.PRIMARY(),
                 iconParameters = IconParameters(

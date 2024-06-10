@@ -25,7 +25,7 @@ class ButtonsM3Test(
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val expectedParameterSize = 11
+    private val expectedParameterSize = 12
 
     @get:Rule
     val composeTestRule = createComposeRule()
