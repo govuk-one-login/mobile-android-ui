@@ -5,8 +5,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.components.images.icon.IconParameters
+import uk.gov.android.ui.theme.adminButton
 import uk.gov.android.ui.theme.disabled_button
 
 sealed class ButtonType(
@@ -31,6 +33,12 @@ sealed class ButtonType(
             tertiaryButtonColors()
         },
         fontWeight = FontWeight.Light
+    )
+
+    open class ADMIN : ButtonType(
+        buttonColour = {
+            adminButtonColors()
+        }
     )
 
     data class ICON(
@@ -64,4 +72,12 @@ internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     contentColor = MaterialTheme.colorScheme.primary,
     disabledContainerColor = disabled_button,
     disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
+)
+
+@Composable
+internal fun adminButtonColors() = ButtonDefaults.buttonColors(
+    containerColor = adminButton,
+    contentColor = Color.White,
+    disabledContainerColor = disabled_button,
+    disabledContentColor = Color.White
 )
