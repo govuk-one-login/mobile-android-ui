@@ -63,10 +63,11 @@ fun LandingPage(
                         GdsVectorImage(
                             VectorImageParameters(
                                 modifier = Modifier
-                                    .padding(bottom = mediumPadding)
+                                    .padding(paddingValues = iconPadding)
                                     .clickable(enabled = onTopIconClick != null) {
                                         onTopIconClick?.invoke()
                                     },
+                                description = contentDescription,
                                 image = it,
                                 scale = topIconScale
                             )
@@ -86,22 +87,24 @@ fun LandingPage(
                             )
                         )
                     )
-                    GdsContent(
-                        contentParameters = ContentParameters(
-                            modifier = Modifier
-                                .padding(
-                                    end = smallPadding,
-                                    start = smallPadding,
-                                    bottom = smallPadding
-                                ),
-                            internalColumnModifier = Modifier
-                                .padding(
-                                    bottom = mediumPadding
-                                ),
-                            resource = content,
-                            textAlign = contentAlign
+                    content?.let {
+                        GdsContent(
+                            contentParameters = ContentParameters(
+                                modifier = Modifier
+                                    .padding(
+                                        end = smallPadding,
+                                        start = smallPadding,
+                                        bottom = smallPadding
+                                    ),
+                                internalColumnModifier = Modifier
+                                    .padding(
+                                        bottom = mediumPadding
+                                    ),
+                                resource = it,
+                                textAlign = contentAlign
+                            )
                         )
-                    )
+                    }
                 }
                 GdsButton(
                     buttonParameters = ButtonParameters(
@@ -125,8 +128,10 @@ data class LandingPageParameters(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.FillWidth,
+    var contentDescription: Int? = null,
+    val iconPadding: PaddingValues = PaddingValues(bottom = mediumPadding),
     val onTopIconClick: (() -> Unit)? = null,
-    val content: List<GdsContentText>,
+    val content: List<GdsContentText>? = null,
     val contentAlign: TextAlign = TextAlign.Center,
     var onPrimary: () -> Unit = {},
     @StringRes
@@ -141,12 +146,20 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
     override val values: Sequence<LandingPageParameters> = sequenceOf(
         LandingPageParameters(
             topIcon = R.drawable.ic_photo_camera,
+            contentDescription = R.string.preview__landingPage__iconContentDescription,
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
                 GdsContentText.GdsContentTextString(
                     intArrayOf(R.string.preview__BrpInstructions__subtitle_1)
                 )
             ),
+            primaryButtonText = R.string.preview__BrpInstructions__primary_button
+        ),
+        LandingPageParameters(
+            topIcon = R.drawable.ic_photo_camera,
+            iconPadding = PaddingValues(bottom = smallPadding),
+            contentDescription = R.string.preview__landingPage__iconContentDescription,
+            title = R.string.preview__BrpInstructions__title,
             primaryButtonText = R.string.preview__BrpInstructions__primary_button
         )
     )
