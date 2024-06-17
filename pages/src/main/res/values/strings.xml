@@ -18,4 +18,6 @@
     <string name="preview__BrpInstructions__help_text">Help text</string>
 
     <string name="preview__titledPage__title">Page Title</string>
+    <string name="preview__landingPage__iconContentDescription">Icon content description</string>
+
 </resources>
