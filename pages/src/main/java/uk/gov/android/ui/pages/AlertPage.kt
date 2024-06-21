@@ -111,7 +111,7 @@ data class AlertPageParameters(
 class AlertPageProvider : PreviewParameterProvider<AlertPageParameters> {
     override val values: Sequence<AlertPageParameters> = sequenceOf(
         AlertPageParameters(
-            title = R.string.preview__titledPage__title,
+            title = R.string.preview__alertPage__title,
             annotatedContent = buildAnnotatedString {
                 append("One big summary line that can take multiple lines")
                 appendBulletLine("First bullet line")

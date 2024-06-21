@@ -17,10 +17,10 @@
     <string name="preview__BrpInstructions__secondary_button">Secondary button</string>
     <string name="preview__BrpInstructions__help_text">Help text</string>
 
-    <string name="preview__titledPage__title">Page Title extremely long going multi line</string>
+    <string name="preview__titledPage__title">Page Title</string>
     <string name="preview__landingPage__iconContentDescription">Icon content description</string>
 
-    <string name="preview__alertPage__title">Alert Page Title</string>
+    <string name="preview__alertPage__title">Page Title extremely long going multi line</string>
     <string name="preview__alertPage__close">Close</string>
     <string name="preview__alertPage__button">Primary CTA</string>
 
