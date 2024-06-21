@@ -6,6 +6,7 @@
     <string name="preview__GdsButton__primary">Primary button</string>
     <string name="preview__GdsButton__secondary">Secondary button</string>
     <string name="preview__GdsButton__tertiary">Tertiary button</string>
+    <string name="preview__GdsButton__danger">Danger button</string>
     <string name="preview__GdsButton__admin">Admin button</string>
     <string name="preview__GdsButton__primary_icon">Primary icon button</string>
     <string name="preview__GdsButton__secondary_icon">Secondary icon button</string>
