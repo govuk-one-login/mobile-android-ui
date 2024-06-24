@@ -27,7 +27,7 @@ class ButtonsTest(
 
     private val resources = context.resources
 
-    private val expectedParameterSize = 10
+    private val expectedParameterSize = 11
 
     @get:Rule
     val composeTestRule = createComposeRule()
