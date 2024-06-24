@@ -52,7 +52,9 @@ fun AlertPage(
                         IconButton(onClick = onClose) {
                             Icon(
                                 imageVector = Icons.Filled.Close,
-                                contentDescription = stringResource(R.string.preview__alertPage__close),
+                                contentDescription = stringResource(
+                                    R.string.preview__alertPage__close
+                                ),
                                 tint = colors.primary
                             )
                         }
@@ -65,7 +67,7 @@ fun AlertPage(
                                     .padding(horizontal = smallPadding)
                                     .padding(top = smallPadding),
                                 size = HeadingSize.H1(),
-                                text = title,
+                                text = title
                             )
                         )
                     }
@@ -76,7 +78,7 @@ fun AlertPage(
                                 .fillMaxWidth()
                                 .padding(horizontal = smallPadding),
                             style = MaterialTheme.typography.subtitle1,
-                            text = annotatedContent,
+                            text = annotatedContent
                         )
                     }
                 }
