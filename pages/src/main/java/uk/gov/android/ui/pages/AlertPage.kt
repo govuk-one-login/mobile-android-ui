@@ -37,6 +37,7 @@ import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 
+@Suppress("LongMethod")
 @Composable
 fun AlertPage(
     alertPageParameters: AlertPageParameters
