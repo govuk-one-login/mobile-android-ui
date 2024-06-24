@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.theme.disabled_button
+import uk.gov.android.ui.theme.md_theme_red
 
 sealed class ButtonType(
     val buttonColour: @Composable () -> ButtonColors,
@@ -29,6 +30,13 @@ sealed class ButtonType(
     open class TERTIARY : ButtonType(
         buttonColour = {
             tertiaryButtonColors()
+        },
+        fontWeight = FontWeight.Light
+    )
+
+    open class DANGER : ButtonType(
+        buttonColour = {
+            dangerButtonColors()
         },
         fontWeight = FontWeight.Light
     )
@@ -66,4 +74,12 @@ internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     disabledContentColor = androidx.compose.material3.contentColorFor(
         backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primary
     )
+)
+
+@Composable
+internal fun dangerButtonColors() = ButtonDefaults.buttonColors(
+    backgroundColor = md_theme_red,
+    contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
+    disabledBackgroundColor = disabled_button,
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
 )

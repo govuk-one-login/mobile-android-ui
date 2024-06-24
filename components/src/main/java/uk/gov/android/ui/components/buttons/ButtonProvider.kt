@@ -98,6 +98,11 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
             ),
             onClick = {},
             text = R.string.preview__GdsButton__tertiary_icon
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.DANGER(),
+            onClick = {},
+            text = R.string.preview__GdsButton__danger
         )
     )
 }
