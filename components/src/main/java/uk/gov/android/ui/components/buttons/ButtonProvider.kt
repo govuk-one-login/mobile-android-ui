@@ -103,6 +103,6 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
             buttonType = ButtonType.DANGER(),
             onClick = {},
             text = R.string.preview__GdsButton__danger
-        ),
+        )
     )
 }
