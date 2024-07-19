@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -33,7 +32,7 @@ fun GdsVectorImage(
 ) {
     parameters.apply {
         val filter = if (parameters.hasSpecifiedColor()) {
-            ColorFilter.tint(parameters.iconColor, BlendMode.Color)
+            ColorFilter.tint(parameters.iconColor)
         } else {
             null
         }
