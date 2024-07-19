@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,7 +70,8 @@ fun LandingPage(
                                     },
                                 description = contentDescription,
                                 image = it,
-                                scale = topIconScale
+                                scale = topIconScale,
+                                iconColor = iconColor
                             )
                         )
                     }
@@ -128,6 +130,7 @@ data class LandingPageParameters(
     @DrawableRes
     var topIcon: Int? = null,
     var topIconScale: ContentScale = ContentScale.FillWidth,
+    val iconColor: Color = Color.Unspecified,
     var contentDescription: Int? = null,
     val iconPadding: PaddingValues = PaddingValues(bottom = mediumPadding),
     val onTopIconClick: (() -> Unit)? = null,
