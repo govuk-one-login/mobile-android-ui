@@ -1,7 +1,10 @@
 package uk.gov.android.ui.pages
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -27,7 +30,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoadingScreen(
@@ -73,15 +78,29 @@ fun LoadingScreen(
                     modifier = Modifier
                         .padding(paddingValues)
                         .fillMaxSize()
+                        .padding(start = smallPadding, end = smallPadding)
                 ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .width(48.dp)
-                            .semantics { contentDescription = progressIndicatorContentDesc },
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = MaterialTheme.colorScheme.surfaceVariant
-                    )
-                    Text(text = stringResource(id = displayText))
+                    Column {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .width(48.dp)
+                                .semantics { contentDescription = progressIndicatorContentDesc },
+                            color = MaterialTheme.colorScheme.primary,
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant
+                        )
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(
+                                    top = smallPadding,
+                                    bottom = smallPadding
+                                )
+                        ) {
+                            Text(
+                                text = stringResource(id = displayText)
+                            )
+                        }
+                    }
                 }
             }
         )
