@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
@@ -81,21 +82,18 @@ fun LoadingScreen(
                         .padding(start = smallPadding, end = smallPadding)
                 ) {
                     Column {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .width(48.dp)
-                                .semantics { contentDescription = progressIndicatorContentDesc },
-                            color = MaterialTheme.colorScheme.primary,
-                            trackColor = MaterialTheme.colorScheme.surfaceVariant
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier
-                                .padding(
-                                    top = smallPadding,
-                                    bottom = smallPadding
-                                )
-                        ) {
+                        CenteredRow {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .width(48.dp)
+                                    .semantics {
+                                        contentDescription = progressIndicatorContentDesc
+                                    },
+                                color = MaterialTheme.colorScheme.primary,
+                                trackColor = MaterialTheme.colorScheme.surfaceVariant
+                            )
+                        }
+                        CenteredRow {
                             Text(
                                 text = stringResource(id = displayText)
                             )
@@ -104,6 +102,23 @@ fun LoadingScreen(
                 }
             }
         )
+    }
+}
+
+@Composable
+private fun CenteredRow(
+    content: @Composable () -> Unit
+) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                top = smallPadding,
+                bottom = smallPadding
+            )
+    ) {
+        content.invoke()
     }
 }
 
