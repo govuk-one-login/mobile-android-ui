@@ -24,4 +24,9 @@
     <string name="preview__alertPage__close">Close</string>
     <string name="preview__alertPage__button">Primary CTA</string>
 
+    <string name="loadingScreen__text">Placeholder text while loading/ getting info</string>
+    <string name="loadingScreen__default__text">Loading</string>
+    <string name="loadingScreen__progressBar__contentDescription">Circular Progress Indicator</string>
+    <string name="loadingScreen__navIcon__contentDescription">Close Loading Screen</string>
+
 </resources>
