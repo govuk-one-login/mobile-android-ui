@@ -249,6 +249,29 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     start = smallPadding,
                     top = smallPadding
                 )
+            ),
+            buttonParameters = listOf(
+                ButtonParameters(
+                    buttonType = ButtonType.PRIMARY(),
+                    text = R.string.preview__BrpInstructions__primary_button,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = xsmallPadding),
+                    onClick = {}
+                ),
+                ButtonParameters(
+                    buttonType = ButtonType.ICON(
+                        buttonType = ButtonType.TERTIARY(),
+                        iconParameters = IconParameters(
+                            image = R.drawable.ic_external_site,
+                            description = R.string.externalSite
+                        )
+                    ),
+                    text = R.string.preview__BrpInstructions__secondary_button,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onClick = {}
+                )
             )
         )
     )
