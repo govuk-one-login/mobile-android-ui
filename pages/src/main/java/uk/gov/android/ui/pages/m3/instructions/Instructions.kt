@@ -104,17 +104,15 @@ fun Content(
                 )
             }
             title?.let {
-                titleArg?.let {
-                    Heading(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        size = HeadingSize.H1(),
-                        text = title,
-                        textVar = stringResource(id = titleArg),
-                        textAlign = titleAlign,
-                        padding = titlePadding
-                    ).generate()
-                }
+                Heading(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    size = HeadingSize.H1(),
+                    text = title,
+                    textVar = titleArg?.let { stringResource(id = titleArg) },
+                    textAlign = titleAlign,
+                    padding = titlePadding
+                ).generate()
             }
             GdsContent(
                 contentParameters = ContentParameters(
