@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -52,6 +53,7 @@ data class Instructions(
     var onHelp: () -> Unit = {},
     @StringRes
     val title: Int? = null,
+    val titleArg: Int? = null,
     val titleAlign: TextAlign = TextAlign.Start,
     val titlePadding: PaddingValues = PaddingValues(
         start = smallPadding,
@@ -102,14 +104,17 @@ fun Content(
                 )
             }
             title?.let {
-                Heading(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    size = HeadingSize.H1(),
-                    text = title,
-                    textAlign = titleAlign,
-                    padding = titlePadding
-                ).generate()
+                titleArg?.let {
+                    Heading(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        size = HeadingSize.H1(),
+                        text = title,
+                        textVar = stringResource(id = titleArg),
+                        textAlign = titleAlign,
+                        padding = titlePadding
+                    ).generate()
+                }
             }
             GdsContent(
                 contentParameters = ContentParameters(
@@ -218,6 +223,33 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     modifier = Modifier
                         .fillMaxWidth(),
                     onClick = {}
+                )
+            )
+        ),
+        Instructions(
+            topIcon = R.drawable.ic_photo_camera,
+            title = R.string.preview__BrpInstructions__title__argument,
+            titleArg = R.string.preview__BrpInstructions__argument,
+            content = listOf(
+                BrpInstructionsContentSection(
+                    subTitle = R.string.preview__BrpInstructions__subtitle_1,
+                    text = R.array.preview__BrpInstructions__array_0
+                ),
+                BrpInstructionsContentSection(
+                    subTitle = R.string.preview__BrpInstructions__subtitle_2,
+                    text = R.array.preview__BrpInstructions__array_1
+                )
+            ),
+            image = R.drawable.preview__brpinstructions,
+            helpTextParameters = HelpText(
+                text = R.string.preview__BrpInstructions__help_text,
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_warning_icon
+                ),
+                rowModifier = Modifier.padding(
+                    end = smallPadding,
+                    start = smallPadding,
+                    top = smallPadding
                 )
             )
         )
