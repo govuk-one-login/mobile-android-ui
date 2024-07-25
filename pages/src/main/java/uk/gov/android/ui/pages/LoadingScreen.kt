@@ -145,10 +145,6 @@ class LoadingScreenParameterProvider : PreviewParameterProvider<LoadingScreenPar
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
 @Composable
 fun LoadingScreenPreview(
     @PreviewParameter(LoadingScreenParameterProvider::class)
