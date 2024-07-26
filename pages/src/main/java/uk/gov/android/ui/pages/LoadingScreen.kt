@@ -48,11 +48,7 @@ fun LoadingScreen(
             topBar = {
                 CenterAlignedTopAppBar(
                     title = {
-                        Text(
-                            text = "",
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
+                        Text(text = "")
                     },
                     navigationIcon = {
                         if (displayNavIcon) {
@@ -63,7 +59,8 @@ fun LoadingScreen(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = stringResource(
                                         id = R.string.loadingScreen__navIcon__contentDescription
-                                    )
+                                    ),
+                                    tint = MaterialTheme.colorScheme.onBackground
                                 )
                             }
                         }

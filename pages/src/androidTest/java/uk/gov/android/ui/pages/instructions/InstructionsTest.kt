@@ -32,13 +32,7 @@ class InstructionsTest(
                 parameters.generate()
             }
 
-            parameters.title?.let {
-                onNodeWithText(
-                    resources.getString(it)
-                ).apply {
-                    assertIsDisplayed()
-                }
-            }
+            checkTitle(composeTestRule, parameters.title, parameters.titleArg)
 
             parameters.content.forEach {
                 checkContentSection(this, it)
@@ -94,10 +88,10 @@ class InstructionsTest(
     }
 
     private fun checkContentSection(
-        tesRule: ComposeContentTestRule,
+        testRule: ComposeContentTestRule,
         contentSection: BrpInstructionsContentSection
     ) {
-        tesRule.apply {
+        testRule.apply {
             contentSection.subTitle?.let {
                 onNodeWithText(
                     resources.getString(it)
@@ -107,6 +101,43 @@ class InstructionsTest(
             }
             resources.getStringArray(contentSection.text).forEach {
                 onNodeWithText(it).apply {
+                    assertIsDisplayed()
+                }
+            }
+        }
+    }
+
+    private fun checkTitle(
+        testRule: ComposeContentTestRule,
+        title: Int? = null,
+        titleArg: Int? = null
+    ) {
+        testRule.apply {
+            title?.let {
+                checkTitleWithArgDisplayed(testRule, title, titleArg)
+            }
+        }
+    }
+
+    private fun checkTitleWithArgDisplayed(
+        testRule: ComposeContentTestRule,
+        title: Int,
+        titleArg: Int?
+    ) {
+        testRule.apply {
+            if (titleArg == null) {
+                onNodeWithText(
+                    resources.getString(title)
+                ).apply {
+                    assertIsDisplayed()
+                }
+            } else {
+                onNodeWithText(
+                    resources.getString(
+                        title,
+                        resources.getString(titleArg)
+                    )
+                ).apply {
                     assertIsDisplayed()
                 }
             }

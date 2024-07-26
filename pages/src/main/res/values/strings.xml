@@ -3,6 +3,8 @@
     <string name="externalSite">External Site</string>
 
     <string name="preview__BrpInstructions__title">Title</string>
+    <string name="preview__BrpInstructions__title__argument">Title %1$s - dynamic</string>
+    <string name="preview__BrpInstructions__argument">Argument</string>
     <string name="preview__BrpInstructions__subtitle_1">Sub Title 1</string>
     <string name="preview__BrpInstructions__subtitle_2">Sub Title 2</string>
     <string-array name="preview__BrpInstructions__array_0">

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -54,6 +55,7 @@ data class Instructions(
     var onHelp: () -> Unit = {},
     @StringRes
     val title: Int? = null,
+    val titleArg: Int? = null,
     val titleAlign: TextAlign = TextAlign.Start,
     val titlePadding: PaddingValues = PaddingValues(
         start = smallPadding,
@@ -109,6 +111,7 @@ internal fun Content(
                         size = HeadingSize.H1(),
                         text = title,
                         textAlign = titleAlign,
+                        textVar = titleArg?.let { stringResource(id = titleArg) },
                         padding = titlePadding
                     )
                 )
@@ -175,6 +178,56 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
         Instructions(
             topIcon = R.drawable.ic_photo_camera,
             title = R.string.preview__BrpInstructions__title,
+            content = listOf(
+                BrpInstructionsContentSection(
+                    subTitle = R.string.preview__BrpInstructions__subtitle_1,
+                    text = R.array.preview__BrpInstructions__array_0
+                ),
+                BrpInstructionsContentSection(
+                    subTitle = R.string.preview__BrpInstructions__subtitle_2,
+                    text = R.array.preview__BrpInstructions__array_1
+                )
+            ),
+            image = R.drawable.preview__brpinstructions,
+            helpTextParameters = HelpTextParameters(
+                text = R.string.preview__BrpInstructions__help_text,
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_warning_icon
+                ),
+                rowModifier = Modifier.padding(
+                    end = smallPadding,
+                    start = smallPadding,
+                    top = smallPadding
+                )
+            ),
+            buttonParameters = listOf(
+                ButtonParameters(
+                    buttonType = ButtonType.PRIMARY(),
+                    text = R.string.preview__BrpInstructions__primary_button,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = xsmallPadding),
+                    onClick = {}
+                ),
+                ButtonParameters(
+                    buttonType = ButtonType.ICON(
+                        buttonType = ButtonType.SECONDARY(),
+                        iconParameters = IconParameters(
+                            image = R.drawable.ic_external_site,
+                            description = R.string.externalSite
+                        )
+                    ),
+                    text = R.string.preview__BrpInstructions__secondary_button,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    onClick = {}
+                )
+            )
+        ),
+        Instructions(
+            topIcon = R.drawable.ic_photo_camera,
+            title = R.string.preview__BrpInstructions__title__argument,
+            titleArg = R.string.preview__BrpInstructions__argument,
             content = listOf(
                 BrpInstructionsContentSection(
                     subTitle = R.string.preview__BrpInstructions__subtitle_1,
