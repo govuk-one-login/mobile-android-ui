@@ -60,7 +60,7 @@ fun LoadingScreen(
                                     contentDescription = stringResource(
                                         id = R.string.loadingScreen__navIcon__contentDescription
                                     ),
-                                    tint = MaterialTheme.colorScheme.onBackground
+                                    tint = MaterialTheme.colorScheme.primary
                                 )
                             }
                         }
