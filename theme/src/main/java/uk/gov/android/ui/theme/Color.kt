@@ -14,6 +14,7 @@ val md_theme_light_primaryVariant = Color(0xFF7EDA9A)
 val md_theme_light_secondary = Color(0xFFFFFFFF)
 val md_theme_light_secondaryVariant = Color(0xFFFFFFFF)
 val md_theme_light_surface = Color(0xFFFFFFFF)
+val md_theme_light_surfaceVariant = Color(0xFFF3F2F1)
 
 val md_theme_light_onBackground = Color(0xFF000000)
 val md_theme_light_onError = Color(0xFFFFFFFF)
@@ -29,6 +30,7 @@ val md_theme_dark_primaryVariant = Color(0xFF006D3A)
 val md_theme_dark_secondary = Color(0xFF000000)
 val md_theme_dark_secondaryVariant = Color(0xFF000000)
 val md_theme_dark_surface = Color(0xFF000000)
+val md_theme_dark_surfaceVariant = Color(0xFF262626)
 
 val md_theme_dark_onBackground = Color(0xFFFFFFFF)
 val md_theme_dark_onError = Color(0xFF690005)
@@ -40,6 +42,8 @@ val mc_theme_dark_inverseOnSurface = Color(0xFF262626)
 val md_theme_red = Color(0xFFD4351C)
 
 val adminButton = Color(0xFF4C2C92)
+
+val bannerSpotColor = Color(0x40000000)
 
 /**
  * Allows to change the [Theme] colors if requirements are different from the standard.

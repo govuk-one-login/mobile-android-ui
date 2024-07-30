@@ -38,6 +38,10 @@ val buttonMarginLeft = 0.dp
 val buttonMarginRight = 0.dp
 val buttonMarginTop = 0.dp
 
+// Card/ Banner dimensions
+val bannerShapeSize = 16.dp
+val bannerElevation = 4.dp
+
 // Padding
 val xsmallPadding = 8.dp
 val smallPadding = 16.dp
