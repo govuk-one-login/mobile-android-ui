@@ -99,7 +99,6 @@ data class InformationBannerParameters(
     val link: Int,
     val icon: ImageVector? = null,
     val bannerModifier: Modifier = Modifier,
-    val multiple: Boolean = false,
     val onClick: () -> Unit = {},
     val onDismiss: () -> Unit = {}
 )
