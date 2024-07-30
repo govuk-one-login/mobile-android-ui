@@ -1,0 +1,3 @@
+[submodule "mobile-android-pipelines"]
+	path = mobile-android-pipelines
+	url = https://github.com/govuk-one-login/mobile-android-pipelines.git
