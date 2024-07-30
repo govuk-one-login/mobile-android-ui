@@ -42,6 +42,7 @@ import uk.gov.android.ui.theme.md_theme_dark_primary
 import uk.gov.android.ui.theme.md_theme_dark_primaryVariant
 import uk.gov.android.ui.theme.md_theme_dark_secondary
 import uk.gov.android.ui.theme.md_theme_dark_surface
+import uk.gov.android.ui.theme.md_theme_dark_surfaceVariant
 import uk.gov.android.ui.theme.md_theme_light_background
 import uk.gov.android.ui.theme.md_theme_light_error
 import uk.gov.android.ui.theme.md_theme_light_onBackground
@@ -53,6 +54,7 @@ import uk.gov.android.ui.theme.md_theme_light_primary
 import uk.gov.android.ui.theme.md_theme_light_primaryVariant
 import uk.gov.android.ui.theme.md_theme_light_secondary
 import uk.gov.android.ui.theme.md_theme_light_surface
+import uk.gov.android.ui.theme.md_theme_light_surfaceVariant
 
 val DarkColorPalette = darkColorScheme(
     background = md_theme_dark_background,
@@ -65,7 +67,8 @@ val DarkColorPalette = darkColorScheme(
     primary = md_theme_dark_primary,
     tertiary = md_theme_dark_primaryVariant,
     secondary = md_theme_dark_secondary,
-    surface = md_theme_dark_surface
+    surface = md_theme_dark_surface,
+    surfaceVariant = md_theme_dark_surfaceVariant
 )
 
 val LightColorPalette = lightColorScheme(
@@ -79,7 +82,8 @@ val LightColorPalette = lightColorScheme(
     primary = md_theme_light_primary,
     tertiary = md_theme_light_primaryVariant,
     secondary = md_theme_light_secondary,
-    surface = md_theme_light_surface
+    surface = md_theme_light_surface,
+    surfaceVariant = md_theme_light_surfaceVariant
 )
 
 @Composable

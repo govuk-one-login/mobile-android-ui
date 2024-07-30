@@ -44,4 +44,12 @@
     <string name="preview__GdsHeading__h4">Heading H4</string>
     <!--  GDS Vector Image -->
     <string name="preview__GdsVectorImage__description">Image description</string>
+
+    <!--  GDS Information Banner -->
+    <string name="preview__GdsInformationBanner__contentDescription">Information Banner content description</string>
+    <string name="preview__GdsInformationBanner__title">Information Banner Title</string>
+    <string name="preview__GdsInformationBanner__dismissIcon__contentDescription">Information Banner Dismiss Icon description</string>
+    <string name="preview__GdsInformationBanner__content">Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+    <string name="preview__GdsInformationBanner__link">Information Banner Link</string>
+    <string name="preview__GdsInformationBanner__linkIcon__contentDescription">Information Banner Link Icon description</string>
 </resources>
