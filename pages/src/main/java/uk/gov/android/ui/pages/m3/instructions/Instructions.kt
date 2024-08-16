@@ -63,7 +63,8 @@ data class Instructions(
     val helpTextParameters: HelpText? = null,
     val buttonParameters: List<ButtonParameters>? = null,
     val subTitlePadding: PaddingValues = PaddingValues(),
-    val contentPadding: PaddingValues = PaddingValues()
+    val contentPadding: PaddingValues = PaddingValues(),
+    val internalColumnPadding: PaddingValues = PaddingValues(bottom = mediumPadding)
 ) {
     val generate: @Composable () -> Unit
         get() = {
@@ -123,9 +124,7 @@ fun Content(
                             bottom = smallPadding
                         ),
                     internalColumnModifier = Modifier
-                        .padding(
-                            bottom = mediumPadding
-                        ),
+                        .padding(internalColumnPadding),
                     resource = content.map {
                         GdsContentText.GdsContentTextArray(
                             subTitle = it.subTitle,
