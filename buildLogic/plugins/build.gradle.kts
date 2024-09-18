@@ -7,7 +7,7 @@ val sonarqubeVersion by rootProject.extra("4.3.0.3225")
 
 dependencies {
     listOf(
-        "com.android.tools.build:gradle:8.0.0",
+        "com.android.tools.build:gradle:8.6.1",
         "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.20-1.0.25",
         "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:$kotlinVersion",
         "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion",
