@@ -93,15 +93,9 @@ fun LandingPage(
                         GdsContent(
                             contentParameters = ContentParameters(
                                 modifier = Modifier
-                                    .padding(
-                                        end = smallPadding,
-                                        start = smallPadding,
-                                        bottom = smallPadding
-                                    ),
+                                    .padding(contentPadding),
                                 internalColumnModifier = Modifier
-                                    .padding(
-                                        bottom = mediumPadding
-                                    ),
+                                    .padding(contentInternalPadding),
                                 resource = it,
                                 textAlign = contentAlign
                             )
@@ -136,6 +130,12 @@ data class LandingPageParameters(
     val onTopIconClick: (() -> Unit)? = null,
     val content: List<GdsContentText>? = null,
     val contentAlign: TextAlign = TextAlign.Center,
+    val contentInternalPadding: PaddingValues = PaddingValues(bottom = smallPadding),
+    val contentPadding: PaddingValues = PaddingValues(
+        end = smallPadding,
+        start = smallPadding,
+        bottom = smallPadding
+    ),
     var onPrimary: () -> Unit = {},
     @StringRes
     val primaryButtonText: Int,
