@@ -72,7 +72,9 @@ fun GdsBulletList(
                 is GdsContentText.GdsContentTextArray ->
                     stringArrayResource(id = contentText.text)
             }.forEach {
-                Row {
+                Row(
+                    verticalAlignment = verticalAlignment
+                ) {
                     Text(
                         color = color
                             ?: MaterialTheme.colorScheme.contentColorFor(
@@ -115,7 +117,8 @@ data class BulletListParameters(
     val headingPadding: PaddingValues = PaddingValues(
         start = smallPadding,
         end = smallPadding
-    )
+    ),
+    val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
