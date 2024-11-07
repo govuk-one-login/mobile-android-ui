@@ -6,6 +6,8 @@ buildscript {
     val projectId: String by rootProject.extra("uk.gov.android")
     val composeKotlinCompilerVersion by rootProject.extra { "1.6.8" }
 
+    val buildLogicDir: String by extra("mobile-android-pipelines/buildLogic")
+
     repositories {
         google()
         gradlePluginPortal()
@@ -31,4 +33,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.compose) apply false
 }

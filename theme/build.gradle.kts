@@ -2,6 +2,7 @@ import uk.gov.pipelines.config.ApkConfig
 
 plugins {
     id("uk.gov.pipelines.android-lib-config")
+    alias(libs.plugins.kotlin.compose)
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
