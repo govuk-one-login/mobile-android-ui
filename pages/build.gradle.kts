@@ -2,7 +2,9 @@ import uk.gov.pipelines.config.ApkConfig
 
 plugins {
     id("uk.gov.pipelines.android-lib-config")
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.paparazzi)
+    id("kotlin-parcelize")
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
@@ -19,12 +21,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-        )
     }
 
     buildTypes {
@@ -92,7 +88,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.material)

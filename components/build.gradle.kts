@@ -1,8 +1,10 @@
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.paparazzi)
     id("uk.gov.pipelines.android-lib-config")
-    alias(libs.plugins.kotlin.compose)
+    id("kotlin-parcelize")
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
@@ -81,15 +83,13 @@ android {
     buildFeatures {
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-        )
-    }
 }
 
 dependencies {
+    val composeBom = platform(libs.androidx.compose.bom)
+    androidTestImplementation(composeBom)
+    implementation(composeBom)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
@@ -99,8 +99,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
 

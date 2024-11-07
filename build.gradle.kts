@@ -4,7 +4,6 @@ buildscript {
     val configDir by rootProject.extra { "$rootDir/config" }
     val projectKey: String by rootProject.extra("mobile-android-ui")
     val projectId: String by rootProject.extra("uk.gov.android")
-    val composeKotlinCompilerVersion by rootProject.extra { "1.6.8" }
 
     val buildLogicDir: String by extra("mobile-android-pipelines/buildLogic")
 
@@ -33,5 +32,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.compose.compiler) apply false
 }
