@@ -5,15 +5,12 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import uk.gov.android.ui.theme.GdsTheme
 
-@RunWith(AndroidJUnit4::class)
 class LinkTextTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 

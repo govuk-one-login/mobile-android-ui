@@ -5,17 +5,15 @@ import android.content.res.Resources
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import uk.gov.android.ui.components.m3.content.verifyComposable
 import uk.gov.android.ui.components.verifyComposable
 import uk.gov.android.ui.theme.m3.GdsTheme
 
-@RunWith(AndroidJUnit4::class) // Parameterized runner seems to crash
+// Parameterized runner seems to crash
 class InformationTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources

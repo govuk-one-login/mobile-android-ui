@@ -5,12 +5,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.lineHeightH1
@@ -24,7 +22,6 @@ import uk.gov.android.ui.theme.textSizeH4
 import uk.gov.android.ui.utils.extensions.assertFontSize
 import uk.gov.android.ui.utils.extensions.assertLineHeight
 
-@RunWith(AndroidJUnit4::class)
 class HeadingsTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 

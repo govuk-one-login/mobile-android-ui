@@ -4,18 +4,16 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.theme.GdsTheme
 
-@RunWith(AndroidJUnit4::class) // Parameterized tests seems to crash
+// Parameterized tests seems to crash
 class ErrorPageTest {
     @get:Rule
     val composeTestRule = createComposeRule()

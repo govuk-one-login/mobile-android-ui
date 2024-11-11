@@ -10,18 +10,15 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import uk.gov.android.ui.components.images.icon.GdsIconPreview
 import uk.gov.android.ui.components.images.icon.GdsIconProvider
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.theme.GdsTheme
 
-@RunWith(AndroidJUnit4::class)
 class GdsIconComposableTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
