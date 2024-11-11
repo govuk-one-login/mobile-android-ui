@@ -18,14 +18,14 @@ runs:
         role-skip-session-tagging: true
 
     - name: Store github-actions-env secret from AWS SecretManager
-      uses: aws-actions/aws-secretsmanager-get-secrets@f91b2a3e784edce744f972af1685eca7e24d2302 # pin@v2.0.2
+      uses: aws-actions/aws-secretsmanager-get-secrets@1d6311ab61b4856de027ff508aac818ddc1e141b # pin@v2.0.7
       with:
         secret-ids: |
           ,di-mobile-android-onelogin-app/github-actions-env-v2
         parse-json-secrets: true
 
     - name: Store google-play-service-account-json secret from AWS SecretManager
-      uses: aws-actions/aws-secretsmanager-get-secrets@f91b2a3e784edce744f972af1685eca7e24d2302 # pin@v2.0.2
+      uses: aws-actions/aws-secretsmanager-get-secrets@1d6311ab61b4856de027ff508aac818ddc1e141b # pin@v2.0.7
       with:
         secret-ids: |
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON,di-ipv-dca-mob-android/google-play-service-account-json-v2
