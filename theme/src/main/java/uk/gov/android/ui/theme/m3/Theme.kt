@@ -90,7 +90,7 @@ val LightColorPalette = lightColorScheme(
 fun GdsTheme(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = Shape,
+    shapes: Shapes = Shapes,
     typography: Typography = Typography,
     content: @Composable () -> Unit
 ) {
