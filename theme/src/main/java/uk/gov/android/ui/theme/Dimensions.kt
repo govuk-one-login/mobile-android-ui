@@ -29,14 +29,8 @@ val radioButtonMinHeight = 48.dp
 // Button dimensions
 val buttonTextSize = 17.sp
 val buttonLineHeight = 22.sp
-val buttonPaddingBottom = 13.dp
-val buttonPaddingLeft = 10.dp
-val buttonPaddingRight = 10.dp
-val buttonPaddingTop = 13.dp
-val buttonMarginBottom = 32.dp
-val buttonMarginLeft = 0.dp
-val buttonMarginRight = 0.dp
-val buttonMarginTop = 0.dp
+val buttonContentVertical = 13.dp
+val buttonContentHorizontal = 8.dp
 val closeButtonSize = 64.dp
 
 // Card/ Banner dimensions

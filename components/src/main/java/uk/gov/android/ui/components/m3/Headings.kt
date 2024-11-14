@@ -28,25 +28,25 @@ sealed class HeadingSize(
 ) {
     class H1 : HeadingSize(
         style = @Composable {
-            MaterialTheme.typography.headlineLarge
+            MaterialTheme.typography.displaySmall
         }
     )
 
     class H2 : HeadingSize(
         style = @Composable {
-            MaterialTheme.typography.headlineMedium
+            MaterialTheme.typography.headlineLarge
         }
     )
 
     class H3 : HeadingSize(
         style = @Composable {
-            MaterialTheme.typography.headlineSmall
+            MaterialTheme.typography.headlineMedium
         }
     )
 
     class H4 : HeadingSize(
         style = @Composable {
-            MaterialTheme.typography.titleMedium
+            MaterialTheme.typography.headlineSmall
         }
     )
 }

@@ -2,14 +2,14 @@ package uk.gov.android.ui.components.m3.buttons
 
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.contentColorFor
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.theme.adminButton
-import uk.gov.android.ui.theme.disabled_button
+import uk.gov.android.ui.theme.m3_disabled
+import uk.gov.android.ui.theme.m3_onDisabled
 
 sealed class ButtonType(
     val buttonColour: @Composable () -> ButtonColors,
@@ -31,6 +31,12 @@ sealed class ButtonType(
     open class TERTIARY : ButtonType(
         buttonColour = {
             tertiaryButtonColors()
+        }
+    )
+
+    open class QUATERNARY : ButtonType(
+        buttonColour = {
+            quaternaryButtonColors()
         },
         fontWeight = FontWeight.Light
     )
@@ -41,43 +47,65 @@ sealed class ButtonType(
         }
     )
 
+    open class ERROR : ButtonType(
+        buttonColour = {
+            errorButtonColors()
+        }
+    )
+
     data class ICON(
-        val buttonType: ButtonType,
+        val parentButtonType: ButtonType,
         val iconParameters: IconParameters
     ) : ButtonType(
-        buttonColour = buttonType.buttonColour,
-        fontWeight = buttonType.fontWeight
+        buttonColour = parentButtonType.buttonColour,
+        fontWeight = parentButtonType.fontWeight
     )
 }
 
 @Composable
 internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = MaterialTheme.colorScheme.primary,
-    contentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary),
-    disabledContainerColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
+    containerColor = colorScheme.primary,
+    contentColor = colorScheme.onPrimary,
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
 )
 
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = MaterialTheme.colorScheme.secondary,
-    contentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.secondary),
-    disabledContainerColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
+    containerColor = colorScheme.secondary,
+    contentColor = colorScheme.onSecondary,
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
 )
 
 @Composable
 internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = MaterialTheme.colorScheme.secondary,
-    contentColor = MaterialTheme.colorScheme.primary,
-    disabledContainerColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colorScheme.primary)
+    containerColor = colorScheme.tertiary,
+    contentColor = colorScheme.onTertiary,
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
+)
+
+@Composable
+internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
+    containerColor = colorScheme.secondary,
+    contentColor = colorScheme.primary,
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
 )
 
 @Composable
 internal fun adminButtonColors() = ButtonDefaults.buttonColors(
     containerColor = adminButton,
     contentColor = Color.White,
-    disabledContainerColor = disabled_button,
-    disabledContentColor = Color.White
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
+)
+
+@Composable
+internal fun errorButtonColors() = ButtonDefaults.buttonColors(
+    containerColor = colorScheme.error,
+    contentColor = colorScheme.onError,
+    disabledContainerColor = m3_disabled,
+    disabledContentColor = m3_onDisabled
 )

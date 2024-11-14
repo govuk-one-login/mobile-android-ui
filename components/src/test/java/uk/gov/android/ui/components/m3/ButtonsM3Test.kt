@@ -22,7 +22,7 @@ class ButtonsM3Test(
         fun values(): List<Pair<ButtonParameters, NightMode>> {
             val result: MutableList<Pair<ButtonParameters, NightMode>> = mutableListOf()
 
-            ButtonProvider().values.forEach(applyNightMode(result))
+            ButtonProvider().values.map { it.first() }.forEach(applyNightMode(result))
 
             return result
         }

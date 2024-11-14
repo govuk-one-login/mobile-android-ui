@@ -202,7 +202,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
             buttonParameters = listOf(
                 ButtonParameters(
                     buttonType = ButtonType.PRIMARY(),
-                    text = R.string.preview__BrpInstructions__primary_button,
+                    text = "Primary button",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
@@ -210,13 +210,13 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                 ),
                 ButtonParameters(
                     buttonType = ButtonType.ICON(
-                        buttonType = ButtonType.TERTIARY(),
+                        parentButtonType = ButtonType.QUATERNARY(),
                         iconParameters = IconParameters(
                             image = R.drawable.ic_external_site,
                             description = R.string.externalSite
                         )
                     ),
-                    text = R.string.preview__BrpInstructions__secondary_button,
+                    text = "Secondary button",
                     modifier = Modifier
                         .fillMaxWidth(),
                     onClick = {}
@@ -252,7 +252,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
             buttonParameters = listOf(
                 ButtonParameters(
                     buttonType = ButtonType.PRIMARY(),
-                    text = R.string.preview__BrpInstructions__primary_button,
+                    text = "Primary button",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
@@ -260,13 +260,13 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                 ),
                 ButtonParameters(
                     buttonType = ButtonType.ICON(
-                        buttonType = ButtonType.TERTIARY(),
+                        parentButtonType = ButtonType.QUATERNARY(),
                         iconParameters = IconParameters(
                             image = R.drawable.ic_external_site,
                             description = R.string.externalSite
                         )
                     ),
-                    text = R.string.preview__BrpInstructions__secondary_button,
+                    text = "Secondary button",
                     modifier = Modifier
                         .fillMaxWidth(),
                     onClick = {}

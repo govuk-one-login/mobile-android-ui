@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import uk.gov.android.ui.theme.R
 import uk.gov.android.ui.theme.buttonLineHeight
 import uk.gov.android.ui.theme.buttonTextSize
@@ -88,8 +89,18 @@ val Typography = Typography(
         fontSize = textSizeBody2,
         fontWeight = FontWeight.ExtraLight
     ),
+    bodySmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = 17.sp,
+        lineHeight = 22.sp,
+        fontWeight = FontWeight.Light
+    ),
     labelLarge = TextStyle(
         fontFamily = FontFamily(
+            Font(
+                resId = R.font.gds_transport_light,
+                weight = FontWeight.Light
+            ),
             Font(
                 resId = R.font.gds_transport_light,
                 weight = FontWeight.Normal
