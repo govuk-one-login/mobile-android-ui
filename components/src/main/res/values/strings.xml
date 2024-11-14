@@ -3,6 +3,7 @@
     <string name="externalSite">External Site</string>
 
     <!--  GDS Button  -->
+    <string name="preview__CloseButton__close">Close</string>
     <string name="preview__GdsButton__primary">Primary button</string>
     <string name="preview__GdsButton__secondary">Secondary button</string>
     <string name="preview__GdsButton__tertiary">Tertiary button</string>
