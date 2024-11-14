@@ -1,11 +1,9 @@
 package uk.gov.android.ui.components.buttons
 
-import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 
-@Keep
 data class ButtonParameters(
     val buttonType: ButtonType,
     val textStyle: TextStyle? = null,

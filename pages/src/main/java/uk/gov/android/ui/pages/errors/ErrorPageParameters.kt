@@ -1,6 +1,5 @@
 package uk.gov.android.ui.pages.errors
 
-import androidx.annotation.Keep
 import androidx.compose.ui.Modifier
 import uk.gov.android.ui.components.HeadingSize.H1
 import uk.gov.android.ui.components.buttons.ButtonParameters
@@ -9,7 +8,6 @@ import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.images.icon.IconParameters
 import uk.gov.android.ui.components.information.InformationParameters
 
-@Keep
 data class ErrorPageParameters(
     val primaryButtonParameters: ButtonParameters,
     val informationParameters: InformationParameters,

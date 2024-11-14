@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep all Parcelable classes (for @Parcelize support)
+-keep class ** implements android.os.Parcelable {
+    *;
+}
