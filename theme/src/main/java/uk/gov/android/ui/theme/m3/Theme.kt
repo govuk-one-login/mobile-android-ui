@@ -304,6 +304,6 @@ private fun Swatch(
 @Composable
 private fun PalletteSpacer() {
     Spacer(
-        modifier = Modifier.height(uk.gov.android.ui.theme.PALETTE_PADDING.dp)
+        modifier = Modifier.height(PALETTE_PADDING.dp)
     )
 }

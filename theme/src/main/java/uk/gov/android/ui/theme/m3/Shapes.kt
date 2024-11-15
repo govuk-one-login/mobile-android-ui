@@ -3,7 +3,6 @@ package uk.gov.android.ui.theme.m3
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -32,35 +31,38 @@ val Shapes = Shapes(
     extraLarge = RoundedCornerShape(0.dp)
 )
 
+internal val shapeDisplayMap = mapOf(
+    "none" to RectangleShape,
+    "extraSmall" to Shapes.extraSmall,
+    "small" to Shapes.small,
+    "medium" to Shapes.medium,
+    "large" to Shapes.large,
+    "extraLarge" to Shapes.extraLarge,
+    "full" to CircleShape
+)
+
 @Preview
 @Composable
-private fun ShapePreview() {
-    val shapes = listOf(
-        "none" to RectangleShape,
-        "extraSmall" to Shapes.extraSmall,
-        "small" to Shapes.small,
-        "medium" to Shapes.medium,
-        "large" to Shapes.large,
-        "extraLarge" to Shapes.extraLarge,
-        "full" to CircleShape
-    )
-    Column(modifier = Modifier.padding(16.dp)) {
-        shapes.forEach { shape ->
-            Box(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(shape.second)
-                    .background(
-                        color = MaterialTheme.colorScheme.primaryContainer
+internal fun ShapesPreview() {
+    GdsTheme {
+        Column(modifier = Modifier.padding(16.dp)) {
+            shapeDisplayMap.forEach { (label, shape) ->
+                Box(
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .size(100.dp)
+                        .clip(shape)
+                        .background(
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                ) {
+                    Text(
+                        text = label,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.align(Alignment.Center)
                     )
-            ) {
-                Text(
-                    text = shape.first,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    modifier = Modifier.align(Alignment.Center)
-                )
+                }
             }
-            Spacer(modifier = Modifier.padding(16.dp))
         }
     }
 }
