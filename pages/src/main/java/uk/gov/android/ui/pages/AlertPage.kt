@@ -119,6 +119,9 @@ class AlertPageProvider : PreviewParameterProvider<AlertPageParameters> {
                 append("One big summary line that can take multiple lines")
                 appendBulletLine("First bullet line")
                 appendBulletLine("Second bullet line")
+                appendBulletLine(
+                    "Third extremely long bullet line that is going to show how this wraps"
+                )
                 appendLine()
                 appendBoldLine("Bold line that you don't want to miss")
             },
