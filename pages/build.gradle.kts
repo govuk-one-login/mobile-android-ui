@@ -129,11 +129,7 @@ dependencies {
         testImplementation(testDependency)
     }
 
-    listOf(
-        AndroidX.test.orchestrator
-    ).forEach {
-        androidTestUtil(it)
-    }
+    androidTestUtil(AndroidX.test.orchestrator)
 }
 
 publishing {

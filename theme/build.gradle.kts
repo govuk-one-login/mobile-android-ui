@@ -30,6 +30,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = (
+                rootProject.extra["composeKotlinCompilerVersion"] as String
+                )
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -90,16 +100,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-            )
-    }
 }
 
 dependencies {
@@ -120,6 +120,8 @@ dependencies {
     testImplementation(Testing.junit.jupiter)
     testImplementation(Testing.mockito.core)
     testImplementation(platform(Testing.junit.bom))
+
+    androidTestUtil(AndroidX.test.orchestrator)
 }
 
 publishing {
