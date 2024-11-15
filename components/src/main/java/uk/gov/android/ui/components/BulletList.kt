@@ -28,8 +28,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.components.content.GdsContentText
-import uk.gov.android.ui.components.m3.Heading
-import uk.gov.android.ui.components.m3.HeadingSize
 import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
 import uk.gov.android.ui.theme.mc_theme_light_inverseOnSurface
 import uk.gov.android.ui.theme.smallPadding
@@ -63,14 +61,14 @@ fun GdsBulletList(
             horizontalAlignment = colAlignment
         ) {
             bulletListParameters.title?.let { title ->
-                Heading(
+                HeadingParameters(
                     modifier = headingModifier,
                     padding = headingPadding,
                     size = headingSize,
                     text = title,
                     textAlign = textAlign,
                     backgroundColor = background
-                ).generate()
+                )
             }
 
             when (contentText) {
