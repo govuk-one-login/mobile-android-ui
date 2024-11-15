@@ -8,7 +8,6 @@ plugins {
     listOf(
         "com.android.library",
         "kotlin-parcelize",
-        "org.jetbrains.kotlin.android",
         "org.jlleitschuh.gradle.ktlint",
         "io.gitlab.arturbosch.detekt",
         "jacoco",
@@ -75,6 +74,7 @@ android {
         xmlReport = true
     }
 
+    @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -138,7 +138,7 @@ publishing {
             groupId = "uk.gov.android"
             version = rootProject.extra["packageVersion"] as String
 
-            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
         }
     }
     repositories {

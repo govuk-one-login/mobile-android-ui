@@ -7,7 +7,6 @@ buildscript {
 plugins {
     listOf(
         "com.android.library",
-        "org.jetbrains.kotlin.android",
         "org.jlleitschuh.gradle.ktlint",
         "io.gitlab.arturbosch.detekt",
         "jacoco",
@@ -129,7 +128,7 @@ publishing {
             groupId = "uk.gov.android"
             version = rootProject.extra["packageVersion"] as String
 
-            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+            artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
         }
     }
     repositories {
