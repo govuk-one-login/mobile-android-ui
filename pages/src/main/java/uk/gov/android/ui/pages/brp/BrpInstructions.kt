@@ -26,6 +26,7 @@ import uk.gov.android.ui.components.GdsVectorImage
 import uk.gov.android.ui.components.HeadingParameters
 import uk.gov.android.ui.components.HeadingSize
 import uk.gov.android.ui.components.HelpTextParameters
+import uk.gov.android.ui.components.R.drawable
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.buttons.ButtonParameters
 import uk.gov.android.ui.components.buttons.ButtonType
@@ -34,8 +35,7 @@ import uk.gov.android.ui.components.content.ContentParameters
 import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.images.icon.IconParameters
-import uk.gov.android.ui.pages.R as pagesR
-import uk.gov.android.ui.pages.R.drawable
+import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.pages.R.string
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
@@ -205,23 +205,23 @@ data class BrpInstructionsParameters(
 class BrpInstructionsProvider : PreviewParameterProvider<BrpInstructionsParameters> {
     override val values: Sequence<BrpInstructionsParameters> = sequenceOf(
         BrpInstructionsParameters(
-            topIcon = pagesR.drawable.ic_photo_camera,
-            title = pagesR.string.preview__BrpInstructions__title,
+            topIcon = R.drawable.ic_photo_camera,
+            title = string.preview__BrpInstructions__title,
             content = listOf(
                 BrpInstructionsContentSection(
-                    subTitle = pagesR.string.preview__BrpInstructions__subtitle_1,
-                    text = pagesR.array.preview__BrpInstructions__array_0
+                    subTitle = string.preview__BrpInstructions__subtitle_1,
+                    text = R.array.preview__BrpInstructions__array_0
                 ),
                 BrpInstructionsContentSection(
-                    subTitle = pagesR.string.preview__BrpInstructions__subtitle_2,
-                    text = pagesR.array.preview__BrpInstructions__array_1
+                    subTitle = string.preview__BrpInstructions__subtitle_2,
+                    text = R.array.preview__BrpInstructions__array_1
                 )
             ),
-            image = pagesR.drawable.preview__brpinstructions,
-            primaryButtonText = pagesR.string.preview__BrpInstructions__primary_button,
-            secondaryButtonText = pagesR.string.preview__BrpInstructions__secondary_button,
+            image = drawable.preview__gdsvectorimage,
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
+            secondaryButtonText = string.preview__BrpInstructions__secondary_button,
             helpTextParameters = HelpTextParameters(
-                text = pagesR.string.preview__BrpInstructions__help_text,
+                text = string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
                     image = drawable.ic_warning_icon
                 ),

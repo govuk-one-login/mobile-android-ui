@@ -36,8 +36,8 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = (
-                rootProject.extra["composeKotlinCompilerVersion"] as String
-                )
+            rootProject.extra["composeKotlinCompilerVersion"] as String
+            )
     }
 
     buildTypes {
