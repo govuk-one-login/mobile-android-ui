@@ -114,7 +114,7 @@ private fun TitleRow(
         Heading(
             text = title,
             backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
-            size = HeadingSize.H4(),
+            size = HeadingSize.HeadlineSmall(),
             textAlign = TextAlign.Justify,
             padding = PaddingValues(top = xsmallPadding),
             modifier = Modifier

@@ -108,7 +108,7 @@ fun Content(
                 Heading(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    size = HeadingSize.H1(),
+                    size = HeadingSize.DisplaySmall(),
                     text = title,
                     textVar = titleArg?.let { stringResource(id = titleArg) },
                     textAlign = titleAlign,

@@ -112,7 +112,7 @@ data class BulletListParameters(
     val colAlignment: Alignment.Horizontal = Alignment.Start,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val textAlign: TextAlign = TextAlign.Start,
-    val headingSize: HeadingSize = HeadingSize.H4(),
+    val headingSize: HeadingSize = HeadingSize.HeadlineSmall(),
     val headingModifier: Modifier = Modifier.fillMaxWidth(),
     val headingPadding: PaddingValues = PaddingValues(
         start = smallPadding,

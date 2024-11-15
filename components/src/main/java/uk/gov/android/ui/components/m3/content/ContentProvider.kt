@@ -132,7 +132,7 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                 )
             ),
             textAlign = TextAlign.Center,
-            headingSize = HeadingSize.H1()
+            headingSize = HeadingSize.DisplaySmall()
         ),
         ContentParameters(
             resource = listOf(
@@ -144,7 +144,7 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                 )
             ),
             textAlign = TextAlign.Center,
-            headingSize = HeadingSize.H1()
+            headingSize = HeadingSize.DisplaySmall()
         )
     )
 }
