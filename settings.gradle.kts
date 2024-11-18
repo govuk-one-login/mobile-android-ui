@@ -30,4 +30,4 @@ include(
     ":pages"
 )
 
-includeBuild("buildLogic")
+includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")

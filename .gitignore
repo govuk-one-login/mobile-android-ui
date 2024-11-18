@@ -1,10 +1,8 @@
 /github.properties
-/captures
-config/keystore.jks
-.allure
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,kotlin,android,intellij+all,androidstudio,macos,windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,kotlin,android,intellij+all,androidstudio,macos,windows
+# Vale prose linter ruleset folders downloaded via `vale sync`
+config/vale/styles/Google
+config/vale/styles/tech-writing-style-guide
 
 ### Android ###
 # Gradle files
@@ -145,6 +143,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
+*.jar
 *.war
 *.nar
 *.ear
@@ -175,7 +174,8 @@ replay_pid*
 .AppleDouble
 .LSOverride
 
-
+# Icon must end with two \r
+Icon
 
 # Thumbnails
 ._*

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="InvalidPackage">
-        <ignore path="**/jj2000-5.2**" />
-        <ignore path="**/org.jacoco/org.jacoco.agent/**" />
-        <ignore path="**/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/**" />
-        <ignore path="**/io.ktor/ktor-utils-jvm/2.1.2/**"/>
+    <issue id="UsingMaterialAndMaterial3Libraries">
+        <ignore path="**/**"/>
     </issue>
-
+    <issue id="NewerVersionAvailable">
+        <ignore path="**/gradle/*.toml"/>
+    </issue>
     <issue id="PermissionNamingConvention">
         <ignore path="**/AndroidManifest.xml" />
     </issue>
 </lint>
-

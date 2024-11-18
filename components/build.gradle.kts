@@ -1,30 +1,20 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import uk.gov.pipelines.config.ApkConfig
 
 plugins {
+    id("uk.gov.pipelines.android-lib-config")
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ktlint)
-    alias(libs.plugins.detekt)
     alias(libs.plugins.paparazzi)
     id("kotlin-parcelize")
-    id("jacoco")
-    id("maven-publish")
-    id("uk.gov.ui.jvm-toolchains")
-    id("uk.gov.ui.sonarqube-module-config")
-    id("uk.gov.ui.jacoco-module-config")
-    id("uk.gov.ui.emulator-config")
 }
 
-apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
-apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
-
 android {
-    namespace = "${rootProject.extra["baseNamespace"]}.components"
-    compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
-
+    val apkConfig: ApkConfig by project.rootProject.extra
     defaultConfig {
-        minSdk = (rootProject.extra["minAndroidVersion"] as Int)
+        namespace = apkConfig.applicationId + ".components"
+        compileSdk = apkConfig.sdkVersions.compile
+        minSdk = apkConfig.sdkVersions.minimum
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -33,7 +23,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -44,6 +34,7 @@ android {
 
     @Suppress("UnstableApiUsage")
     testOptions {
+        targetSdk = apkConfig.sdkVersions.target
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
@@ -51,7 +42,7 @@ android {
                 events = setOf(
                     TestLogEvent.FAILED,
                     TestLogEvent.PASSED,
-                    TestLogEvent.SKIPPED
+                    TestLogEvent.SKIPPED,
                 )
             }
         }
@@ -99,21 +90,15 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "uk.gov.android"
-            version = rootProject.extra["packageVersion"] as String
-
-            artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
-        }
-    }
-    repositories {
-        maven("https://maven.pkg.github.com/govuk-one-login/mobile-android-ui") {
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
-        }
+mavenPublishingConfig {
+    mavenConfigBlock {
+        name.set(
+            "Compose Theme and UI component Modules for Android Devices",
+        )
+        description.set(
+            """
+                Gradle configured Android library for Compose UI.
+            """.trimIndent(),
+        )
     }
 }
