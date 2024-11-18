@@ -1,23 +1,19 @@
-buildscript {
-    dependencies {
-        classpath(Android.tools.build.gradlePlugin)
-    }
-}
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    listOf(
-        "com.android.library",
-        "org.jlleitschuh.gradle.ktlint",
-        "io.gitlab.arturbosch.detekt",
-        "jacoco",
-        "app.cash.paparazzi",
-        "kotlin-parcelize",
-        "maven-publish",
-        "uk.gov.ui.jvm-toolchains",
-        "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config",
-        "uk.gov.ui.emulator-config"
-    ).forEach(::id)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.paparazzi)
+    id("kotlin-parcelize")
+    id("jacoco")
+    id("maven-publish")
+    id("uk.gov.ui.jvm-toolchains")
+    id("uk.gov.ui.sonarqube-module-config")
+    id("uk.gov.ui.jacoco-module-config")
+    id("uk.gov.ui.emulator-config")
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
@@ -36,10 +32,12 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-            )
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildTypes {
@@ -56,43 +54,16 @@ android {
         }
     }
 
-    lint {
-        abortOnError = true
-        absolutePaths = true
-        baseline = File("${rootProject.extra["configDir"]}/android/baseline.xml")
-        checkAllWarnings = true
-        checkDependencies = false
-        checkGeneratedSources = false
-        checkReleaseBuilds = true
-        disable.addAll(
-            setOf(
-                "ConvertToWebp",
-                "UnusedIds",
-                "VectorPath"
-            )
-        )
-        explainIssues = true
-        htmlReport = true
-        ignoreTestSources = true
-        ignoreWarnings = false
-        lintConfig = File("${rootProject.extra["configDir"]}/android/lint.xml")
-        noLines = false
-        quiet = false
-        showAll = true
-        textReport = true
-        warningsAsErrors = true
-        xmlReport = true
-    }
-
+    @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
                 events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED
                 )
             }
         }
@@ -104,32 +75,29 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.activity.compose)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.compose.material)
-    implementation(AndroidX.compose.ui.tooling)
-    implementation(AndroidX.constraintLayout.compose)
-    implementation(AndroidX.core.ktx)
-    implementation(Google.android.material)
-    implementation(AndroidX.compose.material3)
     implementation(project(":components"))
     implementation(project(":theme"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.google.material)
 
-    androidTestImplementation(AndroidX.test.ext.junit)
-    androidTestImplementation(AndroidX.compose.ui.testJunit4)
-    androidTestImplementation(AndroidX.compose.ui.testManifest)
-    androidTestImplementation(AndroidX.test.espresso.core)
+    debugImplementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.test.manifest)
 
-    listOf(
-        AndroidX.archCore.testing,
-        Google.dagger.hilt.android.testing,
-        Testing.junit4,
-        Testing.mockito.core
-    ).forEach { testDependency ->
-        testImplementation(testDependency)
-    }
+    androidTestImplementation(kotlin("test"))
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.junit4)
+    androidTestImplementation(libs.bundles.android.test)
+    androidTestImplementation(libs.bundles.mockito)
+    androidTestImplementation(libs.espresso.core)
+    androidTestUtil(libs.androidx.test.orchestrator)
 
-    androidTestUtil(AndroidX.test.orchestrator)
+    testImplementation(kotlin("test"))
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
 }
 
 publishing {

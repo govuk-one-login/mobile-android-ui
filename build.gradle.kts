@@ -27,38 +27,15 @@ buildscript {
     }
 
     val packageVersion by rootProject.extra { findPackageVersion() }
-
-    dependencies {
-        classpath(
-            "org.jacoco",
-            "org.jacoco.core",
-            "_",
-        )
-        classpath(
-            "org.jacoco",
-            "org.jacoco.ant",
-            "_",
-        )
-        classpath(
-            "org.jacoco",
-            "org.jacoco.report",
-            "_",
-        )
-        classpath(
-            "org.jacoco",
-            "org.jacoco.agent",
-            "_",
-        )
-    }
 }
 
 plugins {
     id("maven-publish")
-    id("org.jetbrains.kotlin.android") version "2.0.21" apply false
-    id("com.android.library") apply false
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.1" apply false
-    id("io.gitlab.arturbosch.detekt") version "1.23.7" apply false
-    id("app.cash.paparazzi") apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.paparazzi) apply false
     id("org.sonarqube") version "5.1.0.4882"
     id("uk.gov.ui.sonarqube-root-config")
 }
