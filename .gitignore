@@ -1,8 +1,8 @@
 /github.properties
 
 # Vale prose linter ruleset folders downloaded via `vale sync`
-config/vale/styles/Google
-config/vale/styles/tech-writing-style-guide
+/config/vale/styles/Google/
+/config/vale/styles/tech-writing-style-guide
 
 ### Android ###
 # Gradle files
