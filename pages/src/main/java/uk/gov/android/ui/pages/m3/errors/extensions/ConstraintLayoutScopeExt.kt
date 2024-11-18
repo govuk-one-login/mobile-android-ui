@@ -21,7 +21,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 internal fun ConstraintLayoutScope.SetupSecondaryButton(
     parameters: ButtonParameters,
     secondaryButtonRef: ConstrainedLayoutReference,
-    primaryButtonRef: ConstrainedLayoutReference
+    primaryButtonRef: ConstrainedLayoutReference,
 ) {
     key(parameters) {
         val buttonModifier = Modifier
@@ -32,7 +32,7 @@ internal fun ConstraintLayoutScope.SetupSecondaryButton(
                 linkTo(
                     secondaryButtonRef.bottom,
                     parent.bottom,
-                    bias = 1.0f
+                    bias = 1.0f,
                 )
             }
             .padding(top = xsmallPadding)
@@ -42,8 +42,8 @@ internal fun ConstraintLayoutScope.SetupSecondaryButton(
 
         GdsButton(
             buttonParameters = parameters.copy(
-                modifier = Modifier.fillMaxWidth().then(buttonModifier)
-            )
+                modifier = Modifier.fillMaxWidth().then(buttonModifier),
+            ),
         )
     }
 }
@@ -53,7 +53,7 @@ internal fun ConstraintLayoutScope.SetupPrimaryButtonComponent(
     primaryButtonRef: ConstrainedLayoutReference,
     informationRef: ConstrainedLayoutReference,
     parameters: ErrorPageParameters,
-    secondaryButtonRef: ConstrainedLayoutReference
+    secondaryButtonRef: ConstrainedLayoutReference,
 ) {
     val primaryButtonModifier = Modifier
         .constrainAs(primaryButtonRef) {
@@ -76,8 +76,8 @@ internal fun ConstraintLayoutScope.SetupPrimaryButtonComponent(
 
     GdsButton(
         buttonParameters = parameters.primaryButtonParameters.copy(
-            modifier = primaryButtonModifier
-        )
+            modifier = primaryButtonModifier,
+        ),
     )
 }
 
@@ -85,7 +85,7 @@ internal fun ConstraintLayoutScope.SetupPrimaryButtonComponent(
 internal fun ConstraintLayoutScope.SetupInformationComponent(
     parameters: ErrorPageParameters,
     informationRef: ConstrainedLayoutReference,
-    colors: ColorScheme
+    colors: ColorScheme,
 ) {
     key(parameters.informationParameters) {
         val informationModifier = Modifier
@@ -101,9 +101,9 @@ internal fun ConstraintLayoutScope.SetupInformationComponent(
 
         Information(
             parameters = parameters.informationParameters.copy(
-                modifier = informationModifier
+                modifier = informationModifier,
             ),
-            colors = colors
+            colors = colors,
         )
     }
 }

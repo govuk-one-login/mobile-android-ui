@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.m3.content.GdsContent
 
 @RunWith(Parameterized::class)
 class ContentM3Test(
-    private val parameters: Pair<ContentParameters, NightMode>
+    private val parameters: Pair<ContentParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

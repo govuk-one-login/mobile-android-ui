@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class VectorImageTest(
-    private val parameters: Pair<VectorImageParameters, NightMode>
+    private val parameters: Pair<VectorImageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

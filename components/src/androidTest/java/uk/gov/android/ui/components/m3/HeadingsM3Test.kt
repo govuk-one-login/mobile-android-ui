@@ -35,7 +35,7 @@ class HeadingsM3Test {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -67,7 +67,7 @@ class HeadingsM3Test {
                         is HeadingSize.HeadlineMedium -> textSizeH3
                         is HeadingSize.HeadlineLarge -> textSizeH2
                         is HeadingSize.DisplaySmall -> textSizeH1
-                    }
+                    },
                 )
                 assertLineHeight(
                     when (parameters.size) {
@@ -75,7 +75,7 @@ class HeadingsM3Test {
                         is HeadingSize.HeadlineMedium -> lineHeightH3
                         is HeadingSize.HeadlineLarge -> lineHeightH2
                         is HeadingSize.DisplaySmall -> lineHeightH1
-                    }
+                    },
                 )
             }
         }

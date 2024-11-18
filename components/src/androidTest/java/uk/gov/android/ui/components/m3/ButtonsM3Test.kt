@@ -21,7 +21,7 @@ import uk.gov.android.ui.theme.minimumTouchTarget
 
 @RunWith(Parameterized::class)
 class ButtonsM3Test(
-    private val parameters: ButtonParameters
+    private val parameters: ButtonParameters,
 ) {
     private val expectedParameterSize = 6
 
@@ -33,7 +33,7 @@ class ButtonsM3Test(
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            values().size
+            values().size,
         )
     }
 
@@ -42,7 +42,7 @@ class ButtonsM3Test(
         composeTestRule.setContent {
             GdsTheme {
                 GdsButton(
-                    parameters
+                    parameters,
                 )
             }
         }

@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class InformationScreenTest(
-    private val parameters: InformationScreenParameters
+    private val parameters: InformationScreenParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -32,7 +32,7 @@ class InformationScreenTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.title)
+                resources.getString(parameters.title),
             ).apply {
                 assertIsDisplayed()
             }
@@ -42,7 +42,7 @@ class InformationScreenTest(
 
             parameters.primaryButtonText?.let {
                 onNodeWithText(
-                    resources.getString(it)
+                    resources.getString(it),
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -54,7 +54,7 @@ class InformationScreenTest(
     private fun checkContentSection(
         tesRule: ComposeContentTestRule,
         @ArrayRes
-        text: Int
+        text: Int,
     ) {
         tesRule.apply {
             resources.getStringArray(text).forEach {

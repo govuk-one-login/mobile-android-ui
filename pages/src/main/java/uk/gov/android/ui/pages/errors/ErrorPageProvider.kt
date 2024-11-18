@@ -18,58 +18,58 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = string.preview__GdsButton__primary,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
-                    )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
+                    ),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = string.preview__GdsButton__primary,
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
                     buttonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
-                        image = drawable.ic_external_site
-                    )
+                        image = drawable.ic_external_site,
+                    ),
                 ),
                 onClick = {},
-                text = string.preview__GdsButton__secondary
+                text = string.preview__GdsButton__secondary,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
-                    )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
+                    ),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = string.preview__GdsButton__primary,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -78,16 +78,16 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                             subTitle = string.preview__GdsHeading__subTitle1,
                             subTitle2 = string.preview__GdsHeading__subTitle2var,
                             subTitle2Var = "404",
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
                     ),
-                    headingSize = H1()
+                    headingSize = H1(),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
-        )
+                    image = drawable.ic_error,
+                ),
+            ),
+        ),
     )
 }

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a simple command exits with a non-zero status
+# see also: the 'set' command within the 'Shell Builtin Commands' section of `man bash`
+set -o errexit
+
+# Lint the project via the script. Include unit test suite.
+./mobile-android-pipelines/scripts/lintProject "unit"

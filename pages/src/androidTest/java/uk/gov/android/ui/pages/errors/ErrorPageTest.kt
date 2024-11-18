@@ -36,7 +36,7 @@ class ErrorPageTest {
         assertEquals(
             "the expected provider values size doesn't match!",
             expectedParameterListSize,
-            errorPageParameterList.size
+            errorPageParameterList.size,
         )
     }
 
@@ -56,19 +56,19 @@ class ErrorPageTest {
                     ErrorPage(
                         parameters = parameters.copy(
                             primaryButtonParameters = parameters.primaryButtonParameters.copy(
-                                onClick = onPrimaryClick
+                                onClick = onPrimaryClick,
                             ),
                             secondaryButtonParameters = parameters.secondaryButtonParameters?.copy(
-                                onClick = onSecondaryClick
-                            )
-                        )
+                                onClick = onSecondaryClick,
+                            ),
+                        ),
                     )
                 }
             }
 
             verifyButtonInteraction(
                 ErrorPageTags.primaryButton,
-                "The primary button should have been clicked!"
+                "The primary button should have been clicked!",
             ) {
                 hasClickedPrimary
             }
@@ -76,13 +76,13 @@ class ErrorPageTest {
             parameters.secondaryButtonParameters?.let {
                 verifyButtonInteraction(
                     ErrorPageTags.secondaryButton,
-                    "The secondary button should have been clicked!"
+                    "The secondary button should have been clicked!",
                 ) {
                     hasClickedSecondary
                 }
             } ?: assertFalse(
                 "The secondary button shouldn't have been clicked!",
-                hasClickedSecondary
+                hasClickedSecondary,
             )
         }
     }
@@ -90,13 +90,13 @@ class ErrorPageTest {
     private fun ComposeContentTestRule.verifyButtonInteraction(
         buttonTestTag: String,
         failedAssertionMessage: String,
-        hasButtonClickedHandler: () -> Boolean
+        hasButtonClickedHandler: () -> Boolean,
     ) {
         onNode(hasTestTag(buttonTestTag), true).performClick()
         waitForIdle()
         assertTrue(
             failedAssertionMessage,
-            hasButtonClickedHandler()
+            hasButtonClickedHandler(),
         )
     }
 

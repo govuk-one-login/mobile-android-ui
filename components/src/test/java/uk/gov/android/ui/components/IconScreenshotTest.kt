@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.images.icon.IconParameters
 
 @RunWith(Parameterized::class)
 class IconScreenshotTest(
-    parameters: Pair<IconParameters, NightMode>
+    parameters: Pair<IconParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

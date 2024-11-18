@@ -11,7 +11,7 @@ data class ButtonParameters(
     val textAlign: TextAlign = TextAlign.Center,
     val isEnabled: Boolean = true,
     val text: String,
-    val onClick: () -> Unit
+    val onClick: () -> Unit,
 ) {
     override fun toString(): String = "GDS ${buttonType.javaClass.simpleName.lowercase()} Button(" +
         "isEnabled: $isEnabled, text: $text)"

@@ -1,8 +1,0 @@
-task("vale",
-        description: "Lint the project's markdown and text files with Vale.",
-        group: "verification",
-        type: Exec,
-) {
-    executable "vale"
-    args "--no-wrap", "$rootProject.projectDir"
-}

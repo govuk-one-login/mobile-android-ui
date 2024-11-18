@@ -27,7 +27,7 @@ class HelpTextTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -39,7 +39,7 @@ class HelpTextTest {
             setContent {
                 GdsTheme {
                     GdsHelpText(
-                        parameters
+                        parameters,
                     )
                 }
             }

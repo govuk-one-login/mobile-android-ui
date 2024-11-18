@@ -8,7 +8,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class LoadingScreenshotTest(
-    private val parameters: Pair<LoadingScreenParameters, NightMode>
+    private val parameters: Pair<LoadingScreenParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {

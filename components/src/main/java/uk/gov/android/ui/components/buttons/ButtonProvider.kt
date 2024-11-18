@@ -10,40 +10,18 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
         ButtonParameters(
             buttonType = ButtonType.PRIMARY(),
             onClick = {},
-            text = R.string.preview__GdsButton__primary
+            text = R.string.preview__GdsButton__primary,
         ),
         ButtonParameters(
             buttonType = ButtonType.PRIMARY(),
             onClick = {},
             text = R.string.preview__GdsButton__primary,
-            enabled = false
+            enabled = false,
         ),
         ButtonParameters(
             buttonType = ButtonType.SECONDARY(),
             onClick = {},
-            text = R.string.preview__GdsButton__secondary
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.PRIMARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__primary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.SECONDARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__secondary_icon
+            text = R.string.preview__GdsButton__secondary,
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -51,11 +29,10 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = R.drawable.ic_external_site,
                     description = R.string.externalSite,
-                    imagePositionAtEnd = false
-                )
+                ),
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__primary_icon
+            text = R.string.preview__GdsButton__primary_icon,
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -63,16 +40,39 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = R.drawable.ic_external_site,
                     description = R.string.externalSite,
-                    imagePositionAtEnd = false
-                )
+                ),
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__secondary_icon
+            text = R.string.preview__GdsButton__secondary_icon,
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.PRIMARY(),
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_external_site,
+                    description = R.string.externalSite,
+                    imagePositionAtEnd = false,
+                ),
+            ),
+            onClick = {},
+            text = R.string.preview__GdsButton__primary_icon,
+        ),
+        ButtonParameters(
+            buttonType = ButtonType.ICON(
+                buttonType = ButtonType.SECONDARY(),
+                iconParameters = IconParameters(
+                    image = R.drawable.ic_external_site,
+                    description = R.string.externalSite,
+                    imagePositionAtEnd = false,
+                ),
+            ),
+            onClick = {},
+            text = R.string.preview__GdsButton__secondary_icon,
         ),
         ButtonParameters(
             buttonType = ButtonType.TERTIARY(),
             onClick = {},
-            text = R.string.preview__GdsButton__tertiary
+            text = R.string.preview__GdsButton__tertiary,
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -80,11 +80,11 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                 iconParameters = IconParameters(
                     image = R.drawable.ic_external_site,
                     description = R.string.externalSite,
-                    backGroundColor = Color.Transparent
-                )
+                    backGroundColor = Color.Transparent,
+                ),
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__tertiary_icon
+            text = R.string.preview__GdsButton__tertiary_icon,
         ),
         ButtonParameters(
             buttonType = ButtonType.ICON(
@@ -93,16 +93,16 @@ class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
                     image = R.drawable.ic_external_site,
                     description = R.string.externalSite,
                     imagePositionAtEnd = false,
-                    backGroundColor = Color.Transparent
-                )
+                    backGroundColor = Color.Transparent,
+                ),
             ),
             onClick = {},
-            text = R.string.preview__GdsButton__tertiary_icon
+            text = R.string.preview__GdsButton__tertiary_icon,
         ),
         ButtonParameters(
             buttonType = ButtonType.DANGER(),
             onClick = {},
-            text = R.string.preview__GdsButton__danger
-        )
+            text = R.string.preview__GdsButton__danger,
+        ),
     )
 }

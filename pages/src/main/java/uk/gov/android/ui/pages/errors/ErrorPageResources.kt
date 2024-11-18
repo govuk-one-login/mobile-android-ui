@@ -13,7 +13,7 @@ data class ErrorPageResources(
     @StringRes
     val primaryButtonText: Int,
     @StringRes
-    val secondaryButtonText: Int?
+    val secondaryButtonText: Int?,
 ) : Parcelable {
     @get:DrawableRes
     @IgnoredOnParcel

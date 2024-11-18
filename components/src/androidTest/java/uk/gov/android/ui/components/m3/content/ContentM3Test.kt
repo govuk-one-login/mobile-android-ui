@@ -18,7 +18,7 @@ import uk.gov.android.ui.theme.GdsTheme
 
 @RunWith(Parameterized::class)
 class ContentM3Test(
-    private val parameters: ContentParameters
+    private val parameters: ContentParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -34,7 +34,7 @@ class ContentM3Test(
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            values().size
+            values().size,
         )
     }
 
@@ -44,7 +44,7 @@ class ContentM3Test(
             setContent {
                 GdsTheme {
                     GdsContent(
-                        parameters
+                        parameters,
                     )
                 }
             }
@@ -63,7 +63,7 @@ class ContentM3Test(
 @Suppress("NestedBlockDepth")
 fun ContentParameters.verifyComposable(
     composeTestRule: ComposeContentTestRule,
-    resources: Resources
+    resources: Resources,
 ) = composeTestRule.let { rule ->
     resource.forEach { contentText ->
         contentText.subTitle?.let {

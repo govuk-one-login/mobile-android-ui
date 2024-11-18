@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# The commit-msg hook takes one parameter, which is the path to a temporary file that contains the
+# commit message written by the developer.
+COMMIT_MESSAGE_FILE=$1
+
+# Exit immediately if a simple command exits with a non-zero status
+# see also: the 'set' command within the 'Shell Builtin Commands' section of `man bash`
+set -o errexit
+
+cog verify --file "${COMMIT_MESSAGE_FILE}"

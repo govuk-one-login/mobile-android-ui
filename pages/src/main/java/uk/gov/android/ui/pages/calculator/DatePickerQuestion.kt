@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import com.google.android.material.datepicker.CalendarConstraints
-import java.time.LocalDate
 import uk.gov.android.ui.components.GdsHeading
 import uk.gov.android.ui.components.HeadingParameters
 import uk.gov.android.ui.components.HeadingSize
@@ -36,18 +35,19 @@ import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextString
 import uk.gov.android.ui.components.inputs.date.DatePickerParameters
 import uk.gov.android.ui.components.inputs.date.GdsDatePicker
-import uk.gov.android.ui.pages.R as pagesR
 import uk.gov.android.ui.pages.R.string
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.hintTextGrey
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
+import java.time.LocalDate
+import uk.gov.android.ui.pages.R as pagesR
 
 @Suppress("LongMethod")
 @Composable
 fun DatePickerQuestion(
-    params: DatePickerQuestionParameters
+    params: DatePickerQuestionParameters,
 ) {
     params.apply {
         GdsTheme {
@@ -57,9 +57,9 @@ fun DatePickerQuestion(
                     .verticalScroll(rememberScrollState())
                     .padding(
                         bottom = mediumPadding,
-                        top = mediumPadding
+                        top = mediumPadding,
                     ),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Content(params)
                 Buttons(params)
@@ -71,7 +71,7 @@ fun DatePickerQuestion(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    params: DatePickerQuestionParameters
+    params: DatePickerQuestionParameters,
 ) {
     params.apply {
         Column(
@@ -79,8 +79,8 @@ internal fun Content(
             modifier = Modifier
                 .padding(
                     start = smallPadding,
-                    end = smallPadding
-                )
+                    end = smallPadding,
+                ),
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -90,36 +90,36 @@ internal fun Content(
                     text = title,
                     textAlign = titleAlign,
                     padding = PaddingValues(
-                        bottom = titleBottomPadding
-                    )
-                )
+                        bottom = titleBottomPadding,
+                    ),
+                ),
             )
             content?.let {
                 GdsContent(
                     contentParameters = ContentParameters(
                         modifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         internalColumnModifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextArray(
-                                text = content
-                            )
+                                text = content,
+                            ),
                         ),
-                        textAlign = contentAlign
-                    )
+                        textAlign = contentAlign,
+                    ),
                 )
             }
             GdsDatePicker(
                 params = DatePickerParameters(
                     dateState = dateState,
                     datePickerTitle = datePickerTitle,
-                    calendarConstraint = calendarConstraints
-                )
+                    calendarConstraint = calendarConstraints,
+                ),
             )
             hintText?.let {
                 GdsContent(
@@ -127,17 +127,17 @@ internal fun Content(
                         modifier = Modifier
                             .padding(
                                 start = smallPadding,
-                                end = smallPadding
+                                end = smallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextString(
-                                text = intArrayOf(it)
-                            )
+                                text = intArrayOf(it),
+                            ),
                         ),
                         textAlign = TextAlign.Start,
                         textStyle = MaterialTheme.typography.body2,
-                        color = hintTextGrey
-                    )
+                        color = hintTextGrey,
+                    ),
                 )
             }
         }
@@ -146,7 +146,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    params: DatePickerQuestionParameters
+    params: DatePickerQuestionParameters,
 ) {
     params.apply {
         Column(
@@ -154,8 +154,8 @@ internal fun Buttons(
                 .padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = mediumPadding
-                )
+                    top = mediumPadding,
+                ),
         ) {
             GdsButton(
                 buttonParameters = ButtonParameters(
@@ -165,8 +165,8 @@ internal fun Buttons(
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = onPrimary,
-                    enabled = params.dateState.value != null
-                )
+                    enabled = params.dateState.value != null,
+                ),
             )
         }
     }
@@ -189,7 +189,7 @@ data class DatePickerQuestionParameters(
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,
-    val titleBottomPadding: Dp = mediumPadding
+    val titleBottomPadding: Dp = mediumPadding,
 )
 
 class DatePickerQuestionProvider : PreviewParameterProvider<DatePickerQuestionParameters> {
@@ -198,7 +198,7 @@ class DatePickerQuestionProvider : PreviewParameterProvider<DatePickerQuestionPa
             title = string.preview__BrpInstructions__title,
             dateState = mutableStateOf(null),
             datePickerTitle = string.preview__BrpInstructions__title,
-            primaryButtonText = string.preview__BrpInstructions__primary_button
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
         ),
         DatePickerQuestionParameters(
             title = string.preview__BrpInstructions__title,
@@ -207,8 +207,8 @@ class DatePickerQuestionProvider : PreviewParameterProvider<DatePickerQuestionPa
             dateState =
             mutableStateOf(null),
             datePickerTitle = string.preview__BrpInstructions__title,
-            primaryButtonText = string.preview__BrpInstructions__primary_button
-        )
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
+        ),
     )
 }
 
@@ -216,20 +216,20 @@ class DatePickerQuestionProvider : PreviewParameterProvider<DatePickerQuestionPa
     backgroundColor = 0xFFFBFDF8,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(DatePickerQuestionProvider::class)
-    parameters: DatePickerQuestionParameters
+    parameters: DatePickerQuestionParameters,
 ) {
     DatePickerQuestion(
-        parameters
+        parameters,
     )
 }

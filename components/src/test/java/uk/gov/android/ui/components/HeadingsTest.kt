@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class HeadingsTest(
-    private val parameters: Pair<HeadingParameters, NightMode>
+    private val parameters: Pair<HeadingParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

@@ -59,13 +59,13 @@ data class Instructions(
     val titlePadding: PaddingValues = PaddingValues(
         start = smallPadding,
         end = smallPadding,
-        bottom = mediumPadding
+        bottom = mediumPadding,
     ),
     val helpTextParameters: HelpText? = null,
     val buttonParameters: List<ButtonParameters>? = null,
     val subTitlePadding: PaddingValues = PaddingValues(),
     val contentPadding: PaddingValues = PaddingValues(),
-    val internalColumnPadding: PaddingValues = PaddingValues(bottom = mediumPadding)
+    val internalColumnPadding: PaddingValues = PaddingValues(bottom = mediumPadding),
 ) {
     val generate: @Composable () -> Unit
         get() = {
@@ -76,9 +76,9 @@ data class Instructions(
                         .verticalScroll(rememberScrollState())
                         .padding(
                             bottom = mediumPadding,
-                            top = mediumPadding
+                            top = mediumPadding,
                         ),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Content(instructionsParameters = this@Instructions)
                     Buttons(instructionsParameters = this@Instructions)
@@ -90,19 +90,19 @@ data class Instructions(
 @Composable
 @Suppress("LongMethod")
 fun Content(
-    instructionsParameters: Instructions
+    instructionsParameters: Instructions,
 ) {
     instructionsParameters.apply {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             topIcon?.let {
                 GdsVectorImage(
                     VectorImageParameters(
                         modifier = Modifier.padding(bottom = mediumPadding),
                         image = it,
-                        scale = topIconScale
-                    )
+                        scale = topIconScale,
+                    ),
                 )
             }
             title?.let {
@@ -113,7 +113,7 @@ fun Content(
                     text = title,
                     textVar = titleArg?.let { stringResource(id = titleArg) },
                     textAlign = titleAlign,
-                    padding = titlePadding
+                    padding = titlePadding,
                 ).generate()
             }
             GdsContent(
@@ -122,28 +122,28 @@ fun Content(
                         .padding(
                             end = smallPadding,
                             start = smallPadding,
-                            bottom = smallPadding
+                            bottom = smallPadding,
                         ),
                     internalColumnModifier = Modifier
                         .padding(internalColumnPadding),
                     resource = content.map {
                         GdsContentText.GdsContentTextArray(
                             subTitle = it.subTitle,
-                            text = it.text
+                            text = it.text,
                         )
                     },
                     textAlign = contentAlign,
                     headingPadding = subTitlePadding,
-                    textPadding = contentPadding
-                )
+                    textPadding = contentPadding,
+                ),
             )
             image?.let {
                 GdsVectorImage(
                     VectorImageParameters(
                         description = imageDescription,
                         image = it,
-                        scale = imageScale
-                    )
+                        scale = imageScale,
+                    ),
                 )
             }
             helpTextParameters?.let {
@@ -155,7 +155,7 @@ fun Content(
 
 @Composable
 internal fun Buttons(
-    instructionsParameters: Instructions
+    instructionsParameters: Instructions,
 ) {
     instructionsParameters.buttonParameters?.let {
         Column(
@@ -163,8 +163,8 @@ internal fun Buttons(
                 .padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = mediumPadding
-                )
+                    top = mediumPadding,
+                ),
         ) {
             it.forEach { parameters ->
                 GdsButton(parameters)
@@ -181,24 +181,24 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
             content = listOf(
                 BrpInstructionsContentSection(
                     subTitle = R.string.preview__BrpInstructions__subtitle_1,
-                    text = R.array.preview__BrpInstructions__array_0
+                    text = R.array.preview__BrpInstructions__array_0,
                 ),
                 BrpInstructionsContentSection(
                     subTitle = R.string.preview__BrpInstructions__subtitle_2,
-                    text = R.array.preview__BrpInstructions__array_1
-                )
+                    text = R.array.preview__BrpInstructions__array_1,
+                ),
             ),
             image = drawable.preview__gdsvectorimage,
             helpTextParameters = HelpText(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
-                    image = R.drawable.ic_warning_icon
+                    image = R.drawable.ic_warning_icon,
                 ),
                 rowModifier = Modifier.padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = smallPadding
-                )
+                    top = smallPadding,
+                ),
             ),
             buttonParameters = listOf(
                 ButtonParameters(
@@ -207,22 +207,22 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
-                    onClick = {}
+                    onClick = {},
                 ),
                 ButtonParameters(
                     buttonType = ButtonType.ICON(
                         parentButtonType = ButtonType.QUATERNARY(),
                         iconParameters = IconParameters(
                             image = drawable.ic_external_site,
-                            description = R.string.externalSite
-                        )
+                            description = R.string.externalSite,
+                        ),
                     ),
                     text = "Secondary button",
                     modifier = Modifier
                         .fillMaxWidth(),
-                    onClick = {}
-                )
-            )
+                    onClick = {},
+                ),
+            ),
         ),
         Instructions(
             topIcon = R.drawable.ic_photo_camera,
@@ -231,24 +231,24 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
             content = listOf(
                 BrpInstructionsContentSection(
                     subTitle = R.string.preview__BrpInstructions__subtitle_1,
-                    text = R.array.preview__BrpInstructions__array_0
+                    text = R.array.preview__BrpInstructions__array_0,
                 ),
                 BrpInstructionsContentSection(
                     subTitle = R.string.preview__BrpInstructions__subtitle_2,
-                    text = R.array.preview__BrpInstructions__array_1
-                )
+                    text = R.array.preview__BrpInstructions__array_1,
+                ),
             ),
             image = drawable.preview__gdsvectorimage,
             helpTextParameters = HelpText(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
-                    image = R.drawable.ic_warning_icon
+                    image = R.drawable.ic_warning_icon,
                 ),
                 rowModifier = Modifier.padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = smallPadding
-                )
+                    top = smallPadding,
+                ),
             ),
             buttonParameters = listOf(
                 ButtonParameters(
@@ -257,23 +257,23 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
-                    onClick = {}
+                    onClick = {},
                 ),
                 ButtonParameters(
                     buttonType = ButtonType.ICON(
                         parentButtonType = ButtonType.QUATERNARY(),
                         iconParameters = IconParameters(
                             image = drawable.ic_external_site,
-                            description = R.string.externalSite
-                        )
+                            description = R.string.externalSite,
+                        ),
                     ),
                     text = "Secondary button",
                     modifier = Modifier
                         .fillMaxWidth(),
-                    onClick = {}
-                )
-            )
-        )
+                    onClick = {},
+                ),
+            ),
+        ),
     )
 }
 
@@ -281,18 +281,18 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
     backgroundColor = 0xFFFBFDF8,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun Preview(
     @PreviewParameter(InstructionsProvider::class)
-    parameters: Instructions
+    parameters: Instructions,
 ) {
     parameters.generate()
 }

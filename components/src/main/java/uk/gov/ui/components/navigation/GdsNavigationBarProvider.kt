@@ -11,12 +11,12 @@ class GdsNavigationBarProvider : PreviewParameterProvider<GdsNavigationBar> {
         icon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_warning_icon),
-                contentDescription = "Selected icon"
+                contentDescription = "Selected icon",
             )
         },
         onClick = { },
         selected = true,
-        label = { Text(text = "Label") }
+        label = { Text(text = "Label") },
     )
 
     override val values: Sequence<GdsNavigationBar> = sequenceOf(
@@ -25,13 +25,13 @@ class GdsNavigationBarProvider : PreviewParameterProvider<GdsNavigationBar> {
                 baselineNavItem,
                 baselineNavItem.copy(
                     selected = false,
-                    label = null
+                    label = null,
                 ),
                 baselineNavItem.copy(
                     selected = false,
-                    label = { Text(text = "Home") }
-                )
-            )
-        )
+                    label = { Text(text = "Home") },
+                ),
+            ),
+        ),
     )
 }

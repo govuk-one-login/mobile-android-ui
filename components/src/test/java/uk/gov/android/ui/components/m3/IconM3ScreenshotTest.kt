@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.m3.images.icon.GdsIconM3Preview
 
 @RunWith(Parameterized::class)
 class IconM3ScreenshotTest(
-    parameters: Pair<IconParameters, NightMode>
+    parameters: Pair<IconParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsIconM3Preview(parameters = parameters.first)
