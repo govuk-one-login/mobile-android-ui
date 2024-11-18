@@ -21,7 +21,7 @@ class NumberInputTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -33,7 +33,7 @@ class NumberInputTest {
             setContent {
                 GdsTheme {
                     GdsNumberInput(
-                        parameters
+                        parameters,
                     )
                 }
             }

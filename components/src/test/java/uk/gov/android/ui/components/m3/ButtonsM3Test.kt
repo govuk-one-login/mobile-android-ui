@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.m3.buttons.GdsButton
 
 @RunWith(Parameterized::class)
 class ButtonsM3Test(
-    private val parameters: Pair<ButtonParameters, NightMode>
+    private val parameters: Pair<ButtonParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsButton(buttonParameters = parameters.first)

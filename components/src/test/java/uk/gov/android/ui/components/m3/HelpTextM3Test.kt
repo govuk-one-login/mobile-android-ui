@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class HelpTextM3Test(
-    private val parameters: Pair<HelpText, NightMode>
+    private val parameters: Pair<HelpText, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

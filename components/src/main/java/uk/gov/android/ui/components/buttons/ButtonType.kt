@@ -12,41 +12,41 @@ import uk.gov.android.ui.theme.md_theme_red
 
 sealed class ButtonType(
     val buttonColour: @Composable () -> ButtonColors,
-    val fontWeight: FontWeight = FontWeight.Bold
+    val fontWeight: FontWeight = FontWeight.Bold,
 ) {
     open class PRIMARY : ButtonType(
         buttonColour = {
             primaryButtonColors()
-        }
+        },
     )
 
     open class SECONDARY : ButtonType(
         buttonColour = {
             secondaryButtonColors()
         },
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     )
 
     open class TERTIARY : ButtonType(
         buttonColour = {
             tertiaryButtonColors()
         },
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     )
 
     open class DANGER : ButtonType(
         buttonColour = {
             dangerButtonColors()
         },
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     )
 
     data class ICON(
         val buttonType: ButtonType,
-        val iconParameters: IconParameters
+        val iconParameters: IconParameters,
     ) : ButtonType(
         buttonColour = buttonType.buttonColour,
-        fontWeight = buttonType.fontWeight
+        fontWeight = buttonType.fontWeight,
     )
 }
 
@@ -55,7 +55,7 @@ internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     backgroundColor = MaterialTheme.colors.primary,
     contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
     disabledBackgroundColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
 )
 
 @Composable
@@ -63,7 +63,7 @@ internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     backgroundColor = MaterialTheme.colors.secondary,
     contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.secondary),
     disabledBackgroundColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
 )
 
 @Composable
@@ -72,8 +72,8 @@ internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     contentColor = MaterialTheme.colors.primary,
     disabledBackgroundColor = disabled_button,
     disabledContentColor = androidx.compose.material3.contentColorFor(
-        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primary
-    )
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primary,
+    ),
 )
 
 @Composable
@@ -81,5 +81,5 @@ internal fun dangerButtonColors() = ButtonDefaults.buttonColors(
     backgroundColor = md_theme_red,
     contentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
     disabledBackgroundColor = disabled_button,
-    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary)
+    disabledContentColor = contentColorFor(backgroundColor = MaterialTheme.colors.primary),
 )

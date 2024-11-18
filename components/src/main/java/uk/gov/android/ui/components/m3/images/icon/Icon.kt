@@ -43,7 +43,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun GdsIcon(
     parameters: IconParameters,
-    colors: ColorScheme = MaterialTheme.colorScheme
+    colors: ColorScheme = MaterialTheme.colorScheme,
 ) {
     parameters.apply {
         key(this) {
@@ -63,7 +63,7 @@ fun GdsIcon(
                 Modifier
                     .background(colorForBackground)
                     .layoutId(image.toString())
-                    .testTag(image.toString())
+                    .testTag(image.toString()),
             )
 
             if (hasSpecifiedSize()) {
@@ -76,7 +76,7 @@ fun GdsIcon(
                 painter = painterResource(id = this.image),
                 contentDescription = this.description?.let { stringResource(id = it) },
                 modifier = iconModifier,
-                tint = colorForIcon
+                tint = colorForIcon,
             )
         }
     }
@@ -87,17 +87,17 @@ fun GdsIcon(
  */
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun GdsIconM3Preview(
     @PreviewParameter(GdsIconProvider::class)
-    parameters: IconParameters
+    parameters: IconParameters,
 ) {
     val modifier = if (parameters.hasSpecifiedSize()) {
         val sizing = parameters.sizeAsDp()!!
@@ -112,10 +112,10 @@ fun GdsIconM3Preview(
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
-                .then(modifier)
+                .then(modifier),
         ) {
             GdsIcon(
-                parameters
+                parameters,
             )
         }
     }

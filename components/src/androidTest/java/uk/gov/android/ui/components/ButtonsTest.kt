@@ -21,7 +21,7 @@ import uk.gov.android.ui.theme.minimumTouchTarget
 
 @RunWith(Parameterized::class)
 class ButtonsTest(
-    private val buttonParameters: ButtonParameters
+    private val buttonParameters: ButtonParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -37,7 +37,7 @@ class ButtonsTest(
         assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            values().size
+            values().size,
         )
     }
 
@@ -46,7 +46,7 @@ class ButtonsTest(
         composeTestRule.setContent {
             GdsTheme {
                 GdsButton(
-                    buttonParameters
+                    buttonParameters,
                 )
             }
         }

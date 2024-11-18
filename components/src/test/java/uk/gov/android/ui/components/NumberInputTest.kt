@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.inputs.number.NumberInputProvider
 
 @RunWith(Parameterized::class)
 class NumberInputTest(
-    private val parameters: Pair<NumberInputParameters, NightMode>
+    private val parameters: Pair<NumberInputParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

@@ -30,7 +30,7 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsRadioSelection(
-    radioSelectionParams: RadioSelectionParameters
+    radioSelectionParams: RadioSelectionParameters,
 ) {
     radioSelectionParams.apply {
         val (selectedOption, onOptionSelected) = radioState
@@ -38,12 +38,12 @@ fun GdsRadioSelection(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    colors.background
+                    colors.background,
                 )
                 .then(
-                    colModifier
+                    colModifier,
                 ),
-            horizontalAlignment = colAlignment
+            horizontalAlignment = colAlignment,
         ) {
             radioSelectionParams.radioOptions.forEach {
                 Row(
@@ -51,21 +51,21 @@ fun GdsRadioSelection(
                         .clickable {
                             onOptionSelected(it)
                         },
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     RadioButton(
                         selected = (it.text == selectedOption?.text),
                         onClick = { onOptionSelected(it) },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = colors.primary
-                        )
+                            selectedColor = colors.primary,
+                        ),
                     )
                     Text(
                         color = color ?: colors.contentColorFor(colors.background),
                         modifier = textModifier,
                         style = textStyle ?: MaterialTheme.typography.body1,
                         text = it.text,
-                        textAlign = textAlign
+                        textAlign = textAlign,
                     )
                 }
             }
@@ -82,7 +82,7 @@ data class RadioSelectionParameters(
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
-    val textAlign: TextAlign = TextAlign.Start
+    val textAlign: TextAlign = TextAlign.Start,
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -92,29 +92,29 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
         RadioSelectionParameters(
             radioOptions = listOf(
                 RadioOption("option one"),
-                RadioOption("option two")
+                RadioOption("option two"),
             ),
-            radioState = mutableStateOf(RadioOption("option one"))
-        )
+            radioState = mutableStateOf(RadioOption("option one")),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(RadioSelectionProvider::class)
-    radioSelectionParameters: RadioSelectionParameters
+    radioSelectionParameters: RadioSelectionParameters,
 ) {
     GdsTheme {
         GdsRadioSelection(
-            radioSelectionParameters
+            radioSelectionParameters,
         )
     }
 }

@@ -32,37 +32,37 @@ class GdsInformationBannerTest {
         composeTestRule.apply {
             onNodeWithContentDescription(
                 resources.getString(R.string.preview__GdsInformationBanner__contentDescription),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__title),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__content),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__link),
                 substring = true,
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__linkIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__linkIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
         }
     }
@@ -73,30 +73,30 @@ class GdsInformationBannerTest {
         composeTestRule.apply {
             onNodeWithContentDescription(
                 resources.getString(R.string.preview__GdsInformationBanner__contentDescription),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__title),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__content),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__link),
                 substring = true,
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
         }
     }
@@ -111,7 +111,7 @@ class GdsInformationBannerTest {
 
             onNodeWithContentDescription(
                 resources.getString(R.string.preview__GdsInformationBanner__contentDescription),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
@@ -123,9 +123,9 @@ class GdsInformationBannerTest {
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
@@ -138,7 +138,7 @@ class GdsInformationBannerTest {
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__link),
                 substring = true,
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
@@ -156,37 +156,37 @@ class GdsInformationBannerTest {
         composeTestRule.apply {
             onNodeWithContentDescription(
                 resources.getString(R.string.preview__GdsInformationBanner__contentDescription),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__dismissIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__title),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__content),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.preview__GdsInformationBanner__link),
                 substring = true,
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(
-                    R.string.preview__GdsInformationBanner__linkIcon__contentDescription
+                    R.string.preview__GdsInformationBanner__linkIcon__contentDescription,
                 ),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).assertIsDisplayed()
         }
     }
@@ -207,8 +207,8 @@ class GdsInformationBannerTest {
                             onCardClick++
                             onLinkClick++
                         },
-                        onDismiss = { onDismissClick++ }
-                    )
+                        onDismiss = { onDismissClick++ },
+                    ),
                 )
             }
         }
@@ -226,8 +226,8 @@ class GdsInformationBannerTest {
                             onCardClick++
                             onLinkClick++
                         },
-                        onDismiss = { onDismissClick++ }
-                    )
+                        onDismiss = { onDismissClick++ },
+                    ),
                 )
             }
         }

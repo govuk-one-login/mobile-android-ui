@@ -42,25 +42,25 @@ fun TitledPage(parameters: TitledPageParameters) {
                                     text = titleId,
                                     textAlign = TextAlign.Center,
                                     backgroundColor = MaterialTheme.colorScheme.background,
-                                    padding = PaddingValues(vertical = mediumPadding)
-                                )
+                                    padding = PaddingValues(vertical = mediumPadding),
+                                ),
                             )
                         },
                         colors = {
                             TopAppBarDefaults.centerAlignedTopAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.background,
-                                scrolledContainerColor = MaterialTheme.colorScheme.background
+                                scrolledContainerColor = MaterialTheme.colorScheme.background,
                             )
                         },
-                        scrollBehavior = scrollBehavior
+                        scrollBehavior = scrollBehavior,
                     ).generate()
-                }
+                },
             ) { paddingValues ->
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(rememberScrollState()),
                 ) {
                     content()
                 }
@@ -73,7 +73,7 @@ data class TitledPageParameters(val titleId: Int, val content: @Composable () ->
 
 class TitledPageParametersProvider : PreviewParameterProvider<TitledPageParameters> {
     override val values: Sequence<TitledPageParameters> = sequenceOf(
-        TitledPageParameters(titleId = R.string.preview__titledPage__title)
+        TitledPageParameters(titleId = R.string.preview__titledPage__title),
     )
 }
 
@@ -81,18 +81,18 @@ class TitledPageParametersProvider : PreviewParameterProvider<TitledPageParamete
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun Preview(
     @PreviewParameter(TitledPageParametersProvider::class)
-    parameters: TitledPageParameters
+    parameters: TitledPageParameters,
 ) {
     TitledPage(parameters = parameters)
 }

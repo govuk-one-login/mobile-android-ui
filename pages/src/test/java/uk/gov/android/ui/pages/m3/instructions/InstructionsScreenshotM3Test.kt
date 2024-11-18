@@ -9,7 +9,7 @@ import uk.gov.android.ui.pages.m3.BaseScreenshotTestM3
 
 @RunWith(Parameterized::class)
 class InstructionsScreenshotM3Test(
-    private val parameters: Pair<Instructions, NightMode>
+    private val parameters: Pair<Instructions, NightMode>,
 ) : BaseScreenshotTestM3(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         parameters.first.generate()

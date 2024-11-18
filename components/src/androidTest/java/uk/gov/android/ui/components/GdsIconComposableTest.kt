@@ -34,7 +34,7 @@ class GdsIconComposableTest {
         Assert.assertEquals(
             "The expected parameter list size does not match the InformationProvider size!",
             expectedParameterListSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -62,14 +62,14 @@ class GdsIconComposableTest {
 
 fun IconParameters.verifyComposable(
     composeTestRule: ComposeContentTestRule,
-    resources: Resources
+    resources: Resources,
 ) = composeTestRule.let { rule ->
     val iconNode = rule.onNode(hasTestTag(image.toString()), true)
         .assertIsDisplayed()
 
     if (description != null) {
         iconNode.assertContentDescriptionEquals(
-            resources.getString(description!!)
+            resources.getString(description!!),
         )
     }
 

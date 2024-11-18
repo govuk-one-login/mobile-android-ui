@@ -12,10 +12,10 @@ data class ErrorPageParameters(
     val primaryButtonParameters: ButtonParameters,
     val informationParameters: InformationParameters,
     val secondaryButtonParameters: ButtonParameters? = null,
-    val modifier: Modifier = Modifier
+    val modifier: Modifier = Modifier,
 ) {
     fun getSubtitleEntry(resourceIndex: Int = 0) = informationParameters.getSubtitleEntry(
-        resourceIndex
+        resourceIndex,
     )
     fun hasSecondaryButton(): Boolean = secondaryButtonParameters != null
 }
@@ -23,27 +23,27 @@ data class ErrorPageParameters(
 fun generateParameters(
     model: ErrorPageResources,
     onPrimaryClick: () -> Unit = { },
-    onSecondaryClick: () -> Unit = { }
+    onSecondaryClick: () -> Unit = { },
 ) = ErrorPageParameters(
     informationParameters = InformationParameters(
         contentParameters = ContentParameters(
             headingSize = H1(),
-            resource = model.information.content
+            resource = model.information.content,
         ),
         iconParameters = IconParameters(
             image = model.information.icon.image,
             description = model.information.icon.description,
-            size = 100
-        )
+            size = 100,
+        ),
     ),
     primaryButtonParameters = ButtonParameters(
         buttonType = ButtonType.PRIMARY(),
         onClick = onPrimaryClick,
-        text = model.primaryButtonText
+        text = model.primaryButtonText,
     ),
     secondaryButtonParameters = ButtonParameters(
         buttonType = ButtonType.SECONDARY(),
         onClick = onSecondaryClick,
-        text = model.secondaryButtonText!!
-    )
+        text = model.secondaryButtonText!!,
+    ),
 )

@@ -33,7 +33,7 @@ data class HelpText(
     val rowAlignment: Alignment.Vertical = Alignment.CenterVertically,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val textAlign: TextAlign = TextAlign.Start,
-    val iconParameters: IconParameters
+    val iconParameters: IconParameters,
 ) {
     override fun toString(): String = this::class.java.simpleName
 
@@ -43,12 +43,12 @@ data class HelpText(
                 modifier = Modifier
                     .semantics(mergeDescendants = true) {}
                     .background(
-                        MaterialTheme.colorScheme.background
+                        MaterialTheme.colorScheme.background,
                     )
                     .then(
-                        rowModifier
+                        rowModifier,
                     ),
-                verticalAlignment = rowAlignment
+                verticalAlignment = rowAlignment,
             ) {
                 key(iconParameters) {
                     GdsIcon(iconParameters)
@@ -59,9 +59,9 @@ data class HelpText(
                     size = HeadingSize.HeadlineSmall(),
                     text = text,
                     padding = PaddingValues(
-                        start = xsmallPadding
+                        start = xsmallPadding,
                     ),
-                    textAlign = textAlign
+                    textAlign = textAlign,
                 ).generate()
             }
         }
@@ -72,24 +72,24 @@ class HelpTextProvider : PreviewParameterProvider<HelpText> {
         HelpText(
             text = R.string.preview__GdsContent__oneLine_0,
             iconParameters = IconParameters(
-                image = drawable.ic_warning_icon
-            )
-        )
+                image = drawable.ic_warning_icon,
+            ),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(HelpTextProvider::class)
-    helpTextParameters: HelpText
+    helpTextParameters: HelpText,
 ) {
     GdsTheme {
         helpTextParameters.generate()

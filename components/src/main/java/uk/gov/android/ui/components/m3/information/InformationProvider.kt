@@ -15,29 +15,29 @@ class InformationProvider : PreviewParameterProvider<InformationParameters> {
             contentParameters = ContentParameters(
                 resource = listOf(
                     GdsContentTextString(
-                        text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                    )
-                )
+                        text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                    ),
+                ),
             ),
             iconParameters = IconParameters(
                 foreGroundColor = Color.Unspecified,
-                image = drawable.ic_error
-            )
+                image = drawable.ic_error,
+            ),
         ),
         InformationParameters(
             contentParameters = ContentParameters(
                 resource = listOf(
                     GdsContentTextString(
                         subTitle = string.preview__GdsHeading__subTitle1,
-                        text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                    )
+                        text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                    ),
                 ),
-                headingSize = HeadingSize.DisplaySmall()
+                headingSize = HeadingSize.DisplaySmall(),
             ),
             iconParameters = IconParameters(
                 foreGroundColor = Color.Unspecified,
-                image = drawable.ic_error
-            )
-        )
+                image = drawable.ic_error,
+            ),
+        ),
     )
 }

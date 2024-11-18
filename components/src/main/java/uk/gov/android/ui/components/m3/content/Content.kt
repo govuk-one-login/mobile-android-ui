@@ -25,7 +25,7 @@ import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
 fun GdsContent(
     contentParameters: ContentParameters,
     colors: ColorScheme = MaterialTheme.colorScheme,
-    changeBackgroundDefault: Boolean = false
+    changeBackgroundDefault: Boolean = false,
 ) {
     Column(
         modifier = Modifier
@@ -33,21 +33,21 @@ fun GdsContent(
                 color = if (changeBackgroundDefault) {
                     inverseOnSurface(
                         darkMode = mc_theme_dark_inverseOnSurface,
-                        lightMode = colors.background
+                        lightMode = colors.background,
                     )
                 } else {
                     colors.background
-                }
+                },
             )
             .then(
-                contentParameters.modifier
-            )
+                contentParameters.modifier,
+            ),
 
     ) {
         contentParameters.apply {
             this.resource.forEach { contentText ->
                 Column(
-                    modifier = internalColumnModifier
+                    modifier = internalColumnModifier,
                 ) {
                     contentText.subTitle?.let { subTitle ->
                         Heading(
@@ -55,7 +55,7 @@ fun GdsContent(
                             padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         ).generate()
                     }
                     contentText.subTitle2?.let { subTitle ->
@@ -65,7 +65,7 @@ fun GdsContent(
                             size = subHeadingSize,
                             text = subTitle,
                             textVar = contentText.subTitle2Var,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         ).generate()
                     }
                     when (contentText) {
@@ -86,7 +86,7 @@ fun GdsContent(
                             modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.bodyLarge,
                             text = it,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         )
                     }
                 }
@@ -97,20 +97,20 @@ fun GdsContent(
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(ContentProvider::class)
-    contentParameters: ContentParameters
+    contentParameters: ContentParameters,
 ) {
     GdsTheme {
         GdsContent(
-            contentParameters
+            contentParameters,
         )
     }
 }

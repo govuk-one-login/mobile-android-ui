@@ -32,7 +32,7 @@ data class IconParameters(
     val foreGroundColor: Color = Color.Unspecified,
     val modifier: Modifier = Modifier,
     val size: Number? = null,
-    val imagePositionAtEnd: Boolean = true
+    val imagePositionAtEnd: Boolean = true,
 ) {
     fun hasSpecifiedBackgroundColor(): Boolean = backGroundColor != Color.Unspecified
     fun hasSpecifiedIconColor(): Boolean = foreGroundColor != Color.Unspecified

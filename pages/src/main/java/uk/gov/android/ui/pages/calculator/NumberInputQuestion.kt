@@ -44,7 +44,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 @Suppress("LongMethod")
 @Composable
 fun NumberInputQuestion(
-    params: NumberInputQuestionParameters
+    params: NumberInputQuestionParameters,
 ) {
     params.apply {
         GdsTheme {
@@ -54,9 +54,9 @@ fun NumberInputQuestion(
                     .verticalScroll(rememberScrollState())
                     .padding(
                         bottom = mediumPadding,
-                        top = mediumPadding
+                        top = mediumPadding,
                     ),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Content(params)
                 Buttons(params)
@@ -68,7 +68,7 @@ fun NumberInputQuestion(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    params: NumberInputQuestionParameters
+    params: NumberInputQuestionParameters,
 ) {
     params.apply {
         Column(
@@ -76,8 +76,8 @@ internal fun Content(
             modifier = Modifier
                 .padding(
                     start = smallPadding,
-                    end = smallPadding
-                )
+                    end = smallPadding,
+                ),
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -87,28 +87,28 @@ internal fun Content(
                     text = title,
                     textAlign = titleAlign,
                     padding = PaddingValues(
-                        bottom = titleBottomPadding
-                    )
-                )
+                        bottom = titleBottomPadding,
+                    ),
+                ),
             )
             content?.let {
                 GdsContent(
                     contentParameters = ContentParameters(
                         modifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         internalColumnModifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextArray(
-                                text = content
-                            )
+                                text = content,
+                            ),
                         ),
-                        textAlign = contentAlign
-                    )
+                        textAlign = contentAlign,
+                    ),
                 )
             }
             GdsNumberInput(
@@ -117,8 +117,8 @@ internal fun Content(
                     isValid = isValid,
                     validateInput = validateInput,
                     inputLabel = inputLabel,
-                    errorMessage = errorMessage
-                )
+                    errorMessage = errorMessage,
+                ),
             )
             hintText?.let {
                 GdsContent(
@@ -126,17 +126,17 @@ internal fun Content(
                         modifier = Modifier
                             .padding(
                                 start = smallPadding,
-                                end = smallPadding
+                                end = smallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextString(
-                                text = intArrayOf(it)
-                            )
+                                text = intArrayOf(it),
+                            ),
                         ),
                         textAlign = TextAlign.Start,
                         textStyle = MaterialTheme.typography.body2,
-                        color = hintTextGrey
-                    )
+                        color = hintTextGrey,
+                    ),
                 )
             }
         }
@@ -145,7 +145,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    params: NumberInputQuestionParameters
+    params: NumberInputQuestionParameters,
 ) {
     params.apply {
         Column(
@@ -153,8 +153,8 @@ internal fun Buttons(
                 .padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = mediumPadding
-                )
+                    top = mediumPadding,
+                ),
         ) {
             GdsButton(
                 buttonParameters = ButtonParameters(
@@ -164,8 +164,8 @@ internal fun Buttons(
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = onPrimary,
-                    enabled = isValid.value
-                )
+                    enabled = isValid.value,
+                ),
             )
         }
     }
@@ -190,7 +190,7 @@ data class NumberInputQuestionParameters(
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,
-    val titleBottomPadding: Dp = mediumPadding
+    val titleBottomPadding: Dp = mediumPadding,
 )
 
 class NumberInputQuestionProvider : PreviewParameterProvider<NumberInputQuestionParameters> {
@@ -202,8 +202,8 @@ class NumberInputQuestionProvider : PreviewParameterProvider<NumberInputQuestion
             validateInput = { true },
             inputLabel = string.preview__BrpInstructions__subtitle_1,
             errorMessage = string.preview__BrpInstructions__help_text,
-            primaryButtonText = string.preview__BrpInstructions__primary_button
-        )
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
+        ),
     )
 }
 
@@ -211,20 +211,20 @@ class NumberInputQuestionProvider : PreviewParameterProvider<NumberInputQuestion
     backgroundColor = 0xFFFBFDF8,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(NumberInputQuestionProvider::class)
-    parameters: NumberInputQuestionParameters
+    parameters: NumberInputQuestionParameters,
 ) {
     NumberInputQuestion(
-        parameters
+        parameters,
     )
 }

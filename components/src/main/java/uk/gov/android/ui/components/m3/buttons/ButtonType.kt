@@ -13,52 +13,52 @@ import uk.gov.android.ui.theme.m3_onDisabled
 
 sealed class ButtonType(
     val buttonColour: @Composable () -> ButtonColors,
-    val fontWeight: FontWeight = FontWeight.Bold
+    val fontWeight: FontWeight = FontWeight.Bold,
 ) {
     open class PRIMARY : ButtonType(
         buttonColour = {
             primaryButtonColors()
-        }
+        },
     )
 
     open class SECONDARY : ButtonType(
         buttonColour = {
             secondaryButtonColors()
         },
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     )
 
     open class TERTIARY : ButtonType(
         buttonColour = {
             tertiaryButtonColors()
-        }
+        },
     )
 
     open class QUATERNARY : ButtonType(
         buttonColour = {
             quaternaryButtonColors()
         },
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     )
 
     open class ADMIN : ButtonType(
         buttonColour = {
             adminButtonColors()
-        }
+        },
     )
 
     open class ERROR : ButtonType(
         buttonColour = {
             errorButtonColors()
-        }
+        },
     )
 
     data class ICON(
         val parentButtonType: ButtonType,
-        val iconParameters: IconParameters
+        val iconParameters: IconParameters,
     ) : ButtonType(
         buttonColour = parentButtonType.buttonColour,
-        fontWeight = parentButtonType.fontWeight
+        fontWeight = parentButtonType.fontWeight,
     )
 }
 
@@ -67,7 +67,7 @@ internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.primary,
     contentColor = colorScheme.onPrimary,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )
 
 @Composable
@@ -75,7 +75,7 @@ internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.secondary,
     contentColor = colorScheme.onSecondary,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )
 
 @Composable
@@ -83,7 +83,7 @@ internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.tertiary,
     contentColor = colorScheme.onTertiary,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )
 
 @Composable
@@ -91,7 +91,7 @@ internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.secondary,
     contentColor = colorScheme.primary,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )
 
 @Composable
@@ -99,7 +99,7 @@ internal fun adminButtonColors() = ButtonDefaults.buttonColors(
     containerColor = adminButton,
     contentColor = Color.White,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )
 
 @Composable
@@ -107,5 +107,5 @@ internal fun errorButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.error,
     contentColor = colorScheme.onError,
     disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled
+    disabledContentColor = m3_onDisabled,
 )

@@ -8,12 +8,12 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class AlertPageScreenshotTest(
-    private val parameters: Pair<AlertPageParameters, NightMode>
+    private val parameters: Pair<AlertPageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             AlertPage(
-                alertPageParameters = parameters.first
+                alertPageParameters = parameters.first,
             )
         }
     }

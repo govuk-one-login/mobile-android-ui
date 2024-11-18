@@ -13,7 +13,7 @@ class StubInstrumentationTest {
     fun stubTestForGradleCommand() {
         assertEquals(
             2,
-            1 + 1
+            1 + 1,
         )
     }
 }

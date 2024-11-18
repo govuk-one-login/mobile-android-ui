@@ -7,5 +7,5 @@ data class BrpInstructionsContentSection(
     @StringRes
     val subTitle: Int? = null,
     @ArrayRes
-    val text: Int
+    val text: Int,
 )

@@ -8,7 +8,7 @@ import uk.gov.android.ui.components.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class BulletListM3Test(
-    private val parameters: Pair<BulletListParameters, NightMode>
+    private val parameters: Pair<BulletListParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

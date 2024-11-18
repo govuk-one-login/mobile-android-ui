@@ -10,5 +10,5 @@ data class IconResources(
     @DrawableRes
     val image: Int,
     @StringRes
-    val description: Int? = null
+    val description: Int? = null,
 ) : Parcelable

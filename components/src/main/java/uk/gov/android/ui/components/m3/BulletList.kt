@@ -32,7 +32,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 @Suppress("LongMethod")
 fun GdsBulletList(
-    bulletListParameters: BulletListParameters
+    bulletListParameters: BulletListParameters,
 ) {
     bulletListParameters.apply {
         val background =
@@ -45,12 +45,12 @@ fun GdsBulletList(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    color = background
+                    color = background,
                 )
                 .then(
-                    colModifier
+                    colModifier,
                 ),
-            horizontalAlignment = colAlignment
+            horizontalAlignment = colAlignment,
         ) {
             bulletListParameters.title?.let { title ->
                 Heading(
@@ -59,7 +59,7 @@ fun GdsBulletList(
                     size = headingSize,
                     text = title,
                     textAlign = textAlign,
-                    backgroundColor = background
+                    backgroundColor = background,
                 ).generate()
             }
 
@@ -73,27 +73,27 @@ fun GdsBulletList(
                     stringArrayResource(id = contentText.text)
             }.forEach {
                 Row(
-                    verticalAlignment = verticalAlignment
+                    verticalAlignment = verticalAlignment,
                 ) {
                     Text(
                         color = color
                             ?: MaterialTheme.colorScheme.contentColorFor(
-                                MaterialTheme.colorScheme.background
+                                MaterialTheme.colorScheme.background,
                             ),
                         text = "\u2022",
                         textAlign = TextAlign.Center,
                         style = textStyle ?: MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.width(indent)
+                        modifier = Modifier.width(indent),
                     )
                     Text(
                         color = color
                             ?: MaterialTheme.colorScheme.contentColorFor(
-                                MaterialTheme.colorScheme.background
+                                MaterialTheme.colorScheme.background,
                             ),
                         modifier = textModifier,
                         style = textStyle ?: MaterialTheme.typography.bodyLarge,
                         text = it,
-                        textAlign = textAlign
+                        textAlign = textAlign,
                     )
                 }
             }
@@ -116,9 +116,9 @@ data class BulletListParameters(
     val headingModifier: Modifier = Modifier.fillMaxWidth(),
     val headingPadding: PaddingValues = PaddingValues(
         start = smallPadding,
-        end = smallPadding
+        end = smallPadding,
     ),
-    val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
+    val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -128,42 +128,42 @@ class BulletListProvider : PreviewParameterProvider<BulletListParameters> {
         BulletListParameters(
             title = R.string.preview__GdsHeading__subTitle1,
             contentText = GdsContentText.GdsContentTextString(
-                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray()
-            )
+                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray(),
+            ),
         ),
         BulletListParameters(
             title = R.string.preview__GdsHeading__subTitle2,
             contentText = GdsContentText.GdsContentTextString(
                 text = arrayOf(
                     R.string.preview__GdsContent__oneLine_0,
-                    R.string.preview__GdsContent__twoLine_0
-                ).toIntArray()
-            )
+                    R.string.preview__GdsContent__twoLine_0,
+                ).toIntArray(),
+            ),
         ),
         BulletListParameters(
             highlight = true,
             title = R.string.preview__GdsHeading__subTitle1,
             contentText = GdsContentText.GdsContentTextString(
-                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray()
-            )
-        )
+                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray(),
+            ),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(BulletListProvider::class)
-    bulletListParameters: BulletListParameters
+    bulletListParameters: BulletListParameters,
 ) {
     GdsBulletList(
-        bulletListParameters
+        bulletListParameters,
     )
 }

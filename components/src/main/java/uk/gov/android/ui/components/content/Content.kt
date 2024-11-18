@@ -25,22 +25,22 @@ import uk.gov.android.ui.theme.GdsTheme
 @Composable
 fun GdsContent(
     contentParameters: ContentParameters,
-    colors: Colors = MaterialTheme.colors
+    colors: Colors = MaterialTheme.colors,
 ) {
     Column(
         modifier = Modifier
             .background(
-                color = colors.background
+                color = colors.background,
             )
             .then(
-                contentParameters.modifier
-            )
+                contentParameters.modifier,
+            ),
 
     ) {
         contentParameters.apply {
             this.resource.forEach { contentText ->
                 Column(
-                    modifier = internalColumnModifier
+                    modifier = internalColumnModifier,
                 ) {
                     contentText.subTitle?.let { subTitle ->
                         val headingParameters = HeadingParameters(
@@ -48,7 +48,7 @@ fun GdsContent(
                             padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         )
                         GdsHeading(headingParameters)
                     }
@@ -59,7 +59,7 @@ fun GdsContent(
                             size = subHeadingSize,
                             text = subTitle2,
                             textVar = contentText.subTitle2Var,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         )
                         GdsHeading(headingParameters)
                     }
@@ -81,7 +81,7 @@ fun GdsContent(
                             modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.body1,
                             text = it,
-                            textAlign = textAlign
+                            textAlign = textAlign,
                         )
                     }
                 }
@@ -92,20 +92,20 @@ fun GdsContent(
 
 @Preview(
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO
+    uiMode = UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
+    uiMode = UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(ContentProvider::class)
-    contentParameters: ContentParameters
+    contentParameters: ContentParameters,
 ) {
     GdsTheme {
         GdsContent(
-            contentParameters
+            contentParameters,
         )
     }
 }

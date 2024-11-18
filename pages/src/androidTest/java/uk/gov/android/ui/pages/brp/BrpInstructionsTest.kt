@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class BrpInstructionsTest(
-    private val parameters: BrpInstructionsParameters
+    private val parameters: BrpInstructionsParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -32,7 +32,7 @@ class BrpInstructionsTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.title)
+                resources.getString(parameters.title),
             ).apply {
                 assertIsDisplayed()
             }
@@ -43,7 +43,7 @@ class BrpInstructionsTest(
 
             parameters.image?.let {
                 onNodeWithTag(
-                    it.toString()
+                    it.toString(),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -51,7 +51,7 @@ class BrpInstructionsTest(
 
             parameters.topIcon?.let {
                 onNodeWithTag(
-                    it.toString()
+                    it.toString(),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -59,7 +59,7 @@ class BrpInstructionsTest(
 
             parameters.helpTextParameters?.let {
                 onNodeWithText(
-                    resources.getString(it.text)
+                    resources.getString(it.text),
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -67,7 +67,7 @@ class BrpInstructionsTest(
 
                 onNodeWithTag(
                     it.iconParameters.image.toString(),
-                    useUnmergedTree = true
+                    useUnmergedTree = true,
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -75,14 +75,14 @@ class BrpInstructionsTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.primaryButtonText)
+                resources.getString(parameters.primaryButtonText),
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(parameters.secondaryButtonText)
+                resources.getString(parameters.secondaryButtonText),
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
@@ -92,12 +92,12 @@ class BrpInstructionsTest(
 
     private fun checkContentSection(
         tesRule: ComposeContentTestRule,
-        contentSection: BrpInstructionsContentSection
+        contentSection: BrpInstructionsContentSection,
     ) {
         tesRule.apply {
             contentSection.subTitle?.let {
                 onNodeWithText(
-                    resources.getString(it)
+                    resources.getString(it),
                 ).apply {
                     assertIsDisplayed()
                 }

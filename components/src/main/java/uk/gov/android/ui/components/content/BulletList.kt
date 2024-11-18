@@ -31,19 +31,19 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsBulletList(
-    bulletListParameters: BulletListParameters
+    bulletListParameters: BulletListParameters,
 ) {
     bulletListParameters.apply {
         Column(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    colors.background
+                    colors.background,
                 )
                 .then(
-                    colModifier
+                    colModifier,
                 ),
-            horizontalAlignment = colAlignment
+            horizontalAlignment = colAlignment,
         ) {
             when (contentText) {
                 is GdsContentText.GdsContentTextString ->
@@ -60,14 +60,14 @@ fun GdsBulletList(
                         text = "\u2022",
                         textAlign = TextAlign.Center,
                         style = textStyle ?: MaterialTheme.typography.body1,
-                        modifier = Modifier.width(indent)
+                        modifier = Modifier.width(indent),
                     )
                     Text(
                         color = color ?: colors.contentColorFor(colors.background),
                         modifier = textModifier,
                         style = textStyle ?: MaterialTheme.typography.body1,
                         text = it,
-                        textAlign = textAlign
+                        textAlign = textAlign,
                     )
                 }
             }
@@ -84,7 +84,7 @@ data class BulletListParameters(
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
-    val textAlign: TextAlign = TextAlign.Start
+    val textAlign: TextAlign = TextAlign.Start,
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -93,36 +93,36 @@ class BulletListProvider : PreviewParameterProvider<BulletListParameters> {
     override val values: Sequence<BulletListParameters> = sequenceOf(
         BulletListParameters(
             contentText = GdsContentText.GdsContentTextString(
-                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray()
-            )
+                text = arrayOf(R.string.preview__GdsContent__oneLine_0).toIntArray(),
+            ),
         ),
         BulletListParameters(
             contentText = GdsContentText.GdsContentTextString(
                 text = arrayOf(
                     R.string.preview__GdsContent__oneLine_0,
-                    R.string.preview__GdsContent__twoLine_0
-                ).toIntArray()
-            )
-        )
+                    R.string.preview__GdsContent__twoLine_0,
+                ).toIntArray(),
+            ),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(BulletListProvider::class)
-    bulletListParameters: BulletListParameters
+    bulletListParameters: BulletListParameters,
 ) {
     GdsTheme {
         GdsBulletList(
-            bulletListParameters
+            bulletListParameters,
         )
     }
 }

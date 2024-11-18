@@ -32,16 +32,16 @@ import uk.gov.android.ui.components.content.GdsContent
 import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.content.GdsLinkText
 import uk.gov.android.ui.components.content.LinkTextParameters
-import uk.gov.android.ui.pages.R as pagesR
 import uk.gov.android.ui.pages.R.string
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
+import uk.gov.android.ui.pages.R as pagesR
 
 @Composable
 fun InformationScreen(
-    informationScreenParameters: InformationScreenParameters
+    informationScreenParameters: InformationScreenParameters,
 ) {
     informationScreenParameters.apply {
         GdsTheme {
@@ -51,9 +51,9 @@ fun InformationScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(
                         bottom = mediumPadding,
-                        top = mediumPadding
+                        top = mediumPadding,
                     ),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Content(informationScreenParameters)
                 Buttons(informationScreenParameters)
@@ -65,15 +65,15 @@ fun InformationScreen(
 @Suppress("LongMethod")
 @Composable
 internal fun Content(
-    informationScreenParameters: InformationScreenParameters
+    informationScreenParameters: InformationScreenParameters,
 ) {
     informationScreenParameters.apply {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(
                 end = smallPadding,
-                start = smallPadding
-            )
+                start = smallPadding,
+            ),
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -84,35 +84,35 @@ internal fun Content(
                     textVar = titleVar,
                     textAlign = titleAlign,
                     padding = PaddingValues(
-                        bottom = titleBottomPadding
-                    )
-                )
+                        bottom = titleBottomPadding,
+                    ),
+                ),
             )
             content?.let {
                 GdsContent(
                     contentParameters = ContentParameters(
                         modifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         internalColumnModifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextArray(
-                                text = content
-                            )
+                                text = content,
+                            ),
                         ),
-                        textAlign = contentAlign
-                    )
+                        textAlign = contentAlign,
+                    ),
                 )
             }
             bulletContent?.let {
                 GdsBulletList(
                     bulletListParameters = BulletListParameters(
-                        contentText = GdsContentTextArray(text = bulletContent)
-                    )
+                        contentText = GdsContentTextArray(text = bulletContent),
+                    ),
                 )
             }
             linkText?.let {
@@ -121,9 +121,9 @@ internal fun Content(
                         contentText = linkText,
                         uri = linkUri,
                         colModifier = Modifier.padding(
-                            bottom = smallPadding
-                        )
-                    )
+                            bottom = smallPadding,
+                        ),
+                    ),
                 )
             }
         }
@@ -132,7 +132,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    informationScreenParameters: InformationScreenParameters
+    informationScreenParameters: InformationScreenParameters,
 ) {
     informationScreenParameters.apply {
         primaryButtonText?.let {
@@ -141,8 +141,8 @@ internal fun Buttons(
                     .padding(
                         end = smallPadding,
                         start = smallPadding,
-                        top = mediumPadding
-                    )
+                        top = mediumPadding,
+                    ),
             ) {
                 GdsButton(
                     buttonParameters = ButtonParameters(
@@ -151,8 +151,8 @@ internal fun Buttons(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = xsmallPadding),
-                        onClick = onPrimary
-                    )
+                        onClick = onPrimary,
+                    ),
                 )
             }
         }
@@ -176,7 +176,7 @@ data class InformationScreenParameters(
     val title: Int,
     val titleVar: String? = null,
     val titleAlign: TextAlign = TextAlign.Start,
-    val titleBottomPadding: Dp = mediumPadding
+    val titleBottomPadding: Dp = mediumPadding,
 )
 
 class InformationScreenProvider : PreviewParameterProvider<InformationScreenParameters> {
@@ -185,8 +185,8 @@ class InformationScreenProvider : PreviewParameterProvider<InformationScreenPara
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
             bulletContent = pagesR.array.preview__BrpInstructions__array_0,
-            primaryButtonText = string.preview__BrpInstructions__primary_button
-        )
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
+        ),
     )
 }
 
@@ -194,20 +194,20 @@ class InformationScreenProvider : PreviewParameterProvider<InformationScreenPara
     backgroundColor = 0xFFFBFDF8,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(InformationScreenProvider::class)
-    parameters: InformationScreenParameters
+    parameters: InformationScreenParameters,
 ) {
     InformationScreen(
-        parameters
+        parameters,
     )
 }

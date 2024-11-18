@@ -76,7 +76,7 @@ val DarkColorPalette = darkColorScheme(
     onError = m3_theme_dark_onError,
     surface = md_theme_dark_surface,
     onSurface = md_theme_dark_onSurface,
-    surfaceVariant = md_theme_dark_surfaceVariant
+    surfaceVariant = md_theme_dark_surfaceVariant,
 )
 
 val LightColorPalette = lightColorScheme(
@@ -92,5 +92,5 @@ val LightColorPalette = lightColorScheme(
     onError = m3_theme_light_onError,
     surface = md_theme_light_surface,
     onSurface = md_theme_light_onSurface,
-    surfaceVariant = md_theme_light_surfaceVariant
+    surfaceVariant = md_theme_light_surfaceVariant,
 )
