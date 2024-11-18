@@ -2,11 +2,9 @@ package uk.gov.android.ui.components.content
 
 import android.os.Parcelable
 import androidx.annotation.ArrayRes
-import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 
-@Keep
 @Parcelize
 sealed class GdsContentText(
     @StringRes open val subTitle: Int?,
@@ -14,7 +12,6 @@ sealed class GdsContentText(
     open val subTitle2Var: String? = null
 ) : Parcelable {
 
-    @Keep
     @Parcelize
     data class GdsContentTextString(
         @StringRes val text: IntArray,
@@ -47,7 +44,6 @@ sealed class GdsContentText(
         }
     }
 
-    @Keep
     @Parcelize
     data class GdsContentTextArray(
         @StringRes override val subTitle: Int? = null,

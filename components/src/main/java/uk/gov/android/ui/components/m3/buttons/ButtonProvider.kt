@@ -1,134 +1,57 @@
 package uk.gov.android.ui.components.m3.buttons
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.components.R
 import uk.gov.android.ui.components.images.icon.IconParameters
-import uk.gov.android.ui.theme.buttonMarginLeft
+import uk.gov.android.ui.theme.smallPadding
 
-class ButtonProvider : PreviewParameterProvider<ButtonParameters> {
-    override val values: Sequence<ButtonParameters> = sequenceOf(
-        ButtonParameters(
-            buttonType = ButtonType.PRIMARY(),
-            onClick = {},
-            text = R.string.preview__GdsButton__primary
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.PRIMARY(),
-            onClick = {},
-            text = R.string.preview__GdsButton__primary,
-            enabled = false
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.SECONDARY(),
-            onClick = {},
-            text = R.string.preview__GdsButton__secondary
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ADMIN(),
-            onClick = {},
-            text = R.string.preview__GdsButton__admin
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.PRIMARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__primary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.SECONDARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__secondary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.PRIMARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    imagePositionAtEnd = false,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__primary_icon,
-            textStyle = TextStyle()
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.SECONDARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    imagePositionAtEnd = false,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__secondary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.TERTIARY(),
-            onClick = {},
-            text = R.string.preview__GdsButton__tertiary
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.TERTIARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__tertiary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.TERTIARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    imagePositionAtEnd = false,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__tertiary_icon
-        ),
-        ButtonParameters(
-            buttonType = ButtonType.ICON(
-                buttonType = ButtonType.TERTIARY(),
-                iconParameters = IconParameters(
-                    image = R.drawable.ic_external_site,
-                    description = R.string.externalSite,
-                    imagePositionAtEnd = true,
-                    backGroundColor = Color.Transparent
-                )
-            ),
-            onClick = {},
-            text = R.string.preview__GdsButton__tertiary_icon,
-            textAlign = TextAlign.Start,
-            contentPadding = PaddingValues(
-                start = buttonMarginLeft
+class ButtonProvider : PreviewParameterProvider<List<ButtonParameters>> {
+    override val values: Sequence<List<ButtonParameters>> = types.asSequence()
+        .map(::createButtonList)
+
+    private fun createButtonList(type: ButtonType): List<ButtonParameters> = listOf(
+        create(type),
+        create(type, false),
+        create(ButtonType.ICON(type, defaultIconParameters.copy())),
+        create(
+            ButtonType.ICON(
+                parentButtonType = type,
+                iconParameters = defaultIconParameters.copy(imagePositionAtEnd = false)
             )
-        )
+        ),
+        create(ButtonType.ICON(type, defaultIconParameters.copy()), false)
     )
+
+    private fun create(type: ButtonType, isEnabled: Boolean = true) = ButtonParameters(
+        buttonType = type,
+        text = when (type) {
+            is ButtonType.ICON -> type.parentButtonType.javaClass.simpleName
+            else -> type.javaClass.simpleName
+        },
+        onClick = {},
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(smallPadding),
+        isEnabled = isEnabled
+    )
+
+    companion object {
+        private val types = listOf(
+            ButtonType.PRIMARY(),
+            ButtonType.SECONDARY(),
+            ButtonType.TERTIARY(),
+            ButtonType.QUATERNARY(),
+            ButtonType.ADMIN(),
+            ButtonType.ERROR()
+        )
+        private val defaultIconParameters = IconParameters(
+            image = R.drawable.ic_external_site,
+            description = R.string.externalSite,
+            backGroundColor = Color.Transparent
+        )
+    }
 }

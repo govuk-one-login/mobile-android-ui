@@ -14,7 +14,7 @@ import uk.gov.android.ui.theme.smallPadding
 data class ContentParameters(
     val resource: List<GdsContentText>,
     val color: Color? = null,
-    val headingSize: HeadingSize = HeadingSize.H4(),
+    val headingSize: HeadingSize = HeadingSize.HeadlineSmall(),
     val textStyle: TextStyle? = null,
     val modifier: Modifier = Modifier,
     val internalColumnModifier: Modifier =
@@ -24,7 +24,7 @@ data class ContentParameters(
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val headingPadding: PaddingValues = PaddingValues(),
     val textPadding: PaddingValues = PaddingValues(),
-    val subHeadingSize: HeadingSize = HeadingSize.H4()
+    val subHeadingSize: HeadingSize = HeadingSize.HeadlineSmall()
 ) {
     fun getSubtitleEntry(resourceIndex: Int = 0) = resource[resourceIndex].subTitle
 

@@ -26,27 +26,27 @@ import uk.gov.android.ui.theme.mediumPadding
 sealed class HeadingSize(
     val style: @Composable () -> TextStyle
 ) {
-    class H1 : HeadingSize(
+    class DisplaySmall : HeadingSize(
+        style = @Composable {
+            MaterialTheme.typography.displaySmall
+        }
+    )
+
+    class HeadlineLarge : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineLarge
         }
     )
 
-    class H2 : HeadingSize(
+    class HeadlineMedium : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineMedium
         }
     )
 
-    class H3 : HeadingSize(
+    class HeadlineSmall : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineSmall
-        }
-    )
-
-    class H4 : HeadingSize(
-        style = @Composable {
-            MaterialTheme.typography.titleMedium
         }
     )
 }
@@ -94,19 +94,19 @@ class HeadingsProvider : PreviewParameterProvider<Heading> {
     override val values: Sequence<Heading> = sequenceOf(
         Heading(
             text = R.string.preview__GdsHeading__h1,
-            size = HeadingSize.H1()
+            size = HeadingSize.DisplaySmall()
         ),
         Heading(
             text = R.string.preview__GdsHeading__h2,
-            size = HeadingSize.H2()
+            size = HeadingSize.HeadlineLarge()
         ),
         Heading(
             text = R.string.preview__GdsHeading__h3,
-            size = HeadingSize.H3()
+            size = HeadingSize.HeadlineMedium()
         ),
         Heading(
             text = R.string.preview__GdsHeading__h4,
-            size = HeadingSize.H4()
+            size = HeadingSize.HeadlineSmall()
         )
     )
 }

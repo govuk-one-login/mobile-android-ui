@@ -72,14 +72,14 @@ class InstructionsTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.buttonParameters!![0].text)
+                parameters.buttonParameters!![0].text
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(parameters.buttonParameters!![1].text),
+                parameters.buttonParameters!![1].text,
                 substring = true
             ).apply {
                 performScrollTo()

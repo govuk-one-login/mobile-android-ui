@@ -18,7 +18,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = "Primary button"
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -38,18 +38,18 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = "Primary button"
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
-                    buttonType = ButtonType.SECONDARY(),
+                    parentButtonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
                         image = drawable.ic_external_site
                     )
                 ),
                 onClick = {},
-                text = string.preview__GdsButton__secondary
+                text = "Secondary button"
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -69,18 +69,18 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = "Primary button"
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
-                    buttonType = ButtonType.SECONDARY(),
+                    parentButtonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
                         image = drawable.ic_external_site
                     )
                 ),
                 onClick = {},
-                text = string.preview__GdsButton__secondary
+                text = "Secondary button"
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -90,7 +90,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                             text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
                         )
                     ),
-                    headingSize = HeadingSize.H1()
+                    headingSize = HeadingSize.DisplaySmall()
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
@@ -102,7 +102,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = "Primary button"
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -114,7 +114,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                             text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
                         )
                     ),
-                    headingSize = HeadingSize.H1()
+                    headingSize = HeadingSize.DisplaySmall()
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
@@ -126,7 +126,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = string.preview__GdsButton__primary
+                text = "Primary button"
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -136,7 +136,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                             textVar = "404"
                         )
                     ),
-                    headingSize = HeadingSize.H1()
+                    headingSize = HeadingSize.DisplaySmall()
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,

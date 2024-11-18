@@ -21,8 +21,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 internal fun ConstraintLayoutScope.SetupSecondaryButton(
     parameters: ButtonParameters,
     secondaryButtonRef: ConstrainedLayoutReference,
-    primaryButtonRef: ConstrainedLayoutReference,
-    colors: ColorScheme
+    primaryButtonRef: ConstrainedLayoutReference
 ) {
     key(parameters) {
         val buttonModifier = Modifier
@@ -44,8 +43,7 @@ internal fun ConstraintLayoutScope.SetupSecondaryButton(
         GdsButton(
             buttonParameters = parameters.copy(
                 modifier = Modifier.fillMaxWidth().then(buttonModifier)
-            ),
-            colors = colors
+            )
         )
     }
 }
@@ -55,8 +53,7 @@ internal fun ConstraintLayoutScope.SetupPrimaryButtonComponent(
     primaryButtonRef: ConstrainedLayoutReference,
     informationRef: ConstrainedLayoutReference,
     parameters: ErrorPageParameters,
-    secondaryButtonRef: ConstrainedLayoutReference,
-    colors: ColorScheme
+    secondaryButtonRef: ConstrainedLayoutReference
 ) {
     val primaryButtonModifier = Modifier
         .constrainAs(primaryButtonRef) {
@@ -80,8 +77,7 @@ internal fun ConstraintLayoutScope.SetupPrimaryButtonComponent(
     GdsButton(
         buttonParameters = parameters.primaryButtonParameters.copy(
             modifier = primaryButtonModifier
-        ),
-        colors = colors
+        )
     )
 }
 

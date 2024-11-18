@@ -56,7 +56,7 @@ data class HelpText(
 
                 Heading(
                     modifier = textModifier,
-                    size = HeadingSize.H4(),
+                    size = HeadingSize.HeadlineSmall(),
                     text = text,
                     padding = PaddingValues(
                         start = xsmallPadding

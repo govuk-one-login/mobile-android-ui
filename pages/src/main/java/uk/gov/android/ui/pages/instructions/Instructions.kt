@@ -26,6 +26,7 @@ import uk.gov.android.ui.components.GdsVectorImage
 import uk.gov.android.ui.components.HeadingParameters
 import uk.gov.android.ui.components.HeadingSize
 import uk.gov.android.ui.components.HelpTextParameters
+import uk.gov.android.ui.components.R.drawable
 import uk.gov.android.ui.components.VectorImageParameters
 import uk.gov.android.ui.components.buttons.ButtonParameters
 import uk.gov.android.ui.components.buttons.ButtonType
@@ -188,7 +189,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     text = R.array.preview__BrpInstructions__array_1
                 )
             ),
-            image = R.drawable.preview__brpinstructions,
+            image = drawable.preview__gdsvectorimage,
             helpTextParameters = HelpTextParameters(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
@@ -213,7 +214,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     buttonType = ButtonType.ICON(
                         buttonType = ButtonType.SECONDARY(),
                         iconParameters = IconParameters(
-                            image = R.drawable.ic_external_site,
+                            image = drawable.ic_external_site,
                             description = R.string.externalSite
                         )
                     ),
@@ -238,7 +239,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     text = R.array.preview__BrpInstructions__array_1
                 )
             ),
-            image = R.drawable.preview__brpinstructions,
+            image = drawable.preview__gdsvectorimage,
             helpTextParameters = HelpTextParameters(
                 text = R.string.preview__BrpInstructions__help_text,
                 iconParameters = IconParameters(
@@ -263,7 +264,7 @@ class InstructionsProvider : PreviewParameterProvider<Instructions> {
                     buttonType = ButtonType.ICON(
                         buttonType = ButtonType.SECONDARY(),
                         iconParameters = IconParameters(
-                            image = R.drawable.ic_external_site,
+                            image = drawable.ic_external_site,
                             description = R.string.externalSite
                         )
                     ),

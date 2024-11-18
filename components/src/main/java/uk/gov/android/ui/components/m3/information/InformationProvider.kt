@@ -32,7 +32,7 @@ class InformationProvider : PreviewParameterProvider<InformationParameters> {
                         text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
                     )
                 ),
-                headingSize = HeadingSize.H1()
+                headingSize = HeadingSize.DisplaySmall()
             ),
             iconParameters = IconParameters(
                 foreGroundColor = Color.Unspecified,

@@ -63,18 +63,18 @@ class HeadingsM3Test {
                 assertIsDisplayed()
                 assertFontSize(
                     when (parameters.size) {
-                        is HeadingSize.H4 -> textSizeH4
-                        is HeadingSize.H3 -> textSizeH3
-                        is HeadingSize.H2 -> textSizeH2
-                        is HeadingSize.H1 -> textSizeH1
+                        is HeadingSize.HeadlineSmall -> textSizeH4
+                        is HeadingSize.HeadlineMedium -> textSizeH3
+                        is HeadingSize.HeadlineLarge -> textSizeH2
+                        is HeadingSize.DisplaySmall -> textSizeH1
                     }
                 )
                 assertLineHeight(
                     when (parameters.size) {
-                        is HeadingSize.H4 -> lineHeightH4
-                        is HeadingSize.H3 -> lineHeightH3
-                        is HeadingSize.H2 -> lineHeightH2
-                        is HeadingSize.H1 -> lineHeightH1
+                        is HeadingSize.HeadlineSmall -> lineHeightH4
+                        is HeadingSize.HeadlineMedium -> lineHeightH3
+                        is HeadingSize.HeadlineLarge -> lineHeightH2
+                        is HeadingSize.DisplaySmall -> lineHeightH1
                     }
                 )
             }

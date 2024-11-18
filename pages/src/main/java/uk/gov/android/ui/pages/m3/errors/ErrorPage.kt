@@ -46,16 +46,14 @@ fun ErrorPage(
             primaryButtonRef,
             informationRef,
             parameters,
-            secondaryButtonRef,
-            colors
+            secondaryButtonRef
         )
 
         parameters.secondaryButtonParameters?.let {
             SetupSecondaryButton(
                 it,
                 secondaryButtonRef,
-                primaryButtonRef,
-                colors
+                primaryButtonRef
             )
         }
     }

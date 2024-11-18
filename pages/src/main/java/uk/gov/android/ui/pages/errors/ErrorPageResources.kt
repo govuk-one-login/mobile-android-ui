@@ -2,13 +2,11 @@ package uk.gov.android.ui.pages.errors
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
-import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import uk.gov.android.ui.components.information.InformationResources
 
-@Keep
 @Parcelize
 data class ErrorPageResources(
     val information: InformationResources,

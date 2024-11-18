@@ -18,8 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.contentColorFor
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -31,66 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import uk.gov.android.ui.theme.ext.isDark
 import uk.gov.android.ui.theme.ext.toHexString
-import uk.gov.android.ui.theme.md_theme_dark_background
-import uk.gov.android.ui.theme.md_theme_dark_error
-import uk.gov.android.ui.theme.md_theme_dark_onBackground
-import uk.gov.android.ui.theme.md_theme_dark_onError
-import uk.gov.android.ui.theme.md_theme_dark_onPrimary
-import uk.gov.android.ui.theme.md_theme_dark_onSecondary
-import uk.gov.android.ui.theme.md_theme_dark_onSurface
-import uk.gov.android.ui.theme.md_theme_dark_primary
-import uk.gov.android.ui.theme.md_theme_dark_primaryVariant
-import uk.gov.android.ui.theme.md_theme_dark_secondary
-import uk.gov.android.ui.theme.md_theme_dark_surface
-import uk.gov.android.ui.theme.md_theme_dark_surfaceVariant
-import uk.gov.android.ui.theme.md_theme_light_background
-import uk.gov.android.ui.theme.md_theme_light_error
-import uk.gov.android.ui.theme.md_theme_light_onBackground
-import uk.gov.android.ui.theme.md_theme_light_onError
-import uk.gov.android.ui.theme.md_theme_light_onPrimary
-import uk.gov.android.ui.theme.md_theme_light_onSecondary
-import uk.gov.android.ui.theme.md_theme_light_onSurface
-import uk.gov.android.ui.theme.md_theme_light_primary
-import uk.gov.android.ui.theme.md_theme_light_primaryVariant
-import uk.gov.android.ui.theme.md_theme_light_secondary
-import uk.gov.android.ui.theme.md_theme_light_surface
-import uk.gov.android.ui.theme.md_theme_light_surfaceVariant
-
-val DarkColorPalette = darkColorScheme(
-    background = md_theme_dark_background,
-    error = md_theme_dark_error,
-    onBackground = md_theme_dark_onBackground,
-    onError = md_theme_dark_onError,
-    onPrimary = md_theme_dark_onPrimary,
-    onSecondary = md_theme_dark_onSecondary,
-    onSurface = md_theme_dark_onSurface,
-    primary = md_theme_dark_primary,
-    tertiary = md_theme_dark_primaryVariant,
-    secondary = md_theme_dark_secondary,
-    surface = md_theme_dark_surface,
-    surfaceVariant = md_theme_dark_surfaceVariant
-)
-
-val LightColorPalette = lightColorScheme(
-    background = md_theme_light_background,
-    error = md_theme_light_error,
-    onBackground = md_theme_light_onBackground,
-    onError = md_theme_light_onError,
-    onPrimary = md_theme_light_onPrimary,
-    onSecondary = md_theme_light_onSecondary,
-    onSurface = md_theme_light_onSurface,
-    primary = md_theme_light_primary,
-    tertiary = md_theme_light_primaryVariant,
-    secondary = md_theme_light_secondary,
-    surface = md_theme_light_surface,
-    surfaceVariant = md_theme_light_surfaceVariant
-)
 
 @Composable
 fun GdsTheme(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = Shape,
+    shapes: Shapes = Shapes,
     typography: Typography = Typography,
     content: @Composable () -> Unit
 ) {
@@ -360,6 +304,6 @@ private fun Swatch(
 @Composable
 private fun PalletteSpacer() {
     Spacer(
-        modifier = Modifier.height(uk.gov.android.ui.theme.PALETTE_PADDING.dp)
+        modifier = Modifier.height(PALETTE_PADDING.dp)
     )
 }
