@@ -1,0 +1,21 @@
+name: Release Mobile Android Logging
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  bump_version:
+    env:
+      JDK_VERSION: 17
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Run deployment workflow
+        uses: govuk-one-login/mobile-android-pipelines@3dd3a4603b806128f9da211ea261f658b734cbfb
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
