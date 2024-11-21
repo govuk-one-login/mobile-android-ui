@@ -69,3 +69,9 @@ jobs:
 
       - name: Bundle reports folder
         uses: ./config/actions/bundle-reports
+
+      - name: Test publish
+        uses: ./config/actions/maven-publish-local
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_actor: ${{ github.actor }}

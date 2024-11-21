@@ -1,0 +1,23 @@
+name: 'Run gradle publish'
+description: 'Publish the current build to GitHub Packages'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'Service account access token that allows publishing packages'
+    required: true
+  GITHUB_ACTOR:
+    description: 'Service account username that allows publishing packages'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Publish package
+      id: maven-publish
+      run: |
+        ./gradlew publishToMavenLocal
+      shell: bash
+      env:
+        CI: true
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ inputs.GITHUB_ACTOR }}
