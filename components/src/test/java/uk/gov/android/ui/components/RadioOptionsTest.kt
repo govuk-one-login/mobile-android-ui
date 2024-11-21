@@ -19,7 +19,7 @@ class RadioOptionsTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsRadioSelection")
+        @Parameterized.Parameters(name = "{index} GdsRadioSelection")
         fun values(): List<Pair<RadioSelectionParameters, NightMode>> {
             val result: MutableList<Pair<RadioSelectionParameters, NightMode>> = mutableListOf()
 

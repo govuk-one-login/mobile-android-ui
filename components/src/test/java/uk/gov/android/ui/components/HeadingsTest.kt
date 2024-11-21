@@ -16,7 +16,7 @@ class HeadingsTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsHeading")
+        @Parameterized.Parameters(name = "{index} GdsHeading")
         fun values(): List<Pair<HeadingParameters, NightMode>> {
             val result: MutableList<Pair<HeadingParameters, NightMode>> = mutableListOf()
             HeadingsProvider().values.forEach(applyNightMode(result))

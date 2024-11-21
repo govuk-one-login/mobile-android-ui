@@ -19,7 +19,7 @@ class NumberInputTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsNumberInput")
+        @Parameterized.Parameters(name = "{index} GdsNumberInput")
         fun values(): List<Pair<NumberInputParameters, NightMode>> {
             val result: MutableList<Pair<NumberInputParameters, NightMode>> = mutableListOf()
 

@@ -49,7 +49,8 @@ android {
             setOf(
                 "ConvertToWebp",
                 "UnusedIds",
-                "VectorPath"
+                "VectorPath",
+                "UsingMaterialAndMaterial3Libraries"
             )
         )
         explainIssues = true

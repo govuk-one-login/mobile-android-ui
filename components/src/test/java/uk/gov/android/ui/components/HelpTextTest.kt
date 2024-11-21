@@ -16,7 +16,7 @@ class HelpTextTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsHelpText")
+        @Parameterized.Parameters(name = "{index} GdsHelpText")
         fun values(): List<Pair<HelpTextParameters, NightMode>> {
             val result: MutableList<Pair<HelpTextParameters, NightMode>> = mutableListOf()
             HelpTextProvider().values.forEach(applyNightMode(result))

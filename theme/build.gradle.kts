@@ -24,7 +24,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = (
             rootProject.extra["composeKotlinCompilerVersion"] as String
-        )
+            )
     }
 
     buildTypes {
@@ -53,7 +53,8 @@ android {
             setOf(
                 "ConvertToWebp",
                 "UnusedIds",
-                "VectorPath"
+                "VectorPath",
+                "UsingMaterialAndMaterial3Libraries"
             )
         )
         explainIssues = true
