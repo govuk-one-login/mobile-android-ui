@@ -113,6 +113,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.testmanifest)
     androidTestImplementation(libs.androidx.test.espresso.core)
 
+    androidTestUtil(libs.androidx.test.orchestrator)
+
     listOf(
         libs.arch.core,
         libs.hilt.android.testing,
