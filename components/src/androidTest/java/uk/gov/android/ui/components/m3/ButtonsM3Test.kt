@@ -17,7 +17,7 @@ import uk.gov.android.ui.components.m3.buttons.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.minimumTouchTarget
 
-class ButtonsM3Test() {
+class ButtonsM3Test {
     private val expectedParameterSize = 6
     private val parametersList = ButtonProvider().values.map { it.first() }.toList()
 

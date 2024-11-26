@@ -17,7 +17,7 @@ import uk.gov.android.ui.components.buttons.GdsButton
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.minimumTouchTarget
 
-class ButtonsTest() {
+class ButtonsTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     private val resources = context.resources

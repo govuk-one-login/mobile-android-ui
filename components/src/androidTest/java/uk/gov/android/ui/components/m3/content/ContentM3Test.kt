@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.theme.GdsTheme
 
-class ContentM3Test() {
+class ContentM3Test {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     private val resources = context.resources
