@@ -2,7 +2,7 @@ import uk.gov.pipelines.config.ApkConfig
 
 buildscript {
     val configDir by rootProject.extra { "$rootDir/config" }
-    val projectKey: String by rootProject.extra("mobile-android-ui")
+    val projectKey: String by rootProject.extra("di-mobile-android-ui")
     val projectId: String by rootProject.extra("uk.gov.android")
     val composeKotlinCompilerVersion by rootProject.extra { "1.5.0" }
 
