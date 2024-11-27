@@ -1,34 +1,21 @@
-buildscript {
-    dependencies {
-        classpath(Android.tools.build.gradlePlugin)
-    }
-}
+import uk.gov.pipelines.config.ApkConfig
 
 plugins {
-    listOf(
-        "com.android.library",
-        "kotlin-parcelize",
-        "org.jlleitschuh.gradle.ktlint",
-        "io.gitlab.arturbosch.detekt",
-        "jacoco",
-        "app.cash.paparazzi",
-        "maven-publish",
-        "uk.gov.ui.jvm-toolchains",
-        "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config",
-        "uk.gov.ui.emulator-config"
-    ).forEach(::id)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.paparazzi)
+    id("uk.gov.pipelines.android-lib-config")
+    id("kotlin-parcelize")
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
 apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
 
 android {
-    namespace = "${rootProject.extra["baseNamespace"]}.components"
-    compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
-
     defaultConfig {
-        minSdk = (rootProject.extra["minAndroidVersion"] as Int)
+        val apkConfig: ApkConfig by project.rootProject.extra
+        namespace = "${apkConfig.applicationId}.components"
+        compileSdk = apkConfig.sdkVersions.compile
+        minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,7 +45,8 @@ android {
             setOf(
                 "ConvertToWebp",
                 "UnusedIds",
-                "VectorPath"
+                "VectorPath",
+                "UsingMaterialAndMaterial3Libraries"
             )
         )
         explainIssues = true
@@ -96,57 +84,51 @@ android {
     buildFeatures {
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-            )
-    }
 }
 
 dependencies {
-    androidTestImplementation(AndroidX.compose.ui.testJunit4)
-    androidTestImplementation(AndroidX.compose.ui.testManifest)
-    androidTestImplementation(AndroidX.test.espresso.core)
-    androidTestImplementation(AndroidX.test.ext.junit)
+    val composeBom = platform(libs.androidx.compose.bom)
+    androidTestImplementation(composeBom)
+    implementation(composeBom)
 
-    androidTestUtil(AndroidX.test.orchestrator)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.compose.ui.junit4)
+    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
+    androidTestImplementation(libs.androidx.test.espresso.core)
 
-    implementation(AndroidX.activity.compose)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.compose.material3)
-    implementation(AndroidX.compose.material)
-    implementation(AndroidX.compose.ui.tooling)
-    implementation(AndroidX.constraintLayout.compose)
-    implementation(AndroidX.core.ktx)
-    implementation(Google.android.material)
+    androidTestUtil(libs.androidx.test.orchestrator)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.core.ktx)
+
     implementation(project(":theme"))
 
     listOf(
-        AndroidX.archCore.testing,
-        Google.dagger.hilt.android.testing,
-        Testing.junit4,
-        Testing.mockito.core
+        libs.arch.core,
+        libs.hilt.android.testing,
+        libs.junit,
+        libs.mockito.kotlin
     ).forEach { testDependency ->
         testImplementation(testDependency)
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "uk.gov.android"
-            version = rootProject.extra["packageVersion"] as String
-
-            artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
-        }
-    }
-    repositories {
-        maven("https://maven.pkg.github.com/govuk-one-login/mobile-android-ui") {
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
-        }
+mavenPublishingConfig {
+    mavenConfigBlock {
+        name.set(
+            "Mobile Android Component Library"
+        )
+        description.set(
+            """
+            Use pre-built reusable components to build consistent apps.
+            """.trimIndent()
+        )
     }
 }

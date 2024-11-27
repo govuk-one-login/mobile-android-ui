@@ -19,7 +19,7 @@ class ButtonsTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsButton")
+        @Parameterized.Parameters(name = "{index} GdsButton")
         fun values(): List<Pair<ButtonParameters, NightMode>> {
             val result: MutableList<Pair<ButtonParameters, NightMode>> = mutableListOf()
 

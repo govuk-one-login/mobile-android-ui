@@ -19,7 +19,7 @@ class GdsInformationBannerScreenshotTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameters
         fun values(): List<Pair<InformationBannerParameters, NightMode>> {
             val result: MutableList<Pair<InformationBannerParameters, NightMode>> =
                 mutableListOf()

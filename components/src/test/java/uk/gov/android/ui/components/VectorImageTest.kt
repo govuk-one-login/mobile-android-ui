@@ -16,7 +16,7 @@ class VectorImageTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsVector")
+        @Parameterized.Parameters(name = "{index} GdsVector")
         fun values(): List<Pair<VectorImageParameters, NightMode>> {
             val result: MutableList<Pair<VectorImageParameters, NightMode>> = mutableListOf()
             VectorImageProvider().values.forEach(applyNightMode(result))

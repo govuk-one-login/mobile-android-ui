@@ -19,7 +19,7 @@ class BulletListTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsContent")
+        @Parameterized.Parameters(name = "{index} GdsContent")
         fun values(): List<Pair<BulletListParameters, NightMode>> {
             val result: MutableList<Pair<BulletListParameters, NightMode>> = mutableListOf()
 

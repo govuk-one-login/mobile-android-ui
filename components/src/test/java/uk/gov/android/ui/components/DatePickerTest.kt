@@ -19,7 +19,7 @@ class DatePickerTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsRadioSelection")
+        @Parameterized.Parameters(name = "{index} GdsRadioSelection")
         fun values(): List<Pair<DatePickerParameters, NightMode>> {
             val result: MutableList<Pair<DatePickerParameters, NightMode>> = mutableListOf()
 

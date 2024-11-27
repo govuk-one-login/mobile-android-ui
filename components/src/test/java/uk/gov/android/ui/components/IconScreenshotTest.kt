@@ -19,7 +19,7 @@ class IconScreenshotTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsIcon")
+        @Parameterized.Parameters(name = "{index} GdsIcon")
         fun values(): List<Pair<IconParameters, NightMode>> {
             val result: MutableList<Pair<IconParameters, NightMode>> = mutableListOf()
             GdsIconProvider().values.forEach(applyNightMode(result))

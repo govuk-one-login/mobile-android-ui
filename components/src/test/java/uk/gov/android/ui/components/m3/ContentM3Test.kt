@@ -19,7 +19,7 @@ class ContentM3Test(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsContent")
+        @Parameterized.Parameters(name = "{index} GdsContent")
         fun values(): List<Pair<ContentParameters, NightMode>> {
             val result: MutableList<Pair<ContentParameters, NightMode>> = mutableListOf()
 

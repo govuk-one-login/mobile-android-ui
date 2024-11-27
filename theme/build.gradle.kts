@@ -1,32 +1,19 @@
-buildscript {
-    dependencies {
-        classpath(Android.tools.build.gradlePlugin)
-    }
-}
+import uk.gov.pipelines.config.ApkConfig
 
 plugins {
-    listOf(
-        "com.android.library",
-        "org.jlleitschuh.gradle.ktlint",
-        "io.gitlab.arturbosch.detekt",
-        "jacoco",
-        "maven-publish",
-        "uk.gov.ui.jvm-toolchains",
-        "uk.gov.ui.sonarqube-module-config",
-        "uk.gov.ui.jacoco-module-config",
-        "uk.gov.ui.emulator-config"
-    ).forEach(::id)
+    alias(libs.plugins.compose.compiler)
+    id("uk.gov.pipelines.android-lib-config")
 }
 
 apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
 apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
 
 android {
-    namespace = "${rootProject.extra["baseNamespace"]}.theme"
-    compileSdk = (rootProject.extra["compileAndroidVersion"] as Int)
-
     defaultConfig {
-        minSdk = (rootProject.extra["minAndroidVersion"] as Int)
+        val apkConfig: ApkConfig by project.rootProject.extra
+        namespace = "${apkConfig.applicationId}.theme"
+        compileSdk = apkConfig.sdkVersions.compile
+        minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -66,7 +53,8 @@ android {
             setOf(
                 "ConvertToWebp",
                 "UnusedIds",
-                "VectorPath"
+                "VectorPath",
+                "UsingMaterialAndMaterial3Libraries"
             )
         )
         explainIssues = true
@@ -100,45 +88,53 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-    implementation(AndroidX.core.ktx)
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.compose.material3)
-    implementation(AndroidX.compose.material)
-    implementation(AndroidX.compose.ui.tooling)
-    implementation(AndroidX.activity.compose)
-    implementation(Google.android.material)
-    androidTestImplementation(AndroidX.test.ext.junit)
-    androidTestImplementation(AndroidX.compose.ui.testJunit4)
-    androidTestImplementation(AndroidX.compose.ui.testManifest)
-    androidTestImplementation(AndroidX.test.espresso.core)
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
 
-    testImplementation(AndroidX.archCore.testing)
-    testImplementation(Google.dagger.hilt.android.testing)
-    testImplementation(Testing.junit.jupiter)
-    testImplementation(Testing.mockito.core)
-    testImplementation(platform(Testing.junit.bom))
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.material)
 
-    androidTestUtil(AndroidX.test.orchestrator)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.compose.ui.junit4)
+    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+
+    androidTestUtil(libs.androidx.test.orchestrator)
+
+    listOf(
+        libs.arch.core,
+        libs.hilt.android.testing,
+        libs.junit.jupiter,
+        libs.mockito.kotlin
+    ).forEach { testDependency ->
+        testImplementation(testDependency)
+    }
+    testImplementation(platform(libs.junit.bom))
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "uk.gov.android"
-            version = rootProject.extra["packageVersion"] as String
-
-            artifact("${layout.buildDirectory}/outputs/aar/${project.name}-release.aar")
-        }
-    }
-    repositories {
-        maven("https://maven.pkg.github.com/govuk-one-login/mobile-android-ui") {
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
-        }
+mavenPublishingConfig {
+    mavenConfigBlock {
+        name.set(
+            "Mobile Android Component Library"
+        )
+        description.set(
+            """
+            Make services look and feel like GOV.UK using styles.
+            """.trimIndent()
+        )
     }
 }

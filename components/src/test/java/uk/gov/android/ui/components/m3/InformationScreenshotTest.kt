@@ -19,7 +19,7 @@ class InformationScreenshotTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: Information")
+        @Parameterized.Parameters(name = "{index} Information")
         fun values(): List<Pair<InformationParameters, NightMode>> {
             val result: MutableList<Pair<InformationParameters, NightMode>> = mutableListOf()
             InformationProvider().values.forEach(applyNightMode(result))

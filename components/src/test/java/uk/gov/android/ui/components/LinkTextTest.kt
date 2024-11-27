@@ -19,7 +19,7 @@ class LinkTextTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}: GdsLinkText")
+        @Parameterized.Parameters(name = "{index} GdsLinkText")
         fun values(): List<Pair<LinkTextParameters, NightMode>> {
             val result: MutableList<Pair<LinkTextParameters, NightMode>> = mutableListOf()
 
