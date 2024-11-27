@@ -1,29 +1,26 @@
-name: On Pull Request
+name: On Push Main
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - ready_for_review
-  merge_group:
-  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  onPullRequestJob:
+  bump_version:
     env:
-      ANDROID_HOME: ${{ github.workspace }}/bin/androidSdk
-    name: Verify code base when pull request is published/updated
+      JDK_VERSION: 17
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
     runs-on: ubuntu-24.04
+
     steps:
-      - name: Run pull request workflow
+      - name: Run deployment workflow
         uses: govuk-one-login/mobile-android-pipelines@3dd3a4603b806128f9da211ea261f658b734cbfb
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}

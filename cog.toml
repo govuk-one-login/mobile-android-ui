@@ -6,7 +6,7 @@ tag_prefix = "v"
 [changelog]
 template = "remote"
 remote = "github.com"
-repository = "mobile-android-logging"
+repository = "mobile-android-ui"
 owner = "govuk-one-login"
 
 [commit_types]
