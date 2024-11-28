@@ -362,3 +362,4 @@ obj/
 
 # Vale - don't clone styles
 config/styles/Google
+config/styles/tech-writing-style-guide
