@@ -18,8 +18,39 @@ jobs:
     name: Verify code base when pull request is published/updated
     runs-on: ubuntu-24.04
     steps:
+      - name: Build artefact for release
+        run: |
+          ./gradlew assemble
+        shell: bash
+
+      - name: Increment the release version using Conventional Commits
+        id: versioning
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          current_version=$(cog -v get-version)
+          echo "current_version=$current_version" >> $GITHUB_OUTPUT
+
+          cog bump --auto
+
+          new_version=$(cog -v get-version)
+          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Publish the release
+        run: |
+          git push --follow-tags && git push --tags
+        shell: bash
+
+      - name: Publish package
+        uses: ./mobile-android-pipelines/actions/maven-publish
+        with:
+          GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+
       - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@3dd3a4603b806128f9da211ea261f658b734cbfb
+        uses: govuk-one-login/mobile-android-pipelines@f8b699c11df39cfbf32c74468720989f023992f7
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}

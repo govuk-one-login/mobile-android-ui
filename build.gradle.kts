@@ -1,33 +1,16 @@
 import uk.gov.pipelines.config.ApkConfig
+import uk.gov.pipelines.emulator.SystemImageSource
+import uk.gov.pipelines.emulator.EmulatorConfig
 
 buildscript {
     val configDir by rootProject.extra { "$rootDir/config" }
+    val githubRepositoryName by rootProject.extra { "mobile-android-ui" }
+    val mavenGroupId by rootProject.extra { "uk.gov.android.ui" }
     val projectKey: String by rootProject.extra("mobile-android-ui")
     val projectId: String by rootProject.extra("uk.gov.android")
     val composeKotlinCompilerVersion by rootProject.extra { "1.5.0" }
     val buildLogicDir: String by extra("mobile-android-pipelines/buildLogic")
-
-    val baseNamespace by rootProject.extra { "uk.gov.android.ui" }
-
-    val localProperties = java.util.Properties()
-    if (rootProject.file("local.properties").exists()) {
-        println(localProperties)
-        localProperties.load(java.io.FileInputStream(rootProject.file("local.properties")))
-    }
-
-    fun findPackageVersion(): String {
-        var version = "1.0.0"
-
-        if (rootProject.hasProperty("packageVersion")) {
-            version = rootProject.property("packageVersion") as String
-        } else if (localProperties.getProperty("packageVersion") != null) {
-            version = localProperties.getProperty("packageVersion") as String
-        }
-
-        return version
-    }
-
-    val packageVersion by rootProject.extra { findPackageVersion() }
+    val sonarProperties: Map<String, String> by rootProject.extra { mapOf() }
 
     repositories {
         google()
@@ -46,6 +29,14 @@ val apkConfig by rootProject.extra(
             override val compile = 34
         }
     }
+)
+
+val emulatorConfig by rootProject.extra(
+    EmulatorConfig(
+        systemImageSources = setOf(SystemImageSource.GOOGLE_ATD),
+        androidApiLevels = setOf(33),
+        deviceFilters = setOf("Pixel XL"),
+    )
 )
 
 plugins {
