@@ -18,6 +18,12 @@ jobs:
     name: Verify code base when pull request is published/updated
     runs-on: ubuntu-24.04
     steps:
+      - name: Run pull request workflow
+        uses: govuk-one-login/mobile-android-pipelines@f8b699c11df39cfbf32c74468720989f023992f7
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build artefact for release
         run: |
           ./gradlew assemble
@@ -48,9 +54,3 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
-
-      - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@f8b699c11df39cfbf32c74468720989f023992f7
-        with:
-          sonar_token: ${{ secrets.SONAR_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
