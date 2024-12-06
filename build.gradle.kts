@@ -12,6 +12,28 @@ buildscript {
     val buildLogicDir: String by extra("mobile-android-pipelines/buildLogic")
     val sonarProperties: Map<String, String> by rootProject.extra { mapOf() }
 
+    val baseNamespace by rootProject.extra { "uk.gov.android.ui" }
+
+    val localProperties = java.util.Properties()
+    if (rootProject.file("local.properties").exists()) {
+        println(localProperties)
+        localProperties.load(java.io.FileInputStream(rootProject.file("local.properties")))
+    }
+
+    fun findPackageVersion(): String {
+        var version = "1.0.0"
+
+        if (rootProject.hasProperty("packageVersion")) {
+            version = rootProject.property("packageVersion") as String
+        } else if (localProperties.getProperty("packageVersion") != null) {
+            version = localProperties.getProperty("packageVersion") as String
+        }
+
+        return version
+    }
+
+    val packageVersion by rootProject.extra { findPackageVersion() }
+
     repositories {
         google()
         gradlePluginPortal()
