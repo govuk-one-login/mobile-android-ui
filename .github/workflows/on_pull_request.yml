@@ -18,11 +18,31 @@ jobs:
     name: Verify code base when pull request is published/updated
     runs-on: ubuntu-24.04
     steps:
-      - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@f8b699c11df39cfbf32c74468720989f023992f7
+      - name: 'Checkout codebase'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          sonar_token: ${{ secrets.SONAR_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: 'true'
+          submodules: 'true'
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Clean workspace
+        uses: ./mobile-android-pipelines/actions/clean-workspace
+
+      - name: 'Detect architecture'
+        id: detect-arch
+        uses: ./mobile-android-pipelines/actions/detect-arch
+
+      - name: Setup GitHub Runner workflow
+        uses: ./mobile-android-pipelines/actions/setup-runner
+
+      - name: Verify Conventional commit standards against latest git tag
+        run: cog check -l
+        shell: bash
+
+      - name: Lint script files
+        run: ./mobile-android-pipelines/scripts/lintProject.sh "" ""
+        shell: bash
 
       - name: Build artefact for release
         run: |
@@ -54,3 +74,9 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+
+      - name: Run pull request workflow
+        uses: govuk-one-login/mobile-android-pipelines@f8b699c11df39cfbf32c74468720989f023992f7
+        with:
+          sonar_token: ${{ secrets.SONAR_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
