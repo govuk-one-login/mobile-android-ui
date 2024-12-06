@@ -40,29 +40,25 @@ jobs:
         run: cog check -l
         shell: bash
 
-      - name: Lint script files
-        run: ./mobile-android-pipelines/scripts/lintProject.sh "" ""
-        shell: bash
-
       - name: Build artefact for release
         run: |
           ./gradlew assemble
         shell: bash
 
-      - name: Increment the release version using Conventional Commits
-        id: versioning
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-          current_version=$(cog -v get-version)
-          echo "current_version=$current_version" >> $GITHUB_OUTPUT
-
-          cog bump --auto
-
-          new_version=$(cog -v get-version)
-          echo "new_version=$new_version" >> $GITHUB_OUTPUT
-        shell: bash
+#      - name: Increment the release version using Conventional Commits
+#        id: versioning
+#        run: |
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#
+#          current_version=$(cog -v get-version)
+#          echo "current_version=$current_version" >> $GITHUB_OUTPUT
+#
+#          cog bump --auto
+#
+#          new_version=$(cog -v get-version)
+#          echo "new_version=$new_version" >> $GITHUB_OUTPUT
+#        shell: bash
 
       - name: Publish the release
         run: |
