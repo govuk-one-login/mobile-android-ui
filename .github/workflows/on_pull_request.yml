@@ -59,11 +59,11 @@ jobs:
 #          new_version=$(cog -v get-version)
 #          echo "new_version=$new_version" >> $GITHUB_OUTPUT
 #        shell: bash
-
-      - name: Publish the release
-        run: |
-          git push --follow-tags && git push --tags
-        shell: bash
+#
+#      - name: Publish the release
+#        run: |
+#          git push --follow-tags && git push --tags
+#        shell: bash
 
       - name: Publish package
         uses: ./mobile-android-pipelines/actions/maven-publish
