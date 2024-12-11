@@ -101,17 +101,16 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.bundles.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(project(":theme"))
 
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testmanifest)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.compose.ui.junit4)
-    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestUtil(libs.androidx.test.orchestrator)
 
