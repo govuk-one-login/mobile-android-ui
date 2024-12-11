@@ -49,16 +49,16 @@ import uk.gov.android.ui.theme.xsmallPadding
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GdsInformationBanner(
-    parameters: InformationBannerParameters
+    parameters: InformationBannerParameters,
 ) {
     val cardContentDescription = stringResource(
-        id = R.string.preview__GdsInformationBanner__contentDescription
+        id = R.string.preview__GdsInformationBanner__contentDescription,
     )
     parameters.apply {
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                contentColor = Color.Black
+                contentColor = Color.Black,
             ),
             shape = RoundedCornerShape(bannerShapeSize),
             onClick = onClick,
@@ -68,24 +68,24 @@ fun GdsInformationBanner(
                     elevation = bannerElevation,
                     spotColor = bannerSpotColor,
                     ambientColor = bannerSpotColor,
-                    shape = RoundedCornerShape(bannerShapeSize)
+                    shape = RoundedCornerShape(bannerShapeSize),
                 )
                 .semantics { contentDescription = cardContentDescription }
-                .then(bannerModifier)
+                .then(bannerModifier),
         ) {
             Column(
                 modifier = Modifier
                     .padding(
                         start = smallPadding,
-                        end = smallPadding
-                    )
+                        end = smallPadding,
+                    ),
             ) {
                 TitleRow(title = title, onClick = onDismiss)
                 Text(
                     text = stringResource(id = content),
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
-                        .padding(vertical = xsmallPadding)
+                        .padding(vertical = xsmallPadding),
                 )
                 DisplayLink(link = link, icon = icon, onClick = onClick)
             }
@@ -100,16 +100,16 @@ data class InformationBannerParameters(
     val icon: ImageVector? = null,
     val bannerModifier: Modifier = Modifier,
     val onClick: () -> Unit = {},
-    val onDismiss: () -> Unit = {}
+    val onDismiss: () -> Unit = {},
 )
 
 @Composable
 private fun TitleRow(
     title: Int,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Heading(
             text = title,
@@ -118,15 +118,15 @@ private fun TitleRow(
             textAlign = TextAlign.Justify,
             padding = PaddingValues(top = xsmallPadding),
             modifier = Modifier
-                .weight(1f)
+                .weight(1f),
         ).generate()
         IconButton(onClick = onClick) {
             Icon(
                 imageVector = Icons.Default.Close,
                 contentDescription = stringResource(
-                    id = R.string.preview__GdsInformationBanner__dismissIcon__contentDescription
+                    id = R.string.preview__GdsInformationBanner__dismissIcon__contentDescription,
                 ),
-                tint = MaterialTheme.colorScheme.primary
+                tint = MaterialTheme.colorScheme.primary,
             )
         }
     }
@@ -136,13 +136,13 @@ private fun TitleRow(
 private fun DisplayLink(
     link: Int,
     icon: ImageVector? = null,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(bottom = smallPadding)
+            .padding(bottom = smallPadding),
     ) {
         val linkStr = stringResource(id = link)
         icon?.let {
@@ -158,29 +158,29 @@ private fun DisplayLink(
                         Placeholder(
                             width = 2.em,
                             height = 1.em,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter
-                        )
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+                        ),
                     ) {
                         Icon(
                             imageVector = icon,
                             contentDescription = stringResource(
                                 id = R.string
-                                    .preview__GdsInformationBanner__linkIcon__contentDescription
+                                    .preview__GdsInformationBanner__linkIcon__contentDescription,
                             ),
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = MaterialTheme.colorScheme.primary,
                         )
-                    }
-                )
+                    },
+                ),
             )
             Text(
                 text = annotatedString,
                 inlineContent = inLineContent,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
             )
         } ?: run {
             Text(
                 text = linkStr,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
             )
         }
     }
@@ -192,27 +192,27 @@ class InformationBannerParamProvider : PreviewParameterProvider<InformationBanne
             title = R.string.preview__GdsInformationBanner__title,
             content = R.string.preview__GdsInformationBanner__content,
             link = R.string.preview__GdsInformationBanner__link,
-            icon = Icons.Default.ArrowForward
-        )
+            icon = Icons.Default.ArrowForward,
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun InformationBannerPreview(
     @PreviewParameter(InformationBannerParamProvider::class)
-    parameters: InformationBannerParameters
+    parameters: InformationBannerParameters,
 ) {
     GdsTheme {
         GdsInformationBanner(
-            parameters = parameters
+            parameters = parameters,
         )
     }
 }

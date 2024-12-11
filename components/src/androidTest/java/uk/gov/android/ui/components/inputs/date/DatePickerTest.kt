@@ -21,7 +21,7 @@ class DatePickerTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -33,7 +33,7 @@ class DatePickerTest {
             setContent {
                 GdsTheme {
                     GdsDatePicker(
-                        parameters
+                        parameters,
                     )
                 }
             }

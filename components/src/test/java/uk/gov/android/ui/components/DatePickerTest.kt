@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.inputs.date.GdsDatePicker
 
 @RunWith(Parameterized::class)
 class DatePickerTest(
-    private val parameters: Pair<DatePickerParameters, NightMode>
+    private val parameters: Pair<DatePickerParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

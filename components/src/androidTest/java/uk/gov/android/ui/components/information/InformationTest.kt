@@ -30,7 +30,7 @@ class InformationTest {
         assertEquals(
             "The expected parameter list size does not match the InformationProvider size!",
             expectedParameterListSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -57,7 +57,7 @@ class InformationTest {
 
 fun InformationParameters.verifyComposable(
     composeTestRule: ComposeContentTestRule,
-    resources: Resources
+    resources: Resources,
 ) = composeTestRule.let { rule ->
     iconParameters.verifyComposable(rule, resources)
     contentParameters.verifyComposable(rule, resources)

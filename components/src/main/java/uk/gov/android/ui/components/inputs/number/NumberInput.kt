@@ -31,7 +31,7 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsNumberInput(
-    params: NumberInputParameters
+    params: NumberInputParameters,
 ) {
     params.apply {
         val (inputNumber, onInputChanged) = numberState
@@ -40,11 +40,11 @@ fun GdsNumberInput(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    colors.background
+                    colors.background,
                 )
                 .then(
-                    colModifier
-                )
+                    colModifier,
+                ),
         ) {
             OutlinedTextField(
                 modifier = Modifier
@@ -61,10 +61,10 @@ fun GdsNumberInput(
                     }
                 },
                 colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = colors.background
+                    backgroundColor = colors.background,
                 ),
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                isError = inputNumber.isNotEmpty() && !isValid
+                isError = inputNumber.isNotEmpty() && !isValid,
             )
             if (inputNumber.isNotEmpty() && !isValid && errorMessage != null) {
                 Text(
@@ -72,7 +72,7 @@ fun GdsNumberInput(
                         .padding(start = smallPadding),
                     text = stringResource(id = errorMessage),
                     style = MaterialTheme.typography.body2,
-                    color = Color.Red
+                    color = Color.Red,
                 )
             }
         }
@@ -89,7 +89,7 @@ data class NumberInputParameters(
     val errorMessage: Int? = null,
     val textStyle: TextStyle? = null,
     val colModifier: Modifier = Modifier
-        .padding(bottom = smallPadding)
+        .padding(bottom = smallPadding),
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -101,27 +101,27 @@ class NumberInputProvider : PreviewParameterProvider<NumberInputParameters> {
             isValid = mutableStateOf(false),
             validateInput = { false },
             inputLabel = R.string.preview__GdsHeading__h4,
-            errorMessage = R.string.preview__GdsContent__oneLine_0
-        )
+            errorMessage = R.string.preview__GdsContent__oneLine_0,
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(NumberInputProvider::class)
-    numberInputParams: NumberInputParameters
+    numberInputParams: NumberInputParameters,
 ) {
     GdsTheme {
         GdsNumberInput(
-            numberInputParams
+            numberInputParams,
         )
     }
 }

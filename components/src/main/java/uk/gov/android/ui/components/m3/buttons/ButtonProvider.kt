@@ -20,10 +20,10 @@ class ButtonProvider : PreviewParameterProvider<List<ButtonParameters>> {
         create(
             ButtonType.ICON(
                 parentButtonType = type,
-                iconParameters = defaultIconParameters.copy(imagePositionAtEnd = false)
-            )
+                iconParameters = defaultIconParameters.copy(imagePositionAtEnd = false),
+            ),
         ),
-        create(ButtonType.ICON(type, defaultIconParameters.copy()), false)
+        create(ButtonType.ICON(type, defaultIconParameters.copy()), false),
     )
 
     private fun create(type: ButtonType, isEnabled: Boolean = true) = ButtonParameters(
@@ -36,7 +36,7 @@ class ButtonProvider : PreviewParameterProvider<List<ButtonParameters>> {
         modifier = Modifier
             .fillMaxWidth()
             .padding(smallPadding),
-        isEnabled = isEnabled
+        isEnabled = isEnabled,
     )
 
     companion object {
@@ -46,12 +46,12 @@ class ButtonProvider : PreviewParameterProvider<List<ButtonParameters>> {
             ButtonType.TERTIARY(),
             ButtonType.QUATERNARY(),
             ButtonType.ADMIN(),
-            ButtonType.ERROR()
+            ButtonType.ERROR(),
         )
         private val defaultIconParameters = IconParameters(
             image = R.drawable.ic_external_site,
             description = R.string.externalSite,
-            backGroundColor = Color.Transparent
+            backGroundColor = Color.Transparent,
         )
     }
 }

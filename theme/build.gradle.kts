@@ -30,7 +30,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -49,7 +49,7 @@ android {
                 events = setOf(
                     org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
                     org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
                 )
             }
         }
@@ -89,12 +89,12 @@ dependencies {
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library"
+            "Mobile Android Component Library",
         )
         description.set(
             """
             Make services look and feel like GOV.UK using styles.
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

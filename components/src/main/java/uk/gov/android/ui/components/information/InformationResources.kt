@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.images.icon.IconResources
 @Parcelize
 data class InformationResources(
     val icon: IconResources,
-    val content: List<GdsContentText>
+    val content: List<GdsContentText>,
 ) : Parcelable {
 
     @get:DrawableRes

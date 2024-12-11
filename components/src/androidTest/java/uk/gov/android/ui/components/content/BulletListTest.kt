@@ -27,7 +27,7 @@ class BulletListTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -42,7 +42,7 @@ class BulletListTest {
             setContent {
                 GdsTheme {
                     GdsBulletList(
-                        parameters
+                        parameters,
                     )
                 }
             }

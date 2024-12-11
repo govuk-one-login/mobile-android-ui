@@ -55,7 +55,7 @@ class BulletedTextTest {
         private val parameters = bulletedTextPreviewParams.copy()
         private val partialParameters = bulletedTextPreviewParams.copy(
             header = buildAnnotatedString {},
-            footer = buildAnnotatedString {}
+            footer = buildAnnotatedString {},
         )
     }
 }

@@ -38,7 +38,7 @@ class HeadingsTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -59,7 +59,7 @@ class HeadingsTest {
             setContent {
                 GdsTheme {
                     GdsHeading(
-                        parameters
+                        parameters,
                     )
                 }
             }
@@ -72,7 +72,7 @@ class HeadingsTest {
                         is HeadingSize.H3 -> textSizeH3
                         is HeadingSize.H2 -> textSizeH2
                         is HeadingSize.H1 -> textSizeH1
-                    }
+                    },
                 )
                 assertLineHeight(
                     when (parameters.size) {
@@ -80,7 +80,7 @@ class HeadingsTest {
                         is HeadingSize.H3 -> lineHeightH3
                         is HeadingSize.H2 -> lineHeightH2
                         is HeadingSize.H1 -> lineHeightH1
-                    }
+                    },
                 )
             }
         }

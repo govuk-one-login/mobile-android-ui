@@ -27,10 +27,10 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6.copy(
-            nightMode = nightMode
+            nightMode = nightMode,
         ),
         renderingMode = SHRINK,
-        showSystemUi = false
+        showSystemUi = false,
     )
 
     @Test
@@ -48,7 +48,7 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
 
         @JvmStatic
         fun <T : Any> applyNightMode(result: MutableList<Pair<T, NightMode>>): (
-            T
+            T,
         ) -> Unit = { parameters ->
             result.add(parameters to NOTNIGHT)
             result.add(parameters to NIGHT)

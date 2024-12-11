@@ -33,7 +33,7 @@ class ButtonsTest {
         assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -74,7 +74,7 @@ class ButtonsTest {
         composeTestRule.setContent {
             GdsTheme {
                 GdsButton(
-                    buttonParameters
+                    buttonParameters,
                 )
             }
         }

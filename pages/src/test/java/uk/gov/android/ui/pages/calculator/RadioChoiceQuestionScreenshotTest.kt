@@ -9,7 +9,7 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class RadioChoiceQuestionScreenshotTest(
-    private val parameters: Pair<RadioChoiceQuestionParameters, NightMode>
+    private val parameters: Pair<RadioChoiceQuestionParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

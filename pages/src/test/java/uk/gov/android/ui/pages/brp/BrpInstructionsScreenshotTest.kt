@@ -9,7 +9,7 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class BrpInstructionsScreenshotTest(
-    private val parameters: Pair<BrpInstructionsParameters, NightMode>
+    private val parameters: Pair<BrpInstructionsParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

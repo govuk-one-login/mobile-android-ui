@@ -30,7 +30,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun GdsButton(
     buttonParameters: ButtonParameters,
-    colors: Colors = MaterialTheme.colors
+    colors: Colors = MaterialTheme.colors,
 ) {
     buttonParameters.apply {
         key(this) {
@@ -39,7 +39,7 @@ fun GdsButton(
             Button(
                 colors = buttonColors,
                 elevation = ButtonDefaults.elevation(
-                    defaultElevation = 0.dp
+                    defaultElevation = 0.dp,
                 ),
                 modifier = Modifier
                     .semantics(mergeDescendants = true) {}
@@ -48,7 +48,7 @@ fun GdsButton(
                     .then(modifier),
                 onClick = onClick,
                 shape = RoundedCornerShape(0.dp),
-                enabled = enabled
+                enabled = enabled,
             ) {
                 buttonContent(buttonParameters, colors).invoke(this)
             }
@@ -58,7 +58,7 @@ fun GdsButton(
 
 private fun buttonContent(
     parameters: ButtonParameters,
-    colors: Colors
+    colors: Colors,
 ): @Composable RowScope.() -> Unit = {
     val buttonColors = parameters.buttonType.buttonColour()
 
@@ -69,7 +69,7 @@ private fun buttonContent(
             iconButtonType = parameters.buttonType,
             colors = colors,
             buttonColors = buttonColors,
-            imagePositionAtEnd = false
+            imagePositionAtEnd = false,
         )
     }
 
@@ -77,7 +77,7 @@ private fun buttonContent(
         fontWeight = parameters.buttonType.fontWeight,
         style = parameters.textStyle ?: MaterialTheme.typography.button,
         text = stringResource(id = parameters.text),
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 
     if (parameters.buttonType is ButtonType.ICON &&
@@ -87,7 +87,7 @@ private fun buttonContent(
             iconButtonType = parameters.buttonType,
             colors = colors,
             buttonColors = buttonColors,
-            imagePositionAtEnd = true
+            imagePositionAtEnd = true,
         )
     }
 }
@@ -97,7 +97,7 @@ private fun DisplayIcon(
     iconButtonType: ButtonType.ICON,
     colors: Colors,
     buttonColors: ButtonColors,
-    imagePositionAtEnd: Boolean
+    imagePositionAtEnd: Boolean,
 ) {
     val modifier = if (imagePositionAtEnd) {
         Modifier
@@ -111,25 +111,25 @@ private fun DisplayIcon(
             backGroundColor = buttonColors.backgroundColor(true).value,
             foreGroundColor = buttonColors.contentColor(true).value,
             modifier = modifier.then(
-                iconButtonType.iconParameters.modifier
-            )
+                iconButtonType.iconParameters.modifier,
+            ),
         ),
-        colors = colors
+        colors = colors,
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO
+    uiMode = UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
+    uiMode = UI_MODE_NIGHT_YES,
 )
 @Composable
 fun ButtonPreview(
     @PreviewParameter(ButtonProvider::class)
-    buttonParameters: ButtonParameters
+    buttonParameters: ButtonParameters,
 ) {
     GdsTheme {
         GdsButton(buttonParameters)

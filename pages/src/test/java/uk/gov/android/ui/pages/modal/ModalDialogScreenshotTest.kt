@@ -9,7 +9,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class ModalDialogScreenshotTest(
-    private val parameters: Pair<ModalDialogParameters, NightMode>
+    private val parameters: Pair<ModalDialogParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {

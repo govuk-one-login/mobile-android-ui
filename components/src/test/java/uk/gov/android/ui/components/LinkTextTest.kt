@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.content.LinkTextProvider
 
 @RunWith(Parameterized::class)
 class LinkTextTest(
-    private val parameters: Pair<LinkTextParameters, NightMode>
+    private val parameters: Pair<LinkTextParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

@@ -34,7 +34,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 
 @Composable
 fun GdsButton(
-    buttonParameters: ButtonParameters
+    buttonParameters: ButtonParameters,
 ) {
     with(buttonParameters) {
         Button(
@@ -42,15 +42,15 @@ fun GdsButton(
             modifier = modifier.then(
                 Modifier
                     .minimumInteractiveComponentSize()
-                    .semantics(mergeDescendants = true) { }
+                    .semantics(mergeDescendants = true) { },
             ),
             onClick = onClick,
             shape = RectangleShape,
             enabled = isEnabled,
             contentPadding = PaddingValues(
                 horizontal = buttonContentHorizontal,
-                vertical = buttonContentVertical
-            )
+                vertical = buttonContentVertical,
+            ),
         ) {
             buttonContent(buttonParameters).invoke(this)
         }
@@ -58,7 +58,7 @@ fun GdsButton(
 }
 
 private fun buttonContent(
-    parameters: ButtonParameters
+    parameters: ButtonParameters,
 ): @Composable RowScope.() -> Unit = {
     val iconId = stringResource(id = R.string.inLine__IconId)
     val annotatedString = buildAnnotatedString {
@@ -81,7 +81,7 @@ private fun buttonContent(
         inlineContent = inlineContent,
         fontWeight = parameters.buttonType.fontWeight,
         style = parameters.textStyle ?: MaterialTheme.typography.labelLarge,
-        textAlign = parameters.textAlign
+        textAlign = parameters.textAlign,
     )
 }
 
@@ -100,8 +100,8 @@ private val ButtonParameters.inlineIconContent: InlineTextContent?
             Placeholder(
                 width = 2.em,
                 height = 1.em,
-                placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter
-            )
+                placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+            ),
         ) {
             DisplayIcon(buttonType)
         }
@@ -128,10 +128,10 @@ private fun DisplayIcon(iconButtonType: ButtonType.ICON) {
         parameters = iconButtonType.iconParameters.copy(
             foreGroundColor = fgColor,
             modifier = modifier.then(
-                iconButtonType.iconParameters.modifier
-            )
+                iconButtonType.iconParameters.modifier,
+            ),
         ),
-        colors = colorScheme
+        colors = colorScheme,
     )
 }
 
@@ -140,7 +140,7 @@ private fun DisplayIcon(iconButtonType: ButtonType.ICON) {
 @Composable
 fun ButtonM3Preview(
     @PreviewParameter(ButtonProvider::class)
-    buttonParameters: List<ButtonParameters>
+    buttonParameters: List<ButtonParameters>,
 ) {
     GdsTheme {
         Column {

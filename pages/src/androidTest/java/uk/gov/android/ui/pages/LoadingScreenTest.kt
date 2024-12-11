@@ -31,18 +31,18 @@ class LoadingScreenTest {
             assertEquals(0, onClickNavIcon)
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__default__text)
+                resources.getString(R.string.loadingScreen__default__text),
             ).assertIsDisplayed()
 
             assertEquals(1, onClickNavIcon)
@@ -54,17 +54,17 @@ class LoadingScreenTest {
         setupDefault(display = false)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertDoesNotExist()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__default__text)
+                resources.getString(R.string.loadingScreen__default__text),
             ).assertIsDisplayed()
         }
     }
@@ -76,18 +76,18 @@ class LoadingScreenTest {
             assertEquals(0, onClickNavIcon)
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__text)
+                resources.getString(R.string.loadingScreen__text),
             ).assertIsDisplayed()
 
             assertEquals(1, onClickNavIcon)
@@ -99,17 +99,17 @@ class LoadingScreenTest {
         setup(display = false)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertDoesNotExist()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__text)
+                resources.getString(R.string.loadingScreen__text),
             ).assertIsDisplayed()
         }
     }
@@ -119,15 +119,15 @@ class LoadingScreenTest {
         setupPreview(defaultParameters)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__default__text)
+                resources.getString(R.string.loadingScreen__default__text),
             ).assertIsDisplayed()
         }
     }
@@ -137,17 +137,17 @@ class LoadingScreenTest {
         setupPreview(defaultParametersNoNavIcon)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertDoesNotExist()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__default__text)
+                resources.getString(R.string.loadingScreen__default__text),
             ).assertIsDisplayed()
         }
     }
@@ -157,15 +157,15 @@ class LoadingScreenTest {
         setupPreview(customParameters)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__text)
+                resources.getString(R.string.loadingScreen__text),
             ).assertIsDisplayed()
         }
     }
@@ -175,17 +175,17 @@ class LoadingScreenTest {
         setupPreview(customParametersNoNavIcon)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__navIcon__contentDescription)
+                resources.getString(R.string.loadingScreen__navIcon__contentDescription),
             ).apply {
                 assertDoesNotExist()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.loadingScreen__progressBar__contentDescription)
+                resources.getString(R.string.loadingScreen__progressBar__contentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.loadingScreen__text)
+                resources.getString(R.string.loadingScreen__text),
             ).assertIsDisplayed()
         }
     }
@@ -197,8 +197,8 @@ class LoadingScreenTest {
                 LoadingScreen(
                     parameters = LoadingScreenParameters(
                         displayNavIcon = display,
-                        onClickNavIcon = { onClickNavIcon++ }
-                    )
+                        onClickNavIcon = { onClickNavIcon++ },
+                    ),
                 )
             }
         }
@@ -212,8 +212,8 @@ class LoadingScreenTest {
                     parameters = LoadingScreenParameters(
                         displayText = customParameters.displayText,
                         displayNavIcon = display,
-                        onClickNavIcon = { onClickNavIcon++ }
-                    )
+                        onClickNavIcon = { onClickNavIcon++ },
+                    ),
                 )
             }
         }

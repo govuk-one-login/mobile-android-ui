@@ -15,7 +15,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class RadioChoiceQuestionTest(
-    private val parameters: RadioChoiceQuestionParameters
+    private val parameters: RadioChoiceQuestionParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -32,7 +32,7 @@ class RadioChoiceQuestionTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.title)
+                resources.getString(parameters.title),
             ).apply {
                 assertIsDisplayed()
             }
@@ -41,7 +41,7 @@ class RadioChoiceQuestionTest(
 
             parameters.radioOptions.forEach {
                 onNodeWithText(
-                    it.text
+                    it.text,
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -49,7 +49,7 @@ class RadioChoiceQuestionTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.primaryButtonText)
+                resources.getString(parameters.primaryButtonText),
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
@@ -60,7 +60,7 @@ class RadioChoiceQuestionTest(
     private fun checkContentSection(
         tesRule: ComposeContentTestRule,
         @ArrayRes
-        text: Int
+        text: Int,
     ) {
         tesRule.apply {
             resources.getStringArray(text).forEach {

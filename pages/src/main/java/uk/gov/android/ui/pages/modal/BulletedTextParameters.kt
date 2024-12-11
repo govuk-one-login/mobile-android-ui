@@ -8,5 +8,5 @@ data class BulletedTextParameters(
     val modifier: Modifier = Modifier,
     val header: AnnotatedString = buildAnnotatedString {},
     val bullets: List<String>,
-    val footer: AnnotatedString = buildAnnotatedString {}
+    val footer: AnnotatedString = buildAnnotatedString {},
 )

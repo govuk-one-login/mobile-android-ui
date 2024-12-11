@@ -18,91 +18,91 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button"
+                text = "Primary button",
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
-                    )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
+                    ),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button"
+                text = "Primary button",
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
                     parentButtonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
-                        image = drawable.ic_external_site
-                    )
+                        image = drawable.ic_external_site,
+                    ),
                 ),
                 onClick = {},
-                text = "Secondary button"
+                text = "Secondary button",
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
-                    )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
+                    ),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button"
+                text = "Primary button",
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
                     parentButtonType = ButtonType.SECONDARY(),
                     iconParameters = IconParameters(
                         foreGroundColor = Color.Unspecified,
-                        image = drawable.ic_external_site
-                    )
+                        image = drawable.ic_external_site,
+                    ),
                 ),
                 onClick = {},
-                text = "Secondary button"
+                text = "Secondary button",
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
                             subTitle = string.preview__GdsHeading__subTitle1,
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
                     ),
-                    headingSize = HeadingSize.DisplaySmall()
+                    headingSize = HeadingSize.DisplaySmall(),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button"
+                text = "Primary button",
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -111,38 +111,38 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
                             subTitle = string.preview__GdsHeading__subTitle1,
                             subTitle2 = string.preview__GdsHeading__subTitle2var,
                             subTitle2Var = "404",
-                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray()
-                        )
+                            text = arrayOf(string.preview__GdsContent__oneLine_0).toIntArray(),
+                        ),
                     ),
-                    headingSize = HeadingSize.DisplaySmall()
+                    headingSize = HeadingSize.DisplaySmall(),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
+                    image = drawable.ic_error,
+                ),
+            ),
         ),
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button"
+                text = "Primary button",
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
                     resource = listOf(
                         GdsContentTextString(
                             text = arrayOf(string.preview__GdsHeading__subTitle2var).toIntArray(),
-                            textVar = "404"
-                        )
+                            textVar = "404",
+                        ),
                     ),
-                    headingSize = HeadingSize.DisplaySmall()
+                    headingSize = HeadingSize.DisplaySmall(),
                 ),
                 iconParameters = IconParameters(
                     foreGroundColor = Color.Unspecified,
-                    image = drawable.ic_error
-                )
-            )
-        )
+                    image = drawable.ic_error,
+                ),
+            ),
+        ),
     )
 }

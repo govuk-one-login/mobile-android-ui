@@ -26,7 +26,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun ErrorPage(
     parameters: ErrorPageParameters,
-    colors: ColorScheme = MaterialTheme.colorScheme
+    colors: ColorScheme = MaterialTheme.colorScheme,
 ) {
     ConstraintLayout(
         modifier = Modifier
@@ -36,7 +36,7 @@ fun ErrorPage(
             .padding(smallPadding)
             .layoutId(rootLayout)
             .testTag(rootLayout)
-            .then(parameters.modifier)
+            .then(parameters.modifier),
     ) {
         val (informationRef, primaryButtonRef, secondaryButtonRef) = createRefs()
 
@@ -46,14 +46,14 @@ fun ErrorPage(
             primaryButtonRef,
             informationRef,
             parameters,
-            secondaryButtonRef
+            secondaryButtonRef,
         )
 
         parameters.secondaryButtonParameters?.let {
             SetupSecondaryButton(
                 it,
                 secondaryButtonRef,
-                primaryButtonRef
+                primaryButtonRef,
             )
         }
     }
@@ -61,17 +61,17 @@ fun ErrorPage(
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun ErrorPagePreview(
     @PreviewParameter(ErrorPageProvider::class)
-    parameters: ErrorPageParameters
+    parameters: ErrorPageParameters,
 ) {
     GdsTheme {
         ErrorPage(parameters)

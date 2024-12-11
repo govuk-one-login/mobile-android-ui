@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.inputs.radio.RadioSelectionProvider
 
 @RunWith(Parameterized::class)
 class RadioOptionsTest(
-    private val parameters: Pair<RadioSelectionParameters, NightMode>
+    private val parameters: Pair<RadioSelectionParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

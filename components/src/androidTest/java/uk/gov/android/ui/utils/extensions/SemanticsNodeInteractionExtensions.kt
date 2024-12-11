@@ -7,7 +7,7 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.TextUnit
 
 fun SemanticsNodeInteraction.assertFontSize(
-    fontSize: TextUnit
+    fontSize: TextUnit,
 ): SemanticsNodeInteraction {
     if (!checkFontSize(fontSize)) {
         throw AssertionError("Assert failed: The component's font size is incorrect!")
@@ -16,7 +16,7 @@ fun SemanticsNodeInteraction.assertFontSize(
 }
 
 internal fun SemanticsNodeInteraction.checkFontSize(
-    fontSize: TextUnit
+    fontSize: TextUnit,
 ): Boolean {
     val errorMessageOnFail = "Failed to perform fontSize check."
     val node = fetchSemanticsNode(errorMessageOnFail)
@@ -32,7 +32,7 @@ internal fun SemanticsNodeInteraction.checkFontSize(
 }
 
 fun SemanticsNodeInteraction.assertLineHeight(
-    lineHeight: TextUnit
+    lineHeight: TextUnit,
 ): SemanticsNodeInteraction {
     if (!checkLineHeight(lineHeight)) {
         throw AssertionError("Assert failed: The component's line height is incorrect!")
@@ -41,7 +41,7 @@ fun SemanticsNodeInteraction.assertLineHeight(
 }
 
 internal fun SemanticsNodeInteraction.checkLineHeight(
-    lineHeight: TextUnit
+    lineHeight: TextUnit,
 ): Boolean {
     val errorMessageOnFail = "Failed to perform lineHeight check."
     val node = fetchSemanticsNode(errorMessageOnFail)

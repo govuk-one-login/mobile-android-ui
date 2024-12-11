@@ -33,7 +33,7 @@ data class GdsNavigationBar(
     private val tonalElevation: Dp = NavigationBarDefaults.Elevation,
     private val windowInsets: @Composable () -> WindowInsets = {
         NavigationBarDefaults.windowInsets
-    }
+    },
 ) {
     /**
      * Converts the [GdsNavigationBar] into a [NavigationBar] Composable.
@@ -45,7 +45,7 @@ data class GdsNavigationBar(
                 containerColor = containerColor(),
                 contentColor = contentColor(),
                 tonalElevation = tonalElevation,
-                windowInsets = windowInsets()
+                windowInsets = windowInsets(),
             ) {
                 items.forEach { gdsNavigationItem ->
                     gdsNavigationItem.generate(this)
@@ -56,17 +56,17 @@ data class GdsNavigationBar(
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun GdsNavigationBarPreview(
     @PreviewParameter(GdsNavigationBarProvider::class)
-    parameters: GdsNavigationBar
+    parameters: GdsNavigationBar,
 ) {
     GdsTheme {
         parameters.generate()
