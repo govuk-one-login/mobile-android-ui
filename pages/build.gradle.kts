@@ -7,9 +7,6 @@ plugins {
     id("kotlin-parcelize")
 }
 
-apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
-apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
-
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
@@ -42,35 +39,6 @@ android {
             enableAndroidTestCoverage = true
             enableUnitTestCoverage = true
         }
-    }
-
-    lint {
-        abortOnError = true
-        absolutePaths = true
-        baseline = File("${rootProject.extra["configDir"]}/android/baseline.xml")
-        checkAllWarnings = true
-        checkDependencies = false
-        checkGeneratedSources = false
-        checkReleaseBuilds = true
-        disable.addAll(
-            setOf(
-                "ConvertToWebp",
-                "UnusedIds",
-                "VectorPath",
-                "UsingMaterialAndMaterial3Libraries"
-            )
-        )
-        explainIssues = true
-        htmlReport = true
-        ignoreTestSources = true
-        ignoreWarnings = false
-        lintConfig = File("${rootProject.extra["configDir"]}/android/lint.xml")
-        noLines = false
-        quiet = false
-        showAll = true
-        textReport = true
-        warningsAsErrors = true
-        xmlReport = true
     }
 
     @Suppress("UnstableApiUsage")
