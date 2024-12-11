@@ -20,11 +20,12 @@ android {
     buildFeatures {
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-            )
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildTypes {
@@ -70,6 +71,7 @@ android {
         xmlReport = true
     }
 
+    @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -87,10 +89,6 @@ android {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
-    }
-
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -112,17 +110,12 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.androidx.compose.ui.testmanifest)
     androidTestImplementation(libs.androidx.test.espresso.core)
-
     androidTestUtil(libs.androidx.test.orchestrator)
 
-    listOf(
-        libs.arch.core,
-        libs.hilt.android.testing,
-        libs.junit.jupiter,
-        libs.mockito.kotlin
-    ).forEach { testDependency ->
-        testImplementation(testDependency)
-    }
+    testImplementation(libs.arch.core)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(platform(libs.junit.bom))
 }
 

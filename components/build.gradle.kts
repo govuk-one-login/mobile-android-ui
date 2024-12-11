@@ -19,6 +19,17 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        compose = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -80,23 +91,12 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
     androidTestImplementation(composeBom)
     implementation(composeBom)
-
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.compose.ui.junit4)
-    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-
-    androidTestUtil(libs.androidx.test.orchestrator)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
@@ -107,17 +107,18 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
-
     implementation(project(":theme"))
 
-    listOf(
-        libs.arch.core,
-        libs.hilt.android.testing,
-        libs.junit,
-        libs.mockito.kotlin
-    ).forEach { testDependency ->
-        testImplementation(testDependency)
-    }
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.compose.ui.junit4)
+    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestUtil(libs.androidx.test.orchestrator)
+
+    testImplementation(libs.arch.core)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
 }
 
 mavenPublishingConfig {
