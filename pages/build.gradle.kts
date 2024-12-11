@@ -89,6 +89,14 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
 }
 
+// https://github.com/Kotlin/dokka/issues/2956
+tasks.matching { task ->
+    task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
+        task.name.contains("javaDocDebugGeneration")
+}.configureEach {
+    enabled = false
+}
+
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
