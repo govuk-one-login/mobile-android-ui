@@ -11,7 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -192,7 +192,7 @@ class InformationBannerParamProvider : PreviewParameterProvider<InformationBanne
             title = R.string.preview__GdsInformationBanner__title,
             content = R.string.preview__GdsInformationBanner__content,
             link = R.string.preview__GdsInformationBanner__link,
-            icon = Icons.Default.ArrowForward,
+            icon = Icons.AutoMirrored.Filled.ArrowForward,
         ),
     )
 }

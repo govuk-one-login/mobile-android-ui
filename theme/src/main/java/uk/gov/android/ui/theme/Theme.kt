@@ -139,7 +139,7 @@ fun Theme() {
                 Swatch(MaterialTheme.colors.secondary, "Secondary")
                 Swatch(MaterialTheme.colors.secondaryVariant, "Secondary Variant")
             }
-            PalletteSpacer()
+            PaletteSpacer()
             Row {
                 Swatch(
                     MaterialTheme.colors.background,
@@ -160,7 +160,7 @@ fun Theme() {
                     SWATCH_COL_3,
                 )
             }
-            PalletteSpacer()
+            PaletteSpacer()
             Row {
                 Swatch(
                     MaterialTheme.colors.onPrimary,
@@ -175,7 +175,7 @@ fun Theme() {
                     SWATCH_COL_2,
                 )
             }
-            PalletteSpacer()
+            PaletteSpacer()
             Row {
                 Swatch(
                     MaterialTheme.colors.onBackground,
@@ -219,38 +219,25 @@ private fun Swatch(
         ) {
             Text(
                 text = label,
-                color = MaterialTheme.colors.contentColorFor(backgroundColor).let {
-                    if (it == Color.Unspecified) {
-                        if (backgroundColor.isDark()) {
-                            Color.White
-                        } else {
-                            Color.Black
-                        }
-                    } else {
-                        it
-                    }
-                },
+                color = textColorForColor(MaterialTheme.colors.contentColorFor(backgroundColor)),
             )
             Text(
                 text = backgroundColor.toHexString(),
-                color = MaterialTheme.colors.contentColorFor(backgroundColor).let {
-                    if (it == Color.Unspecified) {
-                        if (backgroundColor.isDark()) {
-                            Color.White
-                        } else {
-                            Color.Black
-                        }
-                    } else {
-                        it
-                    }
-                },
+                color = textColorForColor(MaterialTheme.colors.contentColorFor(backgroundColor)),
             )
         }
     }
 }
 
 @Composable
-private fun PalletteSpacer() {
+private fun textColorForColor(color: Color) = if (color == Color.Unspecified) {
+    if (color.isDark()) Color.White else Color.Black
+} else {
+    color
+}
+
+@Composable
+private fun PaletteSpacer() {
     Spacer(
         modifier = Modifier.height(PALETTE_PADDING.dp),
     )

@@ -164,23 +164,25 @@ data class RadioChoiceQuestionParameters(
 )
 
 class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestionParameters> {
+    private val radioOptionOne = "option one"
+    private val radioOptionTwo = "option two"
     override val values: Sequence<RadioChoiceQuestionParameters> = sequenceOf(
         RadioChoiceQuestionParameters(
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
             radioOptions = listOf(
-                RadioOption("option one"),
-                RadioOption("option two"),
+                RadioOption(radioOptionOne),
+                RadioOption(radioOptionTwo),
             ),
-            radioState = mutableStateOf(RadioOption("option one")),
+            radioState = mutableStateOf(RadioOption(radioOptionOne)),
             primaryButtonText = string.preview__BrpInstructions__primary_button,
         ),
         RadioChoiceQuestionParameters(
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
             radioOptions = listOf(
-                RadioOption("option one"),
-                RadioOption("option two"),
+                RadioOption(radioOptionOne),
+                RadioOption(radioOptionTwo),
             ),
             radioState = mutableStateOf(null),
             primaryButtonText = string.preview__BrpInstructions__primary_button,

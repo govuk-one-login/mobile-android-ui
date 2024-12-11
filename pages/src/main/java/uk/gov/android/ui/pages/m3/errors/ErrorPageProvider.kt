@@ -13,12 +13,13 @@ import uk.gov.android.ui.components.m3.content.ContentParameters
 import uk.gov.android.ui.components.m3.information.InformationParameters
 
 class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
+    private val buttonText = "Primary button"
     override val values: Sequence<ErrorPageParameters> = sequenceOf(
         ErrorPageParameters(
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button",
+                text = buttonText,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -38,7 +39,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button",
+                text = buttonText,
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
@@ -69,7 +70,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button",
+                text = buttonText,
             ),
             secondaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.ICON(
@@ -102,7 +103,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button",
+                text = buttonText,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
@@ -126,7 +127,7 @@ class ErrorPageProvider : PreviewParameterProvider<ErrorPageParameters> {
             primaryButtonParameters = ButtonParameters(
                 buttonType = ButtonType.PRIMARY(),
                 onClick = {},
-                text = "Primary button",
+                text = buttonText,
             ),
             informationParameters = InformationParameters(
                 contentParameters = ContentParameters(
