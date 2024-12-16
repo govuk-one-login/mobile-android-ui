@@ -39,4 +39,11 @@ class ColorExtTest {
         assertEquals("#FFFFFFFF", Color.White.toHexStringWithAlpha())
         assertEquals("#FF000000", Color.Black.toHexStringWithAlpha())
     }
+
+    @Test
+    fun fallbackTo() {
+        assertEquals(Color.White, Color.Unspecified.fallbackTo(Color.White))
+        assertEquals(Color.Black, Color.Unspecified.fallbackTo(Color.Black))
+        assertEquals(Color.Black, Color.Black.fallbackTo(Color.White))
+    }
 }

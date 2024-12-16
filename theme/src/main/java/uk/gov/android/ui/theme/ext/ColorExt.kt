@@ -3,7 +3,6 @@ package uk.gov.android.ui.theme.ext
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
-import androidx.core.graphics.ColorUtils
 import java.util.Locale
 
 internal const val LUMINANCE_THRESHOLD = 0.5
@@ -23,3 +22,5 @@ fun Color.toHexString(): String =
 
 fun Color.toHexStringWithAlpha(): String =
     String.format(Locale.ENGLISH, "#%08X", toHexWithAlpha())
+
+fun Color.fallbackTo(color: Color) = if (this != Color.Unspecified) this else color
