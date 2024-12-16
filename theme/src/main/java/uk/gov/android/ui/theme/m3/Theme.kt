@@ -96,7 +96,7 @@ internal const val PALLETTE_HEIGHT = 920
 )
 @Composable
 @Suppress("LongMethod")
-fun Theme() {
+fun ThemePreview() {
     GdsTheme(
         modifier = Modifier.padding(PALETTE_PADDING.dp),
     ) {
@@ -141,7 +141,7 @@ fun Theme() {
                     color = MaterialTheme.colorScheme.error,
                 )
             }
-            PaletteSpacer()
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
             Row {
                 Swatch(
                     MaterialTheme.colorScheme.primaryContainer,
@@ -178,7 +178,7 @@ fun Theme() {
                     "Scrim",
                 )
             }
-            PaletteSpacer()
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
             Row {
                 Swatch(
                     MaterialTheme.colorScheme.onPrimaryContainer,
@@ -201,7 +201,7 @@ fun Theme() {
                     color = MaterialTheme.colorScheme.errorContainer,
                 )
             }
-            PaletteSpacer()
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
             Row {
                 Swatch(
                     MaterialTheme.colorScheme.surface,
@@ -228,7 +228,7 @@ fun Theme() {
                     color = MaterialTheme.colorScheme.surfaceVariant,
                 )
             }
-            PaletteSpacer()
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
             Row {
                 Swatch(
                     MaterialTheme.colorScheme.outline,
