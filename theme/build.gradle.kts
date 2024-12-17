@@ -5,9 +5,6 @@ plugins {
     id("uk.gov.pipelines.android-lib-config")
 }
 
-apply(from = "${rootProject.extra["configDir"]}/detekt/config.gradle")
-apply(from = "${rootProject.extra["configDir"]}/ktlint/config.gradle")
-
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
@@ -20,11 +17,12 @@ android {
     buildFeatures {
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = (
-            rootProject.extra["composeKotlinCompilerVersion"] as String
-            )
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
     buildTypes {
@@ -32,7 +30,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -41,35 +39,7 @@ android {
         }
     }
 
-    lint {
-        abortOnError = true
-        absolutePaths = true
-        baseline = File("${rootProject.extra["configDir"]}/android/baseline.xml")
-        checkAllWarnings = true
-        checkDependencies = false
-        checkGeneratedSources = false
-        checkReleaseBuilds = true
-        disable.addAll(
-            setOf(
-                "ConvertToWebp",
-                "UnusedIds",
-                "VectorPath",
-                "UsingMaterialAndMaterial3Libraries"
-            )
-        )
-        explainIssues = true
-        htmlReport = true
-        ignoreTestSources = true
-        ignoreWarnings = false
-        lintConfig = File("${rootProject.extra["configDir"]}/android/lint.xml")
-        noLines = false
-        quiet = false
-        showAll = true
-        textReport = true
-        warningsAsErrors = true
-        xmlReport = true
-    }
-
+    @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
@@ -79,7 +49,7 @@ android {
                 events = setOf(
                     org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
                     org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
                 )
             }
         }
@@ -87,10 +57,6 @@ android {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
-    }
-
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -101,40 +67,34 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.bundles.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.material)
 
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testmanifest)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.compose.ui.junit4)
-    androidTestImplementation(libs.androidx.compose.ui.testmanifest)
     androidTestImplementation(libs.androidx.test.espresso.core)
-
     androidTestUtil(libs.androidx.test.orchestrator)
 
-    listOf(
-        libs.arch.core,
-        libs.hilt.android.testing,
-        libs.junit.jupiter,
-        libs.mockito.kotlin
-    ).forEach { testDependency ->
-        testImplementation(testDependency)
-    }
+    testImplementation(libs.arch.core)
+    testImplementation(libs.hilt.android.testing)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito.kotlin)
     testImplementation(platform(libs.junit.bom))
 }
 
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library"
+            "Mobile Android Component Library",
         )
         description.set(
             """
             Make services look and feel like GOV.UK using styles.
-            """.trimIndent()
+            """.trimIndent(),
         )
     }
 }

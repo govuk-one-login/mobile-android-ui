@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.buttons.GdsButton
 
 @RunWith(Parameterized::class)
 class ButtonsTest(
-    private val parameters: Pair<ButtonParameters, NightMode>
+    private val parameters: Pair<ButtonParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

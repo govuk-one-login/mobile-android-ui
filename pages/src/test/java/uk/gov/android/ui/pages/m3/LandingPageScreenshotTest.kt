@@ -12,12 +12,12 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class LandingPageScreenshotTest(
-    private val parameters: Pair<LandingPageParameters, NightMode>
+    private val parameters: Pair<LandingPageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             LandingPage(
-                landingPageParameters = parameters.first
+                landingPageParameters = parameters.first,
             )
         }
     }

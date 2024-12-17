@@ -7,6 +7,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 class GdsTopAppBarProvider : PreviewParameterProvider<GdsTopAppBar> {
     @OptIn(ExperimentalMaterial3Api::class)
     override val values: Sequence<GdsTopAppBar> = sequenceOf(
-        GdsTopAppBar(title = { Text(text = "OneLogin") })
+        GdsTopAppBar(title = { Text(text = "OneLogin") }),
     )
 }

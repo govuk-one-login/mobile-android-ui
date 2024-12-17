@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class TitledPageTest(
-    private val parameters: Pair<TitledPageParameters, NightMode>
+    private val parameters: Pair<TitledPageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         parameters.first

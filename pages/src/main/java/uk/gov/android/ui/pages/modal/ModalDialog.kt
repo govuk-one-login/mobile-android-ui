@@ -32,7 +32,7 @@ fun ModalDialog(parameters: ModalDialogParameters) {
         GdsTheme {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 CloseButton(onClose = onClose)
                 Column(
@@ -41,7 +41,7 @@ fun ModalDialog(parameters: ModalDialogParameters) {
                         .fillMaxWidth()
                         .weight(1.0f)
                         .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.Top
+                    verticalArrangement = Arrangement.Top,
                 ) {
                     Text(
                         color = colorScheme.contentColorFor(colorScheme.background),
@@ -51,15 +51,15 @@ fun ModalDialog(parameters: ModalDialogParameters) {
                             .semantics { heading() },
                         style = MaterialTheme.typography.displaySmall,
                         text = title,
-                        textAlign = TextAlign.Start
+                        textAlign = TextAlign.Start,
                     )
                     BulletedText(
                         parameters = BulletedTextParameters(
                             modifier = Modifier.fillMaxWidth(),
                             header = header,
                             bullets = bullets,
-                            footer = footer
-                        )
+                            footer = footer,
+                        ),
                     )
                 }
                 GdsButton(
@@ -70,8 +70,8 @@ fun ModalDialog(parameters: ModalDialogParameters) {
                         buttonType = buttonParams.buttonType,
                         text = buttonParams.text,
                         isEnabled = buttonParams.isEnabled,
-                        onClick = buttonParams.onClick
-                    )
+                        onClick = buttonParams.onClick,
+                    ),
                 )
             }
         }
@@ -86,7 +86,7 @@ internal val modalDialogPreviewParams = ModalDialogParameters(
     bullets = listOf(
         "using biometrics or your phone's pin or pattern to unlock the app",
         "sharing analytics about how you use the app",
-        "Third extremely long bullet line that is going to show how this wraps"
+        "Third extremely long bullet line that is going to show how this wraps",
     ),
     footer = buildAnnotatedString {
         append("You'll be asked to set these preferences again next time you sign in.")
@@ -95,9 +95,9 @@ internal val modalDialogPreviewParams = ModalDialogParameters(
         text = "Sign out and delete preferences",
         buttonType = ButtonType.PRIMARY(),
         isEnabled = true,
-        onClick = {}
+        onClick = {},
     ),
-    onClose = {}
+    onClose = {},
 )
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
@@ -105,6 +105,6 @@ internal val modalDialogPreviewParams = ModalDialogParameters(
 @Composable
 internal fun ModalDialogPreview() {
     ModalDialog(
-        parameters = modalDialogPreviewParams
+        parameters = modalDialogPreviewParams,
     )
 }

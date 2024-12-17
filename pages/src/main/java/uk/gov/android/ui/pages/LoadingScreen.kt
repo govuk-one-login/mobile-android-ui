@@ -37,11 +37,11 @@ import uk.gov.android.ui.theme.smallPadding
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoadingScreen(
-    parameters: LoadingScreenParameters
+    parameters: LoadingScreenParameters,
 ) {
     parameters.apply {
         val progressIndicatorContentDesc = stringResource(
-            id = R.string.loadingScreen__progressBar__contentDescription
+            id = R.string.loadingScreen__progressBar__contentDescription,
         )
 
         Scaffold(
@@ -53,21 +53,21 @@ fun LoadingScreen(
                     navigationIcon = {
                         if (displayNavIcon) {
                             IconButton(
-                                onClick = onClickNavIcon
+                                onClick = onClickNavIcon,
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = stringResource(
-                                        id = R.string.loadingScreen__navIcon__contentDescription
+                                        id = R.string.loadingScreen__navIcon__contentDescription,
                                     ),
-                                    tint = MaterialTheme.colorScheme.primary
+                                    tint = MaterialTheme.colorScheme.primary,
                                 )
                             }
                         }
                     },
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    )
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
                 )
             },
             content = { paddingValues ->
@@ -76,7 +76,7 @@ fun LoadingScreen(
                     modifier = Modifier
                         .padding(paddingValues)
                         .fillMaxSize()
-                        .padding(start = smallPadding, end = smallPadding)
+                        .padding(start = smallPadding, end = smallPadding),
                 ) {
                     Column {
                         CenteredRow {
@@ -87,24 +87,24 @@ fun LoadingScreen(
                                         contentDescription = progressIndicatorContentDesc
                                     },
                                 color = MaterialTheme.colorScheme.primary,
-                                trackColor = MaterialTheme.colorScheme.surfaceVariant
+                                trackColor = MaterialTheme.colorScheme.surfaceVariant,
                             )
                         }
                         CenteredRow {
                             Text(
-                                text = stringResource(id = displayText)
+                                text = stringResource(id = displayText),
                             )
                         }
                     }
                 }
-            }
+            },
         )
     }
 }
 
 @Composable
 private fun CenteredRow(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
@@ -112,8 +112,8 @@ private fun CenteredRow(
             .fillMaxWidth()
             .padding(
                 top = smallPadding,
-                bottom = smallPadding
-            )
+                bottom = smallPadding,
+            ),
     ) {
         content.invoke()
     }
@@ -122,37 +122,37 @@ private fun CenteredRow(
 data class LoadingScreenParameters(
     val displayText: Int = R.string.loadingScreen__default__text,
     var displayNavIcon: Boolean = true,
-    val onClickNavIcon: () -> Unit = {}
+    val onClickNavIcon: () -> Unit = {},
 )
 
 class LoadingScreenParameterProvider : PreviewParameterProvider<LoadingScreenParameters> {
     override val values: Sequence<LoadingScreenParameters> = sequenceOf(
         LoadingScreenParameters(),
         LoadingScreenParameters(
-            displayText = R.string.loadingScreen__text
+            displayText = R.string.loadingScreen__text,
         ),
         LoadingScreenParameters(
-            displayNavIcon = false
+            displayNavIcon = false,
         ),
         LoadingScreenParameters(
             displayText = R.string.loadingScreen__text,
-            displayNavIcon = false
-        )
+            displayNavIcon = false,
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
 fun LoadingScreenPreview(
     @PreviewParameter(LoadingScreenParameterProvider::class)
-    parameters: LoadingScreenParameters
+    parameters: LoadingScreenParameters,
 ) {
     GdsTheme {
         LoadingScreen(
-            parameters = parameters
+            parameters = parameters,
         )
     }
 }

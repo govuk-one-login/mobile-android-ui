@@ -33,17 +33,17 @@ import uk.gov.android.ui.components.content.GdsContentText.GdsContentTextArray
 import uk.gov.android.ui.components.inputs.radio.GdsRadioSelection
 import uk.gov.android.ui.components.inputs.radio.RadioOption
 import uk.gov.android.ui.components.inputs.radio.RadioSelectionParameters
-import uk.gov.android.ui.pages.R as pagesR
 import uk.gov.android.ui.pages.R.string
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
+import uk.gov.android.ui.pages.R as pagesR
 
 @Suppress("LongMethod")
 @Composable
 fun RadioChoiceQuestion(
-    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters,
 ) {
     radioChoiceQuestionParameters.apply {
         GdsTheme {
@@ -53,9 +53,9 @@ fun RadioChoiceQuestion(
                     .verticalScroll(rememberScrollState())
                     .padding(
                         bottom = mediumPadding,
-                        top = mediumPadding
+                        top = mediumPadding,
                     ),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Content(radioChoiceQuestionParameters)
                 Buttons(radioChoiceQuestionParameters)
@@ -67,11 +67,11 @@ fun RadioChoiceQuestion(
 @Composable
 @Suppress("LongMethod")
 internal fun Content(
-    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters,
 ) {
     radioChoiceQuestionParameters.apply {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             GdsHeading(
                 headingParameters = HeadingParameters(
@@ -83,9 +83,9 @@ internal fun Content(
                     padding = PaddingValues(
                         end = smallPadding,
                         start = smallPadding,
-                        bottom = titleBottomPadding
-                    )
-                )
+                        bottom = titleBottomPadding,
+                    ),
+                ),
             )
             content?.let {
                 GdsContent(
@@ -94,26 +94,26 @@ internal fun Content(
                             .padding(
                                 end = smallPadding,
                                 start = smallPadding,
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         internalColumnModifier = Modifier
                             .padding(
-                                bottom = xsmallPadding
+                                bottom = xsmallPadding,
                             ),
                         resource = listOf(
                             GdsContentTextArray(
-                                text = content
-                            )
+                                text = content,
+                            ),
                         ),
-                        textAlign = contentAlign
-                    )
+                        textAlign = contentAlign,
+                    ),
                 )
             }
             GdsRadioSelection(
                 radioSelectionParams = RadioSelectionParameters(
                     radioOptions = radioOptions,
-                    radioState = radioState
-                )
+                    radioState = radioState,
+                ),
             )
         }
     }
@@ -121,7 +121,7 @@ internal fun Content(
 
 @Composable
 internal fun Buttons(
-    radioChoiceQuestionParameters: RadioChoiceQuestionParameters
+    radioChoiceQuestionParameters: RadioChoiceQuestionParameters,
 ) {
     radioChoiceQuestionParameters.apply {
         Column(
@@ -129,8 +129,8 @@ internal fun Buttons(
                 .padding(
                     end = smallPadding,
                     start = smallPadding,
-                    top = mediumPadding
-                )
+                    top = mediumPadding,
+                ),
         ) {
             GdsButton(
                 buttonParameters = ButtonParameters(
@@ -140,8 +140,8 @@ internal fun Buttons(
                         .fillMaxWidth()
                         .padding(bottom = xsmallPadding),
                     onClick = onPrimary,
-                    enabled = radioChoiceQuestionParameters.radioState.value != null
-                )
+                    enabled = radioChoiceQuestionParameters.radioState.value != null,
+                ),
             )
         }
     }
@@ -160,31 +160,33 @@ data class RadioChoiceQuestionParameters(
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Start,
-    val titleBottomPadding: Dp = mediumPadding
+    val titleBottomPadding: Dp = mediumPadding,
 )
 
 class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestionParameters> {
+    private val radioOptionOne = "option one"
+    private val radioOptionTwo = "option two"
     override val values: Sequence<RadioChoiceQuestionParameters> = sequenceOf(
         RadioChoiceQuestionParameters(
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
             radioOptions = listOf(
-                RadioOption("option one"),
-                RadioOption("option two")
+                RadioOption(radioOptionOne),
+                RadioOption(radioOptionTwo),
             ),
-            radioState = mutableStateOf(RadioOption("option one")),
-            primaryButtonText = string.preview__BrpInstructions__primary_button
+            radioState = mutableStateOf(RadioOption(radioOptionOne)),
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
         ),
         RadioChoiceQuestionParameters(
             title = string.preview__BrpInstructions__title,
             content = pagesR.array.preview__BrpInstructions__array_1,
             radioOptions = listOf(
-                RadioOption("option one"),
-                RadioOption("option two")
+                RadioOption(radioOptionOne),
+                RadioOption(radioOptionTwo),
             ),
             radioState = mutableStateOf(null),
-            primaryButtonText = string.preview__BrpInstructions__primary_button
-        )
+            primaryButtonText = string.preview__BrpInstructions__primary_button,
+        ),
     )
 }
 
@@ -192,20 +194,20 @@ class RadioChoiceQuestionProvider : PreviewParameterProvider<RadioChoiceQuestion
     backgroundColor = 0xFFFBFDF8,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(RadioChoiceQuestionProvider::class)
-    parameters: RadioChoiceQuestionParameters
+    parameters: RadioChoiceQuestionParameters,
 ) {
     RadioChoiceQuestion(
-        parameters
+        parameters,
     )
 }

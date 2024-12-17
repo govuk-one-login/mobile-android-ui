@@ -40,13 +40,13 @@ import uk.gov.android.ui.theme.smallPadding
 @Suppress("LongMethod")
 @Composable
 fun AlertPage(
-    alertPageParameters: AlertPageParameters
+    alertPageParameters: AlertPageParameters,
 ) {
     alertPageParameters.apply {
         GdsTheme {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Column {
                     Row(modifier = Modifier.padding(bottom = 12.dp)) {
@@ -54,9 +54,9 @@ fun AlertPage(
                             Icon(
                                 imageVector = Icons.Filled.Close,
                                 contentDescription = stringResource(
-                                    R.string.preview__alertPage__close
+                                    R.string.preview__alertPage__close,
                                 ),
-                                tint = colors.primary
+                                tint = colors.primary,
                             )
                         }
                     }
@@ -68,8 +68,8 @@ fun AlertPage(
                                     .padding(horizontal = smallPadding)
                                     .padding(top = smallPadding),
                                 size = HeadingSize.H1(),
-                                text = title
-                            )
+                                text = title,
+                            ),
                         )
                     }
                     Row {
@@ -79,7 +79,7 @@ fun AlertPage(
                                 .fillMaxWidth()
                                 .padding(horizontal = smallPadding),
                             style = MaterialTheme.typography.subtitle1,
-                            text = annotatedContent
+                            text = annotatedContent,
                         )
                     }
                 }
@@ -92,10 +92,10 @@ fun AlertPage(
                                 .fillMaxWidth()
                                 .padding(
                                     horizontal = smallPadding,
-                                    vertical = mediumPadding
+                                    vertical = mediumPadding,
                                 ),
-                            onClick = onPrimary
-                        )
+                            onClick = onPrimary,
+                        ),
                     )
                 }
             }
@@ -108,7 +108,7 @@ data class AlertPageParameters(
     val annotatedContent: AnnotatedString,
     val ctaText: Int,
     val onClose: () -> Unit = {},
-    val onPrimary: () -> Unit = {}
+    val onPrimary: () -> Unit = {},
 )
 
 class AlertPageProvider : PreviewParameterProvider<AlertPageParameters> {
@@ -120,13 +120,13 @@ class AlertPageProvider : PreviewParameterProvider<AlertPageParameters> {
                 appendBulletLine("First bullet line")
                 appendBulletLine("Second bullet line")
                 appendBulletLine(
-                    "Third extremely long bullet line that is going to show how this wraps"
+                    "Third extremely long bullet line that is going to show how this wraps",
                 )
                 appendLine()
                 appendBoldLine("Bold line that you don't want to miss")
             },
-            ctaText = R.string.preview__alertPage__button
-        )
+            ctaText = R.string.preview__alertPage__button,
+        ),
     )
 
     private fun AnnotatedString.Builder.appendBulletLine(string: String) {
@@ -149,20 +149,20 @@ class AlertPageProvider : PreviewParameterProvider<AlertPageParameters> {
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun Preview(
     @PreviewParameter(AlertPageProvider::class)
-    parameters: AlertPageParameters
+    parameters: AlertPageParameters,
 ) {
     AlertPage(
-        alertPageParameters = parameters
+        alertPageParameters = parameters,
     )
 }

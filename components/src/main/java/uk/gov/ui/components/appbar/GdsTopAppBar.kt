@@ -31,7 +31,7 @@ constructor(
     private val colors: @Composable () -> TopAppBarColors = { TopAppBarDefaults.topAppBarColors() },
     private val navigationIcon: @Composable () -> Unit = {},
     private val scrollBehavior: TopAppBarScrollBehavior? = null,
-    private val windowInsets: @Composable () -> WindowInsets = { TopAppBarDefaults.windowInsets }
+    private val windowInsets: @Composable () -> WindowInsets = { TopAppBarDefaults.windowInsets },
 ) {
     @OptIn(ExperimentalMaterial3Api::class)
     val generate: @Composable () -> Unit
@@ -43,24 +43,24 @@ constructor(
                 colors = colors(),
                 navigationIcon = navigationIcon,
                 scrollBehavior = scrollBehavior,
-                windowInsets = windowInsets()
+                windowInsets = windowInsets(),
             )
         }
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun GdsTopAppBarPreview(
     @PreviewParameter(GdsTopAppBarProvider::class)
-    parameters: GdsTopAppBar
+    parameters: GdsTopAppBar,
 ) {
     GdsTheme {
         parameters.generate()

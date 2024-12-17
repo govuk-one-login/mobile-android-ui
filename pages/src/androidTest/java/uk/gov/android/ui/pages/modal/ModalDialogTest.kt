@@ -59,9 +59,9 @@ class ModalDialogTest {
             ModalDialog(
                 parameters.copy(
                     buttonParams = buttonParams.copy(
-                        onClick = { actual = true }
-                    )
-                )
+                        onClick = { actual = true },
+                    ),
+                ),
             )
         }
         composeTestRule.onNode(primaryButton).assertHasClickAction()
@@ -82,7 +82,7 @@ class ModalDialogTest {
             text = "Sign out and delete preferences",
             buttonType = ButtonType.PRIMARY(),
             isEnabled = true,
-            onClick = {}
+            onClick = {},
         )
         private val parameters = modalDialogPreviewParams.copy(buttonParams = buttonParams)
     }

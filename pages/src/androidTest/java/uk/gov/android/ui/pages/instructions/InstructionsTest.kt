@@ -16,7 +16,7 @@ import uk.gov.android.ui.pages.brp.BrpInstructionsContentSection
 
 @RunWith(Parameterized::class)
 class InstructionsTest(
-    private val parameters: Instructions
+    private val parameters: Instructions,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -40,7 +40,7 @@ class InstructionsTest(
 
             parameters.image?.let {
                 onNodeWithTag(
-                    it.toString()
+                    it.toString(),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -48,7 +48,7 @@ class InstructionsTest(
 
             parameters.topIcon?.let {
                 onNodeWithTag(
-                    it.toString()
+                    it.toString(),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -56,7 +56,7 @@ class InstructionsTest(
 
             parameters.helpTextParameters?.let {
                 onNodeWithText(
-                    resources.getString(it.text)
+                    resources.getString(it.text),
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -64,7 +64,7 @@ class InstructionsTest(
 
                 onNodeWithTag(
                     it.iconParameters.image.toString(),
-                    useUnmergedTree = true
+                    useUnmergedTree = true,
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -72,14 +72,14 @@ class InstructionsTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.buttonParameters!![0].text)
+                resources.getString(parameters.buttonParameters!![0].text),
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(parameters.buttonParameters!![1].text)
+                resources.getString(parameters.buttonParameters!![1].text),
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
@@ -89,12 +89,12 @@ class InstructionsTest(
 
     private fun checkContentSection(
         testRule: ComposeContentTestRule,
-        contentSection: BrpInstructionsContentSection
+        contentSection: BrpInstructionsContentSection,
     ) {
         testRule.apply {
             contentSection.subTitle?.let {
                 onNodeWithText(
-                    resources.getString(it)
+                    resources.getString(it),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -110,7 +110,7 @@ class InstructionsTest(
     private fun checkTitle(
         testRule: ComposeContentTestRule,
         title: Int? = null,
-        titleArg: Int? = null
+        titleArg: Int? = null,
     ) {
         testRule.apply {
             title?.let {
@@ -122,12 +122,12 @@ class InstructionsTest(
     private fun checkTitleWithArgDisplayed(
         testRule: ComposeContentTestRule,
         title: Int,
-        titleArg: Int?
+        titleArg: Int?,
     ) {
         testRule.apply {
             if (titleArg == null) {
                 onNodeWithText(
-                    resources.getString(title)
+                    resources.getString(title),
                 ).apply {
                     assertIsDisplayed()
                 }
@@ -135,8 +135,8 @@ class InstructionsTest(
                 onNodeWithText(
                     resources.getString(
                         title,
-                        resources.getString(titleArg)
-                    )
+                        resources.getString(titleArg),
+                    ),
                 ).apply {
                     assertIsDisplayed()
                 }

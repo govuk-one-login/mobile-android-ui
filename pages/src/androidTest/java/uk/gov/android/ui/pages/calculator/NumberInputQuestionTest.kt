@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 class NumberInputQuestionTest(
-    private val parameters: NumberInputQuestionParameters
+    private val parameters: NumberInputQuestionParameters,
 ) {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
@@ -33,7 +33,7 @@ class NumberInputQuestionTest(
             }
 
             onNodeWithText(
-                resources.getString(parameters.title)
+                resources.getString(parameters.title),
             ).apply {
                 assertIsDisplayed()
             }
@@ -41,7 +41,7 @@ class NumberInputQuestionTest(
             parameters.content?.let { checkContentSection(this, it) }
 
             onNodeWithTag(
-                "numberInput"
+                "numberInput",
             ).apply {
                 performScrollTo()
                 assertIsDisplayed()
@@ -49,7 +49,7 @@ class NumberInputQuestionTest(
 
             parameters.hintText?.let {
                 onNodeWithText(
-                    resources.getString(it)
+                    resources.getString(it),
                 ).apply {
                     performScrollTo()
                     assertIsDisplayed()
@@ -61,7 +61,7 @@ class NumberInputQuestionTest(
     private fun checkContentSection(
         tesRule: ComposeContentTestRule,
         @ArrayRes
-        text: Int
+        text: Int,
     ) {
         tesRule.apply {
             resources.getStringArray(text).forEach {

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 sealed class GdsContentText(
     @StringRes open val subTitle: Int?,
     @StringRes open val subTitle2: Int?,
-    open val subTitle2Var: String? = null
+    open val subTitle2Var: String? = null,
 ) : Parcelable {
 
     @Parcelize
@@ -18,11 +18,11 @@ sealed class GdsContentText(
         val textVar: String? = null,
         @StringRes override val subTitle: Int? = null,
         @StringRes override val subTitle2: Int? = null,
-        override val subTitle2Var: String? = null
+        override val subTitle2Var: String? = null,
     ) : GdsContentText(
         subTitle = subTitle,
         subTitle2 = subTitle2,
-        subTitle2Var = subTitle2Var
+        subTitle2Var = subTitle2Var,
     ),
         Parcelable {
 
@@ -48,6 +48,6 @@ sealed class GdsContentText(
     data class GdsContentTextArray(
         @StringRes override val subTitle: Int? = null,
         @StringRes override val subTitle2: Int? = null,
-        @ArrayRes val text: Int
+        @ArrayRes val text: Int,
     ) : GdsContentText(subTitle = subTitle, subTitle2 = subTitle2), Parcelable
 }

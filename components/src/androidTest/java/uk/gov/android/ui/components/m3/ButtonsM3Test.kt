@@ -29,7 +29,7 @@ class ButtonsM3Test {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parametersList.size
+            parametersList.size,
         )
     }
 
@@ -55,7 +55,7 @@ class ButtonsM3Test {
         composeTestRule.setContent {
             GdsTheme {
                 GdsButton(
-                    parameters
+                    parameters,
                 )
             }
         }

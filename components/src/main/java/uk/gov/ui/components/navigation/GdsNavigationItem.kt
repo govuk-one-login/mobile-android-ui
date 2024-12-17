@@ -25,7 +25,7 @@ data class GdsNavigationItem(
     private val interactionSource: @Composable () -> MutableInteractionSource = {
         remember { MutableInteractionSource() }
     },
-    private val label: @Composable (() -> Unit)? = null
+    private val label: @Composable (() -> Unit)? = null,
 ) {
     /**
      * Converts the [GdsNavigationItem] into a [NavigationBarItem] Composable.
@@ -41,7 +41,7 @@ data class GdsNavigationItem(
                 label = label,
                 modifier = modifier,
                 onClick = onClick,
-                selected = selected
+                selected = selected,
             )
         }
 }

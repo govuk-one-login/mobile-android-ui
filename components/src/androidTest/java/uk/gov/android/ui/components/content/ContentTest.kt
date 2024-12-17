@@ -29,7 +29,7 @@ class ContentTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            parameterList.size
+            parameterList.size,
         )
     }
 
@@ -71,7 +71,7 @@ class ContentTest {
             setContent {
                 GdsTheme {
                     GdsContent(
-                        parameters
+                        parameters,
                     )
                 }
             }
@@ -84,7 +84,7 @@ class ContentTest {
 @Suppress("NestedBlockDepth")
 fun ContentParameters.verifyComposable(
     composeTestRule: ComposeContentTestRule,
-    resources: Resources
+    resources: Resources,
 ) = composeTestRule.let { rule ->
     resource.forEach { contentText ->
         contentText.subTitle?.let {

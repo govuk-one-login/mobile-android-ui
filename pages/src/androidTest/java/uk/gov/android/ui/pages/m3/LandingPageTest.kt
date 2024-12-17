@@ -36,7 +36,7 @@ class LandingPageTest {
             onIconClick = 0
             GdsTheme {
                 LandingPage(
-                    landingPageParameters = parameters
+                    landingPageParameters = parameters,
                 )
             }
         }
@@ -47,19 +47,19 @@ class LandingPageTest {
         setup(parameters)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.preview__landingPage__iconContentDescription)
+                resources.getString(R.string.preview__landingPage__iconContentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__title)
+                resources.getString(R.string.preview__BrpInstructions__title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__subtitle_1)
+                resources.getString(R.string.preview__BrpInstructions__subtitle_1),
             ).assertDoesNotExist()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__primary_button)
+                resources.getString(R.string.preview__BrpInstructions__primary_button),
             ).assertIsDisplayed()
         }
     }
@@ -69,19 +69,19 @@ class LandingPageTest {
         setup(parametersWithContent)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.preview__landingPage__iconContentDescription)
+                resources.getString(R.string.preview__landingPage__iconContentDescription),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__title)
+                resources.getString(R.string.preview__BrpInstructions__title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__subtitle_1)
+                resources.getString(R.string.preview__BrpInstructions__subtitle_1),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__primary_button)
+                resources.getString(R.string.preview__BrpInstructions__primary_button),
             ).assertIsDisplayed()
         }
     }
@@ -95,25 +95,25 @@ class LandingPageTest {
                 contentDescription = R.string.preview__landingPage__iconContentDescription,
                 onTopIconClick = { onIconClick++ },
                 title = R.string.preview__BrpInstructions__title,
-                primaryButtonText = R.string.preview__BrpInstructions__primary_button
-            )
+                primaryButtonText = R.string.preview__BrpInstructions__primary_button,
+            ),
         )
         composeTestRule.apply {
             assertEquals(0, onIconClick)
 
             onNodeWithContentDescription(
-                resources.getString(R.string.preview__landingPage__iconContentDescription)
+                resources.getString(R.string.preview__landingPage__iconContentDescription),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__title)
+                resources.getString(R.string.preview__BrpInstructions__title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__primary_button)
+                resources.getString(R.string.preview__BrpInstructions__primary_button),
             ).assertIsDisplayed()
 
             assertEquals(1, onIconClick)
@@ -129,14 +129,14 @@ class LandingPageTest {
                 contentDescription = R.string.preview__landingPage__iconContentDescription,
                 title = R.string.preview__BrpInstructions__title,
                 primaryButtonText = R.string.preview__BrpInstructions__primary_button,
-                onPrimary = { onButtonClick++ }
-            )
+                onPrimary = { onButtonClick++ },
+            ),
         )
         composeTestRule.apply {
             assertEquals(0, onButtonClick)
 
             onNodeWithText(
-                resources.getString(R.string.preview__BrpInstructions__primary_button)
+                resources.getString(R.string.preview__BrpInstructions__primary_button),
             ).apply {
                 assertIsDisplayed()
                 performClick()

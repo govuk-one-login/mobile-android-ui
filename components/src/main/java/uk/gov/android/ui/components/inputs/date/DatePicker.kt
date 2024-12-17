@@ -31,6 +31,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import uk.gov.android.ui.components.R
+import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -38,13 +41,10 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-import uk.gov.android.ui.components.R
-import uk.gov.android.ui.theme.GdsTheme
-import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsDatePicker(
-    params: DatePickerParameters
+    params: DatePickerParameters,
 ) {
     params.apply {
         val activity = LocalContext.current as? AppCompatActivity
@@ -61,10 +61,10 @@ fun GdsDatePicker(
                         datePickerTitle,
                         onDateChanged,
                         dateFormatString,
-                        calendarConstraint
+                        calendarConstraint,
                     ).show(
                         it,
-                        "datePicker"
+                        "datePicker",
                     )
                 }
             }
@@ -74,11 +74,11 @@ fun GdsDatePicker(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    colors.background
+                    colors.background,
                 )
                 .then(
-                    colModifier
-                )
+                    colModifier,
+                ),
         ) {
             OutlinedTextField(
                 modifier = Modifier
@@ -94,14 +94,14 @@ fun GdsDatePicker(
                 trailingIcon = {
                     Icon(
                         painterResource(id = R.drawable.baseline_today_24),
-                        "Calendar"
+                        "Calendar",
                     )
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     trailingIconColor = colors.primary,
-                    backgroundColor = colors.background
+                    backgroundColor = colors.background,
                 ),
-                interactionSource = interactionSource
+                interactionSource = interactionSource,
             )
         }
     }
@@ -111,7 +111,7 @@ private fun getDatePickerDialog(
     pickerTitleRes: Int,
     saveDate: (LocalDate?) -> Unit,
     dateFormatString: String,
-    constraint: CalendarConstraints?
+    constraint: CalendarConstraints?,
 ): MaterialDatePicker<Long> {
     val datePickerDialog = MaterialDatePicker.Builder.datePicker()
         .setTitleText(pickerTitleRes)
@@ -134,7 +134,7 @@ data class DatePickerParameters(
     val calendarConstraint: CalendarConstraints? = null,
     val textStyle: TextStyle? = null,
     val colModifier: Modifier = Modifier
-        .padding(bottom = smallPadding)
+        .padding(bottom = smallPadding),
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -143,27 +143,27 @@ class DatePickerProvider : PreviewParameterProvider<DatePickerParameters> {
     override val values: Sequence<DatePickerParameters> = sequenceOf(
         DatePickerParameters(
             dateState = mutableStateOf(null),
-            datePickerTitle = R.string.preview__GdsHeading__h4
-        )
+            datePickerTitle = R.string.preview__GdsHeading__h4,
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(DatePickerProvider::class)
-    datePickerParams: DatePickerParameters
+    datePickerParams: DatePickerParameters,
 ) {
     GdsTheme {
         GdsDatePicker(
-            datePickerParams
+            datePickerParams,
         )
     }
 }

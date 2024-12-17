@@ -10,5 +10,8 @@
     <issue id="PermissionNamingConvention">
         <ignore path="**/AndroidManifest.xml" />
     </issue>
+
+    <issue id="UsingMaterialAndMaterial3Libraries" severity="ignore" />
+    <issue id="GradleDependency" severity="ignore" />
 </lint>
 

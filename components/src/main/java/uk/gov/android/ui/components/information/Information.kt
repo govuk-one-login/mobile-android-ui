@@ -28,16 +28,16 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun Information(
     parameters: InformationParameters,
-    colors: Colors = MaterialTheme.colors
+    colors: Colors = MaterialTheme.colors,
 ) {
     ConstraintLayout(
         modifier = parameters.modifier.then(
             Modifier.background(
-                colors.background
+                colors.background,
             ).semantics(mergeDescendants = true) {}
                 .layoutId(InformationTags.rootLayout)
-                .testTag(InformationTags.rootLayout)
-        )
+                .testTag(InformationTags.rootLayout),
+        ),
     ) {
         val (contentRef, imageRef) = createRefs()
 
@@ -51,9 +51,9 @@ fun Information(
                             start.linkTo(parent.start)
                             top.linkTo(parent.top)
                         }
-                            .then(parameters.iconParameters.modifier)
+                            .then(parameters.iconParameters.modifier),
                     ),
-                    colors
+                    colors,
                 )
             }
         }
@@ -70,15 +70,15 @@ fun Information(
                                 start.linkTo(parent.start)
                                 top.linkTo(
                                     imageRef.bottom,
-                                    margin = parameters.dpMarginBetweenIconAndContent.toFloat().dp
+                                    margin = parameters.dpMarginBetweenIconAndContent.toFloat().dp,
                                 )
                             }
                             .layoutId(InformationTags.content)
-                            .testTag(InformationTags.content)
+                            .testTag(InformationTags.content),
                     ),
                     headingModifier = Modifier
                         .padding(bottom = smallPadding)
-                        .then(headingModifier)
+                        .then(headingModifier),
                 )
                 GdsContent(contentParams, colors)
             }
@@ -88,21 +88,21 @@ fun Information(
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 fun InformationPreview(
     @PreviewParameter(InformationProvider::class)
-    informationParameters: InformationParameters
+    informationParameters: InformationParameters,
 ) {
     GdsTheme {
         Information(
-            informationParameters
+            informationParameters,
         )
     }
 }

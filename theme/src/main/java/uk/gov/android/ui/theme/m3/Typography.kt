@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -59,60 +59,60 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH1
+        lineHeight = lineHeightH1,
     ),
     headlineLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH2,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH2
+        lineHeight = lineHeightH2,
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH3,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH3
+        lineHeight = lineHeightH3,
     ),
     headlineSmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH4,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH4
+        lineHeight = lineHeightH4,
     ),
     bodyLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeBody,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
     ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeBody2,
-        fontWeight = FontWeight.ExtraLight
+        fontWeight = FontWeight.ExtraLight,
     ),
     bodySmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = 17.sp,
         lineHeight = 22.sp,
-        fontWeight = FontWeight.Light
+        fontWeight = FontWeight.Light,
     ),
     labelLarge = TextStyle(
         fontFamily = FontFamily(
             Font(
                 resId = R.font.gds_transport_light,
-                weight = FontWeight.Light
+                weight = FontWeight.Light,
             ),
             Font(
                 resId = R.font.gds_transport_light,
-                weight = FontWeight.Normal
+                weight = FontWeight.Normal,
             ),
             Font(
                 resId = R.font.gds_transport_bold,
-                weight = FontWeight.Bold
-            )
+                weight = FontWeight.Bold,
+            ),
         ),
         fontSize = buttonTextSize,
-        lineHeight = buttonLineHeight
-    )
+        lineHeight = buttonLineHeight,
+    ),
 )
 
 @Preview
@@ -133,7 +133,7 @@ private fun TypographyPreview() {
         "bodySmall" to Typography.bodySmall,
         "labelLarge" to Typography.labelLarge,
         "labelMedium" to Typography.labelMedium,
-        "labelSmall" to Typography.labelSmall
+        "labelSmall" to Typography.labelSmall,
     )
     GdsTheme {
         LazyColumn {
@@ -144,12 +144,12 @@ private fun TypographyPreview() {
                         .fillMaxWidth()
                         .padding(4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(style = type.second, text = type.first)
                     Text(text = "  - ${type.second.fontSize.value.toInt()}sp")
                 }
-                Divider(modifier = Modifier.fillMaxWidth())
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
             }
         }
     }

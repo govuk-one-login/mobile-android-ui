@@ -19,31 +19,31 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
-                        string.preview__GdsContent__oneLine_0
-                    ).toIntArray()
-                )
-            )
+                        string.preview__GdsContent__oneLine_0,
+                    ).toIntArray(),
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     subTitle = string.preview__GdsHeading__subTitle1,
                     text = arrayOf(
-                        string.preview__GdsContent__oneLine_0
-                    ).toIntArray()
-                )
+                        string.preview__GdsContent__oneLine_0,
+                    ).toIntArray(),
+                ),
             ),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
                         string.preview__GdsContent__twoLine_0,
-                        string.preview__GdsContent__twoLine_1
-                    ).toIntArray()
-                )
-            )
+                        string.preview__GdsContent__twoLine_1,
+                    ).toIntArray(),
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
@@ -51,74 +51,74 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                     subTitle = string.preview__GdsHeading__subTitle1,
                     text = arrayOf(
                         string.preview__GdsContent__oneSection_0,
-                        string.preview__GdsContent__twoLine_1
-                    ).toIntArray()
+                        string.preview__GdsContent__twoLine_1,
+                    ).toIntArray(),
                 ),
                 GdsContentTextString(
                     text = arrayOf(
                         string.preview__GdsContent__twoSection_0,
-                        string.preview__GdsContent__twoLine_0
-                    ).toIntArray()
-                )
-            )
+                        string.preview__GdsContent__twoLine_0,
+                    ).toIntArray(),
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
-                    text = array.preview__GdsContent__array_oneLine
-                )
-            )
+                    text = array.preview__GdsContent__array_oneLine,
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
-                    text = array.preview__GdsContent__array_twoLine
-                )
-            )
+                    text = array.preview__GdsContent__array_twoLine,
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
                     subTitle = string.preview__GdsHeading__subTitle1,
-                    text = array.preview__GdsContent__array_twoSection_0
+                    text = array.preview__GdsContent__array_twoSection_0,
                 ),
                 GdsContentTextArray(
                     subTitle = string.preview__GdsHeading__subTitle2,
-                    text = array.preview__GdsContent__array_twoSection_1
-                )
-            )
+                    text = array.preview__GdsContent__array_twoSection_1,
+                ),
+            ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextArray(
-                    text = array.preview__GdsContent__array_oneLine
-                )
+                    text = array.preview__GdsContent__array_oneLine,
+                ),
             ),
             color = Color.Black,
             modifier = Modifier
                 .background(
-                    color = Color.Red
+                    color = Color.Red,
                 )
                 .padding(
-                    all = spacingSingle
+                    all = spacingSingle,
                 ),
             textModifier = Modifier
                 .background(
-                    color = Color.Cyan
+                    color = Color.Cyan,
                 )
                 .padding(
-                    all = spacingSingle
-                )
+                    all = spacingSingle,
+                ),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
-                        string.preview__GdsContent__oneLine_0
-                    ).toIntArray()
-                )
+                        string.preview__GdsContent__oneLine_0,
+                    ).toIntArray(),
+                ),
             ),
-            color = Color.Red
+            color = Color.Red,
         ),
         ContentParameters(
             resource = listOf(
@@ -127,24 +127,24 @@ class ContentProvider : PreviewParameterProvider<ContentParameters> {
                     subTitle2 = string.preview__GdsHeading__subTitle2var,
                     subTitle2Var = "404",
                     text = arrayOf(
-                        string.preview__GdsContent__oneLine_0
-                    ).toIntArray()
-                )
+                        string.preview__GdsContent__oneLine_0,
+                    ).toIntArray(),
+                ),
             ),
             textAlign = TextAlign.Center,
-            headingSize = HeadingSize.DisplaySmall()
+            headingSize = HeadingSize.DisplaySmall(),
         ),
         ContentParameters(
             resource = listOf(
                 GdsContentTextString(
                     text = arrayOf(
-                        string.preview__GdsHeading__subTitle2var
+                        string.preview__GdsHeading__subTitle2var,
                     ).toIntArray(),
-                    textVar = "404"
-                )
+                    textVar = "404",
+                ),
             ),
             textAlign = TextAlign.Center,
-            headingSize = HeadingSize.DisplaySmall()
-        )
+            headingSize = HeadingSize.DisplaySmall(),
+        ),
     )
 }

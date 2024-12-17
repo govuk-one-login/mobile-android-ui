@@ -28,7 +28,7 @@ import uk.gov.android.ui.theme.mediumPadding
 
 @Composable
 fun GdsVectorImage(
-    parameters: VectorImageParameters
+    parameters: VectorImageParameters,
 ) {
     parameters.apply {
         val filter = if (parameters.hasSpecifiedColor()) {
@@ -44,9 +44,9 @@ fun GdsVectorImage(
             },
             contentScale = scale,
             modifier = modifier.testTag(
-                image.toString()
+                image.toString(),
             ),
-            painter = key(image) { painterResource(id = image) }
+            painter = key(image) { painterResource(id = image) },
         )
     }
 }
@@ -58,7 +58,7 @@ data class VectorImageParameters(
     @DrawableRes
     val image: Int,
     val modifier: Modifier = Modifier.fillMaxWidth(),
-    val scale: ContentScale = ContentScale.Fit
+    val scale: ContentScale = ContentScale.Fit,
 ) {
     fun hasSpecifiedColor(): Boolean = iconColor != Color.Unspecified
 }
@@ -68,18 +68,18 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
             image = R.drawable.ic_error,
-            iconColor = Color.Black
+            iconColor = Color.Black,
         ),
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
-            image = R.drawable.preview__gdsvectorimage
+            image = R.drawable.preview__gdsvectorimage,
         ),
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
             image = R.drawable.preview__gdsvectorimage,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = mediumPadding)
+                .padding(all = mediumPadding),
         ),
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
@@ -87,7 +87,7 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(all = mediumPadding),
-            scale = ContentScale.Crop
+            scale = ContentScale.Crop,
         ),
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
@@ -95,7 +95,7 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(all = mediumPadding),
-            scale = ContentScale.FillHeight
+            scale = ContentScale.FillHeight,
         ),
         VectorImageParameters(
             description = R.string.preview__GdsVectorImage__description,
@@ -103,29 +103,29 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(all = mediumPadding),
-            scale = ContentScale.Fit
-        )
+            scale = ContentScale.Fit,
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Composable
 fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
-    vectorImageParameters: VectorImageParameters
+    vectorImageParameters: VectorImageParameters,
 ) {
     GdsTheme {
         Column(
             modifier = Modifier
                 .height(150.dp)
                 .width(150.dp)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) {
             GdsVectorImage(
-                vectorImageParameters
+                vectorImageParameters,
             )
         }
     }

@@ -31,14 +31,14 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun BulletedText(
-    parameters: BulletedTextParameters
+    parameters: BulletedTextParameters,
 ) {
     with(parameters) {
         val textColor: Color = colorScheme.contentColorFor(colorScheme.background)
         val textStyle: TextStyle = MaterialTheme.typography.bodySmall
         Column(
             modifier = modifier,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Top,
         ) {
             if (header.text.isNotEmpty()) {
                 Text(
@@ -47,7 +47,7 @@ fun BulletedText(
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
                     style = textStyle,
-                    text = header
+                    text = header,
                 )
             }
             bullets.forEach { bulletText -> Bullet(bulletText) }
@@ -58,7 +58,7 @@ fun BulletedText(
                         .fillMaxWidth()
                         .padding(top = 12.dp),
                     style = textStyle,
-                    text = footer
+                    text = footer,
                 )
             }
         }
@@ -73,21 +73,21 @@ private fun Bullet(text: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(Modifier.width(8.dp))
         Box(
             modifier = Modifier
                 .size(5.dp)
                 .clip(CircleShape)
-                .background(color)
+                .background(color),
         )
         Spacer(Modifier.width(20.dp))
         Text(
             text = text,
             modifier = Modifier.fillMaxWidth(),
             style = style,
-            color = color
+            color = color,
         )
     }
 }
@@ -99,11 +99,11 @@ internal val bulletedTextPreviewParams = BulletedTextParameters(
     bullets = listOf(
         "using biometrics or your phone's pin or pattern to unlock the app",
         "sharing analytics about how you use the app",
-        "Third extremely long bullet line that is going to show how this wraps"
+        "Third extremely long bullet line that is going to show how this wraps",
     ),
     footer = buildAnnotatedString {
         append("You'll be asked to set these preferences again next time you sign in.")
-    }
+    },
 )
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
@@ -114,16 +114,16 @@ internal fun BulletedTextPreview() {
         Column {
             BulletedText(
                 parameters = bulletedTextPreviewParams.copy(
-                    modifier = Modifier.fillMaxWidth().padding(smallPadding)
-                )
+                    modifier = Modifier.fillMaxWidth().padding(smallPadding),
+                ),
             )
             Spacer(Modifier.fillMaxWidth().height(1.dp).background(color = colorScheme.primary))
             BulletedText(
                 parameters = bulletedTextPreviewParams.copy(
                     modifier = Modifier.fillMaxWidth().padding(smallPadding),
                     header = buildAnnotatedString {},
-                    footer = buildAnnotatedString {}
-                )
+                    footer = buildAnnotatedString {},
+                ),
             )
         }
     }

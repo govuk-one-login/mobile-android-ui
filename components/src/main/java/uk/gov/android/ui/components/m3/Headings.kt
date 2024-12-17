@@ -24,30 +24,30 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.mediumPadding
 
 sealed class HeadingSize(
-    val style: @Composable () -> TextStyle
+    val style: @Composable () -> TextStyle,
 ) {
     class DisplaySmall : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.displaySmall
-        }
+        },
     )
 
     class HeadlineLarge : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineLarge
-        }
+        },
     )
 
     class HeadlineMedium : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineMedium
-        }
+        },
     )
 
     class HeadlineSmall : HeadingSize(
         style = @Composable {
             MaterialTheme.typography.headlineSmall
-        }
+        },
     )
 }
 
@@ -60,7 +60,7 @@ data class Heading(
     val text: Int,
     val textVar: String? = null,
     val textAlign: TextAlign? = TextAlign.Start,
-    val padding: PaddingValues = PaddingValues(bottom = mediumPadding)
+    val padding: PaddingValues = PaddingValues(bottom = mediumPadding),
 ) {
     override fun toString(): String = "GDS Heading $size"
     val generate: @Composable () -> Unit
@@ -72,20 +72,20 @@ data class Heading(
             Text(
                 color = color
                     ?: MaterialTheme.colorScheme.contentColorFor(
-                        MaterialTheme.colorScheme.background
+                        MaterialTheme.colorScheme.background,
                     ),
                 modifier = modifier
                     .background(
                         color = backgroundColor
-                            ?: MaterialTheme.colorScheme.background
+                            ?: MaterialTheme.colorScheme.background,
                     )
                     .semantics { heading() }
                     .padding(
-                        padding
+                        padding,
                     ),
                 style = size.style(),
                 text = textVar?.let { stringResource(id = text, it) } ?: stringResource(id = text),
-                textAlign = textAlign
+                textAlign = textAlign,
             )
         }
 }
@@ -94,35 +94,35 @@ class HeadingsProvider : PreviewParameterProvider<Heading> {
     override val values: Sequence<Heading> = sequenceOf(
         Heading(
             text = R.string.preview__GdsHeading__h1,
-            size = HeadingSize.DisplaySmall()
+            size = HeadingSize.DisplaySmall(),
         ),
         Heading(
             text = R.string.preview__GdsHeading__h2,
-            size = HeadingSize.HeadlineLarge()
+            size = HeadingSize.HeadlineLarge(),
         ),
         Heading(
             text = R.string.preview__GdsHeading__h3,
-            size = HeadingSize.HeadlineMedium()
+            size = HeadingSize.HeadlineMedium(),
         ),
         Heading(
             text = R.string.preview__GdsHeading__h4,
-            size = HeadingSize.HeadlineSmall()
-        )
+            size = HeadingSize.HeadlineSmall(),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(HeadingsProvider::class)
-    headingParameters: Heading
+    headingParameters: Heading,
 ) {
     GdsTheme {
         headingParameters.generate()

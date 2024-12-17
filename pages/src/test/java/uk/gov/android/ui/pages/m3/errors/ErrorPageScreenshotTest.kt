@@ -9,7 +9,7 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class ErrorPageScreenshotTest(
-    private val parameters: Pair<ErrorPageParameters, NightMode>
+    private val parameters: Pair<ErrorPageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

@@ -8,10 +8,10 @@ data class ErrorPageParameters(
     val primaryButtonParameters: ButtonParameters,
     val informationParameters: InformationParameters,
     val secondaryButtonParameters: ButtonParameters? = null,
-    val modifier: Modifier = Modifier
+    val modifier: Modifier = Modifier,
 ) {
     fun getSubtitleEntry(resourceIndex: Int = 0) = informationParameters.getSubtitleEntry(
-        resourceIndex
+        resourceIndex,
     )
     fun hasSecondaryButton(): Boolean = secondaryButtonParameters != null
 }

@@ -11,7 +11,7 @@ data class ButtonParameters(
     var enabled: Boolean = true,
     val onClick: () -> Unit,
     @StringRes
-    val text: Int
+    val text: Int,
 ) {
     override fun toString(): String = "GDS Button"
 }

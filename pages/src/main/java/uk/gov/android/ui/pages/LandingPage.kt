@@ -40,7 +40,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Suppress("LongMethod")
 @Composable
 fun LandingPage(
-    landingPageParameters: LandingPageParameters
+    landingPageParameters: LandingPageParameters,
 ) {
     landingPageParameters.apply {
         GdsTheme {
@@ -49,16 +49,16 @@ fun LandingPage(
                     .fillMaxSize()
                     .padding(
                         bottom = mediumPadding,
-                        top = mediumPadding
+                        top = mediumPadding,
                     ),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
-                        .weight(1f)
+                        .weight(1f),
                 ) {
                     topIcon?.let {
                         GdsVectorImage(
@@ -71,8 +71,8 @@ fun LandingPage(
                                 description = contentDescription,
                                 image = it,
                                 scale = topIconScale,
-                                iconColor = iconColor
-                            )
+                                iconColor = iconColor,
+                            ),
                         )
                     }
                     GdsHeading(
@@ -85,9 +85,9 @@ fun LandingPage(
                             padding = PaddingValues(
                                 end = smallPadding,
                                 start = smallPadding,
-                                bottom = titleBottomPadding
-                            )
-                        )
+                                bottom = titleBottomPadding,
+                            ),
+                        ),
                     )
                     content?.let {
                         GdsContent(
@@ -97,8 +97,8 @@ fun LandingPage(
                                 internalColumnModifier = Modifier
                                     .padding(contentInternalPadding),
                                 resource = it,
-                                textAlign = contentAlign
-                            )
+                                textAlign = contentAlign,
+                            ),
                         )
                     }
                 }
@@ -110,10 +110,10 @@ fun LandingPage(
                             .fillMaxWidth()
                             .padding(
                                 start = smallPadding,
-                                end = smallPadding
+                                end = smallPadding,
                             ),
-                        onClick = onPrimary
-                    )
+                        onClick = onPrimary,
+                    ),
                 )
             }
         }
@@ -134,7 +134,7 @@ data class LandingPageParameters(
     val contentPadding: PaddingValues = PaddingValues(
         end = smallPadding,
         start = smallPadding,
-        bottom = smallPadding
+        bottom = smallPadding,
     ),
     var onPrimary: () -> Unit = {},
     @StringRes
@@ -142,7 +142,7 @@ data class LandingPageParameters(
     @StringRes
     val title: Int,
     val titleAlign: TextAlign = TextAlign.Center,
-    val titleBottomPadding: Dp = mediumPadding
+    val titleBottomPadding: Dp = mediumPadding,
 )
 
 class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
@@ -153,18 +153,18 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
             title = R.string.preview__BrpInstructions__title,
             content = listOf(
                 GdsContentText.GdsContentTextString(
-                    intArrayOf(R.string.preview__BrpInstructions__subtitle_1)
-                )
+                    intArrayOf(R.string.preview__BrpInstructions__subtitle_1),
+                ),
             ),
-            primaryButtonText = R.string.preview__BrpInstructions__primary_button
+            primaryButtonText = R.string.preview__BrpInstructions__primary_button,
         ),
         LandingPageParameters(
             topIcon = R.drawable.ic_photo_camera,
             iconPadding = PaddingValues(bottom = smallPadding),
             contentDescription = R.string.preview__landingPage__iconContentDescription,
             title = R.string.preview__BrpInstructions__title,
-            primaryButtonText = R.string.preview__BrpInstructions__primary_button
-        )
+            primaryButtonText = R.string.preview__BrpInstructions__primary_button,
+        ),
     )
 }
 
@@ -172,20 +172,20 @@ class LandingPageProvider : PreviewParameterProvider<LandingPageParameters> {
     backgroundColor = 0xFFFFFFFF,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     backgroundColor = 0xFF000000,
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 fun Preview(
     @PreviewParameter(LandingPageProvider::class)
-    parameters: LandingPageParameters
+    parameters: LandingPageParameters,
 ) {
     LandingPage(
-        landingPageParameters = parameters
+        landingPageParameters = parameters,
     )
 }

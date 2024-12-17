@@ -10,17 +10,17 @@ import uk.gov.android.ui.components.R.drawable
 class GdsIconProvider : PreviewParameterProvider<IconParameters> {
     override val values: Sequence<IconParameters> = sequenceOf(
         IconParameters(
-            image = drawable.ic_error
+            image = drawable.ic_error,
         ),
         IconParameters(
             backGroundColor = Color.Green,
             image = drawable.ic_error,
-            size = 100
+            size = 100,
         ),
         IconParameters(
             foreGroundColor = Color.Green,
             image = drawable.ic_error,
-            size = 100
-        )
+            size = 100,
+        ),
     )
 }

@@ -18,18 +18,18 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 @Composable
 fun CloseButton(
     modifier: Modifier = Modifier,
-    onClose: () -> Unit
+    onClose: () -> Unit,
 ) {
     IconButton(
         modifier = modifier.then(
-            Modifier.size(closeButtonSize)
+            Modifier.size(closeButtonSize),
         ),
-        onClick = onClose
+        onClick = onClose,
     ) {
         Icon(
             imageVector = Icons.Filled.Close,
             contentDescription = stringResource(R.string.preview__CloseButton__close),
-            tint = colorScheme.primary
+            tint = colorScheme.primary,
         )
     }
 }

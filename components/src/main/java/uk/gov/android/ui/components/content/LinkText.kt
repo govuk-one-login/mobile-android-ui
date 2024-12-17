@@ -28,7 +28,7 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun GdsLinkText(
-    params: LinkTextParameters
+    params: LinkTextParameters,
 ) {
     val uriHandler = LocalUriHandler.current
     params.apply {
@@ -36,12 +36,12 @@ fun GdsLinkText(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    colors.background
+                    colors.background,
                 )
                 .then(
-                    colModifier
+                    colModifier,
                 ),
-            horizontalAlignment = colAlignment
+            horizontalAlignment = colAlignment,
         ) {
             Text(
                 color = color ?: colors.primary,
@@ -51,7 +51,7 @@ fun GdsLinkText(
                     },
                 style = textStyle ?: MaterialTheme.typography.body1,
                 text = stringResource(id = contentText),
-                textAlign = textAlign
+                textAlign = textAlign,
             )
         }
     }
@@ -67,7 +67,7 @@ data class LinkTextParameters(
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
-    val textAlign: TextAlign = TextAlign.Start
+    val textAlign: TextAlign = TextAlign.Start,
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -76,27 +76,27 @@ class LinkTextProvider : PreviewParameterProvider<LinkTextParameters> {
     override val values: Sequence<LinkTextParameters> = sequenceOf(
         LinkTextParameters(
             contentText = R.string.preview__GdsContent__oneLine_0,
-            uri = ""
-        )
+            uri = "",
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(LinkTextProvider::class)
-    params: LinkTextParameters
+    params: LinkTextParameters,
 ) {
     GdsTheme {
         GdsLinkText(
-            params
+            params,
         )
     }
 }

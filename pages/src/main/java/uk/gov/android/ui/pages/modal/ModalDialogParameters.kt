@@ -9,12 +9,12 @@ data class ModalDialogParameters(
     val bullets: List<String>,
     val footer: AnnotatedString,
     val buttonParams: ButtonParameters,
-    val onClose: () -> Unit = {}
+    val onClose: () -> Unit = {},
 ) {
     data class ButtonParameters(
         val buttonType: ButtonType = ButtonType.PRIMARY(),
         val text: String,
         val isEnabled: Boolean = true,
-        val onClick: () -> Unit
+        val onClick: () -> Unit,
     )
 }

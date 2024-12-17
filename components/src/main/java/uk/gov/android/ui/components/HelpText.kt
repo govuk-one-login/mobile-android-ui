@@ -26,19 +26,19 @@ import uk.gov.android.ui.theme.xsmallPadding
 
 @Composable
 fun GdsHelpText(
-    helpTextParameters: HelpTextParameters
+    helpTextParameters: HelpTextParameters,
 ) {
     helpTextParameters.apply {
         Row(
             modifier = Modifier
                 .semantics(mergeDescendants = true) {}
                 .background(
-                    MaterialTheme.colors.background
+                    MaterialTheme.colors.background,
                 )
                 .then(
-                    helpTextParameters.rowModifier
+                    helpTextParameters.rowModifier,
                 ),
-            verticalAlignment = rowAlignment
+            verticalAlignment = rowAlignment,
         ) {
             key(iconParameters) {
                 GdsIcon(iconParameters)
@@ -50,10 +50,10 @@ fun GdsHelpText(
                     size = HeadingSize.H4(),
                     text = text,
                     padding = PaddingValues(
-                        start = xsmallPadding
+                        start = xsmallPadding,
                     ),
-                    textAlign = textAlign
-                )
+                    textAlign = textAlign,
+                ),
             )
         }
     }
@@ -67,7 +67,7 @@ data class HelpTextParameters(
     val rowAlignment: Alignment.Vertical = Alignment.CenterVertically,
     val textModifier: Modifier = Modifier.fillMaxWidth(),
     val textAlign: TextAlign = TextAlign.Start,
-    val iconParameters: IconParameters
+    val iconParameters: IconParameters,
 ) {
     override fun toString(): String = this::class.java.simpleName
 }
@@ -77,28 +77,28 @@ class HelpTextProvider : PreviewParameterProvider<HelpTextParameters> {
         HelpTextParameters(
             text = R.string.preview__GdsContent__oneLine_0,
             iconParameters = IconParameters(
-                image = drawable.ic_warning_icon
-            )
-        )
+                image = drawable.ic_warning_icon,
+            ),
+        ),
     )
 }
 
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
 )
 @Preview(
     showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun Preview(
     @PreviewParameter(HelpTextProvider::class)
-    helpTextParameters: HelpTextParameters
+    helpTextParameters: HelpTextParameters,
 ) {
     GdsTheme {
         GdsHelpText(
-            helpTextParameters
+            helpTextParameters,
         )
     }
 }

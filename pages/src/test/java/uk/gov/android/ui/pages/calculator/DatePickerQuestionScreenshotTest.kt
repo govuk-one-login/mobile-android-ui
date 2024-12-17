@@ -9,7 +9,7 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class DatePickerQuestionScreenshotTest(
-    private val parameters: Pair<DatePickerQuestionParameters, NightMode>
+    private val parameters: Pair<DatePickerQuestionParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

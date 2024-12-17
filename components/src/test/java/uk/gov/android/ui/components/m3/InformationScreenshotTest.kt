@@ -10,7 +10,7 @@ import uk.gov.android.ui.components.m3.information.InformationProvider
 
 @RunWith(Parameterized::class)
 class InformationScreenshotTest(
-    private val parameters: Pair<InformationParameters, NightMode>
+    private val parameters: Pair<InformationParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
