@@ -90,31 +90,31 @@ fun ThemePreview() {
                 SwatchColor(primary, "Primary"),
                 SwatchColor(secondary, "Secondary"),
                 SwatchColor(tertiary, "Tertiary"),
-                SwatchColor(error, "Error")
+                SwatchColor(error, "Error"),
             )
             val onStandardColors = listOf(
                 SwatchColor(onPrimary, "On Primary", primary),
                 SwatchColor(onSecondary, "On Secondary", secondary),
                 SwatchColor(onTertiary, "On Tertiary", tertiary),
-                SwatchColor(onError, "On Error", error)
+                SwatchColor(onError, "On Error", error),
             )
             val containerColors = listOf(
                 SwatchColor(primaryContainer, "Primary Container"),
                 SwatchColor(secondaryContainer, "Secondary Container"),
                 SwatchColor(tertiaryContainer, "Tertiary Container"),
-                SwatchColor(errorContainer, "Error Container")
+                SwatchColor(errorContainer, "Error Container"),
             )
             val onContainerColors = listOf(
                 SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
                 SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
                 SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
-                SwatchColor(onErrorContainer, "On Error Container", errorContainer)
+                SwatchColor(onErrorContainer, "On Error Container", errorContainer),
             )
             val otherContainerColors = listOf(
                 SwatchColor(inversePrimary, "Inverse Primary"),
                 SwatchColor(inverseSurface, "Inverse Surface"),
                 SwatchColor(inverseOnSurface, "Inverse On Surface"),
-                SwatchColor(scrim, "Scrim")
+                SwatchColor(scrim, "Scrim"),
             )
             val surfaceColors = listOf(
                 SwatchColor(surface, "Surface"),

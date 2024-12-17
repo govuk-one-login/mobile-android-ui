@@ -30,7 +30,7 @@ class SwatchTest {
                 data = SwatchColor(
                     Color.White,
                     "White",
-                )
+                ),
             )
         }
 

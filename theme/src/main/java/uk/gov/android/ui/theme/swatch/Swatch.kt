@@ -2,8 +2,6 @@ package uk.gov.android.ui.theme.swatch
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
@@ -69,7 +67,7 @@ internal fun SwatchPreview() {
             data = SwatchColor(
                 MaterialTheme.colorScheme.primary,
                 "Primary",
-            )
+            ),
         )
     }
 }
