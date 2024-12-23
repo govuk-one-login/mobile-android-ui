@@ -37,7 +37,7 @@ import uk.gov.android.ui.theme.textSizeH4
 /**
  * [Material3 typography styles](https://m3.material.io/blog/migrating-material-3)
  *
- * Material                     -> Material3
+ * Material3                    -> Material
  * textAppearanceDisplayLarge   -> textAppearanceDisplay2            No current GDS design
  * textAppearanceDisplayMedium  -> textAppearanceDisplay3            No current GDS design
  * textAppearanceDisplaySmall   -> textAppearanceHeadline1

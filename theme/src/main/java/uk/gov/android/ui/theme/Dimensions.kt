@@ -42,3 +42,6 @@ val xsmallPadding = 8.dp
 val smallPadding = 16.dp
 val mediumPadding = 24.dp
 val largePadding = 24.dp
+
+// Swatch
+val swatchSize = 200.dp
