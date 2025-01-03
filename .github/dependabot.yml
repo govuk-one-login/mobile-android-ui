@@ -5,20 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "gradle" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "build"
-
   - package-ecosystem: "github-actions"
-    directories:
-      - "/"
-      - "/config/actions/**"
+    directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 5
     groups:
       github-actions:
         applies-to: version-updates
@@ -26,3 +17,19 @@ updates:
           - "*"
     commit-message:
       prefix: "ci"
+
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
+
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build"
