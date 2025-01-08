@@ -22,6 +22,8 @@ import uk.gov.android.ui.theme.m3_theme_light_onTertiary
 import uk.gov.android.ui.theme.m3_theme_light_primary
 import uk.gov.android.ui.theme.m3_theme_light_secondary
 import uk.gov.android.ui.theme.m3_theme_light_tertiary
+import uk.gov.android.ui.theme.mc_theme_dark_inverseOnSurface
+import uk.gov.android.ui.theme.mc_theme_light_inverseOnSurface
 import uk.gov.android.ui.theme.md_theme_dark_onSurface
 import uk.gov.android.ui.theme.md_theme_dark_surface
 import uk.gov.android.ui.theme.md_theme_dark_surfaceVariant
@@ -77,6 +79,7 @@ val DarkColorPalette = darkColorScheme(
     surface = md_theme_dark_surface,
     onSurface = md_theme_dark_onSurface,
     surfaceVariant = md_theme_dark_surfaceVariant,
+    inverseOnSurface = mc_theme_dark_inverseOnSurface,
 )
 
 val LightColorPalette = lightColorScheme(
@@ -93,4 +96,5 @@ val LightColorPalette = lightColorScheme(
     surface = md_theme_light_surface,
     onSurface = md_theme_light_onSurface,
     surfaceVariant = md_theme_light_surfaceVariant,
+    inverseOnSurface = mc_theme_light_inverseOnSurface,
 )

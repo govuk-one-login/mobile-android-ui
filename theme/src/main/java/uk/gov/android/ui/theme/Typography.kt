@@ -15,7 +15,7 @@ val Typography = Typography(
     ),
     body2 = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
-        fontSize = textSizeBody2,
+        fontSize = textSizeCallout,
         fontWeight = FontWeight.ExtraLight,
     ),
     h1 = TextStyle(

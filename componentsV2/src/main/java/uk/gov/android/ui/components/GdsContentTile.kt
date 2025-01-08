@@ -68,7 +68,7 @@ fun GdsContentTile(
                 caption?.let {
                     Text(
                         text = stringResource(caption),
-                        style = Typography.labelMedium,
+                        style = Typography.bodySmall,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = xsmallPadding),
@@ -77,14 +77,14 @@ fun GdsContentTile(
 
                 Text(
                     text = stringResource(title),
-                    style = Typography.titleLarge,
+                    style = Typography.headlineMedium,
                     modifier = Modifier.customTilePadding(body),
                 )
 
                 body?.let {
                     Text(
                         text = stringResource(body),
-                        style = Typography.bodySmall,
+                        style = Typography.bodyLarge,
                         modifier = Modifier.padding(vertical = xsmallPadding),
                     )
                 }
@@ -116,7 +116,7 @@ data class ContentTileParameters(
             this.javaClass.simpleName.toString(),
             secondaryIcon.toString(),
         )
-        if (!displayPrimary) {
+        if (!displayPrimary && text != null) {
             if (secondaryIcon == null) {
                 Log.e(error.key, error.message, error)
                 throw error

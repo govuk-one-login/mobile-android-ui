@@ -7,8 +7,8 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
-class GdsContentTileScreenshotTest (
-    private val parameters: Pair<ContentTileParameters, NightMode>
+class GdsContentTileScreenshotTest(
+    private val parameters: Pair<ContentTileParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
