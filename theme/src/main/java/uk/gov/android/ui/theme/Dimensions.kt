@@ -12,16 +12,24 @@ val scannedImageThumbnailHeight = 126.dp
 val spacingSingle = 8.dp
 val spacingDouble = 16.dp
 val spacingTriple = 24.dp
-val textSizeBody = 16.sp
-val textSizeBody2 = 12.sp
+val textSizeBody = 17.sp
+val textSizeCallout = 16.sp
+val textSizeSubheadline = 15.sp
+val textSizeFootnote = 14.sp
+val textSizeCaption = 12.sp
 val textSizeH1 = 34.sp
-val textSizeH2 = 24.sp
-val textSizeH3 = 20.sp
-val textSizeH4 = 17.sp
-val lineHeightH1 = 39.sp
-val lineHeightH2 = 30.sp
-val lineHeightH3 = 24.sp
-val lineHeightH4 = 20.sp
+val textSizeH2 = 28.sp
+val textSizeH3 = 22.sp
+val textSizeH4 = 20.sp
+val lineHeightH1 = 41.sp
+val lineHeightH2 = 34.sp
+val lineHeightH3 = 28.sp
+val lineHeightH4 = 24.sp
+val lineHeightB1 = 22.sp
+val lineHeightB2 = 21.sp
+val lineHeightB3 = 20.sp
+val lineHeightB4 = 16.sp
+val lineHeightB5 = 17.sp
 val chipImageThumbnailWidth = 114.dp
 val chipImageThumbnailHeight = 148.dp
 val radioButtonMinHeight = 48.dp
@@ -45,3 +53,10 @@ val largePadding = 24.dp
 
 // Swatch
 val swatchSize = 200.dp
+
+// Divider
+val dividerThickness = 1.dp
+
+// Content Tile
+val tileCornerRadius = 12.dp
+const val ROW_DISTRIBUTION = .1f

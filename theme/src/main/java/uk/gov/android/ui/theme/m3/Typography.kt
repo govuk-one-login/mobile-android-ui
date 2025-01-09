@@ -19,40 +19,46 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import uk.gov.android.ui.theme.R
-import uk.gov.android.ui.theme.buttonLineHeight
 import uk.gov.android.ui.theme.buttonTextSize
+import uk.gov.android.ui.theme.lineHeightB1
+import uk.gov.android.ui.theme.lineHeightB2
+import uk.gov.android.ui.theme.lineHeightB3
+import uk.gov.android.ui.theme.lineHeightB4
+import uk.gov.android.ui.theme.lineHeightB5
 import uk.gov.android.ui.theme.lineHeightH1
 import uk.gov.android.ui.theme.lineHeightH2
 import uk.gov.android.ui.theme.lineHeightH3
 import uk.gov.android.ui.theme.lineHeightH4
 import uk.gov.android.ui.theme.textSizeBody
-import uk.gov.android.ui.theme.textSizeBody2
+import uk.gov.android.ui.theme.textSizeCallout
+import uk.gov.android.ui.theme.textSizeCaption
+import uk.gov.android.ui.theme.textSizeFootnote
 import uk.gov.android.ui.theme.textSizeH1
 import uk.gov.android.ui.theme.textSizeH2
 import uk.gov.android.ui.theme.textSizeH3
 import uk.gov.android.ui.theme.textSizeH4
+import uk.gov.android.ui.theme.textSizeSubheadline
 
 /**
  * [Material3 typography styles](https://m3.material.io/blog/migrating-material-3)
  *
- * Material3                    -> Material
- * textAppearanceDisplayLarge   -> textAppearanceDisplay2            No current GDS design
- * textAppearanceDisplayMedium  -> textAppearanceDisplay3            No current GDS design
- * textAppearanceDisplaySmall   -> textAppearanceHeadline1
- * textAppearanceHeadlineLarge  -> textAppearanceHeadline2
- * textAppearanceHeadlineMedium -> textAppearanceHeadline3
- * textAppearanceHeadlineSmall  -> textAppearanceHeadline4
- * textAppearanceTitleLarge     -> textAppearanceHeadline5           No current GDS design
- * textAppearanceTitleMedium    -> textAppearanceSubhead1/Subtitle1  No current GDS design
- * textAppearanceTitleSmall     -> textAppearanceSubhead2/Subtitle2  No current GDS design
- * textAppearanceBodyLarge      -> textAppearanceBody1
- * textAppearanceBodyMedium     -> textAppearanceBody2
- * textAppearanceBodySmall      -> textAppearanceCaption             No current GDS design
- * textAppearanceLabelLarge     -> textAppearanceButton
- * textAppearanceLabelMedium    -> textAppearanceOverline            No current GDS design
- * textAppearanceLabelSmall     -> N/A                               No current GDS design
+ * Material3                    -> GDS
+ * 1. textAppearanceDisplayLarge   => No current GDS design
+ * 2. textAppearanceDisplayMedium  => No current GDS design
+ * 3. textAppearanceDisplaySmall   => Large Headline
+ * 4. textAppearanceHeadlineLarge  => Title 1
+ * 5. textAppearanceHeadlineMedium => Title 2
+ * 6. textAppearanceHeadlineSmall  => Title 3
+ * 7. textAppearanceTitleLarge     => No current GDS design
+ * 8. textAppearanceTitleMedium    => No current GDS design
+ * 9. textAppearanceTitleSmall     => No current GDS design
+ * 10. textAppearanceBodyLarge     => Body
+ * 11. textAppearanceBodyMedium    => Callout
+ * 12. textAppearanceBodySmall     => Subheadline
+ * 13. textAppearanceLabelLarge    => Button text
+ * 14. textAppearanceLabelMedium   => Footnote
+ * 15. textAppearanceLabelSmall    => Caption
  * */
 val Typography = Typography(
     displaySmall = TextStyle(
@@ -83,17 +89,31 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeBody,
         fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB1,
     ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
-        fontSize = textSizeBody2,
+        fontSize = textSizeCallout,
         fontWeight = FontWeight.ExtraLight,
+        lineHeight = lineHeightB2,
     ),
     bodySmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
-        fontSize = 17.sp,
-        lineHeight = 22.sp,
+        fontSize = textSizeSubheadline,
         fontWeight = FontWeight.Light,
+        lineHeight = lineHeightB3,
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily((Font(R.font.gds_transport_light))),
+        fontSize = textSizeFootnote,
+        fontWeight = FontWeight.Light,
+        lineHeight = lineHeightB4,
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily((Font(R.font.gds_transport_light))),
+        fontSize = textSizeCaption,
+        fontWeight = FontWeight.Light,
+        lineHeight = lineHeightB5,
     ),
     labelLarge = TextStyle(
         fontFamily = FontFamily(
@@ -111,25 +131,7 @@ val Typography = Typography(
             ),
         ),
         fontSize = buttonTextSize,
-        lineHeight = buttonLineHeight,
-    ),
-    labelMedium = TextStyle(
-        fontFamily = FontFamily(
-            Font(
-                resId = R.font.gds_transport_light,
-                weight = FontWeight.Light,
-            ),
-            Font(
-                resId = R.font.gds_transport_light,
-                weight = FontWeight.Normal,
-            ),
-            Font(
-                resId = R.font.gds_transport_bold,
-                weight = FontWeight.Bold,
-            ),
-        ),
-        fontSize = buttonTextSize,
-        lineHeight = buttonLineHeight,
+        lineHeight = lineHeightB1,
     ),
 )
 
@@ -137,21 +139,21 @@ val Typography = Typography(
 @Composable
 private fun TypographyPreview() {
     val types: List<Pair<String, TextStyle>> = listOf(
-        "displayLarge" to Typography.displayLarge,
+        "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
         "displaySmall" to Typography.displaySmall,
-        "headlineLarge" to Typography.headlineLarge,
-        "headlineMedium" to Typography.headlineMedium,
-        "headlineSmall" to Typography.headlineSmall,
+        "Title 1" to Typography.headlineLarge,
+        "Title 2" to Typography.headlineMedium,
+        "Title 3" to Typography.headlineSmall,
         "titleLarge" to Typography.titleLarge,
         "titleMedium" to Typography.titleMedium,
         "titleSmall" to Typography.titleSmall,
-        "bodyLarge" to Typography.bodyLarge,
-        "bodyMedium" to Typography.bodyMedium,
-        "bodySmall" to Typography.bodySmall,
-        "labelLarge" to Typography.labelLarge,
-        "labelMedium" to Typography.labelMedium,
-        "labelSmall" to Typography.labelSmall,
+        "Body" to Typography.bodyLarge,
+        "Callout" to Typography.bodyMedium,
+        "Subheadline" to Typography.bodySmall,
+        "Button text" to Typography.labelLarge,
+        "Footnote" to Typography.labelMedium,
+        "Caption" to Typography.labelSmall,
     )
     GdsTheme {
         LazyColumn {
