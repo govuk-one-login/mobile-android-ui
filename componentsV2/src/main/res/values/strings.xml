@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content Tile -->
+    <string name="caption">Caption (optional)</string>
+    <string name="title">Title (required)</string>
+    <string name="body"> Body (optional)</string>
+
+    <!-- Annotated String -->
+    <string name="annotated_string"> Annotated string</string>
+    <string name="in_line_icon_id">in-line icon id</string>
+
+    <!-- Images -->
+    <string name="vector_image_content_description">Vector Image Description</string>
+    <string name="icon_content_desc">Icon Description</string>
+
+    <!-- Buttons -->
+    <string name="text_button">Button text</string>
+    <string name="primary_button">Primary Button</string>
+    <string name="secondary_button">Secondary Button</string>
+    <string name="tertiary_button">Tertiary Button</string>
+    <string name="quaternary_button">Quaternary Button</string>
+    <string name="admin_button">Admin Button</string>
+    <string name="error_button">Error Button</string>
+</resources>
