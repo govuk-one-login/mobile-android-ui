@@ -133,6 +133,24 @@ val Typography = Typography(
         fontSize = buttonTextSize,
         lineHeight = lineHeightB1,
     ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily(
+            Font(
+                resId = R.font.gds_transport_light,
+                weight = FontWeight.Light,
+            ),
+            Font(
+                resId = R.font.gds_transport_light,
+                weight = FontWeight.Normal,
+            ),
+            Font(
+                resId = R.font.gds_transport_bold,
+                weight = FontWeight.Bold,
+            ),
+        ),
+        fontSize = buttonTextSize,
+        lineHeight = buttonLineHeight,
+    ),
 )
 
 @Preview
