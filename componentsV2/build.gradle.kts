@@ -91,11 +91,12 @@ dependencies {
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library",
+            "Mobile Android Component Library Version 2",
         )
         description.set(
             """
-            Use pre-built reusable components to build consistent apps.
+            Use pre-built reusable components to build consistent apps - this will replace the
+            components module with a more standardised approach.
             """.trimIndent(),
         )
     }

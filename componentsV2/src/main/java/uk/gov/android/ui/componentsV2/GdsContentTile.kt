@@ -4,16 +4,22 @@ import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -29,7 +35,9 @@ import uk.gov.android.ui.componentsV2.images.IconParameters
 import uk.gov.android.ui.componentsV2.images.VectorImageParameters
 import uk.gov.android.ui.componentsV2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsV2.utils.ModifierExtensions.elevatedCardModifier
+import uk.gov.android.ui.theme.ROW_DISTRIBUTION
 import uk.gov.android.ui.theme.dividerThickness
+import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.smallPadding
@@ -42,7 +50,6 @@ fun GdsContentTile(
     parameters: ContentTileParameters,
     onClick: () -> Unit,
 ) {
-    val defaultContentDescription = R.string.vector_image_content_description
     with(parameters) {
         Card(
             colors = CardDefaults.cardColors(
@@ -52,44 +59,43 @@ fun GdsContentTile(
             shape = RoundedCornerShape(tileCornerRadius),
             modifier = Modifier.elevatedCardModifier(),
         ) {
-            image?.let {
-                GdsVectorImage(
-                    VectorImageParameters(
-                        image = image,
-                        contentDescription = contentDescription ?: defaultContentDescription,
-                        scale = ContentScale.FillWidth,
-                    ),
-                )
-            }
+            TileImage()
             Column(
                 modifier = Modifier
-                    .weight(1f, false)
-                    .padding(horizontal = smallPadding),
+                    .weight(1f, false),
             ) {
-                caption?.let {
-                    Text(
-                        text = stringResource(caption),
-                        style = Typography.bodySmall,
+                Row {
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = xsmallPadding),
-                    )
+                            .weight(ROW_DISTRIBUTION, false)
+                            .padding(horizontal = smallPadding),
+                    ) {
+                        caption?.let {
+                            Text(
+                                text = stringResource(caption),
+                                style = Typography.bodySmall,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = xsmallPadding),
+                            )
+                        }
+                        Text(
+                            text = stringResource(title),
+                            style = Typography.headlineMedium,
+                            modifier = Modifier.customTilePadding(body),
+                        )
+                        body?.let {
+                            Text(
+                                text = stringResource(body),
+                                style = Typography.bodyLarge,
+                                modifier = Modifier.padding(vertical = xsmallPadding),
+                            )
+                        }
+                    }
+                    if (image == null) {
+                        DismissIcon()
+                    }
                 }
-
-                Text(
-                    text = stringResource(title),
-                    style = Typography.headlineMedium,
-                    modifier = Modifier.customTilePadding(body),
-                )
-
-                body?.let {
-                    Text(
-                        text = stringResource(body),
-                        style = Typography.bodyLarge,
-                        modifier = Modifier.padding(vertical = xsmallPadding),
-                    )
-                }
-
                 Buttons(onClick)
             }
         }
@@ -101,6 +107,7 @@ data class ContentTileParameters(
     val image: Int? = null,
     @StringRes
     val contentDescription: Int? = null,
+    val showDismissIcon: Boolean = false,
     @StringRes
     val caption: Int? = null,
     @StringRes
@@ -127,6 +134,43 @@ data class ContentTileParameters(
 }
 
 @Composable
+private fun ContentTileParameters.TileImage() {
+    val defaultContentDescription = R.string.vector_image_content_description
+    image?.let {
+        Box {
+            GdsVectorImage(
+                VectorImageParameters(
+                    image = image,
+                    contentDescription = contentDescription ?: defaultContentDescription,
+                    scale = ContentScale.FillWidth,
+                ),
+            )
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .fillMaxWidth(),
+            ) { DismissIcon() }
+        }
+    }
+}
+
+@Composable
+private fun ContentTileParameters.DismissIcon() {
+    if (showDismissIcon) {
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = stringResource(R.string.icon_content_desc),
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(
+                top = xsmallPadding,
+                bottom = largePadding,
+                end = smallPadding,
+            ),
+        )
+    }
+}
+
+@Composable
 private fun ContentTileParameters.Buttons(
     onClick: () -> Unit,
 ) {
@@ -141,6 +185,8 @@ private fun ContentTileParameters.Buttons(
                         .padding(
                             top = xsmallPadding,
                             bottom = smallPadding,
+                            start = smallPadding,
+                            end = smallPadding,
                         ),
                     contentModifier = Modifier.fillMaxWidth(),
                 ),
@@ -168,7 +214,8 @@ private fun ContentTileParameters.Buttons(
                             ),
                         ),
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .padding(horizontal = xsmallPadding),
                         contentPosition = Arrangement.Start,
                     ),
                     onClick = onClick,
@@ -183,6 +230,7 @@ class ContentTilePreviewParameters : PreviewParameterProvider<ContentTileParamet
         ContentTileParameters(
             image = R.drawable.ic_tile_image,
             contentDescription = R.string.vector_image_content_description,
+            showDismissIcon = true,
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
@@ -211,6 +259,14 @@ class ContentTilePreviewParameters : PreviewParameterProvider<ContentTileParamet
         ContentTileParameters(
             caption = R.string.caption,
             title = R.string.title,
+        ),
+        ContentTileParameters(
+            showDismissIcon = true,
+            caption = R.string.caption,
+            title = R.string.title,
+            body = R.string.body,
+            displayPrimary = true,
+            text = R.string.primary_button,
         ),
     )
 }

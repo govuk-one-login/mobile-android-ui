@@ -1,8 +1,11 @@
 package uk.gov.android.ui.componentsV2
 
 import android.content.Context
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -54,6 +57,10 @@ class GdsContentTileTest {
                 performClick()
             }
 
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsDisplayed()
+
             assertEquals(1, onClick)
         }
     }
@@ -77,6 +84,11 @@ class GdsContentTileTest {
                 assertIsDisplayed()
                 performClick()
             }
+
+            // The same icon description is used for the AnnotatedString used for Secondary Button
+            onAllNodesWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertCountEquals(1)
 
             assertEquals(1, onClick)
         }
@@ -105,6 +117,10 @@ class GdsContentTileTest {
                 performClick()
             }
 
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsNotDisplayed()
+
             assertEquals(1, onClick)
         }
     }
@@ -128,6 +144,10 @@ class GdsContentTileTest {
                 performClick()
             }
 
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsNotDisplayed()
+
             assertEquals(1, onClick)
         }
     }
@@ -144,7 +164,42 @@ class GdsContentTileTest {
                 resources.getString(R.string.title),
             ).assertIsDisplayed()
 
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsNotDisplayed()
+
             assertEquals(0, onClick)
+        }
+    }
+
+    @Test
+    fun checkTileWithPrimaryBtnAndDismissBtnButNoImage() {
+        setupContent(parameters[5])
+        composeTestRule.apply {
+            onNodeWithText(
+                resources.getString(R.string.caption),
+            ).assertIsDisplayed()
+
+            onNodeWithText(
+                resources.getString(R.string.title),
+            ).assertIsDisplayed()
+
+            onNodeWithText(
+                resources.getString(R.string.body),
+            ).assertIsDisplayed()
+
+            onNodeWithText(
+                resources.getString(R.string.primary_button),
+            ).apply {
+                assertIsDisplayed()
+                performClick()
+            }
+
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsDisplayed()
+
+            assertEquals(1, onClick)
         }
     }
 
