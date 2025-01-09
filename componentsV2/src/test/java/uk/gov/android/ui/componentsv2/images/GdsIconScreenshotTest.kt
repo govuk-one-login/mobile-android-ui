@@ -1,10 +1,10 @@
-package uk.gov.android.ui.componentsV2.images
+package uk.gov.android.ui.componentsv2.images
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.componentsV2.BaseScreenshotTest
+import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class GdsIconScreenshotTest(

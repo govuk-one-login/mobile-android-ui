@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.images
+package uk.gov.android.ui.componentsv2.images
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import uk.gov.android.ui.componentsV2.R
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable

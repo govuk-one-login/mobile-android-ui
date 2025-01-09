@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.images
+package uk.gov.android.ui.componentsv2.images
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -7,33 +7,33 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsV2.R
+import uk.gov.android.ui.componentsv2.R
 
-class GdsIconTest {
+class GdsVectorImageTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = IconPreviewParameters().values.toList()
+    private val parameters = VectorImageProvider().values.toList()
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testIcon() {
+    fun testImage() {
         composeTestRule.setContent {
-            GdsIcon(parameters[0])
+            GdsVectorImage(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.icon_content_desc),
+            resources.getString(R.string.vector_image_content_description),
         ).assertIsDisplayed()
     }
 
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            IconPreview(parameters[0])
+            VectorImagePreview(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.icon_content_desc),
+            resources.getString(R.string.vector_image_content_description),
         ).assertIsDisplayed()
     }
 }

@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.text
+package uk.gov.android.ui.componentsv2.text
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.em
-import uk.gov.android.ui.componentsV2.R
-import uk.gov.android.ui.componentsV2.images.GdsIcon
-import uk.gov.android.ui.componentsV2.images.IconParameters
+import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.componentsv2.images.IconParameters
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3_theme_dark_primary

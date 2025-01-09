@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.utils
+package uk.gov.android.ui.componentsv2.utils
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

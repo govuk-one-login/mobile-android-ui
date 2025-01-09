@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2
+package uk.gov.android.ui.componentsv2
 
 import android.util.Log
 import androidx.annotation.DrawableRes
@@ -26,14 +26,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.componentsV2.button.ButtonParameters
-import uk.gov.android.ui.componentsV2.button.ButtonType
-import uk.gov.android.ui.componentsV2.button.GdsButton
-import uk.gov.android.ui.componentsV2.images.GdsVectorImage
-import uk.gov.android.ui.componentsV2.images.IconParameters
-import uk.gov.android.ui.componentsV2.images.VectorImageParameters
-import uk.gov.android.ui.componentsV2.utils.ModifierExtensions.customTilePadding
-import uk.gov.android.ui.componentsV2.utils.ModifierExtensions.elevatedCardModifier
+import uk.gov.android.ui.componentsv2.button.ButtonParameters
+import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.images.GdsVectorImage
+import uk.gov.android.ui.componentsv2.images.IconParameters
+import uk.gov.android.ui.componentsv2.images.VectorImageParameters
+import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
+import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.ROW_DISTRIBUTION
 import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.largePadding

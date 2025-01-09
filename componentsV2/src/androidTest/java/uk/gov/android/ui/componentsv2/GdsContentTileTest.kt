@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2
+package uk.gov.android.ui.componentsv2
 
 import android.content.Context
 import androidx.compose.ui.test.assertCountEquals

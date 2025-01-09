@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.button
+package uk.gov.android.ui.componentsv2.button
 
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -6,7 +6,7 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import uk.gov.android.ui.componentsV2.images.IconParameters
+import uk.gov.android.ui.componentsv2.images.IconParameters
 import uk.gov.android.ui.theme.adminButton
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled

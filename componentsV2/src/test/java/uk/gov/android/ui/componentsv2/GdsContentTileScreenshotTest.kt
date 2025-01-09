@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2
+package uk.gov.android.ui.componentsv2
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode

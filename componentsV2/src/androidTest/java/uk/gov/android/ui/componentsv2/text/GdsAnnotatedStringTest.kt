@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.text
+package uk.gov.android.ui.componentsv2.text
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -8,7 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsV2.R
+import uk.gov.android.ui.componentsv2.R
 
 class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()

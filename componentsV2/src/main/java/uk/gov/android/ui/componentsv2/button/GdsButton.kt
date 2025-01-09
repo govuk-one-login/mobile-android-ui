@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.button
+package uk.gov.android.ui.componentsv2.button
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,10 +15,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.componentsV2.R
-import uk.gov.android.ui.componentsV2.images.IconParameters
-import uk.gov.android.ui.componentsV2.text.AnnotatedStringParameters
-import uk.gov.android.ui.componentsV2.text.GdsAnnotatedString
+import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.images.IconParameters
+import uk.gov.android.ui.componentsv2.text.AnnotatedStringParameters
+import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.GdsTheme

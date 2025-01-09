@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsV2.button
+package uk.gov.android.ui.componentsv2.button
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsV2.R
+import uk.gov.android.ui.componentsv2.R
 
 class GdsButtonTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
