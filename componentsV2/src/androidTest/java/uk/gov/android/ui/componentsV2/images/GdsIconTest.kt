@@ -7,8 +7,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsV2.R
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.components.R
 
 class GdsIconTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -21,9 +20,7 @@ class GdsIconTest {
     @Test
     fun testIcon() {
         composeTestRule.setContent {
-            GdsTheme {
-                GdsIcon(parameters[0])
-            }
+            GdsIcon(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.icon_content_desc),
@@ -33,9 +30,7 @@ class GdsIconTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsTheme {
-                IconPreview(parameters[0])
-            }
+            IconPreview(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.icon_content_desc),

@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class GdsContentTileScreenshotTest(
@@ -12,9 +11,7 @@ class GdsContentTileScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsTheme {
-            GdsContentTile(parameters.first) { }
-        }
+        GdsContentTile(parameters.first) { }
     }
 
     companion object {

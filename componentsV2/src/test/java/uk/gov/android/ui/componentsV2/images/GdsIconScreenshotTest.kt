@@ -5,7 +5,6 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsV2.BaseScreenshotTest
-import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 class GdsIconScreenshotTest(
@@ -13,9 +12,7 @@ class GdsIconScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsTheme {
-            GdsIcon(parameters.first)
-        }
+        GdsIcon(parameters.first)
     }
 
     companion object {

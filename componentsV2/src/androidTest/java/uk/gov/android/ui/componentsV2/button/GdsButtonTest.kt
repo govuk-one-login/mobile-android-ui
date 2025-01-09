@@ -11,8 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsV2.R
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.components.R
 
 class GdsButtonTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -129,9 +128,7 @@ class GdsButtonTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsTheme {
-                ButtonPreview(parameters[0])
-            }
+            ButtonPreview(parameters[0])
         }
         composeTestRule.onNodeWithText(
             resources.getString(R.string.primary_button),
@@ -140,9 +137,7 @@ class GdsButtonTest {
 
     private fun setupContent(parameters: ButtonParameters) {
         composeTestRule.setContent {
-            GdsTheme {
-                GdsButton(parameters) { onClick++ }
-            }
+            GdsButton(parameters) { onClick++ }
         }
     }
 }

@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.components.R
 
 class GdsContentTileTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -151,9 +151,7 @@ class GdsContentTileTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsTheme {
-                ContentTilePreview(parameters[0])
-            }
+            ContentTilePreview(parameters[0])
         }
         composeTestRule.apply {
             onNodeWithContentDescription(
@@ -180,10 +178,8 @@ class GdsContentTileTest {
 
     private fun setupContent(parameters: ContentTileParameters) {
         composeTestRule.setContent {
-            GdsTheme {
-                GdsContentTile(parameters) {
-                    onClick++
-                }
+            GdsContentTile(parameters) {
+                onClick++
             }
         }
     }

@@ -8,7 +8,6 @@ import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.components.R
-import uk.gov.android.ui.theme.m3.GdsTheme
 
 class GdsVectorImageTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -21,9 +20,7 @@ class GdsVectorImageTest {
     @Test
     fun testImage() {
         composeTestRule.setContent {
-            GdsTheme {
-                GdsVectorImage(parameters[0])
-            }
+            GdsVectorImage(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.vector_image_content_description),
@@ -33,9 +30,7 @@ class GdsVectorImageTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsTheme {
-                VectorImagePreview(parameters[0])
-            }
+            VectorImagePreview(parameters[0])
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.vector_image_content_description),
