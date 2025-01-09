@@ -97,6 +97,15 @@ class AnnotatedStringPreviewParameters : PreviewParameterProvider<AnnotatedStrin
             iconColor = m3_theme_dark_primary,
             iconBackgroundColor = m3_theme_light_background,
         ),
+        AnnotatedStringParameters(
+            text = R.string.annotated_string,
+            fontWeight = FontWeight.Bold,
+            icon = R.drawable.ic_external_site,
+            iconContentDescription = R.string.icon_content_desc,
+            isIconTrailing = false,
+            iconColor = m3_theme_dark_primary,
+            iconBackgroundColor = m3_theme_light_background,
+        ),
     )
 }
 

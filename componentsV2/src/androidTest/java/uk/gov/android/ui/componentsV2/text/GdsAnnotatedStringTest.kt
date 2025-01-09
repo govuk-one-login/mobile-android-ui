@@ -19,7 +19,7 @@ class GdsAnnotatedStringTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testString() {
+    fun testStringIconTrailing() {
         composeTestRule.setContent {
             GdsAnnotatedString(parameters[0])
         }

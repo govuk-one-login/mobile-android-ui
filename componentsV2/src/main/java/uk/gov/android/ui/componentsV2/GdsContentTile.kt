@@ -47,6 +47,7 @@ fun GdsContentTile(
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                contentColor = MaterialTheme.colorScheme.onBackground,
             ),
             shape = RoundedCornerShape(tileCornerRadius),
             modifier = Modifier.elevatedCardModifier(),
