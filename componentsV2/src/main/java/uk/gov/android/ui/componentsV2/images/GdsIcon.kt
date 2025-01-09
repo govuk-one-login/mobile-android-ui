@@ -24,7 +24,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 fun GdsIcon(
     parameters: IconParameters,
 ) {
-    parameters.apply {
+    with(parameters) {
         val setColor = hasSpecifiedColor()
         val setBackgroundColor = hasSpecifiedBackgroundColor()
         val iconModifier = this.modifier.then(

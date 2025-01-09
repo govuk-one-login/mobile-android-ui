@@ -31,7 +31,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 fun GdsAnnotatedString(
     parameters: AnnotatedStringParameters,
 ) {
-    parameters.apply {
+    with(parameters) {
         val iconIdStr = stringResource(id = iconId)
         val annotatedString: AnnotatedString = buildAnnotatedString {
             if (isIconTrailing) {

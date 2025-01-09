@@ -29,7 +29,7 @@ fun GdsButton(
     parameters: ButtonParameters,
     onClick: () -> Unit,
 ) {
-    parameters.apply {
+    with(parameters) {
         Button(
             colors = buttonType.buttonColour(),
             modifier = modifier.then(

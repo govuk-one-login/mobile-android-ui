@@ -22,7 +22,7 @@ import uk.gov.android.ui.theme.GdsTheme
 fun GdsVectorImage(
     parameters: VectorImageParameters,
 ) {
-    parameters.apply {
+    with(parameters) {
         Image(
             painter = key(image) { painterResource(id = image) },
             colorFilter = this.hasSpecifiedColor(),

@@ -43,7 +43,7 @@ fun GdsContentTile(
     onClick: () -> Unit,
 ) {
     val defaultContentDescription = R.string.vector_image_content_description
-    parameters.apply {
+    with(parameters) {
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface,
