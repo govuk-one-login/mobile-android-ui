@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.components.R
+import uk.gov.android.ui.componentsV2.R
 
 class GdsButtonTest {
     private val context: Context = ApplicationProvider.getApplicationContext()

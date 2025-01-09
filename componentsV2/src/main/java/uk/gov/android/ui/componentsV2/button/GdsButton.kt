@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.components.R
+import uk.gov.android.ui.componentsV2.R
 import uk.gov.android.ui.componentsV2.images.IconParameters
 import uk.gov.android.ui.componentsV2.text.AnnotatedStringParameters
 import uk.gov.android.ui.componentsV2.text.GdsAnnotatedString
