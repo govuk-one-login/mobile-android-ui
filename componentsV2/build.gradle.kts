@@ -10,7 +10,7 @@ plugins {
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
-        namespace = "${apkConfig.applicationId}.components"
+        namespace = "${apkConfig.applicationId}.componentsV2"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

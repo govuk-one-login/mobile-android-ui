@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.em
-import uk.gov.android.ui.components.R
+import uk.gov.android.ui.componentsV2.R
 import uk.gov.android.ui.componentsV2.images.GdsIcon
 import uk.gov.android.ui.componentsV2.images.IconParameters
 import uk.gov.android.ui.theme.m3.GdsTheme

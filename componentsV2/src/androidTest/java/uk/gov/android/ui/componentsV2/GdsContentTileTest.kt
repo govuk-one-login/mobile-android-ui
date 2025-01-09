@@ -14,7 +14,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.components.R
 
 class GdsContentTileTest {
     private val context: Context = ApplicationProvider.getApplicationContext()

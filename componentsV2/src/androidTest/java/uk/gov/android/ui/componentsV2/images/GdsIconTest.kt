@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.components.R
+import uk.gov.android.ui.componentsV2.R
 
 class GdsIconTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
