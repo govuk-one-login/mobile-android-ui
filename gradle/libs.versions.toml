@@ -1,6 +1,6 @@
 [versions]
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
-android-gradle = "8.7.3" # https://developer.android.com/studio/releases/gradle-plugin
+android-gradle = "8.8.0" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-orchestrator = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
