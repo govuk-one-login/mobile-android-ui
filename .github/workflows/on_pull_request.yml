@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@8366aae226b63f3923a4b94d253f6c60c27577f9
+        uses: govuk-one-login/mobile-android-pipelines@DCMAW-10665-enable-post-merge-workflow
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
