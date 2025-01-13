@@ -29,7 +29,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 @Composable
 fun ModalDialogV2(
     parameters: ModalDialogParametersV2,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     with(parameters) {
         GdsTheme {
@@ -52,7 +52,7 @@ fun ModalDialogV2(
                             Icon(
                                 imageVector = Icons.Outlined.Close,
                                 contentDescription = "Localized description",
-                                tint = colorScheme.primary
+                                tint = colorScheme.primary,
                             )
                         }
                     },
@@ -66,7 +66,7 @@ fun ModalDialogV2(
 
 data class ModalPreviewParameters(
     val modalDialogParameters: ModalDialogParametersV2,
-    val content: @Composable () -> Unit
+    val content: @Composable () -> Unit,
 )
 
 class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParameters> {
@@ -83,23 +83,21 @@ class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParamete
                         ),
                     ),
                     primaryButtonText = R.string.preview__modal_v2_example3_primary_button,
-                )
+                ),
             )
-        }
+        },
     )
 }
-
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 internal fun ModalDialogPreview(
     @PreviewParameter(ModalDialogPreviewProvider::class)
-    parameters: ModalPreviewParameters
+    parameters: ModalPreviewParameters,
 ) {
     ModalDialogV2(
         parameters = parameters.modalDialogParameters,
-        content = parameters.content
+        content = parameters.content,
     )
 }
-

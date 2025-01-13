@@ -21,11 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import uk.gov.android.ui.components.m3.buttons.ButtonParameters
 import uk.gov.android.ui.components.m3.buttons.ButtonType
-import uk.gov.android.ui.components.m3.buttons.CloseButton
 import uk.gov.android.ui.components.m3.buttons.GdsButton
 import uk.gov.android.ui.pages.modal.v2.ModalDialogParametersV2
 import uk.gov.android.ui.pages.modal.v2.ModalDialogV2
-import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
@@ -33,7 +31,7 @@ import uk.gov.android.ui.theme.smallPadding
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
         ModalDialogV2(
-            parameters = ModalDialogParametersV2(onClose = parameters.onClose)
+            parameters = ModalDialogParametersV2(onClose = parameters.onClose),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
