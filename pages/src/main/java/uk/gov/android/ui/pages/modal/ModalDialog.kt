@@ -23,18 +23,22 @@ import uk.gov.android.ui.components.m3.buttons.ButtonParameters
 import uk.gov.android.ui.components.m3.buttons.ButtonType
 import uk.gov.android.ui.components.m3.buttons.CloseButton
 import uk.gov.android.ui.components.m3.buttons.GdsButton
+import uk.gov.android.ui.pages.modal.v2.ModalDialogParametersV2
+import uk.gov.android.ui.pages.modal.v2.ModalDialogV2
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
+@Deprecated(message = "Please upgrade to ModalDialogV2")
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
-        GdsTheme {
+        ModalDialogV2(
+            parameters = ModalDialogParametersV2(onClose = parameters.onClose)
+        ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
-                CloseButton(onClose = onClose)
                 Column(
                     modifier = Modifier
                         .padding(smallPadding)

@@ -31,4 +31,8 @@
     <string name="loadingScreen__progressBar__contentDescription">Circular Progress Indicator</string>
     <string name="loadingScreen__navIcon__contentDescription">Close Loading Screen</string>
 
+    <string name="preview__modal_v2_example3_title">Continue to prove your identity</string>
+    <string name="preview__modal_v2_example3_text">Make sure you have your photo ID with you.\\nYou\\\'ll be asked to take a photo of it with your phone.</string>
+    <string name="preview__modal_v2_example3_primary_button">Continue</string>
+
 </resources>
