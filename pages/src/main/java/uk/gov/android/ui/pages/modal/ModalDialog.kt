@@ -39,7 +39,6 @@ fun ModalDialog(parameters: ModalDialogParameters) {
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(smallPadding)
                         .fillMaxWidth()
                         .weight(1.0f)
                         .verticalScroll(rememberScrollState()),
