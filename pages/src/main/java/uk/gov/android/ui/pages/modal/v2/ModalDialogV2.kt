@@ -5,11 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.components.content.GdsContentText
+import uk.gov.android.ui.components.m3.buttons.CloseButton
 import uk.gov.android.ui.pages.LandingPage
 import uk.gov.android.ui.pages.LandingPageParameters
 import uk.gov.android.ui.pages.R
@@ -55,13 +52,7 @@ fun ModalDialogV2(
                             }
                         },
                         navigationIcon = {
-                            IconButton(onClick = onClose) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Close,
-                                    contentDescription = "Localized description",
-                                    tint = colorScheme.primary,
-                                )
-                            }
+                            CloseButton(onClose = onClose)
                         },
                         scrollBehavior = scrollBehavior,
                     )
@@ -81,6 +72,10 @@ fun ModalDialogV2(
     }
 }
 
+internal val modalDialogPreviewParams = ModalDialogParametersV2(
+    title = "Title",
+)
+
 data class ModalPreviewParameters(
     val modalDialogParameters: ModalDialogParametersV2,
     val content: @Composable () -> Unit,
@@ -88,7 +83,7 @@ data class ModalPreviewParameters(
 
 class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParameters> {
     override val values: Sequence<ModalPreviewParameters> = sequenceOf(
-        ModalPreviewParameters(ModalDialogParametersV2(title = "Title")) { },
+        ModalPreviewParameters(modalDialogPreviewParams) { },
 
         ModalPreviewParameters(ModalDialogParametersV2()) {
             LandingPage(
