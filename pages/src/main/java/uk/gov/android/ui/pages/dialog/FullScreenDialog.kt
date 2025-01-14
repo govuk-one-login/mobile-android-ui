@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.modal
+package uk.gov.android.ui.pages.dialog
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +27,7 @@ import uk.gov.android.ui.theme.smallPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FullScreenModal(
+fun FullScreenDialog(
     onDismissRequest: () -> Unit = { },
     modifier: Modifier = Modifier,
     title: String? = null,
@@ -74,17 +74,17 @@ fun FullScreenModal(
     }
 }
 
-data class ModalPreviewParameters(
+data class FullScreenDialogPreviewParameters(
     val onDismissRequest: () -> Unit = { },
     val title: String? = "Title",
     val content: @Composable () -> Unit = { },
 )
 
-class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParameters> {
-    override val values: Sequence<ModalPreviewParameters> = sequenceOf(
-        ModalPreviewParameters(),
+class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
+    override val values: Sequence<FullScreenDialogPreviewParameters> = sequenceOf(
+        FullScreenDialogPreviewParameters(),
 
-        ModalPreviewParameters(title = null) {
+        FullScreenDialogPreviewParameters(title = null) {
             Text("Content")
         },
     )
@@ -94,10 +94,10 @@ class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParamete
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 internal fun ModalDialogPreview(
-    @PreviewParameter(ModalDialogPreviewProvider::class)
-    parameters: ModalPreviewParameters,
+    @PreviewParameter(FullScreenDialogPreviewProvider::class)
+    parameters: FullScreenDialogPreviewParameters,
 ) {
-    FullScreenModal(
+    FullScreenDialog(
         title = parameters.title,
         content = parameters.content,
     )

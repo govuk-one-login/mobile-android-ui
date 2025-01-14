@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.modal
+package uk.gov.android.ui.pages.dialog
 
 import android.content.Context
 import androidx.compose.material3.Text
@@ -17,7 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.components.R
 
-class FullScreenModalTest {
+class FullScreenDialogTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -39,7 +39,7 @@ class FullScreenModalTest {
     @Test
     fun verifyUI() {
         composeTestRule.setContent {
-            FullScreenModal(title = titleText) {
+            FullScreenDialog(title = titleText) {
                 Text(contentText)
             }
         }
@@ -53,7 +53,7 @@ class FullScreenModalTest {
         var didClose = false
 
         composeTestRule.setContent {
-            FullScreenModal(
+            FullScreenDialog(
                 title = titleText,
                 onDismissRequest = {
                     didClose = true

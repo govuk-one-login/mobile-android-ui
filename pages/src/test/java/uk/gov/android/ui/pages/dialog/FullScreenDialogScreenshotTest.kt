@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.modal
+package uk.gov.android.ui.pages.dialog
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,12 +9,12 @@ import uk.gov.android.ui.pages.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
-class FullScreenModalScreenshotTest(
+class FullScreenDialogScreenshotTest(
     private val parameters: Pair<String, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
-            FullScreenModal(title = parameters.first) {
+            FullScreenDialog(title = parameters.first) {
                 Text("Content")
             }
         }
