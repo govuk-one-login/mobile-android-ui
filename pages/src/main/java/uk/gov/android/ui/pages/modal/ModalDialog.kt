@@ -27,7 +27,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-@Deprecated(message = "Please upgrade to FullScreenModal")
+@Deprecated(message = "Please upgrade to FullScreenDialog")
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
         GdsTheme {
