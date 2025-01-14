@@ -21,11 +21,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.m3.buttons.CloseButton
-import uk.gov.android.ui.pages.LandingPage
-import uk.gov.android.ui.pages.LandingPageParameters
-import uk.gov.android.ui.pages.R
 import uk.gov.android.ui.theme.smallPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,17 +82,7 @@ class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParamete
         ModalPreviewParameters(),
 
         ModalPreviewParameters(title = null) {
-            LandingPage(
-                landingPageParameters = LandingPageParameters(
-                    title = R.string.preview__modal_v2_example3_title,
-                    content = listOf(
-                        GdsContentText.GdsContentTextString(
-                            intArrayOf(R.string.preview__modal_v2_example3_text),
-                        ),
-                    ),
-                    primaryButtonText = R.string.preview__modal_v2_example3_primary_button,
-                ),
-            )
+            Text("Content")
         },
     )
 }
