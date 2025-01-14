@@ -29,7 +29,7 @@ import uk.gov.android.ui.theme.smallPadding
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
         FullScreenModal(
-            onDismissRequest = parameters.onClose
+            onDismissRequest = parameters.onClose,
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),

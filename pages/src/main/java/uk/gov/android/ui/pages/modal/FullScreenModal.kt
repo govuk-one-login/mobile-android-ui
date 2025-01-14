@@ -19,12 +19,13 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.components.m3.buttons.CloseButton
 import uk.gov.android.ui.pages.LandingPage
 import uk.gov.android.ui.pages.LandingPageParameters
 import uk.gov.android.ui.pages.R
-import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,9 +34,12 @@ fun FullScreenModal(
     onDismissRequest: () -> Unit = { },
     modifier: Modifier = Modifier,
     title: String? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    GdsTheme {
+    Dialog(
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+        onDismissRequest = onDismissRequest,
+    ) {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
         Scaffold(
@@ -59,7 +63,7 @@ fun FullScreenModal(
             },
         ) { innerPadding ->
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(smallPadding)
                     .padding(innerPadding),
