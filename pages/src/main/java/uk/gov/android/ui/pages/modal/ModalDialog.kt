@@ -21,22 +21,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import uk.gov.android.ui.components.m3.buttons.ButtonParameters
 import uk.gov.android.ui.components.m3.buttons.ButtonType
+import uk.gov.android.ui.components.m3.buttons.CloseButton
 import uk.gov.android.ui.components.m3.buttons.GdsButton
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 @Deprecated(message = "Please upgrade to FullScreenModal")
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
-        FullScreenModal(
-            onDismissRequest = parameters.onClose,
-        ) {
+        GdsTheme {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
+                CloseButton(onClose = onClose)
                 Column(
                     modifier = Modifier
+                        .padding(smallPadding)
                         .fillMaxWidth()
                         .weight(1.0f)
                         .verticalScroll(rememberScrollState()),

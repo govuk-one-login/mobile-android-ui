@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -36,36 +37,38 @@ fun FullScreenModal(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = onDismissRequest,
     ) {
-        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        Surface(modifier = Modifier.fillMaxSize()) {
+            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-        Scaffold(
-            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                TopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = colorScheme.background,
-                        titleContentColor = colorScheme.contentColorFor(colorScheme.background),
-                    ),
-                    title = {
-                        title?.let {
-                            Text(title)
-                        }
-                    },
-                    navigationIcon = {
-                        CloseButton(onClose = onDismissRequest)
-                    },
-                    scrollBehavior = scrollBehavior,
-                )
-            },
-        ) { innerPadding ->
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(smallPadding)
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.SpaceBetween,
-            ) {
-                content()
+            Scaffold(
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                topBar = {
+                    TopAppBar(
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = colorScheme.background,
+                            titleContentColor = colorScheme.contentColorFor(colorScheme.background),
+                        ),
+                        title = {
+                            title?.let {
+                                Text(title)
+                            }
+                        },
+                        navigationIcon = {
+                            CloseButton(onClose = onDismissRequest)
+                        },
+                        scrollBehavior = scrollBehavior,
+                    )
+                },
+            ) { innerPadding ->
+                Column(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(smallPadding)
+                        .padding(innerPadding),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    content()
+                }
             }
         }
     }
