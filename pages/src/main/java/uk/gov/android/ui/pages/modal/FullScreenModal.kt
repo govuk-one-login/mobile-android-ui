@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.modal.v2
+package uk.gov.android.ui.pages.modal
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -29,63 +29,59 @@ import uk.gov.android.ui.theme.smallPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ModalDialogV2(
-    parameters: ModalDialogParametersV2,
-    content: @Composable () -> Unit,
+fun FullScreenModal(
+    onDismissRequest: () -> Unit = { },
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    content: @Composable () -> Unit
 ) {
-    with(parameters) {
-        GdsTheme {
-            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    GdsTheme {
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-            Scaffold(
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-
-                topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = colorScheme.background,
-                            titleContentColor = colorScheme.contentColorFor(colorScheme.background),
-                        ),
-                        title = {
-                            title?.let {
-                                Text(title)
-                            }
-                        },
-                        navigationIcon = {
-                            CloseButton(onClose = onClose)
-                        },
-                        scrollBehavior = scrollBehavior,
-                    )
-                },
-            ) { innerPadding ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(smallPadding)
-                        .padding(innerPadding),
-                    verticalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    content()
-                }
+        Scaffold(
+            modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = colorScheme.background,
+                        titleContentColor = colorScheme.contentColorFor(colorScheme.background),
+                    ),
+                    title = {
+                        title?.let {
+                            Text(title)
+                        }
+                    },
+                    navigationIcon = {
+                        CloseButton(onClose = onDismissRequest)
+                    },
+                    scrollBehavior = scrollBehavior,
+                )
+            },
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(smallPadding)
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.SpaceBetween,
+            ) {
+                content()
             }
         }
     }
 }
 
-internal val modalDialogPreviewParams = ModalDialogParametersV2(
-    title = "Title",
-)
-
 data class ModalPreviewParameters(
-    val modalDialogParameters: ModalDialogParametersV2,
-    val content: @Composable () -> Unit,
+    val onDismissRequest: () -> Unit = { },
+    val title: String? = "Title",
+    val content: @Composable () -> Unit = { },
 )
 
 class ModalDialogPreviewProvider : PreviewParameterProvider<ModalPreviewParameters> {
     override val values: Sequence<ModalPreviewParameters> = sequenceOf(
-        ModalPreviewParameters(modalDialogPreviewParams) { },
+        ModalPreviewParameters(),
 
-        ModalPreviewParameters(ModalDialogParametersV2()) {
+        ModalPreviewParameters(title = null) {
             LandingPage(
                 landingPageParameters = LandingPageParameters(
                     title = R.string.preview__modal_v2_example3_title,
@@ -108,8 +104,8 @@ internal fun ModalDialogPreview(
     @PreviewParameter(ModalDialogPreviewProvider::class)
     parameters: ModalPreviewParameters,
 ) {
-    ModalDialogV2(
-        parameters = parameters.modalDialogParameters,
+    FullScreenModal(
+        title = parameters.title,
         content = parameters.content,
     )
 }

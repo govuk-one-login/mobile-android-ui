@@ -22,16 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import uk.gov.android.ui.components.m3.buttons.ButtonParameters
 import uk.gov.android.ui.components.m3.buttons.ButtonType
 import uk.gov.android.ui.components.m3.buttons.GdsButton
-import uk.gov.android.ui.pages.modal.v2.ModalDialogParametersV2
-import uk.gov.android.ui.pages.modal.v2.ModalDialogV2
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-@Deprecated(message = "Please upgrade to ModalDialogV2")
+@Deprecated(message = "Please upgrade to FullScreenModal")
 fun ModalDialog(parameters: ModalDialogParameters) {
     with(parameters) {
-        ModalDialogV2(
-            parameters = ModalDialogParametersV2(onClose = parameters.onClose),
+        FullScreenModal(
+            onDismissRequest = parameters.onClose
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),

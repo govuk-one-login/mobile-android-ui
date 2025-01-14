@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.modal.v2
+package uk.gov.android.ui.pages.modal
 
 import android.content.Context
 import androidx.compose.material3.Text
@@ -17,7 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.components.R
 
-class ModalDialogV2Test {
+class FullScreenModalTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -39,7 +39,7 @@ class ModalDialogV2Test {
     @Test
     fun verifyUI() {
         composeTestRule.setContent {
-            ModalDialogV2(parameters.copy()) {
+            FullScreenModal(title = titleText) {
                 Text(contentText)
             }
         }
@@ -53,12 +53,11 @@ class ModalDialogV2Test {
         var didClose = false
 
         composeTestRule.setContent {
-            ModalDialogV2(
-                parameters = parameters.copy(
-                    onClose = {
-                        didClose = true
-                    },
-                ),
+            FullScreenModal(
+                title = titleText,
+                onDismissRequest = {
+                    didClose = true
+                },
             ) {
                 Text(contentText)
             }
@@ -69,9 +68,5 @@ class ModalDialogV2Test {
         composeTestRule.onNode(closeButton).performClick()
 
         assertEquals(true, didClose)
-    }
-
-    companion object {
-        private val parameters = modalDialogPreviewParams.copy()
     }
 }
