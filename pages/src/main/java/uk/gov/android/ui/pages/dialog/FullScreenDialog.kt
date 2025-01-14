@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import uk.gov.android.ui.components.m3.buttons.CloseButton
-import uk.gov.android.ui.theme.smallPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,7 +62,6 @@ fun FullScreenDialog(
                 Column(
                     modifier = modifier
                         .fillMaxSize()
-                        .padding(smallPadding)
                         .padding(innerPadding),
                     verticalArrangement = Arrangement.SpaceBetween,
                 ) {
