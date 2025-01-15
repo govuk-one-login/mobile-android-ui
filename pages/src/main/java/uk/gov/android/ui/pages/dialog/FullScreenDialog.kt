@@ -23,6 +23,25 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import uk.gov.android.ui.components.m3.buttons.CloseButton
 
+/**
+ * Full screen dialog
+ *
+ * Use this pattern for a task made up of a series of steps
+ *
+ * Examples of tasks that are self-contained or actions that require a series of tasks
+ * - ID Check
+ * - Add document
+ * - Sign out
+ *
+ * ‘Close’ icon in Android full screen dialog allow users to exit the journey easily
+ * whenever they need. Users can use the device back button or gestures to return to the
+ * previous screen.
+ *
+ * @param onDismissRequest Executes when the user tries to dismiss the dialog.
+ * @param modifier Modifier to be applied to the layout corresponding to the dialog content
+ * @param title The content to be displayed inside the dialog.
+ * @param content The content to be displayed inside the dialog.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialog(

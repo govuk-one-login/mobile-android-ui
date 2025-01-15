@@ -39,7 +39,10 @@ class FullScreenDialogTest {
     @Test
     fun verifyUI() {
         composeTestRule.setContent {
-            FullScreenDialog(title = titleText) {
+            FullScreenDialog(
+                onDismissRequest = { },
+                title = titleText,
+            ) {
                 Text(contentText)
             }
         }
