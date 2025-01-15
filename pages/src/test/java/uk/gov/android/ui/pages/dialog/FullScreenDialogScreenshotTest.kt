@@ -14,7 +14,10 @@ class FullScreenDialogScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
-            FullScreenDialog(title = parameters.first) {
+            FullScreenDialog(
+                title = parameters.first,
+                onDismissRequest = { },
+            ) {
                 Text("Content")
             }
         }
