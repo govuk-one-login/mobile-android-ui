@@ -1,6 +1,5 @@
 package uk.gov.android.ui.pages.dialog
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +16,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
@@ -27,7 +26,7 @@ import uk.gov.android.ui.components.m3.buttons.CloseButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialog(
-    onDismissRequest: () -> Unit = { },
+    onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
     content: @Composable () -> Unit,
@@ -72,13 +71,13 @@ fun FullScreenDialog(
     }
 }
 
-data class FullScreenDialogPreviewParameters(
+internal data class FullScreenDialogPreviewParameters(
     val onDismissRequest: () -> Unit = { },
     val title: String? = "Title",
     val content: @Composable () -> Unit = { },
 )
 
-class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
+internal class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
     override val values: Sequence<FullScreenDialogPreviewParameters> = sequenceOf(
         FullScreenDialogPreviewParameters(),
 
@@ -88,14 +87,14 @@ class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialo
     )
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@PreviewLightDark
 @Composable
 internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialogPreviewProvider::class)
     parameters: FullScreenDialogPreviewParameters,
 ) {
     FullScreenDialog(
+        onDismissRequest = { },
         title = parameters.title,
         content = parameters.content,
     )
