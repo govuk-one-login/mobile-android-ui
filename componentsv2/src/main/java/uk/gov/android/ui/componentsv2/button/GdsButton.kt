@@ -54,9 +54,8 @@ fun GdsButton(
         Content(
             text = text,
             buttonType = buttonType,
-            modifier = modifier,
+            modifier = contentModifier,
             contentPosition = contentPosition,
-            contentModifier = contentModifier,
         )
     }
 }
@@ -66,11 +65,10 @@ private fun Content(
     text: String,
     buttonType: ButtonType,
     modifier: Modifier = Modifier,
-    contentModifier: Modifier = modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
 ) {
     Row(
-        modifier = contentModifier,
+        modifier = modifier,
         horizontalArrangement = contentPosition,
     ) {
         if (buttonType is ButtonType.Icon) {
