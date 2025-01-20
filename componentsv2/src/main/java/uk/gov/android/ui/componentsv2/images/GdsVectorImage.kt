@@ -31,9 +31,8 @@ fun GdsVectorImage(
         colorFilter = color.toTint(),
         contentDescription = contentDescription,
         contentScale = scale,
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(modifier),
+        modifier = modifier
+            .fillMaxWidth(),
     )
 }
 
