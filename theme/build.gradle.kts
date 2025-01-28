@@ -58,6 +58,10 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    ktlint {
+        version = libs.versions.ktlint.cli
+    }
 }
 
 dependencies {
