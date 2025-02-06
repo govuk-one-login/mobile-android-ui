@@ -101,12 +101,18 @@ tasks.matching { task ->
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library",
+            "Mobile Android Patterns Library",
         )
         description.set(
             """
             Patterns are best practice design solutions for specific user-focused tasks and pages.
             """.trimIndent(),
         )
+    }
+}
+
+android {
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 }
