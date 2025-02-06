@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.dialog
+package uk.gov.android.ui.patterns.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import uk.gov.android.ui.components.m3.buttons.CloseButton
+import uk.gov.android.ui.componentsv2.button.CloseButton
 
 /**
  * Full screen dialog
@@ -47,11 +47,6 @@ import uk.gov.android.ui.components.m3.buttons.CloseButton
  * @param title The content to be displayed inside the dialog.
  * @param content The content to be displayed inside the dialog.
  */
-@Deprecated(
-    message = "This needs to be replaced with the existing version of the patterns module.",
-    replaceWith = ReplaceWith("uk/gov/android/ui/patterns/dialog/FullScreenDialogTest.kt"),
-    level = DeprecationLevel.WARNING,
-)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialog(
@@ -102,6 +97,59 @@ fun FullScreenDialog(
     }
 }
 
+/**
+ * Full screen dialog
+ *
+ * Use this pattern for a task made up of a series of steps
+ *
+ * Examples of tasks that are self-contained or actions that require a series of tasks
+ * - ID Check
+ * - Add document
+ * - Sign out
+ *
+ * ‘Close’ icon in Android full screen dialog allow users to exit the journey easily
+ * whenever they need. Users can use the device back button or gestures to return to the
+ * previous screen.
+ *
+ * @param onDismissRequest Executes when the user tries to dismiss the dialog.
+ * @param modifier Modifier to be applied to the layout corresponding to the dialog content
+ * @param topAppBar Requires any type of [TopAppBar] to allow customisation
+ * @param content The content to be displayed inside the dialog.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FullScreenDialog(
+    onDismissRequest: () -> Unit,
+    topAppBar: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Dialog(
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+        onDismissRequest = onDismissRequest,
+    ) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+            Scaffold(
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                topBar = { topAppBar() },
+            ) { innerPadding ->
+                Column(
+                    modifier = modifier
+                        .height(IntrinsicSize.Max)
+                        .verticalScroll(rememberScrollState())
+                        .padding(innerPadding)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    content()
+                }
+            }
+        }
+    }
+}
+
 internal data class FullScreenDialogPreviewParameters(
     val onDismissRequest: () -> Unit = { },
     val title: String? = "Title",
@@ -127,6 +175,24 @@ internal fun ModalDialogPreview(
     FullScreenDialog(
         onDismissRequest = { },
         title = parameters.title,
+        content = parameters.content,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@PreviewLightDark
+@Composable
+internal fun ModalDialogWithCustomisedTopAppBarPreview(
+    @PreviewParameter(FullScreenDialogPreviewProvider::class)
+    parameters: FullScreenDialogPreviewParameters,
+) {
+    FullScreenDialog(
+        onDismissRequest = { },
+        topAppBar = {
+            TopAppBar(
+                title = { Text("") },
+            )
+        },
         content = parameters.content,
     )
 }
