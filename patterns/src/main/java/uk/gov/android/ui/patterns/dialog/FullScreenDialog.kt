@@ -136,8 +136,7 @@ fun FullScreenDialog(
                 topBar = { topAppBar() },
             ) { innerPadding ->
                 Column(
-                    modifier = modifier
-                        .height(IntrinsicSize.Max)
+                    modifier = modifier.height(IntrinsicSize.Max)
                         .verticalScroll(rememberScrollState())
                         .padding(innerPadding)
                         .fillMaxWidth(),
@@ -157,13 +156,13 @@ internal data class FullScreenDialogPreviewParameters(
 )
 
 internal class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
-    override val values: Sequence<FullScreenDialogPreviewParameters> = sequenceOf(
-        FullScreenDialogPreviewParameters(),
-
-        FullScreenDialogPreviewParameters(title = null) {
-            Text("Content")
-        },
-    )
+    override val values: Sequence<FullScreenDialogPreviewParameters> =
+        sequenceOf(
+            FullScreenDialogPreviewParameters(),
+            FullScreenDialogPreviewParameters(title = null) {
+                Text("Content")
+            },
+        )
 }
 
 @PreviewLightDark

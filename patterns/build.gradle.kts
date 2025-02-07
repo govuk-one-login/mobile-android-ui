@@ -47,17 +47,22 @@ android {
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
-                events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
+    }
+
+    ktlint {
+        version = libs.versions.ktlint.cli
     }
 }
 
@@ -91,12 +96,13 @@ dependencies {
 }
 
 // https://github.com/Kotlin/dokka/issues/2956
-tasks.matching { task ->
-    task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
-        task.name.contains("javaDocDebugGeneration")
-}.configureEach {
-    enabled = false
-}
+tasks
+    .matching { task ->
+        task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
+            task.name.contains("javaDocDebugGeneration")
+    }.configureEach {
+        enabled = false
+    }
 
 mavenPublishingConfig {
     mavenConfigBlock {
