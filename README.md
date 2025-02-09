@@ -1,6 +1,6 @@
 # Android GOV UK UI Library
 
-Libraries to provide some useful and generic ui components, pages and themes to be used across GOV.UK Android applications.
+Libraries to provide some useful and generic UI components, pages and themes to be used across GOV.UK Android applications.
 
 ### Theme
 
@@ -38,7 +38,7 @@ dependencies {
 
 ## v4.0.0 Breaking Changes
 - in `components` - Configured the GdsButton to work with `AnnotatedString` in the `components/m3/buttons` to allow the IconButton to persist within the button and increase size/ move to another line accordingly when increasing font/ display size on device.
-The `GdsButton` and any pages using it (e.g. `ErrorPage`) need to be the same version in order to be used in the same codebase.
+The `GdsButton` and any pages using it (for example: `ErrorPage`) need to be the same version in order to be used in the same codebase.
 
 ## Updating gradle-wrapper
 
