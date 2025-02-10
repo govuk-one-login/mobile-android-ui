@@ -58,7 +58,7 @@ fun FullScreenDialog(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     FullScreenDialog(
-        onDismissRequest = { onDismissRequest() },
+        onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = {
             TopAppBar(
@@ -77,9 +77,8 @@ fun FullScreenDialog(
                 scrollBehavior = scrollBehavior,
             )
         },
-    ) {
-        content()
-    }
+        content = content
+    )
 }
 
 /**
