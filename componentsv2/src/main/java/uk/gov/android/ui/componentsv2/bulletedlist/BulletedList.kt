@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 
 @SuppressLint("ComposeModifierMissing")
 @Suppress("LongMethod")
@@ -53,7 +54,7 @@ fun GdsBulletedList(content: BulletedListItem) {
                 }
 
                 is BulletedListTitle.Normal -> {
-                    textStyle = MaterialTheme.typography.bodyLarge
+                    textStyle = Typography.bodyLarge
                     title = it.title
                 }
             }
@@ -105,6 +106,7 @@ sealed class BulletedListTitle {
     data class Normal(val title: String) : BulletedListTitle()
 }
 
+@Suppress("MaxLineLength")
 class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
     override val values: Sequence<BulletedListItem> = sequenceOf(
         BulletedListItem(
@@ -117,8 +119,7 @@ class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
             listOf(
                 "One line bullet list content",
                 "One line bullet list content",
-                "Lorem Ipsum is simply dummy text of the " +
-                        "printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
             BulletedListTitle.Heading("Example Title"),
         ),
@@ -131,6 +132,7 @@ class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
         ),
         BulletedListItem(
             listOf(
+                "One line bullet list item",
                 "One line bullet list item",
                 "One line bullet list item",
             ),
