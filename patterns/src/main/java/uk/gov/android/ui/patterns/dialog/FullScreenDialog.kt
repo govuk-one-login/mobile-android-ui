@@ -1,4 +1,4 @@
-package uk.gov.android.ui.pages.dialog
+package uk.gov.android.ui.patterns.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import uk.gov.android.ui.components.m3.buttons.CloseButton
+import uk.gov.android.ui.componentsv2.button.CloseButton
 
 /**
  * Full screen dialog
@@ -47,17 +47,64 @@ import uk.gov.android.ui.components.m3.buttons.CloseButton
  * @param title The content to be displayed inside the dialog.
  * @param content The content to be displayed inside the dialog.
  */
-@Deprecated(
-    message = "This needs to be replaced with the existing version of the patterns module.",
-    replaceWith = ReplaceWith("uk/gov/android/ui/patterns/dialog/FullScreenDialogTest.kt"),
-    level = DeprecationLevel.WARNING,
-)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialog(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
+    content: @Composable () -> Unit,
+) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    FullScreenDialog(
+        onDismissRequest = onDismissRequest,
+        modifier = modifier,
+        topAppBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = colorScheme.background,
+                    titleContentColor = colorScheme.contentColorFor(colorScheme.background),
+                ),
+                title = {
+                    title?.let {
+                        Text(title)
+                    }
+                },
+                navigationIcon = {
+                    CloseButton(onClose = onDismissRequest)
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
+        content = content,
+    )
+}
+
+/**
+ * Full screen dialog
+ *
+ * Use this pattern for a task made up of a series of steps/ information
+ *
+ * **This pattern allows for implementing custom [TopAppBar] provided as a parameter.**
+ *
+ * ‘Close’ icon in Android full screen dialog allow users to exit the journey easily
+ * whenever they need. Users can use the device back button or gestures to return to the
+ * previous screen.
+ *
+ * @param onDismissRequest Executes when the user tries to dismiss the dialog.
+ * @param modifier Modifier to be applied to the layout corresponding to the dialog content
+ * @param topAppBar Requires any type of [TopAppBar] to allow customisation
+ * @param content The content to be displayed inside the dialog.
+ *
+ * **Used in [FullScreenDialog] composition.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FullScreenDialog(
+    onDismissRequest: () -> Unit,
+    topAppBar: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
     Dialog(
@@ -69,27 +116,10 @@ fun FullScreenDialog(
 
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = colorScheme.background,
-                            titleContentColor = colorScheme.contentColorFor(colorScheme.background),
-                        ),
-                        title = {
-                            title?.let {
-                                Text(title)
-                            }
-                        },
-                        navigationIcon = {
-                            CloseButton(onClose = onDismissRequest)
-                        },
-                        scrollBehavior = scrollBehavior,
-                    )
-                },
+                topBar = { topAppBar() },
             ) { innerPadding ->
                 Column(
-                    modifier = modifier
-                        .height(IntrinsicSize.Max)
+                    modifier = modifier.height(IntrinsicSize.Max)
                         .verticalScroll(rememberScrollState())
                         .padding(innerPadding)
                         .fillMaxWidth(),
@@ -109,13 +139,13 @@ internal data class FullScreenDialogPreviewParameters(
 )
 
 internal class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
-    override val values: Sequence<FullScreenDialogPreviewParameters> = sequenceOf(
-        FullScreenDialogPreviewParameters(),
-
-        FullScreenDialogPreviewParameters(title = null) {
-            Text("Content")
-        },
-    )
+    override val values: Sequence<FullScreenDialogPreviewParameters> =
+        sequenceOf(
+            FullScreenDialogPreviewParameters(),
+            FullScreenDialogPreviewParameters(title = null) {
+                Text("Content")
+            },
+        )
 }
 
 @PreviewLightDark
@@ -127,6 +157,24 @@ internal fun ModalDialogPreview(
     FullScreenDialog(
         onDismissRequest = { },
         title = parameters.title,
+        content = parameters.content,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@PreviewLightDark
+@Composable
+internal fun ModalDialogWithCustomisedTopAppBarPreview(
+    @PreviewParameter(FullScreenDialogPreviewProvider::class)
+    parameters: FullScreenDialogPreviewParameters,
+) {
+    FullScreenDialog(
+        onDismissRequest = { },
+        topAppBar = {
+            TopAppBar(
+                title = { Text("") },
+            )
+        },
         content = parameters.content,
     )
 }

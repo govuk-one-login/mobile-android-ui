@@ -16,8 +16,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mobile-android-ui"
-include(":theme")
 include(":components")
 include(":pages")
 includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")
 include(":componentsv2")
+include(":patterns")
+include(":theme")

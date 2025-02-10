@@ -1,16 +1,16 @@
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
+    id("uk.gov.pipelines.android-lib-config")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.paparazzi)
-    id("uk.gov.pipelines.android-lib-config")
     id("kotlin-parcelize")
 }
 
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
-        namespace = "${apkConfig.applicationId}.componentsv2"
+        namespace = "${apkConfig.applicationId}.patterns"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -43,11 +43,12 @@ android {
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
-                events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
@@ -63,17 +64,16 @@ android {
 
 dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
-    androidTestImplementation(composeBom)
     implementation(composeBom)
+    androidTestImplementation(composeBom)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
-    implementation(libs.androidx.compose.material.icons)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.preview)
+    implementation(libs.bundles.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
+    implementation(libs.material)
+    implementation(project(":componentsv2"))
     implementation(project(":theme"))
 
     debugImplementation(libs.androidx.compose.ui.tooling)
@@ -91,15 +91,23 @@ dependencies {
     lintChecks(libs.com.slack.compose.lint.checks)
 }
 
+// https://github.com/Kotlin/dokka/issues/2956
+tasks
+    .matching { task ->
+        task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
+            task.name.contains("javaDocDebugGeneration")
+    }.configureEach {
+        enabled = false
+    }
+
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library Version 2",
+            "Mobile Android Patterns Library",
         )
         description.set(
             """
-            Use pre-built reusable components to build consistent apps - this will replace the
-            components module with a more standardised approach.
+            Patterns are best practice design solutions for specific user-focused tasks and pages.
             """.trimIndent(),
         )
     }
