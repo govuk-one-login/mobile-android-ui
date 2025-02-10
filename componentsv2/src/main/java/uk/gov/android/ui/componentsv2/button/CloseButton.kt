@@ -21,9 +21,7 @@ fun CloseButton(
     onClose: () -> Unit,
 ) {
     IconButton(
-        modifier = modifier.then(
-            Modifier.size(closeButtonSize),
-        ),
+        modifier = modifier.size(closeButtonSize),
         onClick = onClose,
     ) {
         Icon(
