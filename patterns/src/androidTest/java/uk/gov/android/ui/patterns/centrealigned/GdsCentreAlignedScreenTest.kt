@@ -12,6 +12,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 
 class GdsCentreAlignedScreenTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -38,7 +39,7 @@ class GdsCentreAlignedScreenTest {
             GdsCentreAlignedScreen(sampleContent)
         }
 
-        composeTestRule.onNodeWithText(context.getString(sampleContent.title))
+        composeTestRule.onNodeWithText(sampleContent.title)
             .assertExists()
 
         sampleContent.image?.description?.let {
@@ -49,29 +50,36 @@ class GdsCentreAlignedScreenTest {
         sampleContent.body?.bodyContentList?.forEach {
             when (it) {
                 is BodyContent.Text ->
-                    composeTestRule.onAllNodes(hasText(context.getString(it.bodyText)))
+                    composeTestRule.onAllNodes(hasText(it.bodyText))
                         .assertCountEquals(2)
 
                 is BodyContent.BulletList -> {
-                    val bulletListTitle = it.bulletList.title
-                    bulletListTitle?.let {
-                        composeTestRule.onNodeWithText(context.getString(bulletListTitle))
-                            .assertExists()
+                    when (val bulletListTitle = it.bulletList.title) {
+                        is BulletedListTitle.Heading ->
+                            composeTestRule.onNodeWithText(bulletListTitle.title)
+                                .assertExists()
+                        is BulletedListTitle.Bold ->
+                            composeTestRule.onNodeWithText(bulletListTitle.title)
+                                .assertExists()
+                        is BulletedListTitle.Normal ->
+                            composeTestRule.onNodeWithText(bulletListTitle.title)
+                                .assertExists()
+                        null -> return
                     }
                 }
             }
         }
 
         sampleContent.supportingText?.let {
-            composeTestRule.onNodeWithText(context.getString(it)).assertExists()
+            composeTestRule.onNodeWithText(it).assertExists()
         }
 
         sampleContent.primaryButtonText?.let {
-            composeTestRule.onNodeWithText(context.getString(it)).assertExists()
+            composeTestRule.onNodeWithText(it).assertExists()
         }
 
         sampleContent.secondaryButtonText?.let {
-            composeTestRule.onNodeWithText(context.getString(it)).assertExists()
+            composeTestRule.onNodeWithText(it).assertExists()
         }
     }
 
@@ -101,7 +109,7 @@ class GdsCentreAlignedScreenTest {
         }
 
         sampleContent.primaryButtonText?.let {
-            composeTestRule.onNodeWithText(context.getString(it))
+            composeTestRule.onNodeWithText(it)
                 .assertDoesNotExist()
         }
     }

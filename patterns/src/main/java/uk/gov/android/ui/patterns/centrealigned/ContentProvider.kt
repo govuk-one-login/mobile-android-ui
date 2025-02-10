@@ -1,6 +1,10 @@
 package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListItem
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Bold
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Heading
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Normal
 import uk.gov.android.ui.patterns.R
 
 class ContentProvider : PreviewParameterProvider<Content> {
@@ -20,15 +24,13 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            title = "Sub Title 1",
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                )
+                        BulletedListItem(
+                            title = Heading("Sub Title 1"),
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),
@@ -47,15 +49,13 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            title = "Sub Title 1",
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                ),
+                        BulletedListItem(
+                            title = Bold("Sub Title 1"),
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),
@@ -73,15 +73,13 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            title = "Sub Title 1",
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                ),
+                        BulletedListItem(
+                            title = Normal("Sub Title 1"),
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),
@@ -98,15 +96,13 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            title = "Sub Title 1",
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                ),
+                        BulletedListItem(
+                            title = Heading("Sub Title 1"),
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),
@@ -122,14 +118,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                ),
+                        BulletedListItem(
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),
@@ -145,14 +139,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletListParameters(
-                            contentText = GdsContentText.GdsContentTextString(
-                                text = arrayOf(
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                    "One line content resource component",
-                                ),
+                        BulletedListItem(
+                            items = listOf(
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
+                                "One line content resource component",
                             ),
                         ),
                     ),

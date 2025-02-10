@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import uk.gov.android.ui.components.m3.GdsBulletList
+import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -75,7 +75,7 @@ fun GdsCentreAlignedScreen(content: Content) {
                 when (it) {
                     is BodyContent.Text -> {
                         Text(
-                            text = stringResource(it.bodyText),
+                            text = it.bodyText,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             textAlign = TextAlign.Center,
@@ -85,7 +85,7 @@ fun GdsCentreAlignedScreen(content: Content) {
                     }
 
                     is BodyContent.BulletList -> {
-                        GdsBulletList(it.bulletList)
+                        GdsBulletedList(it.bulletList)
                         Spacer(modifier = Modifier.padding(spacingSingle))
                     }
                 }

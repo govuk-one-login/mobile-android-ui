@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.components.BaseScreenshotTest
+import uk.gov.android.ui.patterns.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class GdsCentreAlignedScreenTest(

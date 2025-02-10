@@ -2,7 +2,7 @@ package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import uk.gov.android.ui.components.m3.BulletListParameters
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListItem
 
 data class Content(
     val title: String,
@@ -19,7 +19,7 @@ data class Body(
 
 sealed class BodyContent {
     data class Text(val bodyText: String) : BodyContent()
-    data class BulletList(val bulletList: BulletListParameters) : BodyContent()
+    data class BulletList(val bulletList: BulletedListItem) : BodyContent()
 }
 
 data class ImageResource(
