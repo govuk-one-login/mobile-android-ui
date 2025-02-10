@@ -1,171 +1,158 @@
-package uk.gov.android.ui.patterns.centrealignedscreen
+package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.components.R
-import uk.gov.android.ui.components.content.GdsContentText
-import uk.gov.android.ui.components.m3.BulletListParameters
+import uk.gov.android.ui.patterns.R
 
 class ContentProvider : PreviewParameterProvider<Content> {
+    private val title = "Information Banner Title"
+    private val content = "Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    private val image = ImageResource(
+        R.drawable.preview__gdsvectorimage,
+        R.string.preview__GdsVectorImage__description,
+    )
+
     override val values: Sequence<Content> = sequenceOf(
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
-                            title = R.string.preview__GdsHeading__subTitle1,
+                            title = "Sub Title 1",
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                )
                             ),
                         ),
                     ),
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
+                    BodyContent.Text(content),
                 ),
             ),
-            R.string.preview__GdsContent__twoLine_0,
-            R.string.preview__GdsButton__primary,
-            R.string.preview__GdsButton__secondary,
+            "Two line",
+            "Primary button",
+            "Secondary button",
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            "Information Banner Title",
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
-                            title = R.string.preview__GdsHeading__subTitle1,
+                            title = "Sub Title 1",
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                ),
                             ),
                         ),
                     ),
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
+                    BodyContent.Text(content),
                 ),
             ),
-            R.string.preview__GdsContent__twoLine_0,
-            R.string.preview__GdsButton__primary,
+            "Two line",
+            "Primary button",
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
-                            title = R.string.preview__GdsHeading__subTitle1,
+                            title = "Sub Title 1",
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                ),
                             ),
                         ),
                     ),
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
+                    BodyContent.Text(content),
                 ),
             ),
-            R.string.preview__GdsContent__twoLine_0,
+            "Two line",
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
-                            title = R.string.preview__GdsHeading__subTitle1,
+                            title = "Sub Title 1",
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                ),
                             ),
                         ),
                     ),
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
+                    BodyContent.Text(content),
                 ),
             ),
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                ),
                             ),
                         ),
                     ),
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
+                    BodyContent.Text(content),
                 ),
             ),
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
             Body(
                 listOf(
-                    BodyContent.Text(R.string.preview__GdsInformationBanner__content),
-                    BodyContent.Text(R.string.preview__GdsContent__oneLine_0),
+                    BodyContent.Text(content),
+                    BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
                         BulletListParameters(
                             contentText = GdsContentText.GdsContentTextString(
                                 text = arrayOf(
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                    R.string.preview__GdsContent__oneLine_0,
-                                ).toIntArray(),
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                    "One line content resource component",
+                                ),
                             ),
                         ),
                     ),
@@ -173,14 +160,11 @@ class ContentProvider : PreviewParameterProvider<Content> {
             ),
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
-            ImageResource(
-                R.drawable.preview__gdsvectorimage,
-                R.string.preview__GdsVectorImage__description,
-            ),
+            title,
+            image,
         ),
         Content(
-            R.string.preview__GdsInformationBanner__title,
+            title,
         ),
     )
 }

@@ -1,16 +1,16 @@
-package uk.gov.android.ui.patterns.centrealignedscreen
+package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import uk.gov.android.ui.components.m3.BulletListParameters
 
 data class Content(
-    @StringRes val title: Int,
+    val title: String,
     val image: ImageResource? = null,
     val body: Body? = null,
-    @StringRes val supportingText: Int? = null,
-    @StringRes val primaryButtonText: Int? = null,
-    @StringRes val secondaryButtonText: Int? = null,
+    val supportingText: String? = null,
+    val primaryButtonText: String? = null,
+    val secondaryButtonText: String? = null,
 )
 
 data class Body(
@@ -18,7 +18,7 @@ data class Body(
 )
 
 sealed class BodyContent {
-    data class Text(@StringRes val bodyText: Int) : BodyContent()
+    data class Text(val bodyText: String) : BodyContent()
     data class BulletList(val bulletList: BulletListParameters) : BodyContent()
 }
 

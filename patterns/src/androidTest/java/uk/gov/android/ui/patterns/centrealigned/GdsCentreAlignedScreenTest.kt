@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.centrealignedscreen
+package uk.gov.android.ui.patterns.centrealigned
 
 import android.content.Context
 import androidx.compose.ui.test.assertCountEquals

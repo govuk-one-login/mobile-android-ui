@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.centrealignedscreen
+package uk.gov.android.ui.patterns.centrealigned
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -23,9 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.components.m3.GdsBulletList
-import uk.gov.android.ui.components.m3.buttons.ButtonParameters
-import uk.gov.android.ui.components.m3.buttons.ButtonType
-import uk.gov.android.ui.components.m3.buttons.GdsButton
+import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingSingle
@@ -64,7 +63,7 @@ fun GdsCentreAlignedScreen(content: Content) {
             Spacer(modifier = Modifier.padding(spacingSingle))
 
             Text(
-                text = stringResource(content.title),
+                text = content.title,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -101,7 +100,7 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             content.supportingText?.let {
                 Text(
-                    text = stringResource(it),
+                    text = it,
                     style = Typography.bodySmall,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
@@ -112,13 +111,11 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             content.primaryButtonText?.let {
                 GdsButton(
-                    ButtonParameters(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        buttonType = ButtonType.PRIMARY(),
-                        onClick = {},
-                        text = stringResource(it),
-                    ),
+                    text = it,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    buttonType = ButtonType.Primary,
+                    onClick = {},
                 )
             }
 
@@ -126,13 +123,11 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             content.secondaryButtonText?.let {
                 GdsButton(
-                    ButtonParameters(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        buttonType = ButtonType.SECONDARY(),
-                        onClick = {},
-                        text = stringResource(it),
-                    ),
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    buttonType = ButtonType.Secondary,
+                    onClick = {},
+                    text = it,
                 )
             }
 
