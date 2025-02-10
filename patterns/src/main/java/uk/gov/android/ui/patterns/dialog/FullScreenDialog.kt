@@ -77,7 +77,7 @@ fun FullScreenDialog(
                 scrollBehavior = scrollBehavior,
             )
         },
-        content = content
+        content = content,
     )
 }
 
