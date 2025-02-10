@@ -55,45 +55,30 @@ fun FullScreenDialog(
     title: String? = null,
     content: @Composable () -> Unit,
 ) {
-    Dialog(
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-        onDismissRequest = onDismissRequest,
-    ) {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-            Scaffold(
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-                topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = colorScheme.background,
-                            titleContentColor = colorScheme.contentColorFor(colorScheme.background),
-                        ),
-                        title = {
-                            title?.let {
-                                Text(title)
-                            }
-                        },
-                        navigationIcon = {
-                            CloseButton(onClose = onDismissRequest)
-                        },
-                        scrollBehavior = scrollBehavior,
-                    )
+    FullScreenDialog(
+        onDismissRequest = { onDismissRequest() },
+        modifier = modifier,
+        topAppBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = colorScheme.background,
+                    titleContentColor = colorScheme.contentColorFor(colorScheme.background),
+                ),
+                title = {
+                    title?.let {
+                        Text(title)
+                    }
                 },
-            ) { innerPadding ->
-                Column(
-                    modifier = modifier
-                        .height(IntrinsicSize.Max)
-                        .verticalScroll(rememberScrollState())
-                        .padding(innerPadding)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    content()
-                }
-            }
-        }
+                navigationIcon = {
+                    CloseButton(onClose = onDismissRequest)
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
+    ) {
+        content()
     }
 }
 
