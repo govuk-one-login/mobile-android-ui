@@ -85,12 +85,9 @@ fun FullScreenDialog(
 /**
  * Full screen dialog
  *
- * Use this pattern for a task made up of a series of steps
+ * Use this pattern for a task made up of a series of steps/ information
  *
- * Examples of tasks that are self-contained or actions that require a series of tasks
- * - ID Check
- * - Add document
- * - Sign out
+ * **This pattern allows for implementing custom [TopAppBar] provided as a parameter.**
  *
  * ‘Close’ icon in Android full screen dialog allow users to exit the journey easily
  * whenever they need. Users can use the device back button or gestures to return to the
@@ -100,6 +97,8 @@ fun FullScreenDialog(
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
  * @param topAppBar Requires any type of [TopAppBar] to allow customisation
  * @param content The content to be displayed inside the dialog.
+ *
+ * **Used in [FullScreenDialog] composition.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

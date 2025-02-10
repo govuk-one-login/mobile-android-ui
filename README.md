@@ -4,7 +4,7 @@ Libraries to provide some useful and generic ui components, pages and themes to 
 
 ### Theme
 
-This library contains the `GdsTheme`, collecting the colour schemes, fonts/typography and some useful dimensions
+This library contains the `GdsTheme`, collecting the colour schemes, fonts/typography and some useful dimensions.
 
 ### Components 
 
@@ -18,7 +18,7 @@ All new components should be created in `patterns` module - `pages` module will 
 
 ## Installation
 
-To use these libraries please refer to the Github Packages to find the latest versions for each.
+To use these libraries please refer to the GitHub Packages to find the latest versions for each.
 
 ### Gradle
 
