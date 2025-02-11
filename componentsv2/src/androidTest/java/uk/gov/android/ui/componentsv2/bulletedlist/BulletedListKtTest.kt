@@ -34,7 +34,7 @@ class BulletedListKtTest {
             )
         }
 
-        composeTestRule.onNodeWithText("One line bullet list content")
+        composeTestRule.onNodeWithText("Line one bullet list content")
             .assertExists()
 
         composeTestRule.onNodeWithText("Example Title")
