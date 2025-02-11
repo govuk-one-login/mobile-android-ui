@@ -2,7 +2,8 @@ package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListItem
+import kotlinx.collections.immutable.ImmutableList
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 
 data class Content(
     val title: String,
@@ -19,7 +20,10 @@ data class Body(
 
 sealed class BodyContent {
     data class Text(val bodyText: String) : BodyContent()
-    data class BulletList(val bulletList: BulletedListItem) : BodyContent()
+    data class BulletList(
+        val title: BulletedListTitle? = null,
+        val items: ImmutableList<String>,
+    ) : BodyContent()
 }
 
 data class ImageResource(

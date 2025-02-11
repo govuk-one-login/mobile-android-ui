@@ -85,7 +85,10 @@ fun GdsCentreAlignedScreen(content: Content) {
                     }
 
                     is BodyContent.BulletList -> {
-                        GdsBulletedList(it.bulletList)
+                        GdsBulletedList(
+                            bulletListItems = it.items,
+                            title = it.title,
+                        )
                         Spacer(modifier = Modifier.padding(spacingSingle))
                     }
                 }

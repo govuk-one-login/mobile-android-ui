@@ -1,14 +1,17 @@
 package uk.gov.android.ui.patterns.centrealigned
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListItem
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Bold
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Heading
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle.Normal
+import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.BoldText
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Heading
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Text
 import uk.gov.android.ui.patterns.R
 
 class ContentProvider : PreviewParameterProvider<Content> {
     private val title = "Information Banner Title"
+
+    @Suppress("MaxLineLength")
     private val content = "Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
     private val image = ImageResource(
         R.drawable.preview__gdsvectorimage,
@@ -24,14 +27,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            title = Heading("Sub Title 1"),
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        title = BulletedListTitle("Sub Title 1", Heading),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                     BodyContent.Text(content),
@@ -49,14 +50,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            title = Bold("Sub Title 1"),
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        title = BulletedListTitle("Sub Title 1", BoldText),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                     BodyContent.Text(content),
@@ -73,14 +72,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            title = Normal("Sub Title 1"),
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        title = BulletedListTitle("Sub Title 1", Text),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                     BodyContent.Text(content),
@@ -96,14 +93,12 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            title = Heading("Sub Title 1"),
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        title = BulletedListTitle("Sub Title 1", Heading),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                     BodyContent.Text(content),
@@ -118,13 +113,11 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                     BodyContent.Text(content),
@@ -139,13 +132,11 @@ class ContentProvider : PreviewParameterProvider<Content> {
                     BodyContent.Text(content),
                     BodyContent.Text("One line content resource component"),
                     BodyContent.BulletList(
-                        BulletedListItem(
-                            items = listOf(
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                                "One line content resource component",
-                            ),
+                        items = persistentListOf(
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
+                            "One line content resource component",
                         ),
                     ),
                 ),
