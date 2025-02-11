@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-class BulletedListProviderTest(
+class BulletedListScreenshotTest(
     private val parameters: Pair<BulletedListItem, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit =

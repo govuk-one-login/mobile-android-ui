@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -37,19 +36,13 @@ fun GdsBulletedList(content: BulletedListItem) {
 
             when (it) {
                 is BulletedListTitle.Bold -> {
-                    textStyle = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 17.sp,
-                    )
+                    textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                     title = it.title
                     spacingAfterTitle = 4.dp
                 }
 
                 is BulletedListTitle.Heading -> {
-                    textStyle = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                    )
+                    textStyle = Typography.headlineSmall
                     title = it.title
                 }
 
@@ -89,6 +82,7 @@ fun GdsBulletedList(content: BulletedListItem) {
                 Text(
                     text = it,
                     color = MaterialTheme.colorScheme.onBackground,
+                    style = Typography.bodyLarge,
                 )
             }
         }
@@ -121,7 +115,7 @@ class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
                 "One line bullet list content",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            BulletedListTitle.Heading("Example Title"),
+            BulletedListTitle.Normal("Example Title"),
         ),
         BulletedListItem(
             listOf(
