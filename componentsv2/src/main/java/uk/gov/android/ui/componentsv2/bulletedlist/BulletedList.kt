@@ -26,7 +26,6 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 
-@Suppress("LongMethod")
 @Composable
 fun GdsBulletedList(
     bulletListItems: ImmutableList<String>,
@@ -35,68 +34,84 @@ fun GdsBulletedList(
 ) {
     Column(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
         title?.let {
-            var spacingAfterTitle = 0.dp
-
-            val textStyle = when (title.fontWeight) {
-                TitleFontWeight.BoldText -> {
-                    Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                }
-
-                TitleFontWeight.Heading -> {
-                    spacingAfterTitle = 4.dp
-                    Typography.headlineSmall
-                }
-
-                TitleFontWeight.Text -> {
-                    Typography.bodyLarge
-                }
-            }
-
-            Text(
-                text = title.text,
-                style = textStyle,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = spacingAfterTitle,
-                ),
-            )
+            BulletedListTitle(it)
         }
 
         bulletListItems.forEach {
-            Row(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(start = 16.dp, end = 16.dp, top = 8.dp),
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_dot),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-                    modifier = Modifier
-                        .padding(start = 10.dp, end = 20.dp, top = 8.dp)
-                        .align(Alignment.Top)
-                        .semantics { invisibleToUser() },
-                )
-
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = Typography.bodyLarge,
-                )
-            }
+            BulletListItem(it)
         }
     }
 }
 
-enum class TitleFontWeight {
+@Composable
+fun BulletedListTitle(
+    title: BulletedListTitle,
+    modifier: Modifier = Modifier,
+) {
+    var spacingAfterTitle = 0.dp
+
+    val textStyle = when (title.fontWeight) {
+        TitleFontStyle.BoldText -> {
+            Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        }
+
+        TitleFontStyle.Heading -> {
+            spacingAfterTitle = 4.dp
+            Typography.headlineSmall
+        }
+
+        TitleFontStyle.Text -> {
+            Typography.bodyLarge
+        }
+    }
+
+    Text(
+        text = title.text,
+        style = textStyle,
+        color = MaterialTheme.colorScheme.onBackground,
+        modifier = modifier.padding(
+            start = 16.dp,
+            end = 16.dp,
+            bottom = spacingAfterTitle,
+        ),
+    )
+}
+
+@Composable
+fun BulletListItem(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_dot),
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+            modifier = Modifier
+                .padding(start = 10.dp, end = 20.dp, top = 8.dp)
+                .align(Alignment.Top)
+                .semantics { invisibleToUser() },
+        )
+
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+        )
+    }
+}
+
+enum class TitleFontStyle {
     BoldText, Heading, Text
 }
 
 data class BulletedListTitle(
     val text: String,
-    val fontWeight: TitleFontWeight,
+    val fontWeight: TitleFontStyle,
 )
 
 internal data class BulletedListItem(
@@ -111,7 +126,7 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
             persistentListOf(
                 "Line one bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleFontWeight.Heading),
+            BulletedListTitle("Example Title", TitleFontStyle.Heading),
         ),
         BulletedListItem(
             persistentListOf(
@@ -119,14 +134,14 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line two bullet list content",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            BulletedListTitle("Example Title", TitleFontWeight.Text),
+            BulletedListTitle("Example Title", TitleFontStyle.Text),
         ),
         BulletedListItem(
             persistentListOf(
                 "Line one bullet list content",
                 "Line two bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleFontWeight.BoldText),
+            BulletedListTitle("Example Title", TitleFontStyle.BoldText),
         ),
         BulletedListItem(
             persistentListOf(
