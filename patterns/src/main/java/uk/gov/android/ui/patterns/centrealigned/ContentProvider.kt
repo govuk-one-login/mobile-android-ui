@@ -3,9 +3,9 @@ package uk.gov.android.ui.patterns.centrealigned
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.BoldText
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Heading
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Text
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.BoldText
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Heading
+import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Text
 import uk.gov.android.ui.patterns.R
 
 internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> {
