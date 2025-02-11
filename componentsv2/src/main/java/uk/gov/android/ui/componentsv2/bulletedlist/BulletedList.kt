@@ -44,7 +44,7 @@ fun GdsBulletedList(
 }
 
 @Composable
-fun BulletedListTitle(
+private fun BulletedListTitle(
     title: BulletedListTitle,
     modifier: Modifier = Modifier,
 ) {
@@ -78,7 +78,7 @@ fun BulletedListTitle(
 }
 
 @Composable
-fun BulletListItem(
+private fun BulletListItem(
     text: String,
     modifier: Modifier = Modifier,
 ) {
