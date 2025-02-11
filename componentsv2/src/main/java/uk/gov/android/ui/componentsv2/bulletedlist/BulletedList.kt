@@ -1,7 +1,5 @@
 package uk.gov.android.ui.componentsv2.bulletedlist
 
-import android.annotation.SuppressLint
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,46 +12,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.semantics.invisibleToUser
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 
-@SuppressLint("ComposeModifierMissing")
 @Suppress("LongMethod")
 @Composable
-fun GdsBulletedList(content: BulletedListItem) {
-    Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
-        content.title?.let {
-            val textStyle: TextStyle
-            val title: String
+fun GdsBulletedList(
+    bulletListItems: ImmutableList<String>,
+    modifier: Modifier = Modifier,
+    title: BulletedListTitle? = null,
+) {
+    Column(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
+        title?.let {
             var spacingAfterTitle = 0.dp
 
-            when (it) {
-                is BulletedListTitle.Bold -> {
-                    textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                    title = it.title
+            val textStyle = when (title.fontWeight) {
+                TitleFontWeight.BoldText -> {
+                    Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                }
+
+                TitleFontWeight.Heading -> {
                     spacingAfterTitle = 4.dp
+                    Typography.headlineSmall
                 }
 
-                is BulletedListTitle.Heading -> {
-                    textStyle = Typography.headlineSmall
-                    title = it.title
-                }
-
-                is BulletedListTitle.Normal -> {
-                    textStyle = Typography.bodyLarge
-                    title = it.title
+                TitleFontWeight.Text -> {
+                    Typography.bodyLarge
                 }
             }
 
             Text(
-                text = title,
+                text = title.text,
                 style = textStyle,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(
@@ -64,7 +64,7 @@ fun GdsBulletedList(content: BulletedListItem) {
             )
         }
 
-        content.items.forEach {
+        bulletListItems.forEach {
             Row(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
@@ -72,11 +72,12 @@ fun GdsBulletedList(content: BulletedListItem) {
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_dot),
-                    contentDescription = "dot",
+                    contentDescription = null,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                     modifier = Modifier
                         .padding(start = 10.dp, end = 20.dp, top = 8.dp)
-                        .align(Alignment.Top),
+                        .align(Alignment.Top)
+                        .semantics { invisibleToUser() },
                 )
 
                 Text(
@@ -89,67 +90,65 @@ fun GdsBulletedList(content: BulletedListItem) {
     }
 }
 
-data class BulletedListItem(
-    val items: List<String>,
+enum class TitleFontWeight {
+    BoldText, Heading, Text
+}
+
+data class BulletedListTitle(
+    val text: String,
+    val fontWeight: TitleFontWeight,
+)
+
+internal data class BulletedListItem(
+    val items: ImmutableList<String>,
     val title: BulletedListTitle? = null,
 )
 
-sealed class BulletedListTitle {
-    data class Bold(val title: String) : BulletedListTitle()
-    data class Heading(val title: String) : BulletedListTitle()
-    data class Normal(val title: String) : BulletedListTitle()
-}
-
 @Suppress("MaxLineLength")
-class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
+internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
     override val values: Sequence<BulletedListItem> = sequenceOf(
         BulletedListItem(
-            listOf(
-                "One line bullet list content",
+            persistentListOf(
+                "Line one bullet list content",
             ),
-            BulletedListTitle.Heading("Example Title"),
+            BulletedListTitle("Example Title", TitleFontWeight.Heading),
         ),
         BulletedListItem(
-            listOf(
-                "One line bullet list content",
-                "One line bullet list content",
+            persistentListOf(
+                "Line one bullet list content",
+                "Line two bullet list content",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            BulletedListTitle.Normal("Example Title"),
+            BulletedListTitle("Example Title", TitleFontWeight.Text),
         ),
         BulletedListItem(
-            listOf(
-                "One line bullet list item",
-                "One line bullet list item",
+            persistentListOf(
+                "Line one bullet list content",
+                "Line two bullet list content",
             ),
-            BulletedListTitle.Bold("Example Title"),
+            BulletedListTitle("Example Title", TitleFontWeight.BoldText),
         ),
         BulletedListItem(
-            listOf(
-                "One line bullet list item",
-                "One line bullet list item",
-                "One line bullet list item",
+            persistentListOf(
+                "Line one bullet list content",
+                "Line two bullet list content",
+                "Line three bullet list content",
             ),
         ),
     )
 }
 
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
+@PreviewLightDark
 @Composable
-private fun Preview(
+@Preview
+private fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
     bulletListItems: BulletedListItem,
 ) {
     GdsTheme {
         GdsBulletedList(
-            bulletListItems,
+            bulletListItems = bulletListItems.items,
+            title = bulletListItems.title,
         )
     }
 }

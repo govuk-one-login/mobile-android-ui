@@ -7,13 +7,18 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-class BulletedListScreenshotTest(
+internal class BulletedListScreenshotTest(
     private val parameters: Pair<BulletedListItem, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
-    override val generateComposeLayout: @Composable () -> Unit =
-        {
-            GdsBulletedList(parameters.first)
-        }
+    override val generateComposeLayout: @Composable () -> Unit = {
+        val parameters = parameters.first
+        GdsBulletedList(
+            bulletListItems = parameters.items,
+            title = parameters.title?.let {
+                BulletedListTitle(it.text, it.fontWeight)
+            },
+        )
+    }
 
     companion object {
         @JvmStatic

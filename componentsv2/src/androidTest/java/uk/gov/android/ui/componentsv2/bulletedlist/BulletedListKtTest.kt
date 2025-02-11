@@ -28,7 +28,10 @@ class BulletedListKtTest {
     @Test
     fun testAllElementsAreDisplayed() {
         composeTestRule.setContent {
-            GdsBulletedList(sampleContent)
+            GdsBulletedList(
+                bulletListItems = sampleContent.items,
+                title = sampleContent.title,
+            )
         }
 
         composeTestRule.onNodeWithText("One line bullet list content")
