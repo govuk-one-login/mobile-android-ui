@@ -31,9 +31,17 @@ import uk.gov.android.ui.theme.spacingSingle
 
 @Composable
 @Suppress("LongMethod")
-fun GdsCentreAlignedScreen(content: Content) {
+fun GdsCentreAlignedScreen(
+    title: String,
+    modifier: Modifier = Modifier,
+    image: ImageResource? = null,
+    body: Body? = null,
+    supportingText: String? = null,
+    primaryButtonText: String? = null,
+    secondaryButtonText: String? = null,
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 start = 16.dp,
                 top = 0.dp,
@@ -53,7 +61,7 @@ fun GdsCentreAlignedScreen(content: Content) {
                 .fillMaxSize()
                 .weight(1f),
         ) {
-            content.image?.let {
+            image?.let {
                 Image(
                     painter = painterResource(it.image),
                     contentDescription = stringResource(it.description),
@@ -63,7 +71,7 @@ fun GdsCentreAlignedScreen(content: Content) {
             Spacer(modifier = Modifier.padding(spacingSingle))
 
             Text(
-                text = content.title,
+                text = title,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.headlineLarge,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -71,7 +79,7 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             Spacer(modifier = Modifier.padding(spacingSingle))
 
-            content.body?.bodyContentList?.forEach {
+            body?.bodyContentList?.forEach {
                 when (it) {
                     is BodyContent.Text -> {
                         Text(
@@ -101,7 +109,7 @@ fun GdsCentreAlignedScreen(content: Content) {
         ) {
             Spacer(modifier = Modifier.padding(spacingSingle))
 
-            content.supportingText?.let {
+            supportingText?.let {
                 Text(
                     text = it,
                     style = Typography.bodySmall,
@@ -112,7 +120,7 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             Spacer(modifier = Modifier.padding(spacingSingle))
 
-            content.primaryButtonText?.let {
+            primaryButtonText?.let {
                 GdsButton(
                     text = it,
                     modifier = Modifier
@@ -124,7 +132,7 @@ fun GdsCentreAlignedScreen(content: Content) {
 
             Spacer(modifier = Modifier.padding(spacingSingle))
 
-            content.secondaryButtonText?.let {
+            secondaryButtonText?.let {
                 GdsButton(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -150,9 +158,16 @@ fun GdsCentreAlignedScreen(content: Content) {
 @Composable
 private fun PreviewContent(
     @PreviewParameter(ContentProvider::class)
-    content: Content,
+    content: CentreAlignedContent,
 ) {
     GdsTheme {
-        GdsCentreAlignedScreen(content)
+        GdsCentreAlignedScreen(
+            title = content.title,
+            image = content.image,
+            body = content.body,
+            supportingText = content.supportingText,
+            primaryButtonText = content.primaryButtonText,
+            secondaryButtonText = content.secondaryButtonText,
+        )
     }
 }

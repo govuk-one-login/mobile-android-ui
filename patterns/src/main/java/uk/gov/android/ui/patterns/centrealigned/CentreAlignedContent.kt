@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 
-data class Content(
+internal data class CentreAlignedContent(
     val title: String,
     val image: ImageResource? = null,
     val body: Body? = null,

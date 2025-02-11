@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Heading
 import uk.gov.android.ui.componentsv2.bulletedlist.TitleFontStyle.Text
 import uk.gov.android.ui.patterns.R
 
-class ContentProvider : PreviewParameterProvider<Content> {
+internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> {
     private val title = "Information Banner Title"
 
     @Suppress("MaxLineLength")
@@ -18,8 +18,8 @@ class ContentProvider : PreviewParameterProvider<Content> {
         R.string.preview__GdsVectorImage__description,
     )
 
-    override val values: Sequence<Content> = sequenceOf(
-        Content(
+    override val values: Sequence<CentreAlignedContent> = sequenceOf(
+        CentreAlignedContent(
             title,
             image,
             Body(
@@ -42,7 +42,7 @@ class ContentProvider : PreviewParameterProvider<Content> {
             "Primary button",
             "Secondary button",
         ),
-        Content(
+        CentreAlignedContent(
             "Information Banner Title",
             image,
             Body(
@@ -64,7 +64,7 @@ class ContentProvider : PreviewParameterProvider<Content> {
             "Two line",
             "Primary button",
         ),
-        Content(
+        CentreAlignedContent(
             title,
             image,
             Body(
@@ -85,7 +85,7 @@ class ContentProvider : PreviewParameterProvider<Content> {
             ),
             "Two line",
         ),
-        Content(
+        CentreAlignedContent(
             title,
             image,
             Body(
@@ -105,7 +105,7 @@ class ContentProvider : PreviewParameterProvider<Content> {
                 ),
             ),
         ),
-        Content(
+        CentreAlignedContent(
             title,
             image,
             Body(
@@ -124,7 +124,7 @@ class ContentProvider : PreviewParameterProvider<Content> {
                 ),
             ),
         ),
-        Content(
+        CentreAlignedContent(
             title,
             image,
             Body(
@@ -142,11 +142,11 @@ class ContentProvider : PreviewParameterProvider<Content> {
                 ),
             ),
         ),
-        Content(
+        CentreAlignedContent(
             title,
             image,
         ),
-        Content(
+        CentreAlignedContent(
             title,
         ),
     )
