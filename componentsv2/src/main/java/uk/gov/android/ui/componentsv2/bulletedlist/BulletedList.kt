@@ -57,7 +57,7 @@ private fun BulletedListTitle(
     var spacingAfterTitle = 0.dp
     val titleContentDescription: String
 
-    val textStyle = when (title.fontWeight) {
+    val textStyle = when (title.titleType) {
         TitleType.BoldText -> {
             titleContentDescription = title.text
             Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
@@ -83,9 +83,9 @@ private fun BulletedListTitle(
             .padding(
                 start = 16.dp,
                 end = 16.dp,
-                bottom = spacingAfterTitle
+                bottom = spacingAfterTitle,
             )
-            .semantics { contentDescription = titleContentDescription }
+            .semantics { contentDescription = titleContentDescription },
     )
 }
 
@@ -125,7 +125,7 @@ enum class TitleType {
 
 data class BulletedListTitle(
     val text: String,
-    val fontWeight: TitleType,
+    val titleType: TitleType,
 )
 
 internal data class BulletedListItem(

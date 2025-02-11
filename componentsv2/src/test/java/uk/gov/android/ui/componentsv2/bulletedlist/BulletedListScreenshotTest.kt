@@ -15,7 +15,7 @@ internal class BulletedListScreenshotTest(
         GdsBulletedList(
             bulletListItems = parameters.items,
             title = parameters.title?.let {
-                BulletedListTitle(it.text, it.fontWeight)
+                BulletedListTitle(it.text, it.titleType)
             },
         )
     }

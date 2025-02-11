@@ -1,6 +1,5 @@
 package uk.gov.android.ui.patterns.centrealigned
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
@@ -68,7 +70,7 @@ fun GdsCentreAlignedScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.padding(spacingSingle))
+            Spacer(modifier = Modifier.height(spacingSingle))
 
             Text(
                 text = title,
@@ -77,7 +79,7 @@ fun GdsCentreAlignedScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
 
-            Spacer(modifier = Modifier.padding(spacingSingle))
+            Spacer(modifier = Modifier.height(spacingSingle))
 
             body?.bodyContentList?.forEach {
                 when (it) {
@@ -97,66 +99,79 @@ fun GdsCentreAlignedScreen(
                             bulletListItems = it.items,
                             title = it.title,
                         )
-                        Spacer(modifier = Modifier.padding(spacingSingle))
+                        Spacer(modifier = Modifier.height(spacingSingle))
                     }
                 }
             }
         }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom,
-        ) {
-            Spacer(modifier = Modifier.padding(spacingSingle))
-
-            supportingText?.let {
-                Text(
-                    text = it,
-                    style = Typography.bodySmall,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                )
-            }
-
-            Spacer(modifier = Modifier.padding(spacingSingle))
-
-            primaryButtonText?.let {
-                GdsButton(
-                    text = it,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    buttonType = ButtonType.Primary,
-                    onClick = {},
-                )
-            }
-
-            Spacer(modifier = Modifier.padding(spacingSingle))
-
-            secondaryButtonText?.let {
-                GdsButton(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    buttonType = ButtonType.Secondary,
-                    onClick = {},
-                    text = it,
-                )
-            }
-
-            Spacer(modifier = Modifier.padding(spacingSingle))
-        }
+        BottomContent(
+            supportingText = supportingText,
+            primaryButtonText = primaryButtonText,
+            secondaryButtonText = secondaryButtonText,
+        )
     }
 }
 
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-)
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-)
 @Composable
-private fun PreviewContent(
+fun BottomContent(
+    modifier: Modifier = Modifier,
+    supportingText: String? = null,
+    primaryButtonText: String? = null,
+    secondaryButtonText: String? = null,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        Spacer(
+            modifier = modifier
+                .padding(spacingSingle)
+                .fillMaxWidth()
+                .wrapContentHeight(),
+        )
+
+        supportingText?.let {
+            Text(
+                text = it,
+                style = Typography.bodySmall,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+        }
+
+        Spacer(modifier = Modifier.padding(spacingSingle))
+
+        primaryButtonText?.let {
+            GdsButton(
+                text = it,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                buttonType = ButtonType.Primary,
+                onClick = {},
+            )
+        }
+
+        Spacer(modifier = Modifier.padding(spacingSingle))
+
+        secondaryButtonText?.let {
+            GdsButton(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                buttonType = ButtonType.Secondary,
+                onClick = {},
+                text = it,
+            )
+        }
+
+        Spacer(modifier = Modifier.padding(spacingSingle))
+    }
+}
+
+@PreviewLightDark
+@Composable
+@Preview
+private fun PreviewGdsCentreAlignedScreen(
     @PreviewParameter(ContentProvider::class)
     content: CentreAlignedContent,
 ) {
