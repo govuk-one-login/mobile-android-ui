@@ -12,6 +12,7 @@ import org.junit.Test
 import uk.gov.android.ui.components.content.GdsContentText
 import uk.gov.android.ui.theme.GdsTheme
 
+@Deprecated("Use componentsv2.bulletedlist.GdsBulletedList instead")
 class BulletListTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 

@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(project(":theme"))
 
     debugImplementation(libs.androidx.compose.ui.tooling)

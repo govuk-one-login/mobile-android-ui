@@ -29,6 +29,7 @@ import uk.gov.android.ui.components.R
 import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
+@Deprecated("Use componentsv2.bulletedlist.GdsBulletedList instead")
 @Composable
 fun GdsBulletList(
     bulletListParameters: BulletListParameters,
