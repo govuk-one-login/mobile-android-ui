@@ -9,8 +9,9 @@ Detekt
 Dp
 GNU
 GPG
-GOV
+(?i)GOV
 (?i)Gradle
+(?i)Github
 JDK
 JIRA
 JRE
@@ -36,7 +37,6 @@ coroutine
 coroutines
 crashlytics
 enum
-gov
 (?i)iProov
 mockito
 (?i)Kotlin
@@ -47,3 +47,4 @@ veriff
 bioPref
 (?i)ASM
 refreshVersions
+UI
