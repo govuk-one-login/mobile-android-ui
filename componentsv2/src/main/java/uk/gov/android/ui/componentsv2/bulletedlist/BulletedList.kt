@@ -170,7 +170,7 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
 @PreviewLightDark
 @Composable
 @Preview
-private fun GdsBulletedListPreview(
+internal fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
     bulletListItems: BulletedListItem,
 ) {

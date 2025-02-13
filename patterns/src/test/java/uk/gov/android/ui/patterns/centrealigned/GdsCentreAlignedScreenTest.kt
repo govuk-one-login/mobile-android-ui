@@ -8,7 +8,7 @@ import uk.gov.android.ui.patterns.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsCentreAlignedScreenTest(
-    private val parameters: Pair<CentreAlignedContent, NightMode>,
+    private val parameters: Pair<CentreAlignedScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit =
@@ -19,18 +19,18 @@ internal class GdsCentreAlignedScreenTest(
                 image = parameters.image,
                 body = parameters.body,
                 supportingText = parameters.supportingText,
-                primaryButtonText = parameters.primaryButtonText,
-                secondaryButtonText = parameters.secondaryButtonText,
+                primaryButton = parameters.primaryButton,
+                secondaryButton = parameters.secondaryButton,
             )
         }
 
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<CentreAlignedContent, NightMode>> {
-            val result: MutableList<Pair<CentreAlignedContent, NightMode>> = mutableListOf()
+        fun values(): List<Pair<CentreAlignedScreenContent, NightMode>> {
+            val result: MutableList<Pair<CentreAlignedScreenContent, NightMode>> = mutableListOf()
 
-            ContentProvider().values.forEach(applyNightMode(result))
+            CentreAlignedScreenContentProvider().values.forEach(applyNightMode(result))
 
             return result
         }

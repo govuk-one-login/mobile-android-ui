@@ -8,25 +8,26 @@ import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Heading
 import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Text
 import uk.gov.android.ui.patterns.R
 
-internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> {
+internal class CentreAlignedScreenContentProvider : PreviewParameterProvider<CentreAlignedScreenContent> {
     private val title = "Information Banner Title"
 
     @Suppress("MaxLineLength")
-    private val content = "Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
-    private val image = ImageResource(
+    private val content =
+        "Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+    private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
-        R.string.preview__GdsVectorImage__description,
+        "Image description",
     )
 
-    override val values: Sequence<CentreAlignedContent> = sequenceOf(
-        CentreAlignedContent(
+    override val values: Sequence<CentreAlignedScreenContent> = sequenceOf(
+        CentreAlignedScreenContent(
             title,
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         title = BulletedListTitle("Sub Title 1", Heading),
                         items = persistentListOf(
                             "One line content resource component",
@@ -35,21 +36,21 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                             "One line content resource component",
                         ),
                     ),
-                    BodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text(content),
                 ),
             ),
             "Two line",
-            "Primary button",
-            "Secondary button",
+            CentreAlignedScreenButton.Primary("Primary button", {}),
+            CentreAlignedScreenButton.Secondary("Secondary button", {}),
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             "Information Banner Title",
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         title = BulletedListTitle("Sub Title 1", BoldText),
                         items = persistentListOf(
                             "One line content resource component",
@@ -58,20 +59,20 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                             "One line content resource component",
                         ),
                     ),
-                    BodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text(content),
                 ),
             ),
             "Two line",
-            "Primary button",
+            CentreAlignedScreenButton.Primary("Primary button", {}),
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         title = BulletedListTitle("Sub Title 1", Text),
                         items = persistentListOf(
                             "One line content resource component",
@@ -80,19 +81,19 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                             "One line content resource component",
                         ),
                     ),
-                    BodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text(content),
                 ),
             ),
             "Two line",
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         title = BulletedListTitle("Sub Title 1", Heading),
                         items = persistentListOf(
                             "One line content resource component",
@@ -101,18 +102,18 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                             "One line content resource component",
                         ),
                     ),
-                    BodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text(content),
                 ),
             ),
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         items = persistentListOf(
                             "One line content resource component",
                             "One line content resource component",
@@ -120,18 +121,18 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                             "One line content resource component",
                         ),
                     ),
-                    BodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text(content),
                 ),
             ),
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
             image,
-            Body(
+            CentreAlignedScreenBody(
                 listOf(
-                    BodyContent.Text(content),
-                    BodyContent.Text("One line content resource component"),
-                    BodyContent.BulletList(
+                    CentreAlignedScreenBodyContent.Text(content),
+                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                    CentreAlignedScreenBodyContent.BulletList(
                         items = persistentListOf(
                             "One line content resource component",
                             "One line content resource component",
@@ -142,11 +143,11 @@ internal class ContentProvider : PreviewParameterProvider<CentreAlignedContent> 
                 ),
             ),
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
             image,
         ),
-        CentreAlignedContent(
+        CentreAlignedScreenContent(
             title,
         ),
     )

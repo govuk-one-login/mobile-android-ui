@@ -17,10 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
@@ -33,33 +33,32 @@ import uk.gov.android.ui.theme.spacingSingle
 fun GdsCentreAlignedScreen(
     title: String,
     modifier: Modifier = Modifier,
-    image: ImageResource? = null,
-    body: Body? = null,
+    image: CentreAlignedScreenImage? = null,
+    body: CentreAlignedScreenBody? = null,
     supportingText: String? = null,
-    primaryButtonText: String? = null,
-    secondaryButtonText: String? = null,
+    primaryButton: CentreAlignedScreenButton.Primary? = null,
+    secondaryButton: CentreAlignedScreenButton.Secondary? = null,
 ) {
     Column(
         modifier = modifier
-            .padding(
-                horizontal = 16.dp,
-            )
+            .padding(horizontal = 16.dp)
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
     ) {
         MainContent(
-            title = title,
-            image = image,
-            body = body,
-            modifier = Modifier.weight(1f),
+            title,
+            Modifier.weight(1f),
+            image,
+            body,
         )
 
         BottomContent(
-            supportingText = supportingText,
-            primaryButtonText = primaryButtonText,
-            secondaryButtonText = secondaryButtonText,
+            modifier = Modifier.fillMaxWidth(),
+            supportingText,
+            primaryButton,
+            secondaryButton,
         )
     }
 }
@@ -68,8 +67,8 @@ fun GdsCentreAlignedScreen(
 private fun MainContent(
     title: String,
     modifier: Modifier = Modifier,
-    image: ImageResource? = null,
-    body: Body? = null,
+    image: CentreAlignedScreenImage? = null,
+    body: CentreAlignedScreenBody? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -81,7 +80,7 @@ private fun MainContent(
         image?.let {
             Image(
                 painter = painterResource(it.image),
-                contentDescription = stringResource(it.description),
+                contentDescription = it.description,
             )
         }
 
@@ -99,7 +98,6 @@ private fun MainContent(
         body?.let {
             BodyContent(
                 it,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }
     }
@@ -107,26 +105,23 @@ private fun MainContent(
 
 @Composable
 private fun BodyContent(
-    body: Body,
-    modifier: Modifier = Modifier,
+    body: CentreAlignedScreenBody,
 ) {
     body.bodyContentList.forEach {
         when (it) {
-            is BodyContent.Text -> {
+            is CentreAlignedScreenBodyContent.Text -> {
                 Text(
                     text = it.bodyText,
-                    modifier = modifier,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                 )
             }
 
-            is BodyContent.BulletList -> {
+            is CentreAlignedScreenBodyContent.BulletList -> {
                 GdsBulletedList(
                     bulletListItems = it.items,
                     title = it.title,
-                    modifier = modifier,
                 )
             }
         }
@@ -136,13 +131,15 @@ private fun BodyContent(
 
 @Composable
 private fun BottomContent(
+    modifier: Modifier = Modifier,
     supportingText: String? = null,
-    primaryButtonText: String? = null,
-    secondaryButtonText: String? = null,
+    primaryButton: CentreAlignedScreenButton.Primary? = null,
+    secondaryButton: CentreAlignedScreenButton.Secondary? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom,
+        modifier = modifier,
     ) {
         Spacer(
             modifier = Modifier.height(spacingSingle),
@@ -160,22 +157,22 @@ private fun BottomContent(
 
         Spacer(modifier = Modifier.height(spacingSingle))
 
-        primaryButtonText?.let {
+        primaryButton?.let {
             GdsButton(
-                text = it,
+                text = it.text,
                 buttonType = ButtonType.Primary,
-                onClick = {},
+                onClick = it.onClick,
                 modifier = Modifier.fillMaxWidth(),
             )
         }
 
         Spacer(modifier = Modifier.height(spacingSingle))
 
-        secondaryButtonText?.let {
+        secondaryButton?.let {
             GdsButton(
+                text = it.text,
                 buttonType = ButtonType.Secondary,
-                onClick = {},
-                text = it,
+                onClick = it.onClick,
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -185,18 +182,20 @@ private fun BottomContent(
 }
 
 @PreviewLightDark
+@Preview(showBackground = true)
 @Composable
-@Preview
-private fun PreviewGdsCentreAlignedScreen() {
-    val firstContent = ContentProvider().values.first()
+internal fun PreviewGdsCentreAlignedScreen(
+    @PreviewParameter(CentreAlignedScreenContentProvider::class)
+    content: CentreAlignedScreenContent,
+) {
     GdsTheme {
         GdsCentreAlignedScreen(
-            title = firstContent.title,
-            image = firstContent.image,
-            body = firstContent.body,
-            supportingText = firstContent.supportingText,
-            primaryButtonText = firstContent.primaryButtonText,
-            secondaryButtonText = firstContent.secondaryButtonText,
+            title = content.title,
+            image = content.image,
+            body = content.body,
+            supportingText = content.supportingText,
+            primaryButton = content.primaryButton,
+            secondaryButton = content.secondaryButton,
         )
     }
 }
