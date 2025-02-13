@@ -46,10 +46,13 @@ fun GdsBulletedList(
                     R.plurals.bullet_list_items_accessibilityLabel,
                     bulletListItems.size,
                     bulletListItems.size,
-                    item
+                    item,
                 )
             } else {
-                stringResource(R.string.preview__BulletedList__bullet, item)
+                stringResource(
+                    R.string.preview__BulletedList__bullet,
+                    item,
+                )
             }
             BulletListItem(item, bulletContentDescription)
         }
