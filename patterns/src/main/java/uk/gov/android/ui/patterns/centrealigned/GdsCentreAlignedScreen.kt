@@ -28,7 +28,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.spacingDouble
 
 @Composable
 fun GdsCentreAlignedScreen(
@@ -85,7 +85,7 @@ private fun MainContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
 
         Text(
             text = title,
@@ -94,7 +94,7 @@ private fun MainContent(
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
 
         body?.let {
             BodyContent(
@@ -126,7 +126,7 @@ private fun BodyContent(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
     }
 }
 
@@ -143,7 +143,7 @@ private fun BottomContent(
         modifier = modifier,
     ) {
         Spacer(
-            modifier = Modifier.height(spacingSingle),
+            modifier = Modifier.height(spacingDouble),
         )
 
         supportingText?.let {
@@ -156,7 +156,7 @@ private fun BottomContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
 
         primaryButton?.let {
             GdsButton(
@@ -167,7 +167,7 @@ private fun BottomContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
 
         secondaryButton?.let {
             GdsButton(
@@ -178,7 +178,7 @@ private fun BottomContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(spacingSingle))
+        Spacer(modifier = Modifier.height(spacingDouble))
     }
 }
 
