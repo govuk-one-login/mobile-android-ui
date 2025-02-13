@@ -7,14 +7,10 @@ import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 internal data class CentreAlignedScreenContent(
     val title: String,
     val image: CentreAlignedScreenImage? = null,
-    val body: CentreAlignedScreenBody? = null,
+    val body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     val supportingText: String? = null,
     val primaryButton: CentreAlignedScreenButton.Primary? = null,
     val secondaryButton: CentreAlignedScreenButton.Secondary? = null,
-)
-
-data class CentreAlignedScreenBody(
-    val bodyContentList: List<CentreAlignedScreenBodyContent>,
 )
 
 sealed class CentreAlignedScreenBodyContent {

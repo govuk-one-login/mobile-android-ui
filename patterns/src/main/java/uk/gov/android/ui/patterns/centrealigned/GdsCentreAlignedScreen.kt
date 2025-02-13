@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -34,7 +35,7 @@ fun GdsCentreAlignedScreen(
     title: String,
     modifier: Modifier = Modifier,
     image: CentreAlignedScreenImage? = null,
-    body: CentreAlignedScreenBody? = null,
+    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     supportingText: String? = null,
     primaryButton: CentreAlignedScreenButton.Primary? = null,
     secondaryButton: CentreAlignedScreenButton.Secondary? = null,
@@ -68,7 +69,7 @@ private fun MainContent(
     title: String,
     modifier: Modifier = Modifier,
     image: CentreAlignedScreenImage? = null,
-    body: CentreAlignedScreenBody? = null,
+    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,9 +106,9 @@ private fun MainContent(
 
 @Composable
 private fun BodyContent(
-    body: CentreAlignedScreenBody,
+    body: ImmutableList<CentreAlignedScreenBodyContent>,
 ) {
-    body.bodyContentList.forEach {
+    body.forEach {
         when (it) {
             is CentreAlignedScreenBodyContent.Text -> {
                 Text(

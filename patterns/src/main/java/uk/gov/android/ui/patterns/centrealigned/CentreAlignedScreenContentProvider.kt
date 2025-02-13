@@ -8,7 +8,8 @@ import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Heading
 import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Text
 import uk.gov.android.ui.patterns.R
 
-internal class CentreAlignedScreenContentProvider : PreviewParameterProvider<CentreAlignedScreenContent> {
+internal class CentreAlignedScreenContentProvider :
+    PreviewParameterProvider<CentreAlignedScreenContent> {
     private val title = "Information Banner Title"
 
     @Suppress("MaxLineLength")
@@ -23,21 +24,19 @@ internal class CentreAlignedScreenContentProvider : PreviewParameterProvider<Cen
         CentreAlignedScreenContent(
             title,
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        title = BulletedListTitle("Sub Title 1", Heading),
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    title = BulletedListTitle("Sub Title 1", Heading),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
-                    CentreAlignedScreenBodyContent.Text(content),
                 ),
+                CentreAlignedScreenBodyContent.Text(content),
             ),
             "Two line",
             CentreAlignedScreenButton.Primary("Primary button", {}),
@@ -46,21 +45,19 @@ internal class CentreAlignedScreenContentProvider : PreviewParameterProvider<Cen
         CentreAlignedScreenContent(
             "Information Banner Title",
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        title = BulletedListTitle("Sub Title 1", BoldText),
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    title = BulletedListTitle("Sub Title 1", BoldText),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
-                    CentreAlignedScreenBodyContent.Text(content),
                 ),
+                CentreAlignedScreenBodyContent.Text(content),
             ),
             "Two line",
             CentreAlignedScreenButton.Primary("Primary button", {}),
@@ -68,77 +65,69 @@ internal class CentreAlignedScreenContentProvider : PreviewParameterProvider<Cen
         CentreAlignedScreenContent(
             title,
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        title = BulletedListTitle("Sub Title 1", Text),
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    title = BulletedListTitle("Sub Title 1", Text),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
-                    CentreAlignedScreenBodyContent.Text(content),
                 ),
+                CentreAlignedScreenBodyContent.Text(content),
             ),
             "Two line",
         ),
         CentreAlignedScreenContent(
             title,
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        title = BulletedListTitle("Sub Title 1", Heading),
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    title = BulletedListTitle("Sub Title 1", Heading),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
-                    CentreAlignedScreenBodyContent.Text(content),
                 ),
+                CentreAlignedScreenBodyContent.Text(content),
             ),
         ),
         CentreAlignedScreenContent(
             title,
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
-                    CentreAlignedScreenBodyContent.Text(content),
                 ),
+                CentreAlignedScreenBodyContent.Text(content),
             ),
         ),
         CentreAlignedScreenContent(
             title,
             image,
-            CentreAlignedScreenBody(
-                listOf(
-                    CentreAlignedScreenBodyContent.Text(content),
-                    CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                    CentreAlignedScreenBodyContent.BulletList(
-                        items = persistentListOf(
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                            "One line content resource component",
-                        ),
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
                     ),
                 ),
             ),
