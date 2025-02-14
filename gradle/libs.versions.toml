@@ -21,7 +21,7 @@ mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 paparazzi = "1.3.5"
 sonarqube-gradle = "6.0.1.5171" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 ktlint-cli = "0.49.1"
-kotlinx-collections-immutable="0.3.5"
+kotlinx-collections-immutable="0.3.8"
 
 [libraries]
 android-build-tool = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }

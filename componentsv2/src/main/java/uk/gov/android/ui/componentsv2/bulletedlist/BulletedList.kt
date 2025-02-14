@@ -12,6 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -37,8 +40,21 @@ fun GdsBulletedList(
             BulletedListTitle(it)
         }
 
-        bulletListItems.forEach {
-            BulletListItem(it)
+        bulletListItems.forEachIndexed { i, item ->
+            val bulletContentDescription = if (i == 0) {
+                pluralStringResource(
+                    R.plurals.bullet_list_items,
+                    bulletListItems.size,
+                    bulletListItems.size,
+                    item,
+                )
+            } else {
+                stringResource(
+                    R.string.bullet,
+                    item,
+                )
+            }
+            BulletListItem(item, bulletContentDescription)
         }
     }
 }
@@ -49,18 +65,22 @@ private fun BulletedListTitle(
     modifier: Modifier = Modifier,
 ) {
     var spacingAfterTitle = 0.dp
+    val titleContentDescription: String
 
-    val textStyle = when (title.fontWeight) {
-        TitleFontStyle.BoldText -> {
+    val textStyle = when (title.titleType) {
+        TitleType.BoldText -> {
+            titleContentDescription = title.text
             Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
         }
 
-        TitleFontStyle.Heading -> {
+        TitleType.Heading -> {
             spacingAfterTitle = 4.dp
+            titleContentDescription = "${title.text} ${stringResource(R.string.heading)}"
             Typography.headlineSmall
         }
 
-        TitleFontStyle.Text -> {
+        TitleType.Text -> {
+            titleContentDescription = title.text
             Typography.bodyLarge
         }
     }
@@ -69,17 +89,20 @@ private fun BulletedListTitle(
         text = title.text,
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = modifier.padding(
-            start = 16.dp,
-            end = 16.dp,
-            bottom = spacingAfterTitle,
-        ),
+        modifier = modifier
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = spacingAfterTitle,
+            )
+            .semantics { contentDescription = titleContentDescription },
     )
 }
 
 @Composable
 private fun BulletListItem(
     text: String,
+    bulletContentDescription: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -101,17 +124,18 @@ private fun BulletListItem(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
+            modifier = Modifier.semantics { contentDescription = bulletContentDescription },
         )
     }
 }
 
-enum class TitleFontStyle {
+enum class TitleType {
     BoldText, Heading, Text
 }
 
 data class BulletedListTitle(
     val text: String,
-    val fontWeight: TitleFontStyle,
+    val titleType: TitleType,
 )
 
 internal data class BulletedListItem(
@@ -126,7 +150,7 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
             persistentListOf(
                 "Line one bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleFontStyle.Heading),
+            BulletedListTitle("Example Title", TitleType.Heading),
         ),
         BulletedListItem(
             persistentListOf(
@@ -134,14 +158,14 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line two bullet list content",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            BulletedListTitle("Example Title", TitleFontStyle.Text),
+            BulletedListTitle("Example Title", TitleType.Text),
         ),
         BulletedListItem(
             persistentListOf(
                 "Line one bullet list content",
                 "Line two bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleFontStyle.BoldText),
+            BulletedListTitle("Example Title", TitleType.BoldText),
         ),
         BulletedListItem(
             persistentListOf(
@@ -156,7 +180,7 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
 @PreviewLightDark
 @Composable
 @Preview
-private fun GdsBulletedListPreview(
+internal fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
     bulletListItems: BulletedListItem,
 ) {

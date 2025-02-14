@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.material)
     implementation(project(":componentsv2"))
     implementation(project(":theme"))

@@ -22,4 +22,12 @@
     <string name="admin_button">Admin Button</string>
     <string name="error_button">Error Button</string>
     <string name="close_button">Close Button</string>
+
+    <!-- BulletedList -->
+    <string name="bullet">bullet %s</string>
+    <string name="heading">heading</string>
+    <plurals name="bullet_list_items" translatable="false">
+        <item quantity="one">bulleted list %d item. bullet %s</item>
+        <item quantity="other">bulleted list %d items. bullet %s</item>
+    </plurals>
 </resources>
