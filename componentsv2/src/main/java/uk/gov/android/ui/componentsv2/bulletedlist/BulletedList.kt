@@ -43,14 +43,14 @@ fun GdsBulletedList(
         bulletListItems.forEachIndexed { i, item ->
             val bulletContentDescription = if (i == 0) {
                 pluralStringResource(
-                    R.plurals.bullet_list_items_accessibilityLabel,
+                    R.plurals.bullet_list_items,
                     bulletListItems.size,
                     bulletListItems.size,
                     item,
                 )
             } else {
                 stringResource(
-                    R.string.preview__BulletedList__bullet,
+                    R.string.bullet,
                     item,
                 )
             }
@@ -75,7 +75,7 @@ private fun BulletedListTitle(
 
         TitleType.Heading -> {
             spacingAfterTitle = 4.dp
-            titleContentDescription = "${title.text} heading"
+            titleContentDescription = "${title.text} ${stringResource(R.string.heading)}"
             Typography.headlineSmall
         }
 

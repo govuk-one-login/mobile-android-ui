@@ -24,8 +24,9 @@
     <string name="close_button">Close Button</string>
 
     <!-- BulletedList -->
-    <string name="preview__BulletedList__bullet">bullet %s</string>
-    <plurals name="bullet_list_items_accessibilityLabel" translatable="false">
+    <string name="bullet">bullet %s</string>
+    <string name="heading">heading</string>
+    <plurals name="bullet_list_items" translatable="false">
         <item quantity="one">bulleted list %d item. bullet %s</item>
         <item quantity="other">bulleted list %d items. bullet %s</item>
     </plurals>

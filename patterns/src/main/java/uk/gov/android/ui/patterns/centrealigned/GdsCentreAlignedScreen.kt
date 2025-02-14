@@ -30,6 +30,20 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
+/**
+ * Renders a centre-aligned screen with a structured layout.
+ *
+ * This screen is designed for displaying an image, title, body content, supporting text,
+ * and primary/secondary buttons in a visually consistent manner.
+ *
+ * @param title The main title displayed at the top of the screen.
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param image image displayed at the top of the screen (optional).
+ * @param body list of [CentreAlignedScreenBodyContent] representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content (optional).
+ * @param primaryButton primary action button (optional).
+ * @param secondaryButton secondary action button (optional).
+ */
 @Composable
 fun GdsCentreAlignedScreen(
     title: String,
@@ -37,8 +51,8 @@ fun GdsCentreAlignedScreen(
     image: CentreAlignedScreenImage? = null,
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     supportingText: String? = null,
-    primaryButton: CentreAlignedScreenButton.Primary? = null,
-    secondaryButton: CentreAlignedScreenButton.Secondary? = null,
+    primaryButton: CentreAlignedScreenButton? = null,
+    secondaryButton: CentreAlignedScreenButton? = null,
 ) {
     Column(
         modifier = modifier
@@ -90,7 +104,7 @@ private fun MainContent(
         Text(
             text = title,
             color = MaterialTheme.colorScheme.onBackground,
-            style = MaterialTheme.typography.headlineLarge,
+            style = Typography.headlineLarge,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
@@ -113,7 +127,7 @@ private fun BodyContent(
             is CentreAlignedScreenBodyContent.Text -> {
                 Text(
                     text = it.bodyText,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = Typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                 )
@@ -134,8 +148,8 @@ private fun BodyContent(
 private fun BottomContent(
     modifier: Modifier = Modifier,
     supportingText: String? = null,
-    primaryButton: CentreAlignedScreenButton.Primary? = null,
-    secondaryButton: CentreAlignedScreenButton.Secondary? = null,
+    primaryButton: CentreAlignedScreenButton? = null,
+    secondaryButton: CentreAlignedScreenButton? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

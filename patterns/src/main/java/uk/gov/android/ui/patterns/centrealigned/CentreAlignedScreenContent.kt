@@ -9,8 +9,8 @@ internal data class CentreAlignedScreenContent(
     val image: CentreAlignedScreenImage? = null,
     val body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     val supportingText: String? = null,
-    val primaryButton: CentreAlignedScreenButton.Primary? = null,
-    val secondaryButton: CentreAlignedScreenButton.Secondary? = null,
+    val primaryButton: CentreAlignedScreenButton? = null,
+    val secondaryButton: CentreAlignedScreenButton? = null,
 )
 
 sealed class CentreAlignedScreenBodyContent {
@@ -26,17 +26,7 @@ data class CentreAlignedScreenImage(
     val description: String,
 )
 
-sealed interface CentreAlignedScreenButton {
-    val text: String
-    val onClick: () -> Unit
-
-    data class Primary(
-        override val text: String,
-        override val onClick: () -> Unit,
-    ) : CentreAlignedScreenButton
-
-    data class Secondary(
-        override val text: String,
-        override val onClick: () -> Unit,
-    ) : CentreAlignedScreenButton
-}
+data class CentreAlignedScreenButton(
+    val text: String,
+    val onClick: () -> Unit,
+)

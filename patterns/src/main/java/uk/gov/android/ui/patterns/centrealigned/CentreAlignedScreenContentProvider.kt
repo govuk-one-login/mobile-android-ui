@@ -39,8 +39,8 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             "Two line",
-            CentreAlignedScreenButton.Primary("Primary button", {}),
-            CentreAlignedScreenButton.Secondary("Secondary button", {}),
+            CentreAlignedScreenButton("Primary button", {}),
+            CentreAlignedScreenButton("Secondary button", {}),
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
@@ -60,7 +60,7 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             "Two line",
-            CentreAlignedScreenButton.Primary("Primary button", {}),
+            CentreAlignedScreenButton("Primary button", {}),
         ),
         CentreAlignedScreenContent(
             title,
