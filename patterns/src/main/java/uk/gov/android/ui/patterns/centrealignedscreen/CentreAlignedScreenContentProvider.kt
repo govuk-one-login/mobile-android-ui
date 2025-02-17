@@ -16,7 +16,6 @@ internal class CentreAlignedScreenContentProvider :
     private val content =
         "Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
-    @Suppress("MaxLineLength")
     private val supportingText =
         "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit,."
 
