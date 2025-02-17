@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.centrealigned
+package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode

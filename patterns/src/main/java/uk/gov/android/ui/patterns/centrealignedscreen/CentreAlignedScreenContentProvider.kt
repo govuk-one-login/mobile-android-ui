@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.centrealigned
+package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
@@ -14,7 +14,12 @@ internal class CentreAlignedScreenContentProvider :
 
     @Suppress("MaxLineLength")
     private val content =
-        "Information Banner content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        "Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+    @Suppress("MaxLineLength")
+    private val supportingText =
+        "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
     private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
         "Image description",
@@ -38,7 +43,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            "Two line",
+            supportingText,
             CentreAlignedScreenButton("Primary button", {}),
             CentreAlignedScreenButton("Secondary button", {}),
         ),
@@ -59,7 +64,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            "Two line",
+            supportingText,
             CentreAlignedScreenButton("Primary button", {}),
         ),
         CentreAlignedScreenContent(
@@ -79,7 +84,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            "Two line",
+            supportingText,
         ),
         CentreAlignedScreenContent(
             title,

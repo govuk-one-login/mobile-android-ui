@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.centrealigned
+package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,6 +27,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.patterns.util.ComposableUtil
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
@@ -54,6 +56,15 @@ fun GdsCentreAlignedScreen(
     primaryButton: CentreAlignedScreenButton? = null,
     secondaryButton: CentreAlignedScreenButton? = null,
 ) {
+    val bottomContentOverThreshold by ComposableUtil.isComposableHeightOverAThirdOfScreen {
+        BottomContent(
+            modifier = Modifier.fillMaxWidth(),
+            supportingText,
+            primaryButton,
+            secondaryButton,
+        )
+    }
+
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -67,11 +78,12 @@ fun GdsCentreAlignedScreen(
             Modifier.weight(1f),
             image,
             body,
+            if (bottomContentOverThreshold) supportingText else null,
         )
 
         BottomContent(
             modifier = Modifier.fillMaxWidth(),
-            supportingText,
+            if (!bottomContentOverThreshold) supportingText else null,
             primaryButton,
             secondaryButton,
         )
@@ -84,6 +96,7 @@ private fun MainContent(
     modifier: Modifier = Modifier,
     image: CentreAlignedScreenImage? = null,
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
+    supportingText: String? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -113,6 +126,15 @@ private fun MainContent(
         body?.let {
             BodyContent(
                 it,
+            )
+        }
+
+        supportingText?.let {
+            Text(
+                text = supportingText,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
         }
     }
