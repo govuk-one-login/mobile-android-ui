@@ -135,6 +135,7 @@ private fun MainContent(
                 color = MaterialTheme.colorScheme.onBackground,
                 style = Typography.bodyLarge,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -225,6 +226,23 @@ internal fun PreviewGdsCentreAlignedScreen(
     @PreviewParameter(CentreAlignedScreenContentProvider::class)
     content: CentreAlignedScreenContent,
 ) {
+    GdsTheme {
+        GdsCentreAlignedScreen(
+            title = content.title,
+            image = content.image,
+            body = content.body,
+            supportingText = content.supportingText,
+            primaryButton = content.primaryButton,
+            secondaryButton = content.secondaryButton,
+        )
+    }
+}
+
+@PreviewLightDark
+@Preview(showBackground = true, fontScale = 2f)
+@Composable
+internal fun PreviewGdsCentreAlignedScreenAccessibility() {
+    val content = CentreAlignedScreenContentProvider().values.elementAt(1)
     GdsTheme {
         GdsCentreAlignedScreen(
             title = content.title,

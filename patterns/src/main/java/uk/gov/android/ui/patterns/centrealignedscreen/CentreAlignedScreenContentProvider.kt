@@ -18,7 +18,7 @@ internal class CentreAlignedScreenContentProvider :
 
     @Suppress("MaxLineLength")
     private val supportingText =
-        "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit,."
 
     private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
@@ -44,28 +44,18 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton("Primary button", {}),
-            CentreAlignedScreenButton("Secondary button", {}),
+            CentreAlignedScreenButton("Primary button") {},
+            CentreAlignedScreenButton("Secondary button") {},
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", BoldText),
-                    items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                    ),
-                ),
-                CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton("Primary button", {}),
+            CentreAlignedScreenButton("Primary button") {},
+            CentreAlignedScreenButton("Secondary button") {},
         ),
         CentreAlignedScreenContent(
             title,
@@ -85,6 +75,7 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
+            CentreAlignedScreenButton("Primary button") {},
         ),
         CentreAlignedScreenContent(
             title,
@@ -93,7 +84,25 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
                 CentreAlignedScreenBodyContent.Text("One line content resource component"),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", Heading),
+                    title = BulletedListTitle("Sub Title 1", BoldText),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                    ),
+                ),
+                CentreAlignedScreenBodyContent.Text(content),
+            ),
+            secondaryButton = CentreAlignedScreenButton("Secondary button") {},
+        ),
+        CentreAlignedScreenContent(
+            title,
+            image,
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.BulletList(
                     items = persistentListOf(
                         "One line content resource component",
                         "One line content resource component",
@@ -118,24 +127,8 @@ internal class CentreAlignedScreenContentProvider :
                         "One line content resource component",
                     ),
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
             ),
-        ),
-        CentreAlignedScreenContent(
-            title,
-            image,
-            persistentListOf(
-                CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
-                CentreAlignedScreenBodyContent.BulletList(
-                    items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                    ),
-                ),
-            ),
+            supportingText,
         ),
         CentreAlignedScreenContent(
             title,

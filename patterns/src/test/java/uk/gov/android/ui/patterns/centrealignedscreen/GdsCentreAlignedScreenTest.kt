@@ -5,6 +5,7 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.patterns.BaseScreenshotTest
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class GdsCentreAlignedScreenTest(
@@ -14,14 +15,16 @@ internal class GdsCentreAlignedScreenTest(
     override val generateComposeLayout: @Composable () -> Unit =
         {
             val parameters = parameters.first
-            GdsCentreAlignedScreen(
-                title = parameters.title,
-                image = parameters.image,
-                body = parameters.body,
-                supportingText = parameters.supportingText,
-                primaryButton = parameters.primaryButton,
-                secondaryButton = parameters.secondaryButton,
-            )
+            GdsTheme {
+                GdsCentreAlignedScreen(
+                    title = parameters.title,
+                    image = parameters.image,
+                    body = parameters.body,
+                    supportingText = parameters.supportingText,
+                    primaryButton = parameters.primaryButton,
+                    secondaryButton = parameters.secondaryButton,
+                )
+            }
         }
 
     companion object {
