@@ -1,15 +1,17 @@
 package uk.gov.android.ui.patterns.util
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 
 internal object ComposableUtil {
+    @SuppressLint("ComposeContentEmitterReturningValues")
     @Composable
     fun isComposableHeightOverAThirdOfScreen(
         composable: @Composable () -> Unit,
@@ -20,11 +22,13 @@ internal object ComposableUtil {
         val density = LocalDensity.current
         val isOverThreshold = remember { mutableStateOf(false) }
 
-        SubcomposeLayout { constraints ->
-            val measurable = subcompose("content") { composable() }
-            val placeable = measurable.first().measure(constraints)
-            val contentHeight = with(density) { placeable.height.toDp() }
-            isOverThreshold.value = contentHeight > thresholdHeight
+        Layout(content = composable) { measurables, constraints ->
+            if (measurables.isNotEmpty()) {
+                val contentHeight = measurables.sumOf { it.measure(constraints).height }
+                val contentHeightDp = with(density) { contentHeight.toDp() }
+                isOverThreshold.value = contentHeightDp > thresholdHeight
+            }
+
             layout(0, 0) {}
         }
 
