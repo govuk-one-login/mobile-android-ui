@@ -16,7 +16,7 @@ internal class GdsCentreAlignedScreenTest(
         {
             val parameters = parameters.first
             GdsTheme {
-                GdsCentreAlignedScreen(
+                CentreAlignedScreen(
                     title = parameters.title,
                     image = parameters.image,
                     body = parameters.body,
