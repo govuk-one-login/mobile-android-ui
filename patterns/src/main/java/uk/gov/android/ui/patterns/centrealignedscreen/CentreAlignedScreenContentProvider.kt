@@ -19,6 +19,10 @@ internal class CentreAlignedScreenContentProvider :
     private val supportingText =
         "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit,."
 
+    @Suppress("MaxLineLength")
+    private val supportingTextLong =
+        "Supporting Text Long - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
     private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
         "Image description",
@@ -135,6 +139,16 @@ internal class CentreAlignedScreenContentProvider :
         ),
         CentreAlignedScreenContent(
             title,
+        ),
+        CentreAlignedScreenContent(
+            title,
+            image,
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+            ),
+            supportingTextLong,
+            CentreAlignedScreenButton("Primary button") {},
+            CentreAlignedScreenButton("Secondary button") {},
         ),
     )
 }
