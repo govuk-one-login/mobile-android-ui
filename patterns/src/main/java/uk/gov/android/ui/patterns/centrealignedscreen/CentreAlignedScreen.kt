@@ -163,7 +163,7 @@ private fun MainContent(
         Text(
             text = title,
             color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.headlineLarge,
+            style = Typography.displaySmall,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
         )
@@ -216,7 +216,7 @@ private fun SupportingText(
     text?.let {
         Text(
             text = text,
-            style = Typography.bodySmall,
+            style = Typography.labelMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = modifier
                 .fillMaxWidth()
