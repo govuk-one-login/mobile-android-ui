@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- BulletedList -->
+    <string name="bullet">bwled %s</string>
+    <string name="heading">penawd</string>
+    <plurals name="bullet_list_items" translatable="true">
+        <item quantity="zero">rhestr bwledi %d eitem</item>
+        <item quantity="one">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="two">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="few">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="many">rhestr bwledi %d eitem. bwled %s</item>
+    </plurals>
+</resources>

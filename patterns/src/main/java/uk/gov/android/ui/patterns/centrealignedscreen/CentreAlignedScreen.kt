@@ -156,9 +156,9 @@ private fun MainContent(
                 painter = painterResource(it.image),
                 contentDescription = it.description,
             )
-        }
 
-        Spacer(modifier = Modifier.height(spacingDouble))
+            Spacer(modifier = Modifier.height(spacingDouble))
+        }
 
         Text(
             text = title,
@@ -195,10 +195,12 @@ private fun BodyContent(
             }
 
             is CentreAlignedScreenBodyContent.BulletList -> {
-                GdsBulletedList(
-                    bulletListItems = item.items,
-                    title = item.title,
-                )
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    GdsBulletedList(
+                        bulletListItems = item.items,
+                        title = item.title,
+                    )
+                }
             }
         }
 
