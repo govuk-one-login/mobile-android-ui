@@ -195,12 +195,11 @@ private fun BodyContent(
             }
 
             is CentreAlignedScreenBodyContent.BulletList -> {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    GdsBulletedList(
-                        bulletListItems = item.items,
-                        title = item.title,
-                    )
-                }
+                GdsBulletedList(
+                    item.items,
+                    Modifier.fillMaxWidth(),
+                    item.title,
+                )
             }
         }
 
