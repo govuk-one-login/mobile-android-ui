@@ -37,7 +37,7 @@ class BulletedListKtTest {
         composeTestRule.onNodeWithText("Line one bullet list content")
             .assertExists()
 
-        composeTestRule.onNodeWithText("Example Title")
+        composeTestRule.onNodeWithText("Example Heading")
             .assertExists()
     }
 }

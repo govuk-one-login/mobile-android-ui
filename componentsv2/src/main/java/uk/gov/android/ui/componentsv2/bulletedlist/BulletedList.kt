@@ -64,7 +64,6 @@ private fun BulletedListTitle(
     title: BulletedListTitle,
     modifier: Modifier = Modifier,
 ) {
-    var spacingAfterTitle = 0.dp
     val titleContentDescription: String
 
     val textStyle = when (title.titleType) {
@@ -74,7 +73,6 @@ private fun BulletedListTitle(
         }
 
         TitleType.Heading -> {
-            spacingAfterTitle = 4.dp
             titleContentDescription = "${title.text} ${stringResource(R.string.heading)}"
             Typography.headlineSmall
         }
@@ -90,11 +88,7 @@ private fun BulletedListTitle(
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .padding(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = spacingAfterTitle,
-            )
+            .padding(bottom = 4.dp)
             .semantics { contentDescription = titleContentDescription },
     )
 }
@@ -108,7 +102,7 @@ private fun BulletListItem(
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            .padding(top = 8.dp),
     ) {
         Image(
             painter = painterResource(R.drawable.ic_dot),
@@ -150,7 +144,7 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
             persistentListOf(
                 "Line one bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleType.Heading),
+            BulletedListTitle("Example Heading", TitleType.Heading),
         ),
         BulletedListItem(
             persistentListOf(

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Content Tile -->
-    <string name="caption">Caption (optional)</string>
-    <string name="title">Title (required)</string>
-    <string name="body"> Body (optional)</string>
+    <string name="caption" translatable="false">Caption (optional)</string>
+    <string name="title" translatable="false">Title (required)</string>
+    <string name="body" translatable="false"> Body (optional)</string>
 
     <!-- Annotated String -->
-    <string name="annotated_string"> Annotated string</string>
-    <string name="in_line_icon_id">in-line icon id</string>
+    <string name="annotated_string" translatable="false"> Annotated string</string>
+    <string name="in_line_icon_id" translatable="false">in-line icon id</string>
 
     <!-- Images -->
-    <string name="vector_image_content_description">Vector Image Description</string>
-    <string name="icon_content_desc">Icon Description</string>
+    <string name="vector_image_content_description" translatable="false">Vector Image Description</string>
+    <string name="icon_content_desc" translatable="false">Icon Description</string>
 
     <!-- Buttons -->
-    <string name="text_button">Button text</string>
-    <string name="primary_button">Primary Button</string>
-    <string name="secondary_button">Secondary Button</string>
-    <string name="tertiary_button">Tertiary Button</string>
-    <string name="quaternary_button">Quaternary Button</string>
-    <string name="admin_button">Admin Button</string>
-    <string name="error_button">Error Button</string>
-    <string name="close_button">Close Button</string>
+    <string name="text_button" translatable="false">Button text</string>
+    <string name="primary_button" translatable="false">Primary Button</string>
+    <string name="secondary_button" translatable="false">Secondary Button</string>
+    <string name="tertiary_button" translatable="false">Tertiary Button</string>
+    <string name="quaternary_button" translatable="false">Quaternary Button</string>
+    <string name="admin_button" translatable="false">Admin Button</string>
+    <string name="error_button" translatable="false">Error Button</string>
+    <string name="close_button" translatable="false">Close Button</string>
 
     <!-- BulletedList -->
-    <string name="bullet">bullet %s</string>
-    <string name="heading">heading</string>
-    <plurals name="bullet_list_items" translatable="false">
+    <string name="bullet" translatable="true">bullet %s</string>
+    <string name="heading" translatable="true">heading</string>
+    <plurals name="bullet_list_items" translatable="true">
         <item quantity="one">bulleted list %d item. bullet %s</item>
         <item quantity="other">bulleted list %d items. bullet %s</item>
     </plurals>
