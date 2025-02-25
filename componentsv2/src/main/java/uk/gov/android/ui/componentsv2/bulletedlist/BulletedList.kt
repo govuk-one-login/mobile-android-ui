@@ -28,6 +28,8 @@ import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingle
 
 @Composable
 fun GdsBulletedList(
@@ -35,7 +37,11 @@ fun GdsBulletedList(
     modifier: Modifier = Modifier,
     title: BulletedListTitle? = null,
 ) {
-    Column(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .padding(horizontal = spacingDouble),
+    ) {
         title?.let {
             BulletedListTitle(it)
         }
@@ -102,7 +108,7 @@ private fun BulletListItem(
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(top = 8.dp),
+            .padding(top = spacingSingle),
     ) {
         Image(
             painter = painterResource(R.drawable.ic_dot),

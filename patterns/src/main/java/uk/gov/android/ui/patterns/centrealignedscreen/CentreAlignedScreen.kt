@@ -64,7 +64,7 @@ fun CentreAlignedScreen(
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
-    Column(modifier.padding(horizontal = 16.dp)) {
+    Column(modifier) {
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
@@ -164,7 +164,9 @@ private fun MainContent(
             text = title,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.displaySmall,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = spacingDouble),
             textAlign = TextAlign.Center,
         )
 
@@ -190,7 +192,9 @@ private fun BodyContent(
                     style = Typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacingDouble),
                 )
             }
 
@@ -221,7 +225,11 @@ private fun SupportingText(
             color = MaterialTheme.colorScheme.onBackground,
             modifier = modifier
                 .fillMaxWidth()
-                .padding(top = spacingDouble),
+                .padding(
+                    top = spacingDouble,
+                    start = spacingDouble,
+                    end = spacingDouble
+                ),
             textAlign = TextAlign.Center,
         )
     }
@@ -236,7 +244,7 @@ private fun BottomContent(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom,
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = spacingDouble),
     ) {
         primaryButton?.let {
             val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
