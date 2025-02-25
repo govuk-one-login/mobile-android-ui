@@ -60,7 +60,7 @@ android {
     }
 
     ktlint {
-        version = libs.versions.ktlint.cli
+        version = libs.versions.ktlint.cli.get()
     }
 }
 
