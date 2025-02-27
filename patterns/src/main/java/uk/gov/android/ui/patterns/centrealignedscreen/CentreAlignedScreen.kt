@@ -228,7 +228,7 @@ private fun SupportingText(
                 .padding(
                     top = spacingDouble,
                     start = spacingDouble,
-                    end = spacingDouble
+                    end = spacingDouble,
                 ),
             textAlign = TextAlign.Center,
         )
