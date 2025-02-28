@@ -17,10 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.contentColorFor
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -55,8 +53,6 @@ fun FullScreenDialog(
     title: String? = null,
     content: @Composable () -> Unit,
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
     FullScreenDialog(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
@@ -74,7 +70,6 @@ fun FullScreenDialog(
                 navigationIcon = {
                     CloseButton(onClose = onDismissRequest)
                 },
-                scrollBehavior = scrollBehavior,
             )
         },
         content = content,
@@ -99,7 +94,6 @@ fun FullScreenDialog(
  *
  * **Used in [FullScreenDialog] composition.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialog(
     onDismissRequest: () -> Unit,
@@ -112,10 +106,7 @@ fun FullScreenDialog(
         onDismissRequest = onDismissRequest,
     ) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
             Scaffold(
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = { topAppBar() },
             ) { innerPadding ->
                 Column(
