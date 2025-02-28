@@ -2,13 +2,9 @@ package uk.gov.android.ui.patterns.dialog
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
@@ -110,8 +106,7 @@ fun FullScreenDialog(
                 topBar = { topAppBar() },
             ) { innerPadding ->
                 Column(
-                    modifier = modifier.height(IntrinsicSize.Max)
-                        .verticalScroll(rememberScrollState())
+                    modifier = modifier
                         .padding(innerPadding)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.SpaceBetween,
@@ -129,7 +124,8 @@ internal data class FullScreenDialogPreviewParameters(
     val content: @Composable () -> Unit = { },
 )
 
-internal class FullScreenDialogPreviewProvider : PreviewParameterProvider<FullScreenDialogPreviewParameters> {
+internal class FullScreenDialogPreviewProvider :
+    PreviewParameterProvider<FullScreenDialogPreviewParameters> {
     override val values: Sequence<FullScreenDialogPreviewParameters> =
         sequenceOf(
             FullScreenDialogPreviewParameters(),
