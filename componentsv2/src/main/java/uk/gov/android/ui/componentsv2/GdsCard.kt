@@ -71,49 +71,44 @@ fun GdsCard(
             contentDescription = contentDescription,
             showDismissIcon = showDismissIcon,
         )
-        Column(
-            modifier = Modifier
-                .weight(1f, false),
-        ) {
-            Row {
-                Column(
-                    modifier = Modifier
-                        .weight(ROW_DISTRIBUTION, false)
-                        .padding(horizontal = smallPadding),
-                ) {
-                    caption?.let {
-                        Text(
-                            text = caption,
-                            style = Typography.bodySmall,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = xsmallPadding),
-                        )
-                    }
+        Row {
+            Column(
+                modifier = Modifier
+                    .weight(ROW_DISTRIBUTION, false)
+                    .padding(horizontal = smallPadding),
+            ) {
+                caption?.let {
                     Text(
-                        text = title,
-                        style = Typography.headlineMedium,
-                        modifier = Modifier.customTilePadding(body != null),
+                        text = caption,
+                        style = Typography.bodySmall,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = xsmallPadding),
                     )
-                    body?.let {
-                        Text(
-                            text = body,
-                            style = Typography.bodyLarge,
-                            modifier = Modifier.padding(vertical = xsmallPadding),
-                        )
-                    }
                 }
-                if (image == null && showDismissIcon) {
-                    DismissIcon()
+                Text(
+                    text = title,
+                    style = Typography.headlineMedium,
+                    modifier = Modifier.customTilePadding(body != null),
+                )
+                body?.let {
+                    Text(
+                        text = body,
+                        style = Typography.bodyLarge,
+                        modifier = Modifier.padding(vertical = xsmallPadding),
+                    )
                 }
             }
-            Buttons(
-                text = buttonText,
-                displayPrimary = displayPrimary,
-                showSecondaryIcon = showSecondaryIcon,
-                onClick = onClick,
-            )
+            if (image == null && showDismissIcon) {
+                DismissIcon()
+            }
         }
+        Buttons(
+            text = buttonText,
+            displayPrimary = displayPrimary,
+            showSecondaryIcon = showSecondaryIcon,
+            onClick = onClick,
+        )
     }
 }
 
@@ -229,7 +224,8 @@ internal data class GdsCardPreviewParameters(
     val showSecondaryIcon: Boolean = false,
 )
 
-internal class GdsCardPreviewParametersProvider : PreviewParameterProvider<GdsCardPreviewParameters> {
+internal class GdsCardPreviewParametersProvider :
+    PreviewParameterProvider<GdsCardPreviewParameters> {
     override val values: Sequence<GdsCardPreviewParameters> = sequenceOf(
         GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
