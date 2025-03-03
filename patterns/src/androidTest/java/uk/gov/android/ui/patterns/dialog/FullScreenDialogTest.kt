@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.dialog
 
 import android.content.Context
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -46,6 +47,25 @@ class FullScreenDialogTest {
                 title = titleText,
             ) {
                 Text(contentText)
+            }
+        }
+        composeTestRule.onNode(closeButton).assertIsDisplayed()
+        composeTestRule.onNode(title).assertIsDisplayed()
+        composeTestRule.onNode(content).assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyUIScrollableContent() {
+        composeTestRule.setContent {
+            FullScreenDialog(
+                onDismissRequest = { },
+                title = titleText,
+            ) {
+               LazyColumn {
+                   item {
+                       Text(contentText)
+                   }
+               }
             }
         }
         composeTestRule.onNode(closeButton).assertIsDisplayed()
