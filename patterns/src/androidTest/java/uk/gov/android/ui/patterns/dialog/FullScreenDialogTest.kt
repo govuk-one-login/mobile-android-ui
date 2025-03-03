@@ -18,6 +18,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import uk.gov.android.ui.componentsv2.GdsCard
 import uk.gov.android.ui.componentsv2.R
 
 class FullScreenDialogTest {
@@ -71,6 +72,23 @@ class FullScreenDialogTest {
         composeTestRule.onNode(closeButton).assertIsDisplayed()
         composeTestRule.onNode(title).assertIsDisplayed()
         composeTestRule.onNode(content).assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyUIGdsCardDisplayed() {
+        composeTestRule.setContent {
+            FullScreenDialog(
+                onDismissRequest = { },
+            ) {
+                GdsCard(
+                    titleText,
+                    {},
+                )
+            }
+        }
+
+        composeTestRule.onNode(closeButton).assertIsDisplayed()
+        composeTestRule.onNode(title).assertIsDisplayed()
     }
 
     @Test
