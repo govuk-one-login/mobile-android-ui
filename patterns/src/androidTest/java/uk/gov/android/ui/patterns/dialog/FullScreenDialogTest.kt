@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.dialog
 
 import android.content.Context
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -17,6 +18,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import uk.gov.android.ui.componentsv2.GdsCard
 import uk.gov.android.ui.componentsv2.R
 
 class FullScreenDialogTest {
@@ -51,6 +53,42 @@ class FullScreenDialogTest {
         composeTestRule.onNode(closeButton).assertIsDisplayed()
         composeTestRule.onNode(title).assertIsDisplayed()
         composeTestRule.onNode(content).assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyUIScrollableContent() {
+        composeTestRule.setContent {
+            FullScreenDialog(
+                onDismissRequest = { },
+                title = titleText,
+            ) {
+                LazyColumn {
+                    item {
+                        Text(contentText)
+                    }
+                }
+            }
+        }
+        composeTestRule.onNode(closeButton).assertIsDisplayed()
+        composeTestRule.onNode(title).assertIsDisplayed()
+        composeTestRule.onNode(content).assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyUIGdsCardDisplayed() {
+        composeTestRule.setContent {
+            FullScreenDialog(
+                onDismissRequest = { },
+            ) {
+                GdsCard(
+                    titleText,
+                    {},
+                )
+            }
+        }
+
+        composeTestRule.onNode(closeButton).assertIsDisplayed()
+        composeTestRule.onNode(title).assertIsDisplayed()
     }
 
     @Test
