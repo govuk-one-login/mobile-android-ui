@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- BulletedList -->
     <string name="bullet">bwled %s</string>
     <string name="heading">penawd</string>
@@ -11,4 +10,7 @@
         <item quantity="few">rhestr bwledi %d eitem. bwled %s</item>
         <item quantity="many">rhestr bwledi %d eitem. bwled %s</item>
     </plurals>
+
+    <!-- Warning -->
+    <string name="warning">rhybudd</string>
 </resources>
