@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
@@ -26,6 +25,7 @@ fun GdsWarning(
     text: String,
     modifier: Modifier = Modifier,
 ) {
+    val warningText = stringResource(id = R.string.warning)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -34,7 +34,7 @@ fun GdsWarning(
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_error),
-            contentDescription = stringResource(id = R.string.warning),
+            contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.size(12.dp))
@@ -60,11 +60,8 @@ internal class WarningPreviewProvider : PreviewParameterProvider<String> {
 
 @PreviewLightDark
 @Composable
-internal fun WarningPreview(
-    @PreviewParameter(WarningPreviewProvider::class)
-    parameters: String,
-) {
+internal fun WarningPreview() {
     GdsTheme {
-        GdsWarning(text = parameters)
+        GdsWarning(text = "lorem ipsum dolor sit amet consectetur.")
     }
 }

@@ -62,6 +62,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.ui.test.android)
+    implementation(libs.androidx.ui.test.junit4.android)
     val composeBom = platform(libs.androidx.compose.bom)
     androidTestImplementation(composeBom)
     implementation(composeBom)
@@ -89,6 +91,7 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
     lintChecks(libs.com.slack.compose.lint.checks)
 }
 
