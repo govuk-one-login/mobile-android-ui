@@ -61,11 +61,11 @@ class FullScreenDialogTest {
                 onDismissRequest = { },
                 title = titleText,
             ) {
-               LazyColumn {
-                   item {
-                       Text(contentText)
-                   }
-               }
+                LazyColumn {
+                    item {
+                        Text(contentText)
+                    }
+                }
             }
         }
         composeTestRule.onNode(closeButton).assertIsDisplayed()
