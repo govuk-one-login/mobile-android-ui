@@ -30,4 +30,7 @@
         <item quantity="one">bulleted list %d item. bullet %s</item>
         <item quantity="other">bulleted list %d items. bullet %s</item>
     </plurals>
+
+    <!-- Warning -->
+    <string name="warning" translatable="true">warning</string>
 </resources>

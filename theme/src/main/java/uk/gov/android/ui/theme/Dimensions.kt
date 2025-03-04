@@ -10,6 +10,7 @@ val bulletSize = 8.dp
 val scannedImageThumbnailWidth = 100.dp
 val scannedImageThumbnailHeight = 126.dp
 val spacingSingle = 8.dp
+val spacingSingleAndAHalf = 12.dp
 val spacingDouble = 16.dp
 val spacingTriple = 24.dp
 val textSizeBody = 17.sp

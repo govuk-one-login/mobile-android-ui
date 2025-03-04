@@ -15,13 +15,15 @@ espresso = "3.6.1" # https://developer.android.com/jetpack/androidx/releases/tes
 junit = "4.13.2" # https://github.com/junit-team/junit4/releases
 junit-bom = "5.11.4"
 kotlin = "2.1.10" # https://kotlinlang.org/docs/releases.html#release-details
+kotlinx-collections-immutable="0.3.8"
+ktlint-cli = "0.49.1"
 ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 material = "1.12.0" # https://github.com/mockito/mockito-kotlin/releases
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 paparazzi = "1.3.5"
+robolectric = "4.12"
 sonarqube-gradle = "6.0.1.5171" # https://github.com/SonarSource/sonar-scanner-gradle/releases
-ktlint-cli = "0.49.1"
-kotlinx-collections-immutable="0.3.8"
+ui-test-android = "1.7.8"
 
 [libraries]
 android-build-tool = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
@@ -42,6 +44,9 @@ androidx-compose-ui-testmanifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidx-test-orchestrator" }
+androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "ui-test-android" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "ui-test-android" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "archcore-testing" }
