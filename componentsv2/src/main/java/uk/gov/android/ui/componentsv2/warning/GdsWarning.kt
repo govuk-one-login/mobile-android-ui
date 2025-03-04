@@ -18,11 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
 @Composable
 fun GdsWarning(
@@ -42,7 +42,7 @@ fun GdsWarning(
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
         )
-        Spacer(Modifier.size(12.dp))
+        Spacer(Modifier.size(spacingSingleAndAHalf))
         Text(
             text,
             color = MaterialTheme.colorScheme.onBackground,
