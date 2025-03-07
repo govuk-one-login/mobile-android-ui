@@ -5,7 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -51,7 +53,7 @@ fun GdsRadioSelection(
                 RadioSelectionTitle(it)
             }
 
-            radioSelectionParams.radioOptions.forEach {
+            radioSelectionParams.optionText.forEach {
                 Row(
                     modifier = Modifier
                         .clickable {
@@ -65,6 +67,9 @@ fun GdsRadioSelection(
                         colors = RadioButtonDefaults.colors(
                             selectedColor = MaterialTheme.colorScheme.primary,
                         ),
+                        modifier = Modifier
+                        .offset(x = (-4).dp)
+                        .requiredWidth(32.dp)
                     )
                     Text(
                         text = it.text,
@@ -80,7 +85,7 @@ fun GdsRadioSelection(
 }
 
 data class RadioSelectionParameters(
-    val radioOptions: List<RadioOption>,
+    val optionText: List<RadioOption>,
     val radioState: MutableState<RadioOption?>,
     val title: RadioSelectionTitle? = null,
     val color: Color? = null,
@@ -142,7 +147,7 @@ data class RadioSelectionTitle(
 class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters> {
     override val values: Sequence<RadioSelectionParameters> = sequenceOf(
         RadioSelectionParameters(
-            radioOptions = listOf(
+            optionText = listOf(
                 RadioOption("option one"),
                 RadioOption("option two"),
             ),
@@ -150,7 +155,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
             title = RadioSelectionTitle("Example Heading", TitleType.Heading)
         ),
         RadioSelectionParameters(
-            radioOptions = listOf(
+            optionText = listOf(
                 RadioOption("option one"),
                 RadioOption("option two"),
                 RadioOption(
@@ -164,7 +169,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
             title = RadioSelectionTitle("Example Heading", TitleType.Text)
         ),
         RadioSelectionParameters(
-            radioOptions = listOf(
+            optionText = listOf(
                 RadioOption("option one"),
                 RadioOption("option two"),
             ),
@@ -172,7 +177,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
             title = RadioSelectionTitle("Example Heading", TitleType.BoldText)
         ),
         RadioSelectionParameters(
-            radioOptions = listOf(
+            optionText = listOf(
                 RadioOption("option one"),
                 RadioOption("option two"),
                 RadioOption("option three"),
