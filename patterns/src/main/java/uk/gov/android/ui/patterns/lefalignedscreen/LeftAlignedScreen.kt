@@ -1,7 +1,6 @@
 package uk.gov.android.ui.patterns.lefalignedscreen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,11 +9,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -22,14 +21,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.body.GdsBody
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.title.GdsTitle
-import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.componentsv2.warning.GdsWarning
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -202,65 +200,73 @@ internal fun PreviewLeftAlignedScreen(
     GdsTheme {
         LeftAlignedScreen(
             title = { GdsTitle(content.title) },
+
             body = {
                 GdsBody(
                     arrangement = Arrangement.spacedBy(spacingDouble),
                 ) {
-                    Text(
-                        "This is the body",
-                        Modifier.padding(horizontal = spacingDouble),
-                    )
-                    Text(
-                        "This is the body",
-                        Modifier
-                            .padding(horizontal = spacingDouble)
-                            .fillMaxWidth(),
-                    )
-                    GdsBulletedList(
-                        persistentListOf(
-                            "bullet 1",
-                            "bullet 2",
-                            "bullet 3",
-                            "bullet 4",
-                            "bullet 5",
-                            "bullet 6",
-                        ),
-                    )
-                    Image(
-                        painter = painterResource(R.drawable.preview__gdsvectorimage),
-                        contentDescription = "",
-                        Modifier
-                            .background(Color.Gray)
-                            .align(Alignment.CenterHorizontally)
-                            .fillMaxWidth(),
+                    content.body?.forEach {
+                        when (it) {
+                            is Body.Image -> {
+                                Image(
+                                    painter = painterResource(it.image),
+                                    contentDescription = "",
+                                    modifier = it.modifier,
+                                )
+                            }
+
+                            is Body.Text -> {
+                                Text(
+                                    it.text,
+                                    it.modifier,
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                            }
+
+                            is Body.BulletList -> {
+                                GdsBulletedList(it.bullets)
+                            }
+
+                            is Body.Warning -> {
+                                GdsWarning(it.text, modifier = it.modifier)
+                            }
+                        }
+                    }
+                }
+            },
+
+            supportingText = {
+                content.supportingText?.let {
+                    GdsSupportingText(
+                        content.supportingText,
+                        modifier = Modifier.padding(horizontal = spacingDouble),
                     )
                 }
             },
-            supportingText = {
-                GdsSupportingText(
-                    "Supporting Text",
-                    modifier = Modifier.padding(horizontal = spacingDouble),
-                )
-            },
             primaryButton = {
-                GdsButton(
-                    "Primary Button",
-                    ButtonType.Primary,
-                    {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                )
+                content.primaryButton?.let {
+                    GdsButton(
+                        content.primaryButton,
+                        ButtonType.Primary,
+                        {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                    )
+                }
             },
             secondaryButton = {
-                GdsButton(
-                    "Primary Button",
-                    ButtonType.Secondary,
-                    {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                )
+                content.primaryButton?.let {
+                    GdsButton(
+                        content.primaryButton,
+                        ButtonType.Secondary,
+                        {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                    )
+                }
             },
         )
     }
