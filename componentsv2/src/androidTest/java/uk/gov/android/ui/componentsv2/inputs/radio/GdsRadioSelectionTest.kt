@@ -43,9 +43,7 @@ class GdsRadioSelectionTest {
             .assertExists()
 
         composeTestRule.onNode(isSelected()).assertExists()
-        for (i in 1 until sampleContent.optionText.size) {
-            composeTestRule.onNode(isNotSelected()).assertExists()
-        }
+        composeTestRule.onNode(isNotSelected()).assertExists()
     }
 
     @Test
