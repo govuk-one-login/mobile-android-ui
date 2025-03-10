@@ -25,27 +25,27 @@ internal class LeftAlignedScreenContentProvider :
     override val values = sequenceOf(
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     bodyTextLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
-                LeftAlignedBody.BulletList(
+                LeftAlignedScreenBody.BulletList(
                     persistentListOf(
                         "Bullet 1",
                         "Bullet 2",
@@ -59,19 +59,19 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     bodyTextLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
@@ -84,20 +84,20 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     bodyTextLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
@@ -109,20 +109,20 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     bodyTextLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
@@ -133,20 +133,20 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     bodyTextLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
@@ -158,20 +158,20 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Title(title),
+                LeftAlignedScreenBody.Text(
                     bodyTextShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Text(
+                LeftAlignedScreenBody.Text(
                     LoremIpsum(100).values.first(),
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
-                LeftAlignedBody.Warning(
+                LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                LeftAlignedBody.Image(
+                LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
                     "Image description",
                     Modifier
@@ -183,13 +183,13 @@ internal class LeftAlignedScreenContentProvider :
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
+                LeftAlignedScreenBody.Title(title),
             ),
             primaryButton = "Primary Button",
         ),
         LeftAlignedScreenContent(
             body = listOf(
-                LeftAlignedBody.Title(title),
+                LeftAlignedScreenBody.Title(title),
             ),
             supportingText = LoremIpsum(20).values.first(),
             primaryButton = "Primary Button",
