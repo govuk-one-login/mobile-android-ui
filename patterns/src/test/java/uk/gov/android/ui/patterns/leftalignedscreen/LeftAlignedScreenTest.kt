@@ -5,18 +5,15 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.patterns.BaseScreenshotTest
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenContent
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenContentProvider
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class LeftAlignedScreenTest(
-    private val parameters: Pair<LeftAlignedContent, NightMode>,
+    private val parameters: Pair<LeftAlignedScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-
         GdsTheme {
             LeftAlignedScreenFromContentParams(parameters)
         }
@@ -25,10 +22,10 @@ internal class LeftAlignedScreenTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<CentreAlignedScreenContent, NightMode>> {
-            val result: MutableList<Pair<CentreAlignedScreenContent, NightMode>> = mutableListOf()
+        fun values(): List<Pair<LeftAlignedScreenContent, NightMode>> {
+            val result: MutableList<Pair<LeftAlignedScreenContent, NightMode>> = mutableListOf()
 
-            CentreAlignedScreenContentProvider().values.forEach(applyNightMode(result))
+            LeftAlignedScreenContentProvider().values.forEach(applyNightMode(result))
 
             return result
         }
