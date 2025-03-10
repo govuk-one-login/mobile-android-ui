@@ -31,6 +31,7 @@ import uk.gov.android.ui.theme.spacingDouble
 
 private const val ONE_THIRD = 1f / 3f
 private const val FONT_SCALE_DOUBLE = 2f
+private const val ACCESSIBILITY_TEST_ELEMENT = 7
 
 /**
  * Left Aligned Screen
@@ -280,7 +281,7 @@ internal fun PreviewLeftAlignedScreen(
 @Composable
 @Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
 internal fun PreviewLeftAlignedScreenAccessibility() {
-    val content = LeftAlignedScreenContentProvider().values.elementAt(7)
+    val content = LeftAlignedScreenContentProvider().values.elementAt(ACCESSIBILITY_TEST_ELEMENT)
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
     }
