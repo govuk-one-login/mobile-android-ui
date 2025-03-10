@@ -14,4 +14,46 @@
     <!-- Warning -->
     <string name="warning">rhybudd</string>
     <string name="opens_in_external_browser">Agor mewn porwr gwe</string>
+
+    <!-- RadioSelection -->
+    <plurals name="radio_button_unselected" translatable="true">
+        <item quantity="zero">
+            Heb ei ddewis, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau,tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="one">
+            Heb ei ddewis, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau,tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="two">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="other">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="few">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="many">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+    </plurals>
+    <plurals name="radio_button_selected">
+        <item quantity="zero">
+            Dewiswyd, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="one">
+            Dewiswyd, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="two">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="other">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="few">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="many">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+    </plurals>
 </resources>

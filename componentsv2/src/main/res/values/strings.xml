@@ -36,4 +36,22 @@
 
     <!-- Custom Icon Content Description -->
     <string name="opens_in_external_browser">opens in web browser</string>
+
+    <!-- RadioSelection -->
+    <plurals name="radio_button_unselected" translatable="true">
+        <item quantity="one">
+            Not selected, %s, radio button, 1 of %d, in list, %d items, double tap to select
+        </item>
+        <item quantity="other">
+            Not selected, %s, radio button, %d of %d, double tap to select
+        </item>
+    </plurals>
+    <plurals name="radio_button_selected">
+        <item quantity="one">
+            Selected, %s, radio button, 1 of %d, in list, %d items, double tap to select
+        </item>
+        <item quantity="other">
+            Selected, %s, radio button, %d of %d, double tap to select
+        </item>
+    </plurals>
 </resources>
