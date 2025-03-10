@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -266,9 +267,19 @@ private fun BottomContent(
 @PreviewLightDark
 @Composable
 internal fun PreviewLeftAlignedScreen(
-    @PreviewParameter(LeftAlignedContentProvider::class)
-    content: LeftAlignedContent,
+    @PreviewParameter(LeftAlignedScreenContentProvider::class)
+    content: LeftAlignedScreenContent,
 ) {
+    GdsTheme {
+        LeftAlignedScreenFromContentParams(content)
+    }
+}
+
+@PreviewLightDark
+@Composable
+@Preview(showBackground = true, fontScale = 2f)
+internal fun PreviewLeftAlignedScreenAccessibility() {
+    val content = LeftAlignedScreenContentProvider().values.elementAt(7)
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
     }

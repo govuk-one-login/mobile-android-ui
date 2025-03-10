@@ -12,8 +12,8 @@ import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingTriple
 
-internal class LeftAlignedContentProvider :
-    PreviewParameterProvider<LeftAlignedContent> {
+internal class LeftAlignedScreenContentProvider :
+    PreviewParameterProvider<LeftAlignedScreenContent> {
     private val title = "Do you have a UK passport or passport with a biometric chip?"
     private val bodyTextShort = "All UK passports have a biometric chip"
     private val bodyTextLong =
@@ -23,7 +23,7 @@ internal class LeftAlignedContentProvider :
     private val warning = "You cannot use your passport if it has expired"
 
     override val values = sequenceOf(
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -57,7 +57,7 @@ internal class LeftAlignedContentProvider :
             primaryButton = "Primary Button",
             secondaryButton = "Secondary Button",
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -82,7 +82,7 @@ internal class LeftAlignedContentProvider :
             supportingText = supportingText,
             primaryButton = "Primary Button",
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -107,7 +107,7 @@ internal class LeftAlignedContentProvider :
             ),
             supportingText = supportingText,
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -131,7 +131,7 @@ internal class LeftAlignedContentProvider :
                 ),
             ),
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -156,7 +156,7 @@ internal class LeftAlignedContentProvider :
             ),
             primaryButton = "Primary Button",
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
                 LeftAlignedBody.Text(
@@ -181,17 +181,17 @@ internal class LeftAlignedContentProvider :
             ),
             primaryButton = "Primary Button",
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
             ),
             primaryButton = "Primary Button",
         ),
-        LeftAlignedContent(
+        LeftAlignedScreenContent(
             body = listOf(
                 LeftAlignedBody.Title(title),
             ),
-            supportingText = LoremIpsum(300).values.first(),
+            supportingText = LoremIpsum(20).values.first(),
             primaryButton = "Primary Button",
             secondaryButton = "Secondary Button",
         ),
