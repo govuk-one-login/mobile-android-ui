@@ -43,7 +43,7 @@ private const val ONE_THIRD = 1f / 3f
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  */
-
+@Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
     body: LazyListScope.() -> Unit,
