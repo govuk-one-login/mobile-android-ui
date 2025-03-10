@@ -1,33 +1,30 @@
-package uk.gov.android.ui.patterns.lefalignedscreen
+package uk.gov.android.ui.patterns.leftalignedscreen
 
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import uk.gov.android.ui.componentsv2.body.GdsBody
-import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
+import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.title.GdsTitle
-import uk.gov.android.ui.componentsv2.warning.GdsWarning
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -36,13 +33,12 @@ private const val ONE_THIRD = 1f / 3f
 /**
  * Left Aligned Screen
  *
- * This pattern displays the main content (title and body) which is scrollable.
+ * This pattern displays the main content which is placed in a scrollable container.
  * The bottom content (supporting text, primary and secondary button) is fixed.
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
  *
- * @param title The main title displayed at the top of the screen. Use of [GdsTitle] composable is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @param body representing the main content Use of [GdsBody] composable is recommended (optional).
+ * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
@@ -50,9 +46,8 @@ private const val ONE_THIRD = 1f / 3f
 
 @Composable
 fun LeftAlignedScreen(
-    title: @Composable () -> Unit,
+    body: LazyListScope.() -> Unit,
     modifier: Modifier = Modifier,
-    body: (@Composable () -> Unit)? = null,
     supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
@@ -81,9 +76,16 @@ fun LeftAlignedScreen(
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Measure SupportingText
-            val supportingTextPlaceables = subcompose("supportingText") {
-                SupportingTextContainer { supportingText?.invoke() }
-            }.map { it.measure(constraints) }
+            val supportingTextPlaceables = if (supportingText == null) {
+                emptyList()
+            } else {
+                subcompose("supportingText") {
+                    SupportingTextContainer(
+                        primaryButton != null,
+                        secondaryButton != null,
+                    ) { supportingText.invoke() }
+                }.map { it.measure(constraints) }
+            }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Check if BottomContent + Supporting text exceeds 1/3 of the screen threshold
@@ -94,13 +96,13 @@ fun LeftAlignedScreen(
             // Measure MainContent. Add SupportingText to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
-                    title = title,
                     body = body,
                     supportingText = if (bottomContentOverThreshold) {
                         supportingText
                     } else {
                         null
                     },
+                    arrangement = arrangement,
                 )
             }.map {
                 val bottomContentSupportingTextHeight =
@@ -137,27 +139,97 @@ fun LeftAlignedScreen(
     }
 }
 
+/**
+ * Left Aligned Screen Helper Method
+ *
+ * Uses the slot based method to create the composable
+ *
+ * @param title represents the main title.
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param body representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content (optional).
+ * @param primaryButton primary action button (optional).
+ * @param secondaryButton secondary action button (optional).
+ */
+
+@Composable
+fun LeftAlignedScreen(
+    title: String,
+    modifier: Modifier = Modifier,
+    body: ImmutableList<LeftAlignedBody>? = null,
+    supportingText: String? = null,
+    primaryButton: LeftAlignedScreenButton? = null,
+    secondaryButton: LeftAlignedScreenButton? = null,
+) {
+    LeftAlignedScreen(
+        modifier = modifier,
+        body = {
+            item { GdsTitle(title) }
+            toBodyContent(body)
+        },
+        supportingText = supportingText?.let {
+            { GdsSupportingText(it) }
+        },
+        primaryButton = primaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    onClick = it.onClick,
+                    buttonType = ButtonType.Primary,
+                )
+            }
+        },
+        secondaryButton = secondaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    onClick = it.onClick,
+                    buttonType = ButtonType.Secondary,
+                )
+            }
+        },
+    )
+}
+
 @Composable
 private fun MainContent(
-    title: @Composable () -> Unit,
+    body: LazyListScope.() -> Unit,
     modifier: Modifier = Modifier,
-    body: (@Composable () -> Unit)? = null,
+    arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
+    @SuppressLint("ComposableLambdaParameterNaming")
     supportingText: (@Composable () -> Unit)? = null,
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(
-            spacingDouble,
-            Alignment.CenterVertically,
-        ),
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+    LazyColumn(
+        verticalArrangement = arrangement,
+        modifier = modifier.fillMaxSize(),
     ) {
-        title()
+        body()
 
-        body?.invoke()
+        supportingText?.let {
+            item { it.invoke() }
+        }
+    }
+}
 
-        supportingText?.invoke()
+@Composable
+private fun SupportingTextContainer(
+    primaryButtonPresent: Boolean,
+    secondaryButtonPresent: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    val bottomPadding = if (!primaryButtonPresent && !secondaryButtonPresent) {
+        spacingDouble
+    } else {
+        0.dp
+    }
+    Row(
+        modifier = modifier.padding(
+            top = spacingDouble,
+            bottom = bottomPadding,
+        ),
+    ) {
+        content()
     }
 }
 
@@ -168,106 +240,36 @@ private fun BottomContent(
     secondaryButton: (@Composable () -> Unit)? = null,
 ) {
     Column(
-        modifier,
-        verticalArrangement = Arrangement.spacedBy(spacingDouble),
+        modifier.padding(horizontal = spacingDouble),
     ) {
         primaryButton?.let {
+            val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
+            Spacer(modifier = Modifier.height(spacingDouble))
+
             primaryButton()
+
+            Spacer(modifier = Modifier.height(bottomPadding))
         }
 
         secondaryButton?.let {
-            secondaryButton()
-        }
-    }
-}
+            val topPadding = if (primaryButton == null) 0.dp else spacingDouble
 
-@Composable
-private fun SupportingTextContainer(
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-) {
-    Row(modifier = modifier.padding(vertical = spacingDouble)) {
-        content()
+            Spacer(modifier = Modifier.height(topPadding))
+
+            secondaryButton()
+
+            Spacer(modifier = Modifier.height(spacingDouble))
+        }
     }
 }
 
 @PreviewLightDark
 @Composable
 internal fun PreviewLeftAlignedScreen(
-    @PreviewParameter(LeftAlignedContentProvider::class)
-    content: LeftAlignedContent,
+        @PreviewParameter(LeftAlignedContentProvider::class)
+        content: LeftAlignedContent,
 ) {
     GdsTheme {
-        LeftAlignedScreen(
-            title = { GdsTitle(content.title) },
-
-            body = {
-                GdsBody(
-                    arrangement = Arrangement.spacedBy(spacingDouble),
-                ) {
-                    content.body?.forEach {
-                        when (it) {
-                            is Body.Image -> {
-                                Image(
-                                    painter = painterResource(it.image),
-                                    contentDescription = "",
-                                    modifier = it.modifier,
-                                )
-                            }
-
-                            is Body.Text -> {
-                                Text(
-                                    it.text,
-                                    it.modifier,
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                    style = MaterialTheme.typography.bodyLarge,
-                                )
-                            }
-
-                            is Body.BulletList -> {
-                                GdsBulletedList(it.bullets)
-                            }
-
-                            is Body.Warning -> {
-                                GdsWarning(it.text, modifier = it.modifier)
-                            }
-                        }
-                    }
-                }
-            },
-
-            supportingText = {
-                content.supportingText?.let {
-                    GdsSupportingText(
-                        content.supportingText,
-                        modifier = Modifier.padding(horizontal = spacingDouble),
-                    )
-                }
-            },
-            primaryButton = {
-                content.primaryButton?.let {
-                    GdsButton(
-                        content.primaryButton,
-                        ButtonType.Primary,
-                        {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                    )
-                }
-            },
-            secondaryButton = {
-                content.primaryButton?.let {
-                    GdsButton(
-                        content.primaryButton,
-                        ButtonType.Secondary,
-                        {},
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                    )
-                }
-            },
-        )
+        LeftAlignedScreenFromContentParams(content)
     }
 }
