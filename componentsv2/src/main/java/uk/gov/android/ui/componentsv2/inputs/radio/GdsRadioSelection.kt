@@ -41,7 +41,7 @@ fun GdsRadioSelection(
         val (selectedOption, onOptionSelected) = radioState
         Column(
             modifier
-              .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background)
                 .semantics(mergeDescendants = true) {}
                 .then(
                     colModifier,
@@ -59,7 +59,7 @@ fun GdsRadioSelection(
                     option.text,
                     index + 1,
                     optionText.size,
-                    optionText.size
+                    optionText.size,
                 )
                 val unselectedString = pluralStringResource(
                     id = R.plurals.radio_button_unselected,
@@ -67,7 +67,7 @@ fun GdsRadioSelection(
                     option.text,
                     index + 1,
                     optionText.size,
-                    optionText.size
+                    optionText.size,
                 )
 
                 Row(
@@ -89,7 +89,7 @@ fun GdsRadioSelection(
                             } else {
                                 unselectedString
                             }
-                        }
+                        },
                     )
                     Text(
                         text = option.text,
@@ -172,7 +172,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
                 RadioOption("option two"),
             ),
             radioState = mutableStateOf(RadioOption("option one")),
-            title = RadioSelectionTitle("Example Heading", TitleType.Heading)
+            title = RadioSelectionTitle("Example Heading", TitleType.Heading),
         ),
         RadioSelectionParameters(
             optionText = listOf(
@@ -180,13 +180,13 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
                 RadioOption("option two"),
                 RadioOption(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
-                    "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
-                    "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
-                    "aliquip ex ea commodo consequat"
-                )
+                        "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
+                        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
+                        "aliquip ex ea commodo consequat",
+                ),
             ),
             radioState = mutableStateOf(RadioOption("option one")),
-            title = RadioSelectionTitle("Example Heading", TitleType.Text)
+            title = RadioSelectionTitle("Example Heading", TitleType.Text),
         ),
         RadioSelectionParameters(
             optionText = listOf(
@@ -194,7 +194,7 @@ class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters
                 RadioOption("option two"),
             ),
             radioState = mutableStateOf(RadioOption("option one")),
-            title = RadioSelectionTitle("Example Heading", TitleType.BoldText)
+            title = RadioSelectionTitle("Example Heading", TitleType.BoldText),
         ),
         RadioSelectionParameters(
             optionText = listOf(
