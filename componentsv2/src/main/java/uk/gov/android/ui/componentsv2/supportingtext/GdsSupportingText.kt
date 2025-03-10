@@ -7,6 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -25,4 +28,12 @@ fun GdsSupportingText(
             .padding(horizontal = spacingDouble),
         textAlign = textAlign,
     )
+}
+
+@PreviewLightDark
+@Composable
+private fun PreviewSupportingText() {
+    GdsTheme {
+        GdsSupportingText(LoremIpsum(20).values.first())
+    }
 }

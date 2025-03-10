@@ -17,35 +17,35 @@ import uk.gov.android.ui.componentsv2.title.GdsTitle
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
 
 internal data class LeftAlignedScreenContent(
-    val body: List<LeftAlignedBody>? = null,
+    val body: List<LeftAlignedScreenBody>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,
     val secondaryButton: String? = null,
 )
 
-sealed class LeftAlignedBody {
+sealed class LeftAlignedScreenBody {
     data class Text(
         val text: String,
         val modifier: Modifier = Modifier,
-    ) : LeftAlignedBody()
+    ) : LeftAlignedScreenBody()
 
     data class Title(
         val text: String,
         val modifier: Modifier = Modifier,
-    ) : LeftAlignedBody()
+    ) : LeftAlignedScreenBody()
 
     data class Warning(
         val text: String,
         val modifier: Modifier = Modifier,
-    ) : LeftAlignedBody()
+    ) : LeftAlignedScreenBody()
 
-    data class BulletList(val bullets: ImmutableList<String>) : LeftAlignedBody()
+    data class BulletList(val bullets: ImmutableList<String>) : LeftAlignedScreenBody()
 
     data class Image(
         val image: Int,
         val contentDescription: String,
         val modifier: Modifier = Modifier,
-    ) : LeftAlignedBody()
+    ) : LeftAlignedScreenBody()
 }
 
 data class LeftAlignedScreenButton(
@@ -87,14 +87,14 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
-internal fun LazyListScope.toBodyContent(body: List<LeftAlignedBody>?) {
+internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
     body?.forEach {
         when (it) {
-            is LeftAlignedBody.BulletList -> {
+            is LeftAlignedScreenBody.BulletList -> {
                 item { GdsBulletedList(it.bullets) }
             }
 
-            is LeftAlignedBody.Image -> {
+            is LeftAlignedScreenBody.Image -> {
                 item {
                     Image(
                         painter = painterResource(it.image),
@@ -104,7 +104,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedBody>?) {
                 }
             }
 
-            is LeftAlignedBody.Text -> {
+            is LeftAlignedScreenBody.Text -> {
                 item {
                     Text(
                         it.text,
@@ -115,7 +115,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedBody>?) {
                 }
             }
 
-            is LeftAlignedBody.Title -> {
+            is LeftAlignedScreenBody.Title -> {
                 item {
                     GdsTitle(
                         it.text,
@@ -124,7 +124,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedBody>?) {
                 }
             }
 
-            is LeftAlignedBody.Warning -> {
+            is LeftAlignedScreenBody.Warning -> {
                 item {
                     GdsWarning(
                         it.text,

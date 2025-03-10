@@ -159,7 +159,7 @@ fun LeftAlignedScreen(
 fun LeftAlignedScreen(
     title: String,
     modifier: Modifier = Modifier,
-    body: ImmutableList<LeftAlignedBody>? = null,
+    body: ImmutableList<LeftAlignedScreenBody>? = null,
     supportingText: String? = null,
     primaryButton: LeftAlignedScreenButton? = null,
     secondaryButton: LeftAlignedScreenButton? = null,
@@ -277,7 +277,6 @@ internal fun PreviewLeftAlignedScreen(
     }
 }
 
-@PreviewLightDark
 @Composable
 @Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
 internal fun PreviewLeftAlignedScreenAccessibility() {
