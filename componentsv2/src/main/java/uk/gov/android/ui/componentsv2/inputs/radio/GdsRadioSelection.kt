@@ -5,9 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -18,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -53,26 +52,47 @@ fun GdsRadioSelection(
                 RadioSelectionTitle(it)
             }
 
-            radioSelectionParams.optionText.forEach {
+            radioSelectionParams.optionText.forEachIndexed { index, option ->
+                val selectedString = pluralStringResource(
+                    id = R.plurals.radio_button_selected,
+                    count = if (optionText.size == 1) 1 else index + 1,
+                    option.text,
+                    index + 1,
+                    optionText.size,
+                    optionText.size
+                )
+                val unselectedString = pluralStringResource(
+                    id = R.plurals.radio_button_unselected,
+                    count = if (optionText.size == 1) 1 else index + 1,
+                    option.text,
+                    index + 1,
+                    optionText.size,
+                    optionText.size
+                )
+
                 Row(
                     modifier = Modifier
                         .clickable {
-                            onOptionSelected(it)
+                            onOptionSelected(option)
                         },
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     RadioButton(
-                        selected = (it.text == selectedOption?.text),
-                        onClick = { onOptionSelected(it) },
+                        selected = (option.text == selectedOption?.text),
+                        onClick = { onOptionSelected(option) },
                         colors = RadioButtonDefaults.colors(
                             selectedColor = MaterialTheme.colorScheme.primary,
                         ),
-                        modifier = Modifier
-                        .offset(x = (-4).dp)
-                        .requiredWidth(32.dp)
+                        modifier = Modifier.semantics {
+                            contentDescription = if (option.text == selectedOption?.text) {
+                                selectedString
+                            } else {
+                                unselectedString
+                            }
+                        }
                     )
                     Text(
-                        text = it.text,
+                        text = option.text,
                         color = MaterialTheme.colorScheme.onBackground,
                         style = textStyle ?: MaterialTheme.typography.bodyLarge,
                         textAlign = textAlign,
@@ -130,7 +150,7 @@ private fun RadioSelectionTitle(
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .padding(bottom = 16.dp)
+            .padding(bottom = 16.dp, start = 16.dp)
             .semantics { contentDescription = titleContentDescription },
     )
 }
