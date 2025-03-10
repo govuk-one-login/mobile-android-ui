@@ -14,6 +14,7 @@ class GdsRadioSelectionTest {
     private val expectedParameterSize = 4
     private val contentList = RadioSelectionProvider().values.toList()
     private val sampleContent = RadioSelectionProvider().values.first()
+
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -42,7 +43,7 @@ class GdsRadioSelectionTest {
             .assertExists()
 
         composeTestRule.onNode(isSelected()).assertExists()
-        for(i in 1 until sampleContent.optionText.size){
+        for (i in 1 until sampleContent.optionText.size) {
             composeTestRule.onNode(isNotSelected()).assertExists()
         }
     }
