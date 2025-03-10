@@ -33,6 +33,7 @@ import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
+@Suppress("LongMethod")
 fun GdsRadioSelection(
     radioSelectionParams: RadioSelectionParameters,
     modifier: Modifier = Modifier,
