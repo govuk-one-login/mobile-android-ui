@@ -266,8 +266,8 @@ private fun BottomContent(
 @PreviewLightDark
 @Composable
 internal fun PreviewLeftAlignedScreen(
-        @PreviewParameter(LeftAlignedContentProvider::class)
-        content: LeftAlignedContent,
+    @PreviewParameter(LeftAlignedContentProvider::class)
+    content: LeftAlignedContent,
 ) {
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
