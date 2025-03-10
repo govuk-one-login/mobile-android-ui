@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,7 +27,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.smallPadding
 
@@ -39,10 +40,11 @@ fun GdsRadioSelection(
         val (selectedOption, onOptionSelected) = radioState
         Column(
             modifier
-            .semantics(mergeDescendants = true) {}
-            .then(
-                colModifier,
-            ),
+              .background(MaterialTheme.colorScheme.background)
+                .semantics(mergeDescendants = true) {}
+                .then(
+                    colModifier,
+                ),
             horizontalAlignment = colAlignment,
         ) {
             radioSelectionParams.title?.let {
@@ -57,7 +59,6 @@ fun GdsRadioSelection(
                         },
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-
                     RadioButton(
                         selected = (it.text == selectedOption?.text),
                         onClick = { onOptionSelected(it) },
@@ -87,7 +88,9 @@ data class RadioSelectionParameters(
     val colModifier: Modifier = Modifier
         .padding(bottom = smallPadding),
     val colAlignment: Alignment.Horizontal = Alignment.Start,
-    val textModifier: Modifier = Modifier.fillMaxWidth(),
+    val textModifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(end = smallPadding),
     val textAlign: TextAlign = TextAlign.Start,
 ) {
     override fun toString(): String = this::class.java.simpleName
@@ -122,7 +125,7 @@ private fun RadioSelectionTitle(
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .padding(bottom = 4.dp)
+            .padding(bottom = 16.dp)
             .semantics { contentDescription = titleContentDescription },
     )
 }
@@ -135,6 +138,7 @@ data class RadioSelectionTitle(
     val text: String,
     val titleType: TitleType,
 )
+
 class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionParameters> {
     override val values: Sequence<RadioSelectionParameters> = sequenceOf(
         RadioSelectionParameters(
