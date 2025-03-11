@@ -187,7 +187,7 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
     override val values: Sequence<RadioSelectionPreviewData> = sequenceOf(
         RadioSelectionPreviewData(
             items = persistentListOf("option one"),
-            title = RadioSelectionTitle("Example Heading", TitleType.Text),
+            title = RadioSelectionTitle("Example Title", TitleType.Text),
         ),
         RadioSelectionPreviewData(
             items = persistentListOf("option one", "option two"),
