@@ -17,6 +17,7 @@ import uk.gov.android.ui.componentsv2.title.GdsTitle
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
 
 internal data class LeftAlignedScreenContent(
+    val title: String,
     val body: List<LeftAlignedScreenBody>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,
@@ -56,6 +57,7 @@ data class LeftAlignedScreenButton(
 @Composable
 internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenContent) {
     LeftAlignedScreen(
+        title = { GdsTitle(content.title) },
         body = {
             toBodyContent(content.body)
         },

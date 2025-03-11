@@ -15,23 +15,27 @@ import uk.gov.android.ui.theme.spacingTriple
 internal class LeftAlignedScreenContentProvider :
     PreviewParameterProvider<LeftAlignedScreenContent> {
     private val title = "Do you have a UK passport or passport with a biometric chip?"
-    private val bodyTextShort = "All UK passports have a biometric chip"
-    private val bodyTextLong =
-        "If you have a non-UK passport, it must have a biometric chip symbol on the cover"
+    private val textShort = LoremIpsum(5).values.first()
+    private val textLong = LoremIpsum(25).values.first()
+    private val textExtraLong = LoremIpsum(100).values.first()
     private val supportingText =
         "Check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover"
     private val warning = "You cannot use your passport if it has expired"
 
     override val values = sequenceOf(
         LeftAlignedScreenContent(
+            title = title,
             body = listOf(
-                LeftAlignedScreenBody.Title(title),
                 LeftAlignedScreenBody.Text(
-                    bodyTextShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
+                    textShort,
+                    modifier = Modifier.padding(
+                        start = spacingDouble,
+                        end = spacingDouble,
+                        top = spacingTriple
+                    ),
                 ),
                 LeftAlignedScreenBody.Text(
-                    bodyTextLong,
+                    textLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
@@ -49,7 +53,7 @@ internal class LeftAlignedScreenContentProvider :
                     persistentListOf(
                         "Bullet 1",
                         "Bullet 2",
-                        LoremIpsum(5).values.first(),
+                        textShort,
                     ),
                 ),
             ),
@@ -58,14 +62,14 @@ internal class LeftAlignedScreenContentProvider :
             secondaryButton = "Secondary Button",
         ),
         LeftAlignedScreenContent(
+            title = title,
             body = listOf(
-                LeftAlignedScreenBody.Title(title),
                 LeftAlignedScreenBody.Text(
-                    bodyTextShort,
+                    textShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
-                    bodyTextLong,
+                    textLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
@@ -83,19 +87,19 @@ internal class LeftAlignedScreenContentProvider :
             primaryButton = "Primary Button",
         ),
         LeftAlignedScreenContent(
+            title = title,
             body = listOf(
-                LeftAlignedScreenBody.Title(title),
                 LeftAlignedScreenBody.Text(
-                    bodyTextShort,
+                    textShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
-                    bodyTextLong,
+                    textLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(top = spacingTriple),
                 ),
                 LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
@@ -108,14 +112,14 @@ internal class LeftAlignedScreenContentProvider :
             supportingText = supportingText,
         ),
         LeftAlignedScreenContent(
+            title = title,
             body = listOf(
-                LeftAlignedScreenBody.Title(title),
                 LeftAlignedScreenBody.Text(
-                    bodyTextShort,
+                    textShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
-                    bodyTextLong,
+                    textLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
@@ -132,14 +136,43 @@ internal class LeftAlignedScreenContentProvider :
             ),
         ),
         LeftAlignedScreenContent(
+            title = title,
             body = listOf(
-                LeftAlignedScreenBody.Title(title),
                 LeftAlignedScreenBody.Text(
-                    bodyTextShort,
+                    textShort,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
-                    bodyTextLong,
+                    textLong,
+                    modifier = Modifier.padding(
+                        start = spacingDouble,
+                        end = spacingDouble,
+                        bottom = spacingTriple
+                    ),
+                ),
+                LeftAlignedScreenBody.Warning(
+                    warning,
+                    Modifier.padding(vertical = spacingTriple),
+                ),
+                LeftAlignedScreenBody.Image(
+                    R.drawable.preview__gdsvectorimage,
+                    "Image description",
+                    Modifier
+                        .fillMaxWidth()
+                        .background(Color.Gray),
+                ),
+            ),
+            primaryButton = "Primary Button",
+        ),
+        LeftAlignedScreenContent(
+            title = title,
+            body = listOf(
+                LeftAlignedScreenBody.Text(
+                    textShort,
+                    modifier = Modifier.padding(horizontal = spacingDouble),
+                ),
+                LeftAlignedScreenBody.Text(
+                    textExtraLong,
                     modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
@@ -157,41 +190,12 @@ internal class LeftAlignedScreenContentProvider :
             primaryButton = "Primary Button",
         ),
         LeftAlignedScreenContent(
-            body = listOf(
-                LeftAlignedScreenBody.Title(title),
-                LeftAlignedScreenBody.Text(
-                    bodyTextShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
-                ),
-                LeftAlignedScreenBody.Text(
-                    LoremIpsum(100).values.first(),
-                    modifier = Modifier.padding(horizontal = spacingDouble),
-                ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(vertical = spacingTriple),
-                ),
-                LeftAlignedScreenBody.Image(
-                    R.drawable.preview__gdsvectorimage,
-                    "Image description",
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-            ),
+            title = title,
             primaryButton = "Primary Button",
         ),
         LeftAlignedScreenContent(
-            body = listOf(
-                LeftAlignedScreenBody.Title(title),
-            ),
-            primaryButton = "Primary Button",
-        ),
-        LeftAlignedScreenContent(
-            body = listOf(
-                LeftAlignedScreenBody.Title(title),
-            ),
-            supportingText = LoremIpsum(20).values.first(),
+            title = title,
+            supportingText = "Supporting Text - $textExtraLong",
             primaryButton = "Primary Button",
             secondaryButton = "Secondary Button",
         ),

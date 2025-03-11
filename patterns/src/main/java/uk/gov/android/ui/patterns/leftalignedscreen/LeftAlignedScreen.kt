@@ -39,18 +39,20 @@ private const val ACCESSIBILITY_TEST_ELEMENT = 7
  * This pattern displays the main content which is placed in a scrollable container.
  * The bottom content (supporting text, primary and secondary button) is fixed.
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
- *
+ * @param title represents the main title. Use of [GdsTitle] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
+ * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
  */
 @Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
-    body: LazyListScope.() -> Unit,
+    title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    body: (LazyListScope.() -> Unit)? = null,
     supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
@@ -99,6 +101,7 @@ fun LeftAlignedScreen(
             // Measure MainContent. Add SupportingText to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
+                    title = title,
                     body = body,
                     supportingText = if (bottomContentOverThreshold) {
                         supportingText
@@ -166,8 +169,8 @@ fun LeftAlignedScreen(
 ) {
     LeftAlignedScreen(
         modifier = modifier,
+        title = { GdsTitle(title) },
         body = {
-            item { GdsTitle(title) }
             toBodyContent(body)
         },
         supportingText = supportingText?.let {
@@ -196,8 +199,9 @@ fun LeftAlignedScreen(
 
 @Composable
 private fun MainContent(
-    body: LazyListScope.() -> Unit,
+    title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    body: (LazyListScope.() -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
     supportingText: (@Composable () -> Unit)? = null,
@@ -206,7 +210,11 @@ private fun MainContent(
         verticalArrangement = arrangement,
         modifier = modifier.fillMaxSize(),
     ) {
-        body()
+        item { title() }
+
+        body?.let {
+            it()
+        }
 
         supportingText?.let {
             item { it.invoke() }
