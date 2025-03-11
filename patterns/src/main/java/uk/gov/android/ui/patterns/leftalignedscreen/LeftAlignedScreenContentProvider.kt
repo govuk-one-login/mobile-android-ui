@@ -31,7 +31,7 @@ internal class LeftAlignedScreenContentProvider :
                     modifier = Modifier.padding(
                         start = spacingDouble,
                         end = spacingDouble,
-                        top = spacingTriple
+                        top = spacingTriple,
                     ),
                 ),
                 LeftAlignedScreenBody.Text(
@@ -147,7 +147,7 @@ internal class LeftAlignedScreenContentProvider :
                     modifier = Modifier.padding(
                         start = spacingDouble,
                         end = spacingDouble,
-                        bottom = spacingTriple
+                        bottom = spacingTriple,
                     ),
                 ),
                 LeftAlignedScreenBody.Warning(
