@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.title
+package uk.gov.android.ui.componentsv2.heading
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,7 +39,7 @@ fun GdsHeading(
     )
 }
 
-private class HeadingParameterPreviewProvider : PreviewParameterProvider<String> {
+internal class HeadingParameterPreviewProvider : PreviewParameterProvider<String> {
     override val values: Sequence<String> = sequenceOf(
         "Short Title",
         "Long Title - Lorem ipsum dolor sit amet, consectetur adipiscing elit",
