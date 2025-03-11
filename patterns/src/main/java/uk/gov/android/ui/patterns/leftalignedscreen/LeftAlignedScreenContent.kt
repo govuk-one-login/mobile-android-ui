@@ -13,7 +13,7 @@ import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.componentsv2.title.GdsTitle
+import uk.gov.android.ui.componentsv2.title.GdsHeading
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
 
 internal data class LeftAlignedScreenContent(
@@ -57,7 +57,7 @@ data class LeftAlignedScreenButton(
 @Composable
 internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenContent) {
     LeftAlignedScreen(
-        title = { GdsTitle(content.title) },
+        title = { GdsHeading(content.title) },
         body = {
             toBodyContent(content.body)
         },
@@ -119,7 +119,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
 
             is LeftAlignedScreenBody.Title -> {
                 item {
-                    GdsTitle(
+                    GdsHeading(
                         it.text,
                         it.modifier,
                     )

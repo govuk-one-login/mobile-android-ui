@@ -11,37 +11,50 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
+@Deprecated("This should be replaced with the new Heading component")
 @Composable
-fun GdsTitle(
-    title: String,
+fun GdsHeading(
+    text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
 ) {
     val heading = stringResource(R.string.heading)
 
     Text(
-        text = title,
+        text = text,
         color = MaterialTheme.colorScheme.onBackground,
         style = Typography.displaySmall,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = spacingDouble)
-            .semantics { contentDescription = "$title $heading" },
+            .semantics { contentDescription = "$text $heading" },
         textAlign = textAlign,
+    )
+}
+
+private class HeadingParameterPreviewProvider : PreviewParameterProvider<String> {
+    override val values: Sequence<String> = sequenceOf(
+        "Short Title",
+        "Long Title - Lorem ipsum dolor sit amet, consectetur adipiscing elit",
     )
 }
 
 @PreviewLightDark
 @Composable
-private fun PreviewTitle() {
+private fun PreviewTitle(
+    @PreviewParameter(HeadingParameterPreviewProvider::class)
+    parameters: String,
+) {
     GdsTheme {
-        GdsTitle(
-            title = "Title",
+        GdsHeading(
+            text = parameters,
         )
     }
 }

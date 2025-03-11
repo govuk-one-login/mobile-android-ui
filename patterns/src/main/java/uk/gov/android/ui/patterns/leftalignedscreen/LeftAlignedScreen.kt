@@ -25,7 +25,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.componentsv2.title.GdsTitle
+import uk.gov.android.ui.componentsv2.title.GdsHeading
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -39,7 +39,7 @@ private const val ACCESSIBILITY_TEST_ELEMENT = 7
  * This pattern displays the main content which is placed in a scrollable container.
  * The bottom content (supporting text, primary and secondary button) is fixed.
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
- * @param title represents the main title. Use of [GdsTitle] is recommended
+ * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
@@ -169,7 +169,7 @@ fun LeftAlignedScreen(
 ) {
     LeftAlignedScreen(
         modifier = modifier,
-        title = { GdsTitle(title) },
+        title = { GdsHeading(title) },
         body = {
             toBodyContent(body)
         },
