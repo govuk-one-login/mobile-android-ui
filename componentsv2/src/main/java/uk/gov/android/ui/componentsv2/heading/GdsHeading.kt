@@ -25,7 +25,7 @@ fun GdsHeading(
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Start,
 ) {
-    val heading = stringResource(R.string.heading)
+    val heading = stringResource(R.string.heading, text)
 
     Text(
         text = text,
@@ -34,7 +34,7 @@ fun GdsHeading(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = spacingDouble)
-            .semantics { contentDescription = "$text $heading" },
+            .semantics { contentDescription = heading },
         textAlign = textAlign,
     )
 }
