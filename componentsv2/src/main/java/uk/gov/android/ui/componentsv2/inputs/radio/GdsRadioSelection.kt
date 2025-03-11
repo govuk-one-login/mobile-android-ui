@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
@@ -43,7 +44,6 @@ fun GdsRadioSelection(
         Column(
             modifier
                 .background(MaterialTheme.colorScheme.background)
-                .semantics(mergeDescendants = true) {}
                 .then(
                     colModifier,
                 ),
@@ -72,25 +72,26 @@ fun GdsRadioSelection(
                 )
 
                 Row(
-                    modifier = Modifier
-                        .clickable {
-                            onOptionSelected(option)
-                        },
                     verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    RadioButton(
-                        selected = (option.text == selectedOption?.text),
-                        onClick = { onOptionSelected(option) },
-                        colors = RadioButtonDefaults.colors(
-                            selectedColor = MaterialTheme.colorScheme.primary,
-                        ),
-                        modifier = Modifier.semantics {
+                    modifier = Modifier
+                        .clearAndSetSemantics {
                             contentDescription = if (option.text == selectedOption?.text) {
                                 selectedString
                             } else {
                                 unselectedString
                             }
+                        }
+                        .semantics(mergeDescendants = true) {}
+                        .clickable {
+                            onOptionSelected(option)
                         },
+                ) {
+                    RadioButton(
+                        selected = (option.text == selectedOption?.text),
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = MaterialTheme.colorScheme.primary,
+                        ),
+                        onClick = { onOptionSelected(option) },
                     )
                     Text(
                         text = option.text,
