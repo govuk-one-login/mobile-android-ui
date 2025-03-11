@@ -31,7 +31,6 @@ import uk.gov.android.ui.theme.spacingDouble
 
 private const val ONE_THIRD = 1f / 3f
 private const val FONT_SCALE_DOUBLE = 2f
-private const val ACCESSIBILITY_TEST_ELEMENT = 7
 
 /**
  * Left Aligned Screen
@@ -69,6 +68,9 @@ fun LeftAlignedScreen(
         modifier,
         verticalArrangement = arrangement,
     ) {
+        /* Measures the height of SupportingTextContainer plus the BottomContent.
+        If the height is over 1/3 of the total screen, the SupportingText is moved
+        into the MainContent which is scrollable */
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
@@ -287,8 +289,10 @@ internal fun PreviewLeftAlignedScreen(
 
 @Composable
 @Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
-internal fun PreviewLeftAlignedScreenAccessibility() {
-    val content = LeftAlignedScreenContentProvider().values.elementAt(ACCESSIBILITY_TEST_ELEMENT)
+internal fun PreviewLeftAlignedScreenAccessibility(
+    @PreviewParameter(LeftAlignedScreenContentAccessibilityProvider::class)
+    content: LeftAlignedScreenContent,
+) {
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
     }

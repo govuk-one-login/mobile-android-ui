@@ -201,3 +201,18 @@ internal class LeftAlignedScreenContentProvider :
         ),
     )
 }
+
+internal class LeftAlignedScreenContentAccessibilityProvider :
+    PreviewParameterProvider<LeftAlignedScreenContent> {
+    private val title = "Do you have a UK passport or passport with a biometric chip?"
+    private val textExtraLong = LoremIpsum(50).values.first()
+
+    override val values: Sequence<LeftAlignedScreenContent> = sequenceOf(
+        LeftAlignedScreenContent(
+            title = title,
+            supportingText = "Supporting Text - $textExtraLong",
+            primaryButton = "Primary Button",
+            secondaryButton = "Secondary Button",
+        ),
+    )
+}
