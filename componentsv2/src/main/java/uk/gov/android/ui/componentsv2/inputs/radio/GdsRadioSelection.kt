@@ -54,21 +54,18 @@ fun GdsRadioSelection(
             }
 
             radioSelectionParams.optionText.forEachIndexed { index, option ->
-                val selectedString = pluralStringResource(
-                    id = R.plurals.radio_button_selected,
-                    count = if (optionText.size == 1) 1 else index + 1,
-                    option.text,
-                    index + 1,
-                    optionText.size,
-                    optionText.size,
+                val selectedString = getRadioOptionAccessibilityText(
+                    index = index,
+                    option = option,
+                    optionTextSize = optionText.size,
+                    isSelected = option.text == selectedOption?.text,
                 )
-                val unselectedString = pluralStringResource(
-                    id = R.plurals.radio_button_unselected,
-                    count = if (optionText.size == 1) 1 else index + 1,
-                    option.text,
-                    index + 1,
-                    optionText.size,
-                    optionText.size,
+
+                val unselectedString = getRadioOptionAccessibilityText(
+                    index = index,
+                    option = option,
+                    optionTextSize = optionText.size,
+                    isSelected = false,
                 )
 
                 Row(
@@ -155,6 +152,33 @@ private fun RadioSelectionTitle(
             .padding(bottom = 16.dp, start = 16.dp)
             .semantics { contentDescription = titleContentDescription },
     )
+}
+
+@Composable
+private fun getRadioOptionAccessibilityText(
+    index: Int,
+    option: RadioOption,
+    optionTextSize: Int,
+    isSelected: Boolean,
+): String {
+    val pluralsResId = if (isSelected) R.plurals.radio_button_selected else R.plurals.radio_button_unselected
+    return if (index == 0 && optionTextSize > 1) {
+        pluralStringResource(
+            id = pluralsResId,
+            count = 1,
+            option.text,
+            optionTextSize,
+            optionTextSize,
+        )
+    } else {
+        pluralStringResource(
+            id = pluralsResId,
+            count = index + 1,
+            option.text,
+            index + 1,
+            optionTextSize,
+        )
+    }
 }
 
 enum class TitleType {
