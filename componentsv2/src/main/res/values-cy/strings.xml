@@ -2,7 +2,7 @@
 <resources>
     <!-- BulletedList -->
     <string name="bullet">bwled %s</string>
-    <string name="heading">penawd</string>
+    <string name="heading">%s penawd</string>
     <plurals name="bullet_list_items" translatable="true">
         <item quantity="zero">rhestr bwledi %d eitem</item>
         <item quantity="one">rhestr bwledi %d eitem. bwled %s</item>

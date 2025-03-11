@@ -25,7 +25,7 @@
 
     <!-- BulletedList -->
     <string name="bullet" translatable="true">bullet %s</string>
-    <string name="heading" translatable="true">heading</string>
+    <string name="heading" translatable="true">%s heading</string>
     <plurals name="bullet_list_items" translatable="true">
         <item quantity="one">bulleted list %d item. bullet %s</item>
         <item quantity="other">bulleted list %d items. bullet %s</item>
