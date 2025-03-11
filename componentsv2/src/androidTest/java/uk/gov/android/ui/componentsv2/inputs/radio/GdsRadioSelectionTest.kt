@@ -11,9 +11,8 @@ import org.junit.Rule
 import org.junit.Test
 
 class GdsRadioSelectionTest {
-    private val expectedParameterSize = 4
+    private val expectedParameterSize = 5
     private val contentList = RadioSelectionProvider().values.toList()
-    private val sampleContent = RadioSelectionProvider().values.first()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -29,18 +28,22 @@ class GdsRadioSelectionTest {
 
     @Test
     fun testAllElementsAreDisplayed() {
+        val sampleContent = RadioSelectionProvider().values.toList()[1]
+
         composeTestRule.setContent {
             GdsRadioSelection(
-                radioSelectionParams = sampleContent,
+                radioSelectionItems = sampleContent.items,
+                title = sampleContent.title,
             )
         }
 
-        sampleContent.optionText.forEach { option ->
-            composeTestRule.onNodeWithText(option.text, useUnmergedTree = true).assertExists()
+        sampleContent.items.forEach { option ->
+            composeTestRule.onNodeWithText(option, useUnmergedTree = true).assertExists()
         }
 
-        composeTestRule.onNodeWithText("Example Heading", useUnmergedTree = true)
-            .assertExists()
+        sampleContent.title?.let {
+            composeTestRule.onNodeWithText(it.text, useUnmergedTree = true).assertExists()
+        }
 
         composeTestRule.onNode(
             SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
@@ -57,13 +60,17 @@ class GdsRadioSelectionTest {
 
     @Test
     fun testChangeSelection() {
+        val sampleContent = RadioSelectionProvider().values.toList()[1]
+
         composeTestRule.setContent {
             GdsRadioSelection(
-                radioSelectionParams = sampleContent,
+                radioSelectionItems = sampleContent.items,
+                title = sampleContent.title,
             )
         }
-        val secondOption = sampleContent.optionText[1]
-        composeTestRule.onNodeWithText(secondOption.text, useUnmergedTree = true).performClick()
+
+        val secondOption = sampleContent.items[1]
+        composeTestRule.onNodeWithText(secondOption, useUnmergedTree = true).performClick()
 
         composeTestRule.onNode(
             SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
