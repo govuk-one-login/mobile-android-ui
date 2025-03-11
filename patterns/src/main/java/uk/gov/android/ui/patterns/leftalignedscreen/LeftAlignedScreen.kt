@@ -40,11 +40,13 @@ private const val FONT_SCALE_DOUBLE = 2f
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
+ * @sample LeftAlignedScreenFromContentParams
  */
 @Suppress("LongMethod")
 @Composable
