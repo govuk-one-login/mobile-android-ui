@@ -1,7 +1,7 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
-import androidx.compose.ui.test.isNotSelected
-import androidx.compose.ui.test.isSelected
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -36,14 +36,23 @@ class GdsRadioSelectionTest {
         }
 
         sampleContent.optionText.forEach { option ->
-            composeTestRule.onNodeWithText(option.text).assertExists()
+            composeTestRule.onNodeWithText(option.text, useUnmergedTree = true).assertExists()
         }
 
-        composeTestRule.onNodeWithText("Example Heading")
+        composeTestRule.onNodeWithText("Example Heading", useUnmergedTree = true)
             .assertExists()
 
-        composeTestRule.onNode(isSelected()).assertExists()
-        composeTestRule.onNode(isNotSelected()).assertExists()
+        composeTestRule.onNode(
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
+                SemanticsMatcher.expectValue(SemanticsProperties.Selected, true),
+            useUnmergedTree = true,
+        ).assertExists()
+
+        composeTestRule.onNode(
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
+                SemanticsMatcher.expectValue(SemanticsProperties.Selected, false),
+            useUnmergedTree = true,
+        ).assertExists()
     }
 
     @Test
@@ -54,8 +63,18 @@ class GdsRadioSelectionTest {
             )
         }
         val secondOption = sampleContent.optionText[1]
-        composeTestRule.onNodeWithText(secondOption.text).performClick()
-        composeTestRule.onNode(isNotSelected()).assertExists()
-        composeTestRule.onNode(isSelected()).assertExists()
+        composeTestRule.onNodeWithText(secondOption.text, useUnmergedTree = true).performClick()
+
+        composeTestRule.onNode(
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
+                SemanticsMatcher.expectValue(SemanticsProperties.Selected, false),
+            useUnmergedTree = true,
+        ).assertExists()
+
+        composeTestRule.onNode(
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected) and
+                SemanticsMatcher.expectValue(SemanticsProperties.Selected, true),
+            useUnmergedTree = true,
+        ).assertExists()
     }
 }
