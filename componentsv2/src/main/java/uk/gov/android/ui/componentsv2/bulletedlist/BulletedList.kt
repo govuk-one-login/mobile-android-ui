@@ -79,7 +79,7 @@ private fun BulletedListTitle(
         }
 
         TitleType.Heading -> {
-            titleContentDescription = "${title.text} ${stringResource(R.string.heading)}"
+            titleContentDescription = stringResource(R.string.heading, title.text)
             Typography.headlineSmall
         }
 
