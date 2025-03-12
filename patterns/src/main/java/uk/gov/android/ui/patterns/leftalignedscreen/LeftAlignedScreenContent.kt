@@ -15,6 +15,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
     val title: String,
@@ -54,6 +55,7 @@ data class LeftAlignedScreenButton(
     val onClick: () -> Unit,
 )
 
+@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenContent) {
     LeftAlignedScreen(
@@ -89,6 +91,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
+@OptIn(UnstableDesignSystemAPI::class)
 internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
     body?.forEach {
         when (it) {
