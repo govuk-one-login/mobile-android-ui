@@ -194,22 +194,31 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
             title = RadioSelectionTitle("Example Heading", TitleType.Heading),
         ),
         RadioSelectionPreviewData(
+            items = persistentListOf("option one", "option two"),
+            title = RadioSelectionTitle("Example Bold Title", TitleType.BoldText),
+        ),
+        RadioSelectionPreviewData(
+            items = persistentListOf("option one", "option two", "option three"),
+        ),
+        RadioSelectionPreviewData(
             items = persistentListOf(
                 "option one",
                 "option two",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
-                    "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
-                    "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
-                    "aliquip ex ea commodo consequat",
+                        "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
+                        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
+                        "aliquip ex ea commodo consequat",
             ),
             title = RadioSelectionTitle("Example Title", TitleType.Text),
         ),
         RadioSelectionPreviewData(
-            items = persistentListOf("option one", "option two"),
-            title = RadioSelectionTitle("Example Bold Text", TitleType.BoldText),
-        ),
-        RadioSelectionPreviewData(
-            items = persistentListOf("option one", "option two", "option three"),
+            items = persistentListOf(
+                "option one: Lorem ipsum dolor sit amet, consectetur adipiscing elit ",
+                "option two: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "option three:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            ),
+            title = RadioSelectionTitle("Example Title", TitleType.Text),
         ),
     )
 }
