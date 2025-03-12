@@ -17,8 +17,9 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@Deprecated("This should be replaced with the new Heading component")
+@UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
     text: String,
@@ -46,6 +47,7 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<String
     )
 }
 
+@OptIn(UnstableDesignSystemAPI::class)
 @PreviewLightDark
 @Composable
 private fun PreviewTitle(
