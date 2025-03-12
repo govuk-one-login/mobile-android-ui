@@ -31,9 +31,10 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingle
 
 @Composable
-fun GdsRadioSelection(
+fun GdsSelection(
     radioSelectionItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
     title: RadioSelectionTitle? = null,
@@ -57,7 +58,7 @@ fun GdsRadioSelection(
                 selectedOption = selectedOption,
                 onOptionSelected = onOptionSelected,
                 index = index,
-                optionTextSize = radioSelectionItems.size,
+                totalOptions = radioSelectionItems.size,
             )
         }
     }
@@ -71,20 +72,20 @@ fun RadioSelectionOptionItem(
     selectedOption: String?,
     onOptionSelected: (String) -> Unit,
     index: Int,
-    optionTextSize: Int,
+    totalOptions: Int,
     modifier: Modifier = Modifier,
 ) {
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
         option = RadioOption(option),
-        optionTextSize = optionTextSize,
+        totalOptions = totalOptions,
         isSelected = option == selectedOption,
     )
 
     val unselectedString = getRadioOptionAccessibilityText(
         index = index,
         option = RadioOption(option),
-        optionTextSize = optionTextSize,
+        totalOptions = totalOptions,
         isSelected = false,
     )
 
@@ -106,13 +107,12 @@ fun RadioSelectionOptionItem(
             selected = (option == selectedOption),
             colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary),
             onClick = { onOptionSelected(option) },
-            modifier = Modifier.padding(start = 4.dp),
         )
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.padding(end = spacingDouble),
+            modifier = Modifier.padding(end = spacingSingle)
         )
     }
 }
@@ -121,17 +121,17 @@ fun RadioSelectionOptionItem(
 private fun getRadioOptionAccessibilityText(
     index: Int,
     option: RadioOption,
-    optionTextSize: Int,
+    totalOptions: Int,
     isSelected: Boolean,
 ): String {
     val pluralsResId = if (isSelected) R.plurals.radio_button_selected else R.plurals.radio_button_unselected
-    return if (index == 0 && optionTextSize > 1) {
+    return if (index == 0 && totalOptions > 1) {
         pluralStringResource(
             id = pluralsResId,
             count = 1,
             option.text,
-            optionTextSize,
-            optionTextSize,
+            totalOptions,
+            totalOptions,
         )
     } else {
         pluralStringResource(
@@ -139,7 +139,7 @@ private fun getRadioOptionAccessibilityText(
             count = index + 1,
             option.text,
             index + 1,
-            optionTextSize,
+            totalOptions,
         )
     }
 }
@@ -205,9 +205,9 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
                 "option one",
                 "option two",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
-                        "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
-                        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
-                        "aliquip ex ea commodo consequat",
+                    "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
+                    "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
+                    "aliquip ex ea commodo consequat",
             ),
             title = RadioSelectionTitle("Example Title", TitleType.Text),
         ),
@@ -229,7 +229,7 @@ private fun Preview(
     @PreviewParameter(RadioSelectionProvider::class) radioSelectionItems: RadioSelectionPreviewData,
 ) {
     GdsTheme {
-        GdsRadioSelection(
+        GdsSelection(
             radioSelectionItems = radioSelectionItems.items,
             title = radioSelectionItems.title,
         )
