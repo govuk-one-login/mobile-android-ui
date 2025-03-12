@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
@@ -57,17 +56,14 @@ fun LeftAlignedScreen(
     supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    arrangement: Arrangement.Vertical = Arrangement.spacedBy(
-        spacingDouble,
-        Alignment.CenterVertically,
-    ),
+    arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
     Column(
-        modifier,
+        modifier.padding(top = spacingDouble),
         verticalArrangement = arrangement,
     ) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
