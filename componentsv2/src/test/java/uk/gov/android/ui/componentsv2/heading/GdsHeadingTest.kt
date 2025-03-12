@@ -6,12 +6,14 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(Parameterized::class)
 internal class GdsHeadingTest(
     private val parameters: Pair<String, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
+    @OptIn(UnstableDesignSystemAPI::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsTheme {
