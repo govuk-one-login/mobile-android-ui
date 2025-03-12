@@ -10,8 +10,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class GdsRadioSelectionTest {
-    private val expectedParameterSize = 5
+class GdsSelectionTest {
+    private val expectedParameterSize = 6
     private val contentList = RadioSelectionProvider().values.toList()
 
     @get:Rule
@@ -31,7 +31,7 @@ class GdsRadioSelectionTest {
         val sampleContent = RadioSelectionProvider().values.toList()[1]
 
         composeTestRule.setContent {
-            GdsRadioSelection(
+            GdsSelection(
                 radioSelectionItems = sampleContent.items,
                 title = sampleContent.title,
             )
@@ -63,7 +63,7 @@ class GdsRadioSelectionTest {
         val sampleContent = RadioSelectionProvider().values.toList()[1]
 
         composeTestRule.setContent {
-            GdsRadioSelection(
+            GdsSelection(
                 radioSelectionItems = sampleContent.items,
                 title = sampleContent.title,
             )
