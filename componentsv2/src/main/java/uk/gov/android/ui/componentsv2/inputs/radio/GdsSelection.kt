@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
@@ -77,14 +76,14 @@ fun RadioSelectionOptionItem(
 ) {
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
-        option = RadioOption(option),
+        option = option,
         totalOptions = totalOptions,
         isSelected = option == selectedOption,
     )
 
     val unselectedString = getRadioOptionAccessibilityText(
         index = index,
-        option = RadioOption(option),
+        option = option,
         totalOptions = totalOptions,
         isSelected = false,
     )
@@ -112,7 +111,7 @@ fun RadioSelectionOptionItem(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.padding(end = spacingSingle)
+            modifier = Modifier.padding(end = spacingSingle),
         )
     }
 }
@@ -120,7 +119,7 @@ fun RadioSelectionOptionItem(
 @Composable
 private fun getRadioOptionAccessibilityText(
     index: Int,
-    option: RadioOption,
+    option: String,
     totalOptions: Int,
     isSelected: Boolean,
 ): String {
@@ -129,7 +128,7 @@ private fun getRadioOptionAccessibilityText(
         pluralStringResource(
             id = pluralsResId,
             count = 1,
-            option.text,
+            option,
             totalOptions,
             totalOptions,
         )
@@ -137,7 +136,7 @@ private fun getRadioOptionAccessibilityText(
         pluralStringResource(
             id = pluralsResId,
             count = index + 1,
-            option.text,
+            option,
             index + 1,
             totalOptions,
         )
@@ -213,7 +212,7 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
         ),
         RadioSelectionPreviewData(
             items = persistentListOf(
-                "option one: Lorem ipsum dolor sit amet, consectetur adipiscing elit ",
+                "option one: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option two: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option three:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
