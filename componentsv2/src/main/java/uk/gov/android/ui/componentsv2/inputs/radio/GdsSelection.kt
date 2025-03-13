@@ -54,8 +54,10 @@ fun GdsSelection(
             RadioSelectionOptionItem(
                 text = option,
                 radioOption = option,
-                selectedOption = selectedOption,
-                onOptionSelected = onOptionSelected,
+                isSelected = selectedOption == option,
+                onOptionSelected = {
+                    onOptionSelected(option)
+                },
                 index = index,
                 totalOptions = radioSelectionItems.size,
             )
@@ -68,8 +70,8 @@ fun GdsSelection(
 fun RadioSelectionOptionItem(
     text: String,
     radioOption: String,
-    selectedOption: String?,
-    onOptionSelected: (String) -> Unit,
+    isSelected: Boolean,
+    onOptionSelected: () -> Unit,
     index: Int,
     totalOptions: Int,
     modifier: Modifier = Modifier,
@@ -78,7 +80,7 @@ fun RadioSelectionOptionItem(
         index = index,
         option = radioOption,
         totalOptions = totalOptions,
-        isSelected = radioOption == selectedOption,
+        isSelected = isSelected,
     )
 
     val unselectedString = getRadioOptionAccessibilityText(
@@ -92,20 +94,16 @@ fun RadioSelectionOptionItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clearAndSetSemantics {
-                contentDescription = if (radioOption == selectedOption) {
-                    selectedString
-                } else {
-                    unselectedString
-                }
+                contentDescription = if (isSelected) selectedString else unselectedString
             }
             .semantics(mergeDescendants = true) {}
-            .clickable { onOptionSelected(radioOption) },
+            .clickable(onClick = onOptionSelected),
         horizontalArrangement = Arrangement.Start,
     ) {
         RadioButton(
-            selected = (radioOption == selectedOption),
+            selected = isSelected,
             colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary),
-            onClick = { onOptionSelected(radioOption) },
+            onClick = onOptionSelected,
         )
         Text(
             text = text,
