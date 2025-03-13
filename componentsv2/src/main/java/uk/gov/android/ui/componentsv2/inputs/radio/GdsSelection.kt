@@ -53,7 +53,7 @@ fun GdsSelection(
         radioSelectionItems.forEachIndexed { index, option ->
             RadioSelectionOptionItem(
                 text = option,
-                option = option,
+                radioOption = option,
                 selectedOption = selectedOption,
                 onOptionSelected = onOptionSelected,
                 index = index,
@@ -67,7 +67,7 @@ fun GdsSelection(
 @Suppress("LongMethod")
 fun RadioSelectionOptionItem(
     text: String,
-    option: String,
+    radioOption: String,
     selectedOption: String?,
     onOptionSelected: (String) -> Unit,
     index: Int,
@@ -76,14 +76,14 @@ fun RadioSelectionOptionItem(
 ) {
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
-        option = option,
+        option = radioOption,
         totalOptions = totalOptions,
-        isSelected = option == selectedOption,
+        isSelected = radioOption == selectedOption,
     )
 
     val unselectedString = getRadioOptionAccessibilityText(
         index = index,
-        option = option,
+        option = radioOption,
         totalOptions = totalOptions,
         isSelected = false,
     )
@@ -92,20 +92,20 @@ fun RadioSelectionOptionItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .clearAndSetSemantics {
-                contentDescription = if (option == selectedOption) {
+                contentDescription = if (radioOption == selectedOption) {
                     selectedString
                 } else {
                     unselectedString
                 }
             }
             .semantics(mergeDescendants = true) {}
-            .clickable { onOptionSelected(option) },
+            .clickable { onOptionSelected(radioOption) },
         horizontalArrangement = Arrangement.Start,
     ) {
         RadioButton(
-            selected = (option == selectedOption),
+            selected = (radioOption == selectedOption),
             colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary),
-            onClick = { onOptionSelected(option) },
+            onClick = { onOptionSelected(radioOption) },
         )
         Text(
             text = text,
@@ -152,12 +152,12 @@ private fun RadioSelectionTitle(
 
     val textStyle = when (title.titleType) {
         TitleType.BoldText -> {
-            titleContentDescription = title.text
+            titleContentDescription = stringResource(R.string.heading, title.text)
             MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
         }
 
         TitleType.Heading -> {
-            titleContentDescription = "${title.text} ${stringResource(R.string.heading)}"
+            titleContentDescription = stringResource(R.string.heading, title.text)
             MaterialTheme.typography.headlineSmall
         }
 
