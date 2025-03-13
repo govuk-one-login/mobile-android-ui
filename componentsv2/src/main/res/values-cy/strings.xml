@@ -18,10 +18,10 @@
     <!-- RadioSelection -->
     <plurals name="radio_button_unselected" translatable="true">
         <item quantity="zero">
-            Heb ei ddewis, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau,tapiwch ddwywaith i ddewis
+            Heb ei ddewis, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
         </item>
         <item quantity="one">
-            Heb ei ddewis, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau,tapiwch ddwywaith i ddewis
+            Heb ei ddewis, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
         </item>
         <item quantity="two">
             Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
