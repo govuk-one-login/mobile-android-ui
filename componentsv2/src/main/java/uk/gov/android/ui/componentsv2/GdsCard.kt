@@ -195,7 +195,7 @@ private fun Buttons(
                             containerColor = MaterialTheme.colorScheme.inverseOnSurface,
                         ),
                         iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
-                        contentDescription = stringResource(R.string.icon_content_desc),
+                        contentDescription = stringResource(R.string.opens_in_external_browser),
                     ),
                     modifier = Modifier
                         .fillMaxWidth()
