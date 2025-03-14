@@ -23,7 +23,7 @@ class GdsSelectionTest {
             GdsSelection(
                 items = items,
                 selectedItem = null,
-                onItemSelected = fakeCallback::invoke
+                onItemSelected = fakeCallback::invoke,
             )
         }
 
