@@ -118,7 +118,7 @@ fun RadioSelectionOptionItem(
                     Color.White
                 } else {
                     radioButtonColors.unselectedColor
-                }
+                },
             ),
             onClick = onOptionSelected,
         )
