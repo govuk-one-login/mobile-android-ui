@@ -184,6 +184,7 @@ fun LeftAlignedScreen(
                     text = it.text,
                     onClick = it.onClick,
                     buttonType = ButtonType.Primary,
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         },
@@ -193,6 +194,7 @@ fun LeftAlignedScreen(
                     text = it.text,
                     onClick = it.onClick,
                     buttonType = ButtonType.Secondary,
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         },

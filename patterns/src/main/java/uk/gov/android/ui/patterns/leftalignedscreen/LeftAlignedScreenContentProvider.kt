@@ -36,7 +36,6 @@ internal class LeftAlignedScreenContentProvider :
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
@@ -56,6 +55,10 @@ internal class LeftAlignedScreenContentProvider :
                         textShort,
                     ),
                 ),
+                LeftAlignedScreenBody.SecondaryButton(
+                    "Secondary Button",
+                    {},
+                ),
             ),
             supportingText = supportingText,
             primaryButton = "Primary Button",
@@ -66,11 +69,9 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
@@ -91,11 +92,9 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
@@ -108,6 +107,10 @@ internal class LeftAlignedScreenContentProvider :
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
+                LeftAlignedScreenBody.SecondaryButton(
+                    "Secondary Button",
+                    {},
+                ),
             ),
             supportingText = supportingText,
         ),
@@ -116,11 +119,9 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
@@ -140,7 +141,6 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,
@@ -169,11 +169,9 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Text(
                     textExtraLong,
-                    modifier = Modifier.padding(horizontal = spacingDouble),
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,

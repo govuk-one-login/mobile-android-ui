@@ -1,7 +1,9 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -15,6 +17,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
+import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -26,14 +29,20 @@ internal data class LeftAlignedScreenContent(
 )
 
 sealed class LeftAlignedScreenBody {
+    data class SecondaryButton(
+        val text: String,
+        val onClick: () -> Unit,
+        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
+    ) : LeftAlignedScreenBody()
+
     data class Text(
         val text: String,
-        val modifier: Modifier = Modifier,
+        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
     ) : LeftAlignedScreenBody()
 
     data class Title(
         val text: String,
-        val modifier: Modifier = Modifier,
+        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
     ) : LeftAlignedScreenBody()
 
     data class Warning(
@@ -53,6 +62,7 @@ sealed class LeftAlignedScreenBody {
 data class LeftAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,
+    val modifier: Modifier = Modifier.fillMaxWidth(),
 )
 
 @OptIn(UnstableDesignSystemAPI::class)
@@ -135,6 +145,18 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
                         it.text,
                         it.modifier,
                     )
+                }
+            }
+
+            is LeftAlignedScreenBody.SecondaryButton -> {
+                item {
+                    Box(modifier = it.modifier) {
+                        GdsButton(
+                            it.text,
+                            ButtonType.Secondary,
+                            it.onClick,
+                        )
+                    }
                 }
             }
         }
