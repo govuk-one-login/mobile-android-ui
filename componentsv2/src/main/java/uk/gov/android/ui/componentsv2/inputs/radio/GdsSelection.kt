@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
@@ -98,6 +101,7 @@ fun RadioSelectionOptionItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .padding(start = 2.dp)
             .clearAndSetSemantics {
                 contentDescription = if (isSelected) selectedString else unselectedString
             }
@@ -105,9 +109,17 @@ fun RadioSelectionOptionItem(
             .clickable(onClick = onOptionSelected),
         horizontalArrangement = Arrangement.Start,
     ) {
+        val radioButtonColors = RadioButtonDefaults.colors()
         RadioButton(
             selected = isSelected,
-            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary),
+            colors = RadioButtonDefaults.colors(
+                selectedColor = MaterialTheme.colorScheme.primary,
+                unselectedColor = if (isSystemInDarkTheme()) {
+                    Color.White
+                } else {
+                    radioButtonColors.unselectedColor
+                }
+            ),
             onClick = onOptionSelected,
         )
         Text(
