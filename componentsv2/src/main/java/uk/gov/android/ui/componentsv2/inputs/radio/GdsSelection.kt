@@ -36,7 +36,7 @@ import uk.gov.android.ui.theme.spacingSingle
 fun GdsSelection(
     radioSelectionItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
-    title: RadioSelectionTitle? = null,
+    content: @Composable (() -> Unit)? = null,
 ) {
     val selectedOptionState = remember { mutableStateOf(radioSelectionItems.firstOrNull()) }
     val selectedOption = selectedOptionState.value
@@ -48,7 +48,7 @@ fun GdsSelection(
             .padding(end = spacingDouble),
         horizontalAlignment = Alignment.Start,
     ) {
-        title?.let { RadioSelectionTitle(it) }
+        content?.let { it() }
 
         radioSelectionItems.forEachIndexed { index, option ->
             RadioSelectionOptionItem(
@@ -63,6 +63,21 @@ fun GdsSelection(
             )
         }
     }
+}
+
+@Composable
+fun GdsSelection(
+    radioSelectionItems: ImmutableList<String>,
+    modifier: Modifier = Modifier,
+    title: RadioSelectionTitle? = null,
+) {
+    GdsSelection(
+        radioSelectionItems,
+        modifier,
+        content = {
+            title?.let { RadioSelectionTitle(it) }
+        },
+    )
 }
 
 @Composable
