@@ -18,6 +18,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -32,7 +33,7 @@ sealed class LeftAlignedScreenBody {
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
-        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
+        val modifier: Modifier = Modifier.padding(horizontal = spacingSingle),
     ) : LeftAlignedScreenBody()
 
     data class Text(
