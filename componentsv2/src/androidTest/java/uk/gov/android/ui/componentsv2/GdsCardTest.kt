@@ -88,7 +88,7 @@ class GdsCardTest {
 
             // The same icon description is used for the AnnotatedString used for Secondary Button
             onAllNodesWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.opens_in_external_browser),
             ).assertCountEquals(1)
 
             assertEquals(1, onClick)

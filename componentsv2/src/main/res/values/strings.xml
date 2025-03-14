@@ -33,4 +33,7 @@
 
     <!-- Warning -->
     <string name="warning" translatable="true">warning</string>
+
+    <!-- Custom Icon Content Description -->
+    <string name="opens_in_external_browser">opens in web browser</string>
 </resources>
