@@ -30,6 +30,15 @@ import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
 
+/**
+ * A composable that displays a list of radio selection options.
+ *
+ * @param items The list of options to display.
+ * @param selectedItem The index of the selected item, or `null` if no item is selected.
+ * @param onItemSelected A callback function that is called when an item is selected.
+ * @param modifier The modifier to apply to the layout.
+ * @param title An optional title to display above the radio selection options.
+ */
 @Composable
 fun GdsSelection(
     items: ImmutableList<String>,
