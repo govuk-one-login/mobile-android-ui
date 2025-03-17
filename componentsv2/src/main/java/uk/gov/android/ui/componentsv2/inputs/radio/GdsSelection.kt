@@ -12,6 +12,8 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +43,7 @@ import uk.gov.android.ui.theme.spacingSingle
  * @param onItemSelected A callback function that is called when an item is selected.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the radio selection options.
+ * @sample GdsSelectionSample
  */
 @Composable
 fun GdsSelection(
@@ -198,6 +201,24 @@ internal data class RadioSelectionPreviewData(
     val title: RadioSelectionTitle? = null,
     val selectedIndex: Int? = null,
 )
+
+data class SelectionContent(
+    val items: ImmutableList<String>,
+    val title: RadioSelectionTitle? = null,
+    val selectedIndex: Int? = null,
+)
+
+@Composable
+internal fun GdsSelectionSample(content: SelectionContent) {
+    val selectedIndex = remember { mutableIntStateOf(content.selectedIndex ?: 0) }
+
+    GdsSelection(
+        items = content.items,
+        selectedItem = selectedIndex.intValue,
+        onItemSelected = { selectedIndex.intValue = it },
+        title = content.title
+    )
+}
 
 internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionPreviewData> {
     override val values: Sequence<RadioSelectionPreviewData> = sequenceOf(
