@@ -7,8 +7,8 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito.verify
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
 class GdsSelectionTest {
 

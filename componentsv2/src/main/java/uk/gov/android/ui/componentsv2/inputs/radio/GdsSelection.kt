@@ -216,7 +216,7 @@ internal fun GdsSelectionSample(content: SelectionContent) {
         items = content.items,
         selectedItem = selectedIndex.intValue,
         onItemSelected = { selectedIndex.intValue = it },
-        title = content.title
+        title = content.title,
     )
 }
 
