@@ -2,7 +2,6 @@ package uk.gov.android.ui.patterns.dialog
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
@@ -20,8 +19,9 @@ class CustomFullScreenDialogScreenshotTest(
             FullScreenDialog(
                 onDismissRequest = { },
                 topAppBar = {
-                    TopAppBar(
+                    FullScreenDialogTopAppBar(
                         title = { Text(parameters.first) },
+                        onCloseClick = { },
                     )
                 },
                 content = { Text("Content") },

@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -20,7 +17,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import uk.gov.android.ui.componentsv2.button.CloseButton
 
 /**
  * Full screen dialog
@@ -53,19 +49,13 @@ fun FullScreenDialog(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = colorScheme.background,
-                    titleContentColor = colorScheme.contentColorFor(colorScheme.background),
-                ),
+            FullScreenDialogTopAppBar(
                 title = {
                     title?.let {
                         Text(title)
                     }
                 },
-                navigationIcon = {
-                    CloseButton(onClose = onDismissRequest)
-                },
+                onCloseClick = onDismissRequest,
             )
         },
         content = content,
@@ -85,7 +75,8 @@ fun FullScreenDialog(
  *
  * @param onDismissRequest Executes when the user tries to dismiss the dialog.
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
- * @param topAppBar Requires any type of [TopAppBar] to allow customisation
+ * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
+ *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
  * @param content The content to be displayed inside the dialog.
  *
  * **Used in [FullScreenDialog] composition.
@@ -158,8 +149,9 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
     FullScreenDialog(
         onDismissRequest = { },
         topAppBar = {
-            TopAppBar(
+            FullScreenDialogTopAppBar(
                 title = { Text("") },
+                onCloseClick = {},
             )
         },
         content = parameters.content,
