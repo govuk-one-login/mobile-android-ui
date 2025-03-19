@@ -15,6 +15,8 @@ import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
+import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarning
 import uk.gov.android.ui.theme.spacingDouble
@@ -57,6 +59,14 @@ sealed class LeftAlignedScreenBody {
         val image: Int,
         val contentDescription: String,
         val modifier: Modifier = Modifier,
+    ) : LeftAlignedScreenBody()
+
+    data class Selection(
+        val items: ImmutableList<String>,
+        val selectedItem: Int?,
+        val onItemSelected: (Int) -> Unit,
+        val modifier: Modifier = Modifier,
+        val title: RadioSelectionTitle? = null,
     ) : LeftAlignedScreenBody()
 }
 
@@ -103,6 +113,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
+@Suppress("LongMethod")
 internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
     body?.forEach {
         when (it) {
@@ -158,6 +169,18 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
                             it.onClick,
                         )
                     }
+                }
+            }
+
+            is LeftAlignedScreenBody.Selection -> {
+                item {
+                    GdsSelection(
+                        items = it.items,
+                        selectedItem = it.selectedItem,
+                        onItemSelected = it.onItemSelected,
+                        modifier = it.modifier,
+                        title = it.title,
+                    )
                 }
             }
         }

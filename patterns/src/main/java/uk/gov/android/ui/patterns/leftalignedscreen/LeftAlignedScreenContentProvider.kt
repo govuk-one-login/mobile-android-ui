@@ -21,6 +21,7 @@ internal class LeftAlignedScreenContentProvider :
     private val supportingText =
         "Check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover"
     private val warning = "You cannot use your passport if it has expired"
+    private val selectionItems = persistentListOf("Yes", "No")
 
     override val values = sequenceOf(
         LeftAlignedScreenContent(
@@ -83,6 +84,11 @@ internal class LeftAlignedScreenContentProvider :
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
+                LeftAlignedScreenBody.Selection(
+                    items = selectionItems,
+                    selectedItem = null,
+                    onItemSelected = {},
+                ),
             ),
             supportingText = supportingText,
             primaryButton = "Primary Button",
@@ -110,6 +116,11 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.SecondaryButton(
                     "Secondary Button",
                     {},
+                ),
+                LeftAlignedScreenBody.Selection(
+                    items = selectionItems,
+                    selectedItem = 1,
+                    onItemSelected = {},
                 ),
             ),
             supportingText = supportingText,
