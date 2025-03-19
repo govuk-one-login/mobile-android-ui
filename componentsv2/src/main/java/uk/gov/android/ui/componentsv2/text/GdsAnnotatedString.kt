@@ -39,6 +39,7 @@ fun GdsAnnotatedString(
     iconColor: Color = Color.Unspecified,
     iconBackgroundColor: Color = Color.Unspecified,
     isIconTrailing: Boolean = true,
+    textAlign: TextAlign = TextAlign.Center,
 ) {
     val annotatedString: AnnotatedString = buildAnnotatedString {
         if (isIconTrailing) {
@@ -76,7 +77,7 @@ fun GdsAnnotatedString(
         inlineContent = inlineIconContent,
         fontWeight = fontWeight,
         style = Typography.labelLarge,
-        textAlign = TextAlign.Center,
+        textAlign = textAlign,
     )
 }
 

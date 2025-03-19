@@ -9,7 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
@@ -59,6 +61,7 @@ sealed class LeftAlignedScreenBody {
         val image: Int,
         val contentDescription: String,
         val modifier: Modifier = Modifier,
+        val contentScale: ContentScale = ContentScale.FillWidth,
     ) : LeftAlignedScreenBody()
 
     data class Selection(
@@ -125,7 +128,8 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
                 item {
                     Image(
                         painter = painterResource(it.image),
-                        contentDescription = "",
+                        contentDescription = it.contentDescription,
+                        contentScale = it.contentScale,
                         modifier = it.modifier,
                     )
                 }
@@ -167,6 +171,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
                             it.text,
                             ButtonType.Secondary,
                             it.onClick,
+                            textAlign = TextAlign.Start,
                         )
                     }
                 }

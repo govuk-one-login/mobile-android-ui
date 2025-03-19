@@ -36,6 +36,7 @@ fun GdsButton(
     contentModifier: Modifier = modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
+    textAlign: TextAlign = TextAlign.Center,
 ) {
     Button(
         colors = buttonType.buttonColors(),
@@ -56,6 +57,7 @@ fun GdsButton(
             buttonType = buttonType,
             modifier = contentModifier,
             contentPosition = contentPosition,
+            textAlign = textAlign,
         )
     }
 }
@@ -66,6 +68,7 @@ private fun Content(
     buttonType: ButtonType,
     modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    textAlign: TextAlign = TextAlign.Center,
 ) {
     Row(
         modifier = modifier,
@@ -81,13 +84,14 @@ private fun Content(
                 isIconTrailing = buttonType.isIconTrailing,
                 iconColor = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
+                textAlign = textAlign,
             )
         } else {
             Text(
                 text = text,
                 fontWeight = buttonType.fontWeight(),
                 style = Typography.labelLarge,
-                textAlign = TextAlign.Center,
+                textAlign = textAlign,
             )
         }
     }
