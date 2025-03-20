@@ -1,39 +1,26 @@
 package uk.gov.android.ui.patterns.dialog
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.spacingDouble
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RunWith(Parameterized::class)
-class CustomFullScreenDialogScreenshotTest(
+class FullScreenDialogTopAppBarScreenshotTest(
     private val parameters: Pair<String, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
-    @OptIn(ExperimentalMaterial3Api::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
-            FullScreenDialog(
-                onDismissRequest = { },
-                topAppBar = {
-                    FullScreenDialogTopAppBar(
-                        title = { Text(parameters.first) },
-                        onCloseClick = { },
-                    )
-                },
-                content = {
-                    Box(
-                        modifier = Modifier.padding(spacingDouble),
-                    ) {
-                        Text("Content")
-                    }
+            FullScreenDialogTopAppBar(
+                onCloseClick = {},
+                title = {
+                    val text = parameters.first
+                    Text(text = text)
                 },
             )
         }
