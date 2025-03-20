@@ -114,7 +114,7 @@ internal class LeftAlignedScreenContentProvider :
                         .background(Color.Gray),
                 ),
                 LeftAlignedScreenBody.SecondaryButton(
-                    "Secondary Button",
+                    "Read more about the types of photo ID you can use",
                     {},
                 ),
                 LeftAlignedScreenBody.Selection(
