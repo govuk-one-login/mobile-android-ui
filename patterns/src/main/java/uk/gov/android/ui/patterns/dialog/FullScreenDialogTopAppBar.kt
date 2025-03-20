@@ -56,7 +56,6 @@ object FullScreenDialogTopAppBarDefaults {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @PreviewLightDark
 @Composable
 internal fun FullScreenDialogTopAppBarPreview() = GdsTheme {
