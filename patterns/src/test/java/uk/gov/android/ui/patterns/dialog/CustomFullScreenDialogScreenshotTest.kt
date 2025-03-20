@@ -24,7 +24,7 @@ class CustomFullScreenDialogScreenshotTest(
                         title = { Text(parameters.first) },
                     )
                 },
-                content = { Text("Content") },
+                content = { Text("Some other content") },
             )
         }
     }
