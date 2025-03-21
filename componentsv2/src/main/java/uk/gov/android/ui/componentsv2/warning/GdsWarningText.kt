@@ -25,7 +25,7 @@ import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
 @Composable
-fun GdsWarning(
+fun GdsWarningText(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -71,7 +71,7 @@ internal fun WarningPreview(
     text: String,
 ) {
     GdsTheme {
-        GdsWarning(
+        GdsWarningText(
             text = text,
         )
     }
