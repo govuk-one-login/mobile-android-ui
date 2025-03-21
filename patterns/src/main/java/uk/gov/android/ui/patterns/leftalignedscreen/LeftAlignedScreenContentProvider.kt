@@ -92,6 +92,7 @@ internal class LeftAlignedScreenContentProvider :
             ),
             supportingText = supportingText,
             primaryButton = "Primary Button",
+            primaryButtonIsEnabled = false,
         ),
         LeftAlignedScreenContent(
             title = title,
