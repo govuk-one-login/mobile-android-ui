@@ -49,7 +49,7 @@ import uk.gov.android.ui.components.m3.buttons.CloseButton
  */
 @Deprecated(
     message = "This needs to be replaced with the existing version of the patterns module.",
-    replaceWith = ReplaceWith("uk/gov/android/ui/patterns/dialog/FullScreenDialogTest.kt"),
+    replaceWith = ReplaceWith("uk/gov/android/ui/patterns/dialog/FullScreenDialog.kt"),
     level = DeprecationLevel.WARNING,
 )
 @OptIn(ExperimentalMaterial3Api::class)
