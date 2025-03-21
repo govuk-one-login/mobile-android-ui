@@ -31,9 +31,9 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 @Deprecated(
     message = "The name of the method/ pattern does not align with the Design System.",
     replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogueTopAppBar.kt"
+        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogueTopAppBar.kt",
     ),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
