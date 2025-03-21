@@ -40,9 +40,9 @@ import androidx.compose.ui.window.DialogProperties
 @Deprecated(
     message = "The name of the method/ pattern does not align with the Design System.",
     replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt"
+        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt",
     ),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -91,9 +91,9 @@ fun FullScreenDialog(
 @Deprecated(
     message = "The name of the method/ pattern does not align with the Design System.",
     replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt"
+        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt",
     ),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun FullScreenDialog(
