@@ -88,6 +88,8 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.mockito.kotlin)
     testImplementation(platform(libs.junit.bom))
+
+    testRuntimeOnly(libs.junit.jupiter.launcher)
 }
 
 mavenPublishingConfig {

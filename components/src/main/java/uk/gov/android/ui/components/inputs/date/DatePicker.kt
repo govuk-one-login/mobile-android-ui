@@ -1,6 +1,7 @@
 package uk.gov.android.ui.components.inputs.date
 
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
@@ -21,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
@@ -47,7 +47,7 @@ fun GdsDatePicker(
     params: DatePickerParameters,
 ) {
     params.apply {
-        val activity = LocalContext.current as? AppCompatActivity
+        val activity = LocalActivity.current as? AppCompatActivity
         val (selectedDate, onDateChanged) = dateState
         val dateFormatter = DateTimeFormatter.ofPattern(dateFormatString)
 
