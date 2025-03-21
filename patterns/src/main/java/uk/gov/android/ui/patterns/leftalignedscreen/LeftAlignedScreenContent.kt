@@ -20,7 +20,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.componentsv2.warning.GdsWarning
+import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -160,7 +160,7 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
 
             is LeftAlignedScreenBody.Warning -> {
                 item {
-                    GdsWarning(
+                    GdsWarningText(
                         it.text,
                         it.modifier,
                     )
