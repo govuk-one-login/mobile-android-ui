@@ -17,9 +17,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-
 /**
- * Full screen dialog
+ * Full screen dialogue
  *
  * Use this pattern for a task made up of a series of steps
  *
@@ -37,26 +36,19 @@ import androidx.compose.ui.window.DialogProperties
  * @param title The content to be displayed inside the dialog.
  * @param content The content to be displayed inside the dialog.
  */
-@Deprecated(
-    message = "The name of the method/ pattern does not align with the Design System.",
-    replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt"
-    ),
-    level = DeprecationLevel.WARNING
-)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FullScreenDialog(
+fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
     content: @Composable () -> Unit,
 ) {
-    FullScreenDialog(
+    FullScreenDialogue(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = {
-            FullScreenDialogTopAppBar(
+            FullScreenDialogueTopAppBar(
                 title = {
                     title?.let {
                         Text(title)
@@ -88,15 +80,8 @@ fun FullScreenDialog(
  *
  * **Used in [FullScreenDialog] composition.
  */
-@Deprecated(
-    message = "The name of the method/ pattern does not align with the Design System.",
-    replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogue.kt"
-    ),
-    level = DeprecationLevel.WARNING
-)
 @Composable
-fun FullScreenDialog(
+fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
     topAppBar: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -123,13 +108,13 @@ fun FullScreenDialog(
     }
 }
 
-internal data class FullScreenDialogPreviewParameters(
+internal data class FullScreenDialoguePreviewParameters(
     val onDismissRequest: () -> Unit = { },
     val title: String? = "Title",
     val content: @Composable () -> Unit = { },
 )
 
-internal class FullScreenDialogPreviewProvider :
+internal class FullScreenDialoguePreviewProvider :
     PreviewParameterProvider<FullScreenDialogPreviewParameters> {
     override val values: Sequence<FullScreenDialogPreviewParameters> =
         sequenceOf(
@@ -143,10 +128,10 @@ internal class FullScreenDialogPreviewProvider :
 @PreviewLightDark
 @Composable
 internal fun ModalDialogPreview(
-    @PreviewParameter(FullScreenDialogPreviewProvider::class)
-    parameters: FullScreenDialogPreviewParameters,
+    @PreviewParameter(FullScreenDialoguePreviewProvider::class)
+    parameters: FullScreenDialoguePreviewParameters,
 ) {
-    FullScreenDialog(
+    FullScreenDialogue(
         onDismissRequest = { },
         title = parameters.title,
         content = parameters.content,
@@ -157,10 +142,10 @@ internal fun ModalDialogPreview(
 @PreviewLightDark
 @Composable
 internal fun ModalDialogWithCustomisedTopAppBarPreview(
-    @PreviewParameter(FullScreenDialogPreviewProvider::class)
-    parameters: FullScreenDialogPreviewParameters,
+    @PreviewParameter(FullScreenDialoguePreviewProvider::class)
+    parameters: FullScreenDialoguePreviewParameters,
 ) {
-    FullScreenDialog(
+    FullScreenDialogue(
         onDismissRequest = { },
         topAppBar = {
             FullScreenDialogTopAppBar(
