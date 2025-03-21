@@ -27,7 +27,7 @@ class GdsWarningTest {
     @Before
     fun setup() {
         composeTestRule.setContent {
-            GdsWarning(text)
+            GdsWarningText(text)
         }
     }
 

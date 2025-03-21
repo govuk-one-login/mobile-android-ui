@@ -7,7 +7,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class BulletedListKtTest {
+class GdsBulletedListTest {
     private val expectedParameterSize = 4
     private val contentList = BulletedListProvider().values.toList()
     private val sampleContent =

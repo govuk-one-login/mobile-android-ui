@@ -17,7 +17,7 @@ import uk.gov.android.ui.componentsv2.button.CloseButton
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
- * A pre-configured [TopAppBar] for use with [FullScreenDialog].
+ * A pre-configured [TopAppBar] for use with [FullScreenDialogue].
  *
  * This composable provides a standard layout for a top app bar in a full-screen dialog,
  * including a close button in the navigation icon slot.
@@ -28,16 +28,9 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  *   See [FullScreenDialogTopAppBarDefaults.topAppBarColors].
  * @param title The title of the top app bar. Use [Text] for this.
  */
-@Deprecated(
-    message = "The name of the method/ pattern does not align with the Design System.",
-    replaceWith = ReplaceWith(
-        "java/uk/gov/android/ui/patterns/dialog/FullScreenDialogueTopAppBar.kt",
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FullScreenDialogTopAppBar(
+fun FullScreenDialogueTopAppBar(
     onCloseClick: () -> Unit,
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = FullScreenDialogTopAppBarDefaults.topAppBarColors(),
@@ -56,7 +49,7 @@ fun FullScreenDialogTopAppBar(
 /**
  * Default parameters for use with [FullScreenDialogTopAppBar].
  */
-object FullScreenDialogTopAppBarDefaults {
+object FullScreenDialogueTopAppBarDefaults {
     @Composable
     fun topAppBarColors() = TopAppBarDefaults.topAppBarColors(
         containerColor = colorScheme.background,
@@ -64,10 +57,11 @@ object FullScreenDialogTopAppBarDefaults {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @PreviewLightDark
 @Composable
-internal fun FullScreenDialogTopAppBarPreview() = GdsTheme {
-    FullScreenDialogTopAppBar(
+internal fun FullScreenDialogueTopAppBarPreview() = GdsTheme {
+    FullScreenDialogueTopAppBar(
         title = { Text("Title") },
         onCloseClick = {},
     )
