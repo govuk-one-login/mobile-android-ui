@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.heading
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +15,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @UnstableDesignSystemAPI
@@ -34,7 +32,6 @@ fun GdsHeading(
         style = Typography.displaySmall,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = spacingDouble)
             .semantics { contentDescription = heading },
         textAlign = textAlign,
     )
