@@ -9,7 +9,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.patterns.R
-import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingTriple
 
 internal class LeftAlignedScreenContentProvider :
@@ -30,13 +29,11 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.Text(
                     textShort,
                     modifier = Modifier.padding(
-                        start = spacingDouble,
-                        end = spacingDouble,
                         top = spacingTriple,
                     ),
                 ),
                 LeftAlignedScreenBody.Text(
-                    textLong,
+                    text = textLong,
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
@@ -157,8 +154,6 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.Text(
                     textLong,
                     modifier = Modifier.padding(
-                        start = spacingDouble,
-                        end = spacingDouble,
                         bottom = spacingTriple,
                     ),
                 ),

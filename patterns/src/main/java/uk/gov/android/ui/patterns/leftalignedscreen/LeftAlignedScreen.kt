@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
@@ -51,13 +52,13 @@ private const val FONT_SCALE_DOUBLE = 2f
 @Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
-    title: @Composable () -> Unit,
+    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    body: (LazyListScope.() -> Unit)? = null,
-    supportingText: (@Composable () -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
+    arrangement: Arrangement.Vertical = LeftAlignedScreenDefaults.ItemArrangement,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -89,7 +90,7 @@ fun LeftAlignedScreen(
                     SupportingTextContainer(
                         primaryButton != null,
                         secondaryButton != null,
-                    ) { supportingText.invoke() }
+                    ) { supportingText.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
                 }.map { it.measure(constraints) }
             }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
@@ -171,12 +172,25 @@ fun LeftAlignedScreen(
 ) {
     LeftAlignedScreen(
         modifier = modifier,
-        title = { GdsHeading(title) },
-        body = {
-            toBodyContent(body)
+        title = { horizontalPadding ->
+            GdsHeading(
+                text = title,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+            )
         },
-        supportingText = supportingText?.let {
-            { GdsSupportingText(it) }
+        body = { horizontalItemPadding ->
+            toBodyContent(
+                horizontalItemPadding = horizontalItemPadding,
+                body = body,
+            )
+        },
+        supportingText = supportingText?.let { text ->
+            { horizontalPadding ->
+                GdsSupportingText(
+                    text = text,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                )
+            }
         },
         primaryButton = primaryButton?.let {
             {
@@ -205,25 +219,25 @@ fun LeftAlignedScreen(
 
 @Composable
 private fun MainContent(
-    title: @Composable () -> Unit,
+    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    body: (LazyListScope.() -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
-    supportingText: (@Composable () -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
         modifier = modifier.fillMaxSize(),
     ) {
-        item { title() }
+        item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
 
         body?.let {
-            it()
+            it(LeftAlignedScreenDefaults.HorizontalPadding)
         }
 
         supportingText?.let {
-            item { it.invoke() }
+            item { it.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
         }
     }
 }
@@ -257,7 +271,7 @@ private fun BottomContent(
     secondaryButton: (@Composable () -> Unit)? = null,
 ) {
     Column(
-        modifier.padding(horizontal = spacingDouble),
+        modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding),
     ) {
         primaryButton?.let {
             val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
@@ -278,6 +292,11 @@ private fun BottomContent(
             Spacer(modifier = Modifier.height(spacingDouble))
         }
     }
+}
+
+object LeftAlignedScreenDefaults {
+    val ItemArrangement = Arrangement.spacedBy(spacingDouble)
+    val HorizontalPadding: Dp = spacingDouble
 }
 
 @PreviewLightDark

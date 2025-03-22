@@ -1,7 +1,8 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
@@ -21,8 +23,7 @@ import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -38,17 +39,17 @@ sealed class LeftAlignedScreenBody {
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
-        val modifier: Modifier = Modifier.padding(horizontal = spacingSingle),
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
     data class Text(
         val text: String,
-        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
     data class Title(
         val text: String,
-        val modifier: Modifier = Modifier.padding(horizontal = spacingDouble),
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
     data class Warning(
@@ -85,12 +86,25 @@ data class LeftAlignedScreenButton(
 @Composable
 internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenContent) {
     LeftAlignedScreen(
-        title = { GdsHeading(content.title) },
-        body = {
-            toBodyContent(content.body)
+        title = { horizontalPadding ->
+            GdsHeading(
+                text = content.title,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+            )
         },
-        supportingText = content.supportingText?.let {
-            { GdsSupportingText(it) }
+        body = { horizontalItemPadding ->
+            toBodyContent(
+                horizontalItemPadding = horizontalItemPadding,
+                body = content.body,
+            )
+        },
+        supportingText = content.supportingText?.let { text ->
+            { horizontalPadding ->
+                GdsSupportingText(
+                    text = text,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                )
+            }
         },
         primaryButton = content.primaryButton?.let {
             {
@@ -120,11 +134,20 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
-internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
+internal fun LazyListScope.toBodyContent(
+    body: List<LeftAlignedScreenBody>?,
+    horizontalItemPadding: Dp,
+) {
+    val itemPadding = PaddingValues(horizontal = horizontalItemPadding)
     body?.forEach {
         when (it) {
             is LeftAlignedScreenBody.BulletList -> {
-                item { GdsBulletedList(it.bullets) }
+                item {
+                    GdsBulletedList(
+                        bulletListItems = it.bullets,
+                        modifier = Modifier.padding(itemPadding),
+                    )
+                }
             }
 
             is LeftAlignedScreenBody.Image -> {
@@ -141,8 +164,8 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
             is LeftAlignedScreenBody.Text -> {
                 item {
                     Text(
-                        it.text,
-                        it.modifier,
+                        text = it.text,
+                        modifier = it.modifier.padding(itemPadding),
                         color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.bodyLarge,
                     )
@@ -152,8 +175,8 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
             is LeftAlignedScreenBody.Title -> {
                 item {
                     GdsHeading(
-                        it.text,
-                        it.modifier,
+                        text = it.text,
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }
@@ -161,22 +184,24 @@ internal fun LazyListScope.toBodyContent(body: List<LeftAlignedScreenBody>?) {
             is LeftAlignedScreenBody.Warning -> {
                 item {
                     GdsWarningText(
-                        it.text,
-                        it.modifier,
+                        text = it.text,
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }
 
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
-                    Box(modifier = it.modifier) {
-                        GdsButton(
-                            it.text,
-                            ButtonType.Secondary,
-                            it.onClick,
-                            textAlign = TextAlign.Start,
-                        )
-                    }
+                    GdsButton(
+                        text = it.text,
+                        buttonType = ButtonType.Secondary,
+                        onClick = it.onClick,
+                        textAlign = TextAlign.Start,
+                        contentPosition = Arrangement.Start,
+                        modifier = it.modifier.padding(
+                            horizontal = horizontalItemPadding - buttonContentHorizontal,
+                        ),
+                    )
                 }
             }
 
