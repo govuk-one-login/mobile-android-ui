@@ -13,7 +13,7 @@ internal class GdsWarningScreenshotTest(
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsWarning(
+        GdsWarningText(
             text = parameters,
         )
     }
