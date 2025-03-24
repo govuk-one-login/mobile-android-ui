@@ -8,7 +8,7 @@ import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
-internal class LeftAlignedScreenTest(
+internal class LeftAlignedScreenScreenshotTest(
     private val parameters: Pair<LeftAlignedScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 

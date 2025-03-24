@@ -30,6 +30,7 @@ internal data class LeftAlignedScreenContent(
     val body: List<LeftAlignedScreenBody>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,
+    val primaryButtonIsEnabled: Boolean = true,
     val secondaryButton: String? = null,
 )
 
@@ -77,6 +78,7 @@ data class LeftAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,
     val modifier: Modifier = Modifier.fillMaxWidth(),
+    val enabled: Boolean = true,
 )
 
 @OptIn(UnstableDesignSystemAPI::class)
@@ -98,6 +100,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
                     buttonType = ButtonType.Primary,
                     modifier = Modifier
                         .fillMaxWidth(),
+                    enabled = content.primaryButtonIsEnabled,
                 )
             }
         },
