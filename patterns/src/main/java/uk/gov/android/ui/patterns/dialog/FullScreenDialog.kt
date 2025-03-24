@@ -52,7 +52,7 @@ fun FullScreenDialog(
     title: String? = null,
     content: @Composable () -> Unit,
 ) {
-    FullScreenDialog(
+    FullScreenDialogue(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = {
