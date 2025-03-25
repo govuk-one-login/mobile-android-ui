@@ -60,6 +60,42 @@ fun CentreAlignedScreen(
     primaryButton: CentreAlignedScreenButton? = null,
     secondaryButton: CentreAlignedScreenButton? = null,
 ) {
+    CentreAlignedScreenSlotBased(
+        modifier = modifier,
+        mainContent = { bottomContentOverThreshold ->
+            MainContent(
+                title,
+                Modifier,
+                image,
+                body,
+                if (bottomContentOverThreshold) {
+                    { SupportingText(text = supportingText) }
+                } else {
+                    null
+                },
+            )
+        },
+        bottomContent = {
+            BottomContent(
+                modifier = Modifier.fillMaxWidth(),
+                primaryButton = primaryButton,
+                secondaryButton = secondaryButton,
+            )
+        },
+        supportingText = {
+            SupportingText(supportingText)
+        }
+    )
+
+}
+
+@Composable
+internal fun CentreAlignedScreenSlotBased(
+    modifier: Modifier = Modifier,
+    mainContent: @Composable ((Boolean) -> Unit)? = null,
+    bottomContent: @Composable (() -> Unit)? = null,
+    supportingText: @Composable (() -> Unit)? = null,
+) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
@@ -68,17 +104,13 @@ fun CentreAlignedScreen(
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                BottomContent(
-                    modifier = Modifier.fillMaxWidth(),
-                    primaryButton = primaryButton,
-                    secondaryButton = secondaryButton,
-                )
+                bottomContent?.invoke()
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Measure SupportingText
             val supportingTextPlaceables = subcompose("supportingText") {
-                SupportingText(supportingText)
+                supportingText?.invoke()
             }.map { it.measure(constraints) }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
@@ -89,17 +121,7 @@ fun CentreAlignedScreen(
 
             // Measure MainContent. Add SupportingText to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
-                MainContent(
-                    title,
-                    Modifier,
-                    image,
-                    body,
-                    if (bottomContentOverThreshold) {
-                        { SupportingText(text = supportingText) }
-                    } else {
-                        null
-                    },
-                )
+                mainContent?.invoke(bottomContentOverThreshold)
             }.map {
                 val bottomContentSupportingTextHeight =
                     if (!bottomContentOverThreshold) supportingTextHeight else 0
