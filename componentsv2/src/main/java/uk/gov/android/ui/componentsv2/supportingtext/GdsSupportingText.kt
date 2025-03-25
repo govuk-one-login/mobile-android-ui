@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.supportingtext
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +12,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.spacingDouble
 
 @Composable
 fun GdsSupportingText(
@@ -26,8 +24,7 @@ fun GdsSupportingText(
         style = Typography.labelMedium,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = spacingDouble),
+            .fillMaxWidth(),
         textAlign = textAlign,
     )
 }
