@@ -11,20 +11,33 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import kotlinx.collections.immutable.ImmutableList
+import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
+import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenSlotBased
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.BulletList
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Button
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Text
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @Composable
@@ -32,6 +45,7 @@ fun ErrorScreen(
     title: String,
     icon: ErrorScreenIcon,
     modifier: Modifier = Modifier,
+    body: ImmutableList<ErrorScreenBodyContent>? = null,
 ) {
     CentreAlignedScreenSlotBased(
         modifier = modifier,
@@ -40,6 +54,7 @@ fun ErrorScreen(
                 title,
                 icon,
                 Modifier,
+                body,
             )
         },
     )
@@ -50,6 +65,7 @@ internal fun MainContent(
     title: String,
     icon: ErrorScreenIcon,
     modifier: Modifier = Modifier,
+    body: ImmutableList<ErrorScreenBodyContent>? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,7 +75,94 @@ internal fun MainContent(
             .verticalScroll(rememberScrollState()),
     ) {
         ErrorScreenHeader(title, icon)
+
+        body?.let {
+            Spacer(modifier = Modifier.height(spacingDouble))
+
+            BodyContent(it)
+        }
     }
+}
+
+@Composable
+private fun BodyContent(
+    body: ImmutableList<ErrorScreenBodyContent>,
+) {
+    body.forEachIndexed { i, item ->
+        when (item) {
+            is Text -> BodyContentText(item)
+            is BulletList -> BodyContentBulletList(item)
+            is Button -> BodyContentButton(item)
+        }
+
+        if (i < body.lastIndex) {
+            Spacer(modifier = Modifier.height(spacingDouble))
+        }
+    }
+}
+
+@Composable
+private fun BodyContentButton(item: Button) {
+    val buttonModifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = spacingSingle)
+    val centerPosition = when (item.buttonAlignment) {
+        ErrorScreenButtonAlignment.Center -> Arrangement.Center
+        ErrorScreenButtonAlignment.Start -> Arrangement.Start
+    }
+    if (item.icon != null && item.iconDescription != null) {
+        GdsButton(
+            text = item.text,
+            buttonType = ButtonType.Icon(
+                buttonColors = customButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = MaterialTheme.colorScheme.background,
+                ),
+                iconImage = ImageVector.vectorResource(item.icon),
+                contentDescription = stringResource(item.iconDescription),
+            ),
+            onClick = item.onClick,
+            modifier = buttonModifier,
+            contentPosition = centerPosition,
+        )
+    } else {
+        GdsButton(
+            text = item.text,
+            buttonType = ButtonType.Secondary,
+            onClick = item.onClick,
+            modifier = buttonModifier,
+            contentPosition = centerPosition,
+        )
+    }
+}
+
+@Composable
+private fun BodyContentBulletList(item: BulletList) {
+    GdsBulletedList(
+        bulletListItems = item.items,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = spacingDouble),
+        title = item.title,
+    )
+}
+
+@Composable
+private fun BodyContentText(item: Text) {
+    val textStyle = when (item.type) {
+        TextType.Bold -> Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        TextType.Regular -> Typography.bodyLarge
+    }
+
+    Text(
+        text = item.text,
+        style = textStyle,
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = spacingDouble),
+    )
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
@@ -103,6 +206,7 @@ internal fun PreviewErrorScreen(
         ErrorScreen(
             title = content.title,
             icon = content.icon,
+            body = content.body,
         )
     }
 }

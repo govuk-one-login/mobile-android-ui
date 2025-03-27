@@ -18,6 +18,7 @@ internal class ErrorScreenScreenshotTest(
             ErrorScreen(
                 title = parameters.title,
                 icon = parameters.icon,
+                body = parameters.body,
             )
         }
     }
