@@ -88,6 +88,57 @@ internal class ErrorScreenContentProvider :
                     buttonAlignment = ErrorScreenButtonAlignment.Center,
                 ),
             ),
+            buttons = persistentListOf(
+                ErrorScreenButton.PrimaryButton(
+                    text = "Action button",
+                    onClick = {},
+                ),
+                ErrorScreenButton.SecondaryButton(
+                    text = "Secondary button",
+                    onClick = {},
+                    icon = R.drawable.ic_external_site,
+                    iconDescription = R.string.opens_in_external_browser,
+                ),
+            ),
+        ),
+        ErrorScreenContent(
+            configurationDescription = """
+                Content 4 - Basic Error Screen with three buttons
+            """.trimIndent(),
+            title = warningTitle,
+            icon = ErrorScreenIcon.WarningIcon,
+            body = persistentListOf(
+                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
+                ErrorScreenBodyContent.Text(
+                    text = "Body single paragraph - ${loremIpsum(18)}",
+                    type = TextType.Regular,
+                ),
+                ErrorScreenBodyContent.Button(
+                    text = "Text Button",
+                    onClick = {},
+                    buttonAlignment = ErrorScreenButtonAlignment.Start,
+                    icon = R.drawable.ic_external_site,
+                    iconDescription = R.string.opens_in_external_browser,
+                ),
+            ),
+            buttons = persistentListOf(
+                ErrorScreenButton.PrimaryButton(
+                    text = "Action button",
+                    onClick = {},
+                ),
+                ErrorScreenButton.SecondaryButton(
+                    text = "Secondary button",
+                    onClick = {},
+                    icon = R.drawable.ic_external_site,
+                    iconDescription = R.string.opens_in_external_browser,
+                ),
+                ErrorScreenButton.SecondaryButton(
+                    text = "Tertiary button",
+                    onClick = {},
+                    icon = R.drawable.ic_external_site,
+                    iconDescription = R.string.opens_in_external_browser,
+                ),
+            ),
         ),
     )
 

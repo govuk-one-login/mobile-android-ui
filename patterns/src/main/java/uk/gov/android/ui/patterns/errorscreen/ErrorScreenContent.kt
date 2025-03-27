@@ -12,7 +12,21 @@ internal data class ErrorScreenContent(
     val title: String,
     val icon: ErrorScreenIcon,
     val body: ImmutableList<ErrorScreenBodyContent>? = null,
+    val buttons: ImmutableList<ErrorScreenButton>? = null,
 )
+
+sealed class ErrorScreenButton {
+    data class PrimaryButton(
+        val text: String,
+        val onClick: () -> Unit,
+    ) : ErrorScreenButton()
+    data class SecondaryButton(
+        val text: String,
+        val onClick: () -> Unit,
+        @DrawableRes val icon: Int? = null,
+        @StringRes val iconDescription: Int? = null,
+    ) : ErrorScreenButton()
+}
 
 sealed class ErrorScreenBodyContent {
     data class Text(

@@ -46,6 +46,7 @@ fun ErrorScreen(
     icon: ErrorScreenIcon,
     modifier: Modifier = Modifier,
     body: ImmutableList<ErrorScreenBodyContent>? = null,
+    buttons: ImmutableList<ErrorScreenButton>? = null,
 ) {
     CentreAlignedScreenSlotBased(
         modifier = modifier,
@@ -57,11 +58,75 @@ fun ErrorScreen(
                 body,
             )
         },
+        bottomContent = {
+            buttons?.let {
+                BottomContent(
+                    it,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        },
     )
 }
 
 @Composable
-internal fun MainContent(
+private fun BottomContent(
+    buttons: ImmutableList<ErrorScreenButton>,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(spacingDouble),
+        modifier = modifier.padding(spacingDouble),
+    ) {
+        buttons.forEach { item ->
+            when (item) {
+                is ErrorScreenButton.PrimaryButton -> {
+                    GdsButton(
+                        text = item.text,
+                        buttonType = ButtonType.Primary,
+                        onClick = item.onClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        contentPosition = Arrangement.Center,
+                    )
+                }
+
+                is ErrorScreenButton.SecondaryButton -> {
+                    val buttonModifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacingSingle)
+                    if (item.icon != null && item.iconDescription != null) {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Icon(
+                                buttonColors = customButtonColors(
+                                    contentColor = MaterialTheme.colorScheme.primary,
+                                    containerColor = MaterialTheme.colorScheme.background,
+                                ),
+                                iconImage = ImageVector.vectorResource(item.icon),
+                                contentDescription = stringResource(item.iconDescription),
+                            ),
+                            onClick = item.onClick,
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPosition = Arrangement.Center,
+                        )
+                    } else {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Secondary,
+                            onClick = item.onClick,
+                            modifier = buttonModifier,
+                            contentPosition = Arrangement.Center,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MainContent(
     title: String,
     icon: ErrorScreenIcon,
     modifier: Modifier = Modifier,
@@ -167,7 +232,7 @@ private fun BodyContentText(item: Text) {
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
-internal fun ErrorScreenHeader(
+private fun ErrorScreenHeader(
     title: String,
     icon: ErrorScreenIcon,
     modifier: Modifier = Modifier,
@@ -207,6 +272,7 @@ internal fun PreviewErrorScreen(
             title = content.title,
             icon = content.icon,
             body = content.body,
+            buttons = content.buttons,
         )
     }
 }
