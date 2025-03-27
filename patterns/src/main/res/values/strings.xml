@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="preview__GdsVectorImage__description">Image description</string>
+    <string name="preview__GdsVectorImage__description" translatable="false">Image description</string>
+    <string name="error_icon_description">Error</string>
+    <string name="warning_icon_description">Warning</string>
 </resources>

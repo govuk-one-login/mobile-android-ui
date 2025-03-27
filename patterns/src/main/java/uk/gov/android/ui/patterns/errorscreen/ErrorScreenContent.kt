@@ -57,14 +57,14 @@ enum class ErrorScreenButtonAlignment {
 
 enum class ErrorScreenIcon(
     @DrawableRes val icon: Int,
-    val description: String,
+    @StringRes val description: Int,
 ) {
     ErrorIcon(
         icon = R.drawable.ic_warning_error,
-        description = "Error",
+        description = R.string.error_icon_description,
     ),
     WarningIcon(
         icon = R.drawable.ic_warning_error,
-        description = "Warning",
+        description = R.string.warning_icon_description,
     ),
 }

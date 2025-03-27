@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_icon_description">Gwall</string>
+    <string name="warning_icon_description">Rhybudd</string>
+</resources>

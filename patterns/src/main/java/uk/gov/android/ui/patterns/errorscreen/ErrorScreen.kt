@@ -245,7 +245,7 @@ private fun ErrorScreenHeader(
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(icon.icon),
-            contentDescription = icon.description,
+            contentDescription = stringResource(icon.description),
             modifier = Modifier.padding(horizontal = spacingDouble),
             tint = MaterialTheme.colorScheme.onBackground,
         )
@@ -264,6 +264,23 @@ private fun ErrorScreenHeader(
 @Preview(showBackground = true)
 @Composable
 internal fun PreviewErrorScreen(
+    @PreviewParameter(ErrorScreenContentProvider::class)
+    content: ErrorScreenContent,
+) {
+    GdsTheme {
+        ErrorScreen(
+            title = content.title,
+            icon = content.icon,
+            body = content.body,
+            buttons = content.buttons,
+        )
+    }
+}
+
+@PreviewLightDark
+@Preview(showBackground = true, fontScale = 2f)
+@Composable
+internal fun PreviewErrorScreenAccessibility(
     @PreviewParameter(ErrorScreenContentProvider::class)
     content: ErrorScreenContent,
 ) {
