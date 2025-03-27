@@ -84,9 +84,8 @@ fun CentreAlignedScreen(
         },
         supportingText = {
             SupportingText(supportingText)
-        }
+        },
     )
-
 }
 
 @Composable
