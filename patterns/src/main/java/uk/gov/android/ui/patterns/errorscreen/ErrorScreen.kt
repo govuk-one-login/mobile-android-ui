@@ -33,7 +33,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenSlotBased
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.BulletList
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Button
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Text
@@ -53,7 +53,7 @@ fun ErrorScreen(
     body: ImmutableList<ErrorScreenBodyContent>? = null,
     buttons: ImmutableList<ErrorScreenButton>? = null,
 ) {
-    CentreAlignedScreenSlotBased(
+    CentreAlignedScreen(
         modifier = modifier,
         mainContent = {
             MainContent(

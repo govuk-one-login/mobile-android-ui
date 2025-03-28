@@ -60,7 +60,7 @@ fun CentreAlignedScreen(
     primaryButton: CentreAlignedScreenButton? = null,
     secondaryButton: CentreAlignedScreenButton? = null,
 ) {
-    CentreAlignedScreenSlotBased(
+    CentreAlignedScreen(
         modifier = modifier,
         mainContent = { bottomContentOverThreshold ->
             MainContent(
@@ -89,7 +89,7 @@ fun CentreAlignedScreen(
 }
 
 @Composable
-internal fun CentreAlignedScreenSlotBased(
+internal fun CentreAlignedScreen(
     modifier: Modifier = Modifier,
     mainContent: @Composable ((Boolean) -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
