@@ -10,7 +10,7 @@ import uk.gov.android.ui.patterns.errorscreen.ErrorScreenButtonAlignment.Center
 internal data class ErrorScreenContent(
     val configurationDescription: String,
     val title: String,
-    val icon: ErrorScreenIcon,
+    val icon: ErrorScreenIcon = ErrorScreenIcon.ErrorIcon,
     val body: ImmutableList<ErrorScreenBodyContent>? = null,
     val buttons: ImmutableList<ErrorScreenButton>? = null,
 )
@@ -19,19 +19,19 @@ sealed class ErrorScreenButton {
     data class PrimaryButton(
         val text: String,
         val onClick: () -> Unit,
+        val showIcon: Boolean = false,
     ) : ErrorScreenButton()
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
-        @DrawableRes val icon: Int? = null,
-        @StringRes val iconDescription: Int? = null,
+        val showIcon: Boolean = false,
     ) : ErrorScreenButton()
 }
 
 sealed class ErrorScreenBodyContent {
     data class Text(
         val text: String,
-        val type: TextType,
+        val type: TextType = TextType.Regular,
     ) : ErrorScreenBodyContent()
     data class BulletList(
         val title: BulletedListTitle? = null,
@@ -41,8 +41,7 @@ sealed class ErrorScreenBodyContent {
         val text: String,
         val onClick: () -> Unit,
         val buttonAlignment: ErrorScreenButtonAlignment = Center,
-        @DrawableRes val icon: Int? = null,
-        @StringRes val iconDescription: Int? = null,
+        val showIcon: Boolean = false
     ) : ErrorScreenBodyContent()
 }
 

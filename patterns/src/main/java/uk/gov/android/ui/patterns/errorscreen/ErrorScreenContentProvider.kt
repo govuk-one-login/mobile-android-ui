@@ -3,7 +3,6 @@ package uk.gov.android.ui.patterns.errorscreen
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
-import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 import uk.gov.android.ui.componentsv2.bulletedlist.TitleType
 
@@ -13,6 +12,8 @@ internal class ErrorScreenContentProvider :
     private val warningTitle = "This is an Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
     private val bodyContentBoldLine = "Body single line (bold)"
+    private val secondaryButtonText = "Secondary button"
+    private val bodyButtonText = "Text Button"
 
     override val values: Sequence<ErrorScreenContent> = sequenceOf(
         ErrorScreenContent(
@@ -39,10 +40,7 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
                 ErrorScreenBodyContent.Text(bodyContentBoldLine, TextType.Bold),
                 ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(
-                    text = "Body single paragraph - ${loremIpsum(18)}",
-                    type = TextType.Regular,
-                ),
+                ErrorScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
                 ErrorScreenBodyContent.BulletList(
                     title = BulletedListTitle("This is the bullet view", TitleType.Heading),
                     items = persistentListOf(
@@ -52,11 +50,10 @@ internal class ErrorScreenContentProvider :
                     ),
                 ),
                 ErrorScreenBodyContent.Button(
-                    text = "Text Button",
+                    text = bodyButtonText,
                     onClick = {},
                     buttonAlignment = ErrorScreenButtonAlignment.Start,
-                    icon = R.drawable.ic_external_site,
-                    iconDescription = R.string.opens_in_external_browser,
+                    showIcon = true
                 ),
             ),
         ),
@@ -70,34 +67,28 @@ internal class ErrorScreenContentProvider :
             body = persistentListOf(
                 ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
                 ErrorScreenBodyContent.Text(bodyContentBoldLine, TextType.Bold),
-                ErrorScreenBodyContent.Text(
-                    text = "Body multiple paragraph - ${loremIpsum(18)}",
-                    type = TextType.Regular,
-                ),
-                ErrorScreenBodyContent.Text(
-                    text = "Body multiple paragraph - ${loremIpsum(3)}",
-                    type = TextType.Regular,
-                ),
+                ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(18)}"),
+                ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(3)}"),
                 ErrorScreenBodyContent.Text(
                     text = "Body multiple paragraph - ${loremIpsum(7)}",
                     type = TextType.Bold,
                 ),
                 ErrorScreenBodyContent.Button(
-                    text = "Text Button",
+                    text = bodyButtonText,
                     onClick = {},
                     buttonAlignment = ErrorScreenButtonAlignment.Center,
                 ),
             ),
             buttons = persistentListOf(
                 ErrorScreenButton.PrimaryButton(
-                    text = "Action button",
+                    text = "Primary button",
                     onClick = {},
+                    showIcon = false
                 ),
                 ErrorScreenButton.SecondaryButton(
-                    text = "Secondary button",
+                    text = secondaryButtonText,
                     onClick = {},
-                    icon = R.drawable.ic_external_site,
-                    iconDescription = R.string.opens_in_external_browser,
+                    showIcon = false
                 ),
             ),
         ),
@@ -114,29 +105,26 @@ internal class ErrorScreenContentProvider :
                     type = TextType.Regular,
                 ),
                 ErrorScreenBodyContent.Button(
-                    text = "Text Button",
+                    text = bodyButtonText,
                     onClick = {},
-                    buttonAlignment = ErrorScreenButtonAlignment.Start,
-                    icon = R.drawable.ic_external_site,
-                    iconDescription = R.string.opens_in_external_browser,
+                    showIcon = true,
                 ),
             ),
             buttons = persistentListOf(
                 ErrorScreenButton.PrimaryButton(
-                    text = "Action button",
+                    text = "Primary button",
                     onClick = {},
+                    showIcon = true
                 ),
                 ErrorScreenButton.SecondaryButton(
-                    text = "Secondary button",
+                    text = secondaryButtonText,
                     onClick = {},
-                    icon = R.drawable.ic_external_site,
-                    iconDescription = R.string.opens_in_external_browser,
+                    showIcon = true
                 ),
                 ErrorScreenButton.SecondaryButton(
-                    text = "Tertiary button",
+                    text = secondaryButtonText,
                     onClick = {},
-                    icon = R.drawable.ic_external_site,
-                    iconDescription = R.string.opens_in_external_browser,
+                    showIcon = true
                 ),
             ),
         ),

@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import kotlinx.collections.immutable.ImmutableList
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -36,6 +39,8 @@ import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Button
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenBodyContent.Text
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3_disabled
+import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -82,29 +87,49 @@ private fun BottomContent(
         buttons.forEach { item ->
             when (item) {
                 is ErrorScreenButton.PrimaryButton -> {
-                    GdsButton(
-                        text = item.text,
-                        buttonType = ButtonType.Primary,
-                        onClick = item.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        contentPosition = Arrangement.Center,
-                    )
+                    if (item.showIcon) {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Icon(
+                                buttonColors = ButtonDefaults.buttonColors(
+                                    containerColor = colorScheme.primary,
+                                    contentColor = colorScheme.onPrimary,
+                                    disabledContainerColor = m3_disabled,
+                                    disabledContentColor = m3_onDisabled,
+                                ),
+                                fontWeight = FontWeight.Bold,
+                                iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                                contentDescription = stringResource(R.string.opens_in_external_browser),
+                            ),
+                            onClick = item.onClick,
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPosition = Arrangement.Center,
+                        )
+                    } else {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Primary,
+                            onClick = item.onClick,
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPosition = Arrangement.Center,
+                        )
+                    }
                 }
 
                 is ErrorScreenButton.SecondaryButton -> {
                     val buttonModifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = spacingSingle)
-                    if (item.icon != null && item.iconDescription != null) {
+                    if (item.showIcon) {
                         GdsButton(
                             text = item.text,
                             buttonType = ButtonType.Icon(
                                 buttonColors = customButtonColors(
-                                    contentColor = MaterialTheme.colorScheme.primary,
-                                    containerColor = MaterialTheme.colorScheme.background,
+                                    contentColor = colorScheme.primary,
+                                    containerColor = colorScheme.background,
                                 ),
-                                iconImage = ImageVector.vectorResource(item.icon),
-                                contentDescription = stringResource(item.iconDescription),
+                                iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                                contentDescription = stringResource(R.string.opens_in_external_browser),
                             ),
                             onClick = item.onClick,
                             modifier = Modifier.fillMaxWidth(),
@@ -175,16 +200,16 @@ private fun BodyContentButton(item: Button) {
         ErrorScreenButtonAlignment.Center -> Arrangement.Center
         ErrorScreenButtonAlignment.Start -> Arrangement.Start
     }
-    if (item.icon != null && item.iconDescription != null) {
+    if (item.showIcon) {
         GdsButton(
             text = item.text,
             buttonType = ButtonType.Icon(
                 buttonColors = customButtonColors(
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = colorScheme.primary,
+                    containerColor = colorScheme.background,
                 ),
-                iconImage = ImageVector.vectorResource(item.icon),
-                contentDescription = stringResource(item.iconDescription),
+                iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                contentDescription = stringResource(R.string.opens_in_external_browser),
             ),
             onClick = item.onClick,
             modifier = buttonModifier,
