@@ -134,7 +134,7 @@ internal fun CentreAlignedScreen(
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
-    bottomContent: @Composable (() -> Unit)? = null,
+    bottomContent: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -145,7 +145,7 @@ internal fun CentreAlignedScreen(
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                bottomContent?.invoke()
+                bottomContent?.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
