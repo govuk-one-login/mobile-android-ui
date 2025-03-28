@@ -1,6 +1,5 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,17 +19,24 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
+import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
 private const val ONE_THIRD = 1f / 3f
@@ -39,26 +45,24 @@ private const val ONE_THIRD = 1f / 3f
  * Renders a centre-aligned screen with a structured layout.
  *
  * This screen is designed for displaying an image, title, body content, supporting text,
- * and primary/secondary buttons in a visually consistent manner.
+ * and bottom content with primary/secondary buttons in a visually consistent manner.
  *
- * @param title The main title displayed at the top of the screen.
+ * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param image image displayed at the top of the screen (optional).
- * @param body list of [CentreAlignedScreenBodyContent] representing the main content (optional).
- * @param supportingText additional text displayed below in the bottom content (optional).
- * @param primaryButton primary action button (optional).
- * @param secondaryButton secondary action button (optional).
+ * @sample LazyListScope.toBodyContent
+ * @param body representing the main content.
+ * @param bottomContent representing the primary/secondary buttons at the bottom of the screen (optional).
+ * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  */
-@Suppress("LongMethod")
 @Composable
-fun CentreAlignedScreen(
-    title: String,
+internal fun CentreAlignedScreen(
+    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    image: CentreAlignedScreenImage? = null,
-    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
-    supportingText: String? = null,
-    primaryButton: CentreAlignedScreenButton? = null,
-    secondaryButton: CentreAlignedScreenButton? = null,
+    image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    bottomContent: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -68,17 +72,13 @@ fun CentreAlignedScreen(
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                BottomContent(
-                    modifier = Modifier.fillMaxWidth(),
-                    primaryButton = primaryButton,
-                    secondaryButton = secondaryButton,
-                )
+                bottomContent?.invoke(HorizontalPadding)
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Measure SupportingText
             val supportingTextPlaceables = subcompose("supportingText") {
-                SupportingText(supportingText)
+                supportingText?.invoke(HorizontalPadding, CentreAlignedScreenDefaults.VerticalPadding)
             }.map { it.measure(constraints) }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
@@ -90,12 +90,12 @@ fun CentreAlignedScreen(
             // Measure MainContent. Add SupportingText to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
-                    title,
-                    Modifier,
-                    image,
-                    body,
-                    if (bottomContentOverThreshold) {
-                        { SupportingText(text = supportingText) }
+                    title = title,
+                    modifier = Modifier,
+                    image = image,
+                    body = body,
+                    supportingText = if (bottomContentOverThreshold) {
+                        supportingText
                     } else {
                         null
                     },
@@ -135,83 +135,113 @@ fun CentreAlignedScreen(
     }
 }
 
+/**
+ * Renders a centre-aligned screen with a structured layout.
+ *
+ * This screen is designed for displaying an image, title, body content, supporting text,
+ * and primary/secondary buttons in a visually consistent manner.
+ *
+ * @param title The main title displayed at the top of the screen.
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param image image displayed at the top of the screen (optional).
+ * @param body list of [CentreAlignedScreenBodyContent] representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content (optional).
+ * @param primaryButton primary action button (optional).
+ * @param secondaryButton secondary action button (optional).
+ */
+@Suppress("LongMethod")
 @Composable
-private fun MainContent(
+fun CentreAlignedScreen(
     title: String,
     modifier: Modifier = Modifier,
     image: CentreAlignedScreenImage? = null,
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
-    @SuppressLint("ComposableLambdaParameterNaming")
-    supportingText: @Composable (() -> Unit)? = null,
+    supportingText: String? = null,
+    primaryButton: CentreAlignedScreenButton? = null,
+    secondaryButton: CentreAlignedScreenButton? = null,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-    ) {
-        image?.let {
-            Image(
-                painter = painterResource(it.image),
-                contentDescription = it.description,
-                modifier = Modifier.padding(horizontal = spacingDouble),
+    CentreAlignedScreen(
+        title = { horizontalPadding ->
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.displaySmall,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                textAlign = TextAlign.Center,
             )
-
-            Spacer(modifier = Modifier.height(spacingDouble))
-        }
-
-        Text(
-            text = title,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.displaySmall,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = spacingDouble),
-            textAlign = TextAlign.Center,
-        )
-
-        body?.let {
-            Spacer(modifier = Modifier.height(spacingDouble))
-
-            BodyContent(it)
-        }
-
-        supportingText?.invoke()
-    }
+        },
+        image = image?.let {
+            { horizontalPadding ->
+                Image(
+                    painter = painterResource(it.image),
+                    contentDescription = it.description,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                )
+            }
+        },
+        body = body?.let {
+            { horizontalPadding ->
+                toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
+            }
+        },
+        modifier = modifier,
+        bottomContent = {
+            BottomContent(
+                modifier = Modifier.fillMaxWidth(),
+                primaryButton = primaryButton,
+                secondaryButton = secondaryButton,
+            )
+        },
+        supportingText = supportingText?.let {
+            { horizontalPadding, verticalPadding ->
+                SupportingText(
+                    text = supportingText,
+                    horizontalItemPadding = horizontalPadding,
+                    verticalItemPadding = verticalPadding,
+                )
+            }
+        },
+    )
 }
 
 @Composable
-private fun BodyContent(
-    body: ImmutableList<CentreAlignedScreenBodyContent>,
+private fun MainContent(
+    title: @Composable (horizontalPadding: Dp) -> Unit,
+    modifier: Modifier = Modifier,
+    image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    arrangement: Arrangement.Vertical = Arrangement.spacedBy(
+        CentreAlignedScreenDefaults.VerticalPadding,
+        Alignment.CenterVertically,
+    ),
+    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
 ) {
-    body.forEachIndexed { i, item ->
-        when (item) {
-            is CentreAlignedScreenBodyContent.Text -> {
-                Text(
-                    text = item.bodyText,
-                    style = Typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = spacingDouble),
-                )
-            }
+    LazyColumn(
+        verticalArrangement = arrangement,
+        modifier = modifier.fillMaxSize(),
+    ) {
+        item {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .semantics(mergeDescendants = true) {},
+            ) {
+                image?.let {
+                    image.invoke(HorizontalPadding)
+                    Spacer(modifier = Modifier.height(spacingDouble))
+                }
 
-            is CentreAlignedScreenBodyContent.BulletList -> {
-                GdsBulletedList(
-                    item.items,
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = spacingDouble),
-                    item.title,
-                )
+                title(HorizontalPadding)
             }
         }
 
-        if (i < body.lastIndex) {
-            Spacer(modifier = Modifier.height(spacingDouble))
+        body?.let {
+            it(HorizontalPadding)
+        }
+
+        supportingText?.let {
+            item { it.invoke(HorizontalPadding, NoPadding) }
         }
     }
 }
@@ -219,6 +249,8 @@ private fun BodyContent(
 @Composable
 private fun SupportingText(
     text: String?,
+    horizontalItemPadding: Dp,
+    verticalItemPadding: Dp,
     modifier: Modifier = Modifier,
 ) {
     text?.let {
@@ -229,9 +261,9 @@ private fun SupportingText(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
-                    top = spacingDouble,
-                    start = spacingDouble,
-                    end = spacingDouble,
+                    top = verticalItemPadding,
+                    start = horizontalItemPadding,
+                    end = horizontalItemPadding,
                 ),
             textAlign = TextAlign.Center,
         )
@@ -281,6 +313,13 @@ private fun BottomContent(
     }
 }
 
+object CentreAlignedScreenDefaults {
+    val HorizontalPadding: Dp = spacingDouble
+    val VerticalPadding: Dp = spacingDouble
+    val NoPadding: Dp = 0.dp
+}
+
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true)
 @Composable
@@ -300,6 +339,7 @@ internal fun PreviewCentreAlignedScreen(
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true, fontScale = 2f)
 @Composable
