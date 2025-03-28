@@ -2,9 +2,7 @@ package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +14,6 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.spacingDouble
 
 internal data class CentreAlignedScreenContent(
     val title: String,
@@ -50,7 +47,7 @@ internal fun LazyListScope.toBodyContent(
     horizontalItemPadding: Dp,
 ) {
     val itemPadding = PaddingValues(horizontal = horizontalItemPadding)
-    body?.forEachIndexed { i, item ->
+    body?.forEach { item ->
         when (item) {
             is CentreAlignedScreenBodyContent.Text -> {
                 item {
@@ -76,12 +73,6 @@ internal fun LazyListScope.toBodyContent(
                         item.title,
                     )
                 }
-            }
-        }
-
-        if (i < body.lastIndex) {
-            item {
-                Spacer(modifier = Modifier.height(spacingDouble))
             }
         }
     }

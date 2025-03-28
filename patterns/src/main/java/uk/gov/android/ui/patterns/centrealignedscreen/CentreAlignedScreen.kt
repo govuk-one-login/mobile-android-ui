@@ -31,6 +31,8 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -59,7 +61,7 @@ internal fun CentreAlignedScreen(
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     bottomContent: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -69,13 +71,13 @@ internal fun CentreAlignedScreen(
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                bottomContent?.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+                bottomContent?.invoke(HorizontalPadding)
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Measure SupportingText
             val supportingTextPlaceables = subcompose("supportingText") {
-                supportingText?.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+                supportingText?.invoke(HorizontalPadding, CentreAlignedScreenDefaults.VerticalPadding)
             }.map { it.measure(constraints) }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
@@ -189,8 +191,14 @@ fun CentreAlignedScreen(
                 secondaryButton = secondaryButton,
             )
         },
-        supportingText = {
-            SupportingText(supportingText)
+        supportingText = supportingText?.let {
+            { horizontalPadding, verticalPadding ->
+                SupportingText(
+                    text = supportingText,
+                    horizontalItemPadding = horizontalPadding,
+                    verticalItemPadding = verticalPadding,
+                )
+            }
         },
     )
 }
@@ -201,8 +209,11 @@ private fun MainContent(
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    arrangement: Arrangement.Vertical = Arrangement.Center,
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    arrangement: Arrangement.Vertical = Arrangement.spacedBy(
+        CentreAlignedScreenDefaults.VerticalPadding,
+        Alignment.CenterVertically,
+    ),
+    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
@@ -216,23 +227,20 @@ private fun MainContent(
                     .semantics(mergeDescendants = true) {},
             ) {
                 image?.let {
-                    image.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+                    image.invoke(HorizontalPadding)
                     Spacer(modifier = Modifier.height(spacingDouble))
                 }
 
-                title(CentreAlignedScreenDefaults.HorizontalPadding)
+                title(HorizontalPadding)
             }
         }
 
         body?.let {
-            item {
-                Spacer(modifier = Modifier.height(spacingDouble))
-            }
-            it(CentreAlignedScreenDefaults.HorizontalPadding)
+            it(HorizontalPadding)
         }
 
         supportingText?.let {
-            item { it.invoke(CentreAlignedScreenDefaults.HorizontalPadding) }
+            item { it.invoke(HorizontalPadding, NoPadding) }
         }
     }
 }
@@ -240,6 +248,8 @@ private fun MainContent(
 @Composable
 private fun SupportingText(
     text: String?,
+    horizontalItemPadding: Dp,
+    verticalItemPadding: Dp,
     modifier: Modifier = Modifier,
 ) {
     text?.let {
@@ -250,9 +260,9 @@ private fun SupportingText(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
-                    top = spacingDouble,
-                    start = spacingDouble,
-                    end = spacingDouble,
+                    top = verticalItemPadding,
+                    start = horizontalItemPadding,
+                    end = horizontalItemPadding,
                 ),
             textAlign = TextAlign.Center,
         )
@@ -303,8 +313,9 @@ private fun BottomContent(
 }
 
 object CentreAlignedScreenDefaults {
-    val ItemArrangement = Arrangement.spacedBy(spacingDouble)
     val HorizontalPadding: Dp = spacingDouble
+    val VerticalPadding: Dp = spacingDouble
+    val NoPadding: Dp = 0.dp
 }
 
 @PreviewLightDark
