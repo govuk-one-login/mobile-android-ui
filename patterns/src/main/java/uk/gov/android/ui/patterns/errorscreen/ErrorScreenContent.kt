@@ -52,11 +52,13 @@ sealed class ErrorScreenButton {
         val text: String,
         val onClick: () -> Unit,
         val showIcon: Boolean = false,
+        val enabled: Boolean = true,
     ) : ErrorScreenButton()
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
         val showIcon: Boolean = false,
+        val enabled: Boolean = true,
     ) : ErrorScreenButton()
 }
 
@@ -207,6 +209,7 @@ internal fun ToBottomContent(
                             onClick = item.onClick,
                             modifier = Modifier.fillMaxWidth(),
                             contentPosition = Arrangement.Center,
+                            enabled = item.enabled,
                         )
                     } else {
                         GdsButton(
@@ -215,6 +218,7 @@ internal fun ToBottomContent(
                             onClick = item.onClick,
                             modifier = Modifier.fillMaxWidth(),
                             contentPosition = Arrangement.Center,
+                            enabled = item.enabled,
                         )
                     }
                 }
@@ -237,6 +241,7 @@ internal fun ToBottomContent(
                             onClick = item.onClick,
                             modifier = Modifier.fillMaxWidth(),
                             contentPosition = Arrangement.Center,
+                            enabled = item.enabled,
                         )
                     } else {
                         GdsButton(
@@ -245,6 +250,7 @@ internal fun ToBottomContent(
                             onClick = item.onClick,
                             modifier = buttonModifier,
                             contentPosition = Arrangement.Center,
+                            enabled = item.enabled,
                         )
                     }
                 }
