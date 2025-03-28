@@ -20,10 +20,12 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
@@ -61,20 +63,58 @@ fun CentreAlignedScreen(
     secondaryButton: CentreAlignedScreenButton? = null,
 ) {
     CentreAlignedScreen(
-        modifier = modifier,
-        mainContent = { bottomContentOverThreshold ->
-            MainContent(
-                title,
-                Modifier,
-                image,
-                body,
-                if (bottomContentOverThreshold) {
-                    { SupportingText(text = supportingText) }
-                } else {
-                    null
-                },
+        title = { horizontalPadding ->
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.displaySmall,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+                textAlign = TextAlign.Center,
             )
         },
+        image = image?.let {
+            { horizontalPadding ->
+                Image(
+                    painter = painterResource(it.image),
+                    contentDescription = it.description,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                )
+            }
+        },
+        body = body?.let {
+            { horizontalPadding ->
+                body.forEachIndexed { i, item ->
+                    when (item) {
+                        is CentreAlignedScreenBodyContent.Text -> {
+                            Text(
+                                text = item.bodyText,
+                                style = Typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = horizontalPadding),
+                            )
+                        }
+
+                        is CentreAlignedScreenBodyContent.BulletList -> {
+                            GdsBulletedList(
+                                item.items,
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = horizontalPadding),
+                                item.title,
+                            )
+                        }
+                    }
+
+                    if (i < body.lastIndex) {
+                        Spacer(modifier = Modifier.height(horizontalPadding))
+                    }
+                }
+            }
+        },
+        modifier = modifier,
         bottomContent = {
             BottomContent(
                 modifier = Modifier.fillMaxWidth(),
@@ -90,8 +130,10 @@ fun CentreAlignedScreen(
 
 @Composable
 internal fun CentreAlignedScreen(
+    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    mainContent: @Composable ((Boolean) -> Unit)? = null,
+    image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
     supportingText: @Composable (() -> Unit)? = null,
 ) {
@@ -120,7 +162,17 @@ internal fun CentreAlignedScreen(
 
             // Measure MainContent. Add SupportingText to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
-                mainContent?.invoke(bottomContentOverThreshold)
+                MainContent(
+                    title = title,
+                    modifier = Modifier,
+                    image = image,
+                    body = body,
+                    supportingText = if (bottomContentOverThreshold) {
+                        supportingText
+                    } else {
+                        null
+                    },
+                )
             }.map {
                 val bottomContentSupportingTextHeight =
                     if (!bottomContentOverThreshold) supportingTextHeight else 0
@@ -158,82 +210,41 @@ internal fun CentreAlignedScreen(
 
 @Composable
 private fun MainContent(
-    title: String,
+    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    image: CentreAlignedScreenImage? = null,
-    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
+    image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    arrangement: Arrangement.Vertical = Arrangement.Center,
     @SuppressLint("ComposableLambdaParameterNaming")
     supportingText: @Composable (() -> Unit)? = null,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = arrangement,
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
-        image?.let {
-            Image(
-                painter = painterResource(it.image),
-                contentDescription = it.description,
-                modifier = Modifier.padding(horizontal = spacingDouble),
-            )
-
-            Spacer(modifier = Modifier.height(spacingDouble))
-        }
-
-        Text(
-            text = title,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.displaySmall,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = spacingDouble),
-            textAlign = TextAlign.Center,
-        )
+                .semantics(mergeDescendants = true) {},
+        ) {
+            image?.let {
+                image.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+                Spacer(modifier = Modifier.height(spacingDouble))
+            }
+
+            title(CentreAlignedScreenDefaults.HorizontalPadding)
+        }
 
         body?.let {
             Spacer(modifier = Modifier.height(spacingDouble))
-
-            BodyContent(it)
+            body.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
         }
 
         supportingText?.invoke()
-    }
-}
-
-@Composable
-private fun BodyContent(
-    body: ImmutableList<CentreAlignedScreenBodyContent>,
-) {
-    body.forEachIndexed { i, item ->
-        when (item) {
-            is CentreAlignedScreenBodyContent.Text -> {
-                Text(
-                    text = item.bodyText,
-                    style = Typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = spacingDouble),
-                )
-            }
-
-            is CentreAlignedScreenBodyContent.BulletList -> {
-                GdsBulletedList(
-                    item.items,
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = spacingDouble),
-                    item.title,
-                )
-            }
-        }
-
-        if (i < body.lastIndex) {
-            Spacer(modifier = Modifier.height(spacingDouble))
-        }
     }
 }
 
@@ -300,6 +311,11 @@ private fun BottomContent(
             Spacer(modifier = Modifier.height(spacingDouble))
         }
     }
+}
+
+object CentreAlignedScreenDefaults {
+    val ItemArrangement = Arrangement.spacedBy(spacingDouble)
+    val HorizontalPadding: Dp = spacingDouble
 }
 
 @PreviewLightDark

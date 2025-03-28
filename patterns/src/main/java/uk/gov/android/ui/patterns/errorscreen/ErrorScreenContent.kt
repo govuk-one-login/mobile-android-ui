@@ -41,7 +41,7 @@ sealed class ErrorScreenBodyContent {
         val text: String,
         val onClick: () -> Unit,
         val buttonAlignment: ErrorScreenButtonAlignment = Center,
-        val showIcon: Boolean = false
+        val showIcon: Boolean = false,
     ) : ErrorScreenBodyContent()
 }
 

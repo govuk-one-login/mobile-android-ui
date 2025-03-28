@@ -3,15 +3,11 @@ package uk.gov.android.ui.patterns.errorscreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +40,7 @@ import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ErrorScreen(
     title: String,
@@ -54,14 +50,38 @@ fun ErrorScreen(
     buttons: ImmutableList<ErrorScreenButton>? = null,
 ) {
     CentreAlignedScreen(
-        modifier = modifier,
-        mainContent = {
-            MainContent(
-                title,
-                icon,
-                Modifier,
-                body,
+        title = { horizontalPadding ->
+            GdsHeading(
+                text = title,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding),
+                textAlign = TextAlign.Center,
             )
+        },
+        image = { horizontalPadding ->
+            Icon(
+                imageVector = ImageVector.vectorResource(icon.icon),
+                contentDescription = stringResource(icon.description),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+                tint = colorScheme.onBackground,
+            )
+        },
+        modifier = modifier,
+        body = body?.let {
+            { horizontalPadding ->
+                body.forEachIndexed { i, item ->
+                    when (item) {
+                        is Text -> BodyContentText(item)
+                        is BulletList -> BodyContentBulletList(item)
+                        is Button -> BodyContentButton(item)
+                    }
+
+                    if (i < body.lastIndex) {
+                        Spacer(modifier = Modifier.height(spacingDouble))
+                    }
+                }
+            }
         },
         bottomContent = {
             buttons?.let {
@@ -151,47 +171,6 @@ private fun BottomContent(
 }
 
 @Composable
-private fun MainContent(
-    title: String,
-    icon: ErrorScreenIcon,
-    modifier: Modifier = Modifier,
-    body: ImmutableList<ErrorScreenBodyContent>? = null,
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-    ) {
-        ErrorScreenHeader(title, icon)
-
-        body?.let {
-            Spacer(modifier = Modifier.height(spacingDouble))
-
-            BodyContent(it)
-        }
-    }
-}
-
-@Composable
-private fun BodyContent(
-    body: ImmutableList<ErrorScreenBodyContent>,
-) {
-    body.forEachIndexed { i, item ->
-        when (item) {
-            is Text -> BodyContentText(item)
-            is BulletList -> BodyContentBulletList(item)
-            is Button -> BodyContentButton(item)
-        }
-
-        if (i < body.lastIndex) {
-            Spacer(modifier = Modifier.height(spacingDouble))
-        }
-    }
-}
-
-@Composable
 private fun BodyContentButton(item: Button) {
     val buttonModifier = Modifier
         .fillMaxWidth()
@@ -247,42 +226,12 @@ private fun BodyContentText(item: Text) {
     Text(
         text = item.text,
         style = textStyle,
-        color = MaterialTheme.colorScheme.onBackground,
+        color = colorScheme.onBackground,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = spacingDouble),
     )
-}
-
-@OptIn(UnstableDesignSystemAPI::class)
-@Composable
-private fun ErrorScreenHeader(
-    title: String,
-    icon: ErrorScreenIcon,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .semantics(mergeDescendants = true) {},
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(icon.icon),
-            contentDescription = stringResource(icon.description),
-            modifier = Modifier.padding(horizontal = spacingDouble),
-            tint = MaterialTheme.colorScheme.onBackground,
-        )
-        Spacer(modifier = Modifier.height(spacingDouble))
-        GdsHeading(
-            text = title,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = spacingDouble),
-            textAlign = TextAlign.Center,
-        )
-    }
 }
 
 @PreviewLightDark

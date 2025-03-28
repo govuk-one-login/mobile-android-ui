@@ -53,7 +53,7 @@ internal class ErrorScreenContentProvider :
                     text = bodyButtonText,
                     onClick = {},
                     buttonAlignment = ErrorScreenButtonAlignment.Start,
-                    showIcon = true
+                    showIcon = true,
                 ),
             ),
         ),
@@ -83,12 +83,12 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenButton.PrimaryButton(
                     text = "Primary button",
                     onClick = {},
-                    showIcon = false
+                    showIcon = false,
                 ),
                 ErrorScreenButton.SecondaryButton(
                     text = secondaryButtonText,
                     onClick = {},
-                    showIcon = false
+                    showIcon = false,
                 ),
             ),
         ),
@@ -114,17 +114,17 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenButton.PrimaryButton(
                     text = "Primary button",
                     onClick = {},
-                    showIcon = true
+                    showIcon = true,
                 ),
                 ErrorScreenButton.SecondaryButton(
                     text = secondaryButtonText,
                     onClick = {},
-                    showIcon = true
+                    showIcon = true,
                 ),
                 ErrorScreenButton.SecondaryButton(
                     text = secondaryButtonText,
                     onClick = {},
-                    showIcon = true
+                    showIcon = true,
                 ),
             ),
         ),
