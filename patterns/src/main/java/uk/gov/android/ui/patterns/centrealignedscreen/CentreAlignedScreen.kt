@@ -1,6 +1,5 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -68,7 +66,7 @@ fun CentreAlignedScreen(
                 text = title,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = Typography.displaySmall,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
                 textAlign = TextAlign.Center,
             )
         },
@@ -77,41 +75,13 @@ fun CentreAlignedScreen(
                 Image(
                     painter = painterResource(it.image),
                     contentDescription = it.description,
-                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
                 )
             }
         },
         body = body?.let {
             { horizontalPadding ->
-                body.forEachIndexed { i, item ->
-                    when (item) {
-                        is CentreAlignedScreenBodyContent.Text -> {
-                            Text(
-                                text = item.bodyText,
-                                style = Typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onBackground,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = horizontalPadding),
-                            )
-                        }
-
-                        is CentreAlignedScreenBodyContent.BulletList -> {
-                            GdsBulletedList(
-                                item.items,
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = horizontalPadding),
-                                item.title,
-                            )
-                        }
-                    }
-
-                    if (i < body.lastIndex) {
-                        Spacer(modifier = Modifier.height(horizontalPadding))
-                    }
-                }
+                toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
             }
         },
         modifier = modifier,
@@ -133,9 +103,9 @@ internal fun CentreAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
-    body: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     bottomContent: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -151,7 +121,7 @@ internal fun CentreAlignedScreen(
 
             // Measure SupportingText
             val supportingTextPlaceables = subcompose("supportingText") {
-                supportingText?.invoke()
+                supportingText?.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
             }.map { it.measure(constraints) }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
@@ -213,38 +183,40 @@ private fun MainContent(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
-    body: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.Center,
-    @SuppressLint("ComposableLambdaParameterNaming")
-    supportingText: @Composable (() -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+    LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+        modifier = modifier.fillMaxSize(),
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .semantics(mergeDescendants = true) {},
-        ) {
-            image?.let {
-                image.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
-                Spacer(modifier = Modifier.height(spacingDouble))
-            }
+        item {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .semantics(mergeDescendants = true) {},
+            ) {
+                image?.let {
+                    image.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+                    Spacer(modifier = Modifier.height(spacingDouble))
+                }
 
-            title(CentreAlignedScreenDefaults.HorizontalPadding)
+                title(CentreAlignedScreenDefaults.HorizontalPadding)
+            }
         }
 
         body?.let {
-            Spacer(modifier = Modifier.height(spacingDouble))
-            body.invoke(CentreAlignedScreenDefaults.HorizontalPadding)
+            item {
+                Spacer(modifier = Modifier.height(spacingDouble))
+            }
+            it(CentreAlignedScreenDefaults.HorizontalPadding)
         }
 
-        supportingText?.invoke()
+        supportingText?.let {
+            item { it.invoke(CentreAlignedScreenDefaults.HorizontalPadding) }
+        }
     }
 }
 

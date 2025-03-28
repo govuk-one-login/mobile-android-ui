@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
@@ -101,8 +102,8 @@ enum class ErrorScreenIcon(
     ),
 }
 
-@Composable
-internal fun ToBodyContent(
+@Suppress("LongMethod")
+internal fun LazyListScope.toBodyContent(
     body: ImmutableList<ErrorScreenBodyContent>?,
     horizontalItemPadding: Dp,
 ) {
@@ -110,71 +111,80 @@ internal fun ToBodyContent(
     body?.forEachIndexed { i, item ->
         when (item) {
             is Text -> {
-                val textStyle = when (item.type) {
-                    TextType.Bold -> Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                    TextType.Regular -> Typography.bodyLarge
-                }
+                item {
+                    val textStyle = when (item.type) {
+                        TextType.Bold -> Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        TextType.Regular -> Typography.bodyLarge
+                    }
 
-                Text(
-                    text = item.text,
-                    style = textStyle,
-                    color = colorScheme.onBackground,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(itemPadding),
-                )
+                    Text(
+                        text = item.text,
+                        style = textStyle,
+                        color = colorScheme.onBackground,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(itemPadding),
+                    )
+                }
             }
             is BulletList -> {
-                GdsBulletedList(
-                    bulletListItems = item.items,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(itemPadding),
-                    title = item.title,
-                )
+                item {
+                    GdsBulletedList(
+                        bulletListItems = item.items,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(itemPadding),
+                        title = item.title,
+                    )
+                }
             }
             is Button -> {
-                val buttonModifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = spacingSingle)
-                val centerPosition = when (item.buttonAlignment) {
-                    Center -> Arrangement.Center
-                    Start -> Arrangement.Start
-                }
-                if (item.showIcon) {
-                    GdsButton(
-                        text = item.text,
-                        buttonType = ButtonType.Icon(
-                            buttonColors = customButtonColors(
-                                contentColor = colorScheme.primary,
-                                containerColor = colorScheme.background,
+                item {
+                    val buttonModifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacingSingle)
+                    val centerPosition = when (item.buttonAlignment) {
+                        Center -> Arrangement.Center
+                        Start -> Arrangement.Start
+                    }
+                    if (item.showIcon) {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Icon(
+                                buttonColors = customButtonColors(
+                                    contentColor = colorScheme.primary,
+                                    containerColor = colorScheme.background,
+                                ),
+                                iconImage = ImageVector.vectorResource(componentsR.drawable.ic_external_site),
+                                contentDescription = stringResource(componentsR.string.opens_in_external_browser),
                             ),
-                            iconImage = ImageVector.vectorResource(componentsR.drawable.ic_external_site),
-                            contentDescription = stringResource(componentsR.string.opens_in_external_browser),
-                        ),
-                        onClick = item.onClick,
-                        modifier = buttonModifier,
-                        contentPosition = centerPosition,
-                    )
-                } else {
-                    GdsButton(
-                        text = item.text,
-                        buttonType = ButtonType.Secondary,
-                        onClick = item.onClick,
-                        modifier = buttonModifier,
-                        contentPosition = centerPosition,
-                    )
+                            onClick = item.onClick,
+                            modifier = buttonModifier,
+                            contentPosition = centerPosition,
+                        )
+                    } else {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Secondary,
+                            onClick = item.onClick,
+                            modifier = buttonModifier,
+                            contentPosition = centerPosition,
+                        )
+                    }
                 }
             }
         }
 
         if (i < body.lastIndex) {
-            Spacer(modifier = Modifier.height(spacingDouble))
+            item {
+                Spacer(modifier = Modifier.height(spacingDouble))
+            }
         }
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 internal fun ToBottomContent(
     buttons: ImmutableList<ErrorScreenButton>,

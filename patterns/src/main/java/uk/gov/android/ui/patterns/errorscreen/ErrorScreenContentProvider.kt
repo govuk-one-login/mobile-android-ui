@@ -77,6 +77,7 @@ internal class ErrorScreenContentProvider :
                     text = bodyButtonText,
                     onClick = {},
                     buttonAlignment = ErrorScreenButtonAlignment.Center,
+                    showIcon = true,
                 ),
             ),
             buttons = persistentListOf(

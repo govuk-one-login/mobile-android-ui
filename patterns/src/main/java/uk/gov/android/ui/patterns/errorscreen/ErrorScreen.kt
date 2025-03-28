@@ -46,7 +46,7 @@ fun ErrorScreen(
         modifier = modifier,
         body = body?.let {
             { horizontalPadding ->
-                ToBodyContent(body = body, horizontalItemPadding = horizontalPadding)
+                toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
             }
         },
         bottomContent = buttons?.let {
