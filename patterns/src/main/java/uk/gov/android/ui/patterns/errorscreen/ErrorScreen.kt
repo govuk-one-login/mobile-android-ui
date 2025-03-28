@@ -16,6 +16,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
@@ -69,6 +70,7 @@ fun ErrorScreen(
     )
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true)
 @Composable
@@ -86,6 +88,7 @@ internal fun PreviewErrorScreen(
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true, fontScale = 2f)
 @Composable

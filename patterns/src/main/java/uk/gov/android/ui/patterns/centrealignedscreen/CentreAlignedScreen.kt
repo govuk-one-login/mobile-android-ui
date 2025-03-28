@@ -36,6 +36,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
 private const val ONE_THIRD = 1f / 3f
@@ -318,6 +319,7 @@ object CentreAlignedScreenDefaults {
     val NoPadding: Dp = 0.dp
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true)
 @Composable
@@ -337,6 +339,7 @@ internal fun PreviewCentreAlignedScreen(
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true, fontScale = 2f)
 @Composable
