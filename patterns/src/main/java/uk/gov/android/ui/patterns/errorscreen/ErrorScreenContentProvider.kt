@@ -12,6 +12,7 @@ internal class ErrorScreenContentProvider :
     private val warningTitle = "This is an Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
     private val bodyContentBoldLine = "Body single line (bold)"
+    private val primaryButtonText = "Primary button"
     private val secondaryButtonText = "Secondary button"
     private val bodyButtonText = "Text Button"
 
@@ -59,7 +60,34 @@ internal class ErrorScreenContentProvider :
         ),
         ErrorScreenContent(
             configurationDescription = """
-                Content 3 - Basic Error Screen with two buttons, multiple paragraphs and center
+                Content 3 - Basic Error Screen with one button, multiple single lines and center
+                            aligned secondary button
+            """.trimIndent(),
+            title = errorTitle,
+            icon = ErrorScreenIcon.ErrorIcon,
+            body = persistentListOf(
+                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
+                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
+                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
+                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
+                ErrorScreenBodyContent.Button(
+                    text = bodyButtonText,
+                    onClick = {},
+                    buttonAlignment = ErrorScreenButtonAlignment.Center,
+                    showIcon = true,
+                ),
+            ),
+            buttons = persistentListOf(
+                ErrorScreenButton.PrimaryButton(
+                    text = primaryButtonText,
+                    onClick = {},
+                    showIcon = false,
+                ),
+            ),
+        ),
+        ErrorScreenContent(
+            configurationDescription = """
+                Content 4 - Basic Error Screen with two buttons, multiple paragraphs and center
                             aligned secondary button
             """.trimIndent(),
             title = errorTitle,
@@ -82,7 +110,7 @@ internal class ErrorScreenContentProvider :
             ),
             buttons = persistentListOf(
                 ErrorScreenButton.PrimaryButton(
-                    text = "Primary button",
+                    text = primaryButtonText,
                     onClick = {},
                     showIcon = false,
                 ),
@@ -95,7 +123,7 @@ internal class ErrorScreenContentProvider :
         ),
         ErrorScreenContent(
             configurationDescription = """
-                Content 4 - Basic Error Screen with three buttons
+                Content 5 - Basic Error Screen with three buttons
             """.trimIndent(),
             title = warningTitle,
             icon = ErrorScreenIcon.WarningIcon,
@@ -113,7 +141,7 @@ internal class ErrorScreenContentProvider :
             ),
             buttons = persistentListOf(
                 ErrorScreenButton.PrimaryButton(
-                    text = "Primary button",
+                    text = primaryButtonText,
                     onClick = {},
                     showIcon = true,
                 ),
