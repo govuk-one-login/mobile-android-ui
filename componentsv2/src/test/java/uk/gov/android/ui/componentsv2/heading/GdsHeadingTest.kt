@@ -10,22 +10,26 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(Parameterized::class)
 internal class GdsHeadingTest(
-    private val parameters: Pair<String, NightMode>,
+    private val parameters: Pair<HeadingParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     @OptIn(UnstableDesignSystemAPI::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsTheme {
-            GdsHeading(parameters)
+            GdsHeading(
+                parameters.text,
+                style = parameters.style,
+                fontWeight = parameters.fontWeight,
+            )
         }
     }
 
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<String, NightMode>> {
-            val result: MutableList<Pair<String, NightMode>> = mutableListOf()
+        fun values(): List<Pair<HeadingParameters, NightMode>> {
+            val result: MutableList<Pair<HeadingParameters, NightMode>> = mutableListOf()
 
             HeadingParameterPreviewProvider().values.forEach(applyNightMode(result))
 
