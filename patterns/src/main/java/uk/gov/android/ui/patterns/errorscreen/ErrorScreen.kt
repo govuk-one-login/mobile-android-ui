@@ -18,6 +18,18 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+/**
+ * Renders a centre-aligned error screen with a structured layout.
+ *
+ * This screen is designed for displaying an warning/error icon, title, body content,
+ * and bottom content with primary/secondary buttons in a visually consistent manner.
+ *
+ * @param icon image displayed at the top of the screen.
+ * @param title represents the main title. Use of [GdsHeading] is recommended
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param body list of [ErrorScreenBodyContent] representing the main content (optional).
+ * @param buttons list of [ErrorScreenButton] representing the primary/secondary buttons at the bottom of the screen (optional).
+ */
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ErrorScreen(

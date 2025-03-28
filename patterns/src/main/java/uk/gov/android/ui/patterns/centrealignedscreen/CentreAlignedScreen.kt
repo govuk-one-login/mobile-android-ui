@@ -29,6 +29,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
@@ -39,65 +42,16 @@ private const val ONE_THIRD = 1f / 3f
  * Renders a centre-aligned screen with a structured layout.
  *
  * This screen is designed for displaying an image, title, body content, supporting text,
- * and primary/secondary buttons in a visually consistent manner.
+ * and bottom content with primary/secondary buttons in a visually consistent manner.
  *
- * @param title The main title displayed at the top of the screen.
+ * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param image image displayed at the top of the screen (optional).
- * @param body list of [CentreAlignedScreenBodyContent] representing the main content (optional).
- * @param supportingText additional text displayed below in the bottom content (optional).
- * @param primaryButton primary action button (optional).
- * @param secondaryButton secondary action button (optional).
+ * @sample LazyListScope.toBodyContent
+ * @param body representing the main content.
+ * @param bottomContent representing the primary/secondary buttons at the bottom of the screen (optional).
+ * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  */
-@Suppress("LongMethod")
-@Composable
-fun CentreAlignedScreen(
-    title: String,
-    modifier: Modifier = Modifier,
-    image: CentreAlignedScreenImage? = null,
-    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
-    supportingText: String? = null,
-    primaryButton: CentreAlignedScreenButton? = null,
-    secondaryButton: CentreAlignedScreenButton? = null,
-) {
-    CentreAlignedScreen(
-        title = { horizontalPadding ->
-            Text(
-                text = title,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = Typography.displaySmall,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
-                textAlign = TextAlign.Center,
-            )
-        },
-        image = image?.let {
-            { horizontalPadding ->
-                Image(
-                    painter = painterResource(it.image),
-                    contentDescription = it.description,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
-                )
-            }
-        },
-        body = body?.let {
-            { horizontalPadding ->
-                toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
-            }
-        },
-        modifier = modifier,
-        bottomContent = {
-            BottomContent(
-                modifier = Modifier.fillMaxWidth(),
-                primaryButton = primaryButton,
-                secondaryButton = secondaryButton,
-            )
-        },
-        supportingText = {
-            SupportingText(supportingText)
-        },
-    )
-}
-
 @Composable
 internal fun CentreAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
@@ -176,6 +130,69 @@ internal fun CentreAlignedScreen(
             }
         }
     }
+}
+
+/**
+ * Renders a centre-aligned screen with a structured layout.
+ *
+ * This screen is designed for displaying an image, title, body content, supporting text,
+ * and primary/secondary buttons in a visually consistent manner.
+ *
+ * @param title The main title displayed at the top of the screen.
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param image image displayed at the top of the screen (optional).
+ * @param body list of [CentreAlignedScreenBodyContent] representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content (optional).
+ * @param primaryButton primary action button (optional).
+ * @param secondaryButton secondary action button (optional).
+ */
+@Suppress("LongMethod")
+@Composable
+fun CentreAlignedScreen(
+    title: String,
+    modifier: Modifier = Modifier,
+    image: CentreAlignedScreenImage? = null,
+    body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
+    supportingText: String? = null,
+    primaryButton: CentreAlignedScreenButton? = null,
+    secondaryButton: CentreAlignedScreenButton? = null,
+) {
+    CentreAlignedScreen(
+        title = { horizontalPadding ->
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.displaySmall,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                textAlign = TextAlign.Center,
+            )
+        },
+        image = image?.let {
+            { horizontalPadding ->
+                Image(
+                    painter = painterResource(it.image),
+                    contentDescription = it.description,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                )
+            }
+        },
+        body = body?.let {
+            { horizontalPadding ->
+                toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
+            }
+        },
+        modifier = modifier,
+        bottomContent = {
+            BottomContent(
+                modifier = Modifier.fillMaxWidth(),
+                primaryButton = primaryButton,
+                secondaryButton = secondaryButton,
+            )
+        },
+        supportingText = {
+            SupportingText(supportingText)
+        },
+    )
 }
 
 @Composable
