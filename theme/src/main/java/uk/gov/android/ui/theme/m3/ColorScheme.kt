@@ -102,36 +102,89 @@ val LightColorPalette = lightColorScheme(
 /**
  * [Material3 colours](https://m3.material.io/blog/migrating-material-3)
  *
- * Material                  -> Material3
- * `android:backgroundColor` -> `android:backgroundColor`
- * `colorPrimary`            -> `colorPrimary`
- * `colorOnPrimary`          -> `colorOnPrimary`
- * `N/A`                     -> `colorPrimaryContainer`
- * `N/A`                     -> `colorOnPrimaryContainer`
- * `N/A`                     -> `colorPrimaryInverse`
- * `colorPrimaryVariant`     -> `DEPRECATED`
- * `colorPrimarySurface`     -> `colorSurface`
- * `colorOnPrimarySurface`   -> `colorOnSurface`
- * `colorSecondary`          -> `colorSecondary`
- * `colorOnSecondary`        -> `colorOnSecondary`
- * `N/A`                     -> `colorSecondaryContainer`
- * `N/A`                     -> `colorOnSecondaryContainer`
- * `colorSecondaryVariant`   -> `DEPRECATED`
- * `N/A`                     -> `colorTertiary`
- * `N/A`                     -> `colorOnTertiary`
- * `N/A `                    -> `colorTertiaryContainer`
- * `N/A`                     -> `colorOnTertiaryContainer`
- * `colorError`              -> `colorError`
- * `colorOnError`            -> `colorOnError`
- * `N/A`                     -> `colorErrorContainer`
- * `N/A`                     -> `colorOnErrorContainer`
- * `colorSurface`            -> `colorSurface`
- * `colorOnSurface`          -> `colorOnSurface`
- * `N/A`                     -> `colorSurfaceVariant`
- * `N/A`                     -> `colorOnSurfaceVariant`
- * `N/A`                     -> `colorSurfaceInverse`
- * `N/A`                     -> `colorOnSurfaceInverse`
- * `N/A`                     -> `colorOutline`
+ * GDS Design System          ->  Material3
+ * Background Android Screen  -> `backgroundColor`
+ *
+ * Button Primary             -> `primary`
+ *
+ * Button Primary Text        -> `onPrimary`
+ *
+ * Button Secondary           -> `secondary`
+ *
+ * Button Secondary Text      -> `onSecondary`
+ *
+ * Button Tertiary (same as Button Secondary) -> `tertiary`
+ *
+ * Button Tertiary Text       -> `onTertiary`
+ *
+ * Button Error               -> `error`
+ *
+ * Button Error Text          -> `onError`
+ *
+ * N/A                        -> `primaryContainer`
+ *
+ * N/A                        -> `onPrimaryContainer`
+ *
+ * Navigation Selected        -> `secondaryContainer`
+ *
+ * Navigation Text and Icon   -> `onSecondaryContainer`
+ *
+ * N/A                        -> `tertiaryContainer`
+ *
+ * N/A                        -> `onTertiaryContainer`
+ *
+ * N/A                        -> `errorContainer`
+ *
+ * Destructive OS Button Text -> `onErrorContainer`
+ *
+ * N/A                        -> `surfaceDim`
+ *
+ * N/A                        -> `surfaceDim`
+ *
+ * N/A                        -> `surface`
+ *
+ * N/A                        -> `surfaceBright`
+ *
+ * N/A                        -> `surfaceContainerLowest`
+ *
+ * Android Card               -> `surfaceContainerLow`
+ *
+ * Top (App Bars)             -> `surfaceContainer`
+ *
+ * Dialog                     -> `surfaceContainerHigh`
+ *
+ * Switch/ Toggle             -> `surfaceContainerHighest`
+ *
+ * N/A                        -> `onSurface`
+ *
+ * Secondary Text             -> `onSurfaceVariant`
+ *
+ * N/A                        -> `outline`
+ *
+ * Divider/ Separator Line (on Android Card) -> `outlineVariant`
+ *
+ * N/A                     -> `inversePrimary`
+ *
+ * N/A                     -> `inverseSurface`
+ *
+ * N/A                     -> `inverseOnSurface`
+ *
+ * N/A                     -> `scrim`
+ *
+ * **The FIXED colours would need to be applied manually (for now) to map background to content colours.**
+ *
+ * N/A                     -> `m3_theme_primaryFixed`
+ *
+ * N/A                     -> `m3_theme_onPrimaryFixed`
+ *
+ * N/A                     -> `m3_theme_secondaryFixed`
+ *
+ * N/A                     -> `m3_theme_onSecondaryFixed`
+ *
+ * N/A                     -> `m3_theme_tertiaryFixed`
+ *
+ * N/A                     -> `m3_theme_onTertiaryFixed`
+ *
  * */
 val DarkColorPaletteV2 = darkColorScheme(
     background = dark_theme_background,
@@ -170,6 +223,93 @@ val DarkColorPaletteV2 = darkColorScheme(
     scrim = dark_theme_scrim,
 )
 
+/**
+ * [Material3 colours](https://m3.material.io/blog/migrating-material-3)
+ *
+ * GDS Design System          ->  Material3
+ * Background Android Screen  -> `backgroundColor`
+ *
+ * Button Primary             -> `primary`
+ *
+ * Button Primary Text        -> `onPrimary`
+ *
+ * Button Secondary           -> `secondary`
+ *
+ * Button Secondary Text      -> `onSecondary`
+ *
+ * Button Tertiary (same as Button Secondary) -> `tertiary`
+ *
+ * Button Tertiary Text       -> `onTertiary`
+ *
+ * Button Error               -> `error`
+ *
+ * Button Error Text          -> `onError`
+ *
+ * N/A                        -> `primaryContainer`
+ *
+ * N/A                        -> `onPrimaryContainer`
+ *
+ * Navigation Selected        -> `secondaryContainer`
+ *
+ * Navigation Text and Icon   -> `onSecondaryContainer`
+ *
+ * N/A                        -> `tertiaryContainer`
+ *
+ * N/A                        -> `onTertiaryContainer`
+ *
+ * N/A                        -> `errorContainer`
+ *
+ * Destructive OS Button Text -> `onErrorContainer`
+ *
+ * N/A                        -> `surfaceDim`
+ *
+ * N/A                        -> `surfaceDim`
+ *
+ * N/A                        -> `surface`
+ *
+ * N/A                        -> `surfaceBright`
+ *
+ * N/A                        -> `surfaceContainerLowest`
+ *
+ * Android Card               -> `surfaceContainerLow`
+ *
+ * Top (App Bars)             -> `surfaceContainer`
+ *
+ * Dialog                     -> `surfaceContainerHigh`
+ *
+ * Switch/ Toggle             -> `surfaceContainerHighest`
+ *
+ * N/A                        -> `onSurface`
+ *
+ * Secondary Text             -> `onSurfaceVariant`
+ *
+ * N/A                        -> `outline`
+ *
+ * Divider/ Separator Line (on Android Card) -> `outlineVariant`
+ *
+ * N/A                     -> `inversePrimary`
+ *
+ * N/A                     -> `inverseSurface`
+ *
+ * N/A                     -> `inverseOnSurface`
+ *
+ * N/A                     -> `scrim`
+ *
+ * **The FIXED colours would need to be applied manually (for now) to map background to content colours.**
+ *
+ * N/A                     -> `m3_theme_primaryFixed`
+ *
+ * N/A                     -> `m3_theme_onPrimaryFixed`
+ *
+ * N/A                     -> `m3_theme_secondaryFixed`
+ *
+ * N/A                     -> `m3_theme_onSecondaryFixed`
+ *
+ * N/A                     -> `m3_theme_tertiaryFixed`
+ *
+ * N/A                     -> `m3_theme_onTertiaryFixed`
+ *
+ * */
 val LightColorPaletteV2 = lightColorScheme(
     background = light_theme_background,
     onBackground = light_theme_onBackground,
