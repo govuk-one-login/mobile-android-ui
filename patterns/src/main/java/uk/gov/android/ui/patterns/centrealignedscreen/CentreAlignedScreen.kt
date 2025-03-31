@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
@@ -56,9 +57,12 @@ private const val ONE_THIRD = 1f / 3f
  * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
- * @param buttons primary, secondary and tertiary action buttons. Use of [GdsButton] composable is recommended (optional).
+ * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
+ * @param secondaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
+ * @param tertiaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  */
 @Suppress("LongMethod")
+@SuppressWarnings("squid:S107")
 @Composable
 internal fun CentreAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
@@ -66,7 +70,9 @@ internal fun CentreAlignedScreen(
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
-    buttons: CentreAlignedScreenButtons = CentreAlignedScreenButtons(),
+    primaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -77,8 +83,10 @@ internal fun CentreAlignedScreen(
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
-                    buttons = buttons.toList(),
                     modifier = Modifier.fillMaxWidth(),
+                    primaryButton = primaryButton,
+                    secondaryButton = secondaryButton,
+                    tertiaryButton = tertiaryButton,
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -201,30 +209,28 @@ fun CentreAlignedScreen(
                 )
             }
         },
-        buttons = CentreAlignedScreenButtons(
-            primaryButton = primaryButton?.let {
-                {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonType.Primary,
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                }
-            },
-            secondaryButton = secondaryButton?.let {
-                {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonType.Secondary,
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                }
-            },
-        ),
+        primaryButton = primaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    buttonType = ButtonType.Primary,
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
+            }
+        },
+        secondaryButton = secondaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    buttonType = ButtonType.Secondary,
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
+            }
+        },
     )
 }
 
@@ -294,9 +300,12 @@ private fun SupportingText(
 
 @Composable
 private fun BottomContent(
-    buttons: ImmutableList<@Composable () -> Unit>,
     modifier: Modifier = Modifier,
+    primaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
+    val buttons = listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
     val verticalItemPadding = if (buttons.isEmpty()) NoPadding else VerticalPadding
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

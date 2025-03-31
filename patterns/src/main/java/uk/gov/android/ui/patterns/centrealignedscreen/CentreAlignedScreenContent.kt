@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -17,7 +16,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
@@ -51,16 +49,6 @@ sealed class CentreAlignedScreenBodyContent {
         val leftAligned: Boolean = false,
         val showIcon: Boolean = false,
     ) : CentreAlignedScreenBodyContent()
-}
-
-data class CentreAlignedScreenButtons(
-    val primaryButton: (@Composable () -> Unit)? = null,
-    val secondaryButton: (@Composable () -> Unit)? = null,
-    val tertiaryButton: (@Composable () -> Unit)? = null,
-) {
-    fun toList(): ImmutableList<@Composable () -> Unit> {
-        return listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
-    }
 }
 
 data class CentreAlignedScreenImage(

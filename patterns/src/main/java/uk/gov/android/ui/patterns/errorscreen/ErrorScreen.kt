@@ -24,7 +24,6 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButtons
 import uk.gov.android.ui.patterns.centrealignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3_disabled
@@ -79,17 +78,15 @@ fun ErrorScreen(
                 toBodyContent(body = body, horizontalItemPadding = horizontalPadding)
             }
         },
-        buttons = CentreAlignedScreenButtons(
-            primaryButton = primaryButton?.let {
-                { PrimaryButton(it) }
-            },
-            secondaryButton = secondaryButton?.let {
-                { SecondaryButton(it) }
-            },
-            tertiaryButton = tertiaryButton?.let {
-                { SecondaryButton(it) }
-            },
-        ),
+        primaryButton = primaryButton?.let {
+            { PrimaryButton(it) }
+        },
+        secondaryButton = secondaryButton?.let {
+            { SecondaryButton(it) }
+        },
+        tertiaryButton = tertiaryButton?.let {
+            { SecondaryButton(it) }
+        },
     )
 }
 
