@@ -25,8 +25,55 @@ import androidx.core.view.WindowCompat
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 
+@Deprecated(
+    message = "This theme does not align with the Design System - Use GdsThemeV2",
+    replaceWith = ReplaceWith(
+        "GdsThemeV2",
+        imports = arrayOf("uk.gov.android.ui.theme.m3.GdsThemeV2"),
+    ),
+    level = DeprecationLevel.WARNING,
+)
 @Composable
 fun GdsTheme(
+    modifier: Modifier = Modifier,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    shapes: Shapes = Shapes,
+    typography: Typography = Typography,
+    content: @Composable () -> Unit,
+) {
+    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
+
+    MaterialTheme(
+        colorScheme = colors,
+        shapes = shapes,
+        typography = typography,
+    ) {
+        val backgroundColor = colors.background
+        val view = LocalView.current
+
+        if (!view.isInEditMode && view.context is Activity) {
+            SideEffect {
+                val window = (view.context as Activity).window
+                window.statusBarColor = backgroundColor.toArgb()
+                WindowCompat
+                    .getInsetsController(window, view)
+                    .isAppearanceLightStatusBars = !darkTheme
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(backgroundColor)
+                .then(modifier),
+        ) {
+            content()
+        }
+    }
+}
+
+@Composable
+fun GdsThemeV2(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
@@ -67,22 +114,102 @@ fun GdsTheme(
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
 internal const val PALETTE_WIDTH = (SWATCH_SIZE * 4) + (PALETTE_PADDING * 2)
-internal const val PALLETTE_HEIGHT = 920
+internal const val PALETTE_HEIGHT = 1100
+internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 6) + (PALETTE_PADDING * 2)
+internal const val PALETTE_HEIGHT_V2 = 1750
 
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH,
-    heightDp = PALLETTE_HEIGHT,
+    heightDp = PALETTE_HEIGHT,
 )
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = PALETTE_WIDTH,
-    heightDp = PALLETTE_HEIGHT,
+    heightDp = PALETTE_HEIGHT,
 )
 @Composable
 @Suppress("LongMethod")
 fun ThemePreview() {
     GdsTheme(
+        modifier = Modifier.padding(PALETTE_PADDING.dp),
+    ) {
+        with(MaterialTheme.colorScheme) {
+            val standardColors = listOf(
+                SwatchColor(primary, "Primary"),
+                SwatchColor(secondary, "Secondary"),
+                SwatchColor(tertiary, "Tertiary"),
+                SwatchColor(error, "Error"),
+            )
+            val onStandardColors = listOf(
+                SwatchColor(onPrimary, "On Primary", primary),
+                SwatchColor(onSecondary, "On Secondary", secondary),
+                SwatchColor(onTertiary, "On Tertiary", tertiary),
+                SwatchColor(onError, "On Error", error),
+            )
+            val containerColors = listOf(
+                SwatchColor(primaryContainer, "Primary Container"),
+                SwatchColor(secondaryContainer, "Secondary Container"),
+                SwatchColor(tertiaryContainer, "Tertiary Container"),
+                SwatchColor(errorContainer, "Error Container"),
+            )
+            val onContainerColors = listOf(
+                SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
+                SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
+                SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
+                SwatchColor(onErrorContainer, "On Error Container", errorContainer),
+            )
+            val otherContainerColors = listOf(
+                SwatchColor(inversePrimary, "Inverse Primary"),
+                SwatchColor(inverseSurface, "Inverse Surface"),
+                SwatchColor(inverseOnSurface, "Inverse On Surface"),
+                SwatchColor(scrim, "Scrim"),
+            )
+            val surfaceColors = listOf(
+                SwatchColor(surface, "Surface"),
+                SwatchColor(surfaceVariant, "Surface Variant"),
+                SwatchColor(surfaceTint, "Surface Tint"),
+            )
+            val onSurfaceColors = listOf(
+                SwatchColor(onSurface, "On Surface", surface),
+                SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
+            )
+            val outLineColors = listOf(
+                SwatchColor(outline, "Outline"),
+                SwatchColor(outlineVariant, "Outline Variant"),
+            )
+            Column {
+                Row { standardColors.forEach { Swatch(data = it) } }
+                Row { onStandardColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { containerColors.forEach { Swatch(data = it) } }
+                Row { onContainerColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { otherContainerColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { surfaceColors.forEach { Swatch(data = it) } }
+                Row { onSurfaceColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { outLineColors.forEach { Swatch(data = it) } }
+            }
+        }
+    }
+}
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    widthDp = PALETTE_WIDTH_V2,
+    heightDp = PALETTE_HEIGHT_V2,
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    widthDp = PALETTE_WIDTH_V2,
+    heightDp = PALETTE_HEIGHT_V2,
+)
+@Composable
+@Suppress("LongMethod")
+fun ThemeV2Preview() {
+    GdsThemeV2(
         modifier = Modifier.padding(PALETTE_PADDING.dp),
     ) {
         with(MaterialTheme.colorScheme) {
