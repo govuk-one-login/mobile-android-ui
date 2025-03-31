@@ -10,11 +10,14 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
-import kotlinx.collections.immutable.persistentListOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 
+@RunWith(RobolectricTestRunner::class)
 class ErrorScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -39,11 +42,9 @@ class ErrorScreenTest {
             ErrorScreen(
                 ErrorScreenIcon.ErrorIcon,
                 titleText,
-                buttons = persistentListOf(
-                    ErrorScreenButton.PrimaryButton(
-                        text = buttonText,
-                        onClick = { didClick = true },
-                    ),
+                primaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { didClick = true },
                 ),
             )
         }
@@ -70,12 +71,10 @@ class ErrorScreenTest {
             ErrorScreen(
                 ErrorScreenIcon.ErrorIcon,
                 titleText,
-                buttons = persistentListOf(
-                    ErrorScreenButton.PrimaryButton(
-                        text = buttonText,
-                        onClick = { didClick = true },
-                        enabled = false,
-                    ),
+                primaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { didClick = true },
+                    enabled = false,
                 ),
             )
         }
@@ -102,11 +101,9 @@ class ErrorScreenTest {
             ErrorScreen(
                 ErrorScreenIcon.ErrorIcon,
                 titleText,
-                buttons = persistentListOf(
-                    ErrorScreenButton.SecondaryButton(
-                        text = buttonText,
-                        onClick = { didClick = true },
-                    ),
+                secondaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { didClick = true },
                 ),
             )
         }
@@ -133,12 +130,10 @@ class ErrorScreenTest {
             ErrorScreen(
                 ErrorScreenIcon.ErrorIcon,
                 titleText,
-                buttons = persistentListOf(
-                    ErrorScreenButton.SecondaryButton(
-                        text = buttonText,
-                        onClick = { didClick = true },
-                        enabled = false,
-                    ),
+                secondaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { didClick = true },
+                    enabled = false,
                 ),
             )
         }

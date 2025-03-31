@@ -1,19 +1,31 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
+import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.spacingSingle
 
 internal data class CentreAlignedScreenContent(
     val title: String,
@@ -25,11 +37,30 @@ internal data class CentreAlignedScreenContent(
 )
 
 sealed class CentreAlignedScreenBodyContent {
-    data class Text(val bodyText: String) : CentreAlignedScreenBodyContent()
+    data class Text(
+        val bodyText: String,
+        val useBoldStyle: Boolean = false,
+    ) : CentreAlignedScreenBodyContent()
     data class BulletList(
         val title: BulletedListTitle? = null,
         val items: ImmutableList<String>,
     ) : CentreAlignedScreenBodyContent()
+    data class Button(
+        val text: String,
+        val onClick: () -> Unit,
+        val leftAligned: Boolean = false,
+        val showIcon: Boolean = false,
+    ) : CentreAlignedScreenBodyContent()
+}
+
+data class CentreAlignedScreenButtons(
+    val primaryButton: (@Composable () -> Unit)? = null,
+    val secondaryButton: (@Composable () -> Unit)? = null,
+    val tertiaryButton: (@Composable () -> Unit)? = null,
+) {
+    fun toList(): ImmutableList<@Composable () -> Unit> {
+        return listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
+    }
 }
 
 data class CentreAlignedScreenImage(
@@ -40,8 +71,11 @@ data class CentreAlignedScreenImage(
 data class CentreAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,
+    val showIcon: Boolean = false,
+    val enabled: Boolean = true,
 )
 
+@Suppress("LongMethod")
 internal fun LazyListScope.toBodyContent(
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     horizontalItemPadding: Dp,
@@ -51,10 +85,15 @@ internal fun LazyListScope.toBodyContent(
         when (item) {
             is CentreAlignedScreenBodyContent.Text -> {
                 item {
+                    val textStyle = if (item.useBoldStyle) {
+                        Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                    } else {
+                        Typography.bodyLarge
+                    }
                     Text(
                         text = item.bodyText,
-                        style = Typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
+                        style = textStyle,
+                        color = colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -72,6 +111,39 @@ internal fun LazyListScope.toBodyContent(
                             .padding(itemPadding),
                         item.title,
                     )
+                }
+            }
+
+            is CentreAlignedScreenBodyContent.Button -> {
+                item {
+                    val buttonModifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacingSingle)
+                    val contentPosition = if (item.leftAligned) Arrangement.Start else Arrangement.Center
+                    if (item.showIcon) {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Icon(
+                                buttonColors = customButtonColors(
+                                    contentColor = colorScheme.primary,
+                                    containerColor = colorScheme.background,
+                                ),
+                                iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                                contentDescription = stringResource(R.string.opens_in_external_browser),
+                            ),
+                            onClick = item.onClick,
+                            modifier = buttonModifier,
+                            contentPosition = contentPosition,
+                        )
+                    } else {
+                        GdsButton(
+                            text = item.text,
+                            buttonType = ButtonType.Secondary,
+                            onClick = item.onClick,
+                            modifier = buttonModifier,
+                            contentPosition = contentPosition,
+                        )
+                    }
                 }
             }
         }

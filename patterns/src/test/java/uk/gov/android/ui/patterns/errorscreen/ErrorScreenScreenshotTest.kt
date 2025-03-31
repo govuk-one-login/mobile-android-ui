@@ -19,7 +19,9 @@ internal class ErrorScreenScreenshotTest(
                 title = parameters.title,
                 icon = parameters.icon,
                 body = parameters.body,
-                buttons = parameters.buttons,
+                primaryButton = parameters.primaryButton,
+                secondaryButton = parameters.secondaryButton,
+                tertiaryButton = parameters.tertiaryButton,
             )
         }
     }

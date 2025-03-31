@@ -47,8 +47,8 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton("Primary button") {},
-            CentreAlignedScreenButton("Secondary button") {},
+            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
+            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
@@ -57,8 +57,8 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton("Primary button") {},
-            CentreAlignedScreenButton("Secondary button") {},
+            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
+            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
@@ -78,7 +78,7 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton("Primary button") {},
+            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
@@ -97,7 +97,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            secondaryButton = CentreAlignedScreenButton("Secondary button") {},
+            secondaryButton = CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
@@ -147,8 +147,8 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text("One line content resource component"),
             ),
             supportingTextLong,
-            CentreAlignedScreenButton("Primary button") {},
-            CentreAlignedScreenButton("Secondary button") {},
+            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
+            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
         ),
     )
 }
