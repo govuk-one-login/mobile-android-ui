@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -34,6 +35,7 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -238,7 +240,7 @@ private fun MainContent(
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().testTag(BODY_LAZY_COLUMN_TEST_TAG),
     ) {
         item {
             Column(
@@ -311,6 +313,10 @@ object CentreAlignedScreenDefaults {
     val HorizontalPadding: Dp = spacingDouble
     val VerticalPadding: Dp = spacingDouble
     val NoPadding: Dp = 0.dp
+}
+
+internal object CentreAlignedScreenTestTag {
+    const val BODY_LAZY_COLUMN_TEST_TAG = "BODY_LAZY_COLUMN_TEST_TAG"
 }
 
 @ExcludeFromJacocoGeneratedReport
