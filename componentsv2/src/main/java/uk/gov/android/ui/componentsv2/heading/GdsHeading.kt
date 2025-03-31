@@ -5,7 +5,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -29,13 +28,12 @@ fun GdsHeading(
     style: TextStyle = Typography.displaySmall,
     fontWeight: FontWeight? = null,
     textAlign: TextAlign = TextAlign.Start,
-    color: Color = MaterialTheme.colorScheme.onBackground,
 ) {
     val heading = stringResource(R.string.heading, text)
 
     Text(
         text = text,
-        color = color,
+        color = MaterialTheme.colorScheme.onBackground,
         style = style,
         fontWeight = fontWeight,
         modifier = modifier
