@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.heading
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,7 +31,7 @@ fun Heading(
         HeadingStyle.BodyBold -> MaterialTheme.typography.bodyLarge
     }
 
-    Text(
+    GdsHeading(
         text = text,
         style = typography.copy(fontWeight = FontWeight.Bold),
         textAlign = textAlign,
