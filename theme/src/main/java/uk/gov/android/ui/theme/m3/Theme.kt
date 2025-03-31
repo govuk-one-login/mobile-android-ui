@@ -75,7 +75,6 @@ fun GdsTheme(
 
 @Composable
 fun GdsThemeV2(
-    modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
@@ -101,14 +100,7 @@ fun GdsThemeV2(
             }
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(backgroundColor)
-                .then(modifier),
-        ) {
-            content()
-        }
+        content()
     }
 }
 
@@ -210,78 +202,152 @@ fun ThemePreview() {
 @Composable
 @Suppress("LongMethod")
 fun ThemeV2Preview() {
-    GdsThemeV2(
-        modifier = Modifier.padding(PALETTE_PADDING.dp),
-    ) {
+    GdsThemeV2 {
         with(MaterialTheme.colorScheme) {
             val backgroundColors = listOf(
-                SwatchColor(background, "Background - Background Android Screen"),
-                SwatchColor(onBackground, "On Background - Text Primary"),
+                SwatchColor(background, "Background - Background Android Screen", onBackground),
+                SwatchColor(onBackground, "On Background - Text Primary", background),
             )
             val standardColors = listOf(
-                SwatchColor(primary, "Primary - Button Primary"),
-                SwatchColor(secondary, "Secondary - Button Secondary"),
-                SwatchColor(tertiary, "Tertiary - Button Secondary"),
-                SwatchColor(error, "Error - Button Destructive"),
+                SwatchColor(primary, "Primary - Button Primary", onPrimary),
+                SwatchColor(secondary, "Secondary - Button Secondary", onSecondary),
+                SwatchColor(tertiary, "Tertiary - Button Secondary", onTertiary),
+                SwatchColor(error, "Error - Button Destructive", onError),
             )
             val onStandardColors = listOf(
-                SwatchColor(onPrimary, "On Primary - Button Primary text"),
-                SwatchColor(onSecondary, "On Secondary - Button Secondary Text"),
-                SwatchColor(onTertiary, "On Tertiary - Same as Button Secondary Text"),
-                SwatchColor(onError, "On Error - Button Destructive Text"),
+                SwatchColor(onPrimary, "On Primary - Button Primary text", primary),
+                SwatchColor(onSecondary, "On Secondary - Button Secondary Text", secondary),
+                SwatchColor(
+                    onTertiary,
+                    "On Tertiary - Same as Button Secondary Text",
+                    tertiary,
+                ),
+                SwatchColor(onError, "On Error - Button Destructive Text", error),
             )
             val containerColors = listOf(
-                SwatchColor(primaryContainer, "Primary Container NO DESIGN COLOUR"),
-                SwatchColor(secondaryContainer, "Secondary Container - Navigation Selected"),
-                SwatchColor(tertiaryContainer, "Tertiary Container NO DESIGN COLOUR"),
-                SwatchColor(errorContainer, "Error Container NO DESIGN COLOUR", background),
+                SwatchColor(
+                    primaryContainer,
+                    "Primary Container NO DESIGN COLOUR",
+                    onPrimaryContainer,
+                ),
+                SwatchColor(
+                    secondaryContainer,
+                    "Secondary Container - Navigation Selected",
+                    onSecondaryContainer,
+                ),
+                SwatchColor(
+                    tertiaryContainer,
+                    "Tertiary Container NO DESIGN COLOUR",
+                    onTertiaryContainer,
+                ),
+                SwatchColor(
+                    errorContainer,
+                    "Error Container NO DESIGN COLOUR",
+                    onErrorContainer,
+                ),
             )
             val onContainerColors = listOf(
-                SwatchColor(onPrimaryContainer, "On Primary Container NO DESIGN COLOUR", background),
-                SwatchColor(onSecondaryContainer, "On Secondary Container - Navigation Text and Icon"),
-                SwatchColor(onTertiaryContainer, "On Tertiary Container NO DESIGN COLOUR", background),
-                SwatchColor(onErrorContainer, "On Error Container - Destructive OS Button Text"),
+                SwatchColor(
+                    onPrimaryContainer,
+                    "On Primary Container NO DESIGN COLOUR",
+                    primaryContainer,
+                ),
+                SwatchColor(
+                    onSecondaryContainer,
+                    "On Secondary Container - Navigation Text and Icon",
+                    secondaryContainer,
+                ),
+                SwatchColor(
+                    onTertiaryContainer,
+                    "On Tertiary Container NO DESIGN COLOUR",
+                    tertiaryContainer,
+                ),
+                SwatchColor(
+                    onErrorContainer,
+                    "On Error Container - Destructive OS Button Text",
+                    errorContainer,
+                ),
             )
 
             val surfaceColors = listOf(
-                SwatchColor(surfaceDim, "Surface Dim NO DESIGN COLOUR"),
-                SwatchColor(surface, "Surface NO DESIGN COLOUR"),
-                SwatchColor(surfaceBright, "Surface Bright NO DESIGN COLOUR"),
+                SwatchColor(surfaceDim, "Surface Dim NO DESIGN COLOUR", onSurface),
+                SwatchColor(surface, "Surface NO DESIGN COLOUR", onSurface),
+                SwatchColor(surfaceBright, "Surface Bright NO DESIGN COLOUR", onSurface),
             )
 
             val surfaceContainersColors = listOf(
-                SwatchColor(surfaceContainerLowest, "Surface Container Lowest NO DESIGN COLOUR"),
-                SwatchColor(surfaceContainerLow, "Surface Container Low - Android Card"),
-                SwatchColor(surfaceContainer, "Surface Container - Top (App Bars)"),
-                SwatchColor(surfaceContainerHigh, "Surface Container High - Dialog"),
-                SwatchColor(surfaceContainerHighest, "Surface Container Highest - Switch/ Toggle)"),
+                SwatchColor(
+                    surfaceContainerLowest,
+                    "Surface Container Lowest NO DESIGN COLOUR",
+                    onSurface,
+                ),
+                SwatchColor(
+                    surfaceContainerLow,
+                    "Surface Container Low - Android Card",
+                    onSurface,
+                ),
+                SwatchColor(surfaceContainer, "Surface Container - Top (App Bars)", onSurface),
+                SwatchColor(surfaceContainerHigh, "Surface Container High - Dialog", onSurface),
+                SwatchColor(
+                    surfaceContainerHighest,
+                    "Surface Container Highest - Switch/ Toggle)",
+                    onSurface,
+                ),
             )
             val onSurfaceColors = listOf(
-                SwatchColor(onSurface, "On Surface NO DESIGN COLOUR", background),
-                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text"),
+                SwatchColor(onSurface, "On Surface NO DESIGN COLOUR", surface),
+                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text", surface),
             )
             val outLineColors = listOf(
-                SwatchColor(outline, "Outline NO DESIGN COLOUR"),
-                SwatchColor(outlineVariant, "Outline Variant - Divider/ Separator Line Android Card"),
+                SwatchColor(outline, "Outline NO DESIGN COLOUR", m3_theme_onPrimaryFixed),
+                SwatchColor(
+                    outlineVariant,
+                    "Outline Variant - Divider/ Separator Line Android Card",
+                    background,
+                ),
             )
 
             val otherContainerColors = listOf(
-                SwatchColor(inversePrimary, "Inverse Primary NO DESIGN COLOUR"),
-                SwatchColor(inverseSurface, "Inverse Surface NO DESIGN COLOUR"),
-                SwatchColor(inverseOnSurface, "Inverse On Surface NO DESIGN COLOUR"),
-                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)"),
+                SwatchColor(inversePrimary, "Inverse Primary NO DESIGN COLOUR", onBackground),
+                SwatchColor(inverseSurface, "Inverse Surface NO DESIGN COLOUR", onBackground),
+                SwatchColor(inverseOnSurface, "Inverse On Surface NO DESIGN COLOUR", onBackground),
+                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)", onBackground),
             )
 
             val staticColors = listOf(
-                SwatchColor(m3_theme_primaryFixed, "Primary Fixed - Button Focus"),
-                SwatchColor(m3_theme_secondaryFixed, "Secondary Fixed - Button Disabled"),
-                SwatchColor(m3_theme_tertiaryFixed, "Tertiary Fixed - Wallet Document Background"),
+                SwatchColor(
+                    m3_theme_primaryFixed,
+                    "Primary Fixed - Button Focus",
+                    m3_theme_onPrimaryFixed,
+                ),
+                SwatchColor(
+                    m3_theme_secondaryFixed,
+                    "Secondary Fixed - Button Disabled",
+                    m3_theme_onSecondaryFixed,
+                ),
+                SwatchColor(
+                    m3_theme_tertiaryFixed,
+                    "Tertiary Fixed - Wallet Document Background",
+                    m3_theme_onTertiaryFixed,
+                ),
             )
 
             val staticTextColors = listOf(
-                SwatchColor(m3_theme_onPrimaryFixed, "Primary Fixed - Button Focus Text"),
-                SwatchColor(m3_theme_onSecondaryFixed, "Secondary Fixed - Button Disabled Text"),
-                SwatchColor(m3_theme_onTertiaryFixed, "Tertiary Fixed - onPrimary"),
+                SwatchColor(
+                    m3_theme_onPrimaryFixed,
+                    "Primary Fixed - Button Focus Text",
+                    m3_theme_primaryFixed,
+                ),
+                SwatchColor(
+                    m3_theme_onSecondaryFixed,
+                    "Secondary Fixed - Button Disabled Text",
+                    m3_theme_secondaryFixed,
+                ),
+                SwatchColor(
+                    m3_theme_onTertiaryFixed,
+                    "Tertiary Fixed - onPrimary",
+                    m3_theme_tertiaryFixed,
+                ),
             )
 
             Column {
@@ -307,7 +373,7 @@ fun ThemeV2Preview() {
                     "Fixed/ Static Colours - DOESN'T use the Material3 " +
                         "- would need to be used variables directly - see Colors.kt",
                     style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = m3_theme_secondaryFixed,
                 )
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Row { staticColors.forEach { Swatch(data = it) } }
