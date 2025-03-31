@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -104,36 +105,37 @@ internal fun LazyListScope.toBodyContent(
 
             is CentreAlignedScreenBodyContent.Button -> {
                 item {
-                    val buttonModifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = spacingSingle)
-                    val contentPosition = if (item.leftAligned) Arrangement.Start else Arrangement.Center
-                    if (item.showIcon) {
-                        GdsButton(
-                            text = item.text,
-                            buttonType = ButtonType.Icon(
-                                buttonColors = customButtonColors(
-                                    contentColor = colorScheme.primary,
-                                    containerColor = colorScheme.background,
-                                ),
-                                iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
-                                contentDescription = stringResource(R.string.opens_in_external_browser),
-                            ),
-                            onClick = item.onClick,
-                            modifier = buttonModifier,
-                            contentPosition = contentPosition,
-                        )
-                    } else {
-                        GdsButton(
-                            text = item.text,
-                            buttonType = ButtonType.Secondary,
-                            onClick = item.onClick,
-                            modifier = buttonModifier,
-                            contentPosition = contentPosition,
-                        )
-                    }
+                    SecondaryButton(item)
                 }
             }
         }
     }
+}
+
+@Composable
+private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
+    val buttonModifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = spacingSingle)
+    val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
+    val buttonType = if (button.showIcon) {
+        ButtonType.Icon(
+            buttonColors = customButtonColors(
+                contentColor = colorScheme.primary,
+                containerColor = colorScheme.background,
+            ),
+            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+            contentDescription = stringResource(R.string.opens_in_external_browser),
+        )
+    } else {
+        ButtonType.Secondary
+    }
+
+    GdsButton(
+        text = button.text,
+        buttonType = buttonType,
+        onClick = button.onClick,
+        modifier = buttonModifier,
+        contentPosition = contentPosition,
+    )
 }
