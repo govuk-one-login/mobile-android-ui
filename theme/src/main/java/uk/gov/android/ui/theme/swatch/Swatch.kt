@@ -23,6 +23,7 @@ import uk.gov.android.ui.theme.swatchSize
 
 internal const val LABEL_TEST_TAG = "Label"
 internal const val HEX_TEST_TAG = "ColorHex"
+internal const val ASPECT_RATIO = 1.6f
 
 @Composable
 fun Swatch(modifier: Modifier = Modifier, data: SwatchColor) {
@@ -33,8 +34,9 @@ fun Swatch(modifier: Modifier = Modifier, data: SwatchColor) {
                 Modifier
                     .background(backgroundColor)
                     .width(swatchSize)
-                    .aspectRatio(2.0f)
+                    .aspectRatio(ASPECT_RATIO)
                     .padding(spacingDouble),
+
             ),
         ) {
             Text(
