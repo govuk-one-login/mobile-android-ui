@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -27,12 +28,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -52,17 +56,23 @@ private const val ONE_THIRD = 1f / 3f
  * @param image image displayed at the top of the screen (optional).
  * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
- * @param bottomContent representing the primary/secondary buttons at the bottom of the screen (optional).
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
+ * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
+ * @param secondaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
+ * @param tertiaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  */
+@Suppress("LongMethod")
+@SuppressWarnings("squid:S107")
 @Composable
 internal fun CentreAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    bottomContent: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
+    primaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -72,13 +82,18 @@ internal fun CentreAlignedScreen(
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                bottomContent?.invoke(HorizontalPadding)
+                BottomContent(
+                    modifier = Modifier.fillMaxWidth(),
+                    primaryButton = primaryButton,
+                    secondaryButton = secondaryButton,
+                    tertiaryButton = tertiaryButton,
+                )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
             // Measure SupportingText
             val supportingTextPlaceables = subcompose("supportingText") {
-                supportingText?.invoke(HorizontalPadding, CentreAlignedScreenDefaults.VerticalPadding)
+                supportingText?.invoke(HorizontalPadding, VerticalPadding)
             }.map { it.measure(constraints) }
             val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
 
@@ -185,19 +200,34 @@ fun CentreAlignedScreen(
             }
         },
         modifier = modifier,
-        bottomContent = {
-            BottomContent(
-                modifier = Modifier.fillMaxWidth(),
-                primaryButton = primaryButton,
-                secondaryButton = secondaryButton,
-            )
-        },
         supportingText = supportingText?.let {
             { horizontalPadding, verticalPadding ->
                 SupportingText(
                     text = supportingText,
                     horizontalItemPadding = horizontalPadding,
                     verticalItemPadding = verticalPadding,
+                )
+            }
+        },
+        primaryButton = primaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    buttonType = ButtonType.Primary,
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
+            }
+        },
+        secondaryButton = secondaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    buttonType = ButtonType.Secondary,
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
                 )
             }
         },
@@ -210,15 +240,13 @@ private fun MainContent(
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    arrangement: Arrangement.Vertical = Arrangement.spacedBy(
-        CentreAlignedScreenDefaults.VerticalPadding,
-        Alignment.CenterVertically,
-    ),
     supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
+    arrangement: Arrangement.Vertical =
+        Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically),
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().testTag(BODY_LAZY_COLUMN_TEST_TAG),
     ) {
         item {
             Column(
@@ -273,42 +301,19 @@ private fun SupportingText(
 @Composable
 private fun BottomContent(
     modifier: Modifier = Modifier,
-    primaryButton: CentreAlignedScreenButton? = null,
-    secondaryButton: CentreAlignedScreenButton? = null,
+    primaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
+    val buttons = listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
+    val verticalItemPadding = if (buttons.isEmpty()) NoPadding else VerticalPadding
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Bottom,
-        modifier = modifier.padding(horizontal = spacingDouble),
+        verticalArrangement = Arrangement.spacedBy(spacingDouble, Alignment.Bottom),
+        modifier = modifier.padding(horizontal = HorizontalPadding, vertical = verticalItemPadding),
     ) {
-        primaryButton?.let {
-            val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
-
-            Spacer(modifier = Modifier.height(spacingDouble))
-
-            GdsButton(
-                text = it.text,
-                buttonType = ButtonType.Primary,
-                onClick = it.onClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(modifier = Modifier.height(bottomPadding))
-        }
-
-        secondaryButton?.let {
-            val topPadding = if (primaryButton == null) 0.dp else spacingDouble
-
-            Spacer(modifier = Modifier.height(topPadding))
-
-            GdsButton(
-                text = it.text,
-                buttonType = ButtonType.Secondary,
-                onClick = it.onClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(modifier = Modifier.height(spacingDouble))
+        buttons.forEach {
+            it.invoke()
         }
     }
 }
@@ -317,6 +322,10 @@ object CentreAlignedScreenDefaults {
     val HorizontalPadding: Dp = spacingDouble
     val VerticalPadding: Dp = spacingDouble
     val NoPadding: Dp = 0.dp
+}
+
+internal object CentreAlignedScreenTestTag {
+    const val BODY_LAZY_COLUMN_TEST_TAG = "BODY_LAZY_COLUMN_TEST_TAG"
 }
 
 @ExcludeFromJacocoGeneratedReport
