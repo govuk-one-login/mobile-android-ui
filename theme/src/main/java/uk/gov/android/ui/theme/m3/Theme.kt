@@ -25,15 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@Deprecated(
-    message = "This theme does not align with the Design System - Use GdsThemeV2",
-    replaceWith = ReplaceWith(
-        "GdsThemeV2",
-        imports = arrayOf("uk.gov.android.ui.theme.m3.GdsThemeV2"),
-    ),
-    level = DeprecationLevel.WARNING,
-)
 @Composable
 fun GdsTheme(
     modifier: Modifier = Modifier,
@@ -73,6 +66,7 @@ fun GdsTheme(
     }
 }
 
+@UnstableDesignSystemAPI
 @Composable
 fun GdsThemeV2(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -189,6 +183,7 @@ fun ThemePreview() {
     }
 }
 
+@OptIn(UnstableDesignSystemAPI::class)
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH_V2,
