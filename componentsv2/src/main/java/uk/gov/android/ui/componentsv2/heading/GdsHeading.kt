@@ -9,7 +9,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -17,24 +16,39 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
+
+enum class GdsHeadingStyle {
+    LargeTitle,
+    Title1,
+    Title2,
+    Title3,
+    BodyBold,
+}
 
 @UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
     text: String,
     modifier: Modifier = Modifier,
-    style: TextStyle = Typography.displaySmall,
+    style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     fontWeight: FontWeight? = null,
     textAlign: TextAlign = TextAlign.Start,
 ) {
     val heading = stringResource(R.string.heading, text)
 
+    val typography = when (style) {
+        GdsHeadingStyle.LargeTitle -> MaterialTheme.typography.displaySmall
+        GdsHeadingStyle.Title1 -> MaterialTheme.typography.headlineMedium
+        GdsHeadingStyle.Title2 -> MaterialTheme.typography.headlineSmall
+        GdsHeadingStyle.Title3 -> MaterialTheme.typography.titleLarge
+        GdsHeadingStyle.BodyBold -> MaterialTheme.typography.bodyLarge
+    }
+
     Text(
         text = text,
         color = MaterialTheme.colorScheme.onBackground,
-        style = style,
+        style = typography,
         fontWeight = fontWeight,
         modifier = modifier
             .fillMaxWidth()
@@ -48,7 +62,7 @@ fun GdsHeading(
 
 internal data class HeadingParameters(
     val text: String,
-    val style: TextStyle = Typography.displaySmall,
+    val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
 )
 
@@ -56,7 +70,7 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
     override val values: Sequence<HeadingParameters> = sequenceOf(
         HeadingParameters("Short Title"),
         HeadingParameters("Long Title - Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
-        HeadingParameters("Subtitle", style = Typography.bodySmall, fontWeight = FontWeight.W700),
+        HeadingParameters("Subtitle", style = GdsHeadingStyle.LargeTitle, fontWeight = FontWeight.W700),
     )
 }
 
