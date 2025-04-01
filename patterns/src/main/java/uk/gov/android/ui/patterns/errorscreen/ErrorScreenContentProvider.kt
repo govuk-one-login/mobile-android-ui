@@ -5,6 +5,8 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 import uk.gov.android.ui.componentsv2.bulletedlist.TitleType
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 
 internal class ErrorScreenContentProvider :
     PreviewParameterProvider<ErrorScreenContent> {
@@ -38,11 +40,11 @@ internal class ErrorScreenContentProvider :
             title = errorTitle,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(bodyContentBoldLine, TextType.Bold),
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
-                ErrorScreenBodyContent.BulletList(
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text(bodyContentBoldLine, true),
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
+                CentreAlignedScreenBodyContent.BulletList(
                     title = BulletedListTitle("This is the bullet view", TitleType.Heading),
                     items = persistentListOf(
                         "Here we can list things we want the user to know",
@@ -50,10 +52,10 @@ internal class ErrorScreenContentProvider :
                         "or give details of a process",
                     ),
                 ),
-                ErrorScreenBodyContent.Button(
+                CentreAlignedScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    buttonAlignment = ErrorScreenButtonAlignment.Start,
+                    leftAligned = true,
                     showIcon = true,
                 ),
             ),
@@ -66,23 +68,20 @@ internal class ErrorScreenContentProvider :
             title = errorTitle,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Button(
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    buttonAlignment = ErrorScreenButtonAlignment.Center,
                     showIcon = true,
                 ),
             ),
-            buttons = persistentListOf(
-                ErrorScreenButton.PrimaryButton(
-                    text = primaryButtonText,
-                    onClick = {},
-                    showIcon = false,
-                ),
+            primaryButton = CentreAlignedScreenButton(
+                text = primaryButtonText,
+                onClick = {},
+                showIcon = false,
             ),
         ),
         ErrorScreenContent(
@@ -93,32 +92,29 @@ internal class ErrorScreenContentProvider :
             title = errorTitle,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(bodyContentBoldLine, TextType.Bold),
-                ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(18)}"),
-                ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(3)}"),
-                ErrorScreenBodyContent.Text(
-                    text = "Body multiple paragraph - ${loremIpsum(7)}",
-                    type = TextType.Bold,
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text(bodyContentBoldLine, true),
+                CentreAlignedScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(18)}"),
+                CentreAlignedScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(3)}"),
+                CentreAlignedScreenBodyContent.Text(
+                    "Body multiple paragraph - ${loremIpsum(7)}",
+                    true,
                 ),
-                ErrorScreenBodyContent.Button(
+                CentreAlignedScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    buttonAlignment = ErrorScreenButtonAlignment.Center,
                     showIcon = true,
                 ),
             ),
-            buttons = persistentListOf(
-                ErrorScreenButton.PrimaryButton(
-                    text = primaryButtonText,
-                    onClick = {},
-                    showIcon = false,
-                ),
-                ErrorScreenButton.SecondaryButton(
-                    text = secondaryButtonText,
-                    onClick = {},
-                    showIcon = false,
-                ),
+            primaryButton = CentreAlignedScreenButton(
+                text = primaryButtonText,
+                onClick = {},
+                showIcon = false,
+            ),
+            secondaryButton = CentreAlignedScreenButton(
+                text = secondaryButtonText,
+                onClick = {},
+                showIcon = false,
             ),
         ),
         ErrorScreenContent(
@@ -128,33 +124,28 @@ internal class ErrorScreenContentProvider :
             title = warningTitle,
             icon = ErrorScreenIcon.WarningIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine, TextType.Regular),
-                ErrorScreenBodyContent.Text(
-                    text = "Body single paragraph - ${loremIpsum(18)}",
-                    type = TextType.Regular,
-                ),
-                ErrorScreenBodyContent.Button(
+                CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
+                CentreAlignedScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
+                CentreAlignedScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
                     showIcon = true,
                 ),
             ),
-            buttons = persistentListOf(
-                ErrorScreenButton.PrimaryButton(
-                    text = primaryButtonText,
-                    onClick = {},
-                    showIcon = true,
-                ),
-                ErrorScreenButton.SecondaryButton(
-                    text = secondaryButtonText,
-                    onClick = {},
-                    showIcon = true,
-                ),
-                ErrorScreenButton.SecondaryButton(
-                    text = secondaryButtonText,
-                    onClick = {},
-                    showIcon = true,
-                ),
+            primaryButton = CentreAlignedScreenButton(
+                text = primaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            secondaryButton = CentreAlignedScreenButton(
+                text = secondaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            tertiaryButton = CentreAlignedScreenButton(
+                text = secondaryButtonText,
+                onClick = {},
+                showIcon = true,
             ),
         ),
     )
