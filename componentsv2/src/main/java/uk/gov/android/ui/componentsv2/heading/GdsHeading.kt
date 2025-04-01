@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3.light_theme_background
+import uk.gov.android.ui.theme.m3.light_theme_onBackground
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 enum class GdsHeadingStyle {
@@ -37,7 +39,7 @@ enum class GdsHeadingAlignment {
 }
 
 enum class GdsHeadingColour(val lightModeColor: Color, val darkModeColor: Color) {
-    Default(Color(0xFF0B0C0C), Color(0xFFFFFFFF)),
+    Default(light_theme_onBackground, light_theme_background),
     Custom(Color.Unspecified, Color.Unspecified),
 }
 
@@ -69,7 +71,13 @@ fun GdsHeading(
 
     val isDark = isSystemInDarkTheme()
     val colour = when (textColour) {
-        GdsHeadingColour.Default -> if (isDark) Color(0xFFFFFFFF) else Color(0xFF0B0C0C)
+        GdsHeadingColour.Default -> {
+            if (isDark) {
+                GdsHeadingColour.Default.darkModeColor
+            } else {
+                GdsHeadingColour.Default.lightModeColor
+            }
+        }
         GdsHeadingColour.Custom -> {
             if (isDark) {
                 GdsHeadingColour.Custom.darkModeColor
