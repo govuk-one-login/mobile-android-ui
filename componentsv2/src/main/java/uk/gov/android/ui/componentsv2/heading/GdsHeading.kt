@@ -1,10 +1,12 @@
 package uk.gov.android.ui.componentsv2.heading
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -14,8 +16,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 enum class GdsHeadingStyle {
@@ -26,6 +31,16 @@ enum class GdsHeadingStyle {
     BodyBold,
 }
 
+enum class GdsHeadingAlignment {
+    CenterAligned,
+    LeftAligned,
+}
+
+enum class GdsHeadingColour(val lightModeColor: Color, val darkModeColor: Color) {
+    Default(Color(0xFF0B0C0C), Color(0xFFFFFFFF)),
+    Custom(Color.Unspecified, Color.Unspecified),
+}
+
 @UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
@@ -33,30 +48,50 @@ fun GdsHeading(
     modifier: Modifier = Modifier,
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     fontWeight: FontWeight? = null,
-    textAlign: TextAlign = TextAlign.Start,
+    textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
+    textColour: GdsHeadingColour = GdsHeadingColour.Default,
+    horizontalPadding: Dp = 16.dp,
 ) {
     val heading = stringResource(R.string.heading, text)
 
     val typography = when (style) {
-        GdsHeadingStyle.LargeTitle -> MaterialTheme.typography.displaySmall
-        GdsHeadingStyle.Title1 -> MaterialTheme.typography.headlineMedium
-        GdsHeadingStyle.Title2 -> MaterialTheme.typography.headlineSmall
-        GdsHeadingStyle.Title3 -> MaterialTheme.typography.titleLarge
-        GdsHeadingStyle.BodyBold -> MaterialTheme.typography.bodyLarge
+        GdsHeadingStyle.LargeTitle -> Typography.displaySmall
+        GdsHeadingStyle.Title1 -> Typography.headlineLarge
+        GdsHeadingStyle.Title2 -> Typography.headlineMedium
+        GdsHeadingStyle.Title3 -> Typography.headlineSmall
+        GdsHeadingStyle.BodyBold -> Typography.bodyLarge
+    }
+
+    val alignment = when (textAlign) {
+        GdsHeadingAlignment.CenterAligned -> TextAlign.Center
+        GdsHeadingAlignment.LeftAligned -> TextAlign.Start
+    }
+
+    val isDark = isSystemInDarkTheme()
+    val colour = when (textColour) {
+        GdsHeadingColour.Default -> if (isDark) Color(0xFFFFFFFF) else Color(0xFF0B0C0C)
+        GdsHeadingColour.Custom -> {
+            if (isDark) {
+                GdsHeadingColour.Custom.darkModeColor
+            } else {
+                GdsHeadingColour.Custom.lightModeColor
+            }
+        }
     }
 
     Text(
         text = text,
-        color = MaterialTheme.colorScheme.onBackground,
+        color = colour,
         style = typography,
         fontWeight = fontWeight,
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = horizontalPadding)
             .semantics {
                 contentDescription = heading
                 heading()
             },
-        textAlign = textAlign,
+        textAlign = alignment,
     )
 }
 
