@@ -1,6 +1,7 @@
 package uk.gov.android.ui.componentsv2.heading
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -14,7 +15,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -23,6 +23,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.light_theme_background
 import uk.gov.android.ui.theme.m3.light_theme_onBackground
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 enum class GdsHeadingStyle {
@@ -38,9 +39,10 @@ enum class GdsHeadingAlignment {
     LeftAligned,
 }
 
-enum class GdsHeadingColour(val lightModeColor: Color, val darkModeColor: Color) {
-    Default(light_theme_onBackground, light_theme_background),
-    Custom(Color.Unspecified, Color.Unspecified),
+sealed class GdsHeadingColour(val lightModeColor: Color, val darkModeColor: Color) {
+    object Default : GdsHeadingColour(light_theme_onBackground, light_theme_background)
+    data class Custom(val customLightModeColor: Color, val customDarkModeColor: Color) :
+        GdsHeadingColour(customLightModeColor, customDarkModeColor)
 }
 
 @UnstableDesignSystemAPI
@@ -69,12 +71,7 @@ fun GdsHeading(
         GdsHeadingAlignment.LeftAligned -> TextAlign.Start
     }
 
-    val isDark = isSystemInDarkTheme()
-    val colour = if (textColour == GdsHeadingColour.Default) {
-        if (isDark) GdsHeadingColour.Default.darkModeColor else GdsHeadingColour.Default.lightModeColor
-    } else {
-        if (isDark) textColour.darkModeColor else textColour.lightModeColor
-    }
+    val colour = if (isSystemInDarkTheme()) textColour.darkModeColor else textColour.lightModeColor
 
     Text(
         text = text,
@@ -92,7 +89,7 @@ fun GdsHeading(
     )
 }
 
-internal data class HeadingParameters(
+data class HeadingParameters(
     val text: String,
     val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
@@ -100,33 +97,40 @@ internal data class HeadingParameters(
     val textColour: GdsHeadingColour = GdsHeadingColour.Default,
 )
 
-internal class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
+class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
     override val values: Sequence<HeadingParameters> = sequenceOf(
-        HeadingParameters("Large Title - center aligned", style = GdsHeadingStyle.LargeTitle),
+        HeadingParameters("Large Title", style = GdsHeadingStyle.LargeTitle),
         HeadingParameters("Title1", style = GdsHeadingStyle.Title1),
         HeadingParameters("Title2", style = GdsHeadingStyle.Title2),
         HeadingParameters("Title3", style = GdsHeadingStyle.Title3),
         HeadingParameters("Body Bold", style = GdsHeadingStyle.BodyBold),
         HeadingParameters("Title1", style = GdsHeadingStyle.Title1, textAlign = GdsHeadingAlignment.LeftAligned),
-        HeadingParameters("Title1", style = GdsHeadingStyle.Title1, textColour = GdsHeadingColour.Custom),
+        HeadingParameters(
+            text = "Title1",
+            style = GdsHeadingStyle.Title1,
+            textColour = GdsHeadingColour.Custom(Color.Green, Color.Red),
+        ),
         HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
-        HeadingParameters("Subtitle", style = GdsHeadingStyle.LargeTitle, fontWeight = FontWeight.W700),
     )
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Composable
-private fun PreviewTitle(
-    @PreviewParameter(HeadingParameterPreviewProvider::class)
-    parameters: HeadingParameters,
-) {
+internal fun PreviewTitle() {
+    val parameters = HeadingParameterPreviewProvider().values.toList()
     GdsTheme {
-        GdsHeading(
-            text = parameters.text,
-            style = parameters.style,
-            fontWeight = parameters.fontWeight,
-            textAlign = parameters.textAlign,
-        )
+        Column {
+            parameters.forEach {
+                GdsHeading(
+                    text = it.text,
+                    style = it.style,
+                    fontWeight = it.fontWeight,
+                    textAlign = it.textAlign,
+                    textColour = it.textColour,
+                )
+            }
+        }
     }
 }

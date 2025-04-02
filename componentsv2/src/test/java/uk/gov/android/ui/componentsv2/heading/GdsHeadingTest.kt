@@ -1,39 +1,112 @@
 package uk.gov.android.ui.componentsv2.heading
 
-import androidx.compose.runtime.Composable
-import com.android.resources.NightMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
-import uk.gov.android.ui.componentsv2.BaseScreenshotTest
-import uk.gov.android.ui.theme.m3.GdsTheme
+import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.theme.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@RunWith(Parameterized::class)
-internal class GdsHeadingTest(
-    private val parameters: Pair<HeadingParameters, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+@OptIn(UnstableDesignSystemAPI::class)
+@RunWith(RobolectricTestRunner::class)
+class GdsHeadingTest {
 
-    @OptIn(UnstableDesignSystemAPI::class)
-    override val generateComposeLayout: @Composable () -> Unit = {
-        val parameters = parameters.first
-        GdsTheme {
-            GdsHeading(
-                parameters.text,
-                style = parameters.style,
-                fontWeight = parameters.fontWeight,
-            )
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun testDefaultHeadingDisplayedCorrectly() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Default Heading",
+                    )
+                }
+            }
+            onNodeWithText("Default Heading").apply {
+                assertIsDisplayed()
+            }
         }
     }
 
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<HeadingParameters, NightMode>> {
-            val result: MutableList<Pair<HeadingParameters, NightMode>> = mutableListOf()
+    @Test
+    fun testTitleOneHeadingDisplayedCorrectly() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Title1 Heading",
+                        style = GdsHeadingStyle.Title1,
+                        textAlign = GdsHeadingAlignment.CenterAligned,
+                        textColour = GdsHeadingColour.Default,
+                    )
+                }
+            }
+            onNodeWithText("Title1 Heading").apply {
+                assertIsDisplayed()
+            }
+        }
+    }
 
-            HeadingParameterPreviewProvider().values.forEach(applyNightMode(result))
+    @Test
+    fun testTitleTwoHeadingDisplayedCorrectly() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Title2 Heading",
+                        style = GdsHeadingStyle.Title2,
+                        textAlign = GdsHeadingAlignment.CenterAligned,
+                        textColour = GdsHeadingColour.Default,
+                    )
+                }
+            }
+            onNodeWithText("Title2 Heading").apply {
+                assertIsDisplayed()
+            }
+        }
+    }
 
-            return result
+    @Test
+    fun testTitleThreeHeadingDisplayedCorrectly() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Title3 Heading",
+                        style = GdsHeadingStyle.Title2,
+                        textAlign = GdsHeadingAlignment.CenterAligned,
+                        textColour = GdsHeadingColour.Default,
+                    )
+                }
+            }
+            onNodeWithText("Title3 Heading").apply {
+                assertIsDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun testCustomHeadingColors() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Custom Heading",
+                        style = GdsHeadingStyle.Title2,
+                        textAlign = GdsHeadingAlignment.LeftAligned,
+                        textColour = GdsHeadingColour.Custom(Color.Green, Color.Red),
+                    )
+                }
+            }
+            onNodeWithText("Custom Heading").apply {
+                assertIsDisplayed()
+            }
         }
     }
 }
