@@ -70,21 +70,10 @@ fun GdsHeading(
     }
 
     val isDark = isSystemInDarkTheme()
-    val colour = when (textColour) {
-        GdsHeadingColour.Default -> {
-            if (isDark) {
-                GdsHeadingColour.Default.darkModeColor
-            } else {
-                GdsHeadingColour.Default.lightModeColor
-            }
-        }
-        GdsHeadingColour.Custom -> {
-            if (isDark) {
-                GdsHeadingColour.Custom.darkModeColor
-            } else {
-                GdsHeadingColour.Custom.lightModeColor
-            }
-        }
+    val colour = if (textColour == GdsHeadingColour.Default) {
+        if (isDark) GdsHeadingColour.Default.darkModeColor else GdsHeadingColour.Default.lightModeColor
+    } else {
+        if (isDark) textColour.darkModeColor else textColour.lightModeColor
     }
 
     Text(
@@ -107,12 +96,20 @@ internal data class HeadingParameters(
     val text: String,
     val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
+    val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
+    val textColour: GdsHeadingColour = GdsHeadingColour.Default,
 )
 
 internal class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
     override val values: Sequence<HeadingParameters> = sequenceOf(
-        HeadingParameters("Short Title"),
-        HeadingParameters("Long Title - Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
+        HeadingParameters("Large Title - center aligned", style = GdsHeadingStyle.LargeTitle),
+        HeadingParameters("Title1", style = GdsHeadingStyle.Title1),
+        HeadingParameters("Title2", style = GdsHeadingStyle.Title2),
+        HeadingParameters("Title3", style = GdsHeadingStyle.Title3),
+        HeadingParameters("Body Bold", style = GdsHeadingStyle.BodyBold),
+        HeadingParameters("Title1", style = GdsHeadingStyle.Title1, textAlign = GdsHeadingAlignment.LeftAligned),
+        HeadingParameters("Title1", style = GdsHeadingStyle.Title1, textColour = GdsHeadingColour.Custom),
+        HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
         HeadingParameters("Subtitle", style = GdsHeadingStyle.LargeTitle, fontWeight = FontWeight.W700),
     )
 }
@@ -122,11 +119,14 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
 @Composable
 private fun PreviewTitle(
     @PreviewParameter(HeadingParameterPreviewProvider::class)
-    parameters: String,
+    parameters: HeadingParameters,
 ) {
     GdsTheme {
         GdsHeading(
-            text = parameters,
+            text = parameters.text,
+            style = parameters.style,
+            fontWeight = parameters.fontWeight,
+            textAlign = parameters.textAlign,
         )
     }
 }
