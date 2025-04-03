@@ -20,7 +20,7 @@ internal class GdsHeadingScreenshotTest(
             GdsHeading(
                 parameters.text,
                 style = parameters.style,
-                fontWeight = parameters.fontWeight,
+                textFontWeight = parameters.fontWeight,
             )
         }
     }

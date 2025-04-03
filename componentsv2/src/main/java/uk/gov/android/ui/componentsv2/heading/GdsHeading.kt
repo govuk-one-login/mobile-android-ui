@@ -10,20 +10,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.light_theme_background
+import uk.gov.android.ui.theme.m3.dark_theme_onBackground
 import uk.gov.android.ui.theme.m3.light_theme_onBackground
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
+import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 enum class GdsHeadingStyle {
@@ -37,10 +36,11 @@ enum class GdsHeadingStyle {
 enum class GdsHeadingAlignment {
     CenterAligned,
     LeftAligned,
+    RightAligned,
 }
 
 sealed class GdsHeadingColour(val lightModeColor: Color, val darkModeColor: Color) {
-    object Default : GdsHeadingColour(light_theme_onBackground, light_theme_background)
+    object Default : GdsHeadingColour(light_theme_onBackground, dark_theme_onBackground)
     data class Custom(val customLightModeColor: Color, val customDarkModeColor: Color) :
         GdsHeadingColour(customLightModeColor, customDarkModeColor)
 }
@@ -51,10 +51,10 @@ fun GdsHeading(
     text: String,
     modifier: Modifier = Modifier,
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
-    fontWeight: FontWeight? = null,
+    textFontWeight: FontWeight? = null,
     textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     textColour: GdsHeadingColour = GdsHeadingColour.Default,
-    horizontalPadding: Dp = 16.dp,
+    horizontalPadding: Dp = smallPadding,
 ) {
     val heading = stringResource(R.string.heading, text)
 
@@ -66,9 +66,15 @@ fun GdsHeading(
         GdsHeadingStyle.BodyBold -> Typography.bodyLarge
     }
 
+    val fontWeight = when (style) {
+        GdsHeadingStyle.BodyBold -> FontWeight.Bold
+        else -> textFontWeight
+    }
+
     val alignment = when (textAlign) {
         GdsHeadingAlignment.CenterAligned -> TextAlign.Center
         GdsHeadingAlignment.LeftAligned -> TextAlign.Start
+        GdsHeadingAlignment.RightAligned -> TextAlign.End
     }
 
     val colour = if (isSystemInDarkTheme()) textColour.darkModeColor else textColour.lightModeColor
@@ -83,7 +89,6 @@ fun GdsHeading(
             .padding(horizontal = horizontalPadding)
             .semantics {
                 contentDescription = heading
-                heading()
             },
         textAlign = alignment,
     )
@@ -99,14 +104,18 @@ data class HeadingParameters(
 
 class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
     override val values: Sequence<HeadingParameters> = sequenceOf(
-        HeadingParameters("Large Title", style = GdsHeadingStyle.LargeTitle),
-        HeadingParameters("Title1", style = GdsHeadingStyle.Title1),
-        HeadingParameters("Title2", style = GdsHeadingStyle.Title2),
-        HeadingParameters("Title3", style = GdsHeadingStyle.Title3),
-        HeadingParameters("Body Bold", style = GdsHeadingStyle.BodyBold),
-        HeadingParameters("Title1", style = GdsHeadingStyle.Title1, textAlign = GdsHeadingAlignment.LeftAligned),
+        HeadingParameters(text = "Large Title", style = GdsHeadingStyle.LargeTitle),
+        HeadingParameters(text = "Title1", style = GdsHeadingStyle.Title1),
+        HeadingParameters(text = "Title2", style = GdsHeadingStyle.Title2),
+        HeadingParameters(text = "Title3", style = GdsHeadingStyle.Title3),
+        HeadingParameters(text = "Body Bold", style = GdsHeadingStyle.BodyBold),
         HeadingParameters(
-            text = "Title1",
+            text = "Title1 - Left Aligned",
+            style = GdsHeadingStyle.Title1,
+            textAlign = GdsHeadingAlignment.LeftAligned,
+        ),
+        HeadingParameters(
+            text = "Title1 - Custom Color",
             style = GdsHeadingStyle.Title1,
             textColour = GdsHeadingColour.Custom(Color.Green, Color.Red),
         ),
@@ -126,7 +135,7 @@ internal fun PreviewTitle() {
                 GdsHeading(
                     text = it.text,
                     style = it.style,
-                    fontWeight = it.fontWeight,
+                    textFontWeight = it.fontWeight,
                     textAlign = it.textAlign,
                     textColour = it.textColour,
                 )
