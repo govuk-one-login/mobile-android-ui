@@ -83,10 +83,14 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestUtil(libs.androidx.test.orchestrator)
 
+    testImplementation(libs.androidx.ui.test.android)
+    testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.junit.jupiter)
+    testRuntimeOnly(libs.junit.vintage)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
     testImplementation(platform(libs.junit.bom))
 }
 
