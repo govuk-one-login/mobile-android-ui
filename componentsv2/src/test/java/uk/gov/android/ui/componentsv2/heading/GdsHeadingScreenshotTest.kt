@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.heading
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
@@ -22,6 +23,11 @@ internal class GdsHeadingScreenshotTest(
                 style = parameters.style,
                 textFontWeight = parameters.fontWeight,
                 textAlign = parameters.textAlign,
+                textColour = if (isSystemInDarkTheme()) {
+                    parameters.textColour.darkModeColour
+                } else {
+                    parameters.textColour.lightModeColour
+                },
             )
         }
     }

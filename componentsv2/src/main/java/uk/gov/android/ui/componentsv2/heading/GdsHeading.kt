@@ -3,6 +3,7 @@ package uk.gov.android.ui.componentsv2.heading
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,12 +39,6 @@ enum class GdsHeadingAlignment {
     RightAligned,
 }
 
-sealed class GdsHeadingColour(val lightModeColour: Color, val darkModeColour: Color) {
-    data object Default : GdsHeadingColour(light_theme_onBackground, dark_theme_onBackground)
-    data class Custom(val customLightModeColour: Color, val customDarkModeColour: Color) :
-        GdsHeadingColour(customLightModeColour, customDarkModeColour)
-}
-
 @UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
@@ -51,7 +46,7 @@ fun GdsHeading(
     modifier: Modifier = Modifier,
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
-    textColour: GdsHeadingColour = GdsHeadingColour.Default,
+    textColour: Color = MaterialTheme.colorScheme.onBackground,
     textFontWeight: FontWeight? = null,
 ) {
     val typography = when (style) {
@@ -74,11 +69,9 @@ fun GdsHeading(
         GdsHeadingAlignment.RightAligned -> TextAlign.End
     }
 
-    val colour = if (isSystemInDarkTheme()) textColour.darkModeColour else textColour.lightModeColour
-
     Text(
         text = text,
-        color = colour,
+        color = textColour,
         style = typography,
         fontWeight = fontWeight,
         modifier = modifier
@@ -91,7 +84,13 @@ fun GdsHeading(
     )
 }
 
-data class HeadingParameters(
+internal sealed class GdsHeadingColour(val lightModeColour: Color, val darkModeColour: Color) {
+    data object Default : GdsHeadingColour(light_theme_onBackground, dark_theme_onBackground)
+    data class Custom(val customLightModeColour: Color, val customDarkModeColour: Color) :
+        GdsHeadingColour(customLightModeColour, customDarkModeColour)
+}
+
+internal data class HeadingParameters(
     val text: String,
     val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
@@ -99,7 +98,7 @@ data class HeadingParameters(
     val textColour: GdsHeadingColour = GdsHeadingColour.Default,
 )
 
-class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
+internal class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
     override val values: Sequence<HeadingParameters> = sequenceOf(
         HeadingParameters(text = "Large Title", style = GdsHeadingStyle.LargeTitle),
         HeadingParameters(text = "Title1", style = GdsHeadingStyle.Title1),
@@ -120,7 +119,10 @@ class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParamete
         HeadingParameters(
             text = "Title1 - Custom Color",
             style = GdsHeadingStyle.Title1,
-            textColour = GdsHeadingColour.Custom(Color.Green, Color.Red),
+            textColour = GdsHeadingColour.Custom(
+                customLightModeColour = Color.Green,
+                customDarkModeColour = Color.Red,
+            ),
         ),
         HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
     )
@@ -141,7 +143,11 @@ internal fun PreviewTitle() {
                     style = it.style,
                     textFontWeight = it.fontWeight,
                     textAlign = it.textAlign,
-                    textColour = it.textColour,
+                    textColour = if (isSystemInDarkTheme()) {
+                        it.textColour.darkModeColour
+                    } else {
+                        it.textColour.lightModeColour
+                    },
                 )
             }
         }
