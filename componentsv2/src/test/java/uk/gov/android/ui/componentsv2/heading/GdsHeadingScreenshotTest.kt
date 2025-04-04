@@ -21,6 +21,7 @@ internal class GdsHeadingScreenshotTest(
                 text = parameters.text,
                 style = parameters.style,
                 textFontWeight = parameters.fontWeight,
+                textAlign = parameters.textAlign,
             )
         }
     }
