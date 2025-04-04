@@ -48,11 +48,11 @@ sealed class GdsHeadingColour(val lightModeColour: Color, val darkModeColour: Co
 @UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
+    text: String,
+    modifier: Modifier = Modifier,
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     textColour: GdsHeadingColour = GdsHeadingColour.Default,
-    text: String,
-    modifier: Modifier = Modifier,
     textFontWeight: FontWeight? = null,
 ) {
     val heading = stringResource(R.string.heading, text)
