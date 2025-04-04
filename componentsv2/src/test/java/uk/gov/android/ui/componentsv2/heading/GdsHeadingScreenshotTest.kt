@@ -18,7 +18,7 @@ internal class GdsHeadingScreenshotTest(
         val parameters = parameters.first
         GdsTheme {
             GdsHeading(
-                parameters.text,
+                text = parameters.text,
                 style = parameters.style,
                 textFontWeight = parameters.fontWeight,
             )

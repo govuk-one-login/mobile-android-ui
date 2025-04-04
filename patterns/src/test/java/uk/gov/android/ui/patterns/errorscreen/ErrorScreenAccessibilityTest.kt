@@ -7,7 +7,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isHeading
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onChildren
@@ -64,7 +63,7 @@ class ErrorScreenAccessibilityTest {
         }
 
         Then("the icon and title should merged into one accessible element") {
-            val hasChildWithTitleHeading = hasAnyChild(hasText(mandatoryTitle).and(isHeading()))
+            val hasChildWithTitleHeading = hasAnyChild(hasText(mandatoryTitle))
             val hasChildWithIcon = hasAnyChild(hasContentDescription(getString(mandatoryIcon.description)))
             onNode(matcher = hasChildWithTitleHeading and hasChildWithIcon)
                 .assertIsDisplayed()

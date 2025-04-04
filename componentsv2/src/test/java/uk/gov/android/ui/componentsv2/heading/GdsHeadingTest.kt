@@ -1,6 +1,5 @@
 package uk.gov.android.ui.componentsv2.heading
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -42,8 +41,6 @@ class GdsHeadingTest {
                     GdsHeading(
                         text = "Title1 Heading",
                         style = GdsHeadingStyle.Title1,
-                        textAlign = GdsHeadingAlignment.CenterAligned,
-                        textColour = GdsHeadingColour.Default,
                     )
                 }
             }
@@ -61,8 +58,6 @@ class GdsHeadingTest {
                     GdsHeading(
                         text = "Title2 Heading",
                         style = GdsHeadingStyle.Title2,
-                        textAlign = GdsHeadingAlignment.CenterAligned,
-                        textColour = GdsHeadingColour.Default,
                     )
                 }
             }
@@ -80,8 +75,6 @@ class GdsHeadingTest {
                     GdsHeading(
                         text = "Title3 Heading",
                         style = GdsHeadingStyle.Title2,
-                        textAlign = GdsHeadingAlignment.CenterAligned,
-                        textColour = GdsHeadingColour.Default,
                     )
                 }
             }
@@ -99,8 +92,6 @@ class GdsHeadingTest {
                     GdsHeading(
                         text = "Custom Heading",
                         style = GdsHeadingStyle.Title2,
-                        textAlign = GdsHeadingAlignment.LeftAligned,
-                        textColour = GdsHeadingColour.Custom(Color.Green, Color.Red),
                     )
                 }
             }
