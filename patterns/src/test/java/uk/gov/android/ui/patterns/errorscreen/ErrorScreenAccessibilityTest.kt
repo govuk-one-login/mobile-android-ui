@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isHeading
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onChildren
@@ -63,14 +64,14 @@ class ErrorScreenAccessibilityTest {
         }
 
         Then("the icon and title should merged into one accessible element") {
-            val hasChildWithTitleHeading = hasAnyChild(hasText(mandatoryTitle))
+            val hasChildWithTitleHeading = hasAnyChild(hasText(mandatoryTitle).and(isHeading()))
             val hasChildWithIcon = hasAnyChild(hasContentDescription(getString(mandatoryIcon.description)))
             onNode(matcher = hasChildWithTitleHeading and hasChildWithIcon)
                 .assertIsDisplayed()
         }
 
         And("the merged element should have a meaningful content description") {
-            val description = "[${getString(mandatoryIcon.description)}, $mandatoryTitle heading]"
+            val description = "[${getString(mandatoryIcon.description)}, $mandatoryTitle]"
             val mergedSemantics = onRoot(useUnmergedTree = false).printToString()
             assertTrue(mergedSemantics.contains(description))
         }
@@ -110,7 +111,7 @@ class ErrorScreenAccessibilityTest {
             assertEquals(BODY_LAZY_COLUMN_TEST_TAG, accessibilityLabel(semanticsNodes[0]))
 
             // expected order: merged heading, body, 3 buttons
-            assertEquals("[Error, Title heading]", accessibilityLabel(semanticsNodes[1]))
+            assertEquals("[Error, Title]", accessibilityLabel(semanticsNodes[1]))
             assertEquals("[Body single line]", accessibilityLabel(semanticsNodes[2]))
             assertEquals("[Primary Button]", accessibilityLabel(semanticsNodes[3]))
             assertEquals("[Secondary Button]", accessibilityLabel(semanticsNodes[4]))

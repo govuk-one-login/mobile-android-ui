@@ -7,8 +7,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.dark_theme_onBackground
@@ -55,8 +54,6 @@ fun GdsHeading(
     textColour: GdsHeadingColour = GdsHeadingColour.Default,
     textFontWeight: FontWeight? = null,
 ) {
-    val heading = stringResource(R.string.heading, text)
-
     val typography = when (style) {
         GdsHeadingStyle.LargeTitle -> Typography.displaySmall
         GdsHeadingStyle.Title1 -> Typography.headlineLarge
@@ -87,7 +84,8 @@ fun GdsHeading(
         modifier = modifier
             .fillMaxWidth()
             .semantics {
-                contentDescription = heading
+                contentDescription = text
+                heading()
             },
         textAlign = alignment,
     )
