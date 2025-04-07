@@ -71,7 +71,7 @@ class ErrorScreenAccessibilityTest {
         }
 
         And("the merged element should have a meaningful content description") {
-            val description = "[${getString(mandatoryIcon.description)}, $mandatoryTitle heading]"
+            val description = "[${getString(mandatoryIcon.description)}, $mandatoryTitle]"
             val mergedSemantics = onRoot(useUnmergedTree = false).printToString()
             assertTrue(mergedSemantics.contains(description))
         }
@@ -111,7 +111,7 @@ class ErrorScreenAccessibilityTest {
             assertEquals(BODY_LAZY_COLUMN_TEST_TAG, accessibilityLabel(semanticsNodes[0]))
 
             // expected order: merged heading, body, 3 buttons
-            assertEquals("[Error, Title heading]", accessibilityLabel(semanticsNodes[1]))
+            assertEquals("[Error, Title]", accessibilityLabel(semanticsNodes[1]))
             assertEquals("[Body single line]", accessibilityLabel(semanticsNodes[2]))
             assertEquals("[Primary Button]", accessibilityLabel(semanticsNodes[3]))
             assertEquals("[Secondary Button]", accessibilityLabel(semanticsNodes[4]))
