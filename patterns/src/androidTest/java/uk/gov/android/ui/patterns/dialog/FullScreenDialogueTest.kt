@@ -9,6 +9,7 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -16,6 +17,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -116,15 +118,16 @@ class FullScreenDialogueTest {
     }
 
     @Test
-    fun verifyOnBackPress() {
+    fun verifyOnBackPressSpecificBehaviour() {
         var backPress = false
 
         composeTestRule.setContent {
             FullScreenDialogue(
                 title = titleText,
-                onDismissRequest = {
+                onDismissRequest = {},
+                onBack = {
                     backPress = true
-                },
+                }
             ) {
                 Text(contentText)
             }

@@ -43,6 +43,7 @@ fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
+    onBack: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     FullScreenDialogue(
@@ -58,6 +59,7 @@ fun FullScreenDialogue(
                 onCloseClick = onDismissRequest,
             )
         },
+        onBack = onBack,
         content = content,
     )
 }
@@ -77,6 +79,7 @@ fun FullScreenDialogue(
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
  * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
  *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
+ * @param onBack Overrides the device back button - if **null**, it will keep the default back button behaviour
  * @param content The content to be displayed inside the dialog.
  *
  * **Used in [FullScreenDialog] composition.
@@ -86,6 +89,7 @@ fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
     topAppBar: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    onBack: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     Dialog(
@@ -106,7 +110,9 @@ fun FullScreenDialogue(
                 }
             }
         }
-        BackHandler { onDismissRequest() }
+        if (onBack != null) {
+            BackHandler { onBack() }
+        }
     }
 }
 
