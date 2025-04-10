@@ -122,3 +122,9 @@ android {
         baseline = file("lint-baseline.xml")
     }
 }
+
+afterEvaluate {
+    tasks.named("testDebugUnitTest") {
+        finalizedBy("verifyPaparazziDebug")
+    }
+}
