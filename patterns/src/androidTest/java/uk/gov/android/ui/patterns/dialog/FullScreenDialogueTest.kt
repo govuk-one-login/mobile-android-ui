@@ -11,22 +11,19 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.GdsCard
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.patterns.utils.FragmentActivityTestCase
 
-class FullScreenDialogueTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
+class FullScreenDialogueTest : FragmentActivityTestCase() {
     private lateinit var closeButton: SemanticsMatcher
     private lateinit var title: SemanticsMatcher
     private lateinit var content: SemanticsMatcher
@@ -134,6 +131,22 @@ class FullScreenDialogueTest {
         Espresso.pressBack()
 
         assertTrue(backPress)
+    }
+
+    @Test
+    fun verifyOnBackPressDefault() {
+        composeTestRule.setContent {
+            FullScreenDialogue(
+                title = titleText,
+                onDismissRequest = {},
+            ) {
+                Text(contentText)
+            }
+        }
+
+        Espresso.pressBack()
+
+        composeTestRule.onNode(title).isNotDisplayed()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
