@@ -14,7 +14,9 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -111,6 +113,26 @@ class FullScreenDialogueTest {
         composeTestRule.onNode(closeButton).performClick()
 
         assertEquals(true, didClose)
+    }
+
+    @Test
+    fun verifyOnBackPress() {
+        var backPress = false
+
+        composeTestRule.setContent {
+            FullScreenDialogue(
+                title = titleText,
+                onDismissRequest = {
+                    backPress = true
+                },
+            ) {
+                Text(contentText)
+            }
+        }
+
+        Espresso.pressBack()
+
+        assertTrue(backPress)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
