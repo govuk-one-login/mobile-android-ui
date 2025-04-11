@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Run deployment workflow
-        uses: govuk-one-login/mobile-android-pipelines@1cbe07727730650ab490a03d199d975c35f6589d
+        uses: govuk-one-login/mobile-android-pipelines@054d9fc244475f76a4f9149636ac9fccfd05d3d1
         with:
           sonar_token: ${{ secrets.SONAR_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
