@@ -44,7 +44,7 @@ class GdsNumberedListTest {
         setupComposable(item.items, item.title)
 
         composeTestRule
-            .onNodeWithContentDescription("${item.title!!.text} heading")
+            .onNodeWithContentDescription(item.title!!.text)
             .assertExists()
         composeTestRule
             .onNodeWithContentDescription("numbered list 1 item 1 ${item.items[0]}")

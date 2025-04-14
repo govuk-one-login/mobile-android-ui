@@ -10,9 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
@@ -22,7 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -52,30 +54,70 @@ fun GdsNumberedList(
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = spacingDouble)
+            .padding(end = spacingDouble)
     ) {
         title?.let {
             NumberedListTitle(it)
         }
-        numberedListItems.forEachIndexed { index, item ->
-            val contentDescription = if (index == 0) {
-                pluralStringResource(
-                    R.plurals.content_desc_numbered_list_item,
-                    numberedListItems.size,
-                    numberedListItems.size,
-                    1,
-                    item
-                )
-            } else {
-                "${index + 1} $item"
+        ResizeIndexWidth(numberedListItems)
+    }
+}
+
+@Composable
+fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
+    SubcomposeLayout { constraints ->
+        val indexMeasurables = numberedListItems.flatMapIndexed { index, _ ->
+            subcompose(slotId = index) {
+                IndexText("${index + 1}.", Modifier)
             }
-            NumberedListItem(
-                "${index+1}.",
-                text = item,
-                bulletContentDescription = contentDescription,
-                if (numberedListItems.size < DOUBLE_DIGITS) 36.dp else 40.dp
+        }.map { it.measure(Constraints()) }
+
+        val maxSize = indexMeasurables.fold(IntSize.Zero) { currentMax, measureable ->
+            IntSize(
+                width = maxOf(
+                    currentMax.width,
+                    measureable.width
+                ),
+                height = maxOf(
+                    currentMax.height,
+                    measureable.height
+                )
             )
         }
+
+        val placeables = subcompose("main") {
+            numberedListItems.forEachIndexed { index, item ->
+                val contentDescription = if (index == 0) {
+                    pluralStringResource(
+                        R.plurals.content_desc_numbered_list_item,
+                        numberedListItems.size,
+                        numberedListItems.size,
+                        1,
+                        item
+                    )
+                } else {
+                    "${index + 1} $item"
+                }
+                NumberedListItem(
+                    "${index + 1}.",
+                    text = item,
+                    bulletContentDescription = contentDescription,
+                    maxSize.width.dp,
+                    numberedListItems.size < DOUBLE_DIGITS
+                )
+            }
+        }.map { it.measure(constraints) }
+
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            var yPosition = 0
+
+            placeables.forEach {
+                it.placeRelative(0, yPosition)
+                yPosition += it.height
+            }
+        }
+
+
     }
 }
 
@@ -92,19 +134,18 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
+                    .padding(bottom = spacingHalf, start = spacingDouble)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_BOLD),
             )
         }
 
         TitleType.Heading -> {
-            val headingContentDesc = stringResource(R.string.heading, title.text)
             GdsHeading(
                 text = title.text,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
-                    .semantics { contentDescription = headingContentDesc }
+                    .padding(bottom = spacingHalf, start = spacingDouble)
+                    .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_HEADING),
                 style = GdsHeadingStyle.Title3,
                 textAlign = GdsHeadingAlignment.LeftAligned,
@@ -119,7 +160,7 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
+                    .padding(bottom = spacingHalf, start = spacingDouble)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_REGULAR),
             )
@@ -132,24 +173,29 @@ private fun NumberedListItem(
     index: String,
     text: String,
     bulletContentDescription: String,
-    minIndexWidth: Dp
+    minIndexWidth: Dp,
+    isSingleDigit: Boolean
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = spacingSingleAndAQuarter, top = spacingSingle)
+            .padding(
+                start = if (isSingleDigit) {
+                    spacingDouble + spacingSingleAndAQuarter
+                } else {
+                    spacingDouble
+                },
+                top = spacingSingle
+            )
     ) {
-        Text(
-            text = index,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
+        IndexText(
+            index,
             modifier = Modifier
                 .semantics {
                     invisibleToUser()
                 }
                 .defaultMinSize(minWidth = minIndexWidth)
                 .padding(end = spacingDoubleAndAHalf),
-            textAlign = TextAlign.Right
         )
         Text(
             text = text,
@@ -158,6 +204,17 @@ private fun NumberedListItem(
             modifier = Modifier.semantics { contentDescription = bulletContentDescription },
         )
     }
+}
+
+@Composable
+private fun IndexText(index: String, modifier: Modifier = Modifier) {
+    Text(
+        text = index,
+        color = MaterialTheme.colorScheme.onBackground,
+        style = Typography.bodyLarge,
+        modifier = modifier,
+        textAlign = TextAlign.Right,
+    )
 }
 
 internal const val TAG_TITLE_HEADING = "titleHeading"
