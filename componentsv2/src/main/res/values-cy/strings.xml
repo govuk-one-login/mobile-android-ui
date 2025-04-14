@@ -9,6 +9,7 @@
         <item quantity="two">rhestr bwledi %d eitem. bwled %s</item>
         <item quantity="few">rhestr bwledi %d eitem. bwled %s</item>
         <item quantity="many">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="other">rhestr bwledi %d eitem. bwled %s</item>
     </plurals>
 
     <!-- Warning -->

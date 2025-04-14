@@ -19,6 +19,7 @@ import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
@@ -90,6 +91,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
             GdsHeading(
                 text = content.title,
                 modifier = Modifier.padding(horizontal = horizontalPadding),
+                textAlign = GdsHeadingAlignment.LeftAligned,
             )
         },
         body = { horizontalItemPadding ->
