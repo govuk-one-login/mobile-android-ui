@@ -35,6 +35,7 @@ import uk.gov.android.ui.componentsv2.bulletedlist.TitleType
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelectionSample
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -45,6 +46,13 @@ import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.spacingSingleAndAQuarter
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+/**
+ * A composable that displays a numbered list of items.
+ *
+ * @param numberedListItems The list of options to display.
+ * @param modifier The modifier to apply to the layout.
+ * @param title An optional title to display above the numbered list items.
+ */
 @Composable
 fun GdsNumberedList(
     numberedListItems: ImmutableList<String>,
