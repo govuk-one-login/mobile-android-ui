@@ -74,7 +74,7 @@ class GdsNumberedListTest {
             val expectedContentDescription = if (index == 0) {
                 "numbered list ${item.items.size} items 1 $text"
             } else {
-                "${index+1} $text"
+                "${index + 1} $text"
             }
             composeTestRule.onNodeWithContentDescription(expectedContentDescription).assertExists()
         }
@@ -102,7 +102,7 @@ class GdsNumberedListTest {
             val expectedContentDescription = if (index == 0) {
                 "numbered list ${item.items.size} items 1 $text"
             } else {
-                "${index+1} $text"
+                "${index + 1} $text"
             }
             composeTestRule.onNodeWithContentDescription(expectedContentDescription).assertExists()
         }
@@ -140,13 +140,13 @@ class GdsNumberedListTest {
     private fun setupComposable(
         items: ImmutableList<String>,
         title: BulletedListTitle?,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier,
     ) {
         composeTestRule.setContent {
             GdsNumberedList(
                 numberedListItems = items,
                 title = title,
-                modifier = modifier
+                modifier = modifier,
             )
         }
     }

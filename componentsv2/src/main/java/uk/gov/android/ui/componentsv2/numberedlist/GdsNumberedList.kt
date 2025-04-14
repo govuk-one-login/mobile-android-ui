@@ -49,12 +49,12 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 fun GdsNumberedList(
     numberedListItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
-    title: BulletedListTitle? = null
+    title: BulletedListTitle? = null,
 ) {
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(end = spacingDouble)
+            .padding(end = spacingDouble),
     ) {
         title?.let {
             NumberedListTitle(it)
@@ -76,12 +76,12 @@ fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
             IntSize(
                 width = maxOf(
                     currentMax.width,
-                    measureable.width
+                    measureable.width,
                 ),
                 height = maxOf(
                     currentMax.height,
-                    measureable.height
-                )
+                    measureable.height,
+                ),
             )
         }
 
@@ -93,7 +93,7 @@ fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
                         numberedListItems.size,
                         numberedListItems.size,
                         1,
-                        item
+                        item,
                     )
                 } else {
                     "${index + 1} $item"
@@ -103,7 +103,7 @@ fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
                     text = item,
                     bulletContentDescription = contentDescription,
                     maxSize.width.dp,
-                    numberedListItems.size < DOUBLE_DIGITS
+                    numberedListItems.size < DOUBLE_DIGITS,
                 )
             }
         }.map { it.measure(constraints) }
@@ -116,15 +116,13 @@ fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
                 yPosition += it.height
             }
         }
-
-
     }
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 private fun NumberedListTitle(
-    title: BulletedListTitle
+    title: BulletedListTitle,
 ) {
     when (title.titleType) {
         TitleType.BoldText -> {
@@ -174,7 +172,7 @@ private fun NumberedListItem(
     text: String,
     bulletContentDescription: String,
     minIndexWidth: Dp,
-    isSingleDigit: Boolean
+    isSingleDigit: Boolean,
 ) {
     Row(
         modifier = Modifier
@@ -185,8 +183,8 @@ private fun NumberedListItem(
                 } else {
                     spacingDouble
                 },
-                top = spacingSingle
-            )
+                top = spacingSingle,
+            ),
     ) {
         IndexText(
             index,
@@ -226,30 +224,30 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
     override val values: Sequence<BulletedListItem> = sequenceOf(
         BulletedListItem(
             items = persistentListOf(
-                "Single line"
+                "Single line",
             ),
-            BulletedListTitle("One item GDS heading", TitleType.Heading)
-        ),
-        BulletedListItem(
-            items = persistentListOf(
-                "First line",
-                "Second line"
-            ),
-            BulletedListTitle("Multiple items plain text title", TitleType.Text)
+            BulletedListTitle("One item GDS heading", TitleType.Heading),
         ),
         BulletedListItem(
             items = persistentListOf(
                 "First line",
                 "Second line",
-                "Third line"
-            )
+            ),
+            BulletedListTitle("Multiple items plain text title", TitleType.Text),
         ),
         BulletedListItem(
             items = persistentListOf(
                 "First line",
-                "Second line"
+                "Second line",
+                "Third line",
             ),
-            BulletedListTitle("Multiple items bold title", TitleType.BoldText)
+        ),
+        BulletedListItem(
+            items = persistentListOf(
+                "First line",
+                "Second line",
+            ),
+            BulletedListTitle("Multiple items bold title", TitleType.BoldText),
         ),
         BulletedListItem(
             items = persistentListOf(
@@ -264,7 +262,7 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line nine",
                 "Line ten",
             ),
-            BulletedListTitle("Double digit index", TitleType.Heading)
+            BulletedListTitle("Double digit index", TitleType.Heading),
         ),
         BulletedListItem(
             items = persistentListOf(
@@ -278,7 +276,7 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line eight",
                 "Line nine",
             ),
-            BulletedListTitle("Single digit index", TitleType.Heading)
+            BulletedListTitle("Single digit index", TitleType.Heading),
         ),
     )
 }
@@ -289,12 +287,12 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
 @Composable
 internal fun GdsNumberedListPreview(
     @PreviewParameter(NumberedListProvider::class)
-    numberedList: BulletedListItem
+    numberedList: BulletedListItem,
 ) {
     GdsTheme {
         GdsNumberedList(
             numberedListItems = numberedList.items,
-            title = numberedList.title
+            title = numberedList.title,
         )
     }
 }
