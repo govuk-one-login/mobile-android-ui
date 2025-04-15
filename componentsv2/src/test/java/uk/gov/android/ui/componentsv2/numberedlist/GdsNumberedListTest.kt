@@ -19,7 +19,7 @@ class GdsNumberedListTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val expectedParamSize = 6
+    private val expectedParamSize = 7
     private val itemList = NumberedListProvider().values.toList()
 
     @Before

@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -61,23 +60,23 @@ fun GdsNumberedList(
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(end = spacingDouble),
+            .padding(horizontal = spacingDouble),
     ) {
         title?.let {
             NumberedListTitle(it)
         }
-        ResizeIndexWidth(numberedListItems)
+        GdsNumberedListLayout(numberedListItems)
     }
 }
 
 @Composable
-fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
+private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
     SubcomposeLayout { constraints ->
-        val indexMeasurables = numberedListItems.flatMapIndexed { index, _ ->
-            subcompose(slotId = index) {
+        val indexMeasurables = subcompose(slotId = "indices") {
+            numberedListItems.forEachIndexed { index, _ ->
                 IndexText("${index + 1}.", Modifier)
             }
-        }.map { it.measure(Constraints()) }
+        }.map { it.measure(constraints) }
 
         val maxSize = indexMeasurables.fold(IntSize.Zero) { currentMax, measureable ->
             IntSize(
@@ -110,7 +109,6 @@ fun ResizeIndexWidth(numberedListItems: ImmutableList<String>) {
                     text = item,
                     bulletContentDescription = contentDescription,
                     maxSize.width.dp,
-                    numberedListItems.size < DOUBLE_DIGITS,
                 )
             }
         }.map { it.measure(constraints) }
@@ -139,7 +137,7 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf, start = spacingDouble)
+                    .padding(bottom = spacingHalf)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_BOLD),
             )
@@ -149,7 +147,7 @@ private fun NumberedListTitle(
             GdsHeading(
                 text = title.text,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf, start = spacingDouble)
+                    .padding(bottom = spacingHalf)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_HEADING),
                 style = GdsHeadingStyle.Title3,
@@ -165,7 +163,7 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf, start = spacingDouble)
+                    .padding(bottom = spacingHalf)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_REGULAR),
             )
@@ -179,17 +177,12 @@ private fun NumberedListItem(
     text: String,
     bulletContentDescription: String,
     minIndexWidth: Dp,
-    isSingleDigit: Boolean,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                start = if (isSingleDigit) {
-                    spacingDouble + spacingSingleAndAQuarter
-                } else {
-                    spacingDouble
-                },
+                start = spacingSingleAndAQuarter,
                 top = spacingSingle,
             ),
     ) {
@@ -225,7 +218,6 @@ private fun IndexText(index: String, modifier: Modifier = Modifier) {
 internal const val TAG_TITLE_HEADING = "titleHeading"
 internal const val TAG_TITLE_BOLD = "titleBold"
 internal const val TAG_TITLE_REGULAR = "titleRegular"
-internal const val DOUBLE_DIGITS = 10
 
 internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem> {
     override val values: Sequence<BulletedListItem> = sequenceOf(
@@ -246,7 +238,7 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
             items = persistentListOf(
                 "First line",
                 "Second line",
-                "Third line",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
         ),
         BulletedListItem(
@@ -284,6 +276,33 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line nine",
             ),
             BulletedListTitle("Single digit index", TitleType.Heading),
+        ),
+        BulletedListItem(
+            items = persistentListOf(
+                "Line one",
+                "Line two",
+                "Line three",
+                "Line four",
+                "Line five",
+                "Line six",
+                "Line seven",
+                "Line eight",
+                "Line nine",
+                "Line ten",
+                "Line eleven",
+                "Line twelve",
+                "Line thirteen",
+                "Line fourteen",
+                "Line fifteen",
+                "Line sixteen",
+                "Line seventeen",
+                "Line eighteen",
+                "Line nineteen",
+                "Line twenty",
+                "Line twenty one",
+                "Line twenty two",
+            ),
+            BulletedListTitle("20+ digit index", TitleType.Heading),
         ),
     )
 }
