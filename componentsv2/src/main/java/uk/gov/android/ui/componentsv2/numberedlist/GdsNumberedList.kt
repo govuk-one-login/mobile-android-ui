@@ -308,6 +308,18 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
 
 @ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
+@Preview(
+    name = "small font",
+    fontScale = 0.5f,
+)
+@Preview(
+    name = "normal font",
+    fontScale = 1f,
+)
+@Preview(
+    name = "large font",
+    fontScale = 1.5f,
+)
 @Preview(showBackground = true)
 @Composable
 internal fun GdsNumberedListPreview(
