@@ -59,7 +59,6 @@
     </plurals>
 
     <!-- Numbered lists -->
-    <string name="content_desc_heading" translatable="true">%s penawd</string>
     <plurals name="content_desc_numbered_list_item">
         <item quantity="one">
             rhestr wedi\'i rhifo 1 eitem %2$d %3$s

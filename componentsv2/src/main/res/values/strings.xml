@@ -56,7 +56,6 @@
     </plurals>
 
     <!-- Numbered lists -->
-    <string name="content_desc_heading" translatable="true">%s heading</string>
     <plurals name="content_desc_numbered_list_item">
         <item quantity="one">
             numbered list 1 item %2$d %3$s
