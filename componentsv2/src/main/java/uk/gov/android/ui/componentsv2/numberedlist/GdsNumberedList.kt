@@ -37,7 +37,6 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingDoubleAndAHalf
 import uk.gov.android.ui.theme.spacingHalf
 import uk.gov.android.ui.theme.spacingSingle
@@ -59,8 +58,7 @@ fun GdsNumberedList(
 ) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = spacingDouble),
+            .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
             NumberedListTitle(it)
@@ -219,6 +217,7 @@ internal const val TAG_TITLE_HEADING = "titleHeading"
 internal const val TAG_TITLE_BOLD = "titleBold"
 internal const val TAG_TITLE_REGULAR = "titleRegular"
 
+@Suppress("MaxLineLength")
 internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem> {
     override val values: Sequence<BulletedListItem> = sequenceOf(
         BulletedListItem(
@@ -238,10 +237,7 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
             items = persistentListOf(
                 "First line",
                 "Second line",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-                    "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, " +
-                    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea " +
-                    "commodo consequat",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
         ),
         BulletedListItem(
