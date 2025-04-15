@@ -228,65 +228,65 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
         ),
         BulletedListItem(
             items = persistentListOf(
-                "First line",
-                "Second line",
+                FIRST_LINE,
+                SECOND_LINE,
             ),
             BulletedListTitle("Multiple items plain text title", TitleType.Text),
         ),
         BulletedListItem(
             items = persistentListOf(
-                "First line",
-                "Second line",
+                FIRST_LINE,
+                SECOND_LINE,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
         ),
         BulletedListItem(
             items = persistentListOf(
-                "First line",
-                "Second line",
+                FIRST_LINE,
+                SECOND_LINE,
             ),
             BulletedListTitle("Multiple items bold title", TitleType.BoldText),
         ),
         BulletedListItem(
             items = persistentListOf(
-                "Line one",
-                "Line two",
-                "Line three",
-                "Line four",
-                "Line five",
-                "Line six",
-                "Line seven",
-                "Line eight",
-                "Line nine",
+                LINE1,
+                LINE2,
+                LINE3,
+                LINE4,
+                LINE5,
+                LINE6,
+                LINE7,
+                LINE8,
+                LINE9,
                 "Line ten",
             ),
             BulletedListTitle("Double digit index", TitleType.Heading),
         ),
         BulletedListItem(
             items = persistentListOf(
-                "Line one",
-                "Line two",
-                "Line three",
-                "Line four",
-                "Line five",
-                "Line six",
-                "Line seven",
-                "Line eight",
-                "Line nine",
+                LINE1,
+                LINE2,
+                LINE3,
+                LINE4,
+                LINE5,
+                LINE6,
+                LINE7,
+                LINE8,
+                LINE9,
             ),
             BulletedListTitle("Single digit index", TitleType.Heading),
         ),
         BulletedListItem(
             items = persistentListOf(
-                "Line one",
-                "Line two",
-                "Line three",
-                "Line four",
-                "Line five",
-                "Line six",
-                "Line seven",
-                "Line eight",
-                "Line nine",
+                LINE1,
+                LINE2,
+                LINE3,
+                LINE4,
+                LINE5,
+                LINE6,
+                LINE7,
+                LINE8,
+                LINE9,
                 "Line ten",
                 "Line eleven",
                 "Line twelve",
@@ -333,3 +333,15 @@ internal fun GdsNumberedListPreview(
         )
     }
 }
+
+private const val FIRST_LINE = "First line"
+private const val SECOND_LINE = "Second line"
+private const val LINE1 = "Line one"
+private const val LINE2 = "Line two"
+private const val LINE3 = "Line three"
+private const val LINE4 = "Line four"
+private const val LINE5 = "Line five"
+private const val LINE6 = "Line six"
+private const val LINE7 = "Line seven"
+private const val LINE8 = "Line eight"
+private const val LINE9 = "Line nine"
