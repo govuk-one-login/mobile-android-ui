@@ -60,10 +60,10 @@
 
     <!-- Numbered lists -->
     <plurals name="content_desc_numbered_list_item">
-        <item quantity="one">
+        <item quantity="one" tools:ignore="TypographyQuotes">
             rhestr wedi\'i rhifo 1 eitem %2$d %3$s
         </item>
-        <item quantity="other">
+        <item quantity="other" tools:ignore="TypographyQuotes">
             rhestr wedi\'i rhifo %1$d o eitemau %2$d %3$s
         </item>
     </plurals>
