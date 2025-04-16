@@ -15,11 +15,54 @@ jobs:
   onPullRequestJob:
     env:
       ANDROID_HOME: ${{ github.workspace }}/bin/androidSdk
+      VERSION_PREFIX: 'v'
     name: Verify code base when pull request is published/updated
     runs-on: ubuntu-24.04
     steps:
-      - name: Run pull request workflow
-        uses: govuk-one-login/mobile-android-pipelines@1cbe07727730650ab490a03d199d975c35f6589d
+      - name: Checkout codebase
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          sonar_token: ${{ secrets.SONAR_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: 'true'
+          submodules: 'true'
+          fetch-depth: 0
+
+      - name: Clean workspace
+        uses: ./mobile-android-pipelines/actions/clean-workspace
+
+      - name: Setup GitHub Runner workflow
+        uses: ./mobile-android-pipelines/actions/setup-runner
+
+      - name: Verify Conventional commit standards against latest git tag
+        uses: ./mobile-android-pipelines/actions/verify-conventional-commit
+
+      - name: Screenshot test
+        run: |
+          ./gradlew verifyPaparazziDebug --continue
+        shell: bash
+
+      - name: Lint script files
+        uses: ./mobile-android-pipelines/actions/lint
+
+      - name: Run gradle testing suite
+        uses: ./mobile-android-pipelines/actions/run-testing-suite
+
+      - name: Sonar scan
+        uses: ./mobile-android-pipelines/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Bundle reports folder
+        uses: ./mobile-android-pipelines/actions/bundle-reports
+
+      - name: Test local publish
+        uses: ./mobile-android-pipelines/actions/maven-publish-local
+
+      - name: Generate Changelog
+        uses: ./mobile-android-pipelines/actions/generate-and-upload-changelog
+        with:
+          current-version: ${{ steps.versioning.outputs.current_version }}
+          new-version: ${{ steps.versioning.outputs.new_version }}
+          version-prefix: ${{ VERSION_PREFIX }}
+
+      - name: Clean workspace
+        uses: ./mobile-android-pipelines/actions/clean-workspace
