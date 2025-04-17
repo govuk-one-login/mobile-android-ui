@@ -6,7 +6,9 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+@OptIn(UnstableDesignSystemAPI::class)
 @RunWith(Parameterized::class)
 class LoadingScreenshotTest(
     private val parameters: Pair<String, NightMode>,
