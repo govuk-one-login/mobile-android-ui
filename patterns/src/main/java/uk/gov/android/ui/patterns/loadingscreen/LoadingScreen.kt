@@ -32,7 +32,7 @@ fun LoadingScreen(
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = largePadding),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }
@@ -41,7 +41,7 @@ fun LoadingScreen(
 @Composable
 private fun PreviewDefaultLoadingScreen(
     @PreviewParameter(LoadingScreenContentProvider::class)
-    content: String
+    content: String,
 ) {
     GdsTheme {
         LoadingScreen(text = content)
