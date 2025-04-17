@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
  * Loading screen
@@ -26,6 +27,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  * @param modifier Modifier applied to the root container of the loading screen.
  *
  */
+@UnstableDesignSystemAPI
 @Composable
 fun LoadingScreen(
     text: String,
@@ -47,6 +49,7 @@ fun LoadingScreen(
     }
 }
 
+@OptIn(UnstableDesignSystemAPI::class)
 @Preview
 @Composable
 private fun PreviewDefaultLoadingScreen(
