@@ -16,6 +16,16 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 
+/**
+ * Loading screen
+ *
+ * A composable that displays a loading indicator [CircularProgressIndicator] and a text message.
+ * This is typically used to indicate that a background operation is in progress.
+ *
+ * @param text The message to display (e.g., "Loading").
+ * @param modifier Modifier applied to the root container of the loading screen.
+ *
+ */
 @Composable
 fun LoadingScreen(
     text: String,
