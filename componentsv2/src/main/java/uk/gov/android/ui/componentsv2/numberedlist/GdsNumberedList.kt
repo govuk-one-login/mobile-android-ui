@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -23,8 +24,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
@@ -76,18 +75,7 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
             }
         }.map { it.measure(constraints) }
 
-        val maxSize = indexMeasurables.fold(IntSize.Zero) { currentMax, measureable ->
-            IntSize(
-                width = maxOf(
-                    currentMax.width,
-                    measureable.width,
-                ),
-                height = maxOf(
-                    currentMax.height,
-                    measureable.height,
-                ),
-            )
-        }
+        val maxWidthIndex = indexMeasurables.maxBy { it.width }
 
         val placeables = subcompose("main") {
             numberedListItems.forEachIndexed { index, item ->
@@ -106,7 +94,7 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
                     "${index + 1}.",
                     text = item,
                     bulletContentDescription = contentDescription,
-                    maxSize.width.dp,
+                    maxWidthIndex.width.pxToDp(),
                 )
             }
         }.map { it.measure(constraints) }
@@ -190,14 +178,15 @@ private fun NumberedListItem(
                 .semantics {
                     invisibleToUser()
                 }
-                .defaultMinSize(minWidth = minIndexWidth)
-                .padding(end = spacingDoubleAndAHalf),
+                .defaultMinSize(minWidth = minIndexWidth),
         )
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.semantics { contentDescription = bulletContentDescription },
+            modifier = Modifier
+                .semantics { contentDescription = bulletContentDescription }
+                .padding(start = spacingDoubleAndAHalf),
         )
     }
 }
@@ -212,6 +201,9 @@ private fun IndexText(index: String, modifier: Modifier = Modifier) {
         textAlign = TextAlign.Right,
     )
 }
+
+@Composable
+private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
 
 internal const val TAG_TITLE_HEADING = "titleHeading"
 internal const val TAG_TITLE_BOLD = "titleBold"
