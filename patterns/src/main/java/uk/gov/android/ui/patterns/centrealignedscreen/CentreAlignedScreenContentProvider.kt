@@ -2,10 +2,10 @@ package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.BoldText
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Heading
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Text
+import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.list.TitleType.BoldText
+import uk.gov.android.ui.componentsv2.list.TitleType.Heading
+import uk.gov.android.ui.componentsv2.list.TitleType.Text
 import uk.gov.android.ui.patterns.R
 
 internal class CentreAlignedScreenContentProvider :
@@ -36,7 +36,28 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
                 CentreAlignedScreenBodyContent.Text("One line content resource component"),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", Heading),
+                    title = ListTitle("Sub Title 1", Heading),
+                    items = persistentListOf(
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                        "One line content resource component",
+                    ),
+                ),
+                CentreAlignedScreenBodyContent.Text(content),
+            ),
+            supportingText,
+            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
+            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+        ),
+        CentreAlignedScreenContent(
+            title,
+            image,
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.NumberedList(
+                    title = ListTitle("Sub Title 1", Heading),
                     items = persistentListOf(
                         "One line content resource component",
                         "One line content resource component",
@@ -67,7 +88,7 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
                 CentreAlignedScreenBodyContent.Text("One line content resource component"),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", Text),
+                    title = ListTitle("Sub Title 1", Text),
                     items = persistentListOf(
                         "One line content resource component",
                         "One line content resource component",
@@ -87,7 +108,7 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
                 CentreAlignedScreenBodyContent.Text("One line content resource component"),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", BoldText),
+                    title = ListTitle("Sub Title 1", BoldText),
                     items = persistentListOf(
                         "One line content resource component",
                         "One line content resource component",

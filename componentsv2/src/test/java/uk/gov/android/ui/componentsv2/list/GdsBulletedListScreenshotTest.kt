@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.bulletedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
@@ -8,14 +8,14 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsBulletedListScreenshotTest(
-    private val parameters: Pair<BulletedListItem, NightMode>,
+    private val parameters: Pair<ListWrapper, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsBulletedList(
             bulletListItems = parameters.items,
             title = parameters.title?.let {
-                BulletedListTitle(it.text, it.titleType)
+                ListTitle(it.text, it.titleType)
             },
         )
     }
@@ -23,8 +23,8 @@ internal class GdsBulletedListScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<BulletedListItem, NightMode>> {
-            val result: MutableList<Pair<BulletedListItem, NightMode>> = mutableListOf()
+        fun values(): kotlin.collections.List<Pair<ListWrapper, NightMode>> {
+            val result: MutableList<Pair<ListWrapper, NightMode>> = mutableListOf()
 
             BulletedListProvider().values.forEach(applyNightMode(result))
 

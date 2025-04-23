@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.numberedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,13 +23,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListItem
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -53,7 +51,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 fun GdsNumberedList(
     numberedListItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
-    title: BulletedListTitle? = null,
+    title: ListTitle? = null,
 ) {
     Column(
         modifier = modifier
@@ -69,11 +67,12 @@ fun GdsNumberedList(
 @Composable
 private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
     SubcomposeLayout { constraints ->
+        val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
         val indexMeasurables = subcompose(slotId = "indices") {
             numberedListItems.forEachIndexed { index, _ ->
                 IndexText("${index + 1}.", Modifier)
             }
-        }.map { it.measure(constraints) }
+        }.map { it.measure(looseConstraints) }
 
         val maxWidthIndex = indexMeasurables.maxBy { it.width }
 
@@ -97,9 +96,10 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
                     maxWidthIndex.width.pxToDp(),
                 )
             }
-        }.map { it.measure(constraints) }
+        }.map { it.measure(looseConstraints) }
+        val totalHeight = placeables.sumOf { it.height }
 
-        layout(constraints.maxWidth, constraints.maxHeight) {
+        layout(constraints.maxWidth, totalHeight) {
             var yPosition = 0
 
             placeables.forEach {
@@ -113,7 +113,7 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 private fun NumberedListTitle(
-    title: BulletedListTitle,
+    title: ListTitle,
 ) {
     when (title.titleType) {
         TitleType.BoldText -> {
@@ -210,36 +210,36 @@ internal const val TAG_TITLE_BOLD = "titleBold"
 internal const val TAG_TITLE_REGULAR = "titleRegular"
 
 @Suppress("MaxLineLength")
-internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem> {
-    override val values: Sequence<BulletedListItem> = sequenceOf(
-        BulletedListItem(
+internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
+    override val values: Sequence<ListWrapper> = sequenceOf(
+        ListWrapper(
             items = persistentListOf(
                 "Single line",
             ),
-            BulletedListTitle("One item GDS heading", TitleType.Heading),
+            ListTitle("One item GDS heading", TitleType.Heading),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 FIRST_LINE,
                 SECOND_LINE,
             ),
-            BulletedListTitle("Multiple items plain text title", TitleType.Text),
+            ListTitle("Multiple items plain text title", TitleType.Text),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 FIRST_LINE,
                 SECOND_LINE,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 FIRST_LINE,
                 SECOND_LINE,
             ),
-            BulletedListTitle("Multiple items bold title", TitleType.BoldText),
+            ListTitle("Multiple items bold title", TitleType.BoldText),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
@@ -252,9 +252,9 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 LINE9,
                 "Line ten",
             ),
-            BulletedListTitle("Double digit index", TitleType.Heading),
+            ListTitle("Double digit index", TitleType.Heading),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
@@ -266,9 +266,9 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 LINE8,
                 LINE9,
             ),
-            BulletedListTitle("Single digit index", TitleType.Heading),
+            ListTitle("Single digit index", TitleType.Heading),
         ),
-        BulletedListItem(
+        ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
@@ -293,7 +293,7 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
                 "Line twenty one",
                 "Line twenty two",
             ),
-            BulletedListTitle("20+ digit index", TitleType.Heading),
+            ListTitle("20+ digit index", TitleType.Heading),
         ),
     )
 }
@@ -316,12 +316,12 @@ internal class NumberedListProvider : PreviewParameterProvider<BulletedListItem>
 @Composable
 internal fun GdsNumberedListPreview(
     @PreviewParameter(NumberedListProvider::class)
-    numberedList: BulletedListItem,
+    numberedListWrapper: ListWrapper,
 ) {
     GdsTheme {
         GdsNumberedList(
-            numberedListItems = numberedList.items,
-            title = numberedList.title,
+            numberedListItems = numberedListWrapper.items,
+            title = numberedListWrapper.title,
         )
     }
 }

@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.numberedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -12,7 +12,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
 
 @RunWith(RobolectricTestRunner::class)
 class GdsNumberedListTest {
@@ -139,7 +138,7 @@ class GdsNumberedListTest {
 
     private fun setupComposable(
         items: ImmutableList<String>,
-        title: BulletedListTitle?,
+        title: ListTitle?,
         modifier: Modifier = Modifier,
     ) {
         composeTestRule.setContent {

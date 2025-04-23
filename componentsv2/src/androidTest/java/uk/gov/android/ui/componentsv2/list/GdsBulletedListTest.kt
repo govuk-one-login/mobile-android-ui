@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.bulletedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText

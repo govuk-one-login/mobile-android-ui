@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.bulletedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +34,7 @@ import uk.gov.android.ui.theme.spacingSingle
 fun GdsBulletedList(
     bulletListItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
-    title: BulletedListTitle? = null,
+    title: ListTitle? = null,
 ) {
     Column(
         modifier = modifier
@@ -65,7 +65,7 @@ fun GdsBulletedList(
 
 @Composable
 private fun BulletedListTitle(
-    title: BulletedListTitle,
+    title: ListTitle,
     modifier: Modifier = Modifier,
 ) {
     val titleContentDescription: String
@@ -127,45 +127,31 @@ private fun BulletListItem(
     }
 }
 
-enum class TitleType {
-    BoldText, Heading, Text
-}
-
-data class BulletedListTitle(
-    val text: String,
-    val titleType: TitleType,
-)
-
-internal data class BulletedListItem(
-    val items: ImmutableList<String>,
-    val title: BulletedListTitle? = null,
-)
-
 @Suppress("MaxLineLength")
-internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem> {
-    override val values: Sequence<BulletedListItem> = sequenceOf(
-        BulletedListItem(
+internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
+    override val values: Sequence<ListWrapper> = sequenceOf(
+        ListWrapper(
             persistentListOf(
                 "Line one bullet list content",
             ),
-            BulletedListTitle("Example Heading", TitleType.Heading),
+            ListTitle("Example Heading", TitleType.Heading),
         ),
-        BulletedListItem(
+        ListWrapper(
             persistentListOf(
                 "Line one bullet list content",
                 "Line two bullet list content",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            BulletedListTitle("Example Title", TitleType.Text),
+            ListTitle("Example Title", TitleType.Text),
         ),
-        BulletedListItem(
+        ListWrapper(
             persistentListOf(
                 "Line one bullet list content",
                 "Line two bullet list content",
             ),
-            BulletedListTitle("Example Title", TitleType.BoldText),
+            ListTitle("Example Title", TitleType.BoldText),
         ),
-        BulletedListItem(
+        ListWrapper(
             persistentListOf(
                 "Line one bullet list content",
                 "Line two bullet list content",
@@ -181,12 +167,12 @@ internal class BulletedListProvider : PreviewParameterProvider<BulletedListItem>
 @Preview
 internal fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
-    bulletListItems: BulletedListItem,
+    bulletListWrapper: ListWrapper,
 ) {
     GdsTheme {
         GdsBulletedList(
-            bulletListItems = bulletListItems.items,
-            title = bulletListItems.title,
+            bulletListItems = bulletListWrapper.items,
+            title = bulletListWrapper.title,
         )
     }
 }
