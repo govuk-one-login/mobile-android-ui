@@ -47,8 +47,16 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
-            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+            CentreAlignedScreenButton(
+                text = "Primary button",
+                onClick = {},
+                showIcon = true,
+            ),
+            CentreAlignedScreenButton(
+                text = "Secondary button",
+                onClick = {},
+                showIcon = true,
+            ),
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
