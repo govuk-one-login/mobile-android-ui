@@ -133,29 +133,29 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
     override val values: Sequence<ListWrapper> = sequenceOf(
         ListWrapper(
             persistentListOf(
-                "Line one bullet list content",
+                LINE1,
             ),
             ListTitle("Example Heading", TitleType.Heading),
         ),
         ListWrapper(
             persistentListOf(
-                "Line one bullet list content",
-                "Line two bullet list content",
+                LINE1,
+                LINE2,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
             ListTitle("Example Title", TitleType.Text),
         ),
         ListWrapper(
             persistentListOf(
-                "Line one bullet list content",
-                "Line two bullet list content",
+                LINE1,
+                LINE2,
             ),
             ListTitle("Example Title", TitleType.BoldText),
         ),
         ListWrapper(
             persistentListOf(
-                "Line one bullet list content",
-                "Line two bullet list content",
+                LINE1,
+                LINE2,
                 "Line three bullet list content",
                 "Line four bullet list content",
             ),
@@ -178,3 +178,6 @@ internal fun GdsBulletedListPreview(
         )
     }
 }
+
+private const val LINE1 = "Line one bullet list content"
+private const val LINE2 = "Line two bullet list content"
