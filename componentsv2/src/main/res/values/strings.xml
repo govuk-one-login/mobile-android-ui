@@ -54,4 +54,14 @@
             Selected, %s, radio button, %d of %d, double tap to select
         </item>
     </plurals>
+
+    <!-- Numbered lists -->
+    <plurals name="content_desc_numbered_list_item">
+        <item quantity="one">
+            numbered list 1 item %2$d %3$s
+        </item>
+        <item quantity="other">
+            numbered list %1$d items %2$d %3$s
+        </item>
+    </plurals>
 </resources>

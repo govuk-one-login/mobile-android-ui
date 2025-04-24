@@ -67,6 +67,35 @@ internal class LeftAlignedScreenContentProvider :
             body = listOf(
                 LeftAlignedScreenBody.Text(
                     textShort,
+                    modifier = Modifier.padding(
+                        top = spacingTriple,
+                    ),
+                ),
+                LeftAlignedScreenBody.Warning(
+                    warning,
+                    Modifier.padding(vertical = spacingTriple),
+                ),
+                LeftAlignedScreenBody.NumberedList(
+                    persistentListOf(
+                        "Number 1",
+                        "Number 2",
+                        textShort,
+                    ),
+                ),
+                LeftAlignedScreenBody.SecondaryButton(
+                    "Secondary Button",
+                    {},
+                ),
+            ),
+            supportingText = supportingText,
+            primaryButton = "Primary Button",
+            secondaryButton = "Secondary Button",
+        ),
+        LeftAlignedScreenContent(
+            title = title,
+            body = listOf(
+                LeftAlignedScreenBody.Text(
+                    textShort,
                 ),
                 LeftAlignedScreenBody.Text(
                     textLong,

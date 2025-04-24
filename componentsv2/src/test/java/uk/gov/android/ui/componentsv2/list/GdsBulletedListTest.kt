@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.bulletedlist
+package uk.gov.android.ui.componentsv2.list
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -6,7 +6,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class GdsBulletedListTest {
     private val expectedParameterSize = 4
     private val contentList = BulletedListProvider().values.toList()
@@ -39,5 +42,12 @@ class GdsBulletedListTest {
 
         composeTestRule.onNodeWithText("Example Heading")
             .assertExists()
+    }
+
+    @Test
+    fun runPreview() {
+        composeTestRule.setContent {
+            GdsNumberedListPreview(contentList[0])
+        }
     }
 }

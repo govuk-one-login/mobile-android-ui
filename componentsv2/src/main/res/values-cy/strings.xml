@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
     <!-- BulletedList -->
     <string name="bullet">bwled %s</string>
     <string name="heading">%s penawd</string>
@@ -55,6 +55,16 @@
         </item>
         <item quantity="many">
             Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+    </plurals>
+
+    <!-- Numbered lists -->
+    <plurals name="content_desc_numbered_list_item">
+        <item quantity="one" tools:ignore="TypographyQuotes">
+            rhestr wedi\'i rhifo 1 eitem %2$d %3$s
+        </item>
+        <item quantity="other" tools:ignore="TypographyQuotes">
+            rhestr wedi\'i rhifo %1$d o eitemau %2$d %3$s
         </item>
     </plurals>
 </resources>

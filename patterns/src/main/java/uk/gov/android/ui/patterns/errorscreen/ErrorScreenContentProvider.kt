@@ -3,8 +3,8 @@ package uk.gov.android.ui.patterns.errorscreen
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType
+import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.list.TitleType
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 
@@ -45,7 +45,7 @@ internal class ErrorScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
                 CentreAlignedScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("This is the bullet view", TitleType.Heading),
+                    title = ListTitle("This is the bullet view", TitleType.Heading),
                     items = persistentListOf(
                         "Here we can list things we want the user to know",
                         "we can use this as a way to step them through an action",
