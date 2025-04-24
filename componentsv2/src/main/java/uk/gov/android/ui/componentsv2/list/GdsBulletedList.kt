@@ -28,6 +28,7 @@ import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
 
 @Composable
@@ -162,6 +163,7 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
     )
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Composable
 @Preview
