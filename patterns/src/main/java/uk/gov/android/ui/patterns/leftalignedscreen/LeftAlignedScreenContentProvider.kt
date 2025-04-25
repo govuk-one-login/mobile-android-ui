@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
 
@@ -77,9 +78,9 @@ internal class LeftAlignedScreenContentProvider :
                 ),
                 LeftAlignedScreenBody.NumberedList(
                     persistentListOf(
-                        "Number 1",
-                        "Number 2",
-                        textShort,
+                        ListItem("Number 1"),
+                        ListItem("Number 2"),
+                        ListItem(textShort),
                     ),
                 ),
                 LeftAlignedScreenBody.SecondaryButton(

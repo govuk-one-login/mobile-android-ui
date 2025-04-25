@@ -2,6 +2,7 @@ package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType.BoldText
 import uk.gov.android.ui.componentsv2.list.TitleType.Heading
@@ -59,10 +60,10 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.NumberedList(
                     title = ListTitle(SUB1, Heading),
                     items = persistentListOf(
-                        ONE_LINE,
-                        ONE_LINE,
-                        ONE_LINE,
-                        ONE_LINE,
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
                     ),
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
