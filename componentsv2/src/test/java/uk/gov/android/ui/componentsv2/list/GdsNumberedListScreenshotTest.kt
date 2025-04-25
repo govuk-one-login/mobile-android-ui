@@ -13,7 +13,7 @@ internal class GdsNumberedListScreenshotTest(
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsNumberedList(
-            numberedListItems = parameters.items,
+            numberedListItems = parameters.listItems,
             title = parameters.title?.let {
                 ListTitle(it.text, it.titleType)
             },
@@ -23,7 +23,7 @@ internal class GdsNumberedListScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): kotlin.collections.List<Pair<ListWrapper, NightMode>> {
+        fun values(): List<Pair<ListWrapper, NightMode>> {
             val result: MutableList<Pair<ListWrapper, NightMode>> = mutableListOf()
 
             NumberedListProvider().values.forEach(applyNightMode(result))

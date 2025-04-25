@@ -64,4 +64,6 @@
             numbered list %1$d items %2$d %3$s
         </item>
     </plurals>
+    <string name="numbered_list_multi_style_example" translatable="false">This text includes the <b>bold</b> style in <b>multiple</b> places.</string>
+    <string name="numbered_list_bold_style_example" translatable="false">This text includes <b>bold</b>, <i>italic</i>, <u>underlined</u>, and more styles in one sentence.</string>
 </resources>
