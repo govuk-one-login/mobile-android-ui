@@ -85,6 +85,7 @@ fun ListItem.toContentDescription(context: Context): String {
     }
 }
 
+@Suppress("MagicNumber")
 fun Int.convertToWord(context: Context): String {
     return when (this) {
         1 -> context.getString(R.string.number1)
