@@ -51,7 +51,7 @@ class GdsBulletedListTest {
     @Test
     fun testAllElementsAreDisplayed() {
         composeTestRule.setContent {
-            GdsBulletedListV2(
+            GdsBulletedList(
                 bulletListItems = sampleContent.listItems,
                 title = sampleContent.title,
             )
@@ -75,7 +75,7 @@ class GdsBulletedListTest {
             ListItem(spannableText = R.string.numbered_list_multi_style_example),
         )
         composeTestRule.setContent {
-            GdsBulletedListV2(
+            GdsBulletedList(
                 bulletListItems = bulletedListItems,
                 title = title,
             )

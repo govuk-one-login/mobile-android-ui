@@ -12,7 +12,7 @@ internal class GdsBulletedListV2ScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsBulletedListV2(
+        GdsBulletedList(
             bulletListItems = parameters.listItems,
             title = parameters.title?.let {
                 ListTitle(it.text, it.titleType)

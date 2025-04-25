@@ -68,7 +68,8 @@ fun GdsBulletedList(
 }
 
 @Composable
-fun GdsBulletedListV2(
+@JvmName("GdsBulletedListV2")
+fun GdsBulletedList(
     bulletListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
@@ -295,7 +296,7 @@ internal fun GdsBulletedListPreview(
     bulletListWrapper: ListWrapper,
 ) {
     GdsTheme {
-        GdsBulletedListV2(
+        GdsBulletedList(
             bulletListItems = bulletListWrapper.listItems,
             title = bulletListWrapper.title,
         )
