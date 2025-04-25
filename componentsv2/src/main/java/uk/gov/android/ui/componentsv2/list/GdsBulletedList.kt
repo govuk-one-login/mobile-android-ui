@@ -174,6 +174,7 @@ private fun BulletListItem(
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
+            .semantics { contentDescription = bulletContentDescription }
             .padding(top = spacingSingle),
     ) {
         Image(
@@ -188,7 +189,6 @@ private fun BulletListItem(
 
         ListText(
             listItem = text,
-            bulletContentDescription = bulletContentDescription,
         )
     }
 }
@@ -196,14 +196,13 @@ private fun BulletListItem(
 @Composable
 private fun ListText(
     listItem: ListItem,
-    bulletContentDescription: String,
 ) {
     if (listItem.text.isNotEmpty()) {
         Text(
             text = listItem.text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.semantics { contentDescription = bulletContentDescription },
+            modifier = Modifier.semantics { invisibleToUser() },
         )
     } else {
         val context = LocalContext.current
@@ -213,7 +212,7 @@ private fun ListText(
             text = annotatedString,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.semantics { contentDescription = bulletContentDescription },
+            modifier = Modifier.semantics { invisibleToUser() },
         )
     }
 }
