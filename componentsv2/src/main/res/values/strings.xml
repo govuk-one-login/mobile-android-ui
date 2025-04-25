@@ -58,12 +58,21 @@
     <!-- Numbered lists -->
     <plurals name="content_desc_numbered_list_item">
         <item quantity="one">
-            numbered list 1 item %2$d %3$s
+            numbered list %1$s item %2$s %3$s
         </item>
         <item quantity="other">
-            numbered list %1$d items %2$d %3$s
+            numbered list %1$s items %2$s %3$s
         </item>
     </plurals>
     <string name="numbered_list_multi_style_example" translatable="false">This text includes the <b>bold</b> style in <b>multiple</b> places.</string>
     <string name="numbered_list_bold_style_example" translatable="false">This text includes <b>bold</b>, <i>italic</i>, <u>underlined</u>, and more styles in one sentence.</string>
+    <string name="number1">one</string>
+    <string name="number2">two</string>
+    <string name="number3">three</string>
+    <string name="number4">four</string>
+    <string name="number5">five</string>
+    <string name="number6">six</string>
+    <string name="number7">seven</string>
+    <string name="number8">eight</string>
+    <string name="number9">nine</string>
 </resources>

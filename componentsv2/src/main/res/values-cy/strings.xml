@@ -61,10 +61,19 @@
     <!-- Numbered lists -->
     <plurals name="content_desc_numbered_list_item">
         <item quantity="one" tools:ignore="TypographyQuotes">
-            rhestr wedi\'i rhifo 1 eitem %2$d %3$s
+            rhestr wedi\'i rhifo %1$s eitem %2$s %3$s
         </item>
         <item quantity="other" tools:ignore="TypographyQuotes">
-            rhestr wedi\'i rhifo %1$d o eitemau %2$d %3$s
+            rhestr wedi\'i rhifo %1$s o eitemau %2$s %3$s
         </item>
     </plurals>
+    <string name="number1">un</string>
+    <string name="number2">dau</string>
+    <string name="number3">tri</string>
+    <string name="number4">pedwar</string>
+    <string name="number5">pump</string>
+    <string name="number6">chwech</string>
+    <string name="number7">saith</string>
+    <string name="number8">wyth</string>
+    <string name="number9">naw</string>
 </resources>

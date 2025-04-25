@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R
 
 enum class TitleType {
     BoldText, Heading, Text
@@ -81,5 +82,20 @@ fun Spanned.toAnnotatedString(): AnnotatedString = buildAnnotatedString {
 fun ListItem.toContentDescription(context: Context): String {
     return this.text.ifEmpty {
         context.getText(this.spannableText).toString()
+    }
+}
+
+fun Int.convertToWord(context: Context): String {
+    return when (this) {
+        1 -> context.getString(R.string.number1)
+        2 -> context.getString(R.string.number2)
+        3 -> context.getString(R.string.number3)
+        4 -> context.getString(R.string.number4)
+        5 -> context.getString(R.string.number5)
+        6 -> context.getString(R.string.number6)
+        7 -> context.getString(R.string.number7)
+        8 -> context.getString(R.string.number8)
+        9 -> context.getString(R.string.number9)
+        else -> this.toString()
     }
 }

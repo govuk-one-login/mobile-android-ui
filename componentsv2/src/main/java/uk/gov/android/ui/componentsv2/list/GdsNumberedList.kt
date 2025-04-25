@@ -78,19 +78,19 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
         }.map { it.measure(looseConstraints) }
 
         val maxWidthIndex = indexMeasurables.maxBy { it.width }
-
+        val one = 1
         val placeables = subcompose("main") {
             numberedListItems.forEachIndexed { index, item ->
                 val contentDescription = if (index == 0) {
                     pluralStringResource(
                         R.plurals.content_desc_numbered_list_item,
                         numberedListItems.size,
-                        numberedListItems.size,
-                        1,
+                        numberedListItems.size.convertToWord(context),
+                        one.convertToWord(context),
                         item.toContentDescription(context),
                     )
                 } else {
-                    "${index + 1} ${item.toContentDescription(context)}"
+                    "${(index + 1).convertToWord(context)} ${item.toContentDescription(context)}"
                 }
                 NumberedListItem(
                     "${index + 1}.",
@@ -319,6 +319,21 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem("Line twenty two"),
             ),
             title = ListTitle("20+ digit index", TitleType.Heading),
+        ),
+        ListWrapper(
+            listItems = persistentListOf(
+                ListItem("Llinell un"),
+                ListItem("Llinell dau"),
+                ListItem("Llinell tri"),
+                ListItem("Llinell pedwar"),
+                ListItem("Llinell pump"),
+                ListItem("Llinell chwech"),
+                ListItem("Llinell saith"),
+                ListItem("Llinell wyth"),
+                ListItem("Llinell naw"),
+                ListItem("Llinell deg"),
+            ),
+            title = ListTitle("Welsh example", TitleType.Heading),
         ),
     )
 }

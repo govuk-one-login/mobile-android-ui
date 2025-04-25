@@ -25,7 +25,7 @@ class GdsNumberedListTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
 
-    private val expectedParamSize = 7
+    private val expectedParamSize = 8
     private val itemList = NumberedListProvider().values.toList()
 
     @Before
@@ -47,13 +47,17 @@ class GdsNumberedListTest {
     @Test
     fun verifyHeaderTitleContentDescription() {
         val item = itemList[0]
+        val one = 1
         setupComposable(item.listItems, item.title)
 
         composeTestRule
             .onNodeWithContentDescription(item.title!!.text)
             .assertExists()
         composeTestRule
-            .onNodeWithContentDescription("numbered list 1 item 1 ${item.listItems[0].text}")
+            .onNodeWithContentDescription(
+                "numbered list ${one.convertToWord(context)} " +
+                    "item ${one.convertToWord(context)} ${item.listItems[0].text}",
+            )
             .assertExists()
     }
 
@@ -71,6 +75,7 @@ class GdsNumberedListTest {
     @Test
     fun verifyRegularTitleContentDescription() {
         val item = itemList[1]
+        val one = 1
         setupComposable(item.listItems, item.title)
 
         composeTestRule
@@ -78,9 +83,10 @@ class GdsNumberedListTest {
             .assertExists()
         item.listItems.forEachIndexed { index, listItem ->
             val expectedContentDescription = if (index == 0) {
-                "numbered list ${item.listItems.size} items 1 ${listItem.text}"
+                "numbered list ${(item.listItems.size).convertToWord(context)} items " +
+                    "${one.convertToWord(context)} ${listItem.text}"
             } else {
-                "${index + 1} ${listItem.text}"
+                "${(index + 1).convertToWord(context)} ${listItem.text}"
             }
             composeTestRule.onNodeWithContentDescription(expectedContentDescription).assertExists()
         }
@@ -102,13 +108,15 @@ class GdsNumberedListTest {
     @Test
     fun verifyNoTitleContentDescription() {
         val item = itemList[2]
+        val one = 1
         setupComposable(item.listItems, item.title)
 
         item.listItems.forEachIndexed { index, listItem ->
             val expectedContentDescription = if (index == 0) {
-                "numbered list ${item.listItems.size} items 1 ${listItem.text}"
+                "numbered list ${(item.listItems.size).convertToWord(context)} " +
+                    "items ${one.convertToWord(context)} ${listItem.text}"
             } else {
-                "${index + 1} ${listItem.text}"
+                "${(index + 1).convertToWord(context)} ${listItem.text}"
             }
             composeTestRule.onNodeWithContentDescription(expectedContentDescription).assertExists()
         }
