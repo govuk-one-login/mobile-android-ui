@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.dialog
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -50,7 +50,7 @@ fun FullScreenDialogue(
     modifier: Modifier = Modifier,
     title: String? = null,
     onBack: (() -> Unit)? = null,
-    content: @Composable () -> Unit,
+    content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
         onDismissRequest = onDismissRequest,
@@ -98,13 +98,14 @@ fun FullScreenDialogue(
     topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
-    content: @Composable () -> Unit,
+    content: @Composable (ScrollState) -> Unit,
 ) {
     Dialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = onDismissRequest,
     ) {
         BoxWithConstraints {
+            val scrollState = rememberScrollState()
             val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
             // Required to be able to display scrollable content for components that require an exact size (e.g. GdsCard)
             val maxHeight = maxHeight
@@ -115,12 +116,11 @@ fun FullScreenDialogue(
             ) { innerPadding ->
                 Column(
                     modifier = modifier.height(maxHeight)
-                        .verticalScroll(rememberScrollState())
                         .padding(innerPadding)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    content()
+                    content(scrollState)
                 }
             }
         }
@@ -156,7 +156,7 @@ internal fun ModalDialogPreview(
     FullScreenDialogue(
         onDismissRequest = { },
         title = parameters.title,
-        content = parameters.content,
+        content = { parameters.content },
     )
 }
 
@@ -175,6 +175,6 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
                 onCloseClick = {},
             )
         },
-        content = parameters.content,
+        content = { parameters.content },
     )
 }

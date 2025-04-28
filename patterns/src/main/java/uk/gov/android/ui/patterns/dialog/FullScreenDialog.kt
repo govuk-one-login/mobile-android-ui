@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.dialog
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
@@ -50,7 +51,7 @@ fun FullScreenDialog(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
-    content: @Composable () -> Unit,
+    content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
         onDismissRequest = onDismissRequest,
@@ -141,7 +142,7 @@ internal class FullScreenDialogPreviewProvider :
         )
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialogPreviewProvider::class)
@@ -150,12 +151,12 @@ internal fun ModalDialogPreview(
     FullScreenDialog(
         onDismissRequest = { },
         title = parameters.title,
-        content = parameters.content,
+        content = { parameters.content },
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
+@PreviewLightDark
 @Composable
 internal fun ModalDialogWithCustomisedTopAppBarPreview(
     @PreviewParameter(FullScreenDialogPreviewProvider::class)
