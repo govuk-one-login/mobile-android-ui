@@ -10,17 +10,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -29,8 +35,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
@@ -40,6 +48,8 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3_disabled
+import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -181,7 +191,9 @@ fun CentreAlignedScreen(
                 text = title,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = Typography.displaySmall,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding),
                 textAlign = TextAlign.Center,
             )
         },
@@ -190,7 +202,9 @@ fun CentreAlignedScreen(
                 Image(
                     painter = painterResource(it.image),
                     contentDescription = it.description,
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = horizontalPadding),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
                 )
             }
         },
@@ -211,24 +225,61 @@ fun CentreAlignedScreen(
         },
         primaryButton = primaryButton?.let {
             {
-                GdsButton(
-                    text = it.text,
-                    buttonType = ButtonType.Primary,
-                    onClick = it.onClick,
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
-                )
+                if (it.showIcon) {
+                    GdsButton(
+                        text = it.text,
+                        buttonType = ButtonType.Icon(
+                            buttonColors = ButtonDefaults.buttonColors(
+                                containerColor = colorScheme.primary,
+                                contentColor = colorScheme.onPrimary,
+                                disabledContainerColor = m3_disabled,
+                                disabledContentColor = m3_onDisabled,
+                            ),
+                            fontWeight = FontWeight.Bold,
+                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            contentDescription = stringResource(R.string.opens_in_external_browser),
+                        ),
+                        onClick = it.onClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = it.enabled,
+                    )
+                } else {
+                    GdsButton(
+                        text = it.text,
+                        buttonType = ButtonType.Primary,
+                        onClick = it.onClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = it.enabled,
+                    )
+                }
             }
         },
         secondaryButton = secondaryButton?.let {
             {
-                GdsButton(
-                    text = it.text,
-                    buttonType = ButtonType.Secondary,
-                    onClick = it.onClick,
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
-                )
+                if (it.showIcon) {
+                    GdsButton(
+                        text = it.text,
+                        buttonType = ButtonType.Icon(
+                            buttonColors = customButtonColors(
+                                contentColor = colorScheme.primary,
+                                containerColor = colorScheme.background,
+                            ),
+                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            contentDescription = stringResource(R.string.opens_in_external_browser),
+                        ),
+                        onClick = it.onClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = it.enabled,
+                    )
+                } else {
+                    GdsButton(
+                        text = it.text,
+                        buttonType = ButtonType.Secondary,
+                        onClick = it.onClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = it.enabled,
+                    )
+                }
             }
         },
     )
@@ -246,7 +297,9 @@ private fun MainContent(
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier.fillMaxSize().testTag(BODY_LAZY_COLUMN_TEST_TAG),
+        modifier = modifier
+            .fillMaxSize()
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG),
     ) {
         item {
             Column(

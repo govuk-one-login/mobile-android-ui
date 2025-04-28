@@ -2,10 +2,11 @@ package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.BoldText
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Heading
-import uk.gov.android.ui.componentsv2.bulletedlist.TitleType.Text
+import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.list.TitleType.BoldText
+import uk.gov.android.ui.componentsv2.list.TitleType.Heading
+import uk.gov.android.ui.componentsv2.list.TitleType.Text
 import uk.gov.android.ui.patterns.R
 
 internal class CentreAlignedScreenContentProvider :
@@ -34,21 +35,50 @@ internal class CentreAlignedScreenContentProvider :
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", Heading),
+                    title = ListTitle(SUB1, Heading),
                     items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
                     ),
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
-            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
+        ),
+        CentreAlignedScreenContent(
+            title,
+            image,
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
+                CentreAlignedScreenBodyContent.NumberedList(
+                    title = ListTitle(SUB1, Heading),
+                    items = persistentListOf(
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
+                        ListItem(ONE_LINE),
+                    ),
+                ),
+                CentreAlignedScreenBodyContent.Text(content),
+            ),
+            supportingText,
+            CentreAlignedScreenButton(
+                text = PRIMARY_BUTTON,
+                onClick = {},
+                showIcon = true,
+            ),
+            CentreAlignedScreenButton(
+                text = SECONDARY_BUTTON,
+                onClick = {},
+                showIcon = true,
+            ),
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
@@ -57,60 +87,60 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
-            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", Text),
+                    title = ListTitle(SUB1, Text),
                     items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
                     ),
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
             supportingText,
-            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
+            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
                 CentreAlignedScreenBodyContent.BulletList(
-                    title = BulletedListTitle("Sub Title 1", BoldText),
+                    title = ListTitle(SUB1, BoldText),
                     items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
                     ),
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            secondaryButton = CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+            secondaryButton = CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
         CentreAlignedScreenContent(
             title,
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
                 CentreAlignedScreenBodyContent.BulletList(
                     items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
                     ),
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
@@ -121,13 +151,13 @@ internal class CentreAlignedScreenContentProvider :
             image,
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
                 CentreAlignedScreenBodyContent.BulletList(
                     items = persistentListOf(
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
-                        "One line content resource component",
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
+                        ONE_LINE,
                     ),
                 ),
             ),
@@ -144,11 +174,16 @@ internal class CentreAlignedScreenContentProvider :
             title,
             image,
             persistentListOf(
-                CentreAlignedScreenBodyContent.Text("One line content resource component"),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
             ),
             supportingTextLong,
-            CentreAlignedScreenButton(text = "Primary button", onClick = {}),
-            CentreAlignedScreenButton(text = "Secondary button", onClick = {}),
+            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
     )
 }
+
+private const val SUB1 = "Sub Title 1"
+private const val PRIMARY_BUTTON = "Primary button"
+private const val SECONDARY_BUTTON = "Secondary button"
+private const val ONE_LINE = "One line content resource component"

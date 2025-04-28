@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
 
@@ -51,6 +52,35 @@ internal class LeftAlignedScreenContentProvider :
                         "Bullet 1",
                         "Bullet 2",
                         textShort,
+                    ),
+                ),
+                LeftAlignedScreenBody.SecondaryButton(
+                    "Secondary Button",
+                    {},
+                ),
+            ),
+            supportingText = supportingText,
+            primaryButton = "Primary Button",
+            secondaryButton = "Secondary Button",
+        ),
+        LeftAlignedScreenContent(
+            title = title,
+            body = listOf(
+                LeftAlignedScreenBody.Text(
+                    textShort,
+                    modifier = Modifier.padding(
+                        top = spacingTriple,
+                    ),
+                ),
+                LeftAlignedScreenBody.Warning(
+                    warning,
+                    Modifier.padding(vertical = spacingTriple),
+                ),
+                LeftAlignedScreenBody.NumberedList(
+                    persistentListOf(
+                        ListItem("Number 1"),
+                        ListItem("Number 2"),
+                        ListItem(textShort),
                     ),
                 ),
                 LeftAlignedScreenBody.SecondaryButton(

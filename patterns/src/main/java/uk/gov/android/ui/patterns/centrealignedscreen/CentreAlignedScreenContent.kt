@@ -18,11 +18,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.bulletedlist.BulletedListTitle
-import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
+import uk.gov.android.ui.componentsv2.list.GdsBulletedList
+import uk.gov.android.ui.componentsv2.list.GdsNumberedList
+import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingSingle
 
@@ -41,8 +43,12 @@ sealed class CentreAlignedScreenBodyContent {
         val useBoldStyle: Boolean = false,
     ) : CentreAlignedScreenBodyContent()
     data class BulletList(
-        val title: BulletedListTitle? = null,
+        val title: ListTitle? = null,
         val items: ImmutableList<String>,
+    ) : CentreAlignedScreenBodyContent()
+    data class NumberedList(
+        val title: ListTitle? = null,
+        val items: ImmutableList<ListItem>,
     ) : CentreAlignedScreenBodyContent()
     data class Button(
         val text: String,
@@ -94,6 +100,18 @@ internal fun LazyListScope.toBodyContent(
             is CentreAlignedScreenBodyContent.BulletList -> {
                 item {
                     GdsBulletedList(
+                        item.items,
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(itemPadding),
+                        item.title,
+                    )
+                }
+            }
+
+            is CentreAlignedScreenBodyContent.NumberedList -> {
+                item {
+                    GdsNumberedList(
                         item.items,
                         Modifier
                             .fillMaxWidth()

@@ -15,13 +15,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.bulletedlist.GdsBulletedList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
+import uk.gov.android.ui.componentsv2.list.GdsBulletedList
+import uk.gov.android.ui.componentsv2.list.GdsNumberedList
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
@@ -59,6 +61,7 @@ sealed class LeftAlignedScreenBody {
     ) : LeftAlignedScreenBody()
 
     data class BulletList(val bullets: ImmutableList<String>) : LeftAlignedScreenBody()
+    data class NumberedList(val list: ImmutableList<ListItem>) : LeftAlignedScreenBody()
 
     data class Image(
         val image: Int,
@@ -147,6 +150,15 @@ internal fun LazyListScope.toBodyContent(
                 item {
                     GdsBulletedList(
                         bulletListItems = it.bullets,
+                        modifier = Modifier.padding(itemPadding),
+                    )
+                }
+            }
+
+            is LeftAlignedScreenBody.NumberedList -> {
+                item {
+                    GdsNumberedList(
+                        numberedListItems = it.list,
                         modifier = Modifier.padding(itemPadding),
                     )
                 }
