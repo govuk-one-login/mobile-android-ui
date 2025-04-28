@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.list
 
+import android.text.Spanned
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -31,6 +33,7 @@ import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
 
+@Deprecated("Use GdsBulletedList with alternative bulletListItems parameter instead")
 @Composable
 fun GdsBulletedList(
     bulletListItems: ImmutableList<String>,
@@ -57,6 +60,41 @@ fun GdsBulletedList(
                 stringResource(
                     R.string.bullet,
                     item,
+                )
+            }
+            BulletListItem(item, bulletContentDescription)
+        }
+    }
+}
+
+@Composable
+@JvmName("GdsBulletedListV2")
+fun GdsBulletedList(
+    bulletListItems: ImmutableList<ListItem>,
+    modifier: Modifier = Modifier,
+    title: ListTitle? = null,
+) {
+    val context = LocalContext.current
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background),
+    ) {
+        title?.let {
+            BulletedListTitle(it)
+        }
+
+        bulletListItems.forEachIndexed { i, item ->
+            val bulletContentDescription = if (i == 0) {
+                pluralStringResource(
+                    R.plurals.bullet_list_items,
+                    bulletListItems.size,
+                    bulletListItems.size,
+                    item.toContentDescription(context),
+                )
+            } else {
+                stringResource(
+                    R.string.bullet,
+                    item.toContentDescription(context),
                 )
             }
             BulletListItem(item, bulletContentDescription)
@@ -128,39 +166,125 @@ private fun BulletListItem(
     }
 }
 
+@Composable
+private fun BulletListItem(
+    text: ListItem,
+    bulletContentDescription: String,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+            .semantics { contentDescription = bulletContentDescription }
+            .padding(top = spacingSingle),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_dot),
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+            modifier = Modifier
+                .padding(start = 10.dp, end = 20.dp, top = 8.dp)
+                .align(Alignment.Top)
+                .semantics { invisibleToUser() },
+        )
+
+        ListText(
+            listItem = text,
+        )
+    }
+}
+
+@Composable
+private fun ListText(
+    listItem: ListItem,
+) {
+    if (listItem.text.isNotEmpty()) {
+        Text(
+            text = listItem.text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            modifier = Modifier.semantics { invisibleToUser() },
+        )
+    } else {
+        val context = LocalContext.current
+        val spanned = context.getText(listItem.spannableText) as Spanned
+        val annotatedString = spanned.toAnnotatedString()
+        Text(
+            text = annotatedString,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            modifier = Modifier.semantics { invisibleToUser() },
+        )
+    }
+}
+
 @Suppress("MaxLineLength")
 internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
     override val values: Sequence<ListWrapper> = sequenceOf(
         ListWrapper(
-            persistentListOf(
+            items = persistentListOf(
                 LINE1,
             ),
-            ListTitle("Example Heading", TitleType.Heading),
+            listItems = persistentListOf(
+                ListItem(LINE1),
+            ),
+            title = ListTitle("Example Heading", TitleType.Heading),
         ),
         ListWrapper(
-            persistentListOf(
+            items = persistentListOf(
                 LINE1,
                 LINE2,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             ),
-            ListTitle("Example Title", TitleType.Text),
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
+            ),
+            title = ListTitle("Example Title", TitleType.Text),
         ),
         ListWrapper(
-            persistentListOf(
+            items = persistentListOf(
                 LINE1,
                 LINE2,
             ),
-            ListTitle("Example Title", TitleType.BoldText),
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+            ),
+            title = ListTitle("Example Title", TitleType.BoldText),
         ),
         ListWrapper(
-            persistentListOf(
+            items = persistentListOf(
                 LINE1,
                 LINE2,
-                "Line three bullet list content",
-                "Line four bullet list content",
+                LINE3,
+                LINE4,
+            ),
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+                ListItem(LINE3),
+                ListItem(LINE4),
             ),
         ),
     )
+}
+
+@ExcludeFromJacocoGeneratedReport
+@PreviewLightDark
+@Composable
+@Preview
+internal fun GdsBulletedListDeprecatedPreview(
+    @PreviewParameter(BulletedListProvider::class)
+    bulletListWrapper: ListWrapper,
+) {
+    GdsTheme {
+        GdsBulletedList(
+            bulletListItems = bulletListWrapper.items,
+            title = bulletListWrapper.title,
+        )
+    }
 }
 
 @ExcludeFromJacocoGeneratedReport
@@ -173,7 +297,7 @@ internal fun GdsBulletedListPreview(
 ) {
     GdsTheme {
         GdsBulletedList(
-            bulletListItems = bulletListWrapper.items,
+            bulletListItems = bulletListWrapper.listItems,
             title = bulletListWrapper.title,
         )
     }
@@ -181,3 +305,5 @@ internal fun GdsBulletedListPreview(
 
 private const val LINE1 = "Line one bullet list content"
 private const val LINE2 = "Line two bullet list content"
+private const val LINE3 = "Line three bullet list content"
+private const val LINE4 = "Line four bullet list content"

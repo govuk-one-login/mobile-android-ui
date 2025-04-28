@@ -23,6 +23,7 @@ import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
@@ -60,7 +61,7 @@ sealed class LeftAlignedScreenBody {
     ) : LeftAlignedScreenBody()
 
     data class BulletList(val bullets: ImmutableList<String>) : LeftAlignedScreenBody()
-    data class NumberedList(val list: ImmutableList<String>) : LeftAlignedScreenBody()
+    data class NumberedList(val list: ImmutableList<ListItem>) : LeftAlignedScreenBody()
 
     data class Image(
         val image: Int,

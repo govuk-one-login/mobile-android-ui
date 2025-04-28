@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.list
 
+import android.text.Spanned
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
@@ -49,7 +51,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  */
 @Composable
 fun GdsNumberedList(
-    numberedListItems: ImmutableList<String>,
+    numberedListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
 ) {
@@ -65,7 +67,8 @@ fun GdsNumberedList(
 }
 
 @Composable
-private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
+private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
+    val context = LocalContext.current
     SubcomposeLayout { constraints ->
         val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
         val indexMeasurables = subcompose(slotId = "indices") {
@@ -75,24 +78,24 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<String>) {
         }.map { it.measure(looseConstraints) }
 
         val maxWidthIndex = indexMeasurables.maxBy { it.width }
-
+        val one = 1
         val placeables = subcompose("main") {
             numberedListItems.forEachIndexed { index, item ->
                 val contentDescription = if (index == 0) {
                     pluralStringResource(
                         R.plurals.content_desc_numbered_list_item,
                         numberedListItems.size,
-                        numberedListItems.size,
-                        1,
-                        item,
+                        numberedListItems.size.convertToWord(context),
+                        one.convertToWord(context),
+                        item.toContentDescription(context),
                     )
                 } else {
-                    "${index + 1} $item"
+                    "${(index + 1).convertToWord(context)} ${item.toContentDescription(context)}"
                 }
                 NumberedListItem(
                     "${index + 1}.",
-                    text = item,
-                    bulletContentDescription = contentDescription,
+                    listItem = item,
+                    itemContentDescription = contentDescription,
                     maxWidthIndex.width.pxToDp(),
                 )
             }
@@ -160,8 +163,8 @@ private fun NumberedListTitle(
 @Composable
 private fun NumberedListItem(
     index: String,
-    text: String,
-    bulletContentDescription: String,
+    listItem: ListItem,
+    itemContentDescription: String,
     minIndexWidth: Dp,
 ) {
     Row(
@@ -170,7 +173,8 @@ private fun NumberedListItem(
             .padding(
                 start = spacingSingleAndAQuarter,
                 top = spacingSingle,
-            ),
+            )
+            .semantics { contentDescription = itemContentDescription },
     ) {
         IndexText(
             index,
@@ -180,14 +184,7 @@ private fun NumberedListItem(
                 }
                 .defaultMinSize(minWidth = minIndexWidth),
         )
-        Text(
-            text = text,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
-            modifier = Modifier
-                .semantics { contentDescription = bulletContentDescription }
-                .padding(start = spacingDoubleAndAHalf),
-        )
+        ListText(listItem)
     }
 }
 
@@ -205,6 +202,34 @@ private fun IndexText(index: String, modifier: Modifier = Modifier) {
 @Composable
 private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
 
+@Composable
+private fun ListText(
+    listItem: ListItem,
+) {
+    if (listItem.text.isNotEmpty()) {
+        Text(
+            text = listItem.text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            modifier = Modifier
+                .semantics { invisibleToUser() }
+                .padding(start = spacingDoubleAndAHalf),
+        )
+    } else {
+        val context = LocalContext.current
+        val spanned = context.getText(listItem.spannableText) as Spanned
+        val annotatedString = spanned.toAnnotatedString()
+        Text(
+            text = annotatedString,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            modifier = Modifier
+                .semantics { invisibleToUser() }
+                .padding(start = spacingDoubleAndAHalf),
+        )
+    }
+}
+
 internal const val TAG_TITLE_HEADING = "titleHeading"
 internal const val TAG_TITLE_BOLD = "titleBold"
 internal const val TAG_TITLE_REGULAR = "titleRegular"
@@ -213,87 +238,102 @@ internal const val TAG_TITLE_REGULAR = "titleRegular"
 internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
     override val values: Sequence<ListWrapper> = sequenceOf(
         ListWrapper(
-            items = persistentListOf(
-                "Single line",
+            listItems = persistentListOf(
+                ListItem("Single line"),
             ),
-            ListTitle("One item GDS heading", TitleType.Heading),
+            title = ListTitle("One item GDS heading", TitleType.Heading),
         ),
         ListWrapper(
-            items = persistentListOf(
-                FIRST_LINE,
-                SECOND_LINE,
+            listItems = persistentListOf(
+                ListItem(FIRST_LINE),
+                ListItem(SECOND_LINE),
             ),
-            ListTitle("Multiple items plain text title", TitleType.Text),
+            title = ListTitle("Multiple items plain text title", TitleType.Text),
         ),
         ListWrapper(
-            items = persistentListOf(
-                FIRST_LINE,
-                SECOND_LINE,
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            listItems = persistentListOf(
+                ListItem(FIRST_LINE),
+                ListItem(SECOND_LINE),
+                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
             ),
         ),
         ListWrapper(
-            items = persistentListOf(
-                FIRST_LINE,
-                SECOND_LINE,
+            listItems = persistentListOf(
+                ListItem(FIRST_LINE),
+                ListItem(SECOND_LINE),
             ),
-            ListTitle("Multiple items bold title", TitleType.BoldText),
+            title = ListTitle("Multiple items bold title", TitleType.BoldText),
         ),
         ListWrapper(
-            items = persistentListOf(
-                LINE1,
-                LINE2,
-                LINE3,
-                LINE4,
-                LINE5,
-                LINE6,
-                LINE7,
-                LINE8,
-                LINE9,
-                "Line ten",
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+                ListItem(LINE3),
+                ListItem(LINE4),
+                ListItem(LINE5),
+                ListItem(LINE6),
+                ListItem(LINE7),
+                ListItem(LINE8),
+                ListItem(LINE9),
+                ListItem("Line ten"),
             ),
-            ListTitle("Double digit index", TitleType.Heading),
+            title = ListTitle("Double digit index", TitleType.Heading),
         ),
         ListWrapper(
-            items = persistentListOf(
-                LINE1,
-                LINE2,
-                LINE3,
-                LINE4,
-                LINE5,
-                LINE6,
-                LINE7,
-                LINE8,
-                LINE9,
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+                ListItem(LINE3),
+                ListItem(LINE4),
+                ListItem(LINE5),
+                ListItem(LINE6),
+                ListItem(LINE7),
+                ListItem(LINE8),
+                ListItem(LINE9),
             ),
-            ListTitle("Single digit index", TitleType.Heading),
+            title = ListTitle("Single digit index", TitleType.Heading),
         ),
         ListWrapper(
-            items = persistentListOf(
-                LINE1,
-                LINE2,
-                LINE3,
-                LINE4,
-                LINE5,
-                LINE6,
-                LINE7,
-                LINE8,
-                LINE9,
-                "Line ten",
-                "Line eleven",
-                "Line twelve",
-                "Line thirteen",
-                "Line fourteen",
-                "Line fifteen",
-                "Line sixteen",
-                "Line seventeen",
-                "Line eighteen",
-                "Line nineteen",
-                "Line twenty",
-                "Line twenty one",
-                "Line twenty two",
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(LINE2),
+                ListItem(LINE3),
+                ListItem(LINE4),
+                ListItem(LINE5),
+                ListItem(LINE6),
+                ListItem(LINE7),
+                ListItem(LINE8),
+                ListItem(LINE9),
+                ListItem("Line ten"),
+                ListItem("Line eleven"),
+                ListItem("Line twelve"),
+                ListItem("Line thirteen"),
+                ListItem("Line fourteen"),
+                ListItem("Line fifteen"),
+                ListItem("Line sixteen"),
+                ListItem("Line seventeen"),
+                ListItem("Line eighteen"),
+                ListItem("Line nineteen"),
+                ListItem("Line twenty"),
+                ListItem("Line twenty one"),
+                ListItem("Line twenty two"),
             ),
-            ListTitle("20+ digit index", TitleType.Heading),
+            title = ListTitle("20+ digit index", TitleType.Heading),
+        ),
+        ListWrapper(
+            listItems = persistentListOf(
+                ListItem("Llinell un"),
+                ListItem("Llinell dau"),
+                ListItem("Llinell tri"),
+                ListItem("Llinell pedwar"),
+                ListItem("Llinell pump"),
+                ListItem("Llinell chwech"),
+                ListItem("Llinell saith"),
+                ListItem("Llinell wyth"),
+                ListItem("Llinell naw"),
+                ListItem("Llinell deg"),
+            ),
+            title = ListTitle("Welsh example", TitleType.Heading),
         ),
     )
 }
@@ -320,7 +360,7 @@ internal fun GdsNumberedListPreview(
 ) {
     GdsTheme {
         GdsNumberedList(
-            numberedListItems = numberedListWrapper.items,
+            numberedListItems = numberedListWrapper.listItems,
             title = numberedListWrapper.title,
         )
     }

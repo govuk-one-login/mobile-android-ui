@@ -23,6 +23,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
+import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingSingle
@@ -47,7 +48,7 @@ sealed class CentreAlignedScreenBodyContent {
     ) : CentreAlignedScreenBodyContent()
     data class NumberedList(
         val title: ListTitle? = null,
-        val items: ImmutableList<String>,
+        val items: ImmutableList<ListItem>,
     ) : CentreAlignedScreenBodyContent()
     data class Button(
         val text: String,
