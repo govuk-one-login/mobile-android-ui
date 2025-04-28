@@ -2,17 +2,23 @@ package uk.gov.android.ui.patterns.dialog
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -49,7 +55,7 @@ fun FullScreenDialogue(
     FullScreenDialogue(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
-        topAppBar = {
+        topAppBar = { scrollBehaviour ->
             FullScreenDialogueTopAppBar(
                 title = {
                     title?.let {
@@ -57,6 +63,7 @@ fun FullScreenDialogue(
                     }
                 },
                 onCloseClick = onDismissRequest,
+                scrollBehavior = scrollBehaviour,
             )
         },
         onBack = onBack,
@@ -84,10 +91,11 @@ fun FullScreenDialogue(
  *
  * **Used in [FullScreenDialog] composition.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
-    topAppBar: @Composable () -> Unit,
+    topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
     content: @Composable () -> Unit,
@@ -96,12 +104,18 @@ fun FullScreenDialogue(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = onDismissRequest,
     ) {
-        Surface(modifier = Modifier.fillMaxSize()) {
+        BoxWithConstraints {
+            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+            // Required to be able to display scrollable content for components that require an exact size (e.g. GdsCard)
+            val maxHeight = maxHeight
+
             Scaffold(
-                topBar = { topAppBar() },
+                topBar = { topAppBar(scrollBehavior) },
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             ) { innerPadding ->
                 Column(
-                    modifier = modifier
+                    modifier = modifier.height(maxHeight)
+                        .verticalScroll(rememberScrollState())
                         .padding(innerPadding)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.SpaceBetween,

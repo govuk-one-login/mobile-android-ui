@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
@@ -55,14 +55,15 @@ fun FullScreenDialog(
     FullScreenDialogue(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
-        topAppBar = {
-            FullScreenDialogTopAppBar(
+        topAppBar = { scrollBehavior ->
+            FullScreenDialogueTopAppBar(
                 title = {
                     title?.let {
                         Text(title)
                     }
                 },
                 onCloseClick = onDismissRequest,
+                scrollBehavior = scrollBehavior,
             )
         },
         content = content,
@@ -140,7 +141,7 @@ internal class FullScreenDialogPreviewProvider :
         )
 }
 
-@PreviewLightDark
+@Preview
 @Composable
 internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialogPreviewProvider::class)
@@ -154,7 +155,7 @@ internal fun ModalDialogPreview(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@PreviewLightDark
+@Preview
 @Composable
 internal fun ModalDialogWithCustomisedTopAppBarPreview(
     @PreviewParameter(FullScreenDialogPreviewProvider::class)

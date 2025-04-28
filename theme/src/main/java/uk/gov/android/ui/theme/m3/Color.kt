@@ -170,3 +170,6 @@ val m3_theme_tertiaryFixed = Color(0xFFF3F2F1)
 
 // Same as onPrimary as default
 val m3_theme_onTertiaryFixed = Color(0xFF0B0C0C)
+
+val temporary_list_color_light = Color(0xFFF3F2F1)
+val temporary_list_color_dark = Color(0xFF262626)
