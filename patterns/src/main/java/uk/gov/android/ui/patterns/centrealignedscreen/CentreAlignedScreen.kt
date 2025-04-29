@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +39,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
@@ -52,6 +52,7 @@ import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 private const val ONE_THIRD = 1f / 3f
 
@@ -74,7 +75,7 @@ private const val ONE_THIRD = 1f / 3f
 @Suppress("LongMethod")
 @SuppressWarnings("squid:S107")
 @Composable
-internal fun CentreAlignedScreen(
+fun CentreAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
@@ -174,6 +175,7 @@ internal fun CentreAlignedScreen(
  * @param primaryButton primary action button (optional).
  * @param secondaryButton secondary action button (optional).
  */
+@OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
 @Composable
 fun CentreAlignedScreen(
@@ -187,14 +189,10 @@ fun CentreAlignedScreen(
 ) {
     CentreAlignedScreen(
         title = { horizontalPadding ->
-            Text(
+            GdsHeading(
                 text = title,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = Typography.displaySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = horizontalPadding),
-                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+                textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
         image = image?.let {
@@ -338,7 +336,7 @@ private fun SupportingText(
         Text(
             text = text,
             style = Typography.labelMedium,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = colorScheme.onBackground,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
