@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.heading
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
@@ -97,6 +98,28 @@ class GdsHeadingTest {
             }
             onNodeWithText("Custom Heading").apply {
                 assertIsDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun testCustomContentDescription() {
+        composeTestRule.apply {
+            setContent {
+                GdsTheme {
+                    GdsHeading(
+                        text = "Custom Heading",
+                        customContentDescription = "Custom content description",
+                    )
+                }
+            }
+
+            onNodeWithText("Custom Heading").apply {
+                assertIsDisplayed()
+            }
+
+            onNodeWithContentDescription("Custom content description").apply {
+                assertExists()
             }
         }
     }
