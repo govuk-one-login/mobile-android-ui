@@ -44,6 +44,7 @@ enum class GdsHeadingAlignment {
 fun GdsHeading(
     text: String,
     modifier: Modifier = Modifier,
+    customContentDescription: String? = null,
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     textColour: Color = MaterialTheme.colorScheme.onBackground,
@@ -77,7 +78,7 @@ fun GdsHeading(
         modifier = modifier
             .fillMaxWidth()
             .semantics {
-                contentDescription = text
+                contentDescription = customContentDescription ?: text
                 heading()
             },
         textAlign = alignment,
@@ -92,6 +93,7 @@ internal sealed class GdsHeadingColour(val lightModeColour: Color, val darkModeC
 
 internal data class HeadingParameters(
     val text: String,
+    val customContentDescription: String? = null,
     val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
     val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
@@ -125,6 +127,11 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
             ),
         ),
         HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
+        HeadingParameters(
+            text = "Title with custom content description",
+            style = GdsHeadingStyle.LargeTitle,
+            customContentDescription = "Custom content description",
+        ),
     )
 }
 
@@ -140,6 +147,7 @@ internal fun PreviewTitle() {
             parameters.forEach {
                 GdsHeading(
                     text = it.text,
+                    customContentDescription = it.customContentDescription,
                     style = it.style,
                     textFontWeight = it.fontWeight,
                     textAlign = it.textAlign,
