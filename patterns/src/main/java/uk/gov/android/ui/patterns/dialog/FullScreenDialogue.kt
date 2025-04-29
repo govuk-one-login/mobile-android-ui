@@ -107,15 +107,13 @@ fun FullScreenDialogue(
         BoxWithConstraints {
             val scrollState = rememberScrollState()
             val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-            // Required to be able to display scrollable content for components that require an exact size (e.g. GdsCard)
-            val maxHeight = maxHeight
 
             Scaffold(
                 topBar = { topAppBar(scrollBehavior) },
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             ) { innerPadding ->
                 Column(
-                    modifier = modifier.height(maxHeight)
+                    modifier = modifier.height(this.maxHeight)
                         .padding(innerPadding)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.SpaceBetween,
