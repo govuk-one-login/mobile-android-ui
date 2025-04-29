@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.dialog
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -50,19 +51,20 @@ fun FullScreenDialog(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     title: String? = null,
-    content: @Composable () -> Unit,
+    content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
-        topAppBar = {
-            FullScreenDialogTopAppBar(
+        topAppBar = { scrollBehavior ->
+            FullScreenDialogueTopAppBar(
                 title = {
                     title?.let {
                         Text(title)
                     }
                 },
                 onCloseClick = onDismissRequest,
+                scrollBehavior = scrollBehavior,
             )
         },
         content = content,
@@ -149,7 +151,7 @@ internal fun ModalDialogPreview(
     FullScreenDialog(
         onDismissRequest = { },
         title = parameters.title,
-        content = parameters.content,
+        content = { parameters.content },
     )
 }
 
