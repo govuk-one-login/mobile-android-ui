@@ -39,6 +39,18 @@ enum class GdsHeadingAlignment {
     RightAligned,
 }
 
+/**
+ * GDS Heading
+ *
+ * @param text The visible heading text to be displayed. Default content description is the same as this text.
+ * @param modifier Modifier to be applied to the heading layout.
+ * @param customContentDescription Content description for accessibility (TalkBack).
+ *    If provided, it will override the default content description derived from [text].
+ * @param style The visual style of the heading (e.g., large title, section heading).
+ * @param textAlign How the text should be aligned within its container.
+ * @param textColour The color of the text. Defaults to the theme's `onBackground`.
+ * @param textFontWeight Font weight override for the heading text (optional).
+ */
 @UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
