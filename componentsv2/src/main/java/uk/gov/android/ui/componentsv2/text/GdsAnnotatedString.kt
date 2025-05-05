@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.invisibleToUser
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
@@ -44,9 +46,9 @@ fun GdsAnnotatedString(
     val annotatedString: AnnotatedString = buildAnnotatedString {
         if (isIconTrailing) {
             append(AnnotatedString(text))
-            appendInlineContent(iconId, "[icon]")
+            appendInlineContent(iconId, "[$iconContentDescription]")
         } else {
-            appendInlineContent(iconId, "[icon]")
+            appendInlineContent(iconId, "[$iconContentDescription]")
             append(AnnotatedString(text))
         }
     }
@@ -66,7 +68,8 @@ fun GdsAnnotatedString(
                     color = iconColor,
                     backgroundColor = iconBackgroundColor,
                     modifier = Modifier
-                        .padding(start = xsmallPadding),
+                        .padding(start = xsmallPadding)
+                        .semantics { invisibleToUser() },
                 )
             },
         ),
