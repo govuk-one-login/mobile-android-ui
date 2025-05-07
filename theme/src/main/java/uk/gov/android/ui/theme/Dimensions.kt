@@ -64,4 +64,5 @@ val dividerThickness = 1.dp
 
 // Content Tile
 val tileCornerRadius = 12.dp
+val cardShadow = 1.dp
 const val ROW_DISTRIBUTION = .1f

@@ -30,12 +30,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.ROW_DISTRIBUTION
+import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -57,6 +60,7 @@ fun GdsCard(
     displayPrimary: Boolean = true,
     buttonText: String? = null,
     showSecondaryIcon: Boolean = false,
+    shadow: Dp = cardShadow
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -64,7 +68,7 @@ fun GdsCard(
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         shape = RoundedCornerShape(tileCornerRadius),
-        modifier = modifier.elevatedCardModifier(),
+        modifier = modifier.elevatedCardModifier(shadow),
     ) {
         TileImage(
             image = image,
@@ -222,6 +226,7 @@ internal data class GdsCardPreviewParameters(
     val displayPrimary: Boolean = true,
     val buttonText: Int? = null,
     val showSecondaryIcon: Boolean = false,
+    val shadow: Dp = cardShadow,
 )
 
 internal class GdsCardPreviewParametersProvider :
@@ -268,6 +273,24 @@ internal class GdsCardPreviewParametersProvider :
             displayPrimary = true,
             buttonText = R.string.primary_button,
         ),
+        GdsCardPreviewParameters(
+            showDismissIcon = true,
+            caption = R.string.caption,
+            title = R.string.title,
+            body = R.string.body,
+            displayPrimary = true,
+            buttonText = R.string.primary_button,
+            shadow = 12.dp
+        ),
+        GdsCardPreviewParameters(
+            showDismissIcon = true,
+            caption = R.string.caption,
+            title = R.string.title,
+            body = R.string.body,
+            displayPrimary = true,
+            buttonText = R.string.primary_button,
+            shadow = 0.dp
+        ),
     )
 }
 
@@ -289,6 +312,7 @@ internal fun GdsCardPreview(
             displayPrimary = parameters.displayPrimary,
             buttonText = parameters.buttonText?.let { stringResource(it) },
             showSecondaryIcon = parameters.showSecondaryIcon,
+            shadow = parameters.shadow
         )
     }
 }

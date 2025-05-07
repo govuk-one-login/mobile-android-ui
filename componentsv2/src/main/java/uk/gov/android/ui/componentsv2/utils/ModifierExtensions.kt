@@ -5,17 +5,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
+import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
 
 object ModifierExtensions {
-    fun Modifier.elevatedCardModifier(modifier: Modifier? = null) = fillMaxWidth()
+    /**
+     * This modifier enables a card to have shadow/ elevation provided and the shape as [RoundedCornerShape]
+     * with a radius of **12.dp** (as per GDS Design requirements).
+     *
+     * @param shadow the elevation/. shadow of the card - it defaults to **1.dp**
+     */
+    fun Modifier.elevatedCardModifier(shadow: Dp?) = fillMaxWidth()
         .shadow(
-            elevation = 8.dp,
+            elevation = shadow ?: cardShadow,
             shape = RoundedCornerShape(tileCornerRadius),
         )
-        .then(modifier ?: Modifier)
 
     fun Modifier.customTilePadding(apply: Boolean) = if (apply) {
         fillMaxWidth()
