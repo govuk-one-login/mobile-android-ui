@@ -18,6 +18,7 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,6 +64,41 @@ fun GdsTheme(
         ) {
             content()
         }
+    }
+}
+
+/**
+ * A temporary wrapper for [MaterialTheme] until [GdsThemeV2] is complete
+ *
+ * This theme is compliant with edge to edge requirements
+ *
+ */
+@Suppress("DEPRECATION")
+@Composable
+@JvmName("GdsThemeE2E")
+fun GdsTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    shapes: Shapes = Shapes,
+    typography: Typography = Typography,
+    content: @Composable () -> Unit,
+) {
+    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
+
+    MaterialTheme(
+        colorScheme = colors,
+        shapes = shapes,
+        typography = typography,
+    ) {
+        val view = LocalView.current
+
+        if (!view.isInEditMode && view.context is Activity) {
+            SideEffect {
+                val window = (view.context as Activity).window
+                window.statusBarColor = Color.Transparent.toArgb()
+            }
+        }
+
+        content()
     }
 }
 
@@ -116,69 +152,91 @@ internal const val PALETTE_HEIGHT_V2 = 1750
     heightDp = PALETTE_HEIGHT,
 )
 @Composable
-@Suppress("LongMethod")
 fun ThemePreview() {
     GdsTheme(
         modifier = Modifier.padding(PALETTE_PADDING.dp),
     ) {
-        with(MaterialTheme.colorScheme) {
-            val standardColors = listOf(
-                SwatchColor(primary, "Primary"),
-                SwatchColor(secondary, "Secondary"),
-                SwatchColor(tertiary, "Tertiary"),
-                SwatchColor(error, "Error"),
-            )
-            val onStandardColors = listOf(
-                SwatchColor(onPrimary, "On Primary", primary),
-                SwatchColor(onSecondary, "On Secondary", secondary),
-                SwatchColor(onTertiary, "On Tertiary", tertiary),
-                SwatchColor(onError, "On Error", error),
-            )
-            val containerColors = listOf(
-                SwatchColor(primaryContainer, "Primary Container"),
-                SwatchColor(secondaryContainer, "Secondary Container"),
-                SwatchColor(tertiaryContainer, "Tertiary Container"),
-                SwatchColor(errorContainer, "Error Container"),
-            )
-            val onContainerColors = listOf(
-                SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
-                SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
-                SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
-                SwatchColor(onErrorContainer, "On Error Container", errorContainer),
-            )
-            val otherContainerColors = listOf(
-                SwatchColor(inversePrimary, "Inverse Primary"),
-                SwatchColor(inverseSurface, "Inverse Surface"),
-                SwatchColor(inverseOnSurface, "Inverse On Surface"),
-                SwatchColor(scrim, "Scrim"),
-            )
-            val surfaceColors = listOf(
-                SwatchColor(surface, "Surface"),
-                SwatchColor(surfaceVariant, "Surface Variant"),
-                SwatchColor(surfaceTint, "Surface Tint"),
-            )
-            val onSurfaceColors = listOf(
-                SwatchColor(onSurface, "On Surface", surface),
-                SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
-            )
-            val outLineColors = listOf(
-                SwatchColor(outline, "Outline"),
-                SwatchColor(outlineVariant, "Outline Variant"),
-            )
-            Column {
-                Row { standardColors.forEach { Swatch(data = it) } }
-                Row { onStandardColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { containerColors.forEach { Swatch(data = it) } }
-                Row { onContainerColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { otherContainerColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { surfaceColors.forEach { Swatch(data = it) } }
-                Row { onSurfaceColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { outLineColors.forEach { Swatch(data = it) } }
-            }
+        TestColumn()
+    }
+}
+
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    widthDp = PALETTE_WIDTH,
+    heightDp = PALETTE_HEIGHT,
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    widthDp = PALETTE_WIDTH,
+    heightDp = PALETTE_HEIGHT,
+)
+@Composable
+fun ThemeE2EPreview() {
+    GdsTheme {
+        TestColumn()
+    }
+}
+
+@Composable
+@Suppress("LongMethod")
+private fun TestColumn() {
+    with(MaterialTheme.colorScheme) {
+        val standardColors = listOf(
+            SwatchColor(primary, "Primary"),
+            SwatchColor(secondary, "Secondary"),
+            SwatchColor(tertiary, "Tertiary"),
+            SwatchColor(error, "Error"),
+        )
+        val onStandardColors = listOf(
+            SwatchColor(onPrimary, "On Primary", primary),
+            SwatchColor(onSecondary, "On Secondary", secondary),
+            SwatchColor(onTertiary, "On Tertiary", tertiary),
+            SwatchColor(onError, "On Error", error),
+        )
+        val containerColors = listOf(
+            SwatchColor(primaryContainer, "Primary Container"),
+            SwatchColor(secondaryContainer, "Secondary Container"),
+            SwatchColor(tertiaryContainer, "Tertiary Container"),
+            SwatchColor(errorContainer, "Error Container"),
+        )
+        val onContainerColors = listOf(
+            SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
+            SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
+            SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
+            SwatchColor(onErrorContainer, "On Error Container", errorContainer),
+        )
+        val otherContainerColors = listOf(
+            SwatchColor(inversePrimary, "Inverse Primary"),
+            SwatchColor(inverseSurface, "Inverse Surface"),
+            SwatchColor(inverseOnSurface, "Inverse On Surface"),
+            SwatchColor(scrim, "Scrim"),
+        )
+        val surfaceColors = listOf(
+            SwatchColor(surface, "Surface"),
+            SwatchColor(surfaceVariant, "Surface Variant"),
+            SwatchColor(surfaceTint, "Surface Tint"),
+        )
+        val onSurfaceColors = listOf(
+            SwatchColor(onSurface, "On Surface", surface),
+            SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
+        )
+        val outLineColors = listOf(
+            SwatchColor(outline, "Outline"),
+            SwatchColor(outlineVariant, "Outline Variant"),
+        )
+        Column {
+            Row { standardColors.forEach { Swatch(data = it) } }
+            Row { onStandardColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { containerColors.forEach { Swatch(data = it) } }
+            Row { onContainerColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { otherContainerColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { surfaceColors.forEach { Swatch(data = it) } }
+            Row { onSurfaceColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { outLineColors.forEach { Swatch(data = it) } }
         }
     }
 }
@@ -366,7 +424,7 @@ fun ThemeV2Preview() {
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Text(
                     "Fixed/ Static Colours - DOESN'T use the Material3 " +
-                        "- would need to be used variables directly - see Colors.kt",
+                            "- would need to be used variables directly - see Colors.kt",
                     style = MaterialTheme.typography.headlineSmall,
                     color = m3_theme_secondaryFixed,
                 )
