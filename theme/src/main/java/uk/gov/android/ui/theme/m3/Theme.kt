@@ -424,7 +424,7 @@ fun ThemeV2Preview() {
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Text(
                     "Fixed/ Static Colours - DOESN'T use the Material3 " +
-                            "- would need to be used variables directly - see Colors.kt",
+                        "- would need to be used variables directly - see Colors.kt",
                     style = MaterialTheme.typography.headlineSmall,
                     color = m3_theme_secondaryFixed,
                 )
