@@ -3,10 +3,10 @@ package uk.gov.android.ui.componentsv2
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,11 +28,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
@@ -43,15 +48,41 @@ import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3.customDynamicColor
+import uk.gov.android.ui.theme.m3.temporary_link_color_dark
+import uk.gov.android.ui.theme.m3.temporary_link_color_light
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
 
+/**
+ * This is providing a customisable card/ tile.
+ *
+ * @param title (required)
+ * @param titleStyle (default provided) - defaults to GDS Design Typography **Title 2** (see [Typography] but can be overridden with any other TextStyle, as required (check with UCD)
+ * @param body (optional) - style/ details **NOT** configurable
+ * @param caption (optional) - style/ details **NOT** configurable
+ * @param image (optional) - image that would be displayed above text content
+ * @param contentDescription (optional) - the image (param above) content description
+ * @param showDismissIcon (optional) - dismiss icon present in the top left corner
+ * @param dismiss (optional) - action to be provided for the dismiss icon (param above)
+ * @param displayPrimary (default provided) - defaults to true - controls if a [GdsButton] of type [ButtonType.Primary] is displayed
+ * @param displaySecondary (default provided) - defaults to false - controls if a [GdsButton] of type [ButtonType.Secondary] is displayed
+ *
+ * **You can either display a Primary Button, a Secondary one or no button at al, NOT both at the same time with the current implementation**
+ *
+ * @param buttonText (optional) - this is used for the content of the buttons (when using any of the buttons, this will need to be provided, otherwise it would be an empty button) - when not using buttons it can be skipped as it defaults to **null**
+ * @param secondaryIcon (optional and default provided) - it defaults to **external site icon** - this controls if the secondary button will display an icon or if it will be only text (to **NOT** display the icon set to null)
+ * @param secondaryIconContentDescription (optional and default provided) - it defaults to **external site icon content description**
+ * @param shadow (default provided) - default to 1.dp but can be overridden
+ * @param onClick (required) - action attached to the buttons (used for any type of buttons since only one button can be displayed at one time)
+ */
 @Composable
 fun GdsCard(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    titleStyle: TextStyle = Typography.headlineMedium,
     image: Painter? = null,
     contentDescription: String? = null,
     showDismissIcon: Boolean = false,
@@ -59,8 +90,11 @@ fun GdsCard(
     body: String? = null,
     displayPrimary: Boolean = true,
     buttonText: String? = null,
-    showSecondaryIcon: Boolean = false,
-    shadow: Dp = cardShadow
+    displaySecondary: Boolean = false,
+    secondaryIcon: ImageVector? = ImageVector.vectorResource(R.drawable.ic_external_site),
+    secondaryIconContentDescription: String? = stringResource(R.string.opens_in_external_browser),
+    shadow: Dp = cardShadow,
+    dismiss: (() -> Unit) = {},
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -68,104 +102,132 @@ fun GdsCard(
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         shape = RoundedCornerShape(tileCornerRadius),
-        modifier = modifier.elevatedCardModifier(shadow),
+        modifier = modifier.elevatedCardModifier(shadow)
+            .focusGroup()
+            .semantics(true) { this.contentDescription = title + "card" },
     ) {
-        TileImage(
-            image = image,
-            contentDescription = contentDescription,
-            showDismissIcon = showDismissIcon,
-        )
-        Row {
-            Column(
-                modifier = Modifier
-                    .weight(ROW_DISTRIBUTION, false)
-                    .padding(horizontal = smallPadding),
-            ) {
-                caption?.let {
-                    Text(
-                        text = caption,
-                        style = Typography.bodySmall,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = xsmallPadding),
-                    )
-                }
-                Text(
-                    text = title,
-                    style = Typography.headlineMedium,
-                    modifier = Modifier.customTilePadding(body != null),
+        Box(Modifier.padding(0.dp)) {
+            Column {
+                TileImage(
+                    image = image,
+                    contentDescription = contentDescription,
                 )
-                body?.let {
-                    Text(
-                        text = body,
-                        style = Typography.bodyLarge,
-                        modifier = Modifier.padding(vertical = xsmallPadding),
-                    )
+                Box {
+                    Column(Modifier.focusGroup().semantics(true) {}) {
+                        Column(
+                            modifier = Modifier
+                                .weight(ROW_DISTRIBUTION, false)
+                                .padding(horizontal = smallPadding),
+                        ) {
+                            Content(caption, title, titleStyle, body, displaySecondary)
+                        }
+                        Buttons(
+                            text = buttonText,
+                            displayPrimary = displayPrimary,
+                            displaySecondary = displaySecondary,
+                            secondaryIcon = secondaryIcon,
+                            secondaryIconContentDescription = secondaryIconContentDescription,
+                            onClick = onClick,
+                        )
+                    }
+                    if (image == null && showDismissIcon) {
+                        DismissButton(
+                            dismiss,
+                            Modifier.align(alignment = Alignment.TopEnd).zIndex(1f),
+                        )
+                    }
                 }
             }
-            if (image == null && showDismissIcon) {
-                DismissIcon()
+            if (showDismissIcon && image != null) {
+                DismissButton(
+                    dismiss,
+                    Modifier.align(alignment = Alignment.TopEnd).zIndex(1f),
+                )
             }
         }
-        Buttons(
-            text = buttonText,
-            displayPrimary = displayPrimary,
-            showSecondaryIcon = showSecondaryIcon,
-            onClick = onClick,
+    }
+}
+
+@Composable
+private fun Content(
+    caption: String?,
+    title: String,
+    titleFont:
+    TextStyle,
+    body: String?,
+    displaySecondary: Boolean,
+) {
+    caption?.let {
+        Text(
+            text = caption,
+            style = Typography.bodySmall,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = xsmallPadding),
+        )
+    }
+    Text(
+        text = title,
+        style = titleFont,
+        modifier = Modifier
+            .customTilePadding(body != null),
+    )
+    body?.let {
+        Text(
+            text = body,
+            style = Typography.bodyLarge,
+            modifier = Modifier.customTilePadding(displaySecondary),
         )
     }
 }
 
 @Composable
 private fun TileImage(
-    showDismissIcon: Boolean,
-    modifier: Modifier = Modifier,
     image: Painter? = null,
     contentDescription: String? = null,
 ) {
     val defaultContentDescription = stringResource(R.string.vector_image_content_description)
     image?.let {
-        Box(
-            modifier = modifier,
-        ) {
-            Image(
-                painter = image,
-                contentDescription = contentDescription ?: defaultContentDescription,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier
-                    .fillMaxWidth(),
-            ) {
-                if (showDismissIcon) {
-                    DismissIcon()
-                }
-            }
-        }
+        Image(
+            painter = image,
+            contentDescription = contentDescription ?: defaultContentDescription,
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
 @Composable
-private fun DismissIcon() {
-    Icon(
-        imageVector = Icons.Default.Close,
-        contentDescription = stringResource(R.string.icon_content_desc),
-        tint = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(
-            top = xsmallPadding,
-            bottom = largePadding,
-            end = smallPadding,
-        ),
-    )
+private fun DismissButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val description = stringResource(R.string.close_button)
+    IconButton(
+        onClick = onClick,
+        modifier = Modifier
+            .padding(top = xsmallPadding, bottom = largePadding, end = smallPadding)
+            .semantics(true) {}
+            .then(modifier),
+    ) {
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = description,
+            tint = customDynamicColor(
+                temporary_link_color_light,
+                temporary_link_color_dark,
+            ),
+        )
+    }
 }
 
 @Composable
 private fun Buttons(
     text: String?,
     displayPrimary: Boolean,
-    showSecondaryIcon: Boolean,
+    secondaryIcon: ImageVector?,
+    displaySecondary: Boolean,
+    secondaryIconContentDescription: String?,
     onClick: () -> Unit,
 ) {
     text?.let {
@@ -185,22 +247,30 @@ private fun Buttons(
                 onClick = onClick,
             )
         } else {
-            if (showSecondaryIcon) {
+            if (displaySecondary) {
                 HorizontalDivider(
                     thickness = dividerThickness,
                     color = MaterialTheme.colorScheme.surface,
+                    modifier = Modifier
+                        .padding(top = smallPadding)
+                        .padding(horizontal = smallPadding),
                 )
                 GdsButton(
                     text = text,
                     onClick = onClick,
-                    buttonType = ButtonType.Icon(
-                        buttonColors = customButtonColors(
-                            contentColor = MaterialTheme.colorScheme.primary,
-                            containerColor = MaterialTheme.colorScheme.inverseOnSurface,
-                        ),
-                        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
-                        contentDescription = stringResource(R.string.opens_in_external_browser),
-                    ),
+                    buttonType = secondaryIcon?.let {
+                        ButtonType.Icon(
+                            buttonColors = customButtonColors(
+                                contentColor = customDynamicColor(
+                                    temporary_link_color_light,
+                                    temporary_link_color_dark,
+                                ),
+                                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                            ),
+                            iconImage = secondaryIcon,
+                            contentDescription = secondaryIconContentDescription ?: "",
+                        )
+                    } ?: ButtonType.Secondary,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = xsmallPadding),
@@ -221,11 +291,16 @@ internal data class GdsCardPreviewParameters(
     val caption: Int? = null,
     @StringRes
     val title: Int,
+    val titleStyle: TextStyle = Typography.headlineMedium,
     @StringRes
     val body: Int? = null,
     val displayPrimary: Boolean = true,
     val buttonText: Int? = null,
-    val showSecondaryIcon: Boolean = false,
+    val displaySecondary: Boolean = false,
+    @DrawableRes
+    val secondaryIcon: Int? = R.drawable.ic_external_site,
+    @StringRes
+    val secondaryIconContentDescription: Int? = R.string.opens_in_external_browser,
     val shadow: Dp = cardShadow,
 )
 
@@ -246,7 +321,7 @@ internal class GdsCardPreviewParametersProvider :
             title = R.string.title,
             displayPrimary = false,
             buttonText = R.string.secondary_button,
-            showSecondaryIcon = true,
+            displaySecondary = true,
         ),
         GdsCardPreviewParameters(
             caption = R.string.caption,
@@ -270,8 +345,20 @@ internal class GdsCardPreviewParametersProvider :
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
+            displayPrimary = false,
+            displaySecondary = true,
+            secondaryIcon = null,
+            buttonText = R.string.secondary_button,
+        ),
+        GdsCardPreviewParameters(
+            showDismissIcon = true,
+            caption = R.string.caption,
+            title = R.string.title,
+            titleStyle = Typography.titleSmall,
+            body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
+            shadow = 12.dp,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
@@ -280,22 +367,26 @@ internal class GdsCardPreviewParametersProvider :
             body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
-            shadow = 12.dp
+            shadow = 0.dp,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
             caption = R.string.caption,
             title = R.string.title,
+            titleStyle = Typography.headlineLarge,
             body = R.string.body,
-            displayPrimary = true,
-            buttonText = R.string.primary_button,
-            shadow = 0.dp
+            displayPrimary = false,
+            buttonText = R.string.secondary_button,
+            displaySecondary = true,
+            secondaryIcon = R.drawable.arrow_forward,
+            secondaryIconContentDescription = R.string.icon_content_desc,
+            shadow = 0.dp,
         ),
     )
 }
 
 @Composable
-@PreviewLightDark
+@Preview
 internal fun GdsCardPreview(
     @PreviewParameter(GdsCardPreviewParametersProvider::class)
     parameters: GdsCardPreviewParameters,
@@ -303,6 +394,7 @@ internal fun GdsCardPreview(
     GdsTheme {
         GdsCard(
             title = stringResource(parameters.title),
+            titleStyle = parameters.titleStyle,
             onClick = {},
             image = parameters.image?.let { painterResource(it) },
             contentDescription = parameters.contentDescription?.let { stringResource(it) },
@@ -311,8 +403,12 @@ internal fun GdsCardPreview(
             body = parameters.body?.let { stringResource(it) },
             displayPrimary = parameters.displayPrimary,
             buttonText = parameters.buttonText?.let { stringResource(it) },
-            showSecondaryIcon = parameters.showSecondaryIcon,
-            shadow = parameters.shadow
+            displaySecondary = parameters.displaySecondary,
+            secondaryIcon = parameters.secondaryIcon?.let { ImageVector.vectorResource(it) },
+            secondaryIconContentDescription = parameters.secondaryIconContentDescription?.let {
+                stringResource(it)
+            },
+            shadow = parameters.shadow,
         )
     }
 }
