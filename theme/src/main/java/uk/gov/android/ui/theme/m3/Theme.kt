@@ -18,15 +18,18 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+@Suppress("DEPRECATION")
 @Composable
 fun GdsTheme(
     modifier: Modifier = Modifier,
@@ -48,7 +51,7 @@ fun GdsTheme(
         if (!view.isInEditMode && view.context is Activity) {
             SideEffect {
                 val window = (view.context as Activity).window
-                window.statusBarColor = backgroundColor.toArgb()
+                window.statusBarColor = Color.Transparent.toArgb()
                 WindowCompat
                     .getInsetsController(window, view)
                     .isAppearanceLightStatusBars = !darkTheme
@@ -66,6 +69,7 @@ fun GdsTheme(
     }
 }
 
+@Suppress("DEPRECATION")
 @UnstableDesignSystemAPI
 @Composable
 fun GdsThemeV2(
@@ -81,13 +85,12 @@ fun GdsThemeV2(
         shapes = shapes,
         typography = typography,
     ) {
-        val backgroundColor = colors.background
         val view = LocalView.current
 
         if (!view.isInEditMode && view.context is Activity) {
             SideEffect {
                 val window = (view.context as Activity).window
-                window.statusBarColor = backgroundColor.toArgb()
+                window.statusBarColor = Color.Transparent.toArgb()
                 WindowCompat
                     .getInsetsController(window, view)
                     .isAppearanceLightStatusBars = !darkTheme
@@ -105,6 +108,7 @@ internal const val PALETTE_HEIGHT = 1100
 internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 6) + (PALETTE_PADDING * 2)
 internal const val PALETTE_HEIGHT_V2 = 1750
 
+@ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH,
@@ -116,74 +120,80 @@ internal const val PALETTE_HEIGHT_V2 = 1750
     heightDp = PALETTE_HEIGHT,
 )
 @Composable
-@Suppress("LongMethod")
 fun ThemePreview() {
     GdsTheme(
         modifier = Modifier.padding(PALETTE_PADDING.dp),
     ) {
-        with(MaterialTheme.colorScheme) {
-            val standardColors = listOf(
-                SwatchColor(primary, "Primary"),
-                SwatchColor(secondary, "Secondary"),
-                SwatchColor(tertiary, "Tertiary"),
-                SwatchColor(error, "Error"),
-            )
-            val onStandardColors = listOf(
-                SwatchColor(onPrimary, "On Primary", primary),
-                SwatchColor(onSecondary, "On Secondary", secondary),
-                SwatchColor(onTertiary, "On Tertiary", tertiary),
-                SwatchColor(onError, "On Error", error),
-            )
-            val containerColors = listOf(
-                SwatchColor(primaryContainer, "Primary Container"),
-                SwatchColor(secondaryContainer, "Secondary Container"),
-                SwatchColor(tertiaryContainer, "Tertiary Container"),
-                SwatchColor(errorContainer, "Error Container"),
-            )
-            val onContainerColors = listOf(
-                SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
-                SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
-                SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
-                SwatchColor(onErrorContainer, "On Error Container", errorContainer),
-            )
-            val otherContainerColors = listOf(
-                SwatchColor(inversePrimary, "Inverse Primary"),
-                SwatchColor(inverseSurface, "Inverse Surface"),
-                SwatchColor(inverseOnSurface, "Inverse On Surface"),
-                SwatchColor(scrim, "Scrim"),
-            )
-            val surfaceColors = listOf(
-                SwatchColor(surface, "Surface"),
-                SwatchColor(surfaceVariant, "Surface Variant"),
-                SwatchColor(surfaceTint, "Surface Tint"),
-            )
-            val onSurfaceColors = listOf(
-                SwatchColor(onSurface, "On Surface", surface),
-                SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
-            )
-            val outLineColors = listOf(
-                SwatchColor(outline, "Outline"),
-                SwatchColor(outlineVariant, "Outline Variant"),
-            )
-            Column {
-                Row { standardColors.forEach { Swatch(data = it) } }
-                Row { onStandardColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { containerColors.forEach { Swatch(data = it) } }
-                Row { onContainerColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { otherContainerColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { surfaceColors.forEach { Swatch(data = it) } }
-                Row { onSurfaceColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { outLineColors.forEach { Swatch(data = it) } }
-            }
+        TestColumn()
+    }
+}
+
+@Composable
+@Suppress("LongMethod")
+private fun TestColumn() {
+    with(MaterialTheme.colorScheme) {
+        val standardColors = listOf(
+            SwatchColor(primary, "Primary"),
+            SwatchColor(secondary, "Secondary"),
+            SwatchColor(tertiary, "Tertiary"),
+            SwatchColor(error, "Error"),
+        )
+        val onStandardColors = listOf(
+            SwatchColor(onPrimary, "On Primary", primary),
+            SwatchColor(onSecondary, "On Secondary", secondary),
+            SwatchColor(onTertiary, "On Tertiary", tertiary),
+            SwatchColor(onError, "On Error", error),
+        )
+        val containerColors = listOf(
+            SwatchColor(primaryContainer, "Primary Container"),
+            SwatchColor(secondaryContainer, "Secondary Container"),
+            SwatchColor(tertiaryContainer, "Tertiary Container"),
+            SwatchColor(errorContainer, "Error Container"),
+        )
+        val onContainerColors = listOf(
+            SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
+            SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
+            SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
+            SwatchColor(onErrorContainer, "On Error Container", errorContainer),
+        )
+        val otherContainerColors = listOf(
+            SwatchColor(inversePrimary, "Inverse Primary"),
+            SwatchColor(inverseSurface, "Inverse Surface"),
+            SwatchColor(inverseOnSurface, "Inverse On Surface"),
+            SwatchColor(scrim, "Scrim"),
+        )
+        val surfaceColors = listOf(
+            SwatchColor(surface, "Surface"),
+            SwatchColor(surfaceVariant, "Surface Variant"),
+            SwatchColor(surfaceTint, "Surface Tint"),
+        )
+        val onSurfaceColors = listOf(
+            SwatchColor(onSurface, "On Surface", surface),
+            SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
+        )
+        val outLineColors = listOf(
+            SwatchColor(outline, "Outline"),
+            SwatchColor(outlineVariant, "Outline Variant"),
+        )
+        Column {
+            Row { standardColors.forEach { Swatch(data = it) } }
+            Row { onStandardColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { containerColors.forEach { Swatch(data = it) } }
+            Row { onContainerColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { otherContainerColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { surfaceColors.forEach { Swatch(data = it) } }
+            Row { onSurfaceColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Row { outLineColors.forEach { Swatch(data = it) } }
         }
     }
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
+@ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH_V2,
