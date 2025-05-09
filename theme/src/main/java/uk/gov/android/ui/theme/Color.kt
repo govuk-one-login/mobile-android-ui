@@ -58,7 +58,7 @@ val m3_theme_light_secondary = Color.White
 val m3_theme_light_tertiary = md_theme_light_primaryVariant
 val m3_theme_light_error = m3_error
 
-val m3_theme_light_onBackground = Color.Black
+val m3_theme_light_onBackground = Color(0xFF0B0C0C)
 val m3_theme_light_onPrimary = Color.White
 val m3_theme_light_onSecondary = Color.Black
 val m3_theme_light_onTertiary = Color.White

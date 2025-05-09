@@ -46,9 +46,9 @@ fun GdsAnnotatedString(
     val annotatedString: AnnotatedString = buildAnnotatedString {
         if (isIconTrailing) {
             append(AnnotatedString(text))
-            appendInlineContent(iconId, "[$iconContentDescription]")
+            appendInlineContent(iconId, " $iconContentDescription")
         } else {
-            appendInlineContent(iconId, "[$iconContentDescription]")
+            appendInlineContent(iconId, "$iconContentDescription ")
             append(AnnotatedString(text))
         }
     }

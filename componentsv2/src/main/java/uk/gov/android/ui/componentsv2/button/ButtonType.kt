@@ -9,6 +9,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.theme.adminButton
+import uk.gov.android.ui.theme.m3.customDynamicColor
+import uk.gov.android.ui.theme.m3.temporary_link_color_dark
+import uk.gov.android.ui.theme.m3.temporary_link_color_light
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 
@@ -80,8 +83,11 @@ internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
 
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.secondary,
-    contentColor = colorScheme.primary,
+    containerColor = Color.Transparent,
+    contentColor = customDynamicColor(
+        temporary_link_color_light,
+        temporary_link_color_dark,
+    ),
     disabledContainerColor = m3_disabled,
     disabledContentColor = m3_onDisabled,
 )
