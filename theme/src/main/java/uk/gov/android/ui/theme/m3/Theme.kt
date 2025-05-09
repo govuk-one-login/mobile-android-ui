@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -102,7 +103,14 @@ fun GdsTheme(
     }
 }
 
+/**
+ * The theme for ComponentV2 items
+ *
+ * This theme is compliant with edge to edge requirements
+ *
+ */
 @UnstableDesignSystemAPI
+@Suppress("DEPRECATION")
 @Composable
 fun GdsThemeV2(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -117,16 +125,12 @@ fun GdsThemeV2(
         shapes = shapes,
         typography = typography,
     ) {
-        val backgroundColor = colors.background
         val view = LocalView.current
 
         if (!view.isInEditMode && view.context is Activity) {
             SideEffect {
                 val window = (view.context as Activity).window
-                window.statusBarColor = backgroundColor.toArgb()
-                WindowCompat
-                    .getInsetsController(window, view)
-                    .isAppearanceLightStatusBars = !darkTheme
+                window.statusBarColor = Color.Transparent.toArgb()
             }
         }
 
@@ -141,6 +145,7 @@ internal const val PALETTE_HEIGHT = 1100
 internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 6) + (PALETTE_PADDING * 2)
 internal const val PALETTE_HEIGHT_V2 = 1750
 
+@ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH,
@@ -160,6 +165,7 @@ fun ThemePreview() {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH,
@@ -242,6 +248,7 @@ private fun TestColumn() {
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
+@ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH_V2,

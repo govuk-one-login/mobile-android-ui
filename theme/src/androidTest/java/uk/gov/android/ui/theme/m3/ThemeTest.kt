@@ -17,6 +17,13 @@ class ThemeTest {
     }
 
     @Test
+    fun previewV2Test() {
+        composeTestRule.setContent {
+            ThemeV2Preview()
+        }
+    }
+
+    @Test
     fun edgeToEdgePreviewTest() {
         composeTestRule.setContent {
             ThemeE2EPreview()
