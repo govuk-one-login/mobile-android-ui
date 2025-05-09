@@ -22,11 +22,4 @@ class ThemeTest {
             ThemeV2Preview()
         }
     }
-
-    @Test
-    fun edgeToEdgePreviewTest() {
-        composeTestRule.setContent {
-            ThemeE2EPreview()
-        }
-    }
 }

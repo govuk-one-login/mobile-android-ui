@@ -29,6 +29,7 @@ import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+@Suppress("DEPRECATION")
 @Composable
 fun GdsTheme(
     modifier: Modifier = Modifier,
@@ -50,7 +51,7 @@ fun GdsTheme(
         if (!view.isInEditMode && view.context is Activity) {
             SideEffect {
                 val window = (view.context as Activity).window
-                window.statusBarColor = backgroundColor.toArgb()
+                window.statusBarColor = Color.Transparent.toArgb()
                 WindowCompat
                     .getInsetsController(window, view)
                     .isAppearanceLightStatusBars = !darkTheme
@@ -68,49 +69,8 @@ fun GdsTheme(
     }
 }
 
-/**
- * A temporary wrapper for [MaterialTheme] until [GdsThemeV2] is complete
- *
- * This theme is compliant with edge to edge requirements
- *
- */
 @Suppress("DEPRECATION")
-@Composable
-@JvmName("GdsThemeE2E")
-fun GdsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = Shapes,
-    typography: Typography = Typography,
-    content: @Composable () -> Unit,
-) {
-    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
-
-    MaterialTheme(
-        colorScheme = colors,
-        shapes = shapes,
-        typography = typography,
-    ) {
-        val view = LocalView.current
-
-        if (!view.isInEditMode && view.context is Activity) {
-            SideEffect {
-                val window = (view.context as Activity).window
-                window.statusBarColor = Color.Transparent.toArgb()
-            }
-        }
-
-        content()
-    }
-}
-
-/**
- * The theme for ComponentV2 items
- *
- * This theme is compliant with edge to edge requirements
- *
- */
 @UnstableDesignSystemAPI
-@Suppress("DEPRECATION")
 @Composable
 fun GdsThemeV2(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -131,6 +91,9 @@ fun GdsThemeV2(
             SideEffect {
                 val window = (view.context as Activity).window
                 window.statusBarColor = Color.Transparent.toArgb()
+                WindowCompat
+                    .getInsetsController(window, view)
+                    .isAppearanceLightStatusBars = !darkTheme
             }
         }
 
@@ -161,24 +124,6 @@ fun ThemePreview() {
     GdsTheme(
         modifier = Modifier.padding(PALETTE_PADDING.dp),
     ) {
-        TestColumn()
-    }
-}
-
-@ExcludeFromJacocoGeneratedReport
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    widthDp = PALETTE_WIDTH,
-    heightDp = PALETTE_HEIGHT,
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    widthDp = PALETTE_WIDTH,
-    heightDp = PALETTE_HEIGHT,
-)
-@Composable
-fun ThemeE2EPreview() {
-    GdsTheme {
         TestColumn()
     }
 }
