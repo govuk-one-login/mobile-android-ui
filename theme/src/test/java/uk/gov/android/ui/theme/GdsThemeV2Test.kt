@@ -35,7 +35,7 @@ class GdsThemeV2Test {
     fun `test content`() {
         composeTestRule.setContent {
             GdsThemeV2 {
-                Text("Content test")
+                Text("V2 Content test")
             }
         }
     }
@@ -45,7 +45,7 @@ class GdsThemeV2Test {
     fun `test darkTheme true`() {
         composeTestRule.setContent {
             GdsThemeV2(darkTheme = true) {
-                Text("darkTheme true test")
+                Text("V2 darkTheme true test")
             }
         }
     }
@@ -55,7 +55,7 @@ class GdsThemeV2Test {
     fun `test darkTheme false`() {
         composeTestRule.setContent {
             GdsThemeV2(darkTheme = false) {
-                Text("darkTheme false test")
+                Text("V2 darkTheme false test")
             }
         }
     }
