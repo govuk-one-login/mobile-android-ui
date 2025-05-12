@@ -15,4 +15,11 @@ class ThemeTest {
             ThemePreview()
         }
     }
+
+    @Test
+    fun previewV2Test() {
+        composeTestRule.setContent {
+            ThemeV2Preview()
+        }
+    }
 }
