@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -42,10 +43,8 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
-import uk.gov.android.ui.theme.ROW_DISTRIBUTION
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.customDynamicColor
@@ -96,6 +95,7 @@ fun GdsCard(
     shadow: Dp = cardShadow,
     dismiss: (() -> Unit) = {},
 ) {
+    val cardType = stringResource(R.string.card_content_description)
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface,
@@ -104,32 +104,33 @@ fun GdsCard(
         shape = RoundedCornerShape(tileCornerRadius),
         modifier = modifier.elevatedCardModifier(shadow)
             .focusGroup()
-            .semantics(true) { this.contentDescription = title + "card" },
+            .semantics(true) { this.contentDescription = title + cardType },
     ) {
-        Box(Modifier.padding(0.dp)) {
+        // Allows for the children to be rendered appropriately when using cards in a scrollable layout
+        Box(Modifier.wrapContentHeight()) {
             Column {
                 TileImage(
                     image = image,
                     contentDescription = contentDescription,
                 )
-                Box {
-                    Column(Modifier.focusGroup().semantics(true) {}) {
+                Box(Modifier.wrapContentHeight()) {
+                    Column {
                         Column(
                             modifier = Modifier
-                                .weight(ROW_DISTRIBUTION, false)
                                 .padding(horizontal = smallPadding),
                         ) {
                             Content(caption, title, titleStyle, body, displaySecondary)
+                            Buttons(
+                                text = buttonText,
+                                displayPrimary = displayPrimary,
+                                displaySecondary = displaySecondary,
+                                secondaryIcon = secondaryIcon,
+                                secondaryIconContentDescription = secondaryIconContentDescription,
+                                onClick = onClick,
+                            )
                         }
-                        Buttons(
-                            text = buttonText,
-                            displayPrimary = displayPrimary,
-                            displaySecondary = displaySecondary,
-                            secondaryIcon = secondaryIcon,
-                            secondaryIconContentDescription = secondaryIconContentDescription,
-                            onClick = onClick,
-                        )
                     }
+
                     if (image == null && showDismissIcon) {
                         DismissButton(
                             dismiss,
@@ -206,7 +207,6 @@ private fun DismissButton(
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .padding(top = xsmallPadding, bottom = largePadding, end = smallPadding)
             .semantics(true) {}
             .then(modifier),
     ) {
@@ -240,8 +240,6 @@ private fun Buttons(
                     .padding(
                         top = xsmallPadding,
                         bottom = smallPadding,
-                        start = smallPadding,
-                        end = smallPadding,
                     ),
                 contentModifier = Modifier.fillMaxWidth(),
                 onClick = onClick,
@@ -252,8 +250,7 @@ private fun Buttons(
                     thickness = dividerThickness,
                     color = MaterialTheme.colorScheme.surface,
                     modifier = Modifier
-                        .padding(top = smallPadding)
-                        .padding(horizontal = smallPadding),
+                        .padding(top = smallPadding),
                 )
                 GdsButton(
                     text = text,
@@ -271,10 +268,9 @@ private fun Buttons(
                             contentDescription = secondaryIconContentDescription ?: "",
                         )
                     } ?: ButtonType.Secondary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = xsmallPadding),
+                    modifier = Modifier.fillMaxWidth(),
                     contentPosition = Arrangement.Start,
+                    contentModifier = Modifier.fillMaxWidth(),
                 )
             }
         }

@@ -77,4 +77,5 @@
     <string name="number7">saith</string>
     <string name="number8">wyth</string>
     <string name="number9">naw</string>
+    <string name="card_content_description">" Card"</string>
 </resources>
