@@ -24,7 +24,7 @@ internal class GdsCardScreenshotTest(
             body = parameters.body?.let { stringResource(it) },
             displayPrimary = parameters.displayPrimary,
             buttonText = parameters.buttonText?.let { stringResource(it) },
-            showSecondaryIcon = parameters.showSecondaryIcon,
+            displaySecondary = parameters.displaySecondary,
         )
     }
 

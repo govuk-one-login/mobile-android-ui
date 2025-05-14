@@ -1,8 +1,10 @@
 package uk.gov.android.ui.componentsv2
 
 import android.content.Context
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
@@ -13,6 +15,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,6 +26,7 @@ class GdsCardTest {
     private val resources = context.resources
     private val parameters = GdsCardPreviewParametersProvider().values.toList()
     private var onClick: Int = 0
+    private var dismissIconButton: Boolean = false
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -29,6 +34,7 @@ class GdsCardTest {
     @Before
     fun setup() {
         onClick = 0
+        dismissIconButton = false
     }
 
     @Test
@@ -59,10 +65,11 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
-            ).assertIsDisplayed()
+                resources.getString(R.string.close_button),
+            ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)
+            assertTrue(dismissIconButton)
         }
     }
 
@@ -119,10 +126,11 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.close_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
+            assertFalse(dismissIconButton)
         }
     }
 
@@ -146,10 +154,11 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.close_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
+            assertFalse(dismissIconButton)
         }
     }
 
@@ -166,10 +175,11 @@ class GdsCardTest {
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.close_button),
             ).assertIsNotDisplayed()
 
             assertEquals(0, onClick)
+            assertFalse(dismissIconButton)
         }
     }
 
@@ -190,17 +200,23 @@ class GdsCardTest {
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.primary_button),
+                resources.getString(R.string.secondary_button),
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
+            onNodeWithText(
+                resources.getString(R.string.opens_in_external_browser),
+            ).assertDoesNotExist()
+
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
-            ).assertIsDisplayed()
+                resources.getString(R.string.close_button),
+            ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)
+            assertTrue(dismissIconButton)
         }
     }
 
@@ -236,15 +252,22 @@ class GdsCardTest {
         composeTestRule.setContent {
             GdsCard(
                 title = stringResource(parameters.title),
+                titleStyle = parameters.titleStyle,
                 onClick = { onClick++ },
-                body = parameters.body?.let { stringResource(it) },
                 image = parameters.image?.let { painterResource(it) },
                 contentDescription = parameters.contentDescription?.let { stringResource(it) },
                 showDismissIcon = parameters.showDismissIcon,
                 caption = parameters.caption?.let { stringResource(it) },
-                buttonText = parameters.buttonText?.let { stringResource(it) },
+                body = parameters.body?.let { stringResource(it) },
                 displayPrimary = parameters.displayPrimary,
-                showSecondaryIcon = parameters.showSecondaryIcon,
+                buttonText = parameters.buttonText?.let { stringResource(it) },
+                displaySecondary = parameters.displaySecondary,
+                secondaryIcon = parameters.secondaryIcon?.let { ImageVector.vectorResource(it) },
+                secondaryIconContentDescription = parameters.secondaryIconContentDescription?.let {
+                    stringResource(it)
+                },
+                dismiss = { dismissIconButton = !dismissIconButton },
+                shadow = parameters.shadow,
             )
         }
     }

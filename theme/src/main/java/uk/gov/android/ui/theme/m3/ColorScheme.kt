@@ -1,7 +1,10 @@
 package uk.gov.android.ui.theme.m3
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import uk.gov.android.ui.theme.m3_theme_dark_background
 import uk.gov.android.ui.theme.m3_theme_dark_error
 import uk.gov.android.ui.theme.m3_theme_dark_onBackground
@@ -346,3 +349,12 @@ val LightColorPaletteV2 = lightColorScheme(
     inversePrimary = light_theme_inversePrimary,
     scrim = light_theme_scrim,
 )
+
+@Composable
+fun customDynamicColor(light: Color, dark: Color): Color {
+    return if (isSystemInDarkTheme()) {
+        dark
+    } else {
+        light
+    }
+}

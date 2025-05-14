@@ -173,3 +173,6 @@ val m3_theme_onTertiaryFixed = Color(0xFF0B0C0C)
 
 val temporary_list_color_light = Color(0xFFF3F2F1)
 val temporary_list_color_dark = Color(0xFF262626)
+
+val temporary_link_color_light = Color(0xFF00703C)
+val temporary_link_color_dark = Color(0xFF03CD6E)
