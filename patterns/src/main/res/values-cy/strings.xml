@@ -2,4 +2,5 @@
 <resources>
     <string name="error_icon_description">Gwall</string>
     <string name="warning_icon_description">Rhybudd</string>
+    <string name="loading">Llwytho</string>
 </resources>

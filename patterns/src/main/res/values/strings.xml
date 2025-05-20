@@ -3,4 +3,5 @@
     <string name="preview__GdsVectorImage__description" translatable="false">Image description</string>
     <string name="error_icon_description">Error</string>
     <string name="warning_icon_description">Warning</string>
+    <string name="loading">Loading</string>
 </resources>

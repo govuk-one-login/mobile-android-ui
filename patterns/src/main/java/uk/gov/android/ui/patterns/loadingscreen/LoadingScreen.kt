@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -30,8 +32,8 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 @UnstableDesignSystemAPI
 @Composable
 fun LoadingScreen(
-    text: String,
     modifier: Modifier = Modifier,
+    text: String = stringResource(R.string.loading),
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -50,7 +52,7 @@ fun LoadingScreen(
 }
 
 @OptIn(UnstableDesignSystemAPI::class)
-@Preview
+@PreviewLightDark
 @Composable
 private fun PreviewDefaultLoadingScreen(
     @PreviewParameter(LoadingScreenContentProvider::class)
@@ -58,5 +60,14 @@ private fun PreviewDefaultLoadingScreen(
 ) {
     GdsTheme {
         LoadingScreen(text = content)
+    }
+}
+
+@OptIn(UnstableDesignSystemAPI::class)
+@PreviewLightDark
+@Composable
+private fun PreviewDefaultLoadingScreenNoContent() {
+    GdsTheme {
+        LoadingScreen()
     }
 }
