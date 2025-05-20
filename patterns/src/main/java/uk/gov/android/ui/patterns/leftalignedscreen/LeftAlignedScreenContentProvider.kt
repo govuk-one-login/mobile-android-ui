@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
@@ -33,8 +37,14 @@ internal class LeftAlignedScreenContentProvider :
                         top = spacingTriple,
                     ),
                 ),
-                LeftAlignedScreenBody.Text(
-                    text = textLong,
+                LeftAlignedScreenBody.AnnotatedText(
+                    buildAnnotatedString {
+                        append(textShort)
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(" 26 June 2024 at 2:56pm (UK time)")
+                        }
+                        append(". $textLong")
+                    },
                 ),
                 LeftAlignedScreenBody.Warning(
                     warning,
