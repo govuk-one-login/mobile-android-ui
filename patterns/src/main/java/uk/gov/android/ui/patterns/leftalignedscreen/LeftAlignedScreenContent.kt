@@ -46,13 +46,13 @@ sealed class LeftAlignedScreenBody {
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
-    data class Text(
-        val text: String,
+    data class AnnotatedText(
+        val text: AnnotatedString,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
-    data class AnnotatedText(
-        val text: AnnotatedString,
+    data class Text(
+        val text: String,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
