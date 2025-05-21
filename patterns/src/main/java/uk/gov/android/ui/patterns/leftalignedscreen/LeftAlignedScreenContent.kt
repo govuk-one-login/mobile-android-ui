@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
@@ -47,6 +48,11 @@ sealed class LeftAlignedScreenBody {
 
     data class Text(
         val text: String,
+        val modifier: Modifier = Modifier,
+    ) : LeftAlignedScreenBody()
+
+    data class AnnotatedText(
+        val text: AnnotatedString,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
@@ -186,6 +192,10 @@ internal fun LazyListScope.toBodyContent(
                 }
             }
 
+            is LeftAlignedScreenBody.AnnotatedText -> {
+                toAnnotatedText(it, itemPadding)
+            }
+
             is LeftAlignedScreenBody.Title -> {
                 item {
                     GdsHeading(
@@ -231,5 +241,19 @@ internal fun LazyListScope.toBodyContent(
                 }
             }
         }
+    }
+}
+
+private fun LazyListScope.toAnnotatedText(
+    it: LeftAlignedScreenBody.AnnotatedText,
+    itemPadding: PaddingValues,
+) {
+    item {
+        Text(
+            text = it.text,
+            modifier = it.modifier.padding(itemPadding),
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.bodyLarge,
+        )
     }
 }
