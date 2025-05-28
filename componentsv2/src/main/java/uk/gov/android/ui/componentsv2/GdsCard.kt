@@ -95,7 +95,7 @@ fun GdsCard(
     shadow: Dp = cardShadow,
     dismiss: (() -> Unit) = {},
 ) {
-    val cardType = stringResource(R.string.card_content_description)
+    val cardContentDescription = stringResource(R.string.card_content_description, title)
     Card(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface,
@@ -104,7 +104,7 @@ fun GdsCard(
         shape = RoundedCornerShape(tileCornerRadius),
         modifier = modifier.elevatedCardModifier(shadow)
             .focusGroup()
-            .semantics(true) { this.contentDescription = title + cardType },
+            .semantics(true) { this.contentDescription = cardContentDescription },
     ) {
         // Allows for the children to be rendered appropriately when using cards in a scrollable layout
         Box(Modifier.wrapContentHeight()) {

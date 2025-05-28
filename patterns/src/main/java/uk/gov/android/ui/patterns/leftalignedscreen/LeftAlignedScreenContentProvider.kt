@@ -12,6 +12,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
@@ -43,12 +45,23 @@ internal class LeftAlignedScreenContentProvider :
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                             append(" 26 June 2024 at 2:56pm (UK time)")
                         }
-                        append(". $textLong")
+                        append(". $textShort")
                     },
                 ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(vertical = spacingTriple),
+                LeftAlignedScreenBody.Title(
+                    text = "Title2 - Left Aligned",
+                    style = GdsHeadingStyle.Title2,
+                    textAlign = GdsHeadingAlignment.LeftAligned,
+                ),
+                LeftAlignedScreenBody.Title(
+                    text = "Title2 - Center Aligned",
+                    style = GdsHeadingStyle.Title2,
+                    textAlign = GdsHeadingAlignment.CenterAligned,
+                ),
+                LeftAlignedScreenBody.Title(
+                    text = "Title2 - Right Aligned",
+                    style = GdsHeadingStyle.Title2,
+                    textAlign = GdsHeadingAlignment.RightAligned,
                 ),
                 LeftAlignedScreenBody.Image(
                     R.drawable.preview__gdsvectorimage,
