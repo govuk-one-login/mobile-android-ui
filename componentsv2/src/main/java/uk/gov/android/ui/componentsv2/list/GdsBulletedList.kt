@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -67,12 +68,21 @@ fun GdsBulletedList(
     }
 }
 
+/**
+ * Provides a custom bullet list in Compose
+ *
+ * @param bulletListItems list of items to be displayed - see [ListItem]
+ * @param modifier [Modifier] that can be applied to the entire bullet list
+ * @param title (nullable) optional title for the list - see [ListTitle]
+ * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set
+ */
 @Composable
 @JvmName("GdsBulletedListV2")
 fun GdsBulletedList(
     bulletListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
+    accessibilityIndex: Float = 0f,
 ) {
     val context = LocalContext.current
     Column(
@@ -80,7 +90,7 @@ fun GdsBulletedList(
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            BulletedListTitle(it)
+            BulletedListTitle(it, accessibilityIndex = accessibilityIndex - 1f)
         }
 
         bulletListItems.forEachIndexed { i, item ->
@@ -97,7 +107,11 @@ fun GdsBulletedList(
                     item.toContentDescription(context),
                 )
             }
-            BulletListItem(item, bulletContentDescription)
+            BulletListItem(
+                text = item,
+                bulletContentDescription = bulletContentDescription,
+                accessibilityIndex = accessibilityIndex,
+            )
         }
     }
 }
@@ -106,6 +120,7 @@ fun GdsBulletedList(
 private fun BulletedListTitle(
     title: ListTitle,
     modifier: Modifier = Modifier,
+    accessibilityIndex: Float = -1f,
 ) {
     val titleContentDescription: String
 
@@ -132,7 +147,10 @@ private fun BulletedListTitle(
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
             .padding(bottom = 4.dp)
-            .semantics { contentDescription = titleContentDescription },
+            .semantics {
+                contentDescription = titleContentDescription
+                this.traversalIndex = accessibilityIndex
+            },
     )
 }
 
@@ -141,11 +159,16 @@ private fun BulletListItem(
     text: String,
     bulletContentDescription: String,
     modifier: Modifier = Modifier,
+    accessibilityIndex: Float = 0f,
 ) {
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(top = spacingSingle),
+            .padding(top = spacingSingle)
+            .semantics {
+                contentDescription = bulletContentDescription
+                this.traversalIndex = accessibilityIndex
+            },
     ) {
         Image(
             painter = painterResource(R.drawable.ic_dot),
@@ -161,7 +184,7 @@ private fun BulletListItem(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.semantics { contentDescription = bulletContentDescription },
+            modifier = Modifier.semantics { invisibleToUser() },
         )
     }
 }
@@ -171,11 +194,15 @@ private fun BulletListItem(
     text: ListItem,
     bulletContentDescription: String,
     modifier: Modifier = Modifier,
+    accessibilityIndex: Float = 0f,
 ) {
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .semantics { contentDescription = bulletContentDescription }
+            .semantics(true) {
+                contentDescription = bulletContentDescription
+                this.traversalIndex = accessibilityIndex
+            }
             .padding(top = spacingSingle),
     ) {
         Image(

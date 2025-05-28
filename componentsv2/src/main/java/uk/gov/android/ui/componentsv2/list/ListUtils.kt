@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.StringRes
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -24,13 +23,11 @@ enum class TitleType {
 data class ListTitle(
     val text: String,
     val titleType: TitleType,
-    val modifier: Modifier = Modifier
 )
 
 data class ListItem(
     val text: String = "",
     @StringRes val spannableText: Int = 0,
-    val modifier: Modifier = Modifier
 )
 
 internal data class ListWrapper(
