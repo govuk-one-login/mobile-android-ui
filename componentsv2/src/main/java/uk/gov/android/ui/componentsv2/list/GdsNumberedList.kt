@@ -19,6 +19,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,20 +55,21 @@ fun GdsNumberedList(
     numberedListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
+    accessibilityIndex: Float = 0f,
 ) {
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            NumberedListTitle(it)
+            NumberedListTitle(it, accessibilityIndex - 1f)
         }
-        GdsNumberedListLayout(numberedListItems)
+        GdsNumberedListLayout(numberedListItems, accessibilityIndex)
     }
 }
 
 @Composable
-private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
+private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>, accessibilityIndex: Float = 0f) {
     val context = LocalContext.current
     SubcomposeLayout { constraints ->
         val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
@@ -97,6 +99,7 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
                     listItem = item,
                     itemContentDescription = contentDescription,
                     maxWidthIndex.width.pxToDp(),
+                    accessibilityIndex = accessibilityIndex,
                 )
             }
         }.map { it.measure(looseConstraints) }
@@ -117,6 +120,7 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
 @Composable
 private fun NumberedListTitle(
     title: ListTitle,
+    accessibilityIndex: Float = 0f,
 ) {
     when (title.titleType) {
         TitleType.BoldText -> {
@@ -127,7 +131,10 @@ private fun NumberedListTitle(
                 textAlign = TextAlign.Left,
                 modifier = Modifier
                     .padding(bottom = spacingHalf)
-                    .semantics { contentDescription = title.text }
+                    .semantics {
+                        this.traversalIndex = accessibilityIndex
+                        contentDescription = title.text
+                    }
                     .testTag(TAG_TITLE_BOLD),
             )
         }
@@ -166,6 +173,7 @@ private fun NumberedListItem(
     listItem: ListItem,
     itemContentDescription: String,
     minIndexWidth: Dp,
+    accessibilityIndex: Float,
 ) {
     Row(
         modifier = Modifier
@@ -174,14 +182,15 @@ private fun NumberedListItem(
                 start = spacingSingleAndAQuarter,
                 top = spacingSingle,
             )
-            .semantics { contentDescription = itemContentDescription },
+            .semantics(true) {
+                this.traversalIndex = accessibilityIndex
+                contentDescription = itemContentDescription
+            },
     ) {
         IndexText(
             index,
             modifier = Modifier
-                .semantics {
-                    invisibleToUser()
-                }
+                .semantics { invisibleToUser() }
                 .defaultMinSize(minWidth = minIndexWidth),
         )
         ListText(listItem)
