@@ -1,21 +1,38 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
@@ -256,4 +273,34 @@ private fun LazyListScope.toAnnotatedText(
             style = MaterialTheme.typography.bodyLarge,
         )
     }
+}
+
+/**
+ * Adds a downwards scroll when a keyboard down arrow is pressed
+ *
+ * @param scrollState [LazyListState] represents the list state
+ * @return augmented [Modifier]
+ */
+@Composable
+fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
+    val coroutineScope = rememberCoroutineScope()
+    val interactionSource = remember { MutableInteractionSource() }
+    val focusRequester = remember { FocusRequester() }
+    var focusEnabled by remember { mutableStateOf(true) }
+    return this
+        .onKeyEvent {
+            if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionDown) {
+                if (scrollState.canScrollForward) {
+                    coroutineScope.launch {
+                        scrollState.animateScrollBy(0.8f * scrollState.layoutInfo.viewportSize.height)
+                    }
+                }
+                focusEnabled = false
+            } else if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionUp) {
+                focusEnabled = true
+            }
+            false
+        }
+        .focusRequester(focusRequester)
+        .focusable(enabled = focusEnabled, interactionSource = interactionSource)
 }

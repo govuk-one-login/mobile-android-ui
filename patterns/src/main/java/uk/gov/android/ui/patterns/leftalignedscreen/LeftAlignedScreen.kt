@@ -1,32 +1,53 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.dropUnlessResumed
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
+import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
+import uk.gov.android.ui.componentsv2.inputs.radio.TitleType
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.patterns.dialog.FullScreenDialogue
+import uk.gov.android.ui.patterns.dialog.FullScreenDialogueTopAppBar
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -42,6 +63,7 @@ private const val FONT_SCALE_DOUBLE = 2f
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param contentModifier A [Modifier] to be applied to the main content layout of the screen (optional).
  * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
@@ -49,17 +71,21 @@ private const val FONT_SCALE_DOUBLE = 2f
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
  * @sample LeftAlignedScreenFromContentParams
+ * @param scrollState [LazyListState] represents the main content list state
  */
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     arrangement: Arrangement.Vertical = LeftAlignedScreenDefaults.ItemArrangement,
+    scrollState: LazyListState = rememberLazyListState(),
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -112,6 +138,8 @@ fun LeftAlignedScreen(
                         null
                     },
                     arrangement = arrangement,
+                    scrollState = scrollState,
+                    modifier = contentModifier,
                 )
             }.map {
                 val bottomContentSupportingTextHeight =
@@ -222,6 +250,7 @@ fun LeftAlignedScreen(
 @Composable
 private fun MainContent(
     title: @Composable (horizontalPadding: Dp) -> Unit,
+    scrollState: LazyListState,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
@@ -230,7 +259,8 @@ private fun MainContent(
 ) {
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
+        state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
 
@@ -320,5 +350,99 @@ internal fun PreviewLeftAlignedScreenAccessibility(
 ) {
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(UnstableDesignSystemAPI::class, ExperimentalMaterial3Api::class)
+@Composable
+@Preview(showBackground = true)
+internal fun TestInFullScreenDialogue() {
+    GdsTheme {
+        FullScreenDialogue(
+            onDismissRequest = { },
+            topAppBar = {
+                FullScreenDialogueTopAppBar(
+                    onCloseClick = {},
+                )
+            },
+            content = {
+                var selectedItem by rememberSaveable { mutableStateOf<Int?>(null) }
+                LeftAlignedScreen(
+                    title = { horizontalPadding ->
+                        GdsHeading(
+                            text = "Do you have a passport with a biometric chip?",
+                            textAlign = GdsHeadingAlignment.LeftAligned,
+                            modifier = Modifier.padding(horizontal = horizontalPadding),
+                        )
+                    },
+                    body = { horizontalPadding ->
+                        item {
+                            Text(
+                                text = "All UK passports have a biometric chip.\n\nIf you have a non-UK passport, it must have the biometric chip symbol on the cover.",
+                                modifier = Modifier
+                                    .padding(horizontal = horizontalPadding)
+                                    .sizeIn(minHeight = 720.dp),
+                                color = MaterialTheme.colorScheme.onBackground,
+                            )
+                        }
+                        item {
+                            Image(
+                                painter = painterResource(R.drawable.preview__gdsvectorimage),
+                                contentDescription = "contentDescription",
+                                modifier = Modifier.fillMaxWidth(),
+                                contentScale = ContentScale.FillWidth,
+                            )
+                        }
+                        item {
+                            Text(
+                                text = "You cannot use your passport if it has expired.",
+                                modifier = Modifier.padding(horizontal = horizontalPadding),
+                                color = MaterialTheme.colorScheme.onBackground,
+                            )
+                        }
+                        item {
+                            GdsButton(
+                                text = "Read more about the types of photo ID you can use",
+                                buttonType = ButtonType.Secondary,
+                                onClick = dropUnlessResumed { },
+                                modifier = Modifier.padding(horizontal = horizontalPadding),
+                                contentModifier = Modifier,
+                                textAlign = TextAlign.Left,
+                                contentPosition = Arrangement.Start,
+                            )
+                        }
+                        item {
+                            GdsSelection(
+                                title =
+                                RadioSelectionTitle(
+                                    "Do you have a passport with a biometric chip?",
+                                    TitleType.Heading,
+                                ),
+                                items =
+                                listOf("Yes", "No, use a different type of photo ID")
+                                    .toPersistentList(),
+                                selectedItem = selectedItem,
+                                onItemSelected = {
+                                    selectedItem = it
+                                },
+                            )
+                        }
+                    },
+                    primaryButton = {
+                        GdsButton(
+                            text = "Continue",
+                            buttonType = ButtonType.Primary,
+                            onClick =
+                            dropUnlessResumed {
+                            },
+                            enabled = selectedItem != null,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    },
+                    modifier = Modifier.padding(bottom = 60.dp),
+                )
+            },
+        )
     }
 }
