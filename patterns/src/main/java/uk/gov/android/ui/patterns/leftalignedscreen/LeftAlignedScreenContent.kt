@@ -297,7 +297,7 @@ fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
             if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionDown) {
                 if (scrollState.canScrollForward) {
                     coroutineScope.launch {
-                        scrollState.animateScrollBy(0.8f * scrollState.layoutInfo.viewportSize.height)
+                        scrollState.animateScrollBy(SCROLL_MULTIPLIER * scrollState.layoutInfo.viewportSize.height)
                     }
                 }
                 focusEnabled = false
@@ -309,3 +309,5 @@ fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
         .focusRequester(focusRequester)
         .focusable(enabled = focusEnabled, interactionSource = interactionSource)
 }
+
+private const val SCROLL_MULTIPLIER = 0.8f
