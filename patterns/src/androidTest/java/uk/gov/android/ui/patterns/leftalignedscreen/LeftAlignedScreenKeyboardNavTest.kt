@@ -83,6 +83,7 @@ class LeftAlignedScreenKeyboardNavTest {
 
         content.performKeyInput {
             pressKey(Key.DirectionDown)
+            pressKey(Key.DirectionUp)
         }
 
         closeButton.assertIsDisplayed()
