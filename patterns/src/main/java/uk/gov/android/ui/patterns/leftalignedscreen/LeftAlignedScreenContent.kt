@@ -37,6 +37,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
@@ -76,6 +77,8 @@ sealed class LeftAlignedScreenBody {
     data class Title(
         val text: String,
         val modifier: Modifier = Modifier,
+        val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
+        val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     ) : LeftAlignedScreenBody()
 
     data class Warning(
@@ -218,6 +221,8 @@ internal fun LazyListScope.toBodyContent(
                     GdsHeading(
                         text = it.text,
                         modifier = it.modifier.padding(itemPadding),
+                        style = it.style,
+                        textAlign = it.textAlign,
                     )
                 }
             }
