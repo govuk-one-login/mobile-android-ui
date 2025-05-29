@@ -96,6 +96,7 @@ class LeftAlignedScreenKeyboardNavTest {
     }
 
     @SuppressLint("ComposeUnstableReceiver")
+    @Suppress("LongMethod")
     @Composable
     @OptIn(UnstableDesignSystemAPI::class, ExperimentalMaterial3Api::class)
     private fun Content(isLargeFont: Boolean) {
