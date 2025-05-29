@@ -49,6 +49,26 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param numberedListItems The list of options to display.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the numbered list items.
+ * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set - only used when required and if the accessibility is not already met without using this.
+ *
+ * If the accessibility (TalkBack) focus/ reading order is affected by this component, you might need to set the [traversalIndex] for all elements including this list.
+ *
+ * **Please ensure that the [accessibilityIndex] is the index required in your layout plus 1:**
+ * ```
+ *  // The index required it would be 7
+ *  GdsBulletedList(
+ *      title = ListTitle(
+ *          text = bulletListTitle,
+ *          titleType = TitleType.Text
+ *      ),
+ *      bulletListItems = persistentListOf(
+ *          ListItem(bullet1),
+ *          ListItem(bullet2)
+ *      ),
+ *      accessibilityIndex = 8
+ *  )
+ * ```
+ *
  */
 @Composable
 fun GdsNumberedList(
