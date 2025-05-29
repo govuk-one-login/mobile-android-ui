@@ -74,7 +74,26 @@ fun GdsBulletedList(
  * @param bulletListItems list of items to be displayed - see [ListItem]
  * @param modifier [Modifier] that can be applied to the entire bullet list
  * @param title (nullable) optional title for the list - see [ListTitle]
- * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set
+ * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set - only used when required and if the accessibility is not already met without using this.
+ *
+ * If the accessibility (TalkBack) focus/ reading order is affected by this component, you might need to set the [traversalIndex] for all elements including this list.
+ *
+ * **Please ensure that the [accessibilityIndex] is the index required in your layout plus 1:**
+ * ```
+ *  // The index required it would be 7
+ *  GdsBulletedList(
+ *      title = ListTitle(
+ *          text = bulletListTitle,
+ *          titleType = TitleType.Text
+ *       ),
+ *       bulletListItems = persistentListOf(
+ *           ListItem(bullet1),
+ *           ListItem(bullet2)
+ *       ),
+ *       accessibilityIndex = 8
+ *  )
+ *
+ * ```
  */
 @Composable
 @JvmName("GdsBulletedListV2")
