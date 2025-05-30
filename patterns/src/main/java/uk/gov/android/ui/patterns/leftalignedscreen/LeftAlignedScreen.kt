@@ -229,7 +229,6 @@ fun LeftAlignedScreen(
 private fun MainContent(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     forceScroll: Boolean,
-    modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
@@ -237,9 +236,11 @@ private fun MainContent(
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     val columnModifier = if (forceScroll) {
-        modifier.fillMaxSize().bringIntoView(scrollState)
+        Modifier
+            .fillMaxSize()
+            .bringIntoView(scrollState)
     } else {
-        modifier.fillMaxSize()
+        Modifier.fillMaxSize()
     }
     LazyColumn(
         verticalArrangement = arrangement,
