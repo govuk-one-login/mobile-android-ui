@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
@@ -45,7 +44,6 @@ private const val FONT_SCALE_DOUBLE = 2f
  * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @param contentModifier A [Modifier] to be applied to the main content layout of the screen (optional).
  * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
@@ -53,7 +51,7 @@ private const val FONT_SCALE_DOUBLE = 2f
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
  * @sample LeftAlignedScreenFromContentParams
- * @param scrollState [LazyListState] represents the main content list state
+ * @param forceScroll [Boolean] determines whether a scroll can be added to a keyboard down arrow event to avoid focus becoming stuck
  */
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
@@ -61,13 +59,12 @@ private const val FONT_SCALE_DOUBLE = 2f
 fun LeftAlignedScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
-    contentModifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     arrangement: Arrangement.Vertical = LeftAlignedScreenDefaults.ItemArrangement,
-    scrollState: LazyListState = rememberLazyListState(),
+    forceScroll: Boolean = false,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -120,8 +117,7 @@ fun LeftAlignedScreen(
                         null
                     },
                     arrangement = arrangement,
-                    scrollState = scrollState,
-                    modifier = contentModifier,
+                    forceScroll = forceScroll,
                 )
             }.map {
                 val bottomContentSupportingTextHeight =
@@ -232,16 +228,22 @@ fun LeftAlignedScreen(
 @Composable
 private fun MainContent(
     title: @Composable (horizontalPadding: Dp) -> Unit,
-    scrollState: LazyListState,
+    forceScroll: Boolean,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
 ) {
+    val scrollState: LazyListState = rememberLazyListState()
+    val columnModifier = if (forceScroll) {
+        modifier.fillMaxSize().bringIntoView(scrollState)
+    } else {
+        modifier.fillMaxSize()
+    }
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier,
+        modifier = columnModifier,
         state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }

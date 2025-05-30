@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -111,7 +109,6 @@ class LeftAlignedScreenKeyboardNavTest {
                 },
                 content = {
                     var selectedItem by rememberSaveable { mutableStateOf<Int?>(null) }
-                    val scrollState: LazyListState = rememberLazyListState()
                     LeftAlignedScreen(
                         title = { horizontalPadding ->
                             GdsHeading(
@@ -197,8 +194,7 @@ class LeftAlignedScreenKeyboardNavTest {
                         modifier = Modifier
                             .padding(bottom = 60.dp)
                             .testTag(contentTag),
-                        scrollState = scrollState,
-                        contentModifier = Modifier.bringIntoView(scrollState),
+                        forceScroll = true,
                     )
                 },
             )
