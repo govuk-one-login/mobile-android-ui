@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
@@ -49,7 +51,9 @@ private const val FONT_SCALE_DOUBLE = 2f
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
  * @sample LeftAlignedScreenFromContentParams
+ * @param forceScroll [Boolean] determines whether a scroll can be added to a keyboard down arrow event to avoid focus becoming stuck
  */
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
@@ -60,6 +64,7 @@ fun LeftAlignedScreen(
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     arrangement: Arrangement.Vertical = LeftAlignedScreenDefaults.ItemArrangement,
+    forceScroll: Boolean = false,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -112,6 +117,7 @@ fun LeftAlignedScreen(
                         null
                     },
                     arrangement = arrangement,
+                    forceScroll = forceScroll,
                 )
             }.map {
                 val bottomContentSupportingTextHeight =
@@ -222,15 +228,24 @@ fun LeftAlignedScreen(
 @Composable
 private fun MainContent(
     title: @Composable (horizontalPadding: Dp) -> Unit,
-    modifier: Modifier = Modifier,
+    forceScroll: Boolean,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
 ) {
+    val scrollState: LazyListState = rememberLazyListState()
+    val columnModifier = if (forceScroll) {
+        Modifier
+            .fillMaxSize()
+            .bringIntoView(scrollState)
+    } else {
+        Modifier.fillMaxSize()
+    }
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = modifier.fillMaxSize(),
+        modifier = columnModifier,
+        state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
 
