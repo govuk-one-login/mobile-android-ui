@@ -115,28 +115,32 @@ fun GdsCard(
                     contentDescription = contentDescription,
                 )
                 Box(Modifier.wrapContentHeight()) {
-                    Row {
-                        Column(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = smallPadding),
-                        ) {
-                            Content(caption, title, titleStyle, body, displaySecondary)
-                            Buttons(
-                                text = buttonText,
-                                displayPrimary = displayPrimary,
-                                displaySecondary = displaySecondary,
-                                secondaryIcon = secondaryIcon,
-                                secondaryIconContentDescription = secondaryIconContentDescription,
-                                onClick = onClick,
-                            )
+                    Column(
+                        modifier = Modifier.padding(horizontal = smallPadding),
+                    ) {
+                        Row {
+                            Column(
+                                modifier = Modifier
+                                    .weight(1f),
+                            ) {
+                                Content(caption, title, titleStyle, body, displaySecondary)
+                            }
+
+                            if (image == null && showDismissIcon) {
+                                DismissButton(
+                                    dismiss,
+                                )
+                            }
                         }
 
-                        if (image == null && showDismissIcon) {
-                            DismissButton(
-                                dismiss,
-                            )
-                        }
+                        Buttons(
+                            text = buttonText,
+                            displayPrimary = displayPrimary,
+                            displaySecondary = displaySecondary,
+                            secondaryIcon = secondaryIcon,
+                            secondaryIconContentDescription = secondaryIconContentDescription,
+                            onClick = onClick,
+                        )
                     }
                 }
             }
