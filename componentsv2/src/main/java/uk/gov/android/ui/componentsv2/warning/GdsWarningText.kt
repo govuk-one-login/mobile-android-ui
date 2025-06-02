@@ -35,7 +35,7 @@ fun GdsWarningText(
             .semantics(mergeDescendants = true) { },
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_error),
+            painter = painterResource(R.drawable.ic_error_filled),
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
         )
