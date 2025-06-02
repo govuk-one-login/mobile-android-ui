@@ -7,6 +7,7 @@ import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -114,9 +115,10 @@ fun GdsCard(
                     contentDescription = contentDescription,
                 )
                 Box(Modifier.wrapContentHeight()) {
-                    Column {
+                    Row {
                         Column(
                             modifier = Modifier
+                                .weight(1f)
                                 .padding(horizontal = smallPadding),
                         ) {
                             Content(caption, title, titleStyle, body, displaySecondary)
@@ -129,13 +131,12 @@ fun GdsCard(
                                 onClick = onClick,
                             )
                         }
-                    }
 
-                    if (image == null && showDismissIcon) {
-                        DismissButton(
-                            dismiss,
-                            Modifier.align(alignment = Alignment.TopEnd).zIndex(1f),
-                        )
+                        if (image == null && showDismissIcon) {
+                            DismissButton(
+                                dismiss,
+                            )
+                        }
                     }
                 }
             }
