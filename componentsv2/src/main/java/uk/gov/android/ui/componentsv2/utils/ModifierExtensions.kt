@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
@@ -29,5 +30,11 @@ object ModifierExtensions {
     } else {
         fillMaxWidth()
             .padding(vertical = xsmallPadding)
+    }
+
+    fun Modifier.customTitlePadding(apply: Boolean) = if (apply) {
+        padding(end = 40.dp)
+    } else {
+        this
     }
 }

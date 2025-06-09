@@ -7,7 +7,6 @@ import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -43,6 +42,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
+import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTitlePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
@@ -115,31 +115,34 @@ fun GdsCard(
                     contentDescription = contentDescription,
                 )
                 Box(Modifier.wrapContentHeight()) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = smallPadding),
-                    ) {
-                        Row {
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f),
-                            ) {
-                                Content(caption, title, titleStyle, body, displaySecondary)
-                            }
-
-                            if (image == null && showDismissIcon) {
-                                DismissButton(
-                                    dismiss,
-                                )
-                            }
+                    Column {
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = smallPadding),
+                        ) {
+                            Content(
+                                caption = caption,
+                                title = title,
+                                titleFont = titleStyle,
+                                body = body,
+                                displaySecondary = displaySecondary,
+                                displayDismiss = image == null && showDismissIcon,
+                            )
+                            Buttons(
+                                text = buttonText,
+                                displayPrimary = displayPrimary,
+                                displaySecondary = displaySecondary,
+                                secondaryIcon = secondaryIcon,
+                                secondaryIconContentDescription = secondaryIconContentDescription,
+                                onClick = onClick,
+                            )
                         }
+                    }
 
-                        Buttons(
-                            text = buttonText,
-                            displayPrimary = displayPrimary,
-                            displaySecondary = displaySecondary,
-                            secondaryIcon = secondaryIcon,
-                            secondaryIconContentDescription = secondaryIconContentDescription,
-                            onClick = onClick,
+                    if (image == null && showDismissIcon) {
+                        DismissButton(
+                            dismiss,
+                            Modifier.align(alignment = Alignment.TopEnd).zIndex(1f),
                         )
                     }
                 }
@@ -158,10 +161,10 @@ fun GdsCard(
 private fun Content(
     caption: String?,
     title: String,
-    titleFont:
-    TextStyle,
+    titleFont: TextStyle,
     body: String?,
     displaySecondary: Boolean,
+    displayDismiss: Boolean,
 ) {
     caption?.let {
         Text(
@@ -176,7 +179,8 @@ private fun Content(
         text = title,
         style = titleFont,
         modifier = Modifier
-            .customTilePadding(body != null),
+            .customTilePadding(body != null)
+            .customTitlePadding(displayDismiss),
     )
     body?.let {
         Text(
