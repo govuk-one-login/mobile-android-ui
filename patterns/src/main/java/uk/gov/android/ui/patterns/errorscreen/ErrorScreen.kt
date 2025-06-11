@@ -1,6 +1,9 @@
 package uk.gov.android.ui.patterns.errorscreen
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -10,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -29,6 +34,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
+import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
@@ -58,19 +64,30 @@ fun ErrorScreen(
 ) {
     CentreAlignedScreen(
         title = { horizontalPadding ->
-            GdsHeading(
-                text = title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.CenterAligned,
-            )
-        },
-        image = { horizontalPadding ->
-            Icon(
-                imageVector = ImageVector.vectorResource(icon.icon),
-                contentDescription = stringResource(icon.description),
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                tint = colorScheme.onBackground,
-            )
+            Column(
+                modifier = Modifier
+                    .semantics(mergeDescendants = true) {
+                        heading()
+                    },
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(icon.icon),
+                    contentDescription = stringResource(icon.description),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
+                    tint = colorScheme.onBackground,
+                )
+
+                Spacer(modifier = Modifier.height(spacingDouble))
+
+                GdsHeading(
+                    text = title,
+                    modifier = Modifier
+                        .padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.CenterAligned,
+                )
+            }
         },
         modifier = modifier,
         body = body?.let {
