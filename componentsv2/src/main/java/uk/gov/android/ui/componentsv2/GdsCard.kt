@@ -42,6 +42,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
+import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTitlePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
@@ -119,7 +120,14 @@ fun GdsCard(
                             modifier = Modifier
                                 .padding(horizontal = smallPadding),
                         ) {
-                            Content(caption, title, titleStyle, body, displaySecondary)
+                            Content(
+                                caption = caption,
+                                title = title,
+                                titleFont = titleStyle,
+                                body = body,
+                                displaySecondary = displaySecondary,
+                                displayDismiss = image == null && showDismissIcon,
+                            )
                             Buttons(
                                 text = buttonText,
                                 displayPrimary = displayPrimary,
@@ -153,10 +161,10 @@ fun GdsCard(
 private fun Content(
     caption: String?,
     title: String,
-    titleFont:
-    TextStyle,
+    titleFont: TextStyle,
     body: String?,
     displaySecondary: Boolean,
+    displayDismiss: Boolean,
 ) {
     caption?.let {
         Text(
@@ -171,7 +179,8 @@ private fun Content(
         text = title,
         style = titleFont,
         modifier = Modifier
-            .customTilePadding(body != null),
+            .customTilePadding(body != null)
+            .customTitlePadding(displayDismiss),
     )
     body?.let {
         Text(
