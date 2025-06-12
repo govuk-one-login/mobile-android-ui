@@ -1,11 +1,15 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
@@ -13,6 +17,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -57,5 +63,22 @@ class CentreAlignedScreenTest {
             .performClick()
 
         assertTrue(didClick)
+    }
+
+    @OptIn(UnstableDesignSystemAPI::class)
+    @Test
+    fun titleHasContentDescriptionAndHeadingRole() {
+        val title = "Test title"
+
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = { GdsHeading(text = title) },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithText(title)
+            .assertContentDescriptionEquals(title)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
     }
 }

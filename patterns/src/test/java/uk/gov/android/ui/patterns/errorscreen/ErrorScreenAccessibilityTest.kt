@@ -3,6 +3,9 @@ package uk.gov.android.ui.patterns.errorscreen
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertContentDescriptionContains
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasContentDescription
@@ -26,7 +29,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.patterns.utils.BDD.And
 import uk.gov.android.ui.patterns.utils.BDD.Given
 import uk.gov.android.ui.patterns.utils.BDD.Then
@@ -65,7 +68,8 @@ class ErrorScreenAccessibilityTest {
 
         Then("the icon and title should merged into one accessible element") {
             val hasChildWithTitleHeading = hasAnyChild(hasText(mandatoryTitle).and(isHeading()))
-            val hasChildWithIcon = hasAnyChild(hasContentDescription(getString(mandatoryIcon.description)))
+            val hasChildWithIcon =
+                hasAnyChild(hasContentDescription(getString(mandatoryIcon.description)))
             onNode(matcher = hasChildWithTitleHeading and hasChildWithIcon)
                 .assertIsDisplayed()
         }
@@ -98,7 +102,7 @@ class ErrorScreenAccessibilityTest {
         }
 
         And("the lazy column content is composed") {
-            onNodeWithTag(BODY_LAZY_COLUMN_TEST_TAG)
+            onNodeWithTag(ERROR_SCREEN_TITLE_TEST_TAG)
                 .performTouchInput { swipeUp() }
                 .onChildren()
                 .onLast()
@@ -108,10 +112,9 @@ class ErrorScreenAccessibilityTest {
             val semanticsNodes = onAllNodes(isRoot().not()).fetchSemanticsNodes()
 
             // root node is skipped due to no accessibility label (text or content description)
-            assertEquals(BODY_LAZY_COLUMN_TEST_TAG, accessibilityLabel(semanticsNodes[0]))
+            assertEquals(ERROR_SCREEN_TITLE_TEST_TAG, accessibilityLabel(semanticsNodes[1]))
 
-            // expected order: merged heading, body, 3 buttons
-            assertEquals("[Error, Title]", accessibilityLabel(semanticsNodes[1]))
+            // expected order:body, 3 buttons
             assertEquals("[Body single line]", accessibilityLabel(semanticsNodes[2]))
             assertEquals("[Primary Button]", accessibilityLabel(semanticsNodes[3]))
             assertEquals("[Secondary Button]", accessibilityLabel(semanticsNodes[4]))
@@ -124,5 +127,21 @@ class ErrorScreenAccessibilityTest {
             ?: node.config.getOrNull(SemanticsProperties.ContentDescription)
             ?: node.config.getOrNull(SemanticsProperties.Text)
         return label?.toString().orEmpty()
+    }
+
+    @Test
+    fun `title has content description and heading role`() {
+        val title = "Test title"
+        composeTestRule.setContent {
+            ErrorScreen(
+                title = title,
+                icon = ErrorScreenIcon.ErrorIcon,
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(ERROR_SCREEN_TITLE_TEST_TAG)
+            .assertContentDescriptionContains(title)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
     }
 }

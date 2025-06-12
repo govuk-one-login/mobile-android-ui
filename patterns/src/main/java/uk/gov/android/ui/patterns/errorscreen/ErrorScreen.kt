@@ -31,6 +31,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.toBodyContent
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
@@ -67,7 +68,7 @@ fun ErrorScreen(
         title = { horizontalPadding ->
             Column(
                 modifier = Modifier
-                    .testTag("ErrorScreenTitle")
+                    .testTag(ERROR_SCREEN_TITLE_TEST_TAG)
                     .semantics(mergeDescendants = true) {
                         heading()
                     },
@@ -158,6 +159,10 @@ private fun SecondaryButton(button: CentreAlignedScreenButton) {
         modifier = Modifier.fillMaxWidth(),
         enabled = button.enabled,
     )
+}
+
+internal object ErrorScreenTitleTestTag {
+    const val ERROR_SCREEN_TITLE_TEST_TAG = "ERROR_SCREEN_TITLE_TEST_TAG"
 }
 
 @ExcludeFromJacocoGeneratedReport
