@@ -297,17 +297,7 @@ private fun MainContent(
             .testTag(BODY_LAZY_COLUMN_TEST_TAG),
     ) {
         image?.let {
-            item {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = HorizontalPadding),
-                ) {
-                    image(HorizontalPadding)
-                }
-            }
+            item { image(HorizontalPadding) }
         }
 
         item {
