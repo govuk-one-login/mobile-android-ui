@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.heading
@@ -66,6 +67,7 @@ fun ErrorScreen(
         title = { horizontalPadding ->
             Column(
                 modifier = Modifier
+                    .testTag("ErrorScreenTitle")
                     .semantics(mergeDescendants = true) {
                         heading()
                     },

@@ -1,6 +1,9 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -78,5 +81,19 @@ class LeftAlignedScreenTest {
             .performClick()
 
         assertFalse(didClick)
+    }
+
+    @Test
+    fun titleHasContentDescriptionAndHeadingRole() {
+        composeTestRule.setContent {
+            LeftAlignedScreen(
+                titleText,
+            )
+        }
+
+        composeTestRule
+            .onNode(title)
+            .assertContentDescriptionEquals(titleText)
+            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
     }
 }
