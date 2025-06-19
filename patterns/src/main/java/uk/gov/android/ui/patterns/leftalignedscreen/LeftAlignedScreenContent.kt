@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -102,6 +104,13 @@ sealed class LeftAlignedScreenBody {
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
         val title: RadioSelectionTitle? = null,
+    ) : LeftAlignedScreenBody()
+
+    data class Divider(
+        val thickness: Dp,
+        val color: Color,
+        val paddingValues: PaddingValues,
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 }
 
@@ -259,6 +268,17 @@ internal fun LazyListScope.toBodyContent(
                         onItemSelected = it.onItemSelected,
                         modifier = it.modifier,
                         title = it.title,
+                    )
+                }
+            }
+
+            is LeftAlignedScreenBody.Divider -> {
+                item {
+                    HorizontalDivider(
+                        thickness = it.thickness,
+                        color = it.color,
+                        modifier = it.modifier
+                            .padding(it.paddingValues),
                     )
                 }
             }
