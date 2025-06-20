@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -16,6 +17,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingTriple
 
 internal class LeftAlignedScreenContentProvider :
@@ -98,6 +100,10 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
+                ),
+                LeftAlignedScreenBody.Divider(
+                    color = Color.Gray,
+                    paddingValues = PaddingValues(horizontal = smallPadding),
                 ),
                 LeftAlignedScreenBody.NumberedList(
                     persistentListOf(

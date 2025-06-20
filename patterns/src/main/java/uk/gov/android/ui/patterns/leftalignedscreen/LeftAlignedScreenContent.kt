@@ -48,6 +48,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
+import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -107,7 +108,7 @@ sealed class LeftAlignedScreenBody {
     ) : LeftAlignedScreenBody()
 
     data class Divider(
-        val thickness: Dp,
+        val thickness: Dp = dividerThickness,
         val color: Color,
         val paddingValues: PaddingValues,
         val modifier: Modifier = Modifier,
