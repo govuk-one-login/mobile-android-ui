@@ -1,9 +1,7 @@
 package uk.gov.android.ui.theme.m3
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import uk.gov.android.ui.theme.m3_theme_dark_background
 import uk.gov.android.ui.theme.m3_theme_dark_error
@@ -113,7 +111,7 @@ val DarkColorPaletteV2 = darkColorScheme(
     primary = Buttons.primary.dark,
     onPrimary = Buttons.primaryIconAndText.dark,
     secondary = Buttons.secondaryTextAndIcon.dark,
-    onSecondary = Color.Magenta,
+    onSecondary = Buttons.primaryIconAndText.dark,
     tertiary = Color.Magenta,
     onTertiary = Color.Magenta,
     error = Buttons.destructive.dark,
@@ -124,24 +122,24 @@ val DarkColorPaletteV2 = darkColorScheme(
     onSecondaryContainer = Color.Magenta,
     tertiaryContainer = Color.Magenta,
     onTertiaryContainer = Color.Magenta,
-    errorContainer = Buttons.destructive.dark,
-    onErrorContainer = Buttons.destructiveTextAndIcon.dark,
+    errorContainer = Color.Magenta,
+    onErrorContainer = Buttons.destructiveNativeButtonText.dark,
     surfaceDim = Color.Magenta,
-    surface = Color.Magenta,
+    surface = Backgrounds.screen.dark,
     surfaceBright = Color.Magenta,
     surfaceContainerLowest = Color.Magenta,
     surfaceContainerLow = Color.Magenta,
     surfaceContainer = Color.Magenta,
     surfaceContainerHigh = Color.Magenta,
     surfaceContainerHighest = Color.Magenta,
-    onSurface = Backgrounds.screen.dark,
+    onSurface = Text.primary.dark,
     onSurfaceVariant = Text.secondary.dark,
     outline = Color.Magenta,
     outlineVariant = Dividers.card.dark,
     inverseSurface = Color.Magenta,
     inverseOnSurface = Color.Magenta,
     inversePrimary = Color.Magenta,
-    scrim = light_theme_scrim,
+    scrim = scrim.dark,
 )
 
 /**
@@ -155,7 +153,7 @@ val LightColorPaletteV2 = lightColorScheme(
     primary = Buttons.primary.light,
     onPrimary = Buttons.primaryIconAndText.light,
     secondary = Buttons.secondaryTextAndIcon.light,
-    onSecondary = Color.Magenta,
+    onSecondary = Buttons.primaryIconAndText.light,
     tertiary = Color.Magenta,
     onTertiary = Color.Magenta,
     error = Buttons.destructive.light,
@@ -166,31 +164,22 @@ val LightColorPaletteV2 = lightColorScheme(
     onSecondaryContainer = Color.Magenta,
     tertiaryContainer = Color.Magenta,
     onTertiaryContainer = Color.Magenta,
-    errorContainer = Buttons.destructive.light,
-    onErrorContainer = Buttons.destructiveTextAndIcon.light,
+    errorContainer = Color.Magenta,
+    onErrorContainer = Buttons.destructiveNativeButtonText.light,
     surfaceDim = Color.Magenta,
-    surface = Color.Magenta,
+    surface = Backgrounds.screen.light,
     surfaceBright = Color.Magenta,
     surfaceContainerLowest = Color.Magenta,
     surfaceContainerLow = Color.Magenta,
     surfaceContainer = Color.Magenta,
     surfaceContainerHigh = Color.Magenta,
     surfaceContainerHighest = Color.Magenta,
-    onSurface = Backgrounds.screen.light,
+    onSurface = Text.primary.light,
     onSurfaceVariant = Text.secondary.light,
     outline = Color.Magenta,
     outlineVariant = Dividers.card.light,
     inverseSurface = Color.Magenta,
     inverseOnSurface = Color.Magenta,
     inversePrimary = Color.Magenta,
-    scrim = light_theme_scrim,
+    scrim = scrim.light,
 )
-
-@Composable
-fun customDynamicColor(light: Color, dark: Color): Color {
-    return if (isSystemInDarkTheme()) {
-        dark
-    } else {
-        light
-    }
-}

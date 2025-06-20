@@ -1,5 +1,6 @@
 package uk.gov.android.ui.theme.m3
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -16,11 +18,14 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
@@ -80,33 +85,137 @@ fun GdsThemeV2(
 ) {
     val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
 
-    MaterialTheme(
-        colorScheme = colors,
-        shapes = shapes,
-        typography = typography,
+    CompositionLocalProvider(
+        GdsLocalColorScheme provides customColors(),
     ) {
-        val view = LocalView.current
+        MaterialTheme(
+            colorScheme = colors,
+            shapes = shapes,
+            typography = typography,
+        ) {
+            val view = LocalView.current
 
-        if (!view.isInEditMode && view.context is Activity) {
-            SideEffect {
-                val window = (view.context as Activity).window
-                window.statusBarColor = Color.Transparent.toArgb()
-                WindowCompat
-                    .getInsetsController(window, view)
-                    .isAppearanceLightStatusBars = !darkTheme
+            if (!view.isInEditMode && view.context is Activity) {
+                SideEffect {
+                    val window = (view.context as Activity).window
+                    window.statusBarColor = Color.Transparent.toArgb()
+                    WindowCompat
+                        .getInsetsController(window, view)
+                        .isAppearanceLightStatusBars = !darkTheme
+                }
             }
-        }
 
-        content()
+            content()
+        }
     }
 }
+
+data class CustomColorsScheme(
+    val homeHeader: Color = Color.Unspecified,
+    val homeHeaderText: Color = Color.Unspecified,
+    val cardBackground: Color = Color.Unspecified,
+    val listBackground: Color = Color.Unspecified,
+    val topBarBackground: Color = Color.Unspecified,
+    val topBarScrolledBackground: Color = Color.Unspecified,
+    val topBarTitle: Color = Color.Unspecified,
+    val topBarIcon: Color = Color.Unspecified,
+    val navigationBarBackground: Color = Color.Unspecified,
+    val navigationBarSelectedState: Color = Color.Unspecified,
+    val navigationBarContent: Color = Color.Unspecified,
+    val selectedRadioButton: Color = Color.Unspecified,
+    val unselectedRadioButton: Color = Color.Unspecified,
+    val documentInformationDivider: Color = Color.Unspecified,
+    val disabledButton: Color = Color.Unspecified,
+    val disabledButtonContent: Color = Color.Unspecified,
+    val unselectedBackgroundSwitch: Color = Color.Unspecified,
+    val unselectedBorderAndHandleSwitch: Color = Color.Unspecified,
+    val selectedBackgroundSwitch: Color = Color.Unspecified,
+    val selectedHandleSwitch: Color = Color.Unspecified,
+    val validWalletDocumentBackground: Color = Color.Unspecified,
+    val validWalletDocumentText: Color = Color.Unspecified,
+    val expiredWalletDocumentBackground: Color = Color.Unspecified,
+    val expiredWalletDocumentText: Color = Color.Unspecified,
+    val walletDocumentHeaderBackground: Color = Color.Unspecified,
+    val walletDocumentHeaderBorder: Color = Color.Unspecified,
+    val walletDocumentBorder: Color = Color.Unspecified,
+    val walletDocumentText: Color = Color.Unspecified,
+    val walletDocumentShadow: Color = Color.Unspecified,
+    val statusTagBorder: Color = Color.Unspecified,
+    val statusTagText: Color = Color.Unspecified,
+    val liveDocumentFooterBorder: Color = Color.Unspecified,
+    val liveDocumentFooterText: Color = Color.Unspecified,
+    val liveDocumentHeaderText: Color = Color.Unspecified,
+    val focusState: Color = Color.Unspecified,
+    val focusStateContent: Color = Color.Unspecified,
+    val nativeButtonText: Color = Color.Unspecified,
+    val iconButton: Color = Color.Unspecified,
+    val iconDefault: Color = Color.Unspecified,
+    val successIcon: Color = Color.Unspecified,
+    val destructiveIcon: Color = Color.Unspecified,
+    val spinnerIcon: Color = Color.Unspecified,
+    val link: Color = Color.Unspecified,
+)
+
+@SuppressLint("CompositionLocalNaming")
+val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
+
+/**
+ * This provides a Custom Color Scheme specific GDS adhering to the Design System.
+ * These colours are only the ones that could not be mapped to the Material3 ones.
+ */
+@Composable
+private fun customColors() = CustomColorsScheme(
+    homeHeader = Backgrounds.homeHeader.toMappedColors(),
+    homeHeaderText = Text.primary.toMappedColors(),
+    cardBackground = Backgrounds.card.toMappedColors(),
+    listBackground = Backgrounds.list.toMappedColors(),
+    topBarBackground = Backgrounds.topBar.toMappedColors(),
+    topBarScrolledBackground = Backgrounds.topBarScrolled.toMappedColors(),
+    topBarTitle = NavigationElements.topBarTitle.toMappedColors(),
+    topBarIcon = NavigationElements.topBarIcon.toMappedColors(),
+    navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
+    navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
+    navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
+    selectedRadioButton = Selection.selectedRadioButton.toMappedColors(),
+    unselectedRadioButton = Selection.unselectedRadioButton.toMappedColors(),
+    disabledButton = Buttons.disabled.toMappedColors(),
+    disabledButtonContent = Buttons.disabledTextAndIcon.toMappedColors(),
+    unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),
+    unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
+    selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
+    selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
+    validWalletDocumentBackground = Backgrounds.validWalletDocument.toMappedColors(),
+    validWalletDocumentText = Text.validWalletDocumentAction.toMappedColors(),
+    expiredWalletDocumentBackground = Backgrounds.expiredWalletDocument.toMappedColors(),
+    expiredWalletDocumentText = Text.invalidWalletDocumentAction.toMappedColors(),
+    walletDocumentHeaderBackground = Backgrounds.walletDocumentHeader.toMappedColors(),
+    walletDocumentHeaderBorder = Borders.walletDocumentHeader.toMappedColors(),
+    walletDocumentBorder = Borders.walletDocument.toMappedColors(),
+    walletDocumentText = Text.walletDocument.toMappedColors(),
+    walletDocumentShadow = Shadows.walletDocument.toMappedColors(),
+    documentInformationDivider = Dividers.documentInformation.toMappedColors(),
+    statusTagBorder = Borders.statusTag.toMappedColors(),
+    statusTagText = Text.statusTag.toMappedColors(),
+    liveDocumentFooterBorder = Borders.liveDocumentFooter.toMappedColors(),
+    liveDocumentFooterText = Text.liveDocumentFooter.toMappedColors(),
+    liveDocumentHeaderText = Text.liveDocumentHeader.toMappedColors(),
+    focusState = Buttons.primaryFocusState.toMappedColors(),
+    focusStateContent = Buttons.focusStateTextIcon.toMappedColors(),
+    nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
+    iconButton = Buttons.icon.toMappedColors(),
+    iconDefault = Icons.icon.toMappedColors(),
+    successIcon = Icons.success.toMappedColors(),
+    destructiveIcon = Icons.destructive.toMappedColors(),
+    spinnerIcon = Icons.spinner.toMappedColors(),
+    link = Links.link.toMappedColors(),
+)
 
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
 internal const val PALETTE_WIDTH = (SWATCH_SIZE * 4) + (PALETTE_PADDING * 2)
 internal const val PALETTE_HEIGHT = 1100
-internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 6) + (PALETTE_PADDING * 2)
-internal const val PALETTE_HEIGHT_V2 = 1750
+internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 7) + (PALETTE_PADDING * 2)
+internal const val PALETTE_HEIGHT_V2 = 1700
 
 @ExcludeFromJacocoGeneratedReport
 @Preview(
@@ -206,184 +315,332 @@ private fun TestColumn() {
 )
 @Composable
 @Suppress("LongMethod")
-fun ThemeV2Preview() {
+fun ThemeV2Material3Preview() {
     GdsThemeV2 {
         with(MaterialTheme.colorScheme) {
+            // Used existing mappings
             val backgroundColors = listOf(
-                SwatchColor(background, "Background - Background Android Screen", onBackground),
-                SwatchColor(onBackground, "On Background - Text Primary", background),
+                SwatchColor(background, "Background - Background Android Screen"),
+                SwatchColor(onBackground, "On Background - Text Primary"),
             )
-            val standardColors = listOf(
-                SwatchColor(primary, "Primary - Button Primary", onPrimary),
-                SwatchColor(secondary, "Secondary - Button Secondary", onSecondary),
-                SwatchColor(tertiary, "Tertiary - Button Secondary", onTertiary),
-                SwatchColor(error, "Error - Button Destructive", onError),
+
+            val usedStandardMaterialColors = listOf(
+                SwatchColor(primary, "Primary - Button Primary"),
+                SwatchColor(secondary, "Secondary - Button Secondary"),
+                SwatchColor(error, "Error - Button Destructive"),
             )
-            val onStandardColors = listOf(
-                SwatchColor(onPrimary, "On Primary - Button Primary text", primary),
-                SwatchColor(onSecondary, "On Secondary - Button Secondary Text", secondary),
-                SwatchColor(
-                    onTertiary,
-                    "On Tertiary - Same as Button Secondary Text",
-                    tertiary,
-                ),
-                SwatchColor(onError, "On Error - Button Destructive Text", error),
+            val usedOnStandardMaterialColors = listOf(
+                SwatchColor(onPrimary, "On Primary - Button Primary text"),
+                SwatchColor(onSecondary, "On Secondary NOT USED"),
+                SwatchColor(onError, "On Error - Button Destructive Text"),
             )
-            val containerColors = listOf(
-                SwatchColor(
-                    primaryContainer,
-                    "Primary Container NO DESIGN COLOUR",
-                    onPrimaryContainer,
-                ),
-                SwatchColor(
-                    secondaryContainer,
-                    "Secondary Container - Navigation Selected",
-                    onSecondaryContainer,
-                ),
-                SwatchColor(
-                    tertiaryContainer,
-                    "Tertiary Container NO DESIGN COLOUR",
-                    onTertiaryContainer,
-                ),
-                SwatchColor(
-                    errorContainer,
-                    "Error Container NO DESIGN COLOUR",
-                    onErrorContainer,
-                ),
-            )
-            val onContainerColors = listOf(
-                SwatchColor(
-                    onPrimaryContainer,
-                    "On Primary Container NO DESIGN COLOUR",
-                    primaryContainer,
-                ),
-                SwatchColor(
-                    onSecondaryContainer,
-                    "On Secondary Container - Navigation Text and Icon",
-                    secondaryContainer,
-                ),
-                SwatchColor(
-                    onTertiaryContainer,
-                    "On Tertiary Container NO DESIGN COLOUR",
-                    tertiaryContainer,
-                ),
+
+            val usedContainerMaterialColors = listOf(
                 SwatchColor(
                     onErrorContainer,
-                    "On Error Container - Destructive OS Button Text",
-                    errorContainer,
+                    "On Error Container - Destructive Native Button Text",
+                    Color.White,
                 ),
             )
 
-            val surfaceColors = listOf(
-                SwatchColor(surfaceDim, "Surface Dim NO DESIGN COLOUR", onSurface),
-                SwatchColor(surface, "Surface NO DESIGN COLOUR", onSurface),
-                SwatchColor(surfaceBright, "Surface Bright NO DESIGN COLOUR", onSurface),
-            )
-
-            val surfaceContainersColors = listOf(
-                SwatchColor(
-                    surfaceContainerLowest,
-                    "Surface Container Lowest NO DESIGN COLOUR",
-                    onSurface,
-                ),
-                SwatchColor(
-                    surfaceContainerLow,
-                    "Surface Container Low - Android Card",
-                    onSurface,
-                ),
-                SwatchColor(surfaceContainer, "Surface Container - Top (App Bars)", onSurface),
-                SwatchColor(surfaceContainerHigh, "Surface Container High - Dialog", onSurface),
-                SwatchColor(
-                    surfaceContainerHighest,
-                    "Surface Container Highest - Switch/ Toggle)",
-                    onSurface,
-                ),
-            )
-            val onSurfaceColors = listOf(
-                SwatchColor(onSurface, "On Surface NO DESIGN COLOUR", surface),
-                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text", surface),
-            )
-            val outLineColors = listOf(
-                SwatchColor(outline, "Outline NO DESIGN COLOUR", m3_theme_onPrimaryFixed),
+            val usedAdditionalMaterialColors = listOf(
+                SwatchColor(surface, "Surface - Same as Background"),
                 SwatchColor(
                     outlineVariant,
                     "Outline Variant - Divider/ Separator Line Android Card",
-                    background,
+                ),
+                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)"),
+            )
+
+            // Unused Material3 colours
+            val usedOnAdditionalMaterialColors = listOf(
+                SwatchColor(onSurface, "On Surface - Same as onBackground"),
+                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text"),
+            )
+
+            val unusedStandardMaterialColors = listOf(
+                SwatchColor(tertiary, "Tertiary NOT USED", onBackground),
+                SwatchColor(
+                    onTertiary,
+                    "On Tertiary NOT USED",
+                    onBackground,
                 ),
             )
 
-            val otherContainerColors = listOf(
-                SwatchColor(inversePrimary, "Inverse Primary NO DESIGN COLOUR", onBackground),
-                SwatchColor(inverseSurface, "Inverse Surface NO DESIGN COLOUR", onBackground),
-                SwatchColor(inverseOnSurface, "Inverse On Surface NO DESIGN COLOUR", onBackground),
-                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)", onBackground),
-            )
-
-            val staticColors = listOf(
+            val unusedStandardContainerMaterialColors = listOf(
                 SwatchColor(
-                    m3_theme_primaryFixed,
-                    "Primary Fixed - Button Focus",
-                    m3_theme_onPrimaryFixed,
+                    primaryContainer,
+                    "Primary Container NOT USED",
+                    onBackground,
                 ),
                 SwatchColor(
-                    m3_theme_secondaryFixed,
-                    "Secondary Fixed - Button Disabled",
-                    m3_theme_onSecondaryFixed,
+                    secondaryContainer,
+                    "Secondary Container NOT USED",
+                    onBackground,
                 ),
                 SwatchColor(
-                    m3_theme_tertiaryFixed,
-                    "Tertiary Fixed - Wallet Document Background",
-                    m3_theme_onTertiaryFixed,
+                    tertiaryContainer,
+                    "Tertiary Container NOT USED",
+                    onBackground,
+                ),
+                SwatchColor(
+                    errorContainer,
+                    "Error Container NOT USED",
+                    onBackground,
                 ),
             )
 
-            val staticTextColors = listOf(
+            val unusedOnStandardContainerMaterialColors = listOf(
                 SwatchColor(
-                    m3_theme_onPrimaryFixed,
-                    "Primary Fixed - Button Focus Text",
-                    m3_theme_primaryFixed,
+                    onPrimaryContainer,
+                    "On Primary Container NOT USED",
+                    onBackground,
                 ),
                 SwatchColor(
-                    m3_theme_onSecondaryFixed,
-                    "Secondary Fixed - Button Disabled Text",
-                    m3_theme_secondaryFixed,
+                    onSecondaryContainer,
+                    "On Secondary Container - NOT USED",
+                    onBackground,
                 ),
                 SwatchColor(
-                    m3_theme_onTertiaryFixed,
-                    "Tertiary Fixed - onPrimary",
-                    m3_theme_tertiaryFixed,
+                    onTertiaryContainer,
+                    "On Tertiary Container NOT USED",
+                    onBackground,
                 ),
+            )
+
+            val unusedContainerMaterialColors = listOf(
+                SwatchColor(
+                    surfaceContainerLowest,
+                    "Surface Container Lowest NOT USED",
+                    onBackground,
+                ),
+                SwatchColor(
+                    surfaceContainerLow,
+                    "Surface Container Low NOT USED",
+                    onBackground,
+                ),
+                SwatchColor(
+                    surfaceContainer,
+                    "Surface Container - NOT USED",
+                    onBackground,
+                ),
+                SwatchColor(
+                    surfaceContainerHigh,
+                    "Surface Container High NOT USED",
+                    onBackground,
+                ),
+                SwatchColor(
+                    surfaceContainerHighest,
+                    "Surface Container Highest NOT USED",
+                    onBackground,
+                ),
+            )
+
+            val unusedAdditionalMaterialColors = listOf(
+                SwatchColor(outline, "Outline NOT USED", onBackground),
+                SwatchColor(inversePrimary, "Inverse Primary NOT USED", onBackground),
+                SwatchColor(inverseSurface, "Inverse Surface NOT USED", onBackground),
+                SwatchColor(inverseOnSurface, "Inverse On Surface NOT USED", onBackground),
+                SwatchColor(surfaceDim, "Surface Dim NOT USED", onBackground),
+                SwatchColor(surfaceBright, "Surface Bright NOt USED", onBackground),
             )
 
             Column {
-                Row { backgroundColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { standardColors.forEach { Swatch(data = it) } }
-                Row { onStandardColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { containerColors.forEach { Swatch(data = it) } }
-                Row(modifier = Modifier.height(150.dp)) {
-                    onContainerColors.forEach { Swatch(data = it) }
-                }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { surfaceColors.forEach { Swatch(data = it) } }
-                Row { surfaceContainersColors.forEach { Swatch(data = it) } }
-                Row { onSurfaceColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { outLineColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { otherContainerColors.forEach { Swatch(data = it) } }
-                Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Text(
-                    "Fixed/ Static Colours - DOESN'T use the Material3 " +
-                        "- would need to be used variables directly - see Colors.kt",
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = m3_theme_secondaryFixed,
+                    "Material 3 Mappings to GDS Colors",
+                    textAlign = TextAlign.Center,
+                    style = Typography.displayMedium,
+                    color = Color.White,
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
-                Row { staticColors.forEach { Swatch(data = it) } }
-                Row { staticTextColors.forEach { Swatch(data = it) } }
+                Row { backgroundColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { usedStandardMaterialColors.forEach { Swatch(data = it) } }
+                Row { usedOnStandardMaterialColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { usedContainerMaterialColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { usedAdditionalMaterialColors.forEach { Swatch(data = it) } }
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { usedOnAdditionalMaterialColors.forEach { Swatch(data = it) } }
+                Text(
+                    "Unused Material3 Colors",
+                    textAlign = TextAlign.Center,
+                    style = Typography.displayMedium,
+                    color = Color.White,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(PALETTE_PADDING.dp))
+                Row { unusedStandardMaterialColors.forEach { Swatch(data = it) } }
+                Row { unusedContainerMaterialColors.forEach { Swatch(data = it) } }
+                Row { unusedStandardContainerMaterialColors.forEach { Swatch(data = it) } }
+                Row { unusedOnStandardContainerMaterialColors.forEach { Swatch(data = it) } }
+                Row { unusedAdditionalMaterialColors.forEach { Swatch(data = it) } }
             }
+        }
+    }
+}
+
+@OptIn(UnstableDesignSystemAPI::class)
+@ExcludeFromJacocoGeneratedReport
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    widthDp = PALETTE_WIDTH_V2,
+    heightDp = PALETTE_HEIGHT_V2,
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    widthDp = PALETTE_WIDTH_V2,
+    heightDp = PALETTE_HEIGHT_V2,
+)
+@Composable
+@Suppress("LongMethod", "CyclomaticComplexMethod")
+fun ThemeV2CustomPreview() {
+    GdsThemeV2 {
+        // Custom colors
+        val backgroundCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(cardBackground, "Backgrounds - Card"),
+                SwatchColor(listBackground, "Backgrounds - List"),
+                SwatchColor(topBarBackground, "Backgrounds - Top Bar"),
+                SwatchColor(topBarScrolledBackground, "Backgrounds - Top Bar Scrolled"),
+                SwatchColor(navigationBarBackground, "Backgrounds - Navigation Bar"),
+            )
+        }
+
+        val buttonsColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(focusState, "Buttons - Focus State"),
+                SwatchColor(focusStateContent, "Buttons - Focus State Text/ Content"),
+                SwatchColor(disabledButton, "Buttons - Disabled Button"),
+                SwatchColor(disabledButtonContent, "Buttons - Disabled Text/ Content"),
+                SwatchColor(nativeButtonText, "Buttons - Native Text/ Content"),
+                SwatchColor(iconButton, "Buttons - Icon"),
+            )
+        }
+
+        val iconsAndLinksColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(iconDefault, "Icons - Icon"),
+                SwatchColor(successIcon, "Icons - Success"),
+                SwatchColor(destructiveIcon, "Icons - Error"),
+                SwatchColor(spinnerIcon, "Icons - Spinner"),
+                SwatchColor(link, "Links - Links"),
+            )
+        }
+
+        val navigationElementsColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(topBarTitle, "Navigation Elements - Top Bar Title"),
+                SwatchColor(topBarIcon, "Navigation Elements - Top Bar Icon"),
+                SwatchColor(navigationBarContent, "Navigation Elements - Navigation Bar Icon and Label"),
+                SwatchColor(navigationBarSelectedState, "Navigation Elements - Navigation Bar Selected State"),
+            )
+        }
+
+        val selectionAndSwitchColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(unselectedRadioButton, "Selection - Unselected Radio Button"),
+                SwatchColor(selectedRadioButton, "Selection - Selected Radio Button"),
+                SwatchColor(selectedBackgroundSwitch, "Switch - Selected Background"),
+                SwatchColor(selectedHandleSwitch, "Switch - Selected Handle"),
+                SwatchColor(unselectedBackgroundSwitch, "Switch - Unselected Background"),
+                SwatchColor(unselectedBorderAndHandleSwitch, "Switch - Unselected Border and Handle"),
+            )
+        }
+
+        val walletBackgroundsAndBordersCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(validWalletDocumentBackground, "Backgrounds - Valid Wallet Document"),
+                SwatchColor(expiredWalletDocumentBackground, "Backgrounds - Invalid Wallet Document"),
+                SwatchColor(walletDocumentHeaderBackground, "Backgrounds - Wallet Document Header"),
+                SwatchColor(walletDocumentBorder, "Borders - Wallet Document"),
+                SwatchColor(walletDocumentHeaderBorder, "Borders - Wallet Document Header (5% Opacity)"),
+                SwatchColor(statusTagBorder, "Borders - Status Tag"),
+                SwatchColor(liveDocumentFooterBorder, "Borders - Live Document Footer (20% Opacity)"),
+            )
+        }
+
+        val walletTextAndDividersCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(validWalletDocumentText, "Text - Valid Wallet Document Action"),
+                SwatchColor(expiredWalletDocumentText, "Text - Invalid Wallet Document Action"),
+                SwatchColor(statusTagText, "Text - Status Tag"),
+                SwatchColor(walletDocumentText, "Text - Wallet Document"),
+                SwatchColor(liveDocumentHeaderText, "Text - Live Document Header"),
+                SwatchColor(liveDocumentFooterText, "Text - Live Document Footer"),
+                SwatchColor(documentInformationDivider, "Divider - Document Information"),
+                SwatchColor(walletDocumentShadow, "Shadows - Wallet Document"),
+            )
+        }
+
+        // This don't have an equivalent in the theme as is a bit more specific to each document
+        val specificWalletColors = listOf(
+            SwatchColor(
+                Backgrounds.veteranCardInformationHeader.toMappedColors(),
+                "Backgrounds - Veteran's Card Information Header",
+            ),
+        )
+
+        Column {
+            Text(
+                "Custom Colors",
+                textAlign = TextAlign.Center,
+                style = Typography.displayMedium,
+                color = Color.White,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Background Common Colours",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { backgroundCustomColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Buttons Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { buttonsColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Icons and Links Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { iconsAndLinksColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Navigation Elements Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { navigationElementsColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Selection and Switch Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { selectionAndSwitchColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Wallet Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { walletBackgroundsAndBordersCustomColors.forEach { Swatch(data = it) } }
+            Row { walletTextAndDividersCustomColors.forEach { Swatch(data = it) } }
+            Text(
+                "Wallet Document Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { specificWalletColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
         }
     }
 }
