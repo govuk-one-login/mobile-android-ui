@@ -174,7 +174,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
-internal fun LazyListScope.toBodyContent(
+fun LazyListScope.toBodyContent(
     body: List<LeftAlignedScreenBody>?,
     horizontalItemPadding: Dp,
 ) {
