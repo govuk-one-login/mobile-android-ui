@@ -109,7 +109,7 @@ sealed class LeftAlignedScreenBody {
 
     data class Divider(
         val thickness: Dp = dividerThickness,
-        val color: Color,
+        val color: Color? = null,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 }
@@ -276,9 +276,8 @@ internal fun LazyListScope.toBodyContent(
                 item {
                     HorizontalDivider(
                         thickness = it.thickness,
-                        color = it.color,
-                        modifier = it.modifier
-                            .padding(itemPadding),
+                        color = it.color ?: MaterialTheme.colorScheme.surface,
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }
