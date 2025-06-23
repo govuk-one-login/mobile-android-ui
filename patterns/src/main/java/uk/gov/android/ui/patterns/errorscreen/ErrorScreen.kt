@@ -53,6 +53,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
  */
+@Deprecated("Use [patterns.errorscreen.v2/ErrorScreen] instead")
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ErrorScreen(
