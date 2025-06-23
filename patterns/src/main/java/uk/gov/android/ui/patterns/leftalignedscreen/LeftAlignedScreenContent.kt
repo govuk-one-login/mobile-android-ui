@@ -272,6 +272,8 @@ fun LazyListScope.toBodyContent(
                 }
             }
 
+            // TODO update color with GdsThemeV2 once available
+            // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
             is LeftAlignedScreenBody.Divider -> {
                 item {
                     HorizontalDivider(
