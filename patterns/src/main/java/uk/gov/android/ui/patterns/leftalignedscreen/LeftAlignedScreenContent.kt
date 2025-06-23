@@ -172,6 +172,13 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
+/**
+ * The toBodyContent function is an extension function on the LazyListScope that aims to
+ * abstract away the repetitive logic used to render a Lazy list of LeftAlignedScreenBody
+ *
+ * @param body [List<LeftAlignedScreenBody>?] represents the list of LeftAlignedScreenBody
+ * @param horizontalItemPadding [Dp] represents the horizontal padding
+ */
 @OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
 fun LazyListScope.toBodyContent(
