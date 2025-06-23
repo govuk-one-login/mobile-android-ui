@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -30,13 +32,17 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -64,6 +70,8 @@ sealed class LeftAlignedScreenBody {
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
+        val showIcon: Boolean = false,
+        val enabled: Boolean = true,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
@@ -254,9 +262,22 @@ fun LazyListScope.toBodyContent(
 
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
+                    val buttonType = if (it.showIcon) {
+                        ButtonType.Icon(
+                            buttonColors = customButtonColors(
+                                contentColor = colorScheme.primary,
+                                containerColor = colorScheme.background,
+                            ),
+                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            contentDescription = stringResource(R.string.opens_in_external_browser),
+                        )
+                    } else {
+                        ButtonType.Secondary
+                    }
+
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Secondary,
+                        buttonType = buttonType,
                         onClick = it.onClick,
                         textAlign = TextAlign.Start,
                         contentPosition = Arrangement.Start,
