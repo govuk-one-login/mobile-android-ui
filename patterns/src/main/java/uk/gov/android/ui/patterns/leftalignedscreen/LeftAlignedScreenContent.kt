@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -46,6 +48,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
+import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -102,6 +105,12 @@ sealed class LeftAlignedScreenBody {
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
         val title: RadioSelectionTitle? = null,
+    ) : LeftAlignedScreenBody()
+
+    data class Divider(
+        val thickness: Dp = dividerThickness,
+        val color: Color? = null,
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 }
 
@@ -163,9 +172,16 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
+/**
+ * The toBodyContent function is an extension function on the LazyListScope that aims to
+ * abstract away the repetitive logic used to render a Lazy list of LeftAlignedScreenBody
+ *
+ * @param body [List<LeftAlignedScreenBody>?] represents the list of LeftAlignedScreenBody
+ * @param horizontalItemPadding [Dp] represents the horizontal padding
+ */
 @OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
-internal fun LazyListScope.toBodyContent(
+fun LazyListScope.toBodyContent(
     body: List<LeftAlignedScreenBody>?,
     horizontalItemPadding: Dp,
 ) {
@@ -259,6 +275,18 @@ internal fun LazyListScope.toBodyContent(
                         onItemSelected = it.onItemSelected,
                         modifier = it.modifier,
                         title = it.title,
+                    )
+                }
+            }
+
+            // TODO update color with GdsThemeV2 once available
+            // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
+            is LeftAlignedScreenBody.Divider -> {
+                item {
+                    HorizontalDivider(
+                        thickness = it.thickness,
+                        color = it.color ?: MaterialTheme.colorScheme.surface,
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }

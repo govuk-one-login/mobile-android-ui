@@ -99,6 +99,7 @@ internal class LeftAlignedScreenContentProvider :
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
+                LeftAlignedScreenBody.Divider(),
                 LeftAlignedScreenBody.NumberedList(
                     persistentListOf(
                         ListItem("Number 1"),
