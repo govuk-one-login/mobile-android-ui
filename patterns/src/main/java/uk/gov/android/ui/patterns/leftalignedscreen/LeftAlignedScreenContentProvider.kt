@@ -110,6 +110,7 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.SecondaryButton(
                     "Secondary Button",
                     {},
+                    showIcon = true,
                 ),
             ),
             supportingText = supportingText,
