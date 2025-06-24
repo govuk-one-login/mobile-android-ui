@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
@@ -64,12 +65,12 @@ fun ErrorScreen(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(
-            VerticalPadding,
-            Alignment.CenterVertically,
-        ),
         modifier = modifier,
     ) {
+        val verticalPaddingRequired = primaryButton != null ||
+            secondaryButton != null ||
+            tertiaryButton != null
+
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(
                 VerticalPadding,
@@ -112,9 +113,8 @@ fun ErrorScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = HorizontalPadding,
-                    end = HorizontalPadding,
-                    bottom = VerticalPadding,
+                    horizontal = HorizontalPadding,
+                    vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
                 ),
         ) {
             primaryButton?.invoke()
@@ -136,7 +136,6 @@ internal object ErrorScreenTitleTestTag {
     const val ERROR_BODY_LAZY_COLUMN_TEST_TAG = "ERROR_BODY_LAZY_COLUMN_TEST_TAG"
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true)
@@ -146,48 +145,10 @@ internal fun PreviewErrorScreen(
     content: ErrorScreenContent,
 ) {
     GdsTheme {
-        ErrorScreen(
-            icon = { horizontalPadding ->
-                GdsIcon(
-                    image = ImageVector.vectorResource(content.icon.icon),
-                    contentDescription = stringResource(content.icon.description),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = horizontalPadding),
-                    color = colorScheme.onBackground,
-                )
-            },
-            title = { horizontalPadding ->
-                GdsHeading(
-                    text = content.title,
-                    modifier = Modifier
-                        .padding(horizontal = horizontalPadding),
-                    textAlign = GdsHeadingAlignment.CenterAligned,
-                )
-            },
-            body = { horizontalPadding ->
-                toBodyContent(content.body, horizontalPadding)
-            },
-            primaryButton = {
-                content.primaryButton?.let {
-                    PrimaryButton(it)
-                }
-            },
-            secondaryButton = {
-                content.secondaryButton?.let {
-                    SecondaryButton(it)
-                }
-            },
-            tertiaryButton = {
-                content.tertiaryButton?.let {
-                    SecondaryButton(it)
-                }
-            },
-        )
+        ErrorScreenPreviewComposable(content)
     }
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true, fontScale = 1.5f)
@@ -197,43 +158,49 @@ internal fun PreviewErrorScreenAccessibility(
     content: ErrorScreenContent,
 ) {
     GdsTheme {
-        ErrorScreen(
-            icon = { horizontalPadding ->
-                GdsIcon(
-                    image = ImageVector.vectorResource(content.icon.icon),
-                    contentDescription = stringResource(content.icon.description),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = horizontalPadding),
-                    color = colorScheme.onBackground,
-                )
-            },
-            title = { horizontalPadding ->
-                GdsHeading(
-                    text = content.title,
-                    modifier = Modifier
-                        .padding(horizontal = horizontalPadding),
-                    textAlign = GdsHeadingAlignment.CenterAligned,
-                )
-            },
-            body = { horizontalPadding ->
-                toBodyContent(content.body, horizontalPadding)
-            },
-            primaryButton = {
-                content.primaryButton?.let {
-                    PrimaryButton(it)
-                }
-            },
-            secondaryButton = {
-                content.secondaryButton?.let {
-                    SecondaryButton(it)
-                }
-            },
-            tertiaryButton = {
-                content.tertiaryButton?.let {
-                    SecondaryButton(it)
-                }
-            },
-        )
+        ErrorScreenPreviewComposable(content)
     }
+}
+
+@OptIn(UnstableDesignSystemAPI::class)
+@Composable
+internal fun ErrorScreenPreviewComposable(
+    @PreviewParameter(ErrorScreenContentProvider::class)
+    content: ErrorScreenContent,
+) {
+    ErrorScreen(
+        icon = { horizontalPadding ->
+            GdsIcon(
+                image = ImageVector.vectorResource(content.icon.icon),
+                contentDescription = stringResource(content.icon.description),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding),
+                color = colorScheme.onBackground,
+            )
+        },
+        title = { horizontalPadding ->
+            GdsHeading(
+                text = content.title,
+                modifier = Modifier
+                    .padding(horizontal = horizontalPadding),
+                textAlign = GdsHeadingAlignment.CenterAligned,
+            )
+        },
+        body = { horizontalPadding ->
+            toBodyContent(content.body, horizontalPadding)
+        },
+        primaryButton =
+        content.primaryButton?.let {
+            { PrimaryButton(it) }
+        },
+        secondaryButton =
+        content.secondaryButton?.let {
+            { SecondaryButton(it) }
+        },
+        tertiaryButton =
+        content.tertiaryButton?.let {
+            { SecondaryButton(it) }
+        },
+    )
 }
