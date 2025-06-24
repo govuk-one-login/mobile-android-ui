@@ -4,8 +4,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.list.ListItem
-import uk.gov.android.ui.componentsv2.list.ListTitle
-import uk.gov.android.ui.componentsv2.list.TitleType
 
 internal class ErrorScreenContentProvider :
     PreviewParameterProvider<ErrorScreenContent> {
@@ -36,15 +34,14 @@ internal class ErrorScreenContentProvider :
             configurationDescription = """
                 Content 2 - Basic Error Screen with no buttons and left aligned Icon button
             """.trimIndent(),
-            title = errorTitle,
-            icon = ErrorScreenIcon.ErrorIcon,
+            title = warningTitle,
+            icon = ErrorScreenIcon.WarningIcon,
             body = persistentListOf(
                 ErrorScreenBodyContent.Text(bodyContentSingleLine),
                 ErrorScreenBodyContent.Text(bodyContentBoldLine, true),
                 ErrorScreenBodyContent.Text(bodyContentSingleLine),
                 ErrorScreenBodyContent.Text("Body single paragraph - ${loremIpsum(18)}"),
                 ErrorScreenBodyContent.BulletList(
-                    title = ListTitle("This is the bullet view", TitleType.Heading),
                     items = persistentListOf(
                         ListItem("Here we can list things we want the user to know"),
                         ListItem("we can use this as a way to step them through an action"),
