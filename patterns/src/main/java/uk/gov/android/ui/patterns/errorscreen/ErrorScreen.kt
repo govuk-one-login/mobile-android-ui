@@ -1,6 +1,9 @@
 package uk.gov.android.ui.patterns.errorscreen
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -8,8 +11,11 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -25,10 +31,12 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.toBodyContent
+import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
+import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
@@ -45,6 +53,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
  */
+@Deprecated("Use [patterns.errorscreen.v2/ErrorScreen] instead")
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ErrorScreen(
@@ -58,19 +67,31 @@ fun ErrorScreen(
 ) {
     CentreAlignedScreen(
         title = { horizontalPadding ->
-            GdsHeading(
-                text = title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.CenterAligned,
-            )
-        },
-        image = { horizontalPadding ->
-            Icon(
-                imageVector = ImageVector.vectorResource(icon.icon),
-                contentDescription = stringResource(icon.description),
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                tint = colorScheme.onBackground,
-            )
+            Column(
+                modifier = Modifier
+                    .testTag(ERROR_SCREEN_TITLE_TEST_TAG)
+                    .semantics(mergeDescendants = true) {
+                        heading()
+                    },
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(icon.icon),
+                    contentDescription = stringResource(icon.description),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
+                    tint = colorScheme.onBackground,
+                )
+
+                Spacer(modifier = Modifier.height(spacingDouble))
+
+                GdsHeading(
+                    text = title,
+                    modifier = Modifier
+                        .padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.CenterAligned,
+                )
+            }
         },
         modifier = modifier,
         body = body?.let {
@@ -139,6 +160,10 @@ private fun SecondaryButton(button: CentreAlignedScreenButton) {
         modifier = Modifier.fillMaxWidth(),
         enabled = button.enabled,
     )
+}
+
+internal object ErrorScreenTitleTestTag {
+    const val ERROR_SCREEN_TITLE_TEST_TAG = "ERROR_SCREEN_TITLE_TEST_TAG"
 }
 
 @ExcludeFromJacocoGeneratedReport
