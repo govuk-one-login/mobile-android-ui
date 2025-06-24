@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 internal class ErrorScreenContentProvider :
     PreviewParameterProvider<ErrorScreenContent> {
     private val errorTitle = "This is an Error View title"
-    private val warningTitle = "This is an Warning View title"
+    private val warningTitle = "This is a Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
     private val bodyContentBoldLine = "Body single line (bold)"
     private val primaryButtonText = "Primary button"
