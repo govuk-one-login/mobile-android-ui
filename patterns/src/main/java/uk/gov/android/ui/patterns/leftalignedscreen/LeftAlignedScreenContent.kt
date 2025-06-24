@@ -260,6 +260,8 @@ fun LazyListScope.toBodyContent(
                 }
             }
 
+            // TODO update button color with GdsThemeV2, once available
+            // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
                     val buttonType = if (it.showIcon) {
