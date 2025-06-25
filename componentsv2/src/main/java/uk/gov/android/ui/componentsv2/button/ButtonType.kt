@@ -79,26 +79,32 @@ internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
-    contentColor = colorScheme.secondary,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
     disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.tertiary,
-    contentColor = colorScheme.onTertiary,
+    containerColor = Color.Transparent,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
     disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.secondary,
-    contentColor = colorScheme.onSecondary,
+    containerColor = Color.Transparent,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
     disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
 )
