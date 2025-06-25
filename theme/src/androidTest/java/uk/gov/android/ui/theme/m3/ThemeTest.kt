@@ -17,9 +17,16 @@ class ThemeTest {
     }
 
     @Test
-    fun previewV2Test() {
+    fun previewV2Material3Test() {
         composeTestRule.setContent {
-            ThemeV2Preview()
+            ThemeV2Material3Preview()
+        }
+    }
+
+    @Test
+    fun previewV2CustomTest() {
+        composeTestRule.setContent {
+            ThemeV2CustomPreview()
         }
     }
 }

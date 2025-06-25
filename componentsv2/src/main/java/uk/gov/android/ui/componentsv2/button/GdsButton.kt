@@ -178,6 +178,11 @@ internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonP
             R.string.text_button,
             ButtonTypePreview.Icon,
         ),
+        ButtonParameters(
+            text = R.string.disabled_button,
+            buttonType = ButtonTypePreview.Primary,
+            enabled = false,
+        ),
     )
 }
 
