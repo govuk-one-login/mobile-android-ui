@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,6 +56,8 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.dividerThickness
+import uk.gov.android.ui.theme.m3.dark_theme_onSecondary
+import uk.gov.android.ui.theme.m3.light_theme_onSecondary
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -188,7 +191,7 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
  * @param horizontalItemPadding [Dp] represents the horizontal padding
  */
 @OptIn(UnstableDesignSystemAPI::class)
-@Suppress("LongMethod")
+@Suppress("LongMethod", "CyclomaticComplexMethod")
 fun LazyListScope.toBodyContent(
     body: List<LeftAlignedScreenBody>?,
     horizontalItemPadding: Dp,
@@ -265,9 +268,14 @@ fun LazyListScope.toBodyContent(
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
                     val buttonType = if (it.showIcon) {
+                        val contentColor = if (isSystemInDarkTheme()) {
+                            dark_theme_onSecondary
+                        } else {
+                            light_theme_onSecondary
+                        }
                         ButtonType.Icon(
                             buttonColors = customButtonColors(
-                                contentColor = colorScheme.primary,
+                                contentColor = contentColor,
                                 containerColor = colorScheme.background,
                             ),
                             iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
