@@ -1,5 +1,8 @@
-package uk.gov.android.ui.patterns.errorscreen
+package uk.gov.android.ui.patterns.errorscreen.v2
 
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -21,31 +24,31 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.printToString
 import androidx.compose.ui.test.swipeUp
 import junit.framework.TestCase.assertEquals
-import kotlinx.collections.immutable.persistentListOf
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
-import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.patterns.utils.BDD.And
 import uk.gov.android.ui.patterns.utils.BDD.Given
 import uk.gov.android.ui.patterns.utils.BDD.Then
 import uk.gov.android.ui.patterns.utils.BDD.When
 import uk.gov.android.ui.patterns.utils.TestUtils.getString
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
+@OptIn(UnstableDesignSystemAPI::class)
 @RunWith(RobolectricTestRunner::class)
 class ErrorScreenAccessibilityTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val singleLineText = CentreAlignedScreenBodyContent.Text("Body single line")
-    private val body = persistentListOf(singleLineText)
-    private val primaryButton = CentreAlignedScreenButton(text = "Primary Button", onClick = {})
-    private val secondaryButton = CentreAlignedScreenButton(text = "Secondary Button", onClick = {})
-    private val tertiaryButton = CentreAlignedScreenButton(text = "Tertiary Button", onClick = {})
+    private val singleLineText = "Body single line"
+    private val primaryButtonText = "Primary Button"
+    private val secondaryButtonText = "Secondary Button"
+    private val tertiaryButtonText = "Tertiary Button"
 
     private lateinit var mandatoryIcon: ErrorScreenIcon
     private lateinit var mandatoryTitle: String
@@ -60,8 +63,13 @@ class ErrorScreenAccessibilityTest {
         When("the screen is composed with the provided icon and title") {
             setContent {
                 ErrorScreen(
-                    icon = mandatoryIcon,
-                    title = mandatoryTitle,
+                    icon = {
+                        GdsIcon(
+                            image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
+                            contentDescription = "Error",
+                        )
+                    },
+                    title = { GdsHeading(mandatoryTitle) },
                 )
             }
         }
@@ -81,24 +89,52 @@ class ErrorScreenAccessibilityTest {
         }
     }
 
+    @Suppress("LongMethod")
     @Test
     fun `test accessibility traversal`() = with(composeTestRule) {
         Given("an error screen with a content") {
             mandatoryIcon = ErrorScreenIcon.ErrorIcon
             mandatoryTitle = "Title"
         }
-
-        When("the screen is composed with the provided content") {
-            setContent {
-                ErrorScreen(
-                    icon = mandatoryIcon,
-                    title = mandatoryTitle,
-                    body = body,
-                    primaryButton = primaryButton,
-                    secondaryButton = secondaryButton,
-                    tertiaryButton = tertiaryButton,
-                )
-            }
+        setContent {
+            ErrorScreen(
+                icon = {
+                    GdsIcon(
+                        image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
+                        contentDescription = "Error",
+                    )
+                },
+                title = { GdsHeading(mandatoryTitle) },
+                body = {
+                    item {
+                        Text(singleLineText)
+                    }
+                },
+                primaryButton = {
+                    PrimaryButton(
+                        ErrorScreenButton(
+                            text = primaryButtonText,
+                            onClick = {},
+                        ),
+                    )
+                },
+                secondaryButton = {
+                    SecondaryButton(
+                        ErrorScreenButton(
+                            text = secondaryButtonText,
+                            onClick = {},
+                        ),
+                    )
+                },
+                tertiaryButton = {
+                    SecondaryButton(
+                        ErrorScreenButton(
+                            text = tertiaryButtonText,
+                            onClick = {},
+                        ),
+                    )
+                },
+            )
         }
 
         And("the lazy column content is composed") {
@@ -131,17 +167,30 @@ class ErrorScreenAccessibilityTest {
 
     @Test
     fun `title has content description and heading role`() {
-        val title = "Test title"
-        composeTestRule.setContent {
-            ErrorScreen(
-                title = title,
-                icon = ErrorScreenIcon.ErrorIcon,
-            )
+        Given("an error screen with an icon and a title") {
+            mandatoryIcon = ErrorScreenIcon.ErrorIcon
+            mandatoryTitle = "Title"
         }
 
-        composeTestRule
-            .onNodeWithTag(ERROR_SCREEN_TITLE_TEST_TAG)
-            .assertContentDescriptionContains(title)
-            .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+        When("the screen is composed with the provided icon and title") {
+            composeTestRule.setContent {
+                ErrorScreen(
+                    icon = {
+                        GdsIcon(
+                            image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
+                            contentDescription = "Error",
+                        )
+                    },
+                    title = { GdsHeading(mandatoryTitle) },
+                )
+            }
+        }
+
+        Then("the title should have a meaningful content description and heading role") {
+            composeTestRule
+                .onNodeWithTag(ERROR_SCREEN_TITLE_TEST_TAG)
+                .assertContentDescriptionContains(mandatoryTitle)
+                .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+        }
     }
 }

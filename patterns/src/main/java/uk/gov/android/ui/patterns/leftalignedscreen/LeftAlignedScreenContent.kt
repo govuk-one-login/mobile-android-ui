@@ -4,13 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -28,13 +33,17 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
+import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -46,6 +55,9 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
+import uk.gov.android.ui.theme.dividerThickness
+import uk.gov.android.ui.theme.m3.dark_theme_onSecondary
+import uk.gov.android.ui.theme.m3.light_theme_onSecondary
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -61,6 +73,8 @@ sealed class LeftAlignedScreenBody {
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
+        val showIcon: Boolean = false,
+        val enabled: Boolean = true,
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 
@@ -102,6 +116,12 @@ sealed class LeftAlignedScreenBody {
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
         val title: RadioSelectionTitle? = null,
+    ) : LeftAlignedScreenBody()
+
+    data class Divider(
+        val thickness: Dp = dividerThickness,
+        val color: Color? = null,
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBody()
 }
 
@@ -163,9 +183,16 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
+/**
+ * The toBodyContent function is an extension function on the LazyListScope that aims to
+ * abstract away the repetitive logic used to render a Lazy list of LeftAlignedScreenBody
+ *
+ * @param body [List<LeftAlignedScreenBody>?] represents the list of LeftAlignedScreenBody
+ * @param horizontalItemPadding [Dp] represents the horizontal padding
+ */
 @OptIn(UnstableDesignSystemAPI::class)
-@Suppress("LongMethod")
-internal fun LazyListScope.toBodyContent(
+@Suppress("LongMethod", "CyclomaticComplexMethod")
+fun LazyListScope.toBodyContent(
     body: List<LeftAlignedScreenBody>?,
     horizontalItemPadding: Dp,
 ) {
@@ -236,11 +263,31 @@ internal fun LazyListScope.toBodyContent(
                 }
             }
 
+            // TODO update button color with GdsThemeV2, once available
+            // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
+                    val buttonType = if (it.showIcon) {
+                        val contentColor = if (isSystemInDarkTheme()) {
+                            dark_theme_onSecondary
+                        } else {
+                            light_theme_onSecondary
+                        }
+                        ButtonType.Icon(
+                            buttonColors = customButtonColors(
+                                contentColor = contentColor,
+                                containerColor = colorScheme.background,
+                            ),
+                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            contentDescription = stringResource(R.string.opens_in_external_browser),
+                        )
+                    } else {
+                        ButtonType.Secondary
+                    }
+
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Secondary,
+                        buttonType = buttonType,
                         onClick = it.onClick,
                         textAlign = TextAlign.Start,
                         contentPosition = Arrangement.Start,
@@ -259,6 +306,18 @@ internal fun LazyListScope.toBodyContent(
                         onItemSelected = it.onItemSelected,
                         modifier = it.modifier,
                         title = it.title,
+                    )
+                }
+            }
+
+            // TODO update color with GdsThemeV2 once available
+            // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
+            is LeftAlignedScreenBody.Divider -> {
+                item {
+                    HorizontalDivider(
+                        thickness = it.thickness,
+                        color = it.color ?: MaterialTheme.colorScheme.surface,
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }

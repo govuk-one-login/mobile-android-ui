@@ -3,10 +3,8 @@ package uk.gov.android.ui.patterns.centrealignedscreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -24,7 +22,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -299,20 +296,12 @@ private fun MainContent(
             .fillMaxSize()
             .testTag(BODY_LAZY_COLUMN_TEST_TAG),
     ) {
-        item {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .semantics(mergeDescendants = true) {},
-            ) {
-                image?.let {
-                    image.invoke(HorizontalPadding)
-                    Spacer(modifier = Modifier.height(spacingDouble))
-                }
+        image?.let {
+            item { image(HorizontalPadding) }
+        }
 
-                title(HorizontalPadding)
-            }
+        item {
+            title(HorizontalPadding)
         }
 
         body?.let {
