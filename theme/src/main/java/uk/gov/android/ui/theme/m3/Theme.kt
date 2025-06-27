@@ -112,7 +112,6 @@ fun GdsThemeV2(
 
 data class CustomColorsScheme(
     val homeHeader: Color = Color.Unspecified,
-    val homeHeaderText: Color = Color.Unspecified,
     val cardBackground: Color = Color.Unspecified,
     val listBackground: Color = Color.Unspecified,
     val topBarBackground: Color = Color.Unspecified,
@@ -124,7 +123,7 @@ data class CustomColorsScheme(
     val navigationBarContent: Color = Color.Unspecified,
     val selectedRadioButton: Color = Color.Unspecified,
     val unselectedRadioButton: Color = Color.Unspecified,
-    val documentInformationDivider: Color = Color.Unspecified,
+    val dividers: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
     val disabledButtonContent: Color = Color.Unspecified,
     val unselectedBackgroundSwitch: Color = Color.Unspecified,
@@ -132,9 +131,9 @@ data class CustomColorsScheme(
     val selectedBackgroundSwitch: Color = Color.Unspecified,
     val selectedHandleSwitch: Color = Color.Unspecified,
     val validWalletDocumentBackground: Color = Color.Unspecified,
-    val validWalletDocumentText: Color = Color.Unspecified,
+    val validWalletDocumentActionText: Color = Color.Unspecified,
     val expiredWalletDocumentBackground: Color = Color.Unspecified,
-    val expiredWalletDocumentText: Color = Color.Unspecified,
+    val invalidWalletDocumentActionText: Color = Color.Unspecified,
     val walletDocumentHeaderBackground: Color = Color.Unspecified,
     val walletDocumentHeaderBorder: Color = Color.Unspecified,
     val walletDocumentBorder: Color = Color.Unspecified,
@@ -144,7 +143,8 @@ data class CustomColorsScheme(
     val statusTagText: Color = Color.Unspecified,
     val liveDocumentFooterBorder: Color = Color.Unspecified,
     val liveDocumentFooterText: Color = Color.Unspecified,
-    val liveDocumentHeaderText: Color = Color.Unspecified,
+    val documentInformationHeaderText: Color = Color.Unspecified,
+    val walletDivider: Color = Color.Unspecified,
     val focusState: Color = Color.Unspecified,
     val focusStateContent: Color = Color.Unspecified,
     val nativeButtonText: Color = Color.Unspecified,
@@ -153,6 +153,7 @@ data class CustomColorsScheme(
     val successIcon: Color = Color.Unspecified,
     val destructiveIcon: Color = Color.Unspecified,
     val spinnerIcon: Color = Color.Unspecified,
+    val errorIcon: Color = Color.Unspecified,
     val link: Color = Color.Unspecified,
 )
 
@@ -166,7 +167,6 @@ val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
 @Composable
 private fun customColors() = CustomColorsScheme(
     homeHeader = Backgrounds.homeHeader.toMappedColors(),
-    homeHeaderText = Text.primary.toMappedColors(),
     cardBackground = Backgrounds.card.toMappedColors(),
     listBackground = Backgrounds.list.toMappedColors(),
     topBarBackground = Backgrounds.topBar.toMappedColors(),
@@ -185,28 +185,30 @@ private fun customColors() = CustomColorsScheme(
     selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
     selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
     validWalletDocumentBackground = Backgrounds.validWalletDocument.toMappedColors(),
-    validWalletDocumentText = Text.validWalletDocumentAction.toMappedColors(),
+    validWalletDocumentActionText = Text.validWalletDocumentAction.toMappedColors(),
     expiredWalletDocumentBackground = Backgrounds.expiredWalletDocument.toMappedColors(),
-    expiredWalletDocumentText = Text.invalidWalletDocumentAction.toMappedColors(),
+    invalidWalletDocumentActionText = Text.invalidWalletDocumentAction.toMappedColors(),
     walletDocumentHeaderBackground = Backgrounds.walletDocumentHeader.toMappedColors(),
     walletDocumentHeaderBorder = Borders.walletDocumentHeader.toMappedColors(),
     walletDocumentBorder = Borders.walletDocument.toMappedColors(),
     walletDocumentText = Text.walletDocument.toMappedColors(),
     walletDocumentShadow = Shadows.walletDocument.toMappedColors(),
-    documentInformationDivider = Dividers.documentInformation.toMappedColors(),
+    dividers = Dividers.divider.toMappedColors(),
     statusTagBorder = Borders.statusTag.toMappedColors(),
     statusTagText = Text.statusTag.toMappedColors(),
     liveDocumentFooterBorder = Borders.liveDocumentFooter.toMappedColors(),
     liveDocumentFooterText = Text.liveDocumentFooter.toMappedColors(),
-    liveDocumentHeaderText = Text.liveDocumentHeader.toMappedColors(),
-    focusState = Buttons.primaryFocusState.toMappedColors(),
-    focusStateContent = Buttons.focusStateTextIcon.toMappedColors(),
+    documentInformationHeaderText = Text.documentInformationHeader.toMappedColors(),
+    walletDivider = Dividers.walletDocument.toMappedColors(),
+    focusState = Buttons.focusState.toMappedColors(),
+    focusStateContent = Buttons.focusStateTextAndIcon.toMappedColors(),
     nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
     iconButton = Buttons.icon.toMappedColors(),
     iconDefault = Icons.icon.toMappedColors(),
     successIcon = Icons.success.toMappedColors(),
     destructiveIcon = Icons.destructive.toMappedColors(),
     spinnerIcon = Icons.spinner.toMappedColors(),
+    errorIcon = Icons.error.toMappedColors(),
     link = Links.link.toMappedColors(),
 )
 
@@ -359,11 +361,11 @@ fun ThemeV2Material3Preview() {
             )
 
             val unusedStandardMaterialColors = listOf(
-                SwatchColor(tertiary, "Tertiary NOT USED", onBackground),
+                SwatchColor(tertiary, "Tertiary NOT USED", Color.Black),
                 SwatchColor(
                     onTertiary,
                     "On Tertiary NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
             )
 
@@ -371,22 +373,22 @@ fun ThemeV2Material3Preview() {
                 SwatchColor(
                     primaryContainer,
                     "Primary Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     secondaryContainer,
                     "Secondary Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     tertiaryContainer,
                     "Tertiary Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     errorContainer,
                     "Error Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
             )
 
@@ -394,17 +396,17 @@ fun ThemeV2Material3Preview() {
                 SwatchColor(
                     onPrimaryContainer,
                     "On Primary Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     onSecondaryContainer,
                     "On Secondary Container - NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     onTertiaryContainer,
                     "On Tertiary Container NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
             )
 
@@ -412,37 +414,37 @@ fun ThemeV2Material3Preview() {
                 SwatchColor(
                     surfaceContainerLowest,
                     "Surface Container Lowest NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerLow,
                     "Surface Container Low NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainer,
                     "Surface Container - NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerHigh,
                     "Surface Container High NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerHighest,
                     "Surface Container Highest NOT USED",
-                    onBackground,
+                    Color.Black,
                 ),
             )
 
             val unusedAdditionalMaterialColors = listOf(
-                SwatchColor(outline, "Outline NOT USED", onBackground),
-                SwatchColor(inversePrimary, "Inverse Primary NOT USED", onBackground),
-                SwatchColor(inverseSurface, "Inverse Surface NOT USED", onBackground),
-                SwatchColor(inverseOnSurface, "Inverse On Surface NOT USED", onBackground),
-                SwatchColor(surfaceDim, "Surface Dim NOT USED", onBackground),
-                SwatchColor(surfaceBright, "Surface Bright NOt USED", onBackground),
+                SwatchColor(outline, "Outline NOT USED", Color.Black),
+                SwatchColor(inversePrimary, "Inverse Primary NOT USED", Color.Black),
+                SwatchColor(inverseSurface, "Inverse Surface NOT USED", Color.Black),
+                SwatchColor(inverseOnSurface, "Inverse On Surface NOT USED", Color.Black),
+                SwatchColor(surfaceDim, "Surface Dim NOT USED", Color.Black),
+                SwatchColor(surfaceBright, "Surface Bright NOt USED", Color.Black),
             )
 
             Column {
@@ -506,6 +508,7 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(topBarBackground, "Backgrounds - Top Bar"),
                 SwatchColor(topBarScrolledBackground, "Backgrounds - Top Bar Scrolled"),
                 SwatchColor(navigationBarBackground, "Backgrounds - Navigation Bar"),
+                SwatchColor(homeHeader, "Backgrounds - Home Header"),
             )
         }
 
@@ -524,8 +527,9 @@ fun ThemeV2CustomPreview() {
             listOf(
                 SwatchColor(iconDefault, "Icons - Icon"),
                 SwatchColor(successIcon, "Icons - Success"),
-                SwatchColor(destructiveIcon, "Icons - Error"),
+                SwatchColor(destructiveIcon, "Icons - Destructive"),
                 SwatchColor(spinnerIcon, "Icons - Spinner"),
+                SwatchColor(errorIcon, "Icons - Error"),
                 SwatchColor(link, "Links - Links"),
             )
         }
@@ -550,10 +554,17 @@ fun ThemeV2CustomPreview() {
             )
         }
 
+        val dividersCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(dividers, "Divider - Default"),
+                SwatchColor(walletDivider, "Divider - Wallet (5% Opacity)"),
+            )
+        }
+
         val walletBackgroundsAndBordersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(validWalletDocumentBackground, "Backgrounds - Valid Wallet Document"),
-                SwatchColor(expiredWalletDocumentBackground, "Backgrounds - Invalid Wallet Document"),
+                SwatchColor(expiredWalletDocumentBackground, "Backgrounds - Expired Wallet Document"),
                 SwatchColor(walletDocumentHeaderBackground, "Backgrounds - Wallet Document Header"),
                 SwatchColor(walletDocumentBorder, "Borders - Wallet Document"),
                 SwatchColor(walletDocumentHeaderBorder, "Borders - Wallet Document Header (5% Opacity)"),
@@ -562,16 +573,15 @@ fun ThemeV2CustomPreview() {
             )
         }
 
-        val walletTextAndDividersCustomColors = with(GdsLocalColorScheme.current) {
+        val walletTextCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
-                SwatchColor(validWalletDocumentText, "Text - Valid Wallet Document Action"),
-                SwatchColor(expiredWalletDocumentText, "Text - Invalid Wallet Document Action"),
+                SwatchColor(validWalletDocumentActionText, "Text - Valid Wallet Document Action"),
+                SwatchColor(invalidWalletDocumentActionText, "Text - Invalid Wallet Document Action"),
                 SwatchColor(statusTagText, "Text - Status Tag"),
                 SwatchColor(walletDocumentText, "Text - Wallet Document"),
-                SwatchColor(liveDocumentHeaderText, "Text - Live Document Header"),
+                SwatchColor(documentInformationHeaderText, "Text - Document Information Header"),
                 SwatchColor(liveDocumentFooterText, "Text - Live Document Footer"),
-                SwatchColor(documentInformationDivider, "Divider - Document Information"),
-                SwatchColor(walletDocumentShadow, "Shadows - Wallet Document"),
+                SwatchColor(walletDocumentShadow, "Shadows - Wallet Document (12% Opacity)"),
             )
         }
 
@@ -628,12 +638,19 @@ fun ThemeV2CustomPreview() {
             Row { selectionAndSwitchColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
+                "Divider Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { dividersCustomColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
                 "Wallet Colors",
                 style = Typography.headlineSmall,
                 color = Color.White,
             )
             Row { walletBackgroundsAndBordersCustomColors.forEach { Swatch(data = it) } }
-            Row { walletTextAndDividersCustomColors.forEach { Swatch(data = it) } }
+            Row { walletTextCustomColors.forEach { Swatch(data = it) } }
             Text(
                 "Wallet Document Colors",
                 style = Typography.headlineSmall,

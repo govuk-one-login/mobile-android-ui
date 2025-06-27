@@ -24,10 +24,10 @@ object Backgrounds {
 
 object Buttons {
     val primary = ColorPair(Color(0xFF00703C), Color(0xFF008547))
-    val primaryIconAndText = ColorPair(Color(0xFFFFFFFF))
-    val primaryFocusState = ColorPair(Color(0xFFFFDD00))
-    val focusStateTextIcon = ColorPair(Color(0xFF0B0C0C))
-    val secondaryTextAndIcon = ColorPair(Color(0xFF00703C), dark = Color(0xFF03CD6E))
+    val primaryTextAndIcon = ColorPair(Color(0xFFFFFFFF))
+    val focusState = ColorPair(Color(0xFFFFDD00))
+    val focusStateTextAndIcon = ColorPair(Color(0xFF0B0C0C))
+    val secondaryTextAndIcon = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val disabled = ColorPair(Color(0xFFB1B4B6))
     val disabledTextAndIcon = ColorPair(Color(0xFFFFFFFF))
     val destructive = ColorPair(Color(0xFFD4351C))
@@ -38,15 +38,16 @@ object Buttons {
 }
 
 object Dividers {
+    val divider = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
     val card = ColorPair(Color(0xFF505A5f), Color(0xFFB1B4B6))
-    val documentInformation = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
+    val walletDocument = ColorPair(Color(0x0D000000))
 }
 
 object Borders {
     val walletDocument = ColorPair(Color(0xFFB1B4B6))
-    val walletDocumentHeader = ColorPair(Color(0x0DFFFFFF), Color(0x0D000000))
+    val walletDocumentHeader = ColorPair(Color(0x0D000000))
     val statusTag = ColorPair(Color(0xFFD4351C))
-    val liveDocumentFooter = ColorPair(Color(0x33FFFFFF), Color(0x33000000))
+    val liveDocumentFooter = ColorPair(Color(0x33000000))
 }
 
 object Icons {
@@ -70,7 +71,7 @@ object Text {
     val invalidWalletDocumentAction = ColorPair(Color(0xFFD4351C))
     val walletDocument = ColorPair(Color(0xFF0B0C0C))
     val liveDocumentFooter = ColorPair(Color(0xFF0B0C0C))
-    val liveDocumentHeader = ColorPair(Color(0xFFFFFFFF))
+    val documentInformationHeader = ColorPair(Color(0xFFFFFFFF))
 }
 
 object Shadows {
@@ -81,7 +82,7 @@ object NavigationElements {
     val topBarTitle = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val topBarIcon = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val navigationBarIconAndLabel = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
-    val navigationBarSelectedState = ColorPair(Color(0xFFCCE2DB), Color(0xFF008547))
+    val navigationBarSelectedState = ColorPair(Color(0xFFCCE2D8), Color(0xFF008547))
 }
 
 object Selection {
@@ -91,7 +92,7 @@ object Selection {
 
 object Switch {
     val unselectedBackground = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
-    val unselectedBorderAndHandle = ColorPair(Color(0xFF0B0C0C), Color(0xFF000000))
+    val unselectedBorderAndHandle = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val selectedBackground = ColorPair(Color(0xFF00703C), Color(0xFF008547))
     val selectedHandle = ColorPair(Color(0xFFFFFFFF))
 }
