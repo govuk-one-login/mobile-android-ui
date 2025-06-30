@@ -38,7 +38,7 @@ object Buttons {
 }
 
 object Dividers {
-    val divider = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
+    val default = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
     val card = ColorPair(Color(0xFF505A5f), Color(0xFFB1B4B6))
     val walletDocument = ColorPair(Color(0x0D000000))
 }
@@ -52,7 +52,7 @@ object Borders {
 
 object Icons {
     // icon -> iconDefault in GdsLocalColorScheme
-    val icon = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
+    val default = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val success = ColorPair(Color(0xFF00703C), Color(0xFF008547))
     val error = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val destructive = ColorPair(Color(0xFFD4351C))
@@ -60,7 +60,7 @@ object Icons {
 }
 
 object Links {
-    val link = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
+    val default = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
 }
 
 object Text {

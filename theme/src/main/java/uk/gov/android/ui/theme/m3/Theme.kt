@@ -123,7 +123,7 @@ data class CustomColorsScheme(
     val navigationBarContent: Color = Color.Unspecified,
     val selectedRadioButton: Color = Color.Unspecified,
     val unselectedRadioButton: Color = Color.Unspecified,
-    val dividers: Color = Color.Unspecified,
+    val dividerDefault: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
     val disabledButtonContent: Color = Color.Unspecified,
     val unselectedBackgroundSwitch: Color = Color.Unspecified,
@@ -154,7 +154,7 @@ data class CustomColorsScheme(
     val destructiveIcon: Color = Color.Unspecified,
     val spinnerIcon: Color = Color.Unspecified,
     val errorIcon: Color = Color.Unspecified,
-    val link: Color = Color.Unspecified,
+    val linkDefault: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -193,7 +193,7 @@ private fun customColors() = CustomColorsScheme(
     walletDocumentBorder = Borders.walletDocument.toMappedColors(),
     walletDocumentText = Text.walletDocument.toMappedColors(),
     walletDocumentShadow = Shadows.walletDocument.toMappedColors(),
-    dividers = Dividers.divider.toMappedColors(),
+    dividerDefault = Dividers.default.toMappedColors(),
     statusTagBorder = Borders.statusTag.toMappedColors(),
     statusTagText = Text.statusTag.toMappedColors(),
     liveDocumentFooterBorder = Borders.liveDocumentFooter.toMappedColors(),
@@ -204,12 +204,12 @@ private fun customColors() = CustomColorsScheme(
     focusStateContent = Buttons.focusStateTextAndIcon.toMappedColors(),
     nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
     iconButton = Buttons.icon.toMappedColors(),
-    iconDefault = Icons.icon.toMappedColors(),
+    iconDefault = Icons.default.toMappedColors(),
     successIcon = Icons.success.toMappedColors(),
     destructiveIcon = Icons.destructive.toMappedColors(),
     spinnerIcon = Icons.spinner.toMappedColors(),
     errorIcon = Icons.error.toMappedColors(),
-    link = Links.link.toMappedColors(),
+    linkDefault = Links.default.toMappedColors(),
 )
 
 internal const val SWATCH_SIZE = 200
@@ -525,12 +525,12 @@ fun ThemeV2CustomPreview() {
 
         val iconsAndLinksColors = with(GdsLocalColorScheme.current) {
             listOf(
-                SwatchColor(iconDefault, "Icons - Icon"),
+                SwatchColor(iconDefault, "Icons - Default"),
                 SwatchColor(successIcon, "Icons - Success"),
                 SwatchColor(destructiveIcon, "Icons - Destructive"),
                 SwatchColor(spinnerIcon, "Icons - Spinner"),
                 SwatchColor(errorIcon, "Icons - Error"),
-                SwatchColor(link, "Links - Links"),
+                SwatchColor(linkDefault, "Links - Default"),
             )
         }
 
@@ -556,7 +556,7 @@ fun ThemeV2CustomPreview() {
 
         val dividersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
-                SwatchColor(dividers, "Divider - Default"),
+                SwatchColor(dividerDefault, "Divider - Default"),
                 SwatchColor(walletDivider, "Divider - Wallet (5% Opacity)"),
             )
         }
