@@ -8,7 +8,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -38,12 +43,14 @@ fun GdsButton(
     enabled: Boolean = true,
     textAlign: TextAlign = TextAlign.Center,
 ) {
+    var focusStateEnabled by remember { mutableStateOf(false) }
     Button(
-        colors = buttonType.buttonColors(),
+        colors = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors(),
         modifier = modifier.then(
             Modifier
                 .minimumInteractiveComponentSize()
-                .semantics(mergeDescendants = true) { },
+                .semantics(mergeDescendants = true) { }
+                .onFocusChanged { focusStateEnabled = it.isFocused },
         ),
         onClick = onClick,
         shape = RectangleShape,

@@ -132,3 +132,11 @@ fun customButtonColors(containerColor: Color, contentColor: Color) = ButtonDefau
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
     disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
+
+@Composable
+fun focusStateButtonColors() = ButtonDefaults.buttonColors(
+    containerColor = GdsLocalColorScheme.current.focusState,
+    contentColor = GdsLocalColorScheme.current.focusStateContent,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
+)
