@@ -1,9 +1,7 @@
 package uk.gov.android.ui.theme.m3
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import uk.gov.android.ui.theme.m3_theme_dark_background
 import uk.gov.android.ui.theme.m3_theme_dark_error
@@ -105,256 +103,85 @@ val LightColorPalette = lightColorScheme(
 /**
  * [Material3 colours](https://m3.material.io/blog/migrating-material-3)
  *
- * GDS Design System          ->  Material3
- * Background Android Screen  -> `backgroundColor`
- *
- * Button Primary             -> `primary`
- *
- * Button Primary Text        -> `onPrimary`
- *
- * Button Secondary           -> `secondary`
- *
- * Button Secondary Text      -> `onSecondary`
- *
- * Button Tertiary (same as Button Secondary) -> `tertiary`
- *
- * Button Tertiary Text       -> `onTertiary`
- *
- * Button Error               -> `error`
- *
- * Button Error Text          -> `onError`
- *
- * N/A                        -> `primaryContainer`
- *
- * N/A                        -> `onPrimaryContainer`
- *
- * Navigation Selected        -> `secondaryContainer`
- *
- * Navigation Text and Icon   -> `onSecondaryContainer`
- *
- * N/A                        -> `tertiaryContainer`
- *
- * N/A                        -> `onTertiaryContainer`
- *
- * N/A                        -> `errorContainer`
- *
- * Destructive OS Button Text -> `onErrorContainer`
- *
- * N/A                        -> `surfaceDim`
- *
- * N/A                        -> `surfaceDim`
- *
- * N/A                        -> `surface`
- *
- * N/A                        -> `surfaceBright`
- *
- * N/A                        -> `surfaceContainerLowest`
- *
- * Android Card               -> `surfaceContainerLow`
- *
- * Top (App Bars)             -> `surfaceContainer`
- *
- * Dialog                     -> `surfaceContainerHigh`
- *
- * Switch/ Toggle             -> `surfaceContainerHighest`
- *
- * N/A                        -> `onSurface`
- *
- * Secondary Text             -> `onSurfaceVariant`
- *
- * N/A                        -> `outline`
- *
- * Divider/ Separator Line (on Android Card) -> `outlineVariant`
- *
- * N/A                     -> `inversePrimary`
- *
- * N/A                     -> `inverseSurface`
- *
- * N/A                     -> `inverseOnSurface`
- *
- * N/A                     -> `scrim`
- *
- * **The FIXED colours would need to be applied manually (for now) to map background to content colours.**
- *
- * N/A                     -> `m3_theme_primaryFixed`
- *
- * N/A                     -> `m3_theme_onPrimaryFixed`
- *
- * N/A                     -> `m3_theme_secondaryFixed`
- *
- * N/A                     -> `m3_theme_onSecondaryFixed`
- *
- * N/A                     -> `m3_theme_tertiaryFixed`
- *
- * N/A                     -> `m3_theme_onTertiaryFixed`
- *
+ * Colors mapped according to the UCD guideline: https://www.figma.com/design/lpR2hC1JaXR93Pqg9DnFkU/Colours-Mobile-GOV.UK-Design-System?node-id=1938-16290&t=IWTNKupKGb9RDH3O-0
  * */
 val DarkColorPaletteV2 = darkColorScheme(
-    background = dark_theme_background,
-    onBackground = dark_theme_onBackground,
-    primary = dark_theme_primary,
-    onPrimary = dark_theme_onPrimary,
-    secondary = dark_theme_secondary,
-    onSecondary = dark_theme_onSecondary,
-    tertiary = dark_theme_tertiary,
-    onTertiary = dark_theme_onTertiary,
-    error = dark_theme_error,
-    onError = dark_theme_onError,
-    primaryContainer = dark_theme_primaryContainer,
-    onPrimaryContainer = dark_theme_onPrimaryContainer,
-    secondaryContainer = dark_theme_secondaryContainer,
-    onSecondaryContainer = dark_theme_onSecondaryContainer,
-    tertiaryContainer = dark_theme_tertiaryContainer,
-    onTertiaryContainer = dark_theme_onTertiaryContainer,
-    errorContainer = dark_theme_errorContainer,
-    onErrorContainer = dark_theme_onErrorContainer,
-    surfaceDim = dark_theme_surfaceDim,
-    surface = dark_theme_surface,
-    surfaceBright = dark_theme_surfaceBright,
-    surfaceContainerLowest = dark_theme_surfaceContainerLowest,
-    surfaceContainerLow = dark_theme_surfaceContainerLow,
-    surfaceContainer = dark_theme_surfaceContainer,
-    surfaceContainerHigh = dark_theme_surfaceContainerHigh,
-    surfaceContainerHighest = dark_theme_surfaceContainerHighest,
-    onSurface = dark_theme_onSurface,
-    onSurfaceVariant = dark_theme_onSurfaceVariant,
-    outline = dark_theme_outline,
-    outlineVariant = dark_theme_outlineVariant,
-    inverseSurface = dark_theme_inverseSurface,
-    inverseOnSurface = dark_theme_inverseOnSurface,
-    inversePrimary = dark_theme_inversePrimary,
-    scrim = dark_theme_scrim,
+    background = Backgrounds.screen.dark,
+    onBackground = Text.primary.dark,
+    primary = Buttons.primary.dark,
+    onPrimary = Buttons.primaryTextAndIcon.dark,
+    secondary = Buttons.secondaryTextAndIcon.dark,
+    // Same as onPrimary to allow compose to resolve colors correctly
+    onSecondary = Buttons.primaryTextAndIcon.dark,
+    tertiary = Color.Magenta,
+    onTertiary = Color.Magenta,
+    error = Buttons.destructive.dark,
+    onError = Buttons.destructiveTextAndIcon.dark,
+    primaryContainer = Color.Magenta,
+    onPrimaryContainer = Color.Magenta,
+    secondaryContainer = Color.Magenta,
+    onSecondaryContainer = Color.Magenta,
+    tertiaryContainer = Color.Magenta,
+    onTertiaryContainer = Color.Magenta,
+    errorContainer = Color.Magenta,
+    onErrorContainer = Buttons.destructiveNativeButtonText.dark,
+    surfaceDim = Color.Magenta,
+    surface = Backgrounds.screen.dark,
+    surfaceBright = Color.Magenta,
+    surfaceContainerLowest = Color.Magenta,
+    surfaceContainerLow = Color.Magenta,
+    surfaceContainer = Color.Magenta,
+    surfaceContainerHigh = Color.Magenta,
+    surfaceContainerHighest = Color.Magenta,
+    onSurface = Text.primary.dark,
+    onSurfaceVariant = Text.secondary.dark,
+    outline = Color.Magenta,
+    outlineVariant = Dividers.card.dark,
+    inverseSurface = Color.Magenta,
+    inverseOnSurface = Color.Magenta,
+    inversePrimary = Color.Magenta,
+    scrim = scrim.dark,
 )
 
 /**
  * [Material3 colours](https://m3.material.io/blog/migrating-material-3)
  *
- * GDS Design System          ->  Material3
- * Background Android Screen  -> `backgroundColor`
- *
- * Button Primary             -> `primary`
- *
- * Button Primary Text        -> `onPrimary`
- *
- * Button Secondary           -> `secondary`
- *
- * Button Secondary Text      -> `onSecondary`
- *
- * Button Tertiary (same as Button Secondary) -> `tertiary`
- *
- * Button Tertiary Text       -> `onTertiary`
- *
- * Button Error               -> `error`
- *
- * Button Error Text          -> `onError`
- *
- * N/A                        -> `primaryContainer`
- *
- * N/A                        -> `onPrimaryContainer`
- *
- * Navigation Selected        -> `secondaryContainer`
- *
- * Navigation Text and Icon   -> `onSecondaryContainer`
- *
- * N/A                        -> `tertiaryContainer`
- *
- * N/A                        -> `onTertiaryContainer`
- *
- * N/A                        -> `errorContainer`
- *
- * Destructive OS Button Text -> `onErrorContainer`
- *
- * N/A                        -> `surfaceDim`
- *
- * N/A                        -> `surfaceDim`
- *
- * N/A                        -> `surface`
- *
- * N/A                        -> `surfaceBright`
- *
- * N/A                        -> `surfaceContainerLowest`
- *
- * Android Card               -> `surfaceContainerLow`
- *
- * Top (App Bars)             -> `surfaceContainer`
- *
- * Dialog                     -> `surfaceContainerHigh`
- *
- * Switch/ Toggle             -> `surfaceContainerHighest`
- *
- * N/A                        -> `onSurface`
- *
- * Secondary Text             -> `onSurfaceVariant`
- *
- * N/A                        -> `outline`
- *
- * Divider/ Separator Line (on Android Card) -> `outlineVariant`
- *
- * N/A                     -> `inversePrimary`
- *
- * N/A                     -> `inverseSurface`
- *
- * N/A                     -> `inverseOnSurface`
- *
- * N/A                     -> `scrim`
- *
- * **The FIXED colours would need to be applied manually (for now) to map background to content colours.**
- *
- * N/A                     -> `m3_theme_primaryFixed`
- *
- * N/A                     -> `m3_theme_onPrimaryFixed`
- *
- * N/A                     -> `m3_theme_secondaryFixed`
- *
- * N/A                     -> `m3_theme_onSecondaryFixed`
- *
- * N/A                     -> `m3_theme_tertiaryFixed`
- *
- * N/A                     -> `m3_theme_onTertiaryFixed`
- *
+ * Colors mapped according to the UCD guideline: https://www.figma.com/design/lpR2hC1JaXR93Pqg9DnFkU/Colours-Mobile-GOV.UK-Design-System?node-id=1938-16290&t=IWTNKupKGb9RDH3O-0
  * */
 val LightColorPaletteV2 = lightColorScheme(
-    background = light_theme_background,
-    onBackground = light_theme_onBackground,
-    primary = light_theme_primary,
-    onPrimary = light_theme_onPrimary,
-    secondary = light_theme_secondary,
-    onSecondary = light_theme_onSecondary,
-    tertiary = light_theme_tertiary,
-    onTertiary = light_theme_onTertiary,
-    error = light_theme_error,
-    onError = light_theme_onError,
-    primaryContainer = light_theme_primaryContainer,
-    onPrimaryContainer = light_theme_onPrimaryContainer,
-    secondaryContainer = light_theme_secondaryContainer,
-    onSecondaryContainer = light_theme_onSecondaryContainer,
-    tertiaryContainer = light_theme_tertiaryContainer,
-    onTertiaryContainer = light_theme_onTertiaryContainer,
-    errorContainer = light_theme_errorContainer,
-    onErrorContainer = light_theme_onErrorContainer,
-    surfaceDim = light_theme_surfaceDim,
-    surface = light_theme_surface,
-    surfaceBright = light_theme_surfaceBright,
-    surfaceContainerLowest = light_theme_surfaceContainerLowest,
-    surfaceContainerLow = light_theme_surfaceContainerLow,
-    surfaceContainer = light_theme_surfaceContainer,
-    surfaceContainerHigh = light_theme_surfaceContainerHigh,
-    surfaceContainerHighest = light_theme_surfaceContainerHighest,
-    onSurface = light_theme_onSurface,
-    onSurfaceVariant = light_theme_onSurfaceVariant,
-    outline = light_theme_outline,
-    outlineVariant = light_theme_outlineVariant,
-    inverseSurface = light_theme_inverseSurface,
-    inverseOnSurface = light_theme_inverseOnSurface,
-    inversePrimary = light_theme_inversePrimary,
-    scrim = light_theme_scrim,
+    background = Backgrounds.screen.light,
+    onBackground = Text.primary.light,
+    primary = Buttons.primary.light,
+    onPrimary = Buttons.primaryTextAndIcon.light,
+    secondary = Buttons.secondaryTextAndIcon.light,
+//     Same as onPrimary to allow compose to resolve colors correctly
+    onSecondary = Buttons.primaryTextAndIcon.light,
+    tertiary = Color.Magenta,
+    onTertiary = Color.Magenta,
+    error = Buttons.destructive.light,
+    onError = Buttons.destructiveTextAndIcon.light,
+    primaryContainer = Color.Magenta,
+    onPrimaryContainer = Color.Magenta,
+    secondaryContainer = Color.Magenta,
+    onSecondaryContainer = Color.Magenta,
+    tertiaryContainer = Color.Magenta,
+    onTertiaryContainer = Color.Magenta,
+    errorContainer = Color.Magenta,
+    onErrorContainer = Buttons.destructiveNativeButtonText.light,
+    surfaceDim = Color.Magenta,
+    surface = Backgrounds.screen.light,
+    surfaceBright = Color.Magenta,
+    surfaceContainerLowest = Color.Magenta,
+    surfaceContainerLow = Color.Magenta,
+    surfaceContainer = Color.Magenta,
+    surfaceContainerHigh = Color.Magenta,
+    surfaceContainerHighest = Color.Magenta,
+    onSurface = Text.primary.light,
+    onSurfaceVariant = Text.secondary.light,
+    outline = Color.Magenta,
+    outlineVariant = Dividers.card.light,
+    inverseSurface = Color.Magenta,
+    inverseOnSurface = Color.Magenta,
+    inversePrimary = Color.Magenta,
+    scrim = scrim.light,
 )
-
-@Composable
-fun customDynamicColor(light: Color, dark: Color): Color {
-    return if (isSystemInDarkTheme()) {
-        dark
-    } else {
-        light
-    }
-}

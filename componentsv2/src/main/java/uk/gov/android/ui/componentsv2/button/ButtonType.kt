@@ -9,11 +9,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.theme.adminButton
-import uk.gov.android.ui.theme.m3.customDynamicColor
-import uk.gov.android.ui.theme.m3.temporary_link_color_dark
-import uk.gov.android.ui.theme.m3.temporary_link_color_light
-import uk.gov.android.ui.theme.m3_disabled
-import uk.gov.android.ui.theme.m3_onDisabled
+import uk.gov.android.ui.theme.m3.Buttons
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
+import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Immutable
 sealed class ButtonType {
@@ -77,57 +75,60 @@ internal fun ButtonType.buttonColors() = when (this) {
 internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.primary,
     contentColor = colorScheme.onPrimary,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
-    contentColor = customDynamicColor(
-        temporary_link_color_light,
-        temporary_link_color_dark,
-    ),
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.tertiary,
-    contentColor = colorScheme.onTertiary,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    containerColor = Color.Transparent,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
+@Suppress("ForbiddenComment")
 @Composable
 internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.secondary,
-    contentColor = colorScheme.onSecondary,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    containerColor = Color.Transparent,
+    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
+    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
 )
 
 @Composable
 internal fun adminButtonColors() = ButtonDefaults.buttonColors(
     containerColor = adminButton,
     contentColor = Color.White,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun errorButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.error,
     contentColor = colorScheme.onError,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 fun customButtonColors(containerColor: Color, contentColor: Color) = ButtonDefaults.buttonColors(
     contentColor = contentColor,
     containerColor = containerColor,
-    disabledContainerColor = m3_disabled,
-    disabledContentColor = m3_onDisabled,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )

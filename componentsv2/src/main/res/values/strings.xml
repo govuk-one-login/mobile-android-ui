@@ -22,6 +22,7 @@
     <string name="quaternary_button" translatable="false">Quaternary Button</string>
     <string name="admin_button" translatable="false">Admin Button</string>
     <string name="error_button" translatable="false">Error Button</string>
+    <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="close_button">Close</string>
 
     <!-- BulletedList -->

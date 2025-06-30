@@ -56,8 +56,7 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.m3.dark_theme_onSecondary
-import uk.gov.android.ui.theme.m3.light_theme_onSecondary
+import uk.gov.android.ui.theme.m3.Buttons
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -269,9 +268,9 @@ fun LazyListScope.toBodyContent(
                 item {
                     val buttonType = if (it.showIcon) {
                         val contentColor = if (isSystemInDarkTheme()) {
-                            dark_theme_onSecondary
+                            Buttons.secondaryTextAndIcon.dark
                         } else {
-                            light_theme_onSecondary
+                            Buttons.secondaryTextAndIcon.light
                         }
                         ButtonType.Icon(
                             buttonColors = customButtonColors(
