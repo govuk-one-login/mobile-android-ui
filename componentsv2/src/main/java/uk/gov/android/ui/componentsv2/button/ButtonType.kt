@@ -148,3 +148,11 @@ fun focusStateButtonColors() = ButtonDefaults.buttonColors(
     disabledContainerColor = Buttons.disabled.toMappedColors(),
     disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
 )
+
+@Composable
+fun focusStateButtonColors() = ButtonDefaults.buttonColors(
+    containerColor = GdsLocalColorScheme.current.focusState,
+    contentColor = GdsLocalColorScheme.current.focusStateContent,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
+)
