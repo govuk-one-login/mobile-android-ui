@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -44,8 +45,9 @@ fun GdsButton(
     textAlign: TextAlign = TextAlign.Center,
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
+    val colors = setFocusStateColors(focusStateEnabled, buttonType)
     Button(
-        colors = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors(),
+        colors = colors,
         modifier = modifier.then(
             Modifier
                 .minimumInteractiveComponentSize()
@@ -62,6 +64,7 @@ fun GdsButton(
         Content(
             text = text,
             buttonType = buttonType,
+            buttonColors = colors,
             modifier = contentModifier,
             contentPosition = contentPosition,
             textAlign = textAlign,
@@ -70,9 +73,16 @@ fun GdsButton(
 }
 
 @Composable
+private fun setFocusStateColors(
+    focusStateEnabled: Boolean,
+    buttonType: ButtonType,
+) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
+
+@Composable
 private fun Content(
     text: String,
     buttonType: ButtonType,
+    buttonColors: ButtonColors,
     modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     textAlign: TextAlign = TextAlign.Center,
@@ -82,7 +92,6 @@ private fun Content(
         horizontalArrangement = contentPosition,
     ) {
         if (buttonType is ButtonType.Icon) {
-            val buttonColors = buttonType.buttonColors
             GdsAnnotatedString(
                 text = text,
                 fontWeight = buttonType.fontWeight,
