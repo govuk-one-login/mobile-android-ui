@@ -3,6 +3,7 @@ package uk.gov.android.ui.components
 import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -46,7 +47,7 @@ fun GdsHelpText(
 
             GdsHeading(
                 headingParameters = HeadingParameters(
-                    modifier = textModifier,
+                    modifier = textModifier.focusable(),
                     size = HeadingSize.H4(),
                     text = text,
                     padding = PaddingValues(
