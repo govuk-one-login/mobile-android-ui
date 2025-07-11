@@ -3,7 +3,6 @@ package uk.gov.android.ui.components.content
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Colors
@@ -45,7 +44,7 @@ fun GdsContent(
                 ) {
                     contentText.subTitle?.let { subTitle ->
                         val headingParameters = HeadingParameters(
-                            modifier = headingModifier.focusable(),
+                            modifier = headingModifier,
                             padding = headingPadding,
                             size = headingSize,
                             text = subTitle,
@@ -55,7 +54,7 @@ fun GdsContent(
                     }
                     contentText.subTitle2?.let { subTitle2 ->
                         val headingParameters = HeadingParameters(
-                            modifier = headingModifier.focusable(),
+                            modifier = headingModifier,
                             padding = headingPadding,
                             size = subHeadingSize,
                             text = subTitle2,
@@ -79,7 +78,7 @@ fun GdsContent(
                     }.forEach {
                         Text(
                             color = color ?: colors.contentColorFor(colors.background),
-                            modifier = textModifier.focusable().padding(textPadding),
+                            modifier = textModifier.padding(textPadding),
                             style = textStyle ?: MaterialTheme.typography.body1,
                             text = it,
                             textAlign = textAlign,
