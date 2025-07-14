@@ -123,6 +123,7 @@ data class CustomColorsScheme(
     val navigationBarContent: Color = Color.Unspecified,
     val selectedRadioButton: Color = Color.Unspecified,
     val unselectedRadioButton: Color = Color.Unspecified,
+    val buttonShadow: Color = Color.Unspecified,
     val dividerDefault: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
     val disabledButtonContent: Color = Color.Unspecified,
@@ -178,6 +179,7 @@ private fun customColors() = CustomColorsScheme(
     navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
     selectedRadioButton = Selection.selectedRadioButton.toMappedColors(),
     unselectedRadioButton = Selection.unselectedRadioButton.toMappedColors(),
+
     disabledButton = Buttons.disabled.toMappedColors(),
     disabledButtonContent = Buttons.disabledTextAndIcon.toMappedColors(),
     unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),

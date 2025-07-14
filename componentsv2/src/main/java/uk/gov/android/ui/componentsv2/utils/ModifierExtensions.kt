@@ -4,9 +4,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
@@ -37,4 +42,25 @@ object ModifierExtensions {
     } else {
         this
     }
+}
+
+/**
+ * This modifier allows for adding bottom shadow to GdsButton (V2 version).
+ *
+ * It allows for custom color and size of the shadow.
+ *
+ * @param shadowColor - [Color] for the shadow **only**
+ * @param shadowHeight = defaults to 2.dp but can be overridden
+ *
+ */
+fun Modifier.customBottomShadow(
+    shadowColor: Color,
+    shadowHeight: Dp = buttonShadowSize,
+) = this.drawBehind {
+    val shadowHeightPx = shadowHeight.toPx()
+    drawRect(
+        color = shadowColor,
+        topLeft = Offset(0f, size.height),
+        size = Size(size.width, shadowHeightPx),
+    )
 }

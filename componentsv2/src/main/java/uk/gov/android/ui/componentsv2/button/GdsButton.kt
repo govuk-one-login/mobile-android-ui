@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.button
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
@@ -28,10 +29,13 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
+import uk.gov.android.ui.componentsv2.utils.customBottomShadow
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
+import uk.gov.android.ui.theme.m3.Buttons
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Composable
 fun GdsButton(
@@ -46,29 +50,33 @@ fun GdsButton(
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
-    Button(
-        colors = colors,
-        modifier = modifier.then(
-            Modifier
-                .minimumInteractiveComponentSize()
-                .semantics(mergeDescendants = true) { }
-                .onFocusChanged { focusStateEnabled = it.isFocused },
-        ),
-        onClick = onClick,
-        shape = RectangleShape,
-        enabled = enabled,
-        contentPadding = getContentPadding(
-            contentPosition = contentPosition,
-        ),
-    ) {
-        Content(
-            text = text,
-            buttonType = buttonType,
-            buttonColors = colors,
-            modifier = contentModifier,
-            contentPosition = contentPosition,
-            textAlign = textAlign,
-        )
+    val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
+    Column {
+        Button(
+            colors = colors,
+            modifier = modifier.then(
+                Modifier
+                    .customBottomShadow(shadowColor)
+                    .minimumInteractiveComponentSize()
+                    .semantics(mergeDescendants = true) { }
+                    .onFocusChanged { focusStateEnabled = it.isFocused },
+            ),
+            onClick = onClick,
+            shape = RectangleShape,
+            enabled = enabled,
+            contentPadding = getContentPadding(
+                contentPosition = contentPosition,
+            ),
+        ) {
+            Content(
+                text = text,
+                buttonType = buttonType,
+                buttonColors = colors,
+                modifier = contentModifier,
+                contentPosition = contentPosition,
+                textAlign = textAlign,
+            )
+        }
     }
 }
 
@@ -77,6 +85,31 @@ private fun setFocusStateColors(
     focusStateEnabled: Boolean,
     buttonType: ButtonType,
 ) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
+
+@Suppress("ForbiddenComment")
+@Composable
+private fun setShadowColors(
+    buttonType: ButtonType,
+    isEnabled: Boolean,
+    isInFocus: Boolean,
+): Color {
+    return if (!isEnabled) {
+        Buttons.disabledShadow.toMappedColors()
+    } else if (isInFocus) {
+        // TODO: Amend once Design provides the correct colors for Focus shadow
+        Color.Transparent
+    } else {
+        when (buttonType) {
+            ButtonType.Primary -> Buttons.shadow.toMappedColors()
+            ButtonType.Error -> {
+                // TODO: Amend once Design provides the correct colors for Button Destructive shadow
+                Color.Transparent
+            }
+
+            else -> Color.Transparent
+        }
+    }
+}
 
 @Composable
 private fun Content(
