@@ -127,6 +127,7 @@ data class CustomColorsScheme(
     val dividerDefault: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
     val disabledButtonContent: Color = Color.Unspecified,
+    val disabledButtonShadow: Color = Color.Unspecified,
     val unselectedBackgroundSwitch: Color = Color.Unspecified,
     val unselectedBorderAndHandleSwitch: Color = Color.Unspecified,
     val selectedBackgroundSwitch: Color = Color.Unspecified,
@@ -179,9 +180,10 @@ private fun customColors() = CustomColorsScheme(
     navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
     selectedRadioButton = Selection.selectedRadioButton.toMappedColors(),
     unselectedRadioButton = Selection.unselectedRadioButton.toMappedColors(),
-
+    buttonShadow = Buttons.shadow.toMappedColors(),
     disabledButton = Buttons.disabled.toMappedColors(),
     disabledButtonContent = Buttons.disabledTextAndIcon.toMappedColors(),
+    disabledButtonShadow = Buttons.disabledShadow.toMappedColors(),
     unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),
     unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
     selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
@@ -525,6 +527,13 @@ fun ThemeV2CustomPreview() {
             )
         }
 
+        val buttonsShadowColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(buttonShadow, "Buttons Shadow - Default"),
+                SwatchColor(disabledButtonShadow, "Buttons Shadow - Disabled"),
+            )
+        }
+
         val iconsAndLinksColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(iconDefault, "Icons - Default"),
@@ -617,6 +626,13 @@ fun ThemeV2CustomPreview() {
                 color = Color.White,
             )
             Row { buttonsColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Buttons Shadow Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { buttonsShadowColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Icons and Links Colors",

@@ -45,7 +45,7 @@ object ModifierExtensions {
 }
 
 /**
- * This modifier allows for adding bottom shadow to GdsButton (V2 version).
+ * This modifier allows for adding bottom shadow to components.
  *
  * It allows for custom color and size of the shadow.
  *
