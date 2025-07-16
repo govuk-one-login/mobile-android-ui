@@ -35,6 +35,8 @@ object Buttons {
     val nativeButtonText = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val destructiveNativeButtonText = ColorPair(Color(0xFFD4351C), Color(0xFFFF6961))
     val icon = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
+    val shadow = ColorPair(Color(0xFF002D18))
+    val disabledShadow = ColorPair(Color(0xFF939393))
 }
 
 object Dividers {

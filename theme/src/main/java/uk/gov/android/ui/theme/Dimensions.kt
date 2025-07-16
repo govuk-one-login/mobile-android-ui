@@ -45,6 +45,7 @@ val buttonLineHeight = 22.sp
 val buttonContentVertical = 13.dp
 val buttonContentHorizontal = 8.dp
 val closeButtonSize = 64.dp
+val buttonShadowSize = 2.dp
 
 // Card/ Banner dimensions
 val bannerShapeSize = 16.dp
