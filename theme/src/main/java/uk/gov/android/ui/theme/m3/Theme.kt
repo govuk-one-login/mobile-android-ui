@@ -7,13 +7,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
@@ -74,14 +81,13 @@ fun GdsTheme(
     }
 }
 
-@Suppress("DEPRECATION")
-@UnstableDesignSystemAPI
 @Composable
 fun GdsThemeV2(
+    edgeToEdgeScaffoldEnabled: Boolean = false,
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
-    content: @Composable () -> Unit,
+    content: @Composable (PaddingValues?) -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
 
@@ -105,7 +111,18 @@ fun GdsThemeV2(
                 }
             }
 
-            content()
+            if (edgeToEdgeScaffoldEnabled) {
+                // Add padding values for the top and bottom device bar to display it correctly
+                Scaffold(
+                    modifier = Modifier.navigationBarsPadding()
+                        .statusBarsPadding()
+                        .windowInsetsPadding(WindowInsets.displayCutout),
+                ) { paddingValues ->
+                    content(paddingValues)
+                }
+            } else {
+                content(null)
+            }
         }
     }
 }
