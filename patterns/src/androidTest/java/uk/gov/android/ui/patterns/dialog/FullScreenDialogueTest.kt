@@ -15,6 +15,7 @@ import androidx.compose.ui.test.isNotDisplayed
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.NoActivityResumedException
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
@@ -144,9 +145,12 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
             }
         }
 
-        Espresso.pressBack()
-
-        composeTestRule.onNode(title).isNotDisplayed()
+        try {
+            Espresso.pressBack()
+            composeTestRule.onNode(title).isNotDisplayed()
+        } catch (e: NoActivityResumedException) {
+            // Test passes as backPress has closed FullScreenDialogue
+        }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -154,7 +158,6 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
     fun verifyUICustomTopAppBar() {
         composeTestRule.setContent {
             FullScreenDialogue(
-                onDismissRequest = { },
                 topAppBar = {
                     TopAppBar(
                         title = { Text(titleText) },

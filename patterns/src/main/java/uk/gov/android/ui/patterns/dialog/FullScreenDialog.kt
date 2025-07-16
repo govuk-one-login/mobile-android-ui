@@ -54,7 +54,6 @@ fun FullScreenDialog(
     content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
-        onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = { scrollBehavior ->
             FullScreenDialogueTopAppBar(

@@ -2,15 +2,12 @@ package uk.gov.android.ui.patterns.dialog
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -18,12 +15,9 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 /**
  * Full screen dialogue
  *
@@ -53,7 +47,6 @@ fun FullScreenDialogue(
     content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
-        onDismissRequest = onDismissRequest,
         modifier = modifier,
         topAppBar = { scrollBehaviour ->
             FullScreenDialogueTopAppBar(
@@ -82,7 +75,6 @@ fun FullScreenDialogue(
  * whenever they need. Users can use the device back button or gestures to return to the
  * previous screen.
  *
- * @param onDismissRequest Executes when the user tries to dismiss the dialog.
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
  * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
  *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
@@ -94,33 +86,20 @@ fun FullScreenDialogue(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialogue(
-    onDismissRequest: () -> Unit,
     topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
     content: @Composable (ScrollState) -> Unit,
 ) {
-    Dialog(
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-        onDismissRequest = onDismissRequest,
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background,
     ) {
-        BoxWithConstraints {
-            val scrollState = rememberScrollState()
-            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-            Scaffold(
-                topBar = { topAppBar(scrollBehavior) },
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            ) { innerPadding ->
-                Column(
-                    modifier = modifier.height(this.maxHeight)
-                        .padding(innerPadding)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    content(scrollState)
-                }
-            }
+        val scrollState = rememberScrollState()
+        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+        Column {
+            topAppBar(scrollBehavior)
+            content(scrollState)
         }
         if (onBack != null) {
             BackHandler { onBack() }
@@ -166,7 +145,6 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
     parameters: FullScreenDialoguePreviewParameters,
 ) {
     FullScreenDialogue(
-        onDismissRequest = { },
         topAppBar = {
             FullScreenDialogTopAppBar(
                 title = { Text("") },
