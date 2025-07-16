@@ -3,7 +3,6 @@ package uk.gov.android.ui.pages.instructions
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -109,8 +108,7 @@ internal fun Content(
                 GdsHeading(
                     headingParameters = HeadingParameters(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .focusable(),
+                            .fillMaxWidth(),
                         size = HeadingSize.H1(),
                         text = title,
                         textAlign = titleAlign,
