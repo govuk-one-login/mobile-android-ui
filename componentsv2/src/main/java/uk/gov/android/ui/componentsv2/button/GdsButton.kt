@@ -2,7 +2,6 @@ package uk.gov.android.ui.componentsv2.button
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
@@ -51,32 +50,30 @@ fun GdsButton(
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
-    Column {
-        Button(
-            colors = colors,
-            modifier = modifier.then(
-                Modifier
-                    .customBottomShadow(shadowColor)
-                    .minimumInteractiveComponentSize()
-                    .semantics(mergeDescendants = true) { }
-                    .onFocusChanged { focusStateEnabled = it.isFocused },
-            ),
-            onClick = onClick,
-            shape = RectangleShape,
-            enabled = enabled,
-            contentPadding = getContentPadding(
-                contentPosition = contentPosition,
-            ),
-        ) {
-            Content(
-                text = text,
-                buttonType = buttonType,
-                buttonColors = colors,
-                modifier = contentModifier,
-                contentPosition = contentPosition,
-                textAlign = textAlign,
-            )
-        }
+    Button(
+        colors = colors,
+        modifier = modifier.then(
+            Modifier
+                .customBottomShadow(shadowColor)
+                .minimumInteractiveComponentSize()
+                .semantics(mergeDescendants = true) { }
+                .onFocusChanged { focusStateEnabled = it.isFocused },
+        ),
+        onClick = onClick,
+        shape = RectangleShape,
+        enabled = enabled,
+        contentPadding = getContentPadding(
+            contentPosition = contentPosition,
+        ),
+    ) {
+        Content(
+            text = text,
+            buttonType = buttonType,
+            buttonColors = colors,
+            modifier = contentModifier,
+            contentPosition = contentPosition,
+            textAlign = textAlign,
+        )
     }
 }
 
