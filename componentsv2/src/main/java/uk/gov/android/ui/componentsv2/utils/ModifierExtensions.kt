@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -58,9 +57,10 @@ fun Modifier.customBottomShadow(
     shadowHeight: Dp = buttonShadowSize,
 ) = this.drawBehind {
     val shadowHeightPx = shadowHeight.toPx()
-    drawRect(
-        color = shadowColor,
-        topLeft = Offset(0f, size.height),
-        size = Size(size.width, shadowHeightPx),
+    drawLine(
+        shadowColor,
+        Offset(0f, size.height),
+        Offset(size.width, size.height),
+        shadowHeightPx,
     )
 }
