@@ -52,13 +52,11 @@ fun GdsButton(
     val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
     Button(
         colors = colors,
-        modifier = modifier.then(
-            Modifier
-                .customBottomShadow(shadowColor)
-                .minimumInteractiveComponentSize()
-                .semantics(mergeDescendants = true) { }
-                .onFocusChanged { focusStateEnabled = it.isFocused },
-        ),
+        modifier = modifier
+            .customBottomShadow(shadowColor)
+            .minimumInteractiveComponentSize()
+            .semantics(mergeDescendants = true) { }
+            .onFocusChanged { focusStateEnabled = it.isFocused },
         onClick = onClick,
         shape = RectangleShape,
         enabled = enabled,
@@ -102,7 +100,9 @@ private fun setShadowColors(
                 // TODO: Amend once Design provides the correct colors for Button Destructive shadow
                 Color.Transparent
             }
-
+            is ButtonType.Icon -> {
+                buttonType.shadowColor
+            }
             else -> Color.Transparent
         }
     }
@@ -181,6 +181,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
         iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
         fontWeight = FontWeight.Bold,
         contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = Buttons.shadow.toMappedColors(),
     )
 }
 
