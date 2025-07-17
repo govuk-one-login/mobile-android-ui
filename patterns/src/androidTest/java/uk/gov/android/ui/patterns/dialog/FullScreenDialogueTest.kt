@@ -135,6 +135,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
     }
 
     @Test
+    @Suppress("SwallowedException")
     fun verifyOnBackPressDefault() {
         composeTestRule.setContent {
             FullScreenDialogue(
