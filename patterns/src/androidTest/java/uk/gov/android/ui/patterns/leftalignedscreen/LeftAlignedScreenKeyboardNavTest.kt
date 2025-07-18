@@ -101,7 +101,6 @@ class LeftAlignedScreenKeyboardNavTest {
     private fun Content(isLargeFont: Boolean) {
         GdsTheme {
             FullScreenDialogue(
-                onDismissRequest = { },
                 topAppBar = {
                     FullScreenDialogueTopAppBar(
                         onCloseClick = {},
