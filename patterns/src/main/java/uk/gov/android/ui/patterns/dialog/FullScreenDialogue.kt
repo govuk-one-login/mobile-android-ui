@@ -24,6 +24,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
 /**
  * Full screen dialogue
@@ -75,6 +77,72 @@ fun FullScreenDialogue(
  * Full screen dialog
  *
  * Use this pattern for a task made up of a series of steps/ information
+ *
+ * **This pattern allows for implementing custom [TopAppBar] provided as a parameter.**
+ *
+ * ‘Close’ icon in Android full screen dialog allow users to exit the journey easily
+ * whenever they need. Users can use the device back button or gestures to return to the
+ * previous screen.
+ *
+ * @param onDismissRequest Executes when the user tries to dismiss the dialog.
+ * @param modifier Modifier to be applied to the layout corresponding to the dialog content
+ * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
+ *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
+ * @param onBack Overrides the device back button - if **null**, it will keep the default back button behaviour
+ * @param content The content to be displayed inside the dialog.
+ *
+ * **Used in [FullScreenDialog] composition.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Deprecated(
+    message = "Please replace with the alternative FullScreenDialogue function that contains the " +
+        "topAppBar param.",
+    replaceWith = ReplaceWith("uk.gov.android.ui.patterns.dialog.FullScreenDialogue.kt"),
+    level = DeprecationLevel.WARNING,
+)
+fun FullScreenDialogue(
+    onDismissRequest: () -> Unit,
+    topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
+    modifier: Modifier = Modifier,
+    onBack: (() -> Unit)? = null,
+    content: @Composable (ScrollState) -> Unit,
+) {
+    Dialog(
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+        onDismissRequest = onDismissRequest,
+    ) {
+        BoxWithConstraints {
+            val scrollState = rememberScrollState()
+            val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+            Scaffold(
+                topBar = { topAppBar(scrollBehavior) },
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            ) { innerPadding ->
+                Column(
+                    modifier = modifier.height(this.maxHeight)
+                        .padding(innerPadding)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    content(scrollState)
+                }
+            }
+        }
+        if (onBack != null) {
+            BackHandler { onBack() }
+        }
+    }
+}
+
+/**
+ * Full screen dialog
+ *
+ * Use this pattern for a task made up of a series of steps/ information
+ *
+ * This implementation does not contain the Dialog composable so any dialog behaviour will need
+ * to be implemented by the calling class.
  *
  * **This pattern allows for implementing custom [TopAppBar] provided as a parameter.**
  *
