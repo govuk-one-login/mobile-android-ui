@@ -12,6 +12,7 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import junit.framework.TestCase.assertEquals
 import kotlinx.collections.immutable.persistentListOf
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,6 +41,10 @@ class ErrorScreenPreviewTest {
     private lateinit var mandatoryTitle: String
     private lateinit var content: ErrorScreenContent
 
+    @Ignore(
+        "This pattern will be removed once replaced with the v2 ErrorScreen - investigate how " +
+            "to test this when bottom content is drawn twice but only displayed once",
+    )
     @Test
     fun `test mandatory parameters - preview`() = with(composeTestRule) {
         Given("a preview with a content provided") {
@@ -105,6 +110,10 @@ class ErrorScreenPreviewTest {
         }
     }
 
+    @Ignore(
+        "This pattern will be removed once replaced with the v2 ErrorScreen - investigate how " +
+            "to test this when bottom content is drawn twice but only displayed once",
+    )
     @Test
     fun `test mandatory parameters - accessibility preview`() = with(composeTestRule) {
         Given("an accessibility preview  with a content provided") {

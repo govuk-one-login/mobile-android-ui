@@ -56,8 +56,10 @@ private const val ONE_THIRD = 1f / 3f
 /**
  * Renders a centre-aligned screen with a structured layout.
  *
- * This screen is designed for displaying an image, title, body content, supporting text,
- * and bottom content with primary/secondary buttons in a visually consistent manner.
+ * This screen is designed for displaying an image, title, body content,
+ * and bottom content with supporting text, primary/secondary buttons in a visually consistent manner.
+ *
+ * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
  *
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
@@ -87,11 +89,15 @@ fun CentreAlignedScreen(
     val density = LocalDensity.current
 
     Column(modifier) {
+        /* Measures the height of SupportingTextContainer plus the BottomContent.
+        If the height is over 1/3 of the total screen, the BottomContent is moved
+        into the MainContent which is scrollable */
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
                     modifier = Modifier.fillMaxWidth(),
+                    supportingText = supportingText,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
                     tertiaryButton = tertiaryButton,
@@ -99,36 +105,41 @@ fun CentreAlignedScreen(
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
-            // Measure SupportingText
-            val supportingTextPlaceables = subcompose("supportingText") {
-                supportingText?.invoke(HorizontalPadding, VerticalPadding)
-            }.map { it.measure(constraints) }
-            val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
-
-            // Check if BottomContent + Supporting text exceeds 1/3 of the screen threshold
-            val totalBottomContentHeight = bottomContentHeight + supportingTextHeight
+            // Check if BottomContent (including supporting text) exceeds 1/3 of the screen threshold
             val bottomContentOverThreshold =
-                with(density) { totalBottomContentHeight.toDp() } > thresholdHeight
+                with(density) { bottomContentHeight.toDp() } > thresholdHeight
 
-            // Measure MainContent. Add SupportingText to MainContent if above threshold
+            // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
                     title = title,
                     modifier = Modifier,
                     image = image,
                     body = body,
-                    supportingText = if (bottomContentOverThreshold) {
-                        supportingText
-                    } else {
-                        null
+                    bottomContent = {
+                        // Based on the height calculated above, display the BottomContent as part
+                        // of the MainContent
+                        if (bottomContentOverThreshold) {
+                            BottomContent(
+                                modifier = Modifier.fillMaxWidth(),
+                                isAnchored = false,
+                                supportingText = supportingText,
+                                primaryButton = primaryButton,
+                                secondaryButton = secondaryButton,
+                                tertiaryButton = tertiaryButton,
+                            )
+                        }
                     },
                 )
             }.map {
-                val bottomContentSupportingTextHeight =
-                    if (!bottomContentOverThreshold) supportingTextHeight else 0
+                // Check the height of the Bottom Content and how much it should take to display the
+                // MainContent properly
+                val appliedBottomContentHeightApplied =
+                    if (!bottomContentOverThreshold) bottomContentHeight else 0
                 it.measure(
+                    // Calculate the main content display widow/ section
                     constraints.copy(
-                        maxHeight = constraints.maxHeight - bottomContentHeight - bottomContentSupportingTextHeight,
+                        maxHeight = constraints.maxHeight - appliedBottomContentHeightApplied,
                     ),
                 )
             }
@@ -141,17 +152,11 @@ fun CentreAlignedScreen(
                     yPosition += it.height
                 }
 
+                // Display the placeables defined above accordingly
                 if (!bottomContentOverThreshold) {
-                    supportingTextPlaceables.forEach {
-                        it.placeRelative(
-                            0,
-                            constraints.maxHeight - bottomContentHeight - supportingTextHeight,
-                        )
+                    bottomPlaceables.forEach {
+                        it.placeRelative(0, constraints.maxHeight - bottomContentHeight)
                     }
-                }
-
-                bottomPlaceables.forEach {
-                    it.placeRelative(0, constraints.maxHeight - bottomContentHeight)
                 }
             }
         }
@@ -286,7 +291,7 @@ private fun MainContent(
     modifier: Modifier = Modifier,
     image: @Composable ((horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
+    bottomContent: @Composable (() -> Unit)? = null,
     arrangement: Arrangement.Vertical =
         Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically),
 ) {
@@ -308,8 +313,10 @@ private fun MainContent(
             it(HorizontalPadding)
         }
 
-        supportingText?.let {
-            item { it.invoke(HorizontalPadding, NoPadding) }
+        bottomContent?.let {
+            item {
+                bottomContent.invoke()
+            }
         }
     }
 }
@@ -341,17 +348,20 @@ private fun SupportingText(
 @Composable
 private fun BottomContent(
     modifier: Modifier = Modifier,
+    isAnchored: Boolean = true,
+    supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
     val buttons = listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
-    val verticalItemPadding = if (buttons.isEmpty()) NoPadding else VerticalPadding
+    val verticalItemPadding = if (buttons.isEmpty() || !isAnchored) NoPadding else VerticalPadding
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacingDouble, Alignment.Bottom),
         modifier = modifier.padding(horizontal = HorizontalPadding, vertical = verticalItemPadding),
     ) {
+        supportingText?.invoke(HorizontalPadding, NoPadding)
         buttons.forEach {
             it.invoke()
         }

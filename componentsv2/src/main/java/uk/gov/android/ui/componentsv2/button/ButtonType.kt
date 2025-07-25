@@ -77,8 +77,8 @@ internal fun ButtonType.buttonColors() = when (this) {
 
 @Composable
 internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = colorScheme.primary,
-    contentColor = colorScheme.onPrimary,
+    containerColor = Buttons.primary.toMappedColors(),
+    contentColor = Buttons.primaryTextAndIcon.toMappedColors(),
     // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
     disabledContainerColor = Buttons.disabled.toMappedColors(),
     disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
