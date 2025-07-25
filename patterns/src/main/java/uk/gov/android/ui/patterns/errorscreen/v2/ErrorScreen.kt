@@ -49,6 +49,8 @@ private const val DENSITY_PREVIEW_INDEX = 5
  * This screen is designed for displaying an warning/error icon, title, body content,
  * and bottom content with primary/secondary buttons in a visually consistent manner.
  *
+ * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
+ *
  * @param icon image displayed at the top of the screen. [GdsIcon] is recommended.
  * @param title represents the main title. Use of [GdsHeading] is recommended.
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
