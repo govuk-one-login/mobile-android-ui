@@ -40,6 +40,7 @@ sealed class ButtonType {
         val contentDescription: String,
         val fontWeight: FontWeight = FontWeight.Light,
         val isIconTrailing: Boolean = true,
+        val shadowColor: Color = Color.Transparent,
     ) : ButtonType()
 }
 
