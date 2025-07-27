@@ -32,7 +32,7 @@ import uk.gov.android.ui.componentsv2.utils.customBottomShadow
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.Buttons
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
 
@@ -128,7 +128,7 @@ private fun Content(
                 icon = buttonType.iconImage,
                 iconContentDescription = buttonType.contentDescription,
                 isIconTrailing = buttonType.isIconTrailing,
-                iconColor = buttonColors.contentColor,
+                color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
                 textAlign = textAlign,
             )
@@ -239,7 +239,7 @@ internal fun ButtonPreview(
     @PreviewParameter(ButtonParameterPreviewProvider::class)
     parameters: ButtonParameters,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         GdsButton(
             text = stringResource(parameters.text),
             buttonType = parameters.buttonType.toButtonType(),

@@ -11,8 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.theme.adminButton
-import uk.gov.android.ui.theme.m3.Buttons
-import uk.gov.android.ui.theme.m3.toMappedColors
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 
 @Immutable
 sealed class ButtonType {
@@ -79,73 +78,62 @@ internal fun ButtonType.buttonColors() = when (this) {
 internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.primary,
     contentColor = colorScheme.onPrimary,
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
-    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
-    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    contentColor = colorScheme.secondary,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
-    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
-    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    contentColor = colorScheme.secondary,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
-    // TODO: Change this to use colorScheme.secondary once moved to GdsThemeV2 in all codebases
-    contentColor = Buttons.secondaryTextAndIcon.toMappedColors(),
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    contentColor = colorScheme.secondary,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun adminButtonColors() = ButtonDefaults.buttonColors(
     containerColor = adminButton,
     contentColor = Color.White,
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 internal fun errorButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.error,
     contentColor = colorScheme.onError,
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
 @Composable
 fun customButtonColors(containerColor: Color, contentColor: Color) = ButtonDefaults.buttonColors(
     contentColor = contentColor,
     containerColor = containerColor,
-    // TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )
 
-// TODO: Change this to use GdsLocalTheme for all colors once moved to GdsThemeV2 in all codebases
 @Composable
 fun focusStateButtonColors() = ButtonDefaults.buttonColors(
-    containerColor = Buttons.focusState.toMappedColors(),
-    contentColor = Buttons.focusStateTextAndIcon.toMappedColors(),
-    disabledContainerColor = Buttons.disabled.toMappedColors(),
-    disabledContentColor = Buttons.disabledTextAndIcon.toMappedColors(),
+    containerColor = GdsLocalColorScheme.current.focusState,
+    contentColor = GdsLocalColorScheme.current.focusStateContent,
+    disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+    disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
 )

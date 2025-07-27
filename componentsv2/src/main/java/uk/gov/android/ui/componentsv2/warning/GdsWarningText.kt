@@ -1,5 +1,7 @@
 package uk.gov.android.ui.componentsv2.warning
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
@@ -67,9 +69,13 @@ internal fun WarningPreview(
     @PreviewParameter(WarningPreviewProvider::class)
     text: String,
 ) {
-    GdsTheme {
-        GdsWarningText(
-            text = text,
-        )
+    GdsThemeV2 {
+        Column(
+            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
+        ) {
+            GdsWarningText(
+                text = text,
+            )
+        }
     }
 }

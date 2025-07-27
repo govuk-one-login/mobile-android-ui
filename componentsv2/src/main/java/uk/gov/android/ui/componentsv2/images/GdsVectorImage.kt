@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 
 @Composable
 fun GdsVectorImage(
@@ -72,7 +72,7 @@ internal fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
     parameters: VectorImagePreviewParameters,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         GdsVectorImage(
             image = ImageVector.vectorResource(parameters.image),
             modifier = parameters.modifier,

@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
 
 @Composable
@@ -42,7 +42,7 @@ private fun PreviewSupportingText(
     @PreviewParameter(SupportingTextPreviewProvider::class)
     parameters: String,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         GdsSupportingText(parameters)
     }
 }

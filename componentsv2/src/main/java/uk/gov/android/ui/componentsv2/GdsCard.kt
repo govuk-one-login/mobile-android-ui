@@ -40,17 +40,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.customButtonColors
+import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTitlePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.customDynamicColor
-import uk.gov.android.ui.theme.m3.temporary_link_color_dark
-import uk.gov.android.ui.theme.m3.temporary_link_color_light
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
@@ -99,7 +97,7 @@ fun GdsCard(
     val cardContentDescription = stringResource(R.string.card_content_description, title)
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+            containerColor = GdsLocalColorScheme.current.cardBackground,
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         shape = RoundedCornerShape(tileCornerRadius),
@@ -222,10 +220,7 @@ private fun DismissButton(
         Icon(
             imageVector = Icons.Default.Close,
             contentDescription = description,
-            tint = customDynamicColor(
-                temporary_link_color_light,
-                temporary_link_color_dark,
-            ),
+            tint = GdsLocalColorScheme.current.topBarIcon,
         )
     }
 }
@@ -257,7 +252,7 @@ private fun Buttons(
             if (displaySecondary) {
                 HorizontalDivider(
                     thickness = dividerThickness,
-                    color = MaterialTheme.colorScheme.surface,
+                    color = GdsLocalColorScheme.current.dividerDefault,
                     modifier = Modifier
                         .padding(top = smallPadding),
                 )
@@ -266,13 +261,7 @@ private fun Buttons(
                     onClick = onClick,
                     buttonType = secondaryIcon?.let {
                         ButtonType.Icon(
-                            buttonColors = customButtonColors(
-                                contentColor = customDynamicColor(
-                                    temporary_link_color_light,
-                                    temporary_link_color_dark,
-                                ),
-                                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
-                            ),
+                            buttonColors = ButtonType.Secondary.buttonColors(),
                             iconImage = secondaryIcon,
                             contentDescription = secondaryIconContentDescription ?: "",
                         )
@@ -396,7 +385,7 @@ internal fun GdsCardPreview(
     @PreviewParameter(GdsCardPreviewParametersProvider::class)
     parameters: GdsCardPreviewParameters,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         GdsCard(
             title = stringResource(parameters.title),
             titleStyle = parameters.titleStyle,
