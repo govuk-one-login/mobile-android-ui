@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +44,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
@@ -86,7 +87,7 @@ fun CentreAlignedScreen(
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
-    Column(modifier) {
+    Column(modifier.background(colorScheme.background)) {
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
@@ -376,7 +377,7 @@ internal fun PreviewCentreAlignedScreen(
     @PreviewParameter(CentreAlignedScreenContentProvider::class)
     content: CentreAlignedScreenContent,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         CentreAlignedScreen(
             title = content.title,
             image = content.image,
@@ -394,7 +395,7 @@ internal fun PreviewCentreAlignedScreen(
 @Composable
 internal fun PreviewCentreAlignedScreenAccessibility() {
     val content = CentreAlignedScreenContentProvider().values.elementAt(1)
-    GdsTheme {
+    GdsThemeV2 {
         CentreAlignedScreen(
             title = content.title,
             image = content.image,

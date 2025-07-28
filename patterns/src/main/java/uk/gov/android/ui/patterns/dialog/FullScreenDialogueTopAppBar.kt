@@ -3,7 +3,6 @@
 package uk.gov.android.ui.patterns.dialog
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
@@ -16,9 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import uk.gov.android.ui.componentsv2.button.CloseButton
-import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.temporary_list_color_dark
-import uk.gov.android.ui.theme.m3.temporary_list_color_light
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 
 /**
  * A pre-configured [TopAppBar] for use with [FullScreenDialogue].
@@ -61,18 +59,14 @@ object FullScreenDialogueTopAppBarDefaults {
         containerColor = colorScheme.background,
         titleContentColor = colorScheme.contentColorFor(colorScheme.background),
         // Used like this because if using the existing surfaceContainerLow it adds a hue to the color - that is managed/ added by Compose
-        scrolledContainerColor = if (isSystemInDarkTheme()) {
-            temporary_list_color_dark
-        } else {
-            temporary_list_color_light
-        },
+        scrolledContainerColor = GdsLocalColorScheme.current.topBarScrolledBackground,
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @PreviewLightDark
 @Composable
-internal fun FullScreenDialogueTopAppBarPreview() = GdsTheme {
+internal fun FullScreenDialogueTopAppBarPreview() = GdsThemeV2 {
     FullScreenDialogueTopAppBar(
         title = { Text("Title") },
         onCloseClick = {},

@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
@@ -29,7 +31,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -71,7 +73,9 @@ fun LeftAlignedScreen(
     val density = LocalDensity.current
 
     Column(
-        modifier.padding(top = spacingDouble),
+        modifier
+            .padding(top = spacingDouble)
+            .background(MaterialTheme.colorScheme.background),
         verticalArrangement = arrangement,
     ) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
@@ -322,7 +326,7 @@ internal fun PreviewLeftAlignedScreen(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         LeftAlignedScreenFromContentParams(content)
     }
 }
@@ -333,7 +337,7 @@ internal fun PreviewLeftAlignedScreenAccessibility(
     @PreviewParameter(LeftAlignedScreenContentAccessibilityProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    GdsTheme {
+    GdsThemeV2 {
         LeftAlignedScreenFromContentParams(content)
     }
 }

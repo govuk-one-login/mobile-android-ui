@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import uk.gov.android.ui.theme.m3.GdsThemeV2
 
 /**
  * Full screen dialogue
@@ -200,11 +201,11 @@ internal data class FullScreenDialoguePreviewParameters(
 )
 
 internal class FullScreenDialoguePreviewProvider :
-    PreviewParameterProvider<FullScreenDialogPreviewParameters> {
-    override val values: Sequence<FullScreenDialogPreviewParameters> =
+    PreviewParameterProvider<FullScreenDialoguePreviewParameters> {
+    override val values: Sequence<FullScreenDialoguePreviewParameters> =
         sequenceOf(
-            FullScreenDialogPreviewParameters(),
-            FullScreenDialogPreviewParameters(title = null) {
+            FullScreenDialoguePreviewParameters(),
+            FullScreenDialoguePreviewParameters(title = null) {
                 Text("Content")
             },
         )
@@ -216,11 +217,13 @@ internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
     parameters: FullScreenDialoguePreviewParameters,
 ) {
-    FullScreenDialogue(
-        onDismissRequest = { },
-        title = parameters.title,
-        content = { parameters.content },
-    )
+    GdsThemeV2 {
+        FullScreenDialogue(
+            onDismissRequest = { },
+            title = parameters.title,
+            content = { parameters.content },
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -230,13 +233,15 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
     parameters: FullScreenDialoguePreviewParameters,
 ) {
-    FullScreenDialogue(
-        topAppBar = {
-            FullScreenDialogTopAppBar(
-                title = { Text("") },
-                onCloseClick = {},
-            )
-        },
-        content = { parameters.content },
-    )
+    GdsThemeV2 {
+        FullScreenDialogue(
+            topAppBar = {
+                FullScreenDialogueTopAppBar(
+                    title = { Text("") },
+                    onCloseClick = {},
+                )
+            },
+            content = { parameters.content },
+        )
+    }
 }
