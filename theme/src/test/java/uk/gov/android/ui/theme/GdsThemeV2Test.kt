@@ -9,7 +9,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(AndroidJUnit4::class)
@@ -22,7 +22,7 @@ class GdsThemeV2Test {
     @Test
     fun `default local text style is body large`() {
         composeTestRule.setContent {
-            GdsThemeV2 {
+            GdsTheme {
                 val localDefault = LocalTextStyle.current
                 val bodyLarge = MaterialTheme.typography.bodyLarge
                 assertEquals(bodyLarge, localDefault)
@@ -34,7 +34,7 @@ class GdsThemeV2Test {
     @Test
     fun `test content`() {
         composeTestRule.setContent {
-            GdsThemeV2 {
+            GdsTheme {
                 Text("V2 Content test")
             }
         }
@@ -44,7 +44,7 @@ class GdsThemeV2Test {
     @Test
     fun `test darkTheme true`() {
         composeTestRule.setContent {
-            GdsThemeV2(darkTheme = true) {
+            GdsTheme(darkTheme = true) {
                 Text("V2 darkTheme true test")
             }
         }
@@ -54,7 +54,7 @@ class GdsThemeV2Test {
     @Test
     fun `test darkTheme false`() {
         composeTestRule.setContent {
-            GdsThemeV2(darkTheme = false) {
+            GdsTheme(darkTheme = false) {
                 Text("V2 darkTheme false test")
             }
         }

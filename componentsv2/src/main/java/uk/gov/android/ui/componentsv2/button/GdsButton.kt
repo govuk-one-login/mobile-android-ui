@@ -128,7 +128,7 @@ private fun Content(
                 icon = buttonType.iconImage,
                 iconContentDescription = buttonType.contentDescription,
                 isIconTrailing = buttonType.isIconTrailing,
-                iconColor = buttonColors.contentColor,
+                color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
                 textAlign = textAlign,
             )

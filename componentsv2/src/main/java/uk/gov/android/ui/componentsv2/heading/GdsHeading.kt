@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.heading
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -155,7 +156,9 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
 internal fun PreviewTitle() {
     val parameters = HeadingParameterPreviewProvider().values.toList()
     GdsTheme {
-        Column {
+        Column(
+            Modifier.background(MaterialTheme.colorScheme.background),
+        ) {
             parameters.forEach {
                 GdsHeading(
                     text = it.text,

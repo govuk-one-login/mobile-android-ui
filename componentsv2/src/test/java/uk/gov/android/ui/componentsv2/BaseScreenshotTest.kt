@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.android.ide.common.rendering.api.SessionParams.RenderingMode.SHRINK
@@ -37,7 +36,7 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
     @Test
     fun testScreenshot() {
         paparazzi.snapshot {
-            GdsTheme(modifier = Modifier) {
+            GdsTheme {
                 generateComposeLayout()
             }
         }

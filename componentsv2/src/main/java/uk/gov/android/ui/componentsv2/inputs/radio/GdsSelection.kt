@@ -2,7 +2,6 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +15,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -30,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
@@ -112,16 +111,11 @@ fun RadioSelectionOptionItem(
             .clickable(onClick = onOptionSelected),
         horizontalArrangement = Arrangement.Start,
     ) {
-        val radioButtonColors = RadioButtonDefaults.colors()
         RadioButton(
             selected = isSelected,
             colors = RadioButtonDefaults.colors(
-                selectedColor = MaterialTheme.colorScheme.primary,
-                unselectedColor = if (isSystemInDarkTheme()) {
-                    Color.White
-                } else {
-                    radioButtonColors.unselectedColor
-                },
+                selectedColor = GdsLocalColorScheme.current.selectedRadioButton,
+                unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton,
             ),
             onClick = onOptionSelected,
         )
