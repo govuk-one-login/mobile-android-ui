@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import uk.gov.android.ui.componentsv2.button.CloseButton
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
  * A pre-configured [TopAppBar] for use with [FullScreenDialogue].
@@ -66,7 +66,7 @@ object FullScreenDialogueTopAppBarDefaults {
 @OptIn(ExperimentalMaterial3Api::class)
 @PreviewLightDark
 @Composable
-internal fun FullScreenDialogueTopAppBarPreview() = GdsThemeV2 {
+internal fun FullScreenDialogueTopAppBarPreview() = GdsTheme {
     FullScreenDialogueTopAppBar(
         title = { Text("Title") },
         onCloseClick = {},

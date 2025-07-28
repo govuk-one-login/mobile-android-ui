@@ -31,7 +31,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -326,7 +326,7 @@ internal fun PreviewLeftAlignedScreen(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         LeftAlignedScreenFromContentParams(content)
     }
 }
@@ -337,7 +337,7 @@ internal fun PreviewLeftAlignedScreenAccessibility(
     @PreviewParameter(LeftAlignedScreenContentAccessibilityProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         LeftAlignedScreenFromContentParams(content)
     }
 }

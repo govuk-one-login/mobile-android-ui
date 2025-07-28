@@ -47,7 +47,7 @@ import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModif
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.tileCornerRadius
@@ -385,7 +385,7 @@ internal fun GdsCardPreview(
     @PreviewParameter(GdsCardPreviewParametersProvider::class)
     parameters: GdsCardPreviewParameters,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         GdsCard(
             title = stringResource(parameters.title),
             titleStyle = parameters.titleStyle,

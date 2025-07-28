@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.closeButtonSize
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
 fun CloseButton(
@@ -36,7 +36,7 @@ fun CloseButton(
 @PreviewLightDark
 @Composable
 internal fun CloseButtonPreview() {
-    GdsThemeV2 {
+    GdsTheme {
         CloseButton {}
     }
 }

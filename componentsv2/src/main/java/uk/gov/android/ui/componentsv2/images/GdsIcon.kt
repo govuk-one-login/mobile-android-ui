@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
 fun GdsIcon(
@@ -97,7 +97,7 @@ internal fun IconPreview(
     @PreviewParameter(IconPreviewParametersProvider::class)
     parameters: IconPreviewParameters,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         Column(
             Modifier
                 .fillMaxWidth()

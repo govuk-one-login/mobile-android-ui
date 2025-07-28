@@ -34,7 +34,7 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDoubleAndAHalf
@@ -387,7 +387,7 @@ internal fun GdsNumberedListPreview(
     @PreviewParameter(NumberedListProvider::class)
     numberedListWrapper: ListWrapper,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         GdsNumberedList(
             numberedListItems = numberedListWrapper.listItems,
             title = numberedListWrapper.title,

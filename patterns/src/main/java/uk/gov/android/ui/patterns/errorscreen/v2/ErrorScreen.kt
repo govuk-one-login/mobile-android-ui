@@ -33,7 +33,7 @@ import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCRE
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -145,7 +145,7 @@ internal fun PreviewErrorScreen(
     @PreviewParameter(ErrorScreenContentProvider::class)
     content: ErrorScreenContent,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         ErrorScreenPreviewComposable(content)
     }
 }
@@ -158,7 +158,7 @@ internal fun PreviewErrorScreenAccessibility(
     @PreviewParameter(ErrorScreenContentProvider::class)
     content: ErrorScreenContent,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         ErrorScreenPreviewComposable(content)
     }
 }

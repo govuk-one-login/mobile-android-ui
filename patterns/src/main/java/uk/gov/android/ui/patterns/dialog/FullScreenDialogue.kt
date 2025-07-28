@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
  * Full screen dialogue
@@ -217,7 +217,7 @@ internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
     parameters: FullScreenDialoguePreviewParameters,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         FullScreenDialogue(
             onDismissRequest = { },
             title = parameters.title,
@@ -233,7 +233,7 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
     parameters: FullScreenDialoguePreviewParameters,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         FullScreenDialogue(
             topAppBar = {
                 FullScreenDialogueTopAppBar(

@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.dark_theme_onBackground
 import uk.gov.android.ui.theme.m3.light_theme_onBackground
@@ -155,7 +155,7 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
 @Composable
 internal fun PreviewTitle() {
     val parameters = HeadingParameterPreviewProvider().values.toList()
-    GdsThemeV2 {
+    GdsTheme {
         Column(
             Modifier.background(MaterialTheme.colorScheme.background),
         ) {

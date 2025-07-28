@@ -5,18 +5,15 @@ import android.app.Activity
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.displayCutout
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
@@ -39,50 +36,9 @@ import androidx.core.view.WindowCompat
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@Suppress("DEPRECATION")
 @Composable
 fun GdsTheme(
-    modifier: Modifier = Modifier,
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    shapes: Shapes = Shapes,
-    typography: Typography = Typography,
-    content: @Composable () -> Unit,
-) {
-    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
-
-    MaterialTheme(
-        colorScheme = colors,
-        shapes = shapes,
-        typography = typography,
-    ) {
-        val backgroundColor = colors.background
-        val view = LocalView.current
-
-        if (!view.isInEditMode && view.context is Activity) {
-            SideEffect {
-                val window = (view.context as Activity).window
-                window.statusBarColor = Color.Transparent.toArgb()
-                WindowCompat
-                    .getInsetsController(window, view)
-                    .isAppearanceLightStatusBars = !darkTheme
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(backgroundColor)
-                .then(modifier),
-        ) {
-            content()
-        }
-    }
-}
-
-@Composable
-fun GdsThemeV2(
     edgeToEdgeScaffoldEnabled: Boolean = false,
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
@@ -240,26 +196,6 @@ internal const val PALETTE_HEIGHT = 1100
 internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 7) + (PALETTE_PADDING * 2)
 internal const val PALETTE_HEIGHT_V2 = 1700
 
-@ExcludeFromJacocoGeneratedReport
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    widthDp = PALETTE_WIDTH,
-    heightDp = PALETTE_HEIGHT,
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    widthDp = PALETTE_WIDTH,
-    heightDp = PALETTE_HEIGHT,
-)
-@Composable
-fun ThemePreview() {
-    GdsTheme(
-        modifier = Modifier.padding(PALETTE_PADDING.dp),
-    ) {
-        TestColumn()
-    }
-}
-
 @Composable
 @Suppress("LongMethod")
 private fun TestColumn() {
@@ -324,7 +260,6 @@ private fun TestColumn() {
     }
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
@@ -339,7 +274,7 @@ private fun TestColumn() {
 @Composable
 @Suppress("LongMethod")
 fun ThemeV2Material3Preview() {
-    GdsThemeV2 {
+    GdsTheme {
         with(MaterialTheme.colorScheme) {
             // Used existing mappings
             val backgroundColors = listOf(
@@ -505,7 +440,6 @@ fun ThemeV2Material3Preview() {
     }
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @ExcludeFromJacocoGeneratedReport
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
@@ -520,7 +454,7 @@ fun ThemeV2Material3Preview() {
 @Composable
 @Suppress("LongMethod", "CyclomaticComplexMethod")
 fun ThemeV2CustomPreview() {
-    GdsThemeV2 {
+    GdsTheme {
         // Custom colors
         val backgroundCustomColors = with(GdsLocalColorScheme.current) {
             listOf(

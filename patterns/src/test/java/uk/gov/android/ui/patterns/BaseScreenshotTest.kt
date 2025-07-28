@@ -9,7 +9,7 @@ import com.android.resources.NightMode.NIGHT
 import com.android.resources.NightMode.NOTNIGHT
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.theme.GdsTheme
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
  * Base implementation for tests that utilise the Paparazzi testing library.

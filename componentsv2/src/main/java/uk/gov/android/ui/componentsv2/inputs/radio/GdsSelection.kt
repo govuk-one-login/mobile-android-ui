@@ -29,7 +29,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
@@ -264,7 +264,7 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
 private fun Preview(
     @PreviewParameter(RadioSelectionProvider::class) radioSelectionItems: RadioSelectionPreviewData,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         GdsSelection(
             items = radioSelectionItems.items,
             selectedItem = radioSelectionItems.selectedIndex,

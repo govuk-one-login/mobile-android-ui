@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
@@ -64,7 +64,7 @@ private fun PreviewDefaultLoadingScreen(
     @PreviewParameter(LoadingScreenContentProvider::class)
     content: String,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         LoadingScreen(text = content)
     }
 }
@@ -73,7 +73,7 @@ private fun PreviewDefaultLoadingScreen(
 @PreviewLightDark
 @Composable
 private fun PreviewDefaultLoadingScreenNoContent() {
-    GdsThemeV2 {
+    GdsTheme {
         LoadingScreen()
     }
 }

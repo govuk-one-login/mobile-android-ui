@@ -10,8 +10,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import uk.gov.android.ui.theme.adminButton
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
+import uk.gov.android.ui.theme.m3.adminButton
 
 @Immutable
 sealed class ButtonType {
@@ -59,7 +59,7 @@ internal fun ButtonType.fontWeight() = when (this) {
 }
 
 @Composable
-internal fun ButtonType.buttonColors() = when (this) {
+fun ButtonType.buttonColors() = when (this) {
     is ButtonType.Admin -> adminButtonColors()
     is ButtonType.Custom -> customButtonColors(
         containerColor = containerColor,

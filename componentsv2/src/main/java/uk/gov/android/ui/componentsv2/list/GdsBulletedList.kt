@@ -30,7 +30,6 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.GdsThemeV2
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
@@ -342,7 +341,7 @@ internal fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
     bulletListWrapper: ListWrapper,
 ) {
-    GdsThemeV2 {
+    GdsTheme {
         GdsBulletedList(
             bulletListItems = bulletListWrapper.listItems,
             title = bulletListWrapper.title,
