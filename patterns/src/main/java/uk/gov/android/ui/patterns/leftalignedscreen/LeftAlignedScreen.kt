@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -29,6 +30,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -41,7 +43,7 @@ private const val FONT_SCALE_DOUBLE = 2f
  *
  * This pattern displays the main content which is placed in a scrollable container.
  * The bottom content (supporting text, primary and secondary button) is fixed.
- * When the bottom content takes up more than 1/3 of the screen, the supporting text is moved into the body
+ * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @sample LazyListScope.toBodyContent
@@ -75,60 +77,58 @@ fun LeftAlignedScreen(
         verticalArrangement = arrangement,
     ) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
-        If the height is over 1/3 of the total screen, the SupportingText is moved
+        If the height is over 1/3 of the total screen, the BottomContent is moved
         into the MainContent which is scrollable */
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
                     modifier = Modifier.fillMaxWidth(),
+                    supportingText = supportingText,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
-            // Measure SupportingText
-            val supportingTextPlaceables = if (supportingText == null) {
-                emptyList()
-            } else {
-                subcompose("supportingText") {
-                    SupportingTextContainer(
-                        primaryButton != null,
-                        secondaryButton != null,
-                    ) { supportingText.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
-                }.map { it.measure(constraints) }
-            }
-            val supportingTextHeight = supportingTextPlaceables.maxOfOrNull { it.height } ?: 0
-
-            // Check if BottomContent + Supporting text exceeds 1/3 of the screen threshold
-            val totalBottomContentHeight = bottomContentHeight + supportingTextHeight
+            // Check if BottomContent exceeds 1/3 of the screen threshold
             val bottomContentOverThreshold =
-                with(density) { totalBottomContentHeight.toDp() } > thresholdHeight
+                with(density) { bottomContentHeight.toDp() } > thresholdHeight
 
-            // Measure MainContent. Add SupportingText to MainContent if above threshold
+            // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
                     title = title,
                     body = body,
-                    supportingText = if (bottomContentOverThreshold) {
-                        supportingText
-                    } else {
-                        null
+                    bottomContent = {
+                        // Based on the height calculated above, display the BottomContent as part
+                        // of the MainContent
+                        if (bottomContentOverThreshold) {
+                            BottomContent(
+                                modifier = Modifier.fillMaxWidth(),
+                                supportingText = supportingText,
+                                primaryButton = primaryButton,
+                                secondaryButton = secondaryButton,
+                            )
+                        }
                     },
                     arrangement = arrangement,
                     forceScroll = forceScroll,
                 )
             }.map {
-                val bottomContentSupportingTextHeight =
-                    if (!bottomContentOverThreshold) supportingTextHeight else 0
+                // Check the height of the Bottom Content and how much it should take to display the
+                // MainContent properly
+                val appliedBottomContentHeight =
+                    if (!bottomContentOverThreshold) bottomContentHeight else 0
                 it.measure(
+                    // Calculate the main content display widow/ section
                     constraints.copy(
-                        maxHeight = constraints.maxHeight - bottomContentHeight - bottomContentSupportingTextHeight,
+                        maxHeight = constraints.maxHeight - appliedBottomContentHeight,
                     ),
                 )
             }
 
+            // Display the placeables defined above accordingly
             layout(constraints.maxWidth, constraints.maxHeight) {
                 var yPosition = 0
 
@@ -137,17 +137,11 @@ fun LeftAlignedScreen(
                     yPosition += it.height
                 }
 
+                // Display the placeables defined above accordingly
                 if (!bottomContentOverThreshold) {
-                    supportingTextPlaceables.forEach {
-                        it.placeRelative(
-                            0,
-                            constraints.maxHeight - bottomContentHeight - supportingTextHeight,
-                        )
+                    bottomPlaceables.forEach {
+                        it.placeRelative(0, constraints.maxHeight - bottomContentHeight)
                     }
-                }
-
-                bottomPlaceables.forEach {
-                    it.placeRelative(0, constraints.maxHeight - bottomContentHeight)
                 }
             }
         }
@@ -232,7 +226,7 @@ private fun MainContent(
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    bottomContent: @Composable (() -> Unit)? = null,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     val columnModifier = if (forceScroll) {
@@ -244,7 +238,8 @@ private fun MainContent(
     }
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = columnModifier,
+        modifier = columnModifier
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG),
         state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
@@ -253,43 +248,38 @@ private fun MainContent(
             it(LeftAlignedScreenDefaults.HorizontalPadding)
         }
 
-        supportingText?.let {
-            item { it.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
+        bottomContent?.let {
+            item { it.invoke() }
         }
-    }
-}
-
-@Composable
-private fun SupportingTextContainer(
-    primaryButtonPresent: Boolean,
-    secondaryButtonPresent: Boolean,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-) {
-    val bottomPadding = if (!primaryButtonPresent && !secondaryButtonPresent) {
-        spacingDouble
-    } else {
-        0.dp
-    }
-    Row(
-        modifier = modifier.padding(
-            top = spacingDouble,
-            bottom = bottomPadding,
-        ),
-    ) {
-        content()
     }
 }
 
 @Composable
 private fun BottomContent(
     modifier: Modifier = Modifier,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
 ) {
     Column(
         modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding),
     ) {
+        val supportingTextPadding =
+            if (primaryButton == null || secondaryButton == null) {
+                LeftAlignedScreenDefaults.HorizontalPadding
+            } else
+                LeftAlignedScreenDefaults.NoPadding
+
+        supportingText?.let {
+            Row(
+                modifier = Modifier.padding(
+                    top = spacingDouble,
+                    bottom = supportingTextPadding,
+                ),
+            ) {
+                it.invoke(LeftAlignedScreenDefaults.HorizontalPadding)
+            }
+        }
         primaryButton?.let {
             val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
             Spacer(modifier = Modifier.height(spacingDouble))
@@ -314,10 +304,16 @@ private fun BottomContent(
 object LeftAlignedScreenDefaults {
     val ItemArrangement = Arrangement.spacedBy(spacingDouble)
     val HorizontalPadding: Dp = spacingDouble
+    val NoPadding: Dp = 0.dp
+}
+
+internal object LeftAlignedScreenTestTag {
+    const val BODY_LAZY_COLUMN_TEST_TAG = "BODY_LAZY_COLUMN_TEST_TAG"
 }
 
 @PreviewLightDark
 @Composable
+@Preview(fontScale = 3f)
 internal fun PreviewLeftAlignedScreen(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
@@ -329,6 +325,7 @@ internal fun PreviewLeftAlignedScreen(
 
 @Composable
 @Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
+@Preview(showBackground = true, fontScale = 3f)
 internal fun PreviewLeftAlignedScreenAccessibility(
     @PreviewParameter(LeftAlignedScreenContentAccessibilityProvider::class)
     content: LeftAlignedScreenContent,
