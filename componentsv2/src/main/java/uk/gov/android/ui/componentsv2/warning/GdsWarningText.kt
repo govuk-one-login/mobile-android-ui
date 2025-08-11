@@ -30,7 +30,7 @@ fun GdsWarningText(
     modifier: Modifier = Modifier,
 ) {
     val warningText = stringResource(id = R.string.warning)
-    var isMultiLine = remember { mutableStateOf(false) }
+    val isMultiLine = remember { mutableStateOf(false) }
 
     Row(
         verticalAlignment = if (isMultiLine.value) {
