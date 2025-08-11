@@ -8,6 +8,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,8 +30,14 @@ fun GdsWarningText(
     modifier: Modifier = Modifier,
 ) {
     val warningText = stringResource(id = R.string.warning)
+    var isMultiLine = remember { mutableStateOf(false) }
+
     Row(
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = if (isMultiLine.value) {
+            Alignment.Top
+        } else {
+            Alignment.CenterVertically
+        },
         modifier = modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) { },
@@ -45,6 +53,9 @@ fun GdsWarningText(
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyMedium,
             fontWeight = FontWeight.Bold,
+            onTextLayout = {
+                isMultiLine.value = it.lineCount > 1
+            },
         )
     }
 }
