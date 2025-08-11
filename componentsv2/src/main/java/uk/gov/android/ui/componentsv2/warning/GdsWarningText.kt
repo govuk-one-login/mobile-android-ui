@@ -8,8 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -30,14 +28,8 @@ fun GdsWarningText(
     modifier: Modifier = Modifier,
 ) {
     val warningText = stringResource(id = R.string.warning)
-    val isMultiLine = remember { mutableStateOf(false) }
 
     Row(
-        verticalAlignment = if (isMultiLine.value) {
-            Alignment.Top
-        } else {
-            Alignment.CenterVertically
-        },
         modifier = modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) { },
@@ -46,6 +38,7 @@ fun GdsWarningText(
             painter = painterResource(R.drawable.ic_error_filled),
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.alignByBaseline()
         )
         Spacer(Modifier.size(spacingSingleAndAHalf))
         Text(
@@ -53,9 +46,8 @@ fun GdsWarningText(
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyMedium,
             fontWeight = FontWeight.Bold,
-            onTextLayout = {
-                isMultiLine.value = it.lineCount > 1
-            },
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
         )
     }
 }
@@ -69,7 +61,7 @@ internal class WarningPreviewProvider : PreviewParameterProvider<String> {
             "lorem ipsum dolor sit amet consectetur.",
         ).joinToString(" "),
 
-    )
+        )
 }
 
 @PreviewLightDark
