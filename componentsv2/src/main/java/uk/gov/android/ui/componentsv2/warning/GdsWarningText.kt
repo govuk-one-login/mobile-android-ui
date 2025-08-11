@@ -38,7 +38,7 @@ fun GdsWarningText(
             painter = painterResource(R.drawable.ic_error_filled),
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.alignByBaseline()
+            modifier = Modifier.alignByBaseline(),
         )
         Spacer(Modifier.size(spacingSingleAndAHalf))
         Text(
@@ -61,7 +61,7 @@ internal class WarningPreviewProvider : PreviewParameterProvider<String> {
             "lorem ipsum dolor sit amet consectetur.",
         ).joinToString(" "),
 
-        )
+    )
 }
 
 @PreviewLightDark
