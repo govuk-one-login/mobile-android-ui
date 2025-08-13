@@ -42,7 +42,7 @@ fun GdsButton(
     buttonType: ButtonType,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    contentModifier: Modifier = modifier,
+    contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
     textAlign: TextAlign = TextAlign.Center,
@@ -191,7 +191,7 @@ internal data class ButtonParameters(
     val buttonType: ButtonTypePreview,
     val modifier: Modifier = Modifier,
     val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    val contentModifier: Modifier = modifier,
+    val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
 )
 

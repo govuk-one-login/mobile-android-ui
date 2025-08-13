@@ -30,8 +30,8 @@ fun GdsWarningText(
     modifier: Modifier = Modifier,
 ) {
     val warningText = stringResource(id = R.string.warning)
+
     Row(
-        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) { },
@@ -40,6 +40,7 @@ fun GdsWarningText(
             painter = painterResource(R.drawable.ic_error_filled),
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.alignByBaseline(),
         )
         Spacer(Modifier.size(spacingSingleAndAHalf))
         Text(
@@ -47,6 +48,8 @@ fun GdsWarningText(
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyMedium,
             fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
         )
     }
 }

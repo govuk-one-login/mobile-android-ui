@@ -54,7 +54,6 @@ import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.theme.m3.Buttons
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -290,9 +289,8 @@ fun LazyListScope.toBodyContent(
                         onClick = it.onClick,
                         textAlign = TextAlign.Start,
                         contentPosition = Arrangement.Start,
-                        modifier = it.modifier.padding(
-                            horizontal = horizontalItemPadding - buttonContentHorizontal,
-                        ),
+                        modifier = it.modifier.padding(horizontal = horizontalItemPadding),
+                        contentModifier = Modifier.fillMaxWidth(),
                     )
                 }
             }

@@ -28,7 +28,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.spacingDouble
 
 internal data class ErrorScreenContent(
     val configurationDescription: String,
@@ -197,7 +197,7 @@ internal fun SecondaryButton(button: ErrorScreenButton) {
 internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
     val buttonModifier = Modifier
         .fillMaxWidth()
-        .padding(horizontal = spacingSingle)
+        .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
     val buttonType = if (button.showIcon) {
         ButtonType.Icon(
@@ -217,6 +217,8 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         buttonType = buttonType,
         onClick = button.onClick,
         modifier = buttonModifier,
+        contentModifier = Modifier
+            .fillMaxWidth(),
         contentPosition = contentPosition,
     )
 }
