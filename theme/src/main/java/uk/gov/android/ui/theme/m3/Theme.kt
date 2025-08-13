@@ -191,74 +191,8 @@ private fun customColors() = CustomColorsScheme(
 
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
-internal const val PALETTE_WIDTH = (SWATCH_SIZE * 4) + (PALETTE_PADDING * 2)
-internal const val PALETTE_HEIGHT = 1100
 internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 7) + (PALETTE_PADDING * 2)
 internal const val PALETTE_HEIGHT_V2 = 1700
-
-@Composable
-@Suppress("LongMethod")
-private fun TestColumn() {
-    with(MaterialTheme.colorScheme) {
-        val standardColors = listOf(
-            SwatchColor(primary, "Primary"),
-            SwatchColor(secondary, "Secondary"),
-            SwatchColor(tertiary, "Tertiary"),
-            SwatchColor(error, "Error"),
-        )
-        val onStandardColors = listOf(
-            SwatchColor(onPrimary, "On Primary", primary),
-            SwatchColor(onSecondary, "On Secondary", secondary),
-            SwatchColor(onTertiary, "On Tertiary", tertiary),
-            SwatchColor(onError, "On Error", error),
-        )
-        val containerColors = listOf(
-            SwatchColor(primaryContainer, "Primary Container"),
-            SwatchColor(secondaryContainer, "Secondary Container"),
-            SwatchColor(tertiaryContainer, "Tertiary Container"),
-            SwatchColor(errorContainer, "Error Container"),
-        )
-        val onContainerColors = listOf(
-            SwatchColor(onPrimaryContainer, "On Primary Container", primaryContainer),
-            SwatchColor(onSecondaryContainer, "On Secondary Container", secondaryContainer),
-            SwatchColor(onTertiaryContainer, "On Tertiary Container", tertiaryContainer),
-            SwatchColor(onErrorContainer, "On Error Container", errorContainer),
-        )
-        val otherContainerColors = listOf(
-            SwatchColor(inversePrimary, "Inverse Primary"),
-            SwatchColor(inverseSurface, "Inverse Surface"),
-            SwatchColor(inverseOnSurface, "Inverse On Surface"),
-            SwatchColor(scrim, "Scrim"),
-        )
-        val surfaceColors = listOf(
-            SwatchColor(surface, "Surface"),
-            SwatchColor(surfaceVariant, "Surface Variant"),
-            SwatchColor(surfaceTint, "Surface Tint"),
-        )
-        val onSurfaceColors = listOf(
-            SwatchColor(onSurface, "On Surface", surface),
-            SwatchColor(onSurfaceVariant, "On Surface Variant", surfaceVariant),
-        )
-        val outLineColors = listOf(
-            SwatchColor(outline, "Outline"),
-            SwatchColor(outlineVariant, "Outline Variant"),
-        )
-        Column {
-            Row { standardColors.forEach { Swatch(data = it) } }
-            Row { onStandardColors.forEach { Swatch(data = it) } }
-            Spacer(Modifier.height(PALETTE_PADDING.dp))
-            Row { containerColors.forEach { Swatch(data = it) } }
-            Row { onContainerColors.forEach { Swatch(data = it) } }
-            Spacer(Modifier.height(PALETTE_PADDING.dp))
-            Row { otherContainerColors.forEach { Swatch(data = it) } }
-            Spacer(Modifier.height(PALETTE_PADDING.dp))
-            Row { surfaceColors.forEach { Swatch(data = it) } }
-            Row { onSurfaceColors.forEach { Swatch(data = it) } }
-            Spacer(Modifier.height(PALETTE_PADDING.dp))
-            Row { outLineColors.forEach { Swatch(data = it) } }
-        }
-    }
-}
 
 @ExcludeFromJacocoGeneratedReport
 @Preview(

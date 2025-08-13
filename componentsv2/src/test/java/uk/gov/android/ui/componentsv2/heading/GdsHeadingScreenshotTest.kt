@@ -1,12 +1,12 @@
 package uk.gov.android.ui.componentsv2.heading
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(Parameterized::class)
@@ -23,11 +23,7 @@ internal class GdsHeadingScreenshotTest(
                 style = parameters.style,
                 textFontWeight = parameters.fontWeight,
                 textAlign = parameters.textAlign,
-                textColour = if (isSystemInDarkTheme()) {
-                    parameters.textColour.darkModeColour
-                } else {
-                    parameters.textColour.lightModeColour
-                },
+                textColour = parameters.textColour.colors.toMappedColors(),
             )
         }
     }
