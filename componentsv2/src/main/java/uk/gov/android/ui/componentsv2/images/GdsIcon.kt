@@ -27,7 +27,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 @Composable
 fun GdsIcon(
     image: ImageVector,
-    contentDescription: String,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
     color: Color = GdsLocalColorScheme.current.iconDefault,
     backgroundColor: Color = Color.Unspecified,

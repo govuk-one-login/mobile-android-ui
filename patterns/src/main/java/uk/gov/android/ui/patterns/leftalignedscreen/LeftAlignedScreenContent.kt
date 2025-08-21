@@ -267,9 +267,9 @@ fun LazyListScope.toBodyContent(
                 item {
                     val buttonType = if (it.showIcon) {
                         val contentColor = if (isSystemInDarkTheme()) {
-                            Buttons.secondaryTextAndIcon.dark
+                            Buttons.secondaryTextAndSymbol.dark
                         } else {
-                            Buttons.secondaryTextAndIcon.light
+                            Buttons.secondaryTextAndSymbol.light
                         }
                         ButtonType.Icon(
                             buttonColors = customButtonColors(

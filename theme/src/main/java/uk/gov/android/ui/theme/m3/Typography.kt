@@ -1,5 +1,6 @@
 package uk.gov.android.ui.theme.m3
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -155,7 +157,7 @@ val Typography = Typography(
 
 @Preview
 @Composable
-private fun TypographyPreview() {
+internal fun TypographyPreview() {
     val types: List<Pair<String, TextStyle>> = listOf(
         "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
@@ -180,7 +182,8 @@ private fun TypographyPreview() {
                     modifier = Modifier
                         .wrapContentHeight()
                         .fillMaxWidth()
-                        .padding(4.dp),
+                        .padding(4.dp)
+                        .background(MaterialTheme.colorScheme.background),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
