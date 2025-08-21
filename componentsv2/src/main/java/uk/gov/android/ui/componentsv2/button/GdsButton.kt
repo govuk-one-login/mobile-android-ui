@@ -80,7 +80,6 @@ private fun setFocusStateColors(
     buttonType: ButtonType,
 ) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
 
-@Suppress("ForbiddenComment")
 @Composable
 private fun setShadowColors(
     buttonType: ButtonType,
@@ -90,7 +89,6 @@ private fun setShadowColors(
     return if (!isEnabled) {
         GdsLocalColorScheme.current.disabledButtonShadow
     } else if (isInFocus) {
-        // TODO: Amend once Design provides the correct colors for Focus shadow
         GdsLocalColorScheme.current.focusStateShadow
     } else {
         when (buttonType) {
