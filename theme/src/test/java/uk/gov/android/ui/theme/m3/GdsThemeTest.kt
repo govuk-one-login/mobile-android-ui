@@ -1,4 +1,4 @@
-package uk.gov.android.ui.theme
+package uk.gov.android.ui.theme.m3
 
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +8,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(AndroidJUnit4::class)
 class GdsThemeTest {

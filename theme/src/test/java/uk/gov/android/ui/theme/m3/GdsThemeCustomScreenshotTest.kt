@@ -1,10 +1,9 @@
-package uk.gov.android.ui.theme
+package uk.gov.android.ui.theme.m3
 
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.theme.m3.ThemeV2CustomPreview
 import uk.gov.android.ui.theme.utils.BaseScreenshotTest
 
 @RunWith(Parameterized::class)

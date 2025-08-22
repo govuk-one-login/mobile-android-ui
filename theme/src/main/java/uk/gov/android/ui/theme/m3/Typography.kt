@@ -2,12 +2,13 @@ package uk.gov.android.ui.theme.m3
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -155,9 +156,7 @@ val Typography = Typography(
     ),
 )
 
-@Preview
-@Composable
-internal fun TypographyPreview() {
+internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
         "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
@@ -175,9 +174,14 @@ internal fun TypographyPreview() {
         "Footnote" to Typography.labelMedium,
         "Caption" to Typography.labelSmall,
     )
+}
+
+@Preview
+@Composable
+internal fun TypographyPreview() {
     GdsTheme {
-        LazyColumn {
-            items(types) { type ->
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            TypographyPreviewParams.types.forEach { type ->
                 Row(
                     modifier = Modifier
                         .wrapContentHeight()

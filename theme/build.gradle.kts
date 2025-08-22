@@ -106,3 +106,9 @@ mavenPublishingConfig {
         )
     }
 }
+
+afterEvaluate {
+    tasks.named("testDebugUnitTest") {
+        finalizedBy("verifyPaparazziDebug")
+    }
+}
