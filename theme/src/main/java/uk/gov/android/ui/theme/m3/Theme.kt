@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.res.Configuration
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +35,7 @@ fun GdsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
-    content: @Composable (PaddingValues?) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
 
@@ -63,7 +62,7 @@ fun GdsTheme(
                     insetsController.isAppearanceLightStatusBars = !darkTheme
                 }
             }
-            content(null)
+            content()
         }
     }
 }

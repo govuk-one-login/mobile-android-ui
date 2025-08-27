@@ -191,8 +191,15 @@ internal fun TypographyPreview() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(style = type.second, text = type.first)
-                    Text(text = "  - ${type.second.fontSize.value.toInt()}sp")
+                    Text(
+                        style = type.second,
+                        text = type.first,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = "  - ${type.second.fontSize.value.toInt()}sp",
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
                 }
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
             }
