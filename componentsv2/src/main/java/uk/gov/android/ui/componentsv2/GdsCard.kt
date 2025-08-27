@@ -79,8 +79,8 @@ import uk.gov.android.ui.theme.xsmallPadding
     message = "Replace with fixed version which allows for the divider to be displayed based on input" +
         "rather than on displaySecondary parameter",
     replaceWith = ReplaceWith(
-        "/Users/bmihaila/Development/GDS/Android/mobile-android-ui/componentsv2/src/" +
-            "main/java/uk/gov/android/ui/componentsv2/GdsCard.kt",
+        "mobile-android-ui/componentsv2/src/main/java/uk/gov/android/ui/" +
+            "componentsv2/GdsCard.kt",
     ),
     level = DeprecationLevel.WARNING,
 )

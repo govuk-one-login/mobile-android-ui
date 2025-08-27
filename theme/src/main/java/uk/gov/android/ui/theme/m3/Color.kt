@@ -1,6 +1,8 @@
 package uk.gov.android.ui.theme.m3
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -28,7 +30,7 @@ object Buttons {
     val focusStateTextAndSymbol = ColorPair(Color(0xFF0B0C0C))
     val secondaryTextAndSymbol = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val disabled = ColorPair(Color(0xFFB1B4B6))
-    val disabledTextAndSymbol = ColorPair(Color(0xFFFFFFFF))
+    val disabledTextAndSymbol = ColorPair(Color(0xFF262626))
     val destructive = ColorPair(Color(0xFFD4351C))
     val destructiveTextAndSymbol = ColorPair(Color(0xFFFFFFFF))
     val nativeButtonText = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
@@ -81,6 +83,15 @@ object Switch {
     val selectedBackground = ColorPair(Color(0xFF00703C), Color(0xFF008547))
     val selectedHandle = ColorPair(Color(0xFFFFFFFF))
 }
+
+@Suppress("ForbiddenComment")
+// TODO: Once we have the GdsSwitch/Toggle we should replace this with that version e.g. GdsSwitch.defaultColors()
+@Composable
+fun Switch.defaultColors(): SwitchColors = SwitchDefaults.colors().copy(
+    uncheckedTrackColor = GdsLocalColorScheme.current.unselectedBackgroundSwitch,
+    uncheckedThumbColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
+    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
+)
 
 /**
  * Class that allows setting the corresponding dark and light mode colors.

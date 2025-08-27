@@ -75,7 +75,7 @@ fun ButtonType.buttonColors() = when (this) {
 }
 
 @Composable
-internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
+fun primaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.primary,
     contentColor = colorScheme.onPrimary,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
@@ -83,7 +83,7 @@ internal fun primaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Composable
-internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
+fun secondaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
     contentColor = colorScheme.secondary,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
@@ -91,7 +91,7 @@ internal fun secondaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Composable
-internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
+fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
     contentColor = colorScheme.secondary,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
@@ -99,7 +99,7 @@ internal fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Composable
-internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
+fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
     containerColor = Color.Transparent,
     contentColor = colorScheme.secondary,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
@@ -107,7 +107,7 @@ internal fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Composable
-internal fun adminButtonColors() = ButtonDefaults.buttonColors(
+fun adminButtonColors() = ButtonDefaults.buttonColors(
     containerColor = adminButton,
     contentColor = Color.White,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
@@ -115,7 +115,7 @@ internal fun adminButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Composable
-internal fun errorButtonColors() = ButtonDefaults.buttonColors(
+fun errorButtonColors() = ButtonDefaults.buttonColors(
     containerColor = colorScheme.error,
     contentColor = colorScheme.onError,
     disabledContainerColor = GdsLocalColorScheme.current.disabledButton,

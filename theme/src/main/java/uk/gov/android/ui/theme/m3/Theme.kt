@@ -8,15 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
@@ -36,9 +30,9 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 
+@Suppress("DEPRECATED")
 @Composable
 fun GdsTheme(
-    edgeToEdgeScaffoldEnabled: Boolean = false,
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
@@ -63,21 +57,13 @@ fun GdsTheme(
                     WindowCompat
                         .getInsetsController(window, view)
                         .isAppearanceLightStatusBars = !darkTheme
+                    WindowCompat.setDecorFitsSystemWindows(window, false)
+                    val insetsController = WindowCompat.getInsetsController(window, view)
+                    insetsController.isAppearanceLightNavigationBars = !darkTheme
+                    insetsController.isAppearanceLightStatusBars = !darkTheme
                 }
             }
-
-            if (edgeToEdgeScaffoldEnabled) {
-                // Add padding values for the top and bottom device bar to display it correctly
-                Scaffold(
-                    modifier = Modifier.navigationBarsPadding()
-                        .statusBarsPadding()
-                        .windowInsetsPadding(WindowInsets.displayCutout),
-                ) { paddingValues ->
-                    content(paddingValues)
-                }
-            } else {
-                content(null)
-            }
+            content(null)
         }
     }
 }
@@ -408,9 +394,7 @@ fun ThemeV2CustomPreview() {
             listOf(
                 SwatchColor(buttonShadow, "Buttons Shadow - Default"),
                 SwatchColor(disabledButtonShadow, "Buttons Shadow - Disabled"),
-                SwatchColor(focusStateShadow, "Buttons - Primary Button Shadow"),
                 SwatchColor(focusStateShadow, "Buttons - Focus State Shadow"),
-                SwatchColor(disabledButtonShadow, "Buttons - Disabled Button Shadow"),
                 SwatchColor(destructiveButtonShadow, "Buttons - Destructive Button Shadow"),
             )
         }
