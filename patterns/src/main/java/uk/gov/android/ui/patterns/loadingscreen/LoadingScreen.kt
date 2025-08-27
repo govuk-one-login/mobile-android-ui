@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.loadingscreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.largePadding
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -36,11 +38,15 @@ fun LoadingScreen(
     text: String = stringResource(R.string.loading),
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(
+            color = GdsLocalColorScheme.current.spinnerIcon,
+        )
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,

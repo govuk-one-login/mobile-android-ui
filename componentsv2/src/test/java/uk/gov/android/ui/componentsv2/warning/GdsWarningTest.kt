@@ -10,7 +10,6 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onRoot
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,15 +23,36 @@ class GdsWarningTest {
     @JvmField
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    @Before
-    fun setup() {
+    @Test
+    fun test() {
         composeTestRule.setContent {
             GdsWarningText(text)
         }
+        val warningNode = composeTestRule
+            .onRoot(true)
+            .onChild()
+
+        assertTrue(
+            warningNode
+                .fetchSemanticsNode()
+                .config
+                .isMergingSemanticsOfDescendants,
+        )
+        warningNode
+            .onChildren()
+            .onFirst()
+            .assertContentDescriptionEquals("warning\n")
+        warningNode
+            .onChildren()
+            .onLast()
+            .assertTextContains(text)
     }
 
     @Test
-    fun test() {
+    fun testPreview() {
+        composeTestRule.setContent {
+            WarningPreview(text)
+        }
         val warningNode = composeTestRule
             .onRoot(true)
             .onChild()

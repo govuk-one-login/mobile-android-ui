@@ -3,6 +3,7 @@ import uk.gov.pipelines.config.ApkConfig
 plugins {
     alias(libs.plugins.compose.compiler)
     id("uk.gov.pipelines.android-lib-config")
+    alias(libs.plugins.paparazzi)
 }
 
 android {
@@ -44,7 +45,6 @@ android {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
-            it.useJUnitPlatform()
             it.testLogging {
                 events = setOf(
                     org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
@@ -104,5 +104,11 @@ mavenPublishingConfig {
             Make services look and feel like GOV.UK using styles.
             """.trimIndent(),
         )
+    }
+}
+
+afterEvaluate {
+    tasks.named("testDebugUnitTest") {
+        finalizedBy("verifyPaparazziDebug")
     }
 }

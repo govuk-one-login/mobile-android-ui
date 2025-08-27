@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
@@ -28,8 +28,6 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3_disabled
-import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.spacingDouble
 
 internal data class ErrorScreenContent(
@@ -151,12 +149,7 @@ internal fun LazyListScope.toBodyContent(
 internal fun PrimaryButton(button: ErrorScreenButton) {
     val buttonType = if (button.showIcon) {
         ButtonType.Icon(
-            buttonColors = ButtonDefaults.buttonColors(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.onPrimary,
-                disabledContainerColor = m3_disabled,
-                disabledContentColor = m3_onDisabled,
-            ),
+            buttonColors = ButtonType.Primary.buttonColors(),
             fontWeight = FontWeight.Bold,
             iconImage = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
             contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),

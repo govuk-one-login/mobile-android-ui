@@ -1,13 +1,16 @@
 package uk.gov.android.ui.theme.m3
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -153,9 +156,7 @@ val Typography = Typography(
     ),
 )
 
-@Preview
-@Composable
-private fun TypographyPreview() {
+internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
         "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
@@ -173,19 +174,32 @@ private fun TypographyPreview() {
         "Footnote" to Typography.labelMedium,
         "Caption" to Typography.labelSmall,
     )
+}
+
+@Preview
+@Composable
+internal fun TypographyPreview() {
     GdsTheme {
-        LazyColumn {
-            items(types) { type ->
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            TypographyPreviewParams.types.forEach { type ->
                 Row(
                     modifier = Modifier
                         .wrapContentHeight()
                         .fillMaxWidth()
-                        .padding(4.dp),
+                        .padding(4.dp)
+                        .background(MaterialTheme.colorScheme.background),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(style = type.second, text = type.first)
-                    Text(text = "  - ${type.second.fontSize.value.toInt()}sp")
+                    Text(
+                        style = type.second,
+                        text = type.first,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = "  - ${type.second.fontSize.value.toInt()}sp",
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
                 }
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
             }

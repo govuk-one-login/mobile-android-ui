@@ -10,13 +10,6 @@ class ThemeTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun previewTest() {
-        composeTestRule.setContent {
-            ThemePreview()
-        }
-    }
-
-    @Test
     fun previewV2Material3Test() {
         composeTestRule.setContent {
             ThemeV2Material3Preview()

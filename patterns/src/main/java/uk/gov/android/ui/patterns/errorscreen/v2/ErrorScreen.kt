@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.errorscreen.v2
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -78,7 +79,7 @@ fun ErrorScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier,
+        modifier = modifier.background(colorScheme.background),
     ) {
         val verticalPaddingRequired = primaryButton != null ||
             secondaryButton != null ||

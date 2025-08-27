@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,7 +54,6 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.m3.Buttons
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
@@ -266,11 +264,7 @@ fun LazyListScope.toBodyContent(
             is LeftAlignedScreenBody.SecondaryButton -> {
                 item {
                     val buttonType = if (it.showIcon) {
-                        val contentColor = if (isSystemInDarkTheme()) {
-                            Buttons.secondaryTextAndIcon.dark
-                        } else {
-                            Buttons.secondaryTextAndIcon.light
-                        }
+                        val contentColor = MaterialTheme.colorScheme.secondary
                         ButtonType.Icon(
                             buttonColors = customButtonColors(
                                 contentColor = contentColor,
@@ -313,7 +307,7 @@ fun LazyListScope.toBodyContent(
                 item {
                     HorizontalDivider(
                         thickness = it.thickness,
-                        color = it.color ?: MaterialTheme.colorScheme.surface,
+                        color = it.color ?: colorScheme.surface,
                         modifier = it.modifier.padding(itemPadding),
                     )
                 }

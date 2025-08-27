@@ -5,6 +5,7 @@
     <string name="title" translatable="false">Title (required)</string>
     <string name="body" translatable="false"> Body (optional)</string>
     <string name="card_content_description">%s Card</string>
+    <string name="divider_test_tag" translatable="false">Divider test tag</string>
 
     <!-- Annotated String -->
     <string name="annotated_string" translatable="false"> Annotated string</string>

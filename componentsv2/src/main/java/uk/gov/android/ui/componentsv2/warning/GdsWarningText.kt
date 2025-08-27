@@ -1,5 +1,7 @@
 package uk.gov.android.ui.componentsv2.warning
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -71,8 +73,12 @@ internal fun WarningPreview(
     text: String,
 ) {
     GdsTheme {
-        GdsWarningText(
-            text = text,
-        )
+        Column(
+            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
+        ) {
+            GdsWarningText(
+                text = text,
+            )
+        }
     }
 }

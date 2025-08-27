@@ -1,10 +1,12 @@
 package uk.gov.android.ui.theme.m3
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.SwitchColors
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Colors not part of a Group
+// Admin button
 val adminButton = Color(0xFF4C2C92)
 val scrim = ColorPair(Color(0x4D000000))
 
@@ -15,41 +17,33 @@ object Backgrounds {
     val topBar = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
     val topBarScrolled = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
     val navigationBar = ColorPair(Color(0xFFFFFFFF), Color(0xFF262626))
-    val validWalletDocument = ColorPair(Color(0xFFFFFFFF))
-    val expiredWalletDocument = ColorPair(Color(0xFFF3F2F1))
-    val walletDocumentHeader = ColorPair(Color(0xFFFFFFFF))
-    val homeHeader = ColorPair(Color(0xFF1D70B8), Color(0xFF0F385C))
-    val veteranCardInformationHeader = ColorPair(Color(0xFF532A45))
+    val statusOverlay = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
+    val dialogue = ColorPair(Color(0xFFFFFFFF), Color(0xFF262626))
+    val menuItem = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
+    val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
 }
 
 object Buttons {
     val primary = ColorPair(Color(0xFF00703C), Color(0xFF008547))
-    val primaryTextAndIcon = ColorPair(Color(0xFFFFFFFF))
+    val primaryTextAndSymbol = ColorPair(Color(0xFFFFFFFF))
     val focusState = ColorPair(Color(0xFFFFDD00))
-    val focusStateTextAndIcon = ColorPair(Color(0xFF0B0C0C))
-    val secondaryTextAndIcon = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
+    val focusStateTextAndSymbol = ColorPair(Color(0xFF0B0C0C))
+    val secondaryTextAndSymbol = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val disabled = ColorPair(Color(0xFFB1B4B6))
-    val disabledTextAndIcon = ColorPair(Color(0xFFFFFFFF))
+    val disabledTextAndSymbol = ColorPair(Color(0xFF262626))
     val destructive = ColorPair(Color(0xFFD4351C))
-    val destructiveTextAndIcon = ColorPair(Color(0xFFFFFFFF))
+    val destructiveTextAndSymbol = ColorPair(Color(0xFFFFFFFF))
     val nativeButtonText = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val destructiveNativeButtonText = ColorPair(Color(0xFFD4351C), Color(0xFFFF6961))
-    val icon = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val shadow = ColorPair(Color(0xFF002D18))
     val disabledShadow = ColorPair(Color(0xFF939393))
+    val focusStateShadow = ColorPair(Color(0xFF665800))
+    val destructiveShadow = ColorPair(Color(0xFF55150B))
 }
 
 object Dividers {
     val default = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
     val card = ColorPair(Color(0xFF505A5f), Color(0xFFB1B4B6))
-    val walletDocument = ColorPair(Color(0x0D000000))
-}
-
-object Borders {
-    val walletDocument = ColorPair(Color(0xFFB1B4B6))
-    val walletDocumentHeader = ColorPair(Color(0x0D000000))
-    val statusTag = ColorPair(Color(0xFFD4351C))
-    val liveDocumentFooter = ColorPair(Color(0x33000000))
 }
 
 object Icons {
@@ -68,16 +62,7 @@ object Links {
 object Text {
     val primary = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val secondary = ColorPair(Color(0xFF505A5F), Color(0xFFFFFFFF))
-    val statusTag = ColorPair(Color(0xFFD4351C))
-    val validWalletDocumentAction = ColorPair(Color(0xFF00703C))
-    val invalidWalletDocumentAction = ColorPair(Color(0xFFD4351C))
-    val walletDocument = ColorPair(Color(0xFF0B0C0C))
-    val liveDocumentFooter = ColorPair(Color(0xFF0B0C0C))
-    val documentInformationHeader = ColorPair(Color(0xFFFFFFFF))
-}
-
-object Shadows {
-    val walletDocument = ColorPair(Color(0x1F000000))
+    val statusOverlay = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
 }
 
 object NavigationElements {
@@ -87,7 +72,7 @@ object NavigationElements {
     val navigationBarSelectedState = ColorPair(Color(0xFFCCE2D8), Color(0xFF008547))
 }
 
-object Selection {
+object Radio {
     val unselectedRadioButton = ColorPair(Color(0xFF49454F), Color(0xFFFFFFFF))
     val selectedRadioButton = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
 }
@@ -98,6 +83,15 @@ object Switch {
     val selectedBackground = ColorPair(Color(0xFF00703C), Color(0xFF008547))
     val selectedHandle = ColorPair(Color(0xFFFFFFFF))
 }
+
+@Suppress("ForbiddenComment")
+// TODO: Once we have the GdsSwitch/Toggle we should replace this with that version e.g. GdsSwitch.defaultColors()
+@Composable
+fun Switch.defaultColors(): SwitchColors = SwitchDefaults.colors().copy(
+    uncheckedTrackColor = GdsLocalColorScheme.current.unselectedBackgroundSwitch,
+    uncheckedThumbColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
+    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
+)
 
 /**
  * Class that allows setting the corresponding dark and light mode colors.

@@ -1,6 +1,6 @@
 package uk.gov.android.ui.componentsv2.heading
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
@@ -17,10 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import uk.gov.android.ui.theme.m3.ColorPair
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.dark_theme_onBackground
-import uk.gov.android.ui.theme.m3.light_theme_onBackground
+import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -97,10 +98,10 @@ fun GdsHeading(
     )
 }
 
-internal sealed class GdsHeadingColour(val lightModeColour: Color, val darkModeColour: Color) {
-    data object Default : GdsHeadingColour(light_theme_onBackground, dark_theme_onBackground)
-    data class Custom(val customLightModeColour: Color, val customDarkModeColour: Color) :
-        GdsHeadingColour(customLightModeColour, customDarkModeColour)
+internal sealed class GdsHeadingColour(val colors: ColorPair) {
+    data object Default : GdsHeadingColour(Text.primary)
+    data class Custom(val customColorPair: ColorPair) :
+        GdsHeadingColour(customColorPair)
 }
 
 internal data class HeadingParameters(
@@ -134,8 +135,7 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
             text = "Title1 - Custom Color",
             style = GdsHeadingStyle.Title1,
             textColour = GdsHeadingColour.Custom(
-                customLightModeColour = Color.Green,
-                customDarkModeColour = Color.Red,
+                customColorPair = ColorPair(Color.Green, Color.Red),
             ),
         ),
         HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
@@ -155,7 +155,9 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
 internal fun PreviewTitle() {
     val parameters = HeadingParameterPreviewProvider().values.toList()
     GdsTheme {
-        Column {
+        Column(
+            Modifier.background(MaterialTheme.colorScheme.background),
+        ) {
             parameters.forEach {
                 GdsHeading(
                     text = it.text,
@@ -163,11 +165,7 @@ internal fun PreviewTitle() {
                     style = it.style,
                     textFontWeight = it.fontWeight,
                     textAlign = it.textAlign,
-                    textColour = if (isSystemInDarkTheme()) {
-                        it.textColour.darkModeColour
-                    } else {
-                        it.textColour.lightModeColour
-                    },
+                    textColour = it.textColour.colors.toMappedColors(),
                 )
             }
         }

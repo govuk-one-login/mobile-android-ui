@@ -31,10 +31,9 @@ import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomShadow
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
-import uk.gov.android.ui.theme.m3.Buttons
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Composable
 fun GdsButton(
@@ -81,7 +80,6 @@ private fun setFocusStateColors(
     buttonType: ButtonType,
 ) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
 
-@Suppress("ForbiddenComment")
 @Composable
 private fun setShadowColors(
     buttonType: ButtonType,
@@ -89,16 +87,14 @@ private fun setShadowColors(
     isInFocus: Boolean,
 ): Color {
     return if (!isEnabled) {
-        Buttons.disabledShadow.toMappedColors()
+        GdsLocalColorScheme.current.disabledButtonShadow
     } else if (isInFocus) {
-        // TODO: Amend once Design provides the correct colors for Focus shadow
-        Color.Transparent
+        GdsLocalColorScheme.current.focusStateShadow
     } else {
         when (buttonType) {
-            ButtonType.Primary -> Buttons.shadow.toMappedColors()
+            ButtonType.Primary -> GdsLocalColorScheme.current.buttonShadow
             ButtonType.Error -> {
-                // TODO: Amend once Design provides the correct colors for Button Destructive shadow
-                Color.Transparent
+                GdsLocalColorScheme.current.destructiveButtonShadow
             }
             is ButtonType.Icon -> {
                 buttonType.shadowColor
@@ -128,7 +124,7 @@ private fun Content(
                 icon = buttonType.iconImage,
                 iconContentDescription = buttonType.contentDescription,
                 isIconTrailing = buttonType.isIconTrailing,
-                iconColor = buttonColors.contentColor,
+                color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
                 textAlign = textAlign,
             )
@@ -181,7 +177,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
         iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
         fontWeight = FontWeight.Bold,
         contentDescription = stringResource(R.string.icon_content_desc),
-        shadowColor = Buttons.shadow.toMappedColors(),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )
 }
 

@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +34,7 @@ import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
@@ -45,8 +46,6 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag
 import uk.gov.android.ui.patterns.leftalignedscreen.toBodyContent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3_disabled
-import uk.gov.android.ui.theme.m3_onDisabled
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
@@ -88,7 +87,7 @@ fun CentreAlignedScreen(
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
-    Column(modifier) {
+    Column(modifier.background(colorScheme.background)) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         If the height is over 1/3 of the total screen, the BottomContent is moved
         into the MainContent which is scrollable */
@@ -229,12 +228,7 @@ fun CentreAlignedScreen(
                     GdsButton(
                         text = it.text,
                         buttonType = ButtonType.Icon(
-                            buttonColors = ButtonDefaults.buttonColors(
-                                containerColor = colorScheme.primary,
-                                contentColor = colorScheme.onPrimary,
-                                disabledContainerColor = m3_disabled,
-                                disabledContentColor = m3_onDisabled,
-                            ),
+                            buttonColors = ButtonType.Primary.buttonColors(),
                             fontWeight = FontWeight.Bold,
                             iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),

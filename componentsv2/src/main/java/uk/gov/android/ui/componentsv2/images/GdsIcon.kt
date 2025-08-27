@@ -3,6 +3,8 @@ package uk.gov.android.ui.componentsv2.images
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -19,14 +21,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
 fun GdsIcon(
     image: ImageVector,
-    contentDescription: String,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
+    color: Color = GdsLocalColorScheme.current.iconDefault,
     backgroundColor: Color = Color.Unspecified,
     size: Dp? = null,
 ) {
@@ -83,7 +86,7 @@ internal class IconPreviewParametersProvider : PreviewParameterProvider<IconPrev
             image = R.drawable.ic_external_site,
             contentDescription = R.string.icon_content_desc,
             color = Color.Blue,
-            backgroundColor = Color.Red,
+            backgroundColor = Color.Yellow,
         ),
     )
 }
@@ -95,13 +98,19 @@ internal fun IconPreview(
     parameters: IconPreviewParameters,
 ) {
     GdsTheme {
-        GdsIcon(
-            image = ImageVector.vectorResource(parameters.image),
-            modifier = parameters.modifier,
-            color = parameters.color,
-            backgroundColor = parameters.backgroundColor,
-            contentDescription = stringResource(parameters.contentDescription),
-            size = parameters.size,
-        )
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background),
+        ) {
+            GdsIcon(
+                image = ImageVector.vectorResource(parameters.image),
+                modifier = parameters.modifier,
+                color = parameters.color,
+                backgroundColor = parameters.backgroundColor,
+                contentDescription = stringResource(parameters.contentDescription),
+                size = parameters.size,
+            )
+        }
     }
 }
