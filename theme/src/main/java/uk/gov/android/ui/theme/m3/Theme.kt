@@ -129,8 +129,8 @@ private fun customColors() = CustomColorsScheme(
     navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
     navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
     navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
-    selectedRadioButton = Selection.selectedRadioButton.toMappedColors(),
-    unselectedRadioButton = Selection.unselectedRadioButton.toMappedColors(),
+    selectedRadioButton = Radio.selectedRadioButton.toMappedColors(),
+    unselectedRadioButton = Radio.unselectedRadioButton.toMappedColors(),
     buttonShadow = Buttons.shadow.toMappedColors(),
     disabledButton = Buttons.disabled.toMappedColors(),
     disabledButtonContent = Buttons.disabledTextAndSymbol.toMappedColors(),
@@ -420,8 +420,8 @@ fun ThemeV2CustomPreview() {
 
         val selectionAndSwitchColors = with(GdsLocalColorScheme.current) {
             listOf(
-                SwatchColor(unselectedRadioButton, "Selection - Unselected Radio Button"),
-                SwatchColor(selectedRadioButton, "Selection - Selected Radio Button"),
+                SwatchColor(unselectedRadioButton, "Radio - Unselected Radio Button"),
+                SwatchColor(selectedRadioButton, "Radio - Selected Radio Button"),
                 SwatchColor(selectedBackgroundSwitch, "Switch - Selected Background"),
                 SwatchColor(selectedHandleSwitch, "Switch - Selected Handle"),
                 SwatchColor(unselectedBackgroundSwitch, "Switch - Unselected Background"),
@@ -488,7 +488,7 @@ fun ThemeV2CustomPreview() {
             Row { navigationElementsColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
-                "Selection and Switch Colors",
+                "Radio and Switch Colors",
                 style = Typography.headlineSmall,
                 color = Color.White,
             )

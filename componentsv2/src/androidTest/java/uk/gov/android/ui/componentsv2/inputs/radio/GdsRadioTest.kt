@@ -10,7 +10,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
-class GdsSelectionTest {
+class GdsRadioTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()

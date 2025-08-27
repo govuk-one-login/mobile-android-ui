@@ -7,7 +7,7 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-internal class GdsSelectionScreenshotTest(
+internal class GdsRadioScreenshotTest(
     private val parameters: Pair<RadioSelectionPreviewData, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
