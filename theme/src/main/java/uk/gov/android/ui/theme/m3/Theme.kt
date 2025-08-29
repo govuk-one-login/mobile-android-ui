@@ -113,6 +113,7 @@ val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
  * This provides a Custom Color Scheme specific GDS adhering to the Design System.
  * These colours are only the ones that could not be mapped to the Material3 ones.
  */
+@Suppress("ForbiddenComment")
 @Composable
 private fun customColors() = CustomColorsScheme(
     cardBackground = Backgrounds.card.toMappedColors(),
@@ -129,6 +130,7 @@ private fun customColors() = CustomColorsScheme(
     navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
     navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
     navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
+    // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
     selectedRadioButton = Radio.selectedRadioButton.toMappedColors(),
     unselectedRadioButton = Radio.unselectedRadioButton.toMappedColors(),
     buttonShadow = Buttons.shadow.toMappedColors(),
