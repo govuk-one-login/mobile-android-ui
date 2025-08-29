@@ -72,7 +72,17 @@ object NavigationElements {
     val navigationBarSelectedState = ColorPair(Color(0xFFCCE2D8), Color(0xFF008547))
 }
 
+@Deprecated(
+    message = "This is using the wrong name, please replace with Radios",
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/theme/m3/Color.kt - Radios"),
+    level = DeprecationLevel.WARNING,
+)
 object Radio {
+    val unselectedRadioButton = ColorPair(Color(0xFF49454F), Color(0xFFFFFFFF))
+    val selectedRadioButton = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
+}
+
+object Radios {
     val unselectedRadioButton = ColorPair(Color(0xFF49454F), Color(0xFFFFFFFF))
     val selectedRadioButton = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
 }
