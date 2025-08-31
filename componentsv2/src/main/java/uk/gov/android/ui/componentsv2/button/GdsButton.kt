@@ -195,6 +195,10 @@ private fun setShadowColors(
     }
 }
 
+@Deprecated(
+    message = "This is outdated, as specs and references have been changed as per new Deign requirements superceeded by the new Content function used for updated GdsButton",
+    level = DeprecationLevel.WARNING
+)
 @Composable
 private fun Content(
     text: String,
@@ -247,8 +251,8 @@ private fun Content(
             GdsAnnotatedString(
                 text = text,
                 fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
-                icon = buttonType.iconImage,
-                iconContentDescription = buttonType.contentDescription,
+                icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
+                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription } ?: stringResource(R.string.opens_in_external_browser),
                 isIconTrailing = buttonType.isIconTrailing,
                 color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,

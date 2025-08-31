@@ -94,12 +94,20 @@ sealed class ButtonTypeV2(
 
     data class Icon(
         val buttonColors: ButtonColors,
-        val iconImage: ImageVector,
-        val contentDescription: String,
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
+        val icon: ImageVector? = null,
+        var contentDescription: String?,
         val isIconTrailing: Boolean = true,
         val shadowColor: Color = Color.Transparent,
-    ) : ButtonTypeV2(textStyle = textStyle)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
+    ) : ButtonTypeV2(textStyle = textStyle) {
+        init {
+            if (icon == null) {
+                contentDescription = null
+            } else {
+                throw Exception("You must provide a content decsription for the icon used")
+            }
+        }
+    }
 }
 
 @Deprecated(
