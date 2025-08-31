@@ -7,7 +7,7 @@ import uk.gov.android.ui.patterns.utils.BDD.Given
 import uk.gov.android.ui.patterns.utils.BDD.Then
 import uk.gov.android.ui.patterns.utils.BDD.When
 
-class ErrorScreenContentTest {
+class DestructiveScreenContentTest {
 
     @Test
     fun `test error screen icon enum specification`() {

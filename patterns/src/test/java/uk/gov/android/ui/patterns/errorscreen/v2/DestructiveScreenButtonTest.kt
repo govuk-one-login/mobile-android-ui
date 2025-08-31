@@ -30,7 +30,7 @@ import uk.gov.android.ui.componentsv2.R as componentsR
 @OptIn(UnstableDesignSystemAPI::class)
 @RunWith(RobolectricTestRunner::class)
 @Suppress("LargeClass")
-class ErrorScreenButtonTest {
+class DestructiveScreenButtonTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

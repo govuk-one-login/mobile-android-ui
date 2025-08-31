@@ -8,7 +8,7 @@ import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
-internal class ErrorScreenScreenshotTest(
+internal class DestructiveScreenScreenshotTest(
     private val parameters: Pair<ErrorScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 

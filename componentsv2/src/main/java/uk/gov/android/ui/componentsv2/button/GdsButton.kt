@@ -184,7 +184,7 @@ private fun setShadowColors(
     } else {
         when (buttonType) {
             is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
-            is ButtonTypeV2.Error -> {
+            is ButtonTypeV2.Destructive -> {
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
             is ButtonTypeV2.Icon -> {

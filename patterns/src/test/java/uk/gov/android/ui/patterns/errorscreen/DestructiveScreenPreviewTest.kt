@@ -26,7 +26,7 @@ import uk.gov.android.ui.patterns.utils.BDD.When
 import uk.gov.android.ui.patterns.utils.TestUtils.getString
 
 @RunWith(RobolectricTestRunner::class)
-class ErrorScreenPreviewTest {
+class DestructiveScreenPreviewTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 

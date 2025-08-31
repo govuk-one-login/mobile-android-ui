@@ -19,7 +19,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(Parameterized::class)
-internal class ErrorScreenScreenshotTest(
+internal class DestructiveScreenScreenshotTest(
     private val parameters: Pair<ErrorScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 

@@ -82,7 +82,7 @@ sealed class ButtonTypeV2(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
     ) : ButtonTypeV2(textStyle = textStyle)
 
-    data class Error(
+    data class Destructive(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
     ) : ButtonTypeV2(textStyle = textStyle)
 
@@ -155,7 +155,7 @@ fun ButtonTypeV2.buttonColors() = when (this) {
         contentColor = contentColor,
     )
 
-    is ButtonTypeV2.Error -> GdsButtonDefaults.defaultErrorColors()
+    is ButtonTypeV2.Destructive -> GdsButtonDefaults.defaultErrorColors()
     is ButtonTypeV2.Icon -> buttonColors
     is ButtonTypeV2.Primary -> GdsButtonDefaults.defaultPrimaryColors()
     is ButtonTypeV2.Quaternary -> GdsButtonDefaults.defaultQuaternaryColors()

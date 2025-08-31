@@ -24,7 +24,7 @@ import uk.gov.android.ui.patterns.utils.TestUtils.getString
 import uk.gov.android.ui.componentsv2.R as componentsR
 
 @RunWith(RobolectricTestRunner::class)
-class ErrorScreenButtonTest {
+class DestructiveScreenButtonTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
