@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -47,10 +47,12 @@ fun GdsButton(
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
     textAlign: TextAlign = TextAlign.Center,
+    shape: Shape = GdsButtonDefaults.defaultShape
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
+    val interactionSource = remember { MutableInteractionSource() }
     Button(
         colors = colors,
         modifier = modifier
@@ -59,8 +61,9 @@ fun GdsButton(
             .semantics(mergeDescendants = true) { }
             .onFocusChanged { focusStateEnabled = it.isFocused },
         onClick = onClick,
-        shape = RectangleShape,
+        shape = shape,
         enabled = enabled,
+        interactionSource = interactionSource,
         contentPadding = getContentPadding(
             contentPosition = contentPosition,
         ),

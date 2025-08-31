@@ -2,15 +2,19 @@
 
 package uk.gov.android.ui.componentsv2.button
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.adminButton
@@ -150,6 +154,9 @@ fun ButtonTypeV2.buttonColors() = when (this) {
 }
 
 object GdsButtonDefaults {
+    val defaultShape: Shape = RectangleShape
+    fun customRoundedShape(radius: Dp): Shape = RoundedCornerShape(radius)
+
     @Composable
     fun defaultPrimaryColors() = ButtonDefaults.buttonColors(
         containerColor = colorScheme.primary,
