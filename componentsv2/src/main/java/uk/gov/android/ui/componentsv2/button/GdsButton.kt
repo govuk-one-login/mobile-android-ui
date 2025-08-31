@@ -1,6 +1,7 @@
 package uk.gov.android.ui.componentsv2.button
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -35,6 +37,50 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 
+@Composable
+fun GdsButton(
+    text: String,
+    buttonType: ButtonTypeV2,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
+    textAlign: TextAlign = TextAlign.Center,
+) {
+    var focusStateEnabled by remember { mutableStateOf(false) }
+    val colors = setFocusStateColors(focusStateEnabled, buttonType)
+    val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
+    Button(
+        colors = colors,
+        modifier = modifier
+            .customBottomShadow(shadowColor)
+            .minimumInteractiveComponentSize()
+            .semantics(mergeDescendants = true) { }
+            .onFocusChanged { focusStateEnabled = it.isFocused },
+        onClick = onClick,
+        shape = RectangleShape,
+        enabled = enabled,
+        contentPadding = getContentPadding(
+            contentPosition = contentPosition,
+        ),
+    ) {
+        Content(
+            text = text,
+            buttonType = buttonType,
+            buttonColors = colors,
+            modifier = contentModifier,
+            contentPosition = contentPosition,
+            textAlign = textAlign,
+        )
+    }
+}
+
+@Deprecated(
+    message = "This is outdated, as specs and references have been changed as per new Deign requirements",
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt"),
+    level = DeprecationLevel.WARNING
+)
 @Composable
 fun GdsButton(
     text: String,
@@ -74,12 +120,22 @@ fun GdsButton(
     }
 }
 
+@Deprecated(
+    message = "This is outdated, as specs and references have been changed as per new Deign requirements",
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt - setFocusStateColors() using ButtonTypeV2"),
+    level = DeprecationLevel.WARNING
+)
 @Composable
 private fun setFocusStateColors(
     focusStateEnabled: Boolean,
     buttonType: ButtonType,
 ) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
 
+@Deprecated(
+    message = "This is outdated, as specs and references have been changed as per new Deign requirements",
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt - setShadowColors() using ButtonTypeV2"),
+    level = DeprecationLevel.WARNING
+)
 @Composable
 private fun setShadowColors(
     buttonType: ButtonType,
@@ -97,6 +153,36 @@ private fun setShadowColors(
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
             is ButtonType.Icon -> {
+                buttonType.shadowColor
+            }
+            else -> Color.Transparent
+        }
+    }
+}
+
+@Composable
+private fun setFocusStateColors(
+    focusStateEnabled: Boolean,
+    buttonType: ButtonTypeV2,
+) = if (focusStateEnabled) GdsButtonDefaults.defaultFocusColors() else buttonType.buttonColors()
+
+@Composable
+private fun setShadowColors(
+    buttonType: ButtonTypeV2,
+    isEnabled: Boolean,
+    isInFocus: Boolean,
+): Color {
+    return if (!isEnabled) {
+        GdsLocalColorScheme.current.disabledButtonShadow
+    } else if (isInFocus) {
+        GdsLocalColorScheme.current.focusStateShadow
+    } else {
+        when (buttonType) {
+            is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
+            is ButtonTypeV2.Error -> {
+                GdsLocalColorScheme.current.destructiveButtonShadow
+            }
+            is ButtonTypeV2.Icon -> {
                 buttonType.shadowColor
             }
             else -> Color.Transparent
@@ -133,6 +219,41 @@ private fun Content(
                 text = text,
                 fontWeight = buttonType.fontWeight(),
                 style = Typography.labelLarge,
+                textAlign = textAlign,
+            )
+        }
+    }
+}
+
+@Composable
+private fun Content(
+    text: String,
+    buttonType: ButtonTypeV2,
+    buttonColors: ButtonColors,
+    modifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    textAlign: TextAlign = TextAlign.Center,
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = contentPosition,
+    ) {
+        if (buttonType is ButtonTypeV2.Icon) {
+            GdsAnnotatedString(
+                text = text,
+                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
+                icon = buttonType.iconImage,
+                iconContentDescription = buttonType.contentDescription,
+                isIconTrailing = buttonType.isIconTrailing,
+                color = buttonColors.contentColor,
+                iconBackgroundColor = buttonColors.containerColor,
+                textAlign = textAlign,
+            )
+        } else {
+            Text(
+                text = text,
+                fontWeight = buttonType.textStyle.fontWeight,
+                style = buttonType.textStyle,
                 textAlign = textAlign,
             )
         }
