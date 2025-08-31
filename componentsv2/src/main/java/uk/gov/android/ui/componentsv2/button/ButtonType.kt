@@ -95,15 +95,13 @@ sealed class ButtonTypeV2(
     data class Icon(
         val buttonColors: ButtonColors,
         val icon: ImageVector? = null,
-        var contentDescription: String?,
+        var contentDescription: String? = null,
         val isIconTrailing: Boolean = true,
         val shadowColor: Color = Color.Transparent,
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
     ) : ButtonTypeV2(textStyle = textStyle) {
         init {
-            if (icon == null) {
-                contentDescription = null
-            } else {
+            if (icon != null && contentDescription == null) {
                 throw Exception("You must provide a content decsription for the icon used")
             }
         }
