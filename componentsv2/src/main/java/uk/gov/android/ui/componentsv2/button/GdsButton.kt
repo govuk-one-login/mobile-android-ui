@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.button
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -42,7 +43,8 @@ fun GdsButton(
     text: String,
     buttonType: ButtonTypeV2,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    @SuppressLint("ModifierParameter")
+    modifier: Modifier = GdsButtonDefaults.defaultModifier,
     contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
