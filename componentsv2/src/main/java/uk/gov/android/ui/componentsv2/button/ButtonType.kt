@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.adminButton
@@ -164,6 +165,7 @@ fun ButtonTypeV2.buttonColors() = when (this) {
 }
 
 object GdsButtonDefaults {
+    val spinnerDefaultSize: Dp = 22.dp
     val defaultShape: Shape = RectangleShape
     fun customRoundedShape(radius: Dp): Shape = RoundedCornerShape(radius)
 

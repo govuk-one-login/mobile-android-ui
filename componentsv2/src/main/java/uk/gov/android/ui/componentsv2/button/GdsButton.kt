@@ -6,8 +6,10 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -29,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomShadow
@@ -38,6 +41,20 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 
+/**
+ * Gds Button that meets Design System specs
+ *
+ * @param text - text to be displayed
+ * @param buttonType - allows for pre-defined and custom states
+ * @param onClick - action when click/ tap is performed
+ * @param modifier - default: Modifier that takes the whole width and adds padding horizontally and top of 16.dp - Modifier applied to the button
+ * @param contentModifier - default: plain Modifier - Modifier applied to the Text composable within the button container
+ * @param contentPosition - default: Absolute Centre - position of content inside the button
+ * @param enabled - controls the UI state allowing the button to be tapped or when disabled to not be tappable
+ * @param loading - controls if the content should display a Loading Spinner and disable the button
+ * @param textAlign - default: Centre - controls the text alignment
+ * @param shape - default: Rectangle - controls the button shape
+ */
 @Composable
 fun GdsButton(
     text: String,
@@ -48,6 +65,7 @@ fun GdsButton(
     contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
+    loading: Boolean = false,
     textAlign: TextAlign = TextAlign.Center,
     shape: Shape = GdsButtonDefaults.defaultShape
 ) {
@@ -55,6 +73,7 @@ fun GdsButton(
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
     val interactionSource = remember { MutableInteractionSource() }
+    val checkIfDisabled = !(!enabled || loading)
     Button(
         colors = colors,
         modifier = modifier
@@ -64,7 +83,7 @@ fun GdsButton(
             .onFocusChanged { focusStateEnabled = it.isFocused },
         onClick = onClick,
         shape = shape,
-        enabled = enabled,
+        enabled = checkIfDisabled,
         interactionSource = interactionSource,
         contentPadding = getContentPadding(
             contentPosition = contentPosition,
@@ -73,6 +92,7 @@ fun GdsButton(
         Content(
             text = text,
             buttonType = buttonType,
+            loading = loading,
             buttonColors = colors,
             modifier = contentModifier,
             contentPosition = contentPosition,
@@ -239,6 +259,7 @@ private fun Content(
     text: String,
     buttonType: ButtonTypeV2,
     buttonColors: ButtonColors,
+    loading: Boolean,
     modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     textAlign: TextAlign = TextAlign.Center,
@@ -257,6 +278,14 @@ private fun Content(
                 color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
                 textAlign = textAlign,
+            )
+        } else if (loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(
+                    width = GdsButtonDefaults.spinnerDefaultSize,
+                    height = GdsButtonDefaults.spinnerDefaultSize
+                ),
+                color = buttonColors.disabledContentColor,
             )
         } else {
             Text(
@@ -311,6 +340,28 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
     )
 }
 
+@Composable
+internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
+    ButtonTypePreview.Primary -> ButtonTypeV2.Primary()
+    ButtonTypePreview.Secondary -> ButtonTypeV2.Secondary()
+    ButtonTypePreview.Tertiary -> ButtonTypeV2.Tertiary()
+    ButtonTypePreview.Quaternary -> ButtonTypeV2.Quaternary()
+    ButtonTypePreview.Admin -> ButtonTypeV2.Admin()
+    ButtonTypePreview.Error -> ButtonTypeV2.Destructive()
+    ButtonTypePreview.Custom -> ButtonTypeV2.Custom(
+        contentColor = Color.Red,
+        containerColor = Color.Cyan,
+    )
+
+    ButtonTypePreview.Icon -> ButtonTypeV2.Icon(
+        buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
+        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
+        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
+    )
+}
+
 internal data class ButtonParameters(
     @StringRes
     val text: Int,
@@ -319,6 +370,18 @@ internal data class ButtonParameters(
     val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
+)
+
+internal data class ButtonParametersV2(
+    @StringRes
+    val text: Int,
+    val buttonType: ButtonTypePreview,
+    val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    val modifier: Modifier? = null,
+    val contentModifier: Modifier = Modifier,
+    val enabled: Boolean = true,
+    val loading: Boolean = false,
+    val shape: Shape = GdsButtonDefaults.defaultShape
 )
 
 internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonParameters> {
@@ -359,6 +422,55 @@ internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonP
     )
 }
 
+internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<ButtonParametersV2> {
+    override val values: Sequence<ButtonParametersV2> = sequenceOf(
+        ButtonParametersV2(
+            text = R.string.primary_button,
+            buttonType = ButtonTypePreview.Primary,
+        ),
+        ButtonParametersV2(
+            R.string.secondary_button,
+            ButtonTypePreview.Secondary,
+        ),
+        ButtonParametersV2(
+            R.string.tertiary_button,
+            ButtonTypePreview.Tertiary,
+        ),
+        ButtonParametersV2(
+            R.string.quaternary_button,
+            ButtonTypePreview.Quaternary,
+        ),
+        ButtonParametersV2(
+            R.string.admin_button,
+            ButtonTypePreview.Admin,
+        ),
+        ButtonParametersV2(
+            R.string.error_button,
+            ButtonTypePreview.Error,
+        ),
+        ButtonParametersV2(
+            R.string.text_button,
+            ButtonTypePreview.Icon,
+        ),
+        ButtonParametersV2(
+            text = R.string.disabled_button,
+            buttonType = ButtonTypePreview.Primary,
+            enabled = false,
+        ),
+        ButtonParametersV2(
+            text = R.string.loading_button,
+            buttonType = ButtonTypePreview.Primary,
+            enabled = false,
+            loading = true
+        ),
+        ButtonParametersV2(
+            text = R.string.primary_button,
+            buttonType = ButtonTypePreview.Primary,
+            shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS)
+        )
+    )
+}
+
 @Composable
 @PreviewLightDark
 internal fun ButtonPreview(
@@ -377,3 +489,37 @@ internal fun ButtonPreview(
         )
     }
 }
+
+@Composable
+@PreviewLightDark
+internal fun ButtonPreviewV2(
+    @PreviewParameter(ButtonParameterPreviewProviderV2::class)
+    parameters: ButtonParametersV2,
+) {
+    GdsTheme {
+        parameters.modifier?.let {
+            GdsButton(
+                text = stringResource(parameters.text),
+                buttonType = parameters.buttonType.toButtonTypeV2(),
+                modifier = parameters.modifier,
+                contentPosition = parameters.contentPosition,
+                contentModifier = parameters.contentModifier,
+                enabled = parameters.enabled,
+                loading = parameters.loading,
+                onClick = {},
+                shape = parameters.shape
+            )
+        } ?: GdsButton(
+            text = stringResource(parameters.text),
+            buttonType = parameters.buttonType.toButtonTypeV2(),
+            contentPosition = parameters.contentPosition,
+            contentModifier = parameters.contentModifier,
+            enabled = parameters.enabled,
+            loading = parameters.loading,
+            onClick = {},
+            shape = parameters.shape
+        )
+    }
+}
+
+private val BUTTON_RADIUS = 12.dp
