@@ -1,4 +1,4 @@
-@file:Suppress("ForbiddenComment")
+@file:Suppress("TooManyFunctions")
 
 package uk.gov.android.ui.componentsv2.button
 
@@ -25,9 +25,12 @@ import uk.gov.android.ui.theme.m3.adminButton
 import uk.gov.android.ui.theme.smallPadding
 
 @Deprecated(
-    message = "This is now deprecated because this version is used in a deprecated version of GdsButton - please update to new version of GdsButton",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - ButtonTypeV2"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated because this version is used in a deprecated version of " +
+        "GdsButton - please update to new version of GdsButton",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - ButtonTypeV2",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Immutable
 sealed class ButtonType {
@@ -61,30 +64,30 @@ sealed class ButtonType {
 
 @Immutable
 sealed class ButtonTypeV2(
-    open val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+    open val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
 ) {
     data class Primary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Secondary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Tertiary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Quaternary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Admin(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Destructive(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Custom(
@@ -93,6 +96,7 @@ sealed class ButtonTypeV2(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
     ) : ButtonTypeV2(textStyle = textStyle)
 
+    @Suppress("TooGenericExceptionThrown")
     data class Icon(
         val buttonColors: ButtonColors,
         val icon: ImageVector? = null,
@@ -111,7 +115,7 @@ sealed class ButtonTypeV2(
 
 @Deprecated(
     message = "Remove once the GdsButton deprecated version has been removed",
-    replaceWith = ReplaceWith("Not needed")
+    replaceWith = ReplaceWith("Not needed"),
 )
 internal fun ButtonType.fontWeight() = when (this) {
     ButtonType.Admin,
@@ -130,7 +134,7 @@ internal fun ButtonType.fontWeight() = when (this) {
 
 @Deprecated(
     message = "This has been replaced by ButtonTypeV2.buttonColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - ButtonTypeV2.buttonColors(")
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - ButtonTypeV2.buttonColors("),
 )
 @Composable
 fun ButtonType.buttonColors() = when (this) {
@@ -240,9 +244,13 @@ object GdsButtonDefaults {
 }
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultPrimaryColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultPrimaryColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultPrimaryColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt" +
+            " - GdsButtonDefaults.defaultPrimaryColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun primaryButtonColors() = ButtonDefaults.buttonColors(
@@ -253,9 +261,13 @@ fun primaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultSecondaryColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultSecondaryColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultSecondaryColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultSecondaryColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun secondaryButtonColors() = ButtonDefaults.buttonColors(
@@ -266,9 +278,13 @@ fun secondaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultTertiaryColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultTertiaryColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultTertiaryColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultTertiaryColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
@@ -279,9 +295,13 @@ fun tertiaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultQuaternaryColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultQuaternaryColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultQuaternaryColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultQuaternaryColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
@@ -292,9 +312,13 @@ fun quaternaryButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultAdminColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultAdminColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultAdminColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultAdminColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun adminButtonColors() = ButtonDefaults.buttonColors(
@@ -305,9 +329,13 @@ fun adminButtonColors() = ButtonDefaults.buttonColors(
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultErrorColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultErrorColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultErrorColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultErrorColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun errorButtonColors() = ButtonDefaults.buttonColors(
@@ -319,8 +347,11 @@ fun errorButtonColors() = ButtonDefaults.buttonColors(
 
 @Deprecated(
     message = "This is now deprecated, please update to using GdsButtonDefaults.customColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.customColors()"),
-    level = DeprecationLevel.WARNING
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.customColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun customButtonColors(containerColor: Color, contentColor: Color) = ButtonDefaults.buttonColors(
@@ -331,9 +362,13 @@ fun customButtonColors(containerColor: Color, contentColor: Color) = ButtonDefau
 )
 
 @Deprecated(
-    message = "This is now deprecated, please update to using GdsButtonDefaults.defaultFocusColors()",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - GdsButtonDefaults.defaultFocusColors()"),
-    level = DeprecationLevel.WARNING
+    message = "This is now deprecated, please update to using " +
+        "GdsButtonDefaults.defaultFocusColors()",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/ButtonType.kt - " +
+            "GdsButtonDefaults.defaultFocusColors()",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun focusStateButtonColors() = ButtonDefaults.buttonColors(

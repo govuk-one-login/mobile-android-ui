@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions")
+
 package uk.gov.android.ui.componentsv2.button
 
 import android.annotation.SuppressLint
@@ -61,13 +63,13 @@ fun GdsButton(
     buttonType: ButtonTypeV2,
     onClick: () -> Unit,
     @SuppressLint("ModifierParameter")
-    modifier: Modifier = GdsButtonDefaults.defaultModifier,
+    modifier: Modifier = Modifier,
     contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
     loading: Boolean = false,
     textAlign: TextAlign = TextAlign.Center,
-    shape: Shape = GdsButtonDefaults.defaultShape
+    shape: Shape = GdsButtonDefaults.defaultShape,
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
@@ -104,7 +106,7 @@ fun GdsButton(
 @Deprecated(
     message = "This is outdated, as specs and references have been changed as per new Deign requirements",
     replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt"),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun GdsButton(
@@ -146,9 +148,13 @@ fun GdsButton(
 }
 
 @Deprecated(
-    message = "This is outdated, as specs and references have been changed as per new Deign requirements",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt - setFocusStateColors() using ButtonTypeV2"),
-    level = DeprecationLevel.WARNING
+    message = "This is outdated, as specs and references have been changed as per new Design " +
+        "requirements",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/GdsButton.kt " +
+            "- setFocusStateColors() using ButtonTypeV2",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 private fun setFocusStateColors(
@@ -157,9 +163,13 @@ private fun setFocusStateColors(
 ) = if (focusStateEnabled) focusStateButtonColors() else buttonType.buttonColors()
 
 @Deprecated(
-    message = "This is outdated, as specs and references have been changed as per new Deign requirements",
-    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsButton.kt - setShadowColors() using ButtonTypeV2"),
-    level = DeprecationLevel.WARNING
+    message = "This is outdated, as specs and references have been changed as per new Design " +
+        "requirements",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/GdsButton.kt " +
+            "- setShadowColors() using ButtonTypeV2",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 private fun setShadowColors(
@@ -177,9 +187,11 @@ private fun setShadowColors(
             ButtonType.Error -> {
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
+
             is ButtonType.Icon -> {
                 buttonType.shadowColor
             }
+
             else -> Color.Transparent
         }
     }
@@ -207,17 +219,24 @@ private fun setShadowColors(
             is ButtonTypeV2.Destructive -> {
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
+
             is ButtonTypeV2.Icon -> {
                 buttonType.shadowColor
             }
+
             else -> Color.Transparent
         }
     }
 }
 
 @Deprecated(
-    message = "This is outdated, as specs and references have been changed as per new Deign requirements superceeded by the new Content function used for updated GdsButton",
-    level = DeprecationLevel.WARNING
+    message = "This is outdated, as specs and references have been changed as per new Design " +
+        "requirements superceeded by the new Content function used for updated GdsButton",
+    replaceWith = ReplaceWith(
+        "java/uk/gov/android/ui/componentsv2/button/GdsButton.kt " +
+            "- Content() using ButtonTypeV2",
+    ),
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 private fun Content(
@@ -273,7 +292,8 @@ private fun Content(
                 text = text,
                 fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
                 icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
-                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription } ?: stringResource(R.string.opens_in_external_browser),
+                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
+                    ?: stringResource(R.string.opens_in_external_browser),
                 isIconTrailing = buttonType.isIconTrailing,
                 color = buttonColors.contentColor,
                 iconBackgroundColor = buttonColors.containerColor,
@@ -283,7 +303,7 @@ private fun Content(
             CircularProgressIndicator(
                 modifier = Modifier.size(
                     width = GdsButtonDefaults.spinnerDefaultSize,
-                    height = GdsButtonDefaults.spinnerDefaultSize
+                    height = GdsButtonDefaults.spinnerDefaultSize,
                 ),
                 color = buttonColors.disabledContentColor,
             )
@@ -381,7 +401,7 @@ internal data class ButtonParametersV2(
     val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
     val loading: Boolean = false,
-    val shape: Shape = GdsButtonDefaults.defaultShape
+    val shape: Shape = GdsButtonDefaults.defaultShape,
 )
 
 internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonParameters> {
@@ -429,28 +449,28 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParametersV2(
-            R.string.secondary_button,
-            ButtonTypePreview.Secondary,
+            text = R.string.secondary_button,
+            buttonType = ButtonTypePreview.Secondary,
         ),
         ButtonParametersV2(
-            R.string.tertiary_button,
-            ButtonTypePreview.Tertiary,
+            text = R.string.tertiary_button,
+            buttonType = ButtonTypePreview.Tertiary,
         ),
         ButtonParametersV2(
-            R.string.quaternary_button,
-            ButtonTypePreview.Quaternary,
+            text = R.string.quaternary_button,
+            buttonType = ButtonTypePreview.Quaternary,
         ),
         ButtonParametersV2(
-            R.string.admin_button,
-            ButtonTypePreview.Admin,
+            text = R.string.admin_button,
+            buttonType = ButtonTypePreview.Admin,
         ),
         ButtonParametersV2(
-            R.string.error_button,
-            ButtonTypePreview.Error,
+            text = R.string.error_button,
+            buttonType = ButtonTypePreview.Error,
         ),
         ButtonParametersV2(
-            R.string.text_button,
-            ButtonTypePreview.Icon,
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.Icon,
         ),
         ButtonParametersV2(
             text = R.string.disabled_button,
@@ -461,13 +481,13 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             text = R.string.loading_button,
             buttonType = ButtonTypePreview.Primary,
             enabled = false,
-            loading = true
+            loading = true,
         ),
         ButtonParametersV2(
             text = R.string.primary_button,
             buttonType = ButtonTypePreview.Primary,
-            shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS)
-        )
+            shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
+        ),
     )
 }
 
@@ -507,7 +527,7 @@ internal fun ButtonPreviewV2(
                 enabled = parameters.enabled,
                 loading = parameters.loading,
                 onClick = {},
-                shape = parameters.shape
+                shape = parameters.shape,
             )
         } ?: GdsButton(
             text = stringResource(parameters.text),
@@ -517,7 +537,7 @@ internal fun ButtonPreviewV2(
             enabled = parameters.enabled,
             loading = parameters.loading,
             onClick = {},
-            shape = parameters.shape
+            shape = parameters.shape,
         )
     }
 }
