@@ -8,6 +8,7 @@ import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -21,7 +22,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -303,13 +306,22 @@ private fun Content(
                 textAlign = textAlign,
             )
         } else if (loading) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(
-                    width = GdsButtonDefaults.spinnerDefaultSize,
-                    height = GdsButtonDefaults.spinnerDefaultSize,
-                ),
-                color = buttonColors.disabledContentColor,
-            )
+            Box(contentAlignment = Alignment.Center) {
+                Text(
+                    text = text,
+                    fontWeight = buttonType.textStyle.fontWeight,
+                    style = buttonType.textStyle,
+                    textAlign = textAlign,
+                    modifier = Modifier.alpha(0f),
+                )
+                CircularProgressIndicator(
+                    modifier = Modifier.size(
+                        width = GdsButtonDefaults.spinnerDefaultSize,
+                        height = GdsButtonDefaults.spinnerDefaultSize,
+                    ),
+                    color = buttonColors.disabledContentColor,
+                )
+            }
         } else {
             Text(
                 text = text,
