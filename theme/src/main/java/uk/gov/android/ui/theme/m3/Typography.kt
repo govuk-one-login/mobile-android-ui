@@ -65,8 +65,8 @@ private val DefaultTextStyle = TextStyle.Default.copy(
  * [Material3 typography styles](https://m3.material.io/blog/migrating-material-3)
  *
  * Material3                    -> GDS
- * 1. textAppearanceDisplayLarge   => No current GDS design
- * 2. textAppearanceDisplayMedium  => No current GDS design
+ * 1. textAppearanceDisplayLarge   => Wallet primary field
+ * 2. textAppearanceDisplayMedium  => Wallet live document footer
  * 3. textAppearanceDisplaySmall   => Large Headline
  * 4. textAppearanceHeadlineLarge  => Title 1
  * 5. textAppearanceHeadlineMedium => Title 2
@@ -82,6 +82,18 @@ private val DefaultTextStyle = TextStyle.Default.copy(
  * 15. textAppearanceLabelSmall    => Caption
  * */
 val Typography = Typography(
+    displayLarge = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeH4,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightH4,
+    ),
+    displayMedium = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeBody,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightB1,
+    ),
     displaySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
@@ -158,9 +170,9 @@ val Typography = Typography(
 
 internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
-        "Large Title" to Typography.displayLarge,
-        "displayMedium" to Typography.displayMedium,
-        "displaySmall" to Typography.displaySmall,
+        "Wallet primary field" to Typography.displayLarge,
+        "Wallet live document footer" to Typography.displayMedium,
+        "Large Headline" to Typography.displaySmall,
         "Title 1" to Typography.headlineLarge,
         "Title 2" to Typography.headlineMedium,
         "Title 3" to Typography.headlineSmall,
