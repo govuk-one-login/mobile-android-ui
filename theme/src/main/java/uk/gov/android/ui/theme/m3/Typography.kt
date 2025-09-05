@@ -82,18 +82,6 @@ private val DefaultTextStyle = TextStyle.Default.copy(
  * 15. textAppearanceLabelSmall    => Caption
  * */
 val Typography = Typography(
-    displayLarge = DefaultTextStyle.copy(
-        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
-        fontSize = textSizeH4,
-        fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH4,
-    ),
-    displayMedium = DefaultTextStyle.copy(
-        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
-        fontSize = textSizeBody,
-        fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightB1,
-    ),
     displaySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
@@ -168,10 +156,31 @@ val Typography = Typography(
     ),
 )
 
+/**
+ * Supplementary class to contain text styles not defined in Typography
+ *
+ *  * 1. headlineSmallMono   => Wallet primary field
+ *  * 2. bodyLargeMono  => Wallet live document footer
+ */
+val ExtraTypography = GdsTypography(
+    headlineSmallMono = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeH4,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightH4,
+    ),
+    bodyLargeMono = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeBody,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightB1,
+    ),
+)
+
 internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
-        "Wallet primary field" to Typography.displayLarge,
-        "Wallet live document footer" to Typography.displayMedium,
+        "Wallet primary field" to ExtraTypography.headlineSmallMono,
+        "Wallet live document footer" to ExtraTypography.bodyLargeMono,
         "Large Headline" to Typography.displaySmall,
         "Title 1" to Typography.headlineLarge,
         "Title 2" to Typography.headlineMedium,
@@ -218,3 +227,14 @@ internal fun TypographyPreview() {
         }
     }
 }
+
+/**
+ * Supplementary class to contain text styles not defined in Typography
+ *
+ * @param headlineSmallMono TextStyle headlineSmall style with roboto mono font family
+ * @param bodyLargeMono TextStyle bodyLarge style with roboto mono font family
+ */
+data class GdsTypography(
+    val headlineSmallMono: TextStyle,
+    val bodyLargeMono: TextStyle,
+)
