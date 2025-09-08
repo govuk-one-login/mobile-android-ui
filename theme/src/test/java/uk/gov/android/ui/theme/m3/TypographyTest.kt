@@ -15,11 +15,24 @@ class TypographyTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun test() {
+    fun verifyTypography() {
         composeTestRule.setContent {
             TypographyPreview()
         }
         TypographyPreviewParams.types.forEach {
+            composeTestRule.apply {
+                onNodeWithText(it.first).performScrollTo().assertIsDisplayed()
+                onNodeWithText("- ${it.second.fontSize.value.toInt()}sp")
+            }
+        }
+    }
+
+    @Test
+    fun verifyExtraTypography() {
+        composeTestRule.setContent {
+            ExtraTypographyPreview()
+        }
+        ExtraTypographyPreviewParams.types.forEach {
             composeTestRule.apply {
                 onNodeWithText(it.first).performScrollTo().assertIsDisplayed()
                 onNodeWithText("- ${it.second.fontSize.value.toInt()}sp")
