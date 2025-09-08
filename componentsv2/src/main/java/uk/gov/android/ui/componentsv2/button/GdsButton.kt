@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -328,6 +329,7 @@ private fun Content(
                 fontWeight = buttonType.textStyle.fontWeight,
                 style = buttonType.textStyle,
                 textAlign = textAlign,
+                modifier = Modifier.padding(top = 2.dp),
             )
         }
     }
@@ -350,7 +352,7 @@ private fun getContentPadding(
     }
 
 internal enum class ButtonTypePreview {
-    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon
+    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon, IconLeading
 }
 
 @Composable
@@ -373,6 +375,15 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )
+
+    ButtonTypePreview.IconLeading -> ButtonType.Icon(
+        buttonColors = ButtonType.Primary.buttonColors(),
+        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+        fontWeight = FontWeight.Bold,
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
+        isIconTrailing = false,
+    )
 }
 
 @Composable
@@ -394,6 +405,15 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
         textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
+    )
+
+    ButtonTypePreview.IconLeading -> ButtonTypeV2.Icon(
+        buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
+        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
+        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
+        isIconTrailing = false,
     )
 }
 
@@ -450,6 +470,10 @@ internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonP
             ButtonTypePreview.Icon,
         ),
         ButtonParameters(
+            R.string.text_button,
+            ButtonTypePreview.IconLeading,
+        ),
+        ButtonParameters(
             text = R.string.disabled_button,
             buttonType = ButtonTypePreview.Primary,
             enabled = false,
@@ -486,6 +510,10 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ButtonParametersV2(
             text = R.string.text_button,
             buttonType = ButtonTypePreview.Icon,
+        ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.IconLeading,
         ),
         ButtonParametersV2(
             text = R.string.disabled_button,
