@@ -65,8 +65,8 @@ private val DefaultTextStyle = TextStyle.Default.copy(
  * [Material3 typography styles](https://m3.material.io/blog/migrating-material-3)
  *
  * Material3                    -> GDS
- * 1. textAppearanceDisplayLarge   => No current GDS design
- * 2. textAppearanceDisplayMedium  => No current GDS design
+ * 1. textAppearanceDisplayLarge   => Wallet primary field
+ * 2. textAppearanceDisplayMedium  => Wallet live document footer
  * 3. textAppearanceDisplaySmall   => Large Headline
  * 4. textAppearanceHeadlineLarge  => Title 1
  * 5. textAppearanceHeadlineMedium => Title 2
@@ -156,11 +156,32 @@ val Typography = Typography(
     ),
 )
 
+/**
+ * Supplementary class to contain text styles not defined in Typography
+ *
+ *  * 1. headlineSmallMono   => Wallet primary field
+ *  * 2. bodyLargeMono  => Wallet live document footer
+ */
+val ExtraTypography = GdsTypography(
+    headlineSmallMono = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeH4,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightH4,
+    ),
+    bodyLargeMono = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
+        fontSize = textSizeBody,
+        fontWeight = FontWeight.Bold,
+        lineHeight = lineHeightB1,
+    ),
+)
+
 internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
         "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
-        "displaySmall" to Typography.displaySmall,
+        "Large Headline" to Typography.displaySmall,
         "Title 1" to Typography.headlineLarge,
         "Title 2" to Typography.headlineMedium,
         "Title 3" to Typography.headlineSmall,
@@ -173,6 +194,13 @@ internal object TypographyPreviewParams {
         "Button text" to Typography.labelLarge,
         "Footnote" to Typography.labelMedium,
         "Caption" to Typography.labelSmall,
+    )
+}
+
+internal object ExtraTypographyPreviewParams {
+    val types: List<Pair<String, TextStyle>> = listOf(
+        "Wallet primary field" to ExtraTypography.headlineSmallMono,
+        "Wallet live document footer" to ExtraTypography.bodyLargeMono,
     )
 }
 
@@ -206,3 +234,45 @@ internal fun TypographyPreview() {
         }
     }
 }
+
+@Preview
+@Composable
+internal fun ExtraTypographyPreview() {
+    GdsTheme {
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            ExtraTypographyPreviewParams.types.forEach { type ->
+                Row(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                        .background(MaterialTheme.colorScheme.background),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        style = type.second,
+                        text = type.first,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = "  - ${type.second.fontSize.value.toInt()}sp",
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+/**
+ * Supplementary class to contain text styles not defined in Typography
+ *
+ * @param headlineSmallMono TextStyle headlineSmall style with roboto mono font family
+ * @param bodyLargeMono TextStyle bodyLarge style with roboto mono font family
+ */
+data class GdsTypography(
+    val headlineSmallMono: TextStyle,
+    val bodyLargeMono: TextStyle,
+)
