@@ -123,8 +123,8 @@ android {
     }
 }
 
-//afterEvaluate {
-//    tasks.named("testDebugUnitTest") {
-//        finalizedBy("verifyPaparazziDebug")
-//    }
-//}
+afterEvaluate {
+    tasks.named("testDebugUnitTest") {
+        finalizedBy("verifyPaparazziDebug")
+    }
+}
