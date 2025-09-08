@@ -25,10 +25,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.xsmallPadding
@@ -81,7 +81,7 @@ fun GdsAnnotatedString(
         ),
     )
     Text(
-        modifier = modifier.padding(top = 2.dp),
+        modifier = modifier.padding(top = buttonShadowSize),
         text = annotatedString,
         inlineContent = inlineIconContent,
         fontWeight = fontWeight,
