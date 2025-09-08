@@ -179,8 +179,8 @@ val ExtraTypography = GdsTypography(
 
 internal object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
-        "Wallet primary field" to ExtraTypography.headlineSmallMono,
-        "Wallet live document footer" to ExtraTypography.bodyLargeMono,
+        "Large Title" to Typography.displayLarge,
+        "displayMedium" to Typography.displayMedium,
         "Large Headline" to Typography.displaySmall,
         "Title 1" to Typography.headlineLarge,
         "Title 2" to Typography.headlineMedium,
@@ -197,12 +197,50 @@ internal object TypographyPreviewParams {
     )
 }
 
+internal object ExtraTypographyPreviewParams {
+    val types: List<Pair<String, TextStyle>> = listOf(
+        "Wallet primary field" to ExtraTypography.headlineSmallMono,
+        "Wallet live document footer" to ExtraTypography.bodyLargeMono,
+    )
+}
+
 @Preview
 @Composable
 internal fun TypographyPreview() {
     GdsTheme {
         Column(Modifier.verticalScroll(rememberScrollState())) {
             TypographyPreviewParams.types.forEach { type ->
+                Row(
+                    modifier = Modifier
+                        .wrapContentHeight()
+                        .fillMaxWidth()
+                        .padding(4.dp)
+                        .background(MaterialTheme.colorScheme.background),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        style = type.second,
+                        text = type.first,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = "  - ${type.second.fontSize.value.toInt()}sp",
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+                HorizontalDivider(modifier = Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+internal fun ExtraTypographyPreview() {
+    GdsTheme {
+        Column(Modifier.verticalScroll(rememberScrollState())) {
+            ExtraTypographyPreviewParams.types.forEach { type ->
                 Row(
                     modifier = Modifier
                         .wrapContentHeight()
