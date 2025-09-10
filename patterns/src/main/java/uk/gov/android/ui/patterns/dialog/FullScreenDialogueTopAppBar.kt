@@ -14,7 +14,7 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import uk.gov.android.ui.componentsv2.button.CloseButton
+import uk.gov.android.ui.componentsv2.button.GdsIconButton
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 
@@ -44,7 +44,7 @@ fun FullScreenDialogueTopAppBar(
     title = title,
     modifier = modifier,
     navigationIcon = {
-        CloseButton(onClose = onCloseClick)
+        GdsIconButton(onClick = onCloseClick)
     },
     colors = colors,
     scrollBehavior = scrollBehavior,

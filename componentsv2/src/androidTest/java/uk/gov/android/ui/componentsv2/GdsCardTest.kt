@@ -65,7 +65,7 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_button),
+                resources.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)
@@ -126,7 +126,7 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_button),
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
@@ -154,7 +154,7 @@ class GdsCardTest {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_button),
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
@@ -175,7 +175,7 @@ class GdsCardTest {
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_button),
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(0, onClick)
@@ -212,7 +212,7 @@ class GdsCardTest {
             ).assertDoesNotExist()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_button),
+                resources.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)

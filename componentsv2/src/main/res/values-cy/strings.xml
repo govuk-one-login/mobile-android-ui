@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
     <!-- BulletedList -->
-    <string name="close_button">Cau</string>
+    <string name="close_icon_button">Cau</string>
+    <string name="back_icon_button">Yn ôl</string>
     <string name="bullet">bwled %s</string>
     <string name="heading">%s penawd</string>
     <plurals name="bullet_list_items" translatable="true">

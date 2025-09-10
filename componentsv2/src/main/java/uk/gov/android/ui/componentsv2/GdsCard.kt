@@ -368,7 +368,7 @@ private fun DismissButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val description = stringResource(R.string.close_button)
+    val description = stringResource(R.string.close_icon_button)
     IconButton(
         onClick = onClick,
         modifier = Modifier

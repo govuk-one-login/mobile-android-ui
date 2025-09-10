@@ -29,7 +29,7 @@ class CloseButtonTest {
         assertEquals(0, onClick)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(R.string.close_button),
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
         }
         assertEquals(1, onClick)

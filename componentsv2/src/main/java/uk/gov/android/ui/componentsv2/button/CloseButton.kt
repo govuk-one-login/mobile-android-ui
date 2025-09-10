@@ -15,6 +15,11 @@ import uk.gov.android.ui.theme.closeButtonSize
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 
+@Deprecated(
+    message = "This has been replaced by a more customisable version GdsIconButton",
+    replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsIconButton.kt"),
+    level = DeprecationLevel.WARNING,
+)
 @Composable
 fun CloseButton(
     modifier: Modifier = Modifier,
@@ -27,7 +32,7 @@ fun CloseButton(
     ) {
         Icon(
             imageVector = Icons.Filled.Close,
-            contentDescription = stringResource(R.string.close_button),
+            contentDescription = stringResource(R.string.close_icon_button),
             tint = color,
         )
     }

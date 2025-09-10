@@ -35,7 +35,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
     @Before
     fun setUp() {
         val context: Context = ApplicationProvider.getApplicationContext()
-        closeButton = hasContentDescription(context.getString(R.string.close_button))
+        closeButton = hasContentDescription(context.getString(R.string.close_icon_button))
         title = hasText(titleText)
         content = hasText(contentText)
     }
