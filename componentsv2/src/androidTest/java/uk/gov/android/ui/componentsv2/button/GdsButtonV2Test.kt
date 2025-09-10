@@ -127,6 +127,16 @@ class GdsButtonV2Test {
     }
 
     @Test
+    fun testLoading() {
+        setupContent(parameters[9])
+        composeTestRule.apply {
+            onNodeWithContentDescription(
+                resources.getString(R.string.loading_content_desc),
+            ).assertIsDisplayed()
+        }
+    }
+
+    @Test
     fun testPreview() {
         composeTestRule.setContent {
             ButtonPreviewV2(parameters[0])
@@ -142,6 +152,7 @@ class GdsButtonV2Test {
                 text = stringResource(parameters.text),
                 buttonType = parameters.buttonType.toButtonTypeV2(),
                 onClick = { onClick++ },
+                loading = parameters.loading,
             )
         }
     }

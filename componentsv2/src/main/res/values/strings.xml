@@ -25,6 +25,7 @@
     <string name="error_button" translatable="false">Error Button</string>
     <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="loading_button" translatable="false">Loading Button</string>
+    <string name ="loading_content_desc">Loading</string>
     <string name="close_button">Close</string>
 
     <!-- BulletedList -->

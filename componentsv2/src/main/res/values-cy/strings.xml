@@ -78,4 +78,7 @@
     <string name="number8">wyth</string>
     <string name="number9">naw</string>
     <string name="card_content_description">Cerdyn %s</string>
+
+    <!-- Buttons -->
+    <string name ="loading_content_desc">Llwytho</string>
 </resources>

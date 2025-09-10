@@ -26,11 +26,12 @@ object Backgrounds {
 object Buttons {
     val primary = ColorPair(Color(0xFF00703C), Color(0xFF008547))
     val primaryTextAndSymbol = ColorPair(Color(0xFFFFFFFF))
-    val defaultHighlighted = ColorPair(Color(0xFF00542D), Color(0xFF007840))
+    val primaryHighlighted = ColorPair(Color(0xFF00542D), Color(0xFF007840))
     val focusState = ColorPair(Color(0xFFFFDD00))
     val focusStateTextAndSymbol = ColorPair(Color(0xFF0B0C0C))
     val focusStateHighlighted = ColorPair(Color(0xFFBFA600))
     val secondaryTextAndSymbol = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
+    val secondaryTextAndSymbolHighlighted = ColorPair(Color(0xFF00542D), Color(0xFF02A458))
     val disabled = ColorPair(Color(0xFFB1B4B6))
     val disabledTextAndSymbol = ColorPair(Color(0xFF262626))
     val destructive = ColorPair(Color(0xFFD4351C))

@@ -86,7 +86,8 @@ data class CustomColorsScheme(
     val unselectedRadioButton: Color = Color.Unspecified,
     val buttonShadow: Color = Color.Unspecified,
     val dividerDefault: Color = Color.Unspecified,
-    val defaultButtonHighlighted: Color = Color.Unspecified,
+    val primaryButtonHighlighted: Color = Color.Unspecified,
+    val secondaryTextAndSymbolButtonHighlighted: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
     val disabledButtonContent: Color = Color.Unspecified,
     val disabledButtonShadow: Color = Color.Unspecified,
@@ -136,7 +137,9 @@ private fun customColors() = CustomColorsScheme(
     // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
     selectedRadioButton = Radio.selectedRadioButton.toMappedColors(),
     unselectedRadioButton = Radio.unselectedRadioButton.toMappedColors(),
-    defaultButtonHighlighted = Buttons.defaultHighlighted.toMappedColors(),
+    primaryButtonHighlighted = Buttons.primaryHighlighted.toMappedColors(),
+    secondaryTextAndSymbolButtonHighlighted =
+    Buttons.secondaryTextAndSymbolHighlighted.toMappedColors(),
     buttonShadow = Buttons.shadow.toMappedColors(),
     disabledButton = Buttons.disabled.toMappedColors(),
     disabledButtonContent = Buttons.disabledTextAndSymbol.toMappedColors(),
