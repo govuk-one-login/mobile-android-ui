@@ -43,7 +43,7 @@ val radioButtonMinHeight = 48.dp
 val buttonTextSize = 17.sp
 val buttonLineHeight = 22.sp
 val buttonContentVertical = 13.dp
-val buttonContentHorizontal = 8.dp
+val buttonContentHorizontal = 16.dp
 val closeButtonSize = 64.dp
 val buttonShadowSize = 2.dp
 
