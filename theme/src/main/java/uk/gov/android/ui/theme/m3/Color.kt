@@ -76,6 +76,11 @@ object NavigationElements {
     val navigationBarSelectedState = ColorPair(Color(0xFFCCE2D8), Color(0xFF008547))
 }
 
+object StatusOverlay {
+    val container = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
+    val text = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
+}
+
 @Deprecated(
     message = "This is using the wrong name, please replace with Radios",
     replaceWith = ReplaceWith("java/uk/gov/android/ui/theme/m3/Color.kt - Radios"),
