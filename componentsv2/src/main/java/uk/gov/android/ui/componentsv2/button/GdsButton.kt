@@ -112,7 +112,7 @@ fun GdsButton(
                     contentDescription = if (loading) {
                         loadingContentDescription
                     } else {
-                        text
+                        ""
                     }
                 }
                 .onFocusChanged { focusStateEnabled = it.isFocused },

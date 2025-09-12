@@ -71,7 +71,7 @@ sealed class ButtonTypeV2(
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Secondary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = Typography.bodyLarge,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Tertiary(
