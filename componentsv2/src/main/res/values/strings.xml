@@ -7,6 +7,9 @@
     <string name="card_content_description">%s Card</string>
     <string name="divider_test_tag" translatable="false">Divider test tag</string>
 
+    <!-- Gds Top App Bar -->
+    <string name="top_app_bar_title" translatable="false">Title (optional)</string>
+
     <!-- Annotated String -->
     <string name="annotated_string" translatable="false"> Annotated string</string>
     <string name="in_line_icon_id" translatable="false">in-line icon id</string>
