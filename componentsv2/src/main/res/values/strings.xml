@@ -28,6 +28,7 @@
     <string name="error_button" translatable="false">Error Button</string>
     <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="loading_button" translatable="false">Loading Button</string>
+    <string name ="loading_content_desc">Loading</string>
     <string name="more_vert_icon_button" translatable="false">More vert/ more - preview use only</string>
     <string name="close_icon_button">Close</string>
     <string name="back_icon_button">Back</string>

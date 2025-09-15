@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.xsmallPadding
@@ -60,7 +61,7 @@ fun GdsAnnotatedString(
             iconId,
             InlineTextContent(
                 Placeholder(
-                    width = 2.em,
+                    width = 1.5.em,
                     height = 1.em,
                     placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
                 ),
@@ -70,15 +71,17 @@ fun GdsAnnotatedString(
                     contentDescription = iconContentDescription,
                     color = iconColor ?: color,
                     backgroundColor = iconBackgroundColor,
-                    modifier = Modifier
-                        .padding(start = xsmallPadding)
-                        .semantics { invisibleToUser() },
+                    modifier = if (isIconTrailing) {
+                        Modifier.padding(start = xsmallPadding)
+                    } else {
+                        Modifier
+                    }.semantics { invisibleToUser() },
                 )
             },
         ),
     )
     Text(
-        modifier = modifier,
+        modifier = modifier.padding(top = buttonShadowSize),
         text = annotatedString,
         inlineContent = inlineIconContent,
         fontWeight = fontWeight,
