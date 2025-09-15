@@ -109,10 +109,8 @@ fun GdsButton(
                 .customBottomShadow(shadowColor)
                 .minimumInteractiveComponentSize()
                 .semantics(mergeDescendants = true) {
-                    contentDescription = if (loading) {
-                        loadingContentDescription
-                    } else {
-                        text
+                    if (loading) {
+                        contentDescription = loadingContentDescription
                     }
                 }
                 .onFocusChanged { focusStateEnabled = it.isFocused },
@@ -637,6 +635,7 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
         buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.primaryButtonHighlighted
         buttonType is ButtonTypeV2.Secondary ->
             GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
+
         buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
         buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
         else -> LocalRippleConfiguration.current?.color ?: Color.Unspecified
