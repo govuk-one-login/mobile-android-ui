@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
@@ -59,14 +60,10 @@ fun FullScreenDialogue(
     FullScreenDialogue(
         modifier = modifier,
         topAppBar = { scrollBehaviour ->
-            FullScreenDialogueTopAppBar(
-                title = {
-                    title?.let {
-                        Text(title)
-                    }
-                },
-                onCloseClick = onDismissRequest,
-                scrollBehavior = scrollBehaviour,
+            GdsTopAppBar(
+                title = title,
+                onClick = onDismissRequest,
+                scrollBehaviour = scrollBehaviour,
             )
         },
         onBack = onBack,

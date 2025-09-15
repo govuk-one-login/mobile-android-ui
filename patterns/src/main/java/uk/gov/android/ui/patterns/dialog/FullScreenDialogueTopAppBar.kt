@@ -30,6 +30,11 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  *   See [FullScreenDialogTopAppBarDefaults.topAppBarColors].
  * @param title The title of the top app bar. Use [Text] for this.
  */
+@Deprecated(
+    message = "Deprecated and replaces by GdsTopAppBar - will be removed on 15/11/25",
+    replaceWith = ReplaceWith("uk/gov/android/ui/componentsv2/topappbar/GdsTopAppBar.kt"),
+    level = DeprecationLevel.WARNING,
+)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenDialogueTopAppBar(
@@ -53,6 +58,11 @@ fun FullScreenDialogueTopAppBar(
 /**
  * Default parameters for use with [FullScreenDialogTopAppBar].
  */
+@Deprecated(
+    message = "Deprecated and replaces by GdsTopAppBarDefaults.colors() - will be removed on 15/11/25",
+    replaceWith = ReplaceWith("uk/gov/android/ui/componentsv2/topappbar/GdsTopAppBar.kt"),
+    level = DeprecationLevel.WARNING,
+)
 object FullScreenDialogueTopAppBarDefaults {
     @Composable
     fun topAppBarColors() = TopAppBarDefaults.topAppBarColors(
