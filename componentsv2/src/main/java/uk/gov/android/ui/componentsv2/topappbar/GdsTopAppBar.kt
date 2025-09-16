@@ -41,7 +41,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param scrollBehaviour - **optional** defaults to null - used if a scrolled behaviour is required (see [GdsTopAppBarDefaults.scrollBehaviour] for GDS default scroll behaviour)
  * @param topAppBarColors - default to [GdsTopAppBarDefaults.colors] and can be overridden and/ or customised
  */
-@OptIn(ExperimentalMaterial3Api::class, UnstableDesignSystemAPI::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GdsTopAppBar(
     onClick: () -> Unit,
@@ -80,7 +80,9 @@ fun GdsTopAppBar(
                     GdsIconButton(
                         onClick = onClick,
                         content = navigationButton,
-                        color = topAppBarColors.navigationIconContentColor,
+                        color = GdsIconButtonDefaults.colors().copy(
+                            contentColor = topAppBarColors.navigationIconContentColor,
+                        ),
                     )
                 },
                 actions = {
@@ -88,7 +90,9 @@ fun GdsTopAppBar(
                         GdsIconButton(
                             onClick = action.onClick,
                             content = action.content,
-                            color = topAppBarColors.actionIconContentColor,
+                            color = GdsIconButtonDefaults.colors().copy(
+                                contentColor = topAppBarColors.actionIconContentColor,
+                            ),
                         )
                     }
                 },
@@ -124,7 +128,9 @@ private fun StartAlignedTopAppBar(
             GdsIconButton(
                 onClick = onClick,
                 content = navigationButton,
-                color = topAppBarColors.navigationIconContentColor,
+                color = GdsIconButtonDefaults.colors().copy(
+                    contentColor = topAppBarColors.navigationIconContentColor,
+                ),
             )
         },
         actions = {
@@ -132,7 +138,9 @@ private fun StartAlignedTopAppBar(
                 GdsIconButton(
                     onClick = action.onClick,
                     content = action.content,
-                    color = topAppBarColors.actionIconContentColor,
+                    color = GdsIconButtonDefaults.colors().copy(
+                        contentColor = topAppBarColors.actionIconContentColor,
+                    ),
                 )
             }
         },

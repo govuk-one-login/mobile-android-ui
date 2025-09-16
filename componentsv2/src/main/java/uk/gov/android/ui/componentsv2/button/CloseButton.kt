@@ -16,7 +16,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Deprecated(
-    message = "This has been replaced by a more customisable version GdsIconButton",
+    message = "This has been replaced by a more customisable version GdsIconButton - will be removed on 16/11/25",
     replaceWith = ReplaceWith("java/uk/gov/android/ui/componentsv2/button/GdsIconButton.kt"),
     level = DeprecationLevel.WARNING,
 )
