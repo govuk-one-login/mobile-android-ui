@@ -10,10 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import uk.gov.android.ui.theme.m3.Backgrounds
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Composable
 fun GdsStatusOverlay(
@@ -34,14 +33,14 @@ fun GdsSnackBar(
     message: String,
 ) {
     Snackbar(
-        containerColor = Backgrounds.statusOverlay.toMappedColors(),
+        containerColor = GdsLocalColorScheme.current.statusOverlayBackground,
     ) {
         Text(
             text = message,
             style = Typography.bodySmall.copy(
                 fontWeight = FontWeight.Bold,
             ),
-            color = uk.gov.android.ui.theme.m3.Text.statusOverlay.toMappedColors(),
+            color = GdsLocalColorScheme.current.statusOverlayContent,
         )
     }
 }
