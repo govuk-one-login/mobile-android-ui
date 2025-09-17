@@ -402,7 +402,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
     )
 
     ButtonTypePreview.IconSecondary -> ButtonType.Icon(
-        buttonColors = ButtonType.Primary.buttonColors(),
+        buttonColors = ButtonType.Secondary.buttonColors(),
         iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
         fontWeight = FontWeight.Bold,
         contentDescription = stringResource(R.string.icon_content_desc),
