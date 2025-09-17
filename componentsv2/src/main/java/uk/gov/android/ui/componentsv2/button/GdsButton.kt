@@ -572,6 +572,14 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.Primary,
             shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
         ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.IconSecondary,
+        ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.Custom,
+        ),
     )
 }
 
