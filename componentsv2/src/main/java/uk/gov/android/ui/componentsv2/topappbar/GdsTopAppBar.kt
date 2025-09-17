@@ -80,6 +80,8 @@ fun GdsTopAppBar(
             CenterAlignedTopAppBar(
                 title = {
                     title?.let {
+                        // This needs to be kept as test rather tha use the GdsHeading because the heading affects the
+                        // text position within the TopAppBar - this will have the same behaviour as Heading
                         Text(
                             text = title,
                             style = Typography.headlineMedium,
@@ -145,6 +147,8 @@ private fun StartAlignedTopAppBar(
     TopAppBar(
         title = {
             title?.let {
+                // This needs to be kept as test rather tha use the GdsHeading because the heading affects the
+                // text position within the TopAppBar - this will have the same behaviour as Heading
                 Text(
                     text = title,
                     style = Typography.headlineMedium,
