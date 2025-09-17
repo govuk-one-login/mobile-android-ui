@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -55,7 +57,7 @@ fun GdsIconButton(
     modifier: Modifier = Modifier,
     contentModifier: Modifier = Modifier,
     size: Dp = GdsIconButtonDefaults.buttonSize,
-    content: IconButtonContent = GdsIconButtonDefaults.defaultCloseContent,
+    content: IconButtonContent = GdsIconButtonDefaults.defaultCloseContent(),
     color: IconButtonColors = GdsIconButtonDefaults.colors(),
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
@@ -72,13 +74,15 @@ fun GdsIconButton(
     )
     CompositionLocalProvider(LocalRippleConfiguration provides gdsRippleConfiguration) {
         IconButton(
-            modifier = modifier.size(size),
+            modifier = modifier
+                .size(size)
+                .onFocusChanged { focusStateEnabled = it.isFocused },
             onClick = onClick,
             colors = colors,
         ) {
             Icon(
                 imageVector = content.icon,
-                contentDescription = stringResource(content.contentDescription),
+                contentDescription = content.contentDescription,
                 tint = color.contentColor,
                 modifier = contentModifier,
             )
@@ -100,12 +104,12 @@ private fun getFocusStateColors(focusState: Boolean) = if (focusState) {
 private fun getRippleColour(isInFocus: Boolean) = if (isInFocus) {
     GdsLocalColorScheme.current.focusButtonHighlighted
 } else {
-    GdsLocalColorScheme.current.primaryButtonHighlighted
+    GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 }
 
 data class IconButtonContent(
     val icon: ImageVector,
-    @StringRes val contentDescription: Int,
+    val contentDescription: String,
 )
 
 object GdsIconButtonDefaults {
@@ -114,44 +118,58 @@ object GdsIconButtonDefaults {
     @Composable
     fun colors() = IconButtonDefaults.iconButtonColors(
         containerColor = Color.Transparent,
-        contentColor = GdsLocalColorScheme.current.iconDefault,
+        contentColor = GdsLocalColorScheme.current.topBarIcon,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
         disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
-    val defaultCloseContent = IconButtonContent(
+    @Composable
+    fun defaultCloseContent() = IconButtonContent(
         icon = Icons.Filled.Close,
-        contentDescription = R.string.close_icon_button,
+        contentDescription = stringResource(R.string.close_icon_button),
     )
 
-    val defaultBackContent = IconButtonContent(
+    @Composable
+    fun defaultBackContent() = IconButtonContent(
         icon = Icons.AutoMirrored.Filled.ArrowBack,
-        contentDescription = R.string.back_icon_button,
+        contentDescription = stringResource(R.string.back_icon_button),
+    )
+
+    @Composable
+    fun defaultInfoContent() = IconButtonContent(
+        icon = Icons.Outlined.Info,
+        contentDescription = stringResource(R.string.info_icon_button),
     )
 }
 
 data class GdsIconButtonPreviewParams(
-    val content: IconButtonContent,
+    val icon: ImageVector,
+    @StringRes val contentDescription: Int,
     val color: Color? = null,
 )
 
 internal class GdsIconButtonPreviewProvider : PreviewParameterProvider<GdsIconButtonPreviewParams> {
     override val values: Sequence<GdsIconButtonPreviewParams> = sequenceOf(
         GdsIconButtonPreviewParams(
-            GdsIconButtonDefaults.defaultCloseContent,
+            Icons.AutoMirrored.Filled.ArrowBack,
+            R.string.back_icon_button,
         ),
         GdsIconButtonPreviewParams(
-            GdsIconButtonDefaults.defaultBackContent,
+            Icons.Default.Close,
+            R.string.close_icon_button,
         ),
         GdsIconButtonPreviewParams(
-            GdsIconButtonDefaults.defaultBackContent,
+            Icons.AutoMirrored.Filled.ArrowBack,
+            R.string.back_icon_button,
             Color.Red,
         ),
         GdsIconButtonPreviewParams(
-            IconButtonContent(
-                icon = Icons.Filled.MoreVert,
-                contentDescription = R.string.more_vert_icon_button,
-            ),
+            Icons.Default.MoreVert,
+            R.string.more_vert_icon_button,
+        ),
+        GdsIconButtonPreviewParams(
+            Icons.Outlined.Info,
+            R.string.info_icon_button,
         ),
     )
 }
@@ -165,12 +183,18 @@ internal fun GdsIconButtonPreview(
         params.color?.let {
             GdsIconButton(
                 onClick = {},
-                content = params.content,
+                content = IconButtonContent(
+                    params.icon,
+                    stringResource(params.contentDescription),
+                ),
                 color = GdsIconButtonDefaults.colors().copy(contentColor = it),
             )
         } ?: GdsIconButton(
             onClick = {},
-            content = params.content,
+            content = IconButtonContent(
+                params.icon,
+                stringResource(params.contentDescription),
+            ),
         )
     }
 }

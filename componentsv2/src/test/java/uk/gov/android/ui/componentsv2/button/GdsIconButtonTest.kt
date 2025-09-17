@@ -3,6 +3,7 @@ package uk.gov.android.ui.componentsv2.button
 import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -25,17 +26,16 @@ class GdsIconButtonTest {
 
     @Test
     fun testCloseIconButton() {
-        val content = GdsIconButtonDefaults.defaultCloseContent
         composeTestRule.setContent {
             GdsIconButton(
                 onClick = { onClick++ },
-                content = content,
+                content = GdsIconButtonDefaults.defaultCloseContent(),
             )
         }
         assertEquals(0, onClick)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(content.contentDescription),
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
         }
         assertEquals(1, onClick)
@@ -43,8 +43,8 @@ class GdsIconButtonTest {
 
     @Test
     fun testBackIconButton() {
-        val content = GdsIconButtonDefaults.defaultCloseContent
         composeTestRule.setContent {
+            val content = GdsIconButtonDefaults.defaultCloseContent()
             GdsIconButton(
                 onClick = { onClick++ },
                 content = content,
@@ -53,7 +53,25 @@ class GdsIconButtonTest {
         assertEquals(0, onClick)
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(content.contentDescription),
+                context.getString(R.string.close_icon_button),
+            ).assertIsDisplayed().performClick()
+        }
+        assertEquals(1, onClick)
+    }
+
+    @Test
+    fun testInfoIconButton() {
+        composeTestRule.setContent {
+            val content = GdsIconButtonDefaults.defaultInfoContent()
+            GdsIconButton(
+                onClick = { onClick++ },
+                content = content,
+            )
+        }
+        assertEquals(0, onClick)
+        composeTestRule.apply {
+            onNodeWithContentDescription(
+                context.getString(R.string.info_icon_button),
             ).assertIsDisplayed().performClick()
         }
         assertEquals(1, onClick)
@@ -66,7 +84,7 @@ class GdsIconButtonTest {
                 onClick = { onClick++ },
                 content = IconButtonContent(
                     icon = Icons.Filled.MoreVert,
-                    contentDescription = R.string.more_vert_icon_button,
+                    contentDescription = stringResource(R.string.more_vert_icon_button),
                 ),
             )
         }
@@ -87,7 +105,7 @@ class GdsIconButtonTest {
 
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(R.string.close_icon_button),
+                context.getString(R.string.back_icon_button),
             ).assertIsDisplayed()
         }
     }

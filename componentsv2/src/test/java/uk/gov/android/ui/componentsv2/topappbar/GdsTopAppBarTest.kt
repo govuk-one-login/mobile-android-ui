@@ -46,21 +46,23 @@ class GdsTopAppBarTest {
     @Test
     fun testContent() {
         composeTestRule.setContent {
+            val moreVertContentDesc = stringResource(R.string.more_vert_icon_button)
+            val backContentDesc = stringResource(R.string.back_icon_button)
             GdsTopAppBar(
                 title = stringResource(R.string.top_app_bar_title),
-                navigationButton = GdsIconButtonDefaults.defaultCloseContent,
+                navigationButton = GdsIconButtonDefaults.defaultCloseContent(),
                 onClick = { onNavIconClick = !onNavIconClick },
                 actions = persistentListOf(
                     TopBarActionButton(
                         content = IconButtonContent(
                             Icons.Default.MoreVert,
-                            R.string.more_vert_icon_button,
+                            moreVertContentDesc,
                         ),
                     ) { onFirstActionClick = !onFirstActionClick },
                     TopBarActionButton(
                         content = IconButtonContent(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            R.string.back_icon_button,
+                            backContentDesc,
                         ),
                     ) { onSecondActionClick = !onSecondActionClick },
                 ),
@@ -69,7 +71,7 @@ class GdsTopAppBarTest {
 
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(GdsIconButtonDefaults.defaultCloseContent.contentDescription),
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             onNodeWithText(
@@ -102,7 +104,7 @@ class GdsTopAppBarTest {
 
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(GdsIconButtonDefaults.defaultCloseContent.contentDescription),
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().assertHasClickAction()
 
             onNodeWithText(

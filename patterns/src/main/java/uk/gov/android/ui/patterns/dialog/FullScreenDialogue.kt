@@ -63,7 +63,7 @@ fun FullScreenDialogue(
         topAppBar = { scrollBehaviour ->
             GdsTopAppBar(
                 title = title,
-                navigationButton = GdsIconButtonDefaults.defaultCloseContent,
+                navigationButton = GdsIconButtonDefaults.defaultCloseContent(),
                 onClick = onDismissRequest,
                 scrollBehaviour = scrollBehaviour,
             )
