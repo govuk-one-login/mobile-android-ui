@@ -377,7 +377,7 @@ private fun getContentPadding(
     }
 
 internal enum class ButtonTypePreview {
-    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon, IconLeading
+    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon, IconLeading, IconSecondary
 }
 
 @Composable
@@ -395,6 +395,14 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
 
     ButtonTypePreview.Icon -> ButtonType.Icon(
         buttonColors = ButtonType.Primary.buttonColors(),
+        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+        fontWeight = FontWeight.Bold,
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
+    )
+
+    ButtonTypePreview.IconSecondary -> ButtonType.Icon(
+        buttonColors = ButtonType.Secondary.buttonColors(),
         iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
         fontWeight = FontWeight.Bold,
         contentDescription = stringResource(R.string.icon_content_desc),
@@ -439,6 +447,14 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
         isIconTrailing = false,
+    )
+
+    ButtonTypePreview.IconSecondary -> ButtonTypeV2.Icon(
+        buttonColors = GdsButtonDefaults.defaultSecondaryColors(),
+        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
+        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )
 }
 
@@ -555,6 +571,14 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             text = R.string.primary_button,
             buttonType = ButtonTypePreview.Primary,
             shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
+        ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.IconSecondary,
+        ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.Custom,
         ),
     )
 }
