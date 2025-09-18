@@ -41,7 +41,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  *
  * @param modifier - modifier applied to the entire TopAppBar
  * @param title - **optional** defaults to null - GdsHeading component with a Title 2 style. Can be displayed either Start or Centre, however it it always displayed between the navigation button and actions (if existing)
- * @param navigationButton - **optional** defaults to Back icon button - the icon displayed on teh left side of the bar
+ * @param navigationButton - **optional** defaults to Back icon button - the icon displayed on the left side of the bar
  * @param onClick - defaults to a void action - action for the navigation icon button and can be left as default if no navigation icon button has been provided or is null
  * @param actions - **optional** defaults to null - Icon Buttons that will be displayed on the Start of the Bar
  * @param menu - **optional** defaults to null - allows for a DropDownMenu to be passed in and displayed - it is passed in as a Composable and managed by the consumer
@@ -80,7 +80,7 @@ fun GdsTopAppBar(
             CenterAlignedTopAppBar(
                 title = {
                     title?.let {
-                        // This needs to be kept as test rather tha use the GdsHeading because the heading affects the
+                        // This needs to be kept as text rather than use the GdsHeading because the heading affects the
                         // text position within the TopAppBar - this will have the same behaviour as Heading
                         Text(
                             text = title,
@@ -147,7 +147,7 @@ private fun StartAlignedTopAppBar(
     TopAppBar(
         title = {
             title?.let {
-                // This needs to be kept as test rather tha use the GdsHeading because the heading affects the
+                // This needs to be kept as text rather than use the GdsHeading because the heading affects the
                 // text position within the TopAppBar - this will have the same behaviour as Heading
                 Text(
                     text = title,
@@ -179,7 +179,7 @@ private fun StartAlignedTopAppBar(
 /**
  * Class to define GDS TopBarActions to allow for multiple items to be passed in, as required.
  * @param content - Icon as [ImageVector] and it's contentDescription
- * @param onClick = action when the Icon Button is tapped
+ * @param onClick - action when the Icon Button is tapped
  */
 data class TopBarActionButton(
     val content: IconButtonContent,

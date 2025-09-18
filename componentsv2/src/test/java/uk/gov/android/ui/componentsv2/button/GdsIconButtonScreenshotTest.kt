@@ -17,7 +17,7 @@ class GdsIconButtonScreenshotTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}GdsButtonV2")
+        @Parameterized.Parameters(name = "{index}GdsIconButton")
         fun values(): List<Pair<GdsIconButtonPreviewParams, NightMode>> {
             val result: MutableList<Pair<GdsIconButtonPreviewParams, NightMode>> = mutableListOf()
 
