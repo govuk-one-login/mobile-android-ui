@@ -127,6 +127,42 @@ class GdsButtonV2Test {
     }
 
     @Test
+    fun testIconSecondary() {
+        setupContent(parameters[11])
+        composeTestRule.apply {
+            onNodeWithText(
+                resources.getString(R.string.text_button),
+                substring = true,
+            ).apply {
+                assertIsDisplayed()
+                performClick()
+            }
+
+            onNodeWithContentDescription(
+                resources.getString(R.string.icon_content_desc),
+            ).assertIsDisplayed()
+        }
+
+        assertEquals(1, onClick)
+    }
+
+    @Test
+    fun testCustom() {
+        setupContent(parameters[12])
+        composeTestRule.apply {
+            onNodeWithText(
+                resources.getString(R.string.text_button),
+                substring = true,
+            ).apply {
+                assertIsDisplayed()
+                performClick()
+            }
+        }
+
+        assertEquals(1, onClick)
+    }
+
+    @Test
     fun testLoading() {
         setupContent(parameters[9])
         composeTestRule.apply {
