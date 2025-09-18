@@ -58,32 +58,21 @@ fun GdsTopAppBarDemo(
         },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { paddingValues ->
-        Column(Modifier
-            .padding(paddingValues)
-            .fillMaxWidth()
-            .verticalScroll(scrollState)
+        Column(
+            Modifier
+                .padding(paddingValues)
+                .fillMaxWidth()
+                .verticalScroll(scrollState)
         ) {
-            GdsButton(
-                text = stringResource(TestWrapperR.string.change_bar_alignment),
-                buttonType = ButtonTypeV2.Secondary(),
-                onClick = {
-                    if (alignment.value == TopAppBarAlignment.Start) {
-                        alignment.value = TopAppBarAlignment.Centre
-                    } else {
-                        alignment.value = TopAppBarAlignment.Start
-                    }
+            FormattedButton {
+                if (alignment.value == TopAppBarAlignment.Start) {
+                    alignment.value = TopAppBarAlignment.Centre
+                } else {
+                    alignment.value = TopAppBarAlignment.Start
                 }
-            )
-            GdsButton(
-                text = stringResource(TestWrapperR.string.show_nav_icon_button),
-                buttonType = ButtonTypeV2.Secondary(),
-                onClick = { showNavIconButton.value = !showNavIconButton.value }
-            )
-            GdsButton(
-                text = stringResource(TestWrapperR.string.show_action_icon_button),
-                buttonType = ButtonTypeV2.Secondary(),
-                onClick = { showActionIconButton.value = !showActionIconButton.value }
-            )
+            }
+            FormattedButton { showNavIconButton.value = !showNavIconButton.value }
+            FormattedButton { showActionIconButton.value = !showActionIconButton.value }
             repeat(100) {
                 Text(
                     text = "Test",
@@ -92,4 +81,15 @@ fun GdsTopAppBarDemo(
             }
         }
     }
+}
+
+@Composable
+fun FormattedButton(
+    onClick: () -> Unit
+) {
+    GdsButton(
+        text = stringResource(TestWrapperR.string.show_nav_icon_button),
+        buttonType = ButtonTypeV2.Secondary(),
+        onClick = onClick
+    )
 }
