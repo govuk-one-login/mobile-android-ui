@@ -49,9 +49,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(project(":componentsv2"))
     implementation(project(":theme"))
     implementation(project(":patterns"))
+    implementation(libs.androidx.fragment.ktx)
 
     testImplementation(libs.junit)
 

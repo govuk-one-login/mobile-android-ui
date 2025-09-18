@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Test Wrapper</string>
+    <string name="app_name" translatable="false">Mobile UI Test Wrapper</string>
+
+    <!-- Gds Top App Bar Demo -->
+    <string name="display_top_app_bar_demo" translatable="false">Gds Top App Bar Demo</string>
+    <string name="change_bar_alignment" translatable="false">Change top bar alignment</string>
+    <string name="show_nav_icon_button" translatable="false">Toggle to display navigation icon button</string>
+    <string name="show_action_icon_button" translatable="false">Toggle to display action icon button</string>
 </resources>
