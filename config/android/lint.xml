@@ -13,5 +13,6 @@
 
     <issue id="UsingMaterialAndMaterial3Libraries" severity="ignore" />
     <issue id="GradleDependency" severity="ignore" />
+    <issue id="ComposableLambdaParameterNaming" severity="ignore" />
 </lint>
 

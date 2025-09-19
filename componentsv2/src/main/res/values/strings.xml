@@ -7,6 +7,9 @@
     <string name="card_content_description">%s Card</string>
     <string name="divider_test_tag" translatable="false">Divider test tag</string>
 
+    <!-- Gds Top App Bar -->
+    <string name="top_app_bar_title" translatable="false">Title (optional)</string>
+
     <!-- Annotated String -->
     <string name="annotated_string" translatable="false"> Annotated string</string>
     <string name="in_line_icon_id" translatable="false">in-line icon id</string>
@@ -26,7 +29,10 @@
     <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="loading_button" translatable="false">Loading Button</string>
     <string name ="loading_content_desc">Loading</string>
-    <string name="close_button">Close</string>
+    <string name="more_vert_icon_button" translatable="false">More</string>
+    <string name="close_icon_button">Close</string>
+    <string name="back_icon_button">Back</string>
+    <string name="info_icon_button">Information</string>
 
     <!-- BulletedList -->
     <string name="bullet" translatable="true">bullet %s</string>
