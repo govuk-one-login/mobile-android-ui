@@ -1,38 +1,49 @@
 package uk.gov.android.ui.componentsv2.list
 
-import android.text.Spanned
+import android.text.SpannedString
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.xsmallPadding
 
 @Deprecated("Use GdsBulletedList with alternative bulletListItems parameter instead")
 @Composable
@@ -241,26 +252,70 @@ private fun BulletListItem(
 }
 
 @Composable
+@Suppress("LongMethod")
 private fun ListText(
     listItem: ListItem,
 ) {
-    if (listItem.text.isNotEmpty()) {
-        Text(
-            text = listItem.text,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
-            modifier = Modifier.semantics { invisibleToUser() },
-        )
-    } else {
-        val context = LocalContext.current
-        val spanned = context.getText(listItem.spannableText) as Spanned
-        val annotatedString = spanned.toAnnotatedString()
-        Text(
-            text = annotatedString,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
-            modifier = Modifier.semantics { invisibleToUser() },
-        )
+    when {
+        listItem.text.isNotEmpty() -> {
+            Text(
+                text = listItem.text,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                modifier = Modifier.semantics { invisibleToUser() },
+            )
+        }
+
+        listItem.icon == 0 -> {
+            val context = LocalContext.current
+            val spanned = SpannedString(context.getText(listItem.spannableText))
+            val annotatedString = spanned.toAnnotatedString(listItem.onLinkTapped)
+            Text(
+                text = annotatedString,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                modifier = Modifier.semantics { invisibleToUser() },
+            )
+        }
+
+        else -> {
+            val context = LocalContext.current
+            val spanned = SpannedString(context.getText(listItem.spannableText))
+            val annotatedString = spanned.toAnnotatedString(
+                listItem.onLinkTapped,
+                isIcon = true,
+                iconContentDescription = listItem.iconContentDescription,
+            )
+            val inlineIconContent = mapOf(
+                Pair(
+                    ICON_ID,
+                    InlineTextContent(
+                        Placeholder(
+                            width = 20.sp,
+                            height = 1.em,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
+                        ),
+                    ) {
+                        GdsIcon(
+                            image = ImageVector.vectorResource(listItem.icon),
+                            contentDescription = listItem.iconContentDescription,
+                            color = Links.default.toMappedColors(),
+                            backgroundColor = MaterialTheme.colorScheme.background,
+                            modifier = Modifier
+                                .padding(start = xsmallPadding)
+                                .semantics { invisibleToUser() },
+                        )
+                    },
+                ),
+            )
+            Text(
+                text = annotatedString,
+                inlineContent = inlineIconContent,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                modifier = Modifier.semantics { invisibleToUser() },
+            )
+        }
     }
 }
 

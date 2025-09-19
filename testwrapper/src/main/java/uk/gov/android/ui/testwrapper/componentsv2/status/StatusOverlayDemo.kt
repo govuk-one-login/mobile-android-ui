@@ -5,7 +5,9 @@ import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +22,8 @@ import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
+import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
+import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -59,6 +63,13 @@ fun StatusOverlayDemo(
                     },
                     modifier = Modifier.padding(bottom = smallPadding)
                 )
+                Spacer(modifier = Modifier.height(largePadding))
+                GdsBulletedListDemo(onTapped = { url ->
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Url: $url")
+                    }
+                })
+                Spacer(modifier = Modifier.height(largePadding))
                 content()
             }
         }
