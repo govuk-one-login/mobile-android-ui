@@ -1,13 +1,20 @@
 package uk.gov.android.ui.componentsv2.list
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Spanned
 import android.text.style.StyleSpan
+import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -15,6 +22,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.Links
+import uk.gov.android.ui.theme.m3.toMappedColors
 
 enum class TitleType {
     BoldText, Heading, Text
@@ -28,6 +37,9 @@ data class ListTitle(
 data class ListItem(
     val text: String = "",
     @StringRes val spannableText: Int = 0,
+    @DrawableRes val icon: Int = 0,
+    val iconContentDescription: String = "",
+    val onLinkTapped: (String) -> Unit = {},
 )
 
 internal data class ListWrapper(
@@ -36,7 +48,13 @@ internal data class ListWrapper(
     val listItems: ImmutableList<ListItem> = persistentListOf(),
 )
 
-fun Spanned.toAnnotatedString(): AnnotatedString = buildAnnotatedString {
+@SuppressLint("ComposeUnstableReceiver")
+@Composable
+fun Spanned.toAnnotatedString(
+    linkTapListener: (String) -> Unit = {},
+    isIcon: Boolean = false,
+    iconContentDescription: String = "",
+): AnnotatedString = buildAnnotatedString {
     append(this@toAnnotatedString.toString())
 
     getSpans(0, length, Any::class.java).forEach { span ->
@@ -75,6 +93,21 @@ fun Spanned.toAnnotatedString(): AnnotatedString = buildAnnotatedString {
                     end,
                 )
             }
+
+            is URLSpan -> {
+                val url = span.url
+                val clickable = LinkAnnotation.Clickable(
+                    "ClickableLink",
+                    styles = TextLinkStyles(
+                        style = SpanStyle(color = Links.default.toMappedColors()),
+                    ),
+                    linkInteractionListener = { linkTapListener(url) },
+                )
+                addLink(clickable, start, end)
+                if (isIcon) {
+                    appendInlineContent(ICON_ID, "$iconContentDescription ")
+                }
+            }
         }
     }
 }
@@ -100,3 +133,5 @@ fun Int.convertToWord(context: Context): String {
         else -> this.toString()
     }
 }
+
+const val ICON_ID = "iconId"

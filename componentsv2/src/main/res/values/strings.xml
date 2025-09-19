@@ -77,6 +77,7 @@
     </plurals>
     <string name="numbered_list_multi_style_example" translatable="false">This text includes the <b>bold</b> style in <b>multiple</b> places.</string>
     <string name="numbered_list_bold_style_example" translatable="false">This text includes <b>bold</b>, <i>italic</i>, <u>underlined</u>, and more styles in one sentence.</string>
+    <string name="bulleted_list_link_example" translatable="false">Build <b>better apps</b> faster with <a href="https://www.android.com">Jetpack Compose</a></string>
     <string name="number1">one</string>
     <string name="number2">two</string>
     <string name="number3">three</string>
