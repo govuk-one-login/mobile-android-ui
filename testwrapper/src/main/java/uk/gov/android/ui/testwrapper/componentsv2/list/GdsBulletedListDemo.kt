@@ -14,7 +14,7 @@ fun GdsBulletedListDemo(
 ) {
     val contentDescription = "icon content description"
     val title = ListTitle(
-        text = "Link list text",
+        text = "Bulleted list",
         titleType = TitleType.Heading,
     )
     val bulletedListItems = persistentListOf(
@@ -22,6 +22,12 @@ fun GdsBulletedListDemo(
             spannableText = R.string.bulleted_list_link_example,
             icon = R.drawable.ic_external_site,
             iconContentDescription = contentDescription,
+            onLinkTapped = {
+                onTapped("https://www.android.com")
+            }
+        ),
+        ListItem(
+            spannableText = R.string.bulleted_list_link_example,
             onLinkTapped = {
                 onTapped("https://www.android.com")
             }

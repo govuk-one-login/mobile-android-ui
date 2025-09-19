@@ -234,14 +234,15 @@ private fun BulletListItem(
                 this.traversalIndex = accessibilityIndex
             }
             .padding(top = spacingSingle),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painter = painterResource(R.drawable.ic_dot),
             contentDescription = null,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier
-                .padding(start = 10.dp, end = 20.dp, top = 8.dp)
-                .align(Alignment.Top)
+                .padding(start = 10.dp, end = 20.dp)
+                .align(Alignment.CenterVertically)
                 .semantics { invisibleToUser() },
         )
 
@@ -367,6 +368,24 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem(LINE2),
                 ListItem(LINE3),
                 ListItem(LINE4),
+            ),
+        ),
+        ListWrapper(
+            items = persistentListOf(
+                LINE1,
+                LINE2,
+                LINE3,
+                LINE4,
+            ),
+            listItems = persistentListOf(
+                ListItem(
+                    spannableText = R.string.bulleted_list_link_example,
+                ),
+                ListItem(
+                    spannableText = R.string.bulleted_list_link_example,
+                    icon = R.drawable.ic_external_site,
+                    iconContentDescription = "contentDescription",
+                ),
             ),
         ),
     )

@@ -21,7 +21,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 class GdsBulletedListTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val expectedParameterSize = 4
+    private val expectedParameterSize = 5
     private val contentList = BulletedListProvider().values.toList()
     private val sampleContent =
         BulletedListProvider().values.first()
@@ -95,7 +95,6 @@ class GdsBulletedListTest {
             .assertExists()
     }
 
-    // @Ignore("Fix failing test")
     @Test
     fun testLinkElementsAreDisplayed() {
         val title = ListTitle(

@@ -52,6 +52,7 @@ fun StatusOverlayDemo(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
+                    .padding(smallPadding)
             ) {
                 GdsButton(
                     text = "Display overlay",
@@ -64,11 +65,12 @@ fun StatusOverlayDemo(
                     modifier = Modifier.padding(bottom = smallPadding)
                 )
                 Spacer(modifier = Modifier.height(largePadding))
-                GdsBulletedListDemo(onTapped = { url ->
-                    scope.launch {
-                        statusOverlayState.showSnackbar("Url: $url")
-                    }
-                })
+                GdsBulletedListDemo(
+                    onTapped = { url ->
+                        scope.launch {
+                            statusOverlayState.showSnackbar("Url: $url")
+                        }
+                    })
                 Spacer(modifier = Modifier.height(largePadding))
                 content()
             }
