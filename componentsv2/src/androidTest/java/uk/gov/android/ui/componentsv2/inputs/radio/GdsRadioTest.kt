@@ -21,7 +21,7 @@ class GdsRadioTest {
         val onItemSelected = mock<(Int) -> Unit>()
 
         composeTestRule.setContent {
-            GdsSelection(
+            GdsRadios(
                 items = items,
                 selectedItem = null,
                 onItemSelected = onItemSelected,

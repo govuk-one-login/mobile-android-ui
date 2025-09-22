@@ -13,7 +13,7 @@ internal class GdsRadioScreenshotTest(
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsSelection(
+        GdsRadios(
             items = parameters.items,
             selectedItem = parameters.selectedIndex,
             onItemSelected = {},
