@@ -46,7 +46,7 @@ import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
-import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadios
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
@@ -291,7 +291,7 @@ fun LazyListScope.toBodyContent(
 
             is LeftAlignedScreenBody.Selection -> {
                 item {
-                    GdsRadios(
+                    GdsSelection(
                         items = it.items,
                         selectedItem = it.selectedItem,
                         onItemSelected = it.onItemSelected,

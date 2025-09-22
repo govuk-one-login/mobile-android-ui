@@ -42,10 +42,10 @@ import uk.gov.android.ui.theme.spacingSingle
  * @param onItemSelected A callback function that is called when an item is selected.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the radio selection options.
- * @sample GdsRadiosSample
+ * @sample GdsSelectionSample
  */
 @Composable
-fun GdsRadios(
+fun GdsSelection(
     items: ImmutableList<String>,
     selectedItem: Int?,
     onItemSelected: (Int) -> Unit,
@@ -203,10 +203,10 @@ data class SelectionContent(
 )
 
 @Composable
-internal fun GdsRadiosSample(content: SelectionContent) {
+internal fun GdsSelectionSample(content: SelectionContent) {
     val selectedIndex = remember { mutableIntStateOf(content.selectedIndex ?: 0) }
 
-    GdsRadios(
+    GdsSelection(
         items = content.items,
         selectedItem = selectedIndex.intValue,
         onItemSelected = { selectedIndex.intValue = it },
@@ -265,7 +265,7 @@ private fun Preview(
     @PreviewParameter(RadioSelectionProvider::class) radioSelectionItems: RadioSelectionPreviewData,
 ) {
     GdsTheme {
-        GdsRadios(
+        GdsSelection(
             items = radioSelectionItems.items,
             selectedItem = radioSelectionItems.selectedIndex,
             onItemSelected = {},
