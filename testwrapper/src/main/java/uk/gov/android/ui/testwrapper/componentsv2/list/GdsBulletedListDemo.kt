@@ -1,7 +1,6 @@
 package uk.gov.android.ui.testwrapper.componentsv2.list
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
