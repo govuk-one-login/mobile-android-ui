@@ -38,7 +38,6 @@ data class ListItem(
     val text: String = "",
     @StringRes val spannableText: Int = 0,
     @DrawableRes val icon: Int = 0,
-    val iconContentDescription: String = "",
     val onLinkTapped: (String) -> Unit = {},
 )
 
@@ -53,7 +52,6 @@ internal data class ListWrapper(
 fun Spanned.toAnnotatedString(
     linkTapListener: (String) -> Unit = {},
     isIcon: Boolean = false,
-    iconContentDescription: String = "",
 ): AnnotatedString = buildAnnotatedString {
     append(this@toAnnotatedString.toString())
 
@@ -97,7 +95,7 @@ fun Spanned.toAnnotatedString(
             is URLSpan -> {
                 val url = span.url
                 val clickable = LinkAnnotation.Clickable(
-                    "ClickableLink",
+                    "URL",
                     styles = TextLinkStyles(
                         style = SpanStyle(color = Links.default.toMappedColors()),
                     ),
@@ -105,7 +103,7 @@ fun Spanned.toAnnotatedString(
                 )
                 addLink(clickable, start, end)
                 if (isIcon) {
-                    appendInlineContent(ICON_ID, "$iconContentDescription ")
+                    appendInlineContent(ICON_ID)
                 }
             }
         }

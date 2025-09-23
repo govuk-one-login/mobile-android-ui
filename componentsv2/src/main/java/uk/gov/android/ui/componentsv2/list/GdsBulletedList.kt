@@ -12,9 +12,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -23,8 +29,10 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -34,7 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -230,40 +240,121 @@ private fun BulletListItem(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
             .semantics(true) {
-                contentDescription = bulletContentDescription
                 this.traversalIndex = accessibilityIndex
             }
             .padding(top = spacingSingle),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Image(
-            painter = painterResource(R.drawable.ic_dot),
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-            modifier = Modifier
-                .padding(start = 10.dp, end = 20.dp)
-                .align(Alignment.CenterVertically)
-                .semantics { invisibleToUser() },
-        )
-
-        ListText(
+        ListTextIcon(
             listItem = text,
+            contentDescription = bulletContentDescription,
+        )
+    }
+}
+
+@Composable
+fun TextIconCentered(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    val icon = ImageVector.vectorResource(R.drawable.ic_dot)
+    val painter = rememberVectorPainter(image = icon)
+    val iconLine = 0
+    val iconTint = MaterialTheme.colorScheme.onBackground
+    var lineTop = 0f
+    var lineBottom = 0f
+    var lineLeft = 0f
+    with(LocalDensity.current) {
+        val imageSize = Size(icon.defaultWidth.toPx(), icon.defaultHeight.toPx())
+        val iconRightPadding = 20.dp
+        val iconLeftPadding = 36.dp
+        val rightPadding = iconRightPadding.toPx()
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            onTextLayout = { layoutResult: TextLayoutResult ->
+                val nbLines = layoutResult.lineCount
+                if (nbLines > iconLine) {
+                    lineTop = layoutResult.getLineTop(iconLine)
+                    lineBottom = layoutResult.getLineBottom(iconLine)
+                    lineLeft = layoutResult.getLineLeft(iconLine)
+                }
+            },
+            modifier = modifier
+                .padding(start = iconLeftPadding)
+                .drawBehind {
+                    with(painter) {
+                        translate(
+                            left = lineLeft - rightPadding,
+                            top = lineTop + (lineBottom - lineTop) / 2 - imageSize.height / 2,
+                        ) {
+                            draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(iconTint))
+                        }
+                    }
+                },
+        )
+    }
+}
+
+@Composable
+fun AnnotatedTextIconCentered(
+    text: AnnotatedString,
+    inlineIconContent: ImmutableMap<String, InlineTextContent>,
+    modifier: Modifier = Modifier,
+) {
+    val icon = ImageVector.vectorResource(R.drawable.ic_dot)
+    val painter = rememberVectorPainter(image = icon)
+    val iconLine = 0
+    val iconTint = MaterialTheme.colorScheme.onBackground
+    var lineTop = 0f
+    var lineBottom = 0f
+    var lineLeft = 0f
+    with(LocalDensity.current) {
+        val imageSize = Size(icon.defaultWidth.toPx(), icon.defaultHeight.toPx())
+        val iconRightPadding = 20.dp
+        val iconLeftPadding = 36.dp
+        val rightPadding = iconRightPadding.toPx()
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            onTextLayout = { layoutResult: TextLayoutResult ->
+                val nbLines = layoutResult.lineCount
+                if (nbLines > iconLine) {
+                    lineTop = layoutResult.getLineTop(iconLine)
+                    lineBottom = layoutResult.getLineBottom(iconLine)
+                    lineLeft = layoutResult.getLineLeft(iconLine)
+                }
+            },
+            inlineContent = inlineIconContent,
+            modifier = modifier
+                .padding(start = iconLeftPadding)
+                .drawBehind {
+                    with(painter) {
+                        translate(
+                            left = lineLeft - rightPadding,
+                            top = lineTop + (lineBottom - lineTop) / 2 - imageSize.height / 2,
+                        ) {
+                            draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(iconTint))
+                        }
+                    }
+                },
         )
     }
 }
 
 @Composable
 @Suppress("LongMethod")
-private fun ListText(
+private fun ListTextIcon(
     listItem: ListItem,
+    contentDescription: String,
 ) {
     when {
         listItem.text.isNotEmpty() -> {
-            Text(
+            TextIconCentered(
                 text = listItem.text,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = Typography.bodyLarge,
-                modifier = Modifier.semantics { invisibleToUser() },
+                modifier = Modifier.semantics { this.contentDescription = contentDescription },
             )
         }
 
@@ -271,11 +362,12 @@ private fun ListText(
             val context = LocalContext.current
             val spanned = SpannedString(context.getText(listItem.spannableText))
             val annotatedString = spanned.toAnnotatedString(listItem.onLinkTapped)
-            Text(
+            AnnotatedTextIconCentered(
                 text = annotatedString,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = Typography.bodyLarge,
-                modifier = Modifier.semantics { invisibleToUser() },
+                inlineIconContent = persistentMapOf(),
+                modifier = Modifier.semantics {
+                    this.contentDescription = contentDescription
+                },
             )
         }
 
@@ -285,9 +377,8 @@ private fun ListText(
             val annotatedString = spanned.toAnnotatedString(
                 listItem.onLinkTapped,
                 isIcon = true,
-                iconContentDescription = listItem.iconContentDescription,
             )
-            val inlineIconContent = mapOf(
+            val inlineIconContent = persistentMapOf(
                 Pair(
                     ICON_ID,
                     InlineTextContent(
@@ -299,22 +390,22 @@ private fun ListText(
                     ) {
                         GdsIcon(
                             image = ImageVector.vectorResource(listItem.icon),
-                            contentDescription = listItem.iconContentDescription,
+                            contentDescription = null,
                             color = Links.default.toMappedColors(),
                             backgroundColor = MaterialTheme.colorScheme.background,
                             modifier = Modifier
                                 .padding(start = xsmallPadding)
-                                .semantics { invisibleToUser() },
+                                .testTag(ICON_TAG),
                         )
                     },
                 ),
             )
-            Text(
+            AnnotatedTextIconCentered(
                 text = annotatedString,
-                inlineContent = inlineIconContent,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = Typography.bodyLarge,
-                modifier = Modifier.semantics { invisibleToUser() },
+                inlineIconContent = inlineIconContent,
+                modifier = Modifier.semantics {
+                    this.contentDescription = contentDescription
+                },
             )
         }
     }
@@ -384,7 +475,6 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem(
                     spannableText = R.string.bulleted_list_link_example,
                     icon = R.drawable.ic_external_site,
-                    iconContentDescription = "contentDescription",
                 ),
             ),
         ),
@@ -422,7 +512,7 @@ internal fun GdsBulletedListPreview(
         )
     }
 }
-
+internal const val ICON_TAG = "linkIcon"
 private const val LINE1 = "Line one bullet list content"
 private const val LINE2 = "Line two bullet list content"
 private const val LINE3 = "Line three bullet list content"

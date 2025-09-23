@@ -2,7 +2,7 @@ package uk.gov.android.ui.componentsv2.list
 
 import android.content.Context
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -132,7 +132,6 @@ class GdsBulletedListTest {
 
     @Test
     fun testLinkIconElementsAreDisplayed() {
-        val contentDescription = "icon content description"
         val title = ListTitle(
             text = "Link list text",
             titleType = TitleType.Heading,
@@ -141,7 +140,6 @@ class GdsBulletedListTest {
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
                 icon = R.drawable.ic_external_site,
-                iconContentDescription = contentDescription,
             ),
         )
         composeTestRule.setContent {
@@ -155,7 +153,7 @@ class GdsBulletedListTest {
 
         composeTestRule.onNodeWithText(title.text).assertExists()
 
-        composeTestRule.onNodeWithContentDescription(contentDescription).assertExists()
+        composeTestRule.onNodeWithTag(ICON_TAG, useUnmergedTree = true).assertExists()
     }
 
     @Test
