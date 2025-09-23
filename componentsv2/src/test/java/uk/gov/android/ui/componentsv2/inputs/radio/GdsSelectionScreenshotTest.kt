@@ -7,22 +7,27 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-internal class GdsRadioScreenshotTest(
-    private val parameters: Pair<GdsRadioPreviewData, NightMode>,
+internal class GdsSelectionScreenshotTest(
+    private val parameters: Pair<RadioSelectionPreviewData, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsRadiosPreview(parameters)
+        GdsSelection(
+            items = parameters.items,
+            selectedItem = parameters.selectedIndex,
+            onItemSelected = {},
+            title = parameters.title,
+        )
     }
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{index}GdsRadios")
-        fun values(): List<Pair<GdsRadioPreviewData, NightMode>> {
-            val result: MutableList<Pair<GdsRadioPreviewData, NightMode>> = mutableListOf()
+        @Parameterized.Parameters(name = "{index}GdsSelectionV2")
+        fun values(): List<Pair<RadioSelectionPreviewData, NightMode>> {
+            val result: MutableList<Pair<RadioSelectionPreviewData, NightMode>> = mutableListOf()
 
-            GdsRadioProvider().values.forEach { previewData ->
+            RadioSelectionProvider().values.forEach { previewData ->
                 NightMode.entries.forEach { nightMode ->
                     result.add(Pair(previewData, nightMode))
                 }

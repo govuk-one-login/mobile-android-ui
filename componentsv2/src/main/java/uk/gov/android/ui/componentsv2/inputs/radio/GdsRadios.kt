@@ -16,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -28,11 +27,14 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
  * A composable that displays a list of radio selection options.
@@ -42,20 +44,16 @@ import uk.gov.android.ui.theme.spacingSingle
  * @param onItemSelected A callback function that is called when an item is selected.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the radio selection options.
- * @sample GdsSelectionSample
+ * @sample GdsRadioSample
  */
+@OptIn(UnstableDesignSystemAPI::class)
 @Composable
-@Deprecated(
-    message = "Deprecated and replaced by GdsRadios",
-    replaceWith = ReplaceWith("uk/gov/android/ui/componentsv2/inputs/radio/GdsRadios.kt"),
-    level = DeprecationLevel.WARNING,
-)
-fun GdsSelection(
+fun GdsRadios(
     items: ImmutableList<String>,
     selectedItem: Int?,
     onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    title: RadioSelectionTitle? = null,
+    title: GdsRadioTitle? = null,
 ) {
     Column(
         modifier
@@ -63,10 +61,16 @@ fun GdsSelection(
             .padding(end = spacingDouble),
         horizontalAlignment = Alignment.Start,
     ) {
-        title?.let { RadioSelectionTitle(it) }
+        title?.let {
+            GdsHeading(
+                text = it.text,
+                style = it.style,
+                textFontWeight = it.fontWeight,
+            )
+        }
 
         items.forEachIndexed { index, option ->
-            RadioSelectionOptionItem(
+            GdsRadioOptionItem(
                 text = option,
                 radioOption = option,
                 isSelected = selectedItem == index,
@@ -82,7 +86,7 @@ fun GdsSelection(
 
 @Composable
 @Suppress("LongMethod")
-fun RadioSelectionOptionItem(
+fun GdsRadioOptionItem(
     text: String,
     radioOption: String,
     isSelected: Boolean,
@@ -140,7 +144,8 @@ private fun getRadioOptionAccessibilityText(
     totalOptions: Int,
     isSelected: Boolean,
 ): String {
-    val pluralsResId = if (isSelected) R.plurals.radio_button_selected else R.plurals.radio_button_unselected
+    val pluralsResId =
+        if (isSelected) R.plurals.radio_button_selected else R.plurals.radio_button_unselected
     return if (index == 0 && totalOptions > 1) {
         pluralStringResource(
             id = pluralsResId,
@@ -160,57 +165,23 @@ private fun getRadioOptionAccessibilityText(
     }
 }
 
-@Composable
-private fun RadioSelectionTitle(
-    title: RadioSelectionTitle,
-    modifier: Modifier = Modifier,
-) {
-    val titleContentDescription: String
-
-    val textStyle = when (title.titleType) {
-        TitleType.BoldText -> {
-            titleContentDescription = stringResource(R.string.heading, title.text)
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-        }
-
-        TitleType.Heading -> {
-            titleContentDescription = stringResource(R.string.heading, title.text)
-            MaterialTheme.typography.headlineSmall
-        }
-
-        TitleType.Text -> {
-            titleContentDescription = title.text
-            MaterialTheme.typography.bodyLarge
-        }
-    }
-
-    Text(
-        text = title.text,
-        style = textStyle,
-        color = MaterialTheme.colorScheme.onBackground,
-        modifier = modifier
-            .padding(start = spacingDouble, bottom = spacingDouble)
-            .semantics { contentDescription = titleContentDescription },
-    )
-}
-
-internal data class RadioSelectionPreviewData(
+internal data class GdsRadioPreviewData(
     val items: ImmutableList<String>,
-    val title: RadioSelectionTitle? = null,
+    val title: GdsRadioTitle? = null,
     val selectedIndex: Int? = null,
 )
 
-data class SelectionContent(
+data class GdsRadioContent(
     val items: ImmutableList<String>,
-    val title: RadioSelectionTitle? = null,
+    val title: GdsRadioTitle? = null,
     val selectedIndex: Int? = null,
 )
 
 @Composable
-internal fun GdsSelectionSample(content: SelectionContent) {
+internal fun GdsRadioSample(content: GdsRadioContent) {
     val selectedIndex = remember { mutableIntStateOf(content.selectedIndex ?: 0) }
 
-    GdsSelection(
+    GdsRadios(
         items = content.items,
         selectedItem = selectedIndex.intValue,
         onItemSelected = { selectedIndex.intValue = it },
@@ -218,27 +189,27 @@ internal fun GdsSelectionSample(content: SelectionContent) {
     )
 }
 
-internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionPreviewData> {
-    override val values: Sequence<RadioSelectionPreviewData> = sequenceOf(
-        RadioSelectionPreviewData(
+internal class GdsRadioProvider : PreviewParameterProvider<GdsRadioPreviewData> {
+    override val values: Sequence<GdsRadioPreviewData> = sequenceOf(
+        GdsRadioPreviewData(
             items = persistentListOf("option one"),
-            title = RadioSelectionTitle("Example Title", TitleType.Text),
+            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
         ),
-        RadioSelectionPreviewData(
+        GdsRadioPreviewData(
             items = persistentListOf("option one", "option two"),
-            title = RadioSelectionTitle("Example Heading", TitleType.Heading),
+            title = GdsRadioTitle("Example Heading", GdsHeadingStyle.Title3),
             selectedIndex = 1,
         ),
-        RadioSelectionPreviewData(
+        GdsRadioPreviewData(
             items = persistentListOf("option one", "option two"),
-            title = RadioSelectionTitle("Example Bold Title", TitleType.BoldText),
+            title = GdsRadioTitle("Example Bold Title", GdsHeadingStyle.Body, FontWeight.Bold),
             selectedIndex = 0,
         ),
-        RadioSelectionPreviewData(
+        GdsRadioPreviewData(
             items = persistentListOf("option one", "option two", "option three"),
             selectedIndex = 2,
         ),
-        RadioSelectionPreviewData(
+        GdsRadioPreviewData(
             items = persistentListOf(
                 "option one",
                 "option two",
@@ -247,17 +218,17 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
                     "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
                     "aliquip ex ea commodo consequat",
             ),
-            title = RadioSelectionTitle("Example Title", TitleType.Text),
+            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
             selectedIndex = 1,
         ),
-        RadioSelectionPreviewData(
+        GdsRadioPreviewData(
             items = persistentListOf(
                 "option one: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option two: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option three:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             ),
-            title = RadioSelectionTitle("Example Title", TitleType.Text),
+            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
             selectedIndex = 3,
         ),
     )
@@ -265,11 +236,11 @@ internal class RadioSelectionProvider : PreviewParameterProvider<RadioSelectionP
 
 @PreviewLightDark
 @Composable
-private fun Preview(
-    @PreviewParameter(RadioSelectionProvider::class) radioSelectionItems: RadioSelectionPreviewData,
+internal fun GdsRadiosPreview(
+    @PreviewParameter(GdsRadioProvider::class) radioSelectionItems: GdsRadioPreviewData,
 ) {
     GdsTheme {
-        GdsSelection(
+        GdsRadios(
             items = radioSelectionItems.items,
             selectedItem = radioSelectionItems.selectedIndex,
             onItemSelected = {},
