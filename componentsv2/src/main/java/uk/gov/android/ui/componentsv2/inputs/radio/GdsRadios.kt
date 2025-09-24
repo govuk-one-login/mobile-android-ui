@@ -192,33 +192,33 @@ internal fun GdsRadioSample(content: GdsRadioContent) {
 internal class GdsRadioProvider : PreviewParameterProvider<GdsRadioPreviewData> {
     override val values: Sequence<GdsRadioPreviewData> = sequenceOf(
         GdsRadioPreviewData(
-            items = persistentListOf("option one"),
-            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
+            items = persistentListOf(OPTION1),
+            title = GdsRadioTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
         ),
         GdsRadioPreviewData(
-            items = persistentListOf("option one", "option two"),
+            items = persistentListOf(OPTION1, OPTION2),
             title = GdsRadioTitle("Example Heading", GdsHeadingStyle.Title3),
             selectedIndex = 1,
         ),
         GdsRadioPreviewData(
-            items = persistentListOf("option one", "option two"),
+            items = persistentListOf(OPTION1, OPTION2),
             title = GdsRadioTitle("Example Bold Title", GdsHeadingStyle.Body, FontWeight.Bold),
             selectedIndex = 0,
         ),
         GdsRadioPreviewData(
-            items = persistentListOf("option one", "option two", "option three"),
+            items = persistentListOf(OPTION1, OPTION2, "option three"),
             selectedIndex = 2,
         ),
         GdsRadioPreviewData(
             items = persistentListOf(
-                "option one",
-                "option two",
+                OPTION1,
+                OPTION2,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
                     "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
                     "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
                     "aliquip ex ea commodo consequat",
             ),
-            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
+            title = GdsRadioTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
             selectedIndex = 1,
         ),
         GdsRadioPreviewData(
@@ -228,7 +228,7 @@ internal class GdsRadioProvider : PreviewParameterProvider<GdsRadioPreviewData> 
                 "option three:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             ),
-            title = GdsRadioTitle("Example Title", GdsHeadingStyle.Body),
+            title = GdsRadioTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
             selectedIndex = 3,
         ),
     )
@@ -248,3 +248,7 @@ internal fun GdsRadiosPreview(
         )
     }
 }
+
+private const val OPTION1 = "option one"
+private const val OPTION2 = "option two"
+private const val EXAMPLE_TITLE = "Example Title"
