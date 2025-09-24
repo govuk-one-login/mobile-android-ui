@@ -29,7 +29,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextLayoutResult
@@ -38,21 +37,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.theme.bulletItemTitleBottomPadding
+import uk.gov.android.ui.theme.bulletLeftPadding
+import uk.gov.android.ui.theme.bulletPointWidthIncPadding
+import uk.gov.android.ui.theme.bulletRightPadding
+import uk.gov.android.ui.theme.bulletedListItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.spacingSingle
 import uk.gov.android.ui.theme.xsmallPadding
 
 @Deprecated("Use GdsBulletedList with alternative bulletListItems parameter instead")
@@ -156,6 +157,14 @@ fun GdsBulletedList(
     }
 }
 
+/**
+ * Display the bulleted list title
+ *
+ * @param title The contents of the title
+ * @param modifier Set the content description and traversal index
+ * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
+ * reader
+ */
 @Composable
 private fun BulletedListTitle(
     title: ListTitle,
@@ -186,7 +195,7 @@ private fun BulletedListTitle(
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .padding(bottom = 4.dp)
+            .padding(bottom = bulletItemTitleBottomPadding)
             .semantics {
                 contentDescription = titleContentDescription
                 this.traversalIndex = accessibilityIndex
@@ -195,6 +204,7 @@ private fun BulletedListTitle(
 }
 
 @Composable
+@Deprecated("Use V2 BulletListItem with alternative ListItem parameter instead")
 private fun BulletListItem(
     text: String,
     bulletContentDescription: String,
@@ -204,7 +214,7 @@ private fun BulletListItem(
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(top = spacingSingle)
+            .padding(top = bulletedListItemTopPadding)
             .semantics {
                 contentDescription = bulletContentDescription
                 this.traversalIndex = accessibilityIndex
@@ -215,7 +225,11 @@ private fun BulletListItem(
             contentDescription = null,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier
-                .padding(start = 10.dp, end = 20.dp, top = 8.dp)
+                .padding(
+                    start = bulletLeftPadding,
+                    end = bulletRightPadding,
+                    top = bulletedListItemTopPadding,
+                )
                 .align(Alignment.Top)
                 .semantics { invisibleToUser() },
         )
@@ -229,6 +243,15 @@ private fun BulletListItem(
     }
 }
 
+/**
+ * Set the background and accessibility traversalIndex for the bulleted list item
+ *
+ * @param text The text content of the bulleted list item
+ * @param bulletContentDescription The content description for the entire bulleted list item
+ * @param modifier Set the background and accessibility traversalIndex
+ * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
+ * reader
+ */
 @Composable
 private fun BulletListItem(
     text: ListItem,
@@ -242,7 +265,7 @@ private fun BulletListItem(
             .semantics(true) {
                 this.traversalIndex = accessibilityIndex
             }
-            .padding(top = spacingSingle),
+            .padding(top = bulletedListItemTopPadding),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ListTextIcon(
@@ -252,98 +275,91 @@ private fun BulletListItem(
     }
 }
 
+/**
+ * Arrange the bullet and accompanying text so that the bullet is vertically centered relative
+ * to the first line of the text
+ *
+ * @param text The text to be displayed which could be plain text, annotated or annotated with icon
+ * @param modifier Used to pass in the content description to allow a screen reader to announce
+ * the bulleted list item as intended
+ */
 @Composable
-fun TextIconCentered(
-    text: String,
+fun BulletedLine(
+    bulletListContent: BulletListContent,
     modifier: Modifier = Modifier,
 ) {
-    val icon = ImageVector.vectorResource(R.drawable.ic_dot)
-    val painter = rememberVectorPainter(image = icon)
-    val iconLine = 0
-    val iconTint = MaterialTheme.colorScheme.onBackground
-    var lineTop = 0f
-    var lineBottom = 0f
-    var lineLeft = 0f
+    val bullet = ImageVector.vectorResource(R.drawable.ic_dot)
+    val painter = rememberVectorPainter(image = bullet)
+    // The line number of a single or multi line text element of the bulleted list that the bullet
+    // point will vertically center itself against
+    val textLineIndex = TEXT_LINE_NUMBER
+    val bulletTint = MaterialTheme.colorScheme.onBackground
+    // Initialise text element constraints
+    var textLineTop = 0f
+    var textLineBottom = 0f
+    var textLineLeft = 0f
     with(LocalDensity.current) {
-        val imageSize = Size(icon.defaultWidth.toPx(), icon.defaultHeight.toPx())
-        val iconRightPadding = 20.dp
-        val iconLeftPadding = 36.dp
-        val rightPadding = iconRightPadding.toPx()
-        Text(
-            text = text,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
-            onTextLayout = { layoutResult: TextLayoutResult ->
-                val nbLines = layoutResult.lineCount
-                if (nbLines > iconLine) {
-                    lineTop = layoutResult.getLineTop(iconLine)
-                    lineBottom = layoutResult.getLineBottom(iconLine)
-                    lineLeft = layoutResult.getLineLeft(iconLine)
+        val imageSize = Size(bullet.defaultWidth.toPx(), bullet.defaultHeight.toPx())
+        val bulletRightPadding = bulletRightPadding.toPx()
+        val bulletModifier = modifier
+            .padding(start = bulletPointWidthIncPadding)
+            .drawBehind {
+                with(painter) {
+                    // Position the bullet center vertically relative to the text line and
+                    // between the start of the parent and the text line according to the design
+                    translate(
+                        left = textLineLeft - bulletRightPadding,
+                        top = textLineTop +
+                            (textLineBottom - textLineTop) / TEXT_LINE_POSITION_DIVIDER -
+                            imageSize.height / TEXT_LINE_POSITION_DIVIDER,
+                    ) {
+                        draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(bulletTint))
+                    }
                 }
-            },
-            modifier = modifier
-                .padding(start = iconLeftPadding)
-                .drawBehind {
-                    with(painter) {
-                        translate(
-                            left = lineLeft - rightPadding,
-                            top = lineTop + (lineBottom - lineTop) / 2 - imageSize.height / 2,
-                        ) {
-                            draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(iconTint))
-                        }
+            }
+        // Call different versions of Text Composable depending on whether we have annotated
+        // text or not
+        if (bulletListContent.text.isNotEmpty()) {
+            Text(
+                text = bulletListContent.text,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                onTextLayout = { layoutResult: TextLayoutResult ->
+                    val nbLines = layoutResult.lineCount
+                    if (nbLines > textLineIndex) {
+                        textLineTop = layoutResult.getLineTop(textLineIndex)
+                        textLineBottom = layoutResult.getLineBottom(textLineIndex)
+                        textLineLeft = layoutResult.getLineLeft(textLineIndex)
                     }
                 },
-        )
+                modifier = bulletModifier,
+            )
+        } else {
+            Text(
+                text = bulletListContent.annotatedString,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = Typography.bodyLarge,
+                onTextLayout = { layoutResult: TextLayoutResult ->
+                    val nbLines = layoutResult.lineCount
+                    if (nbLines > textLineIndex) {
+                        textLineTop = layoutResult.getLineTop(textLineIndex)
+                        textLineBottom = layoutResult.getLineBottom(textLineIndex)
+                        textLineLeft = layoutResult.getLineLeft(textLineIndex)
+                    }
+                },
+                inlineContent = bulletListContent.inlineTextContent,
+                modifier = bulletModifier,
+            )
+        }
     }
 }
 
-@Composable
-fun AnnotatedTextIconCentered(
-    text: AnnotatedString,
-    inlineIconContent: ImmutableMap<String, InlineTextContent>,
-    modifier: Modifier = Modifier,
-) {
-    val icon = ImageVector.vectorResource(R.drawable.ic_dot)
-    val painter = rememberVectorPainter(image = icon)
-    val iconLine = 0
-    val iconTint = MaterialTheme.colorScheme.onBackground
-    var lineTop = 0f
-    var lineBottom = 0f
-    var lineLeft = 0f
-    with(LocalDensity.current) {
-        val imageSize = Size(icon.defaultWidth.toPx(), icon.defaultHeight.toPx())
-        val iconRightPadding = 20.dp
-        val iconLeftPadding = 36.dp
-        val rightPadding = iconRightPadding.toPx()
-        Text(
-            text = text,
-            color = MaterialTheme.colorScheme.onBackground,
-            style = Typography.bodyLarge,
-            onTextLayout = { layoutResult: TextLayoutResult ->
-                val nbLines = layoutResult.lineCount
-                if (nbLines > iconLine) {
-                    lineTop = layoutResult.getLineTop(iconLine)
-                    lineBottom = layoutResult.getLineBottom(iconLine)
-                    lineLeft = layoutResult.getLineLeft(iconLine)
-                }
-            },
-            inlineContent = inlineIconContent,
-            modifier = modifier
-                .padding(start = iconLeftPadding)
-                .drawBehind {
-                    with(painter) {
-                        translate(
-                            left = lineLeft - rightPadding,
-                            top = lineTop + (lineBottom - lineTop) / 2 - imageSize.height / 2,
-                        ) {
-                            draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(iconTint))
-                        }
-                    }
-                },
-        )
-    }
-}
-
+/**
+ * Assemble any annotated strings before rendering the bulleted list item
+ *
+ * @param listItem The text content of the bulleted list item
+ * @param contentDescription The content description for the entire bulleted list item
+ */
 @Composable
 @Suppress("LongMethod")
 private fun ListTextIcon(
@@ -352,8 +368,8 @@ private fun ListTextIcon(
 ) {
     when {
         listItem.text.isNotEmpty() -> {
-            TextIconCentered(
-                text = listItem.text,
+            BulletedLine(
+                bulletListContent = BulletListContent(text = listItem.text),
                 modifier = Modifier.semantics { this.contentDescription = contentDescription },
             )
         }
@@ -362,9 +378,8 @@ private fun ListTextIcon(
             val context = LocalContext.current
             val spanned = SpannedString(context.getText(listItem.spannableText))
             val annotatedString = spanned.toAnnotatedString(listItem.onLinkTapped)
-            AnnotatedTextIconCentered(
-                text = annotatedString,
-                inlineIconContent = persistentMapOf(),
+            BulletedLine(
+                bulletListContent = BulletListContent(annotatedString = annotatedString),
                 modifier = Modifier.semantics {
                     this.contentDescription = contentDescription
                 },
@@ -400,9 +415,11 @@ private fun ListTextIcon(
                     },
                 ),
             )
-            AnnotatedTextIconCentered(
-                text = annotatedString,
-                inlineIconContent = inlineIconContent,
+            BulletedLine(
+                bulletListContent = BulletListContent(
+                    annotatedString = annotatedString,
+                    inlineTextContent = inlineIconContent,
+                ),
                 modifier = Modifier.semantics {
                     this.contentDescription = contentDescription
                 },
@@ -512,8 +529,11 @@ internal fun GdsBulletedListPreview(
         )
     }
 }
+
 internal const val ICON_TAG = "linkIcon"
 private const val LINE1 = "Line one bullet list content"
 private const val LINE2 = "Line two bullet list content"
 private const val LINE3 = "Line three bullet list content"
 private const val LINE4 = "Line four bullet list content"
+private const val TEXT_LINE_NUMBER = 0
+private const val TEXT_LINE_POSITION_DIVIDER = 2

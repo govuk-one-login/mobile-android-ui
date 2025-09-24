@@ -9,6 +9,7 @@ import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
@@ -20,7 +21,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.toMappedColors
@@ -39,6 +42,12 @@ data class ListItem(
     @StringRes val spannableText: Int = 0,
     @DrawableRes val icon: Int = 0,
     val onLinkTapped: (String) -> Unit = {},
+)
+
+data class BulletListContent(
+    val text: String = "",
+    val annotatedString: AnnotatedString = AnnotatedString(""),
+    val inlineTextContent: ImmutableMap<String, InlineTextContent> = persistentMapOf(),
 )
 
 internal data class ListWrapper(
