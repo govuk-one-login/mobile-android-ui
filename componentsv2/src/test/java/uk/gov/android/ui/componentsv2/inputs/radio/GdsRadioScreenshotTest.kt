@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsRadioScreenshotTest(
-    private val parameters: Pair<GdsRadioPreviewData, NightMode>,
+    private val parameters: Pair<GdsRadiosPreviewData, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -19,10 +19,10 @@ internal class GdsRadioScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsRadios")
-        fun values(): List<Pair<GdsRadioPreviewData, NightMode>> {
-            val result: MutableList<Pair<GdsRadioPreviewData, NightMode>> = mutableListOf()
+        fun values(): List<Pair<GdsRadiosPreviewData, NightMode>> {
+            val result: MutableList<Pair<GdsRadiosPreviewData, NightMode>> = mutableListOf()
 
-            GdsRadioProvider().values.forEach { previewData ->
+            GdsRadiosProvider().values.forEach { previewData ->
                 NightMode.entries.forEach { nightMode ->
                     result.add(Pair(previewData, nightMode))
                 }
