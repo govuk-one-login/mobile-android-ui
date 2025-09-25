@@ -67,3 +67,10 @@ val dividerThickness = 1.dp
 val tileCornerRadius = 12.dp
 val cardShadow = 1.dp
 const val ROW_DISTRIBUTION = .1f
+
+// Bulleted list dimensions
+val bulletLeftPadding = 10.dp
+val bulletRightPadding = 20.dp
+val bulletedListItemTopPadding = spacingSingle
+val bulletPointWidthIncPadding = 36.dp
+val bulletItemTitleBottomPadding = spacingHalf
