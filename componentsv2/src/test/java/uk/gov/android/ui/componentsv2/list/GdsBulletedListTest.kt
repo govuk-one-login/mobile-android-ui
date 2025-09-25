@@ -2,8 +2,11 @@ package uk.gov.android.ui.componentsv2.list
 
 import android.content.Context
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
+import junit.framework.TestCase.assertEquals
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Assert
 import org.junit.Before
@@ -12,12 +15,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(RobolectricTestRunner::class)
 class GdsBulletedListTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val expectedParameterSize = 4
+    private val expectedParameterSize = 5
     private val contentList = BulletedListProvider().values.toList()
     private val sampleContent =
         BulletedListProvider().values.first()
@@ -89,6 +93,67 @@ class GdsBulletedListTest {
 
         composeTestRule.onNodeWithText(title.text)
             .assertExists()
+    }
+
+    @Test
+    fun testLinkElementsAreDisplayed() {
+        val title = ListTitle(
+            text = "Link list text",
+            titleType = TitleType.Heading,
+        )
+        val lineOneText = resources.getText(R.string.bulleted_list_link_example).toString()
+        var linkTapCounter = 0
+        val bulletedListItems = persistentListOf(
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                onLinkTapped = {
+                    linkTapCounter++
+                },
+            ),
+        )
+        composeTestRule.setContent {
+            GdsBulletedList(
+                bulletListItems = bulletedListItems,
+                title = title,
+            )
+        }
+
+        composeTestRule.onNodeWithText(lineOneText)
+            .assertExists()
+
+        composeTestRule.onNodeWithText(title.text)
+            .assertExists()
+
+        // Tap on link at end of the line
+        composeTestRule.onNodeWithText("Jetpack Compose", substring = true).performClick()
+
+        assertEquals(1, linkTapCounter)
+    }
+
+    @Test
+    fun testLinkIconElementsAreDisplayed() {
+        val title = ListTitle(
+            text = "Link list text",
+            titleType = TitleType.Heading,
+        )
+        val bulletedListItems = persistentListOf(
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                icon = R.drawable.ic_external_site,
+            ),
+        )
+        composeTestRule.setContent {
+            GdsTheme {
+                GdsBulletedList(
+                    bulletListItems = bulletedListItems,
+                    title = title,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(title.text).assertExists()
+
+        composeTestRule.onNodeWithTag(ICON_TAG, useUnmergedTree = true).assertExists()
     }
 
     @Test

@@ -26,7 +26,10 @@ internal class GdsBulletedListScreenshotTest(
         fun values(): List<Pair<ListWrapper, NightMode>> {
             val result: MutableList<Pair<ListWrapper, NightMode>> = mutableListOf()
 
-            BulletedListProvider().values.forEach(applyNightMode(result))
+            val list = BulletedListProvider().values.toMutableList()
+            // Remove item containing Spannable content which paparazzi cannot render
+            list.removeAt(BulletedListProvider().values.count() - 1)
+            list.forEach(applyNightMode(result))
 
             return result
         }
