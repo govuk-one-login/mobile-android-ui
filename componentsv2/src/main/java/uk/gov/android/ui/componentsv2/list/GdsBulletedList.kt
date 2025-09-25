@@ -169,7 +169,7 @@ fun GdsBulletedList(
 private fun BulletedListTitle(
     title: ListTitle,
     modifier: Modifier = Modifier,
-    accessibilityIndex: Float = -1f,
+    accessibilityIndex: Float = LOW_PRIORITY_INDEX,
 ) {
     val titleContentDescription: String
 
@@ -374,7 +374,7 @@ private fun ListTextIcon(
             )
         }
 
-        listItem.icon == 0 -> {
+        listItem.icon == NO_ICON_REFERENCE -> {
             val context = LocalContext.current
             val spanned = SpannedString(context.getText(listItem.spannableText))
             val annotatedString = spanned.toAnnotatedString(listItem.onLinkTapped)
@@ -398,8 +398,8 @@ private fun ListTextIcon(
                     ICON_ID,
                     InlineTextContent(
                         Placeholder(
-                            width = 20.sp,
-                            height = 1.em,
+                            width = iconPlaceholderWidth,
+                            height = iconPlaceholdHeight,
                             placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
                         ),
                     ) {
@@ -537,3 +537,7 @@ private const val LINE3 = "Line three bullet list content"
 private const val LINE4 = "Line four bullet list content"
 private const val TEXT_LINE_NUMBER = 0
 private const val TEXT_LINE_POSITION_DIVIDER = 2
+private val iconPlaceholderWidth = 20.sp
+private val iconPlaceholdHeight = 1.em
+private const val NO_ICON_REFERENCE = 0
+private const val LOW_PRIORITY_INDEX = -1f
