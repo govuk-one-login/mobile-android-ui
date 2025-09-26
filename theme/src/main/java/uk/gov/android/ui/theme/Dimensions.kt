@@ -9,12 +9,9 @@ val errorIcon = 100.dp
 val bulletSize = 8.dp
 val scannedImageThumbnailWidth = 100.dp
 val scannedImageThumbnailHeight = 126.dp
-val spacingHalf = 4.dp
 val spacingSingle = 8.dp
-val spacingSingleAndAQuarter = 10.dp
 val spacingSingleAndAHalf = 12.dp
 val spacingDouble = 16.dp
-val spacingDoubleAndAHalf = 20.dp
 val spacingTriple = 24.dp
 val spacingQuadruple = 32.dp
 val textSizeBody = 17.sp
@@ -68,9 +65,9 @@ val tileCornerRadius = 12.dp
 val cardShadow = 1.dp
 const val ROW_DISTRIBUTION = .1f
 
-// Bulleted list dimensions
-val bulletLeftPadding = 10.dp
-val bulletRightPadding = 20.dp
-val bulletedListItemTopPadding = spacingSingle
+// Bulleted and numbered list dimensions
+val listItemLeftPadding = 10.dp
+val listItemRightPadding = 20.dp
+val listItemTopPadding = spacingSingle
 val bulletPointWidthIncPadding = 36.dp
-val bulletItemTitleBottomPadding = spacingHalf
+val listItemTitleBottomPadding = 4.dp

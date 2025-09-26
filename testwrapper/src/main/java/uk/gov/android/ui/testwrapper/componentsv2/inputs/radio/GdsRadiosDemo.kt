@@ -32,7 +32,6 @@ fun GdsRadiosDemo(
                 onSelected(radioItems[selectedIndex])
             },
             title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Title3),
-            modifier = Modifier.padding(horizontal = spacingDouble)
         )
     }
 }

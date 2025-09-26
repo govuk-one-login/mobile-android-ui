@@ -1,6 +1,5 @@
 package uk.gov.android.ui.componentsv2.list
 
-import android.text.Spanned
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,13 +33,13 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
+import uk.gov.android.ui.theme.listItemLeftPadding
+import uk.gov.android.ui.theme.listItemRightPadding
+import uk.gov.android.ui.theme.listItemTitleBottomPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.spacingDoubleAndAHalf
-import uk.gov.android.ui.theme.spacingHalf
 import uk.gov.android.ui.theme.spacingSingle
-import uk.gov.android.ui.theme.spacingSingleAndAQuarter
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
@@ -82,40 +81,54 @@ fun GdsNumberedList(
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            NumberedListTitle(it, accessibilityIndex - 1f)
+            // Decrement the accessibilityIndex to ensure that all items are traversed by the
+            // screen reader in the correct order
+            val titleIndex = accessibilityIndex - 1f
+            NumberedListTitle(it, titleIndex)
         }
         GdsNumberedListLayout(numberedListItems, accessibilityIndex)
     }
 }
 
+/**
+ * Measure the widths of the index element and display the numbered list
+ *
+ *  @param numberedListItems The list of items to be displayed
+ *  @param accessibilityIndex
+ */
 @Composable
-private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>, accessibilityIndex: Float = 0f) {
+private fun GdsNumberedListLayout(
+    numberedListItems: ImmutableList<ListItem>,
+    accessibilityIndex: Float = 0f,
+) {
     val context = LocalContext.current
     SubcomposeLayout { constraints ->
         val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
+        // Measure all IndexText elements
         val indexMeasurables = subcompose(slotId = "indices") {
             numberedListItems.forEachIndexed { index, _ ->
                 IndexText("${index + 1}.", Modifier)
             }
         }.map { it.measure(looseConstraints) }
-
+        // Calculate longest width representing the number in the list with the longest width
         val maxWidthIndex = indexMeasurables.maxBy { it.width }
-        val one = 1
         val placeables = subcompose("main") {
+            // Create numbered list
             numberedListItems.forEachIndexed { index, item ->
+                val displayIndex = index + 1
                 val contentDescription = if (index == 0) {
                     pluralStringResource(
                         R.plurals.content_desc_numbered_list_item,
                         numberedListItems.size,
                         numberedListItems.size.convertToWord(context),
-                        one.convertToWord(context),
+                        ONE.convertToWord(context),
                         item.toContentDescription(context),
                     )
                 } else {
-                    "${(index + 1).convertToWord(context)} ${item.toContentDescription(context)}"
+                    "${displayIndex.convertToWord(context)} ${item.toContentDescription(context)}"
                 }
                 NumberedListItem(
-                    "${index + 1}.",
+                    "$displayIndex.",
                     listItem = item,
                     itemContentDescription = contentDescription,
                     maxWidthIndex.width.pxToDp(),
@@ -125,9 +138,9 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>, ac
         }.map { it.measure(looseConstraints) }
         val totalHeight = placeables.sumOf { it.height }
 
+        // Render layout
         layout(constraints.maxWidth, totalHeight) {
             var yPosition = 0
-
             placeables.forEach {
                 it.placeRelative(0, yPosition)
                 yPosition += it.height
@@ -136,6 +149,12 @@ private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>, ac
     }
 }
 
+/**
+ * Render the numbered list title depending on the title type
+ *
+ * @param title The contents of the title
+ * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
+ */
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 private fun NumberedListTitle(
@@ -150,7 +169,7 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
+                    .padding(bottom = listItemTitleBottomPadding)
                     .semantics {
                         this.traversalIndex = accessibilityIndex
                         contentDescription = title.text
@@ -163,7 +182,7 @@ private fun NumberedListTitle(
             GdsHeading(
                 text = title.text,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
+                    .padding(bottom = listItemTitleBottomPadding)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_HEADING),
                 style = GdsHeadingStyle.Title3,
@@ -179,7 +198,7 @@ private fun NumberedListTitle(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Left,
                 modifier = Modifier
-                    .padding(bottom = spacingHalf)
+                    .padding(bottom = listItemTitleBottomPadding)
                     .semantics { contentDescription = title.text }
                     .testTag(TAG_TITLE_REGULAR),
             )
@@ -187,6 +206,16 @@ private fun NumberedListTitle(
     }
 }
 
+/**
+ * Display the list item index and contents
+ *
+ * @param index The index number of the numbered list item
+ * @param listItem The text content of the numbered list item
+ * @param itemContentDescription The content description for the entire numbered list item
+ * @param minIndexWidth The minimum width of the IndexText composable to ensure all index numbers
+ * are rendered correctly. It follows the number in the list with the largest width
+ * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
+ */
 @Composable
 private fun NumberedListItem(
     index: String,
@@ -199,7 +228,7 @@ private fun NumberedListItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                start = spacingSingleAndAQuarter,
+                start = listItemLeftPadding,
                 top = spacingSingle,
             )
             .semantics(true) {
@@ -217,6 +246,13 @@ private fun NumberedListItem(
     }
 }
 
+/**
+ * Display the list item index
+ *
+ * @param index The index number of the numbered list item
+ * @param modifier Used to set the index minimum size and tell the screen reader not to announce
+ * the index
+ */
 @Composable
 private fun IndexText(index: String, modifier: Modifier = Modifier) {
     Text(
@@ -231,30 +267,33 @@ private fun IndexText(index: String, modifier: Modifier = Modifier) {
 @Composable
 private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
 
+/**
+ * Render the numbered list item contents
+ *
+ * @param listItem The text content of the numbered list item
+ */
 @Composable
 private fun ListText(
     listItem: ListItem,
 ) {
-    if (listItem.text.isNotEmpty()) {
+    val listContent = listItem.createDisplayText(LocalContext.current)
+    val modifier = Modifier
+        .semantics { invisibleToUser() }
+        .padding(start = listItemRightPadding)
+    if (listContent.text.isNotEmpty()) {
         Text(
-            text = listItem.text,
+            text = listContent.text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier
-                .semantics { invisibleToUser() }
-                .padding(start = spacingDoubleAndAHalf),
+            modifier = modifier,
         )
     } else {
-        val context = LocalContext.current
-        val spanned = context.getText(listItem.spannableText) as Spanned
-        val annotatedString = spanned.toAnnotatedString()
         Text(
-            text = annotatedString,
+            text = listContent.annotatedString,
+            inlineContent = listContent.inlineTextContent,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier
-                .semantics { invisibleToUser() }
-                .padding(start = spacingDoubleAndAHalf),
+            modifier = modifier,
         )
     }
 }
@@ -364,6 +403,19 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
             ),
             title = ListTitle("Welsh example", TitleType.Heading),
         ),
+        ListWrapper(
+            listItems = persistentListOf(
+                ListItem(LINE1),
+                ListItem(
+                    spannableText = R.string.bulleted_list_link_example,
+                ),
+                ListItem(
+                    spannableText = R.string.bulleted_list_link_example,
+                    icon = R.drawable.ic_external_site,
+                ),
+            ),
+            title = ListTitle("Linked text", TitleType.Heading),
+        ),
     )
 }
 
@@ -406,3 +458,4 @@ private const val LINE6 = "Line six"
 private const val LINE7 = "Line seven"
 private const val LINE8 = "Line eight"
 private const val LINE9 = "Line nine"
+private const val ONE = 1
