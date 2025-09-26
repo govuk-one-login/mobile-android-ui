@@ -12,7 +12,7 @@ import uk.gov.android.ui.componentsv2.list.TitleType
 fun GdsNumberedListDemo(onLinkTapped: (String) -> Unit = {}) {
     val title = ListTitle(
         text = "Numbered list",
-        titleType = TitleType.BoldText,
+        titleType = TitleType.Heading,
     )
     val numberedListItems = persistentListOf(
         ListItem(

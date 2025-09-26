@@ -28,7 +28,7 @@ fun GdsRadiosDemo(
                 selectedIndex = selectedItem
                 onSelected(radioItems[selectedIndex])
             },
-            title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Title3),
+            title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Body),
         )
     }
 }
