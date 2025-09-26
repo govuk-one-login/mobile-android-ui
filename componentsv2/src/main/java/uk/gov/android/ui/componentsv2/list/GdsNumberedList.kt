@@ -233,7 +233,6 @@ private fun NumberedListItem(
             )
             .semantics(true) {
                 this.traversalIndex = accessibilityIndex
-                contentDescription = itemContentDescription
             },
     ) {
         IndexText(
@@ -242,7 +241,7 @@ private fun NumberedListItem(
                 .semantics { invisibleToUser() }
                 .defaultMinSize(minWidth = minIndexWidth),
         )
-        ListText(listItem)
+        ListText(listItem, itemContentDescription)
     }
 }
 
@@ -271,14 +270,18 @@ private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
  * Render the numbered list item contents
  *
  * @param listItem The text content of the numbered list item
+ * @param itemContentDescription The content description for the entire numbered list item
  */
 @Composable
 private fun ListText(
     listItem: ListItem,
+    itemContentDescription: String,
 ) {
     val listContent = listItem.createDisplayText(LocalContext.current)
     val modifier = Modifier
-        .semantics { invisibleToUser() }
+        .semantics {
+            this.contentDescription = itemContentDescription
+        }
         .padding(start = listItemRightPadding)
     if (listContent.text.isNotEmpty()) {
         Text(
