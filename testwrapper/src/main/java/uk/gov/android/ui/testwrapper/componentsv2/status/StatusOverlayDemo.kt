@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
@@ -23,6 +25,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
+import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
@@ -53,6 +56,8 @@ fun StatusOverlayDemo(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(smallPadding)
+                    .navigationBarsPadding()
+                    .statusBarsPadding()
             ) {
                 GdsButton(
                     text = "Display overlay",
@@ -75,6 +80,12 @@ fun StatusOverlayDemo(
                 content()
                 Spacer(modifier = Modifier.height(spacingDouble))
                 GdsRadiosDemo()
+                Spacer(modifier = Modifier.height(spacingDouble))
+                GdsNumberedListDemo { url ->
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Url: $url")
+                    }
+                }
             }
         }
     }
