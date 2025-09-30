@@ -5,8 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -22,8 +24,9 @@ class MainActivity : ComponentActivity() {
             val displayTopAppBarDemo: MutableState<Boolean> = remember {
                 mutableStateOf(false)
             }
+            var menuTitleToDisplay by remember { mutableStateOf("") }
             GdsTheme {
-                StatusOverlayDemo {
+                StatusOverlayDemo(menuTitleToDisplay = menuTitleToDisplay) {
                     GdsButton(
                         text = stringResource(R.string.display_top_app_bar_demo),
                         buttonType = ButtonTypeV2.Primary(),
@@ -33,7 +36,12 @@ class MainActivity : ComponentActivity() {
                     )
                 }
                 if (displayTopAppBarDemo.value) {
-                    GdsTopAppBarDemo { displayTopAppBarDemo.value = false }
+                    GdsTopAppBarDemo(
+                        dismiss = { displayTopAppBarDemo.value = false },
+                        onMenuSelect = { selectedMenuTitle ->
+                            menuTitleToDisplay = selectedMenuTitle
+                        }
+                    )
                 }
             }
         }

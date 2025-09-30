@@ -13,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -30,10 +31,19 @@ import uk.gov.android.ui.theme.spacingDouble
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun StatusOverlayDemo(
+    menuTitleToDisplay: String = "",
     content: @Composable () -> Unit
 ) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(menuTitleToDisplay) {
+        if (menuTitleToDisplay.isNotEmpty()) {
+            scope.launch {
+                statusOverlayState.showSnackbar(menuTitleToDisplay)
+            }
+        }
+    }
     Scaffold(
         snackbarHost = {
             GdsStatusOverlay(

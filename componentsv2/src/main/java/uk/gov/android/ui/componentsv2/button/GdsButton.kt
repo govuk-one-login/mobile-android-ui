@@ -13,14 +13,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.RippleConfiguration
-import androidx.compose.material3.RippleDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -56,6 +54,7 @@ import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.m3.rippleAlpha
 
 /**
  * Gds Button that meets Design System specs
@@ -92,17 +91,11 @@ fun GdsButton(
     val interactionSource = remember { MutableInteractionSource() }
     val checkIfDisabled = !(!enabled || loading)
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
-    val rippleAlpha = RippleAlpha(
-        draggedAlpha = RippleDefaults.RippleAlpha.draggedAlpha,
-        focusedAlpha = RippleDefaults.RippleAlpha.focusedAlpha,
-        hoveredAlpha = RippleDefaults.RippleAlpha.hoveredAlpha,
-        pressedAlpha = RIPPLE_ALPHA,
-    )
-    val gdsRippleConfiguration = RippleConfiguration(
+    val gdsButtonRippleConfiguration = RippleConfiguration(
         color = getRippleColour(buttonType, focusStateEnabled),
         rippleAlpha = rippleAlpha,
     )
-    CompositionLocalProvider(LocalRippleConfiguration provides gdsRippleConfiguration) {
+    CompositionLocalProvider(LocalRippleConfiguration provides gdsButtonRippleConfiguration) {
         Button(
             colors = colors,
             modifier = modifier
@@ -651,4 +644,3 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
 }
 
 private val BUTTON_RADIUS = 12.dp
-private const val RIPPLE_ALPHA = 0.5f
