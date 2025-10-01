@@ -4,16 +4,25 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.text.Spanned
+import android.text.SpannedString
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
@@ -25,8 +34,10 @@ import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.toMappedColors
+import uk.gov.android.ui.theme.xsmallPadding
 
 enum class TitleType {
     BoldText, Heading, Text
@@ -44,7 +55,7 @@ data class ListItem(
     val onLinkTapped: (String) -> Unit = {},
 )
 
-data class BulletListContent(
+data class ListContent(
     val text: String = "",
     val annotatedString: AnnotatedString = AnnotatedString(""),
     val inlineTextContent: ImmutableMap<String, InlineTextContent> = persistentMapOf(),
@@ -55,6 +66,56 @@ internal data class ListWrapper(
     val title: ListTitle? = null,
     val listItems: ImmutableList<ListItem> = persistentListOf(),
 )
+
+@SuppressLint("ComposeUnstableReceiver")
+@Composable
+fun ListItem.createDisplayText(context: Context): ListContent {
+    return when {
+        this.text.isNotEmpty() -> {
+            ListContent(text = this.text)
+        }
+
+        this.icon == NO_ICON_REFERENCE -> {
+            val spanned = SpannedString(context.getText(this.spannableText))
+            val annotatedString = spanned.toAnnotatedString(this.onLinkTapped)
+            ListContent(annotatedString = annotatedString)
+        }
+
+        else -> {
+            val spanned = SpannedString(context.getText(this.spannableText))
+            val annotatedString = spanned.toAnnotatedString(
+                this.onLinkTapped,
+                isIcon = true,
+            )
+            val inlineIconContent = persistentMapOf(
+                Pair(
+                    ICON_ID,
+                    InlineTextContent(
+                        Placeholder(
+                            width = iconPlaceholderWidth,
+                            height = iconPlaceholdHeight,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
+                        ),
+                    ) {
+                        GdsIcon(
+                            image = ImageVector.vectorResource(this.icon),
+                            contentDescription = null,
+                            color = Links.default.toMappedColors(),
+                            backgroundColor = MaterialTheme.colorScheme.background,
+                            modifier = Modifier
+                                .padding(start = xsmallPadding)
+                                .testTag(ICON_TAG),
+                        )
+                    },
+                ),
+            )
+            ListContent(
+                annotatedString = annotatedString,
+                inlineTextContent = inlineIconContent,
+            )
+        }
+    }
+}
 
 @SuppressLint("ComposeUnstableReceiver")
 @Composable

@@ -1,12 +1,10 @@
 package uk.gov.android.ui.componentsv2.list
 
-import android.text.SpannedString
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +18,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -29,8 +26,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,20 +36,15 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.images.GdsIcon
-import uk.gov.android.ui.theme.bulletItemTitleBottomPadding
-import uk.gov.android.ui.theme.bulletLeftPadding
 import uk.gov.android.ui.theme.bulletPointWidthIncPadding
-import uk.gov.android.ui.theme.bulletRightPadding
-import uk.gov.android.ui.theme.bulletedListItemTopPadding
+import uk.gov.android.ui.theme.listItemLeftPadding
+import uk.gov.android.ui.theme.listItemRightPadding
+import uk.gov.android.ui.theme.listItemTitleBottomPadding
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.xsmallPadding
 
 @Deprecated("Use GdsBulletedList with alternative bulletListItems parameter instead")
 @Composable
@@ -195,7 +185,7 @@ private fun BulletedListTitle(
         style = textStyle,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
-            .padding(bottom = bulletItemTitleBottomPadding)
+            .padding(bottom = listItemTitleBottomPadding)
             .semantics {
                 contentDescription = titleContentDescription
                 this.traversalIndex = accessibilityIndex
@@ -214,7 +204,7 @@ private fun BulletListItem(
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
-            .padding(top = bulletedListItemTopPadding)
+            .padding(top = listItemTopPadding)
             .semantics {
                 contentDescription = bulletContentDescription
                 this.traversalIndex = accessibilityIndex
@@ -226,9 +216,9 @@ private fun BulletListItem(
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier
                 .padding(
-                    start = bulletLeftPadding,
-                    end = bulletRightPadding,
-                    top = bulletedListItemTopPadding,
+                    start = listItemLeftPadding,
+                    end = listItemRightPadding,
+                    top = listItemTopPadding,
                 )
                 .align(Alignment.Top)
                 .semantics { invisibleToUser() },
@@ -265,7 +255,7 @@ private fun BulletListItem(
             .semantics(true) {
                 this.traversalIndex = accessibilityIndex
             }
-            .padding(top = bulletedListItemTopPadding),
+            .padding(top = listItemTopPadding),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ListTextIcon(
@@ -285,7 +275,7 @@ private fun BulletListItem(
  */
 @Composable
 fun BulletedLine(
-    bulletListContent: BulletListContent,
+    listContent: ListContent,
     modifier: Modifier = Modifier,
 ) {
     val bullet = ImageVector.vectorResource(R.drawable.ic_dot)
@@ -300,7 +290,7 @@ fun BulletedLine(
     var textLineLeft = 0f
     with(LocalDensity.current) {
         val imageSize = Size(bullet.defaultWidth.toPx(), bullet.defaultHeight.toPx())
-        val bulletRightPadding = bulletRightPadding.toPx()
+        val bulletRightPadding = listItemRightPadding.toPx()
         val bulletModifier = modifier
             .padding(start = bulletPointWidthIncPadding)
             .drawBehind {
@@ -319,9 +309,9 @@ fun BulletedLine(
             }
         // Call different versions of Text Composable depending on whether we have annotated
         // text or not
-        if (bulletListContent.text.isNotEmpty()) {
+        if (listContent.text.isNotEmpty()) {
             Text(
-                text = bulletListContent.text,
+                text = listContent.text,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = Typography.bodyLarge,
                 onTextLayout = { layoutResult: TextLayoutResult ->
@@ -336,7 +326,7 @@ fun BulletedLine(
             )
         } else {
             Text(
-                text = bulletListContent.annotatedString,
+                text = listContent.annotatedString,
                 color = MaterialTheme.colorScheme.onBackground,
                 style = Typography.bodyLarge,
                 onTextLayout = { layoutResult: TextLayoutResult ->
@@ -347,7 +337,7 @@ fun BulletedLine(
                         textLineLeft = layoutResult.getLineLeft(textLineIndex)
                     }
                 },
-                inlineContent = bulletListContent.inlineTextContent,
+                inlineContent = listContent.inlineTextContent,
                 modifier = bulletModifier,
             )
         }
@@ -366,66 +356,13 @@ private fun ListTextIcon(
     listItem: ListItem,
     contentDescription: String,
 ) {
-    when {
-        listItem.text.isNotEmpty() -> {
-            BulletedLine(
-                bulletListContent = BulletListContent(text = listItem.text),
-                modifier = Modifier.semantics { this.contentDescription = contentDescription },
-            )
-        }
-
-        listItem.icon == NO_ICON_REFERENCE -> {
-            val context = LocalContext.current
-            val spanned = SpannedString(context.getText(listItem.spannableText))
-            val annotatedString = spanned.toAnnotatedString(listItem.onLinkTapped)
-            BulletedLine(
-                bulletListContent = BulletListContent(annotatedString = annotatedString),
-                modifier = Modifier.semantics {
-                    this.contentDescription = contentDescription
-                },
-            )
-        }
-
-        else -> {
-            val context = LocalContext.current
-            val spanned = SpannedString(context.getText(listItem.spannableText))
-            val annotatedString = spanned.toAnnotatedString(
-                listItem.onLinkTapped,
-                isIcon = true,
-            )
-            val inlineIconContent = persistentMapOf(
-                Pair(
-                    ICON_ID,
-                    InlineTextContent(
-                        Placeholder(
-                            width = iconPlaceholderWidth,
-                            height = iconPlaceholdHeight,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
-                        ),
-                    ) {
-                        GdsIcon(
-                            image = ImageVector.vectorResource(listItem.icon),
-                            contentDescription = null,
-                            color = Links.default.toMappedColors(),
-                            backgroundColor = MaterialTheme.colorScheme.background,
-                            modifier = Modifier
-                                .padding(start = xsmallPadding)
-                                .testTag(ICON_TAG),
-                        )
-                    },
-                ),
-            )
-            BulletedLine(
-                bulletListContent = BulletListContent(
-                    annotatedString = annotatedString,
-                    inlineTextContent = inlineIconContent,
-                ),
-                modifier = Modifier.semantics {
-                    this.contentDescription = contentDescription
-                },
-            )
-        }
-    }
+    val bulletListContent = listItem.createDisplayText(LocalContext.current)
+    BulletedLine(
+        listContent = bulletListContent,
+        modifier = Modifier.semantics {
+            this.contentDescription = contentDescription
+        },
+    )
 }
 
 @Suppress("MaxLineLength")
@@ -537,7 +474,7 @@ private const val LINE3 = "Line three bullet list content"
 private const val LINE4 = "Line four bullet list content"
 private const val TEXT_LINE_NUMBER = 0
 private const val TEXT_LINE_POSITION_DIVIDER = 2
-private val iconPlaceholderWidth = 20.sp
-private val iconPlaceholdHeight = 1.em
-private const val NO_ICON_REFERENCE = 0
+internal val iconPlaceholderWidth = 20.sp
+internal val iconPlaceholdHeight = 1.em
+internal const val NO_ICON_REFERENCE = 0
 private const val LOW_PRIORITY_INDEX = -1f
