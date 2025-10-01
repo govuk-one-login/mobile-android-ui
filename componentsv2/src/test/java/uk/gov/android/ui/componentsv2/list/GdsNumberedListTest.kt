@@ -16,6 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(RobolectricTestRunner::class)
 class GdsNumberedListTest {
@@ -25,7 +26,7 @@ class GdsNumberedListTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
 
-    private val expectedParamSize = 8
+    private val expectedParamSize = 9
     private val itemList = NumberedListProvider().values.toList()
 
     @Before
@@ -171,6 +172,79 @@ class GdsNumberedListTest {
     }
 
     @Test
+    fun testStyledElementsAreDisplayed() {
+        val title = ListTitle(
+            text = "Multi style list text",
+            titleType = TitleType.Heading,
+        )
+        val lineOneText = resources.getText(R.string.numbered_list_bold_style_example).toString()
+        val lineTwoText = resources.getText(R.string.numbered_list_multi_style_example).toString()
+        val numberedListItems = persistentListOf(
+            ListItem(spannableText = R.string.numbered_list_bold_style_example),
+            ListItem(spannableText = R.string.numbered_list_multi_style_example),
+        )
+        setupComposable(numberedListItems, title)
+
+        composeTestRule.onNodeWithText(lineOneText)
+            .assertExists()
+
+        composeTestRule.onNodeWithText(lineTwoText)
+            .assertExists()
+
+        composeTestRule.onNodeWithText(title.text)
+            .assertExists()
+    }
+
+    @Test
+    fun testLinkElementsAreDisplayed() {
+        val title = ListTitle(
+            text = "Numbered Link list text",
+            titleType = TitleType.Heading,
+        )
+        val lineOneText = resources.getText(R.string.bulleted_list_link_example).toString()
+        val numberedListItems = persistentListOf(
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                onLinkTapped = {},
+            ),
+        )
+        composeTestRule.setContent {
+            GdsNumberedList(
+                numberedListItems = numberedListItems,
+                title = title,
+            )
+        }
+
+        composeTestRule.onNodeWithText(lineOneText)
+            .assertExists()
+
+        composeTestRule.onNodeWithText(title.text)
+            .assertExists()
+
+        // Tap on link at end of the line
+        composeTestRule.onNodeWithText("Jetpack Compose", substring = true).assertExists()
+    }
+
+    @Test
+    fun testLinkIconElementsAreDisplayed() {
+        val title = ListTitle(
+            text = "Link list text",
+            titleType = TitleType.Heading,
+        )
+        val numberedListItems = persistentListOf(
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                icon = R.drawable.ic_external_site,
+            ),
+        )
+        setupComposable(numberedListItems, title)
+
+        composeTestRule.onNodeWithText(title.text).assertExists()
+
+        composeTestRule.onNodeWithTag(ICON_TAG, useUnmergedTree = true).assertExists()
+    }
+
+    @Test
     fun runPreview() {
         composeTestRule.setContent {
             GdsNumberedListPreview(itemList[1])
@@ -183,11 +257,13 @@ class GdsNumberedListTest {
         modifier: Modifier = Modifier,
     ) {
         composeTestRule.setContent {
-            GdsNumberedList(
-                numberedListItems = items,
-                title = title,
-                modifier = modifier,
-            )
+            GdsTheme {
+                GdsNumberedList(
+                    numberedListItems = items,
+                    title = title,
+                    modifier = modifier,
+                )
+            }
         }
     }
 }
