@@ -101,8 +101,8 @@ object Switch {
 }
 
 object Menu {
-    val unselectedBackground = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
-    val selectedBackground = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
+    val menuItem = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
+    val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
 }
 
 @Suppress("ForbiddenComment")

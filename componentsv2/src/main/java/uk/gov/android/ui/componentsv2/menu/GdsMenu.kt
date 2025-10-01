@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.rippleAlpha
@@ -43,7 +44,7 @@ fun GdsMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = Modifier
-                .background(color = GdsLocalColorScheme.current.unselectedBackgroundMenu),
+                .background(color = GdsLocalColorScheme.current.menuItem),
         ) {
             content.forEach { item ->
                 var isItemFocused by remember { mutableStateOf(false) }
@@ -51,12 +52,14 @@ fun GdsMenu(
                     text = {
                         Text(
                             text = item.title,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Normal,
+                            ),
                         )
                     },
                     onClick = item.onTap,
                     colors = MenuDefaults.itemColors(
-                        textColor = MaterialTheme.colorScheme.onBackground,
+                        textColor = getTextColour(isItemFocused),
                     ),
                     modifier = Modifier
                         .background(color = getBackgroundColour(isItemFocused))
@@ -76,7 +79,7 @@ private fun getRippleColour(isInFocus: Boolean): Color {
     return if (isInFocus) {
         GdsLocalColorScheme.current.focusButtonHighlighted
     } else {
-        GdsLocalColorScheme.current.selectedBackgroundMenu
+        GdsLocalColorScheme.current.menuItemHighlighted
     }
 }
 
@@ -85,6 +88,15 @@ private fun getBackgroundColour(isInFocus: Boolean): Color {
     return if (isInFocus) {
         GdsLocalColorScheme.current.focusState
     } else {
-        GdsLocalColorScheme.current.unselectedBackgroundMenu
+        GdsLocalColorScheme.current.menuItem
+    }
+}
+
+@Composable
+private fun getTextColour(isInFocus: Boolean): Color {
+    return if (isInFocus) {
+        GdsLocalColorScheme.current.focusStateContent
+    } else {
+        MaterialTheme.colorScheme.onBackground
     }
 }
