@@ -8,7 +8,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
-import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -22,8 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import kotlinx.collections.immutable.ImmutableList
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.rippleAlpha
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposeModifierMissing")
@@ -34,12 +33,10 @@ fun GdsMenu(
     onDismissRequest: () -> Unit = {},
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
-    val gdsButtonRippleConfiguration = RippleConfiguration(
-        color = getRippleColour(focusStateEnabled),
-        rippleAlpha = rippleAlpha,
-    )
-
-    CompositionLocalProvider(LocalRippleConfiguration provides gdsButtonRippleConfiguration) {
+    val colour = getRippleColour(focusStateEnabled)
+    CompositionLocalProvider(
+        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
+    ) {
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
@@ -57,7 +54,7 @@ fun GdsMenu(
                             ),
                         )
                     },
-                    onClick = item.onTap,
+                    onClick = item.onClick,
                     colors = MenuDefaults.itemColors(
                         textColor = getTextColour(isItemFocused),
                     ),

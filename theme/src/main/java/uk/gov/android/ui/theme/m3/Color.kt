@@ -1,8 +1,6 @@
 package uk.gov.android.ui.theme.m3
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ripple.RippleAlpha
-import androidx.compose.material3.RippleDefaults
 import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.runtime.Composable
@@ -317,11 +315,3 @@ val temporary_list_color_dark = Color(0xFF262626)
 
 val temporary_link_color_light = Color(0xFF00703C)
 val temporary_link_color_dark = Color(0xFF03CD6E)
-
-private const val RIPPLE_ALPHA = 0.5f
-val rippleAlpha = RippleAlpha(
-    draggedAlpha = RippleDefaults.RippleAlpha.draggedAlpha,
-    focusedAlpha = RippleDefaults.RippleAlpha.focusedAlpha,
-    hoveredAlpha = RippleDefaults.RippleAlpha.hoveredAlpha,
-    pressedAlpha = RIPPLE_ALPHA,
-)
