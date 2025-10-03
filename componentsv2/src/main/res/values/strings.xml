@@ -87,4 +87,7 @@
     <string name="number7">seven</string>
     <string name="number8">eight</string>
     <string name="number9">nine</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_example_content" translatable="false">Helpful content which explains the purpose of this Dialog</string>
 </resources>
