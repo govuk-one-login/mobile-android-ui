@@ -35,4 +35,23 @@ class MainActivityTest {
             .performClick()
         composeTestRule.onNodeWithText(itemTitle1).assertIsDisplayed()
     }
+
+    @Test
+    fun navigateToDialogue() {
+        val dialogueNavButton = "Display Dialogue"
+        val dismissButton = "Dismiss"
+        val dialogTitle = "Dialogue component"
+        composeTestRule
+            .onNodeWithText(dialogueNavButton)
+            .performClick()
+        composeTestRule
+            .onNodeWithText(dialogTitle)
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText(dismissButton)
+            .performClick()
+        composeTestRule
+            .onNodeWithText(dialogueNavButton)
+            .assertIsDisplayed()
+    }
 }
