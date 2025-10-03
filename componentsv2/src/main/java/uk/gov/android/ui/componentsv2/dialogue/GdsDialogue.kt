@@ -12,14 +12,17 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.Dialog
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -37,12 +40,20 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class, ExperimentalLayoutApi::class)
+/**
+ * Display a Dialogue
+ *
+ * @param headingText Dialogue title
+ * @param contentText Dialogue content
+ * @param buttonParameters Used to define the dialogue buttons
+ * @param modifier Modifier
+ * @param onDismissRequest Dismiss listener
+ */
+@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun GdsDialogue(
     headingText: String?,
     contentText: Int?,
-    changeContentBackground: Boolean,
     buttonParameters: ImmutableList<DialogueButtonParameters>,
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
@@ -54,12 +65,7 @@ fun GdsDialogue(
                 shape = RectangleShape,
                 colors =
                 CardDefaults.cardColors(
-                    containerColor =
-                    if (changeContentBackground) {
-                        Backgrounds.dialogue.toMappedColors()
-                    } else {
-                        MaterialTheme.colorScheme.background
-                    },
+                    containerColor = Backgrounds.dialogue.toMappedColors(),
                 ),
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
@@ -76,12 +82,7 @@ fun GdsDialogue(
                                     top = mediumPadding,
                                 )
                                 .background(
-                                    color =
-                                    if (changeContentBackground) {
-                                        Backgrounds.dialogue.toMappedColors()
-                                    } else {
-                                        MaterialTheme.colorScheme.background
-                                    },
+                                    color = Backgrounds.dialogue.toMappedColors(),
                                 ),
                         )
                     }
@@ -105,24 +106,32 @@ fun GdsDialogue(
     }
 }
 
+/**
+ * Display the dialogue buttons in a Right To Left direction which ensures that the buttons
+ * overflow in the correct order
+ *
+ * @param buttonParameters Used to define the dialogue buttons
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ButtonRow(buttonParameters: ImmutableList<DialogueButtonParameters>) {
-    FlowRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(mediumPadding),
-        horizontalArrangement = Arrangement.spacedBy(
-            mediumPadding,
-            Alignment.End,
-        ),
-    ) {
-        buttonParameters.forEach { param ->
-            GdsButton(
-                text = param.text,
-                buttonType = param.buttonType,
-                onClick = param.onClick,
-            )
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+        FlowRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(mediumPadding),
+            horizontalArrangement = Arrangement.spacedBy(
+                mediumPadding,
+                Alignment.Start,
+            ),
+        ) {
+            buttonParameters.forEach { param ->
+                GdsButton(
+                    text = param.text,
+                    buttonType = param.buttonType,
+                    onClick = param.onClick,
+                )
+            }
         }
     }
 }
@@ -136,7 +145,6 @@ data class DialogueButtonParameters(
 internal data class DialogueParameters(
     val headingText: String?,
     val contentText: Int?,
-    val changeContentBackground: Boolean,
     val buttonParameters: ImmutableList<DialogueButtonParameters>,
     val modifier: Modifier = Modifier,
     val onDismissRequest: () -> Unit = {},
@@ -147,22 +155,20 @@ internal class DialogProvider : PreviewParameterProvider<DialogueParameters> {
         DialogueParameters(
             headingText = TITLE1,
             contentText = R.string.dialog_example_content,
-            changeContentBackground = true,
             buttonParameters = persistentListOf(
-                DialogueButtonParameters(
-                    buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_NO,
-                ),
                 DialogueButtonParameters(
                     buttonType = ButtonTypeV2.Primary(),
                     text = BUTTON_TEXT_YES,
+                ),
+                DialogueButtonParameters(
+                    buttonType = ButtonTypeV2.Secondary(),
+                    text = BUTTON_TEXT_NO,
                 ),
             ),
         ),
         DialogueParameters(
             headingText = TITLE2,
             contentText = R.string.dialog_example_content,
-            changeContentBackground = true,
             buttonParameters = persistentListOf(
                 DialogueButtonParameters(
                     buttonType = ButtonTypeV2.Secondary(),
@@ -190,7 +196,6 @@ internal fun GdsDialoguePreview(
             GdsDialogue(
                 headingText = headingText,
                 contentText = contentText,
-                changeContentBackground = changeContentBackground,
                 buttonParameters = buttonParameters,
             ) {}
         }

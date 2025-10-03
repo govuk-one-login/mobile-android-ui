@@ -66,8 +66,12 @@ class MainActivity : ComponentActivity() {
                     GdsDialogue(
                         headingText = DIALOGUE_TITLE,
                         contentText = R.string.dialogue_demo_content,
-                        changeContentBackground = true,
                         buttonParameters = persistentListOf(
+                            DialogueButtonParameters(
+                                buttonType = ButtonTypeV2.Primary(),
+                                text = ANOTHER_BUTTON,
+                                onClick = { displayDialogue = !displayDialogue },
+                            ),
                             DialogueButtonParameters(
                                 buttonType = ButtonTypeV2.Secondary(),
                                 text = DIALOGUE_BUTTON,
@@ -86,5 +90,6 @@ class MainActivity : ComponentActivity() {
         private const val LAUNCH_DIALOGUE_BUTTON = "Display Dialogue"
         private const val DIALOGUE_TITLE = "Dialogue component"
         private const val DIALOGUE_BUTTON = "Dismiss"
+        private const val ANOTHER_BUTTON = "Something else"
     }
 }

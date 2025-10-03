@@ -69,7 +69,6 @@ class GdsDialogueTest {
                 DialogueParameters(
                     headingText = TITLE2,
                     contentText = R.string.dialog_example_content,
-                    changeContentBackground = true,
                     buttonParameters = persistentListOf(
                         DialogueButtonParameters(
                             buttonType = ButtonTypeV2.Secondary(),
@@ -107,7 +106,6 @@ class GdsDialogueTest {
                     headingText = TITLE1,
                     contentText = R.string.dialog_example_content,
                     onDismissRequest = { onDismissButtonTapped++ },
-                    changeContentBackground = true,
                     buttonParameters = buttonList,
                 )
             }

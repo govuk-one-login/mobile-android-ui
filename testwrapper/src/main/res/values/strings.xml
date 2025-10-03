@@ -8,5 +8,5 @@
     <string name="show_action_icon_button" translatable="false">Toggle to display action icon button</string>
 
     <!-- Dialogue demo -->
-    <string name="dialogue_demo_content" translatable="false">A dialogue with just the one button</string>
+    <string name="dialogue_demo_content" translatable="false">Some dialogue content</string>
 </resources>
