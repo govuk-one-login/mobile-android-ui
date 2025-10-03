@@ -98,6 +98,11 @@ object Switch {
     val selectedHandle = ColorPair(Color(0xFFFFFFFF))
 }
 
+object Menu {
+    val menuItem = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
+    val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
+}
+
 @Suppress("ForbiddenComment")
 // TODO: Once we have the GdsSwitch/Toggle we should replace this with that version e.g. GdsSwitch.defaultColors()
 @Composable

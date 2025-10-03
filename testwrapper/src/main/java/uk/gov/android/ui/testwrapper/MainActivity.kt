@@ -33,8 +33,9 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf(false)
             }
             var displayDialogue by remember { mutableStateOf(false) }
+            var menuTitleToDisplay by remember { mutableStateOf("") }
             GdsTheme {
-                StatusOverlayDemo {
+                StatusOverlayDemo(menuTitleToDisplay = menuTitleToDisplay) {
                     Column {
                         GdsButton(
                             text = stringResource(R.string.display_top_app_bar_demo),
@@ -54,7 +55,12 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 if (displayTopAppBarDemo.value) {
-                    GdsTopAppBarDemo { displayTopAppBarDemo.value = false }
+                    GdsTopAppBarDemo(
+                        dismiss = { displayTopAppBarDemo.value = false },
+                        onMenuSelect = { selectedMenuTitle ->
+                            menuTitleToDisplay = selectedMenuTitle
+                        }
+                    )
                 }
                 if (displayDialogue) {
                     GdsDialogue(

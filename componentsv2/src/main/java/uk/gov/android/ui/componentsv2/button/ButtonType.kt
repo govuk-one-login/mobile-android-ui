@@ -5,9 +5,13 @@ package uk.gov.android.ui.componentsv2.button
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.RippleConfiguration
+import androidx.compose.material3.RippleDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
@@ -178,6 +182,14 @@ object GdsButtonDefaults {
         .padding(horizontal = smallPadding)
         .padding(top = smallPadding)
 
+    private const val RIPPLE_ALPHA = 0.5f
+    private val rippleAlpha = RippleAlpha(
+        draggedAlpha = RippleDefaults.RippleAlpha.draggedAlpha,
+        focusedAlpha = RippleDefaults.RippleAlpha.focusedAlpha,
+        hoveredAlpha = RippleDefaults.RippleAlpha.hoveredAlpha,
+        pressedAlpha = RIPPLE_ALPHA,
+    )
+
     @Composable
     fun defaultPrimaryColors() = ButtonDefaults.buttonColors(
         containerColor = colorScheme.primary,
@@ -241,6 +253,14 @@ object GdsButtonDefaults {
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
         disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    fun gdsRippleConfig(colour: Color): RippleConfiguration {
+        return RippleConfiguration(
+            color = colour,
+            rippleAlpha = rippleAlpha,
+        )
+    }
 }
 
 @Deprecated(
