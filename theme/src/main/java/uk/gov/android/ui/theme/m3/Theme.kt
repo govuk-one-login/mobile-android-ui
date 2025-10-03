@@ -108,6 +108,8 @@ data class CustomColorsScheme(
     val spinnerIcon: Color = Color.Unspecified,
     val errorIcon: Color = Color.Unspecified,
     val linkDefault: Color = Color.Unspecified,
+    val menuItem: Color = Color.Unspecified,
+    val menuItemHighlighted: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -162,6 +164,8 @@ private fun customColors() = CustomColorsScheme(
     spinnerIcon = Icons.spinner.toMappedColors(),
     errorIcon = Icons.error.toMappedColors(),
     linkDefault = Links.default.toMappedColors(),
+    menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
+    menuItem = Menu.menuItem.toMappedColors(),
 )
 
 internal const val SWATCH_SIZE = 200
