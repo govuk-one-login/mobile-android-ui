@@ -9,4 +9,8 @@
 
     <!-- Dialogue demo -->
     <string name="dialogue_demo_content" translatable="false">Some dialogue content</string>
+    <string name="dialogue_demo_button_launch" translatable="false">Display Dialogue</string>
+    <string name="dialogue_demo_title" translatable="false">Dialogue component</string>
+    <string name="dialogue_demo_button_dismiss" translatable="false">Dismiss</string>
+    <string name="dialogue_demo_button_else" translatable="false">Something else</string>
 </resources>

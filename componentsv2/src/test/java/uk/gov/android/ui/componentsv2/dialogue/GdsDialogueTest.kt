@@ -26,7 +26,7 @@ class GdsDialogueTest {
     private val oneButtonSetup = persistentListOf(
         DialogueButtonParameters(
             buttonType = ButtonTypeV2.Primary(),
-            text = BUTTON_TEXT_YES,
+            text = resources.getString(R.string.dialogue_provider_button_yes),
             onClick = { onDismissButtonTapped++ },
         ),
     )
@@ -39,13 +39,13 @@ class GdsDialogueTest {
         setupDialog(oneButtonSetup)
         composeTestRule.apply {
             onNodeWithText(
-                TITLE1,
+                resources.getString(R.string.dialogue_provider_title1),
             ).apply {
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(R.string.dialog_example_content),
+                resources.getString(R.string.dialogue_example_content),
             ).apply {
                 assertIsDisplayed()
             }
@@ -56,7 +56,7 @@ class GdsDialogueTest {
     fun verifyOnButtonTappedInvoked() {
         setupDialog(oneButtonSetup)
         composeTestRule.onNodeWithText(
-            BUTTON_TEXT_YES,
+            resources.getString(R.string.dialogue_provider_button_yes),
             useUnmergedTree = true,
         ).performClick()
         assertEquals(1, onDismissButtonTapped)
@@ -66,17 +66,17 @@ class GdsDialogueTest {
     fun testPreview() {
         composeTestRule.setContent {
             GdsDialoguePreview(
-                DialogueParameters(
-                    headingText = TITLE2,
-                    contentText = R.string.dialog_example_content,
+                DialoguePreviewParameters(
+                    headingText = R.string.dialogue_provider_title2,
+                    contentText = R.string.dialogue_example_content,
                     buttonParameters = persistentListOf(
-                        DialogueButtonParameters(
+                        DialogueButtonPreviewParameters(
                             buttonType = ButtonTypeV2.Secondary(),
-                            text = BUTTON_TEXT_CONFIRM,
+                            text = R.string.dialogue_provider_button_confirm,
                         ),
-                        DialogueButtonParameters(
+                        DialogueButtonPreviewParameters(
                             buttonType = ButtonTypeV2.Secondary(),
-                            text = BUTTON_TEXT_DISMISS,
+                            text = R.string.dialogue_provider_button_dismiss,
                         ),
                     ),
                 ),
@@ -84,13 +84,13 @@ class GdsDialogueTest {
         }
         composeTestRule.apply {
             onNodeWithText(
-                TITLE2,
+                resources.getString(R.string.dialogue_provider_title2),
             ).apply {
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(R.string.dialog_example_content),
+                resources.getString(R.string.dialogue_example_content),
             ).apply {
                 assertIsDisplayed()
             }
@@ -103,8 +103,8 @@ class GdsDialogueTest {
         composeTestRule.setContent {
             GdsTheme {
                 GdsDialogue(
-                    headingText = TITLE1,
-                    contentText = R.string.dialog_example_content,
+                    headingText = resources.getString(R.string.dialogue_provider_title1),
+                    contentText = resources.getString(R.string.dialogue_example_content),
                     onDismissRequest = { onDismissButtonTapped++ },
                     buttonParameters = buttonList,
                 )

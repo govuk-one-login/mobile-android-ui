@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsDialogueScreenshotTest(
-    private val parameters: Pair<DialogueParameters, NightMode>,
+    private val parameters: Pair<DialoguePreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
@@ -18,8 +18,8 @@ internal class GdsDialogueScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsDialogue")
-        fun values(): List<Pair<DialogueParameters, NightMode>> {
-            val result: MutableList<Pair<DialogueParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<DialoguePreviewParameters, NightMode>> {
+            val result: MutableList<Pair<DialoguePreviewParameters, NightMode>> = mutableListOf()
 
             DialogProvider().values.forEach(applyNightMode(result))
 

@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.window.Dialog
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -51,7 +52,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 @Composable
 fun GdsDialogue(
     headingText: String?,
-    contentText: Int?,
+    contentText: String?,
     buttonParameters: ImmutableList<DialogueButtonParameters>,
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
@@ -86,7 +87,7 @@ fun GdsDialogue(
                     }
                     contentText?.let {
                         Text(
-                            text = stringResource(contentText),
+                            text = contentText,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier =
@@ -141,42 +142,48 @@ data class DialogueButtonParameters(
     val onClick: () -> Unit = {},
 )
 
-internal data class DialogueParameters(
-    val headingText: String?,
-    val contentText: Int?,
-    val buttonParameters: ImmutableList<DialogueButtonParameters>,
+data class DialogueButtonPreviewParameters(
+    val text: Int,
+    val buttonType: ButtonTypeV2,
+    val onClick: () -> Unit = {},
+)
+
+internal data class DialoguePreviewParameters(
+    val headingText: Int,
+    val contentText: Int,
+    val buttonParameters: ImmutableList<DialogueButtonPreviewParameters>,
     val modifier: Modifier = Modifier,
     val onDismissRequest: () -> Unit = {},
 )
 
-internal class DialogProvider : PreviewParameterProvider<DialogueParameters> {
-    override val values: Sequence<DialogueParameters> = sequenceOf(
-        DialogueParameters(
-            headingText = TITLE1,
-            contentText = R.string.dialog_example_content,
+internal class DialogProvider : PreviewParameterProvider<DialoguePreviewParameters> {
+    override val values: Sequence<DialoguePreviewParameters> = sequenceOf(
+        DialoguePreviewParameters(
+            headingText = R.string.dialogue_provider_title1,
+            contentText = R.string.dialogue_example_content,
             buttonParameters = persistentListOf(
-                DialogueButtonParameters(
+                DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_NO,
+                    text = R.string.dialogue_provider_button_no,
                 ),
-                DialogueButtonParameters(
+                DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Primary(),
-                    text = BUTTON_TEXT_YES,
+                    text = R.string.dialogue_provider_button_yes,
                 ),
 
             ),
         ),
-        DialogueParameters(
-            headingText = TITLE2,
-            contentText = R.string.dialog_example_content,
+        DialoguePreviewParameters(
+            headingText = R.string.dialogue_provider_title2,
+            contentText = R.string.dialogue_example_content,
             buttonParameters = persistentListOf(
-                DialogueButtonParameters(
+                DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_DISMISS,
+                    text = R.string.dialogue_provider_button_dismiss,
                 ),
-                DialogueButtonParameters(
+                DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_CONFIRM,
+                    text = R.string.dialogue_provider_button_confirm,
                 ),
 
             ),
@@ -190,22 +197,21 @@ internal class DialogProvider : PreviewParameterProvider<DialogueParameters> {
 @Preview
 internal fun GdsDialoguePreview(
     @PreviewParameter(DialogProvider::class)
-    dialogueParameters: DialogueParameters,
+    dialoguePreviewParameters: DialoguePreviewParameters,
 ) {
-    dialogueParameters.apply {
+    dialoguePreviewParameters.apply {
         GdsTheme {
             GdsDialogue(
-                headingText = headingText,
-                contentText = contentText,
-                buttonParameters = buttonParameters,
+                headingText = stringResource(headingText),
+                contentText = stringResource(contentText),
+                buttonParameters = buttonParameters.map {
+                    DialogueButtonParameters(
+                        text = stringResource(it.text),
+                        buttonType = it.buttonType,
+                        onClick = it.onClick,
+                    )
+                }.toImmutableList(),
             ) {}
         }
     }
 }
-
-internal const val TITLE1 = "Horizontal buttons"
-internal const val TITLE2 = "Overflow buttons"
-internal const val BUTTON_TEXT_YES = "Yes"
-private const val BUTTON_TEXT_NO = "No"
-internal const val BUTTON_TEXT_CONFIRM = "Confirming action"
-internal const val BUTTON_TEXT_DISMISS = "Dismiss action"

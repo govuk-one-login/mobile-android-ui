@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         )
                         Spacer(modifier = Modifier.height(spacingDouble))
                         GdsButton(
-                            text = LAUNCH_DIALOGUE_BUTTON,
+                            text = stringResource(R.string.dialogue_demo_button_launch),
                             buttonType = ButtonTypeV2.Primary(),
                             onClick = {
                                 displayDialogue = !displayDialogue
@@ -64,17 +64,17 @@ class MainActivity : ComponentActivity() {
                 }
                 if (displayDialogue) {
                     GdsDialogue(
-                        headingText = DIALOGUE_TITLE,
-                        contentText = R.string.dialogue_demo_content,
+                        headingText = stringResource(R.string.dialogue_demo_title),
+                        contentText = stringResource(R.string.dialogue_demo_content),
                         buttonParameters = persistentListOf(
                             DialogueButtonParameters(
                                 buttonType = ButtonTypeV2.Secondary(),
-                                text = DIALOGUE_BUTTON,
+                                text = stringResource(R.string.dialogue_demo_button_dismiss),
                                 onClick = { displayDialogue = !displayDialogue },
                             ),
                             DialogueButtonParameters(
                                 buttonType = ButtonTypeV2.Primary(),
-                                text = ANOTHER_BUTTON,
+                                text = stringResource(R.string.dialogue_demo_button_else),
                                 onClick = { displayDialogue = !displayDialogue },
                             ),
                         ),
@@ -84,12 +84,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    companion object {
-        private const val LAUNCH_DIALOGUE_BUTTON = "Display Dialogue"
-        private const val DIALOGUE_TITLE = "Dialogue component"
-        private const val DIALOGUE_BUTTON = "Dismiss"
-        private const val ANOTHER_BUTTON = "Something else"
     }
 }
