@@ -6,4 +6,11 @@
     <string name="change_bar_alignment" translatable="false">Change top bar alignment</string>
     <string name="show_nav_icon_button" translatable="false">Toggle to display navigation icon button</string>
     <string name="show_action_icon_button" translatable="false">Toggle to display action icon button</string>
+
+    <!-- Dialogue demo -->
+    <string name="dialogue_demo_content" translatable="false">Some dialogue content</string>
+    <string name="dialogue_demo_button_launch" translatable="false">Display Dialogue</string>
+    <string name="dialogue_demo_title" translatable="false">Dialogue component</string>
+    <string name="dialogue_demo_button_dismiss" translatable="false">Dismiss</string>
+    <string name="dialogue_demo_button_else" translatable="false">Something else</string>
 </resources>

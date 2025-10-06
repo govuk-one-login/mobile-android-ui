@@ -87,4 +87,13 @@
     <string name="number7">seven</string>
     <string name="number8">eight</string>
     <string name="number9">nine</string>
+
+    <!-- Dialogues -->
+    <string name="dialogue_example_content" translatable="false">Helpful content which explains the purpose of this Dialog</string>
+    <string name="dialogue_provider_title1" translatable="false">Horizontal buttons</string>
+    <string name="dialogue_provider_title2" translatable="false">Overflow buttons</string>
+    <string name="dialogue_provider_button_yes" translatable="false">Yes</string>
+    <string name="dialogue_provider_button_no" translatable="false">No</string>
+    <string name="dialogue_provider_button_confirm" translatable="false">Confirming action</string>
+    <string name="dialogue_provider_button_dismiss" translatable="false">Dismiss action</string>
 </resources>
