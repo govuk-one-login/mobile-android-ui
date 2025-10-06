@@ -68,13 +68,13 @@ class MainActivity : ComponentActivity() {
                         contentText = R.string.dialogue_demo_content,
                         buttonParameters = persistentListOf(
                             DialogueButtonParameters(
-                                buttonType = ButtonTypeV2.Primary(),
-                                text = ANOTHER_BUTTON,
+                                buttonType = ButtonTypeV2.Secondary(),
+                                text = DIALOGUE_BUTTON,
                                 onClick = { displayDialogue = !displayDialogue },
                             ),
                             DialogueButtonParameters(
-                                buttonType = ButtonTypeV2.Secondary(),
-                                text = DIALOGUE_BUTTON,
+                                buttonType = ButtonTypeV2.Primary(),
+                                text = ANOTHER_BUTTON,
                                 onClick = { displayDialogue = !displayDialogue },
                             ),
                         ),

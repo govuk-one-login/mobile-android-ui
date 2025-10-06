@@ -12,17 +12,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.window.Dialog
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -39,6 +36,7 @@ import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
+import uk.gov.android.ui.theme.xsmallPadding
 
 /**
  * Display a Dialogue
@@ -107,31 +105,32 @@ fun GdsDialogue(
 }
 
 /**
- * Display the dialogue buttons in a Right To Left direction which ensures that the buttons
+ * Display the dialogue buttons in a Left To Right direction which ensures that the buttons
  * overflow in the correct order
+ *
+ * There must be at least one button in the dialogue to comply with GDS design requirements
  *
  * @param buttonParameters Used to define the dialogue buttons
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ButtonRow(buttonParameters: ImmutableList<DialogueButtonParameters>) {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        FlowRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(mediumPadding),
-            horizontalArrangement = Arrangement.spacedBy(
-                mediumPadding,
-                Alignment.Start,
-            ),
-        ) {
-            buttonParameters.forEach { param ->
-                GdsButton(
-                    text = param.text,
-                    buttonType = param.buttonType,
-                    onClick = param.onClick,
-                )
-            }
+    FlowRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(mediumPadding),
+        horizontalArrangement = Arrangement.spacedBy(
+            smallPadding,
+            Alignment.End,
+        ),
+        verticalArrangement = Arrangement.spacedBy(xsmallPadding),
+    ) {
+        buttonParameters.forEach { param ->
+            GdsButton(
+                text = param.text,
+                buttonType = param.buttonType,
+                onClick = param.onClick,
+            )
         }
     }
 }
@@ -157,13 +156,14 @@ internal class DialogProvider : PreviewParameterProvider<DialogueParameters> {
             contentText = R.string.dialog_example_content,
             buttonParameters = persistentListOf(
                 DialogueButtonParameters(
-                    buttonType = ButtonTypeV2.Primary(),
-                    text = BUTTON_TEXT_YES,
-                ),
-                DialogueButtonParameters(
                     buttonType = ButtonTypeV2.Secondary(),
                     text = BUTTON_TEXT_NO,
                 ),
+                DialogueButtonParameters(
+                    buttonType = ButtonTypeV2.Primary(),
+                    text = BUTTON_TEXT_YES,
+                ),
+
             ),
         ),
         DialogueParameters(
@@ -172,12 +172,13 @@ internal class DialogProvider : PreviewParameterProvider<DialogueParameters> {
             buttonParameters = persistentListOf(
                 DialogueButtonParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_CONFIRM,
+                    text = BUTTON_TEXT_DISMISS,
                 ),
                 DialogueButtonParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = BUTTON_TEXT_DISMISS,
+                    text = BUTTON_TEXT_CONFIRM,
                 ),
+
             ),
         ),
     )
