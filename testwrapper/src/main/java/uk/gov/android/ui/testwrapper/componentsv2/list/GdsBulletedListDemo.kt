@@ -23,7 +23,7 @@ fun GdsBulletedListDemo(
             icon = R.drawable.ic_external_site,
             iconContentDescription = stringResource(R.string.opens_in_external_browser),
             onLinkTapped = {
-                onTapped("https://www.android.com")
+                onTapped(EXAMPLE_URL)
             }
         ),
         ListItem(
@@ -31,13 +31,13 @@ fun GdsBulletedListDemo(
             icon = R.drawable.ic_external_site,
             iconContentDescription = stringResource(R.string.opens_in_external_browser),
             onLinkTapped = {
-                onTapped("https://www.android.com")
+                onTapped(EXAMPLE_URL)
             }
         ),
         ListItem(
             spannableText = R.string.bulleted_list_link_example,
             onLinkTapped = {
-                onTapped("https://www.android.com")
+                onTapped(EXAMPLE_URL)
             }
         ),
         ListItem(
@@ -52,3 +52,5 @@ fun GdsBulletedListDemo(
         title = title,
     )
 }
+
+private const val EXAMPLE_URL = "https://www.android.com"
