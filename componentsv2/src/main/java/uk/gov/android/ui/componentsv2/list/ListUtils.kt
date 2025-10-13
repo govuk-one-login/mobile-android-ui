@@ -52,6 +52,7 @@ data class ListItem(
     val text: String = "",
     @StringRes val spannableText: Int = 0,
     @DrawableRes val icon: Int = 0,
+    val iconContentDescription: String = "",
     val onLinkTapped: (String) -> Unit = {},
 )
 
@@ -59,6 +60,7 @@ data class ListContent(
     val text: String = "",
     val annotatedString: AnnotatedString = AnnotatedString(""),
     val inlineTextContent: ImmutableMap<String, InlineTextContent> = persistentMapOf(),
+    val iconContentDescription: String = "",
 )
 
 internal data class ListWrapper(
@@ -112,6 +114,7 @@ fun ListItem.createDisplayText(context: Context): ListContent {
             ListContent(
                 annotatedString = annotatedString,
                 inlineTextContent = inlineIconContent,
+                iconContentDescription = this.iconContentDescription,
             )
         }
     }

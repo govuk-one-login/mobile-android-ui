@@ -1,6 +1,7 @@
 package uk.gov.android.ui.testwrapper.componentsv2.list
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
@@ -20,6 +21,15 @@ fun GdsBulletedListDemo(
         ListItem(
             spannableText = R.string.bulleted_list_link_example,
             icon = R.drawable.ic_external_site,
+            iconContentDescription = stringResource(R.string.opens_in_external_browser),
+            onLinkTapped = {
+                onTapped("https://www.android.com")
+            }
+        ),
+        ListItem(
+            spannableText = R.string.bulleted_list_link_example,
+            icon = R.drawable.ic_external_site,
+            iconContentDescription = stringResource(R.string.opens_in_external_browser),
             onLinkTapped = {
                 onTapped("https://www.android.com")
             }
