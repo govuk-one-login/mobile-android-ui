@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.list
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -269,14 +270,16 @@ private fun BulletListItem(
  * Arrange the bullet and accompanying text so that the bullet is vertically centered relative
  * to the first line of the text
  *
- * @param text The text to be displayed which could be plain text, annotated or annotated with icon
- * @param modifier Used to pass in the content description to allow a screen reader to announce
- * the bulleted list item as intended
+ * @param listContent The text to be displayed which could be plain text, annotated or annotated
+ * with icon
+ * @param bulletContentDescription The content description for the entire bulleted list item
  */
+@SuppressLint("ComposeModifierMissing")
+@Suppress("LongMethod")
 @Composable
 fun BulletedLine(
     listContent: ListContent,
-    modifier: Modifier = Modifier,
+    bulletContentDescription: String,
 ) {
     val bullet = ImageVector.vectorResource(R.drawable.ic_dot)
     val painter = rememberVectorPainter(image = bullet)
@@ -288,10 +291,15 @@ fun BulletedLine(
     var textLineTop = 0f
     var textLineBottom = 0f
     var textLineLeft = 0f
+    val contentDescription = if (listContent.iconContentDescription.isNotEmpty()) {
+        "$bulletContentDescription\n${listContent.iconContentDescription}"
+    } else {
+        bulletContentDescription
+    }
     with(LocalDensity.current) {
         val imageSize = Size(bullet.defaultWidth.toPx(), bullet.defaultHeight.toPx())
         val bulletRightPadding = listItemRightPadding.toPx()
-        val bulletModifier = modifier
+        val bulletModifier = Modifier
             .padding(start = bulletPointWidthIncPadding)
             .drawBehind {
                 with(painter) {
@@ -306,6 +314,9 @@ fun BulletedLine(
                         draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(bulletTint))
                     }
                 }
+            }
+            .semantics {
+                this.contentDescription = contentDescription
             }
         // Call different versions of Text Composable depending on whether we have annotated
         // text or not
@@ -351,7 +362,6 @@ fun BulletedLine(
  * @param contentDescription The content description for the entire bulleted list item
  */
 @Composable
-@Suppress("LongMethod")
 private fun ListTextIcon(
     listItem: ListItem,
     contentDescription: String,
@@ -359,9 +369,7 @@ private fun ListTextIcon(
     val bulletListContent = listItem.createDisplayText(LocalContext.current)
     BulletedLine(
         listContent = bulletListContent,
-        modifier = Modifier.semantics {
-            this.contentDescription = contentDescription
-        },
+        bulletContentDescription = contentDescription,
     )
 }
 

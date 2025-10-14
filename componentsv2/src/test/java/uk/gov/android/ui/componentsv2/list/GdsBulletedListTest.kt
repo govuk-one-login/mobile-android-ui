@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.list
 
 import android.content.Context
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -157,6 +158,38 @@ class GdsBulletedListTest {
     }
 
     @Test
+    fun testLinkIconContentDescription() {
+        val title = ListTitle(
+            text = "Link list text",
+            titleType = TitleType.Heading,
+        )
+        val bulletedListItems = persistentListOf(
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                icon = R.drawable.ic_external_site,
+                iconContentDescription = ICON_CONTENT_DESC,
+            ),
+        )
+        composeTestRule.setContent {
+            GdsTheme {
+                GdsBulletedList(
+                    bulletListItems = bulletedListItems,
+                    title = title,
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(title.text).assertExists()
+
+        composeTestRule.onNodeWithContentDescription(
+            EXPECTED_BULLET_CONTENT_DESC,
+            ignoreCase = true,
+        ).assertExists()
+
+        composeTestRule.onNodeWithTag(ICON_TAG, useUnmergedTree = true).assertExists()
+    }
+
+    @Test
     fun runDeprecatedPreview() {
         composeTestRule.setContent {
             GdsBulletedListDeprecatedPreview(contentList[0])
@@ -173,3 +206,6 @@ class GdsBulletedListTest {
 
 private const val LINE = "Line one bullet list content"
 private const val TITLE = "Example Heading"
+private const val ICON_CONTENT_DESC = "Opens in web browser"
+private const val EXPECTED_BULLET_CONTENT_DESC = "bulleted list 1 item. bullet build better apps " +
+    "faster with Jetpack Compose\nOpens in web browser"
