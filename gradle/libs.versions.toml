@@ -1,6 +1,6 @@
 [versions]
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
-android-gradle = "8.8.2" # https://developer.android.com/studio/releases/gradle-plugin
+android-gradle = "8.10.1" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-orchestrator = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
@@ -21,7 +21,7 @@ ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 material = "1.12.0" # https://github.com/mockito/mockito-kotlin/releases
 mockito = "5.17.0"
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
-paparazzi = "2.0.0-alpha01"
+paparazzi = "2.0.0-alpha02"
 robolectric = "4.14.1"
 sonarqube-gradle = "6.0.1.5171" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 ui-test-android = "1.7.8"
