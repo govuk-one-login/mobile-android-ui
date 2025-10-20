@@ -30,6 +30,9 @@ internal class LeftAlignedScreenContentProviderV2 :
         "Check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover"
     private val warning = "You cannot use your passport if it has expired"
     private val selectionItems = persistentListOf("Yes", "No")
+    private val imageDescription = "Image description"
+    private val secondaryButtonText = "Secondary Button"
+    private val primaryButtonText = "Primary Button"
 
     override val values = sequenceOf(
         LeftAlignedScreenContentV2(
@@ -67,7 +70,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
@@ -80,13 +83,13 @@ internal class LeftAlignedScreenContentProviderV2 :
                     ),
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
-                    "Secondary Button",
+                    secondaryButtonText,
                     {},
                 ),
             ),
             supportingText = supportingText,
-            primaryButton = "Primary Button",
-            secondaryButton = "Secondary Button",
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -110,14 +113,14 @@ internal class LeftAlignedScreenContentProviderV2 :
                     ),
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
-                    "Secondary Button",
+                    secondaryButtonText,
                     {},
                     showIcon = true,
                 ),
             ),
             supportingText = supportingText,
-            primaryButton = "Primary Button",
-            secondaryButton = "Secondary Button",
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -133,7 +136,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
@@ -145,7 +148,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
             ),
             supportingText = supportingText,
-            primaryButton = "Primary Button",
+            primaryButton = primaryButtonText,
             primaryButtonIsEnabled = false,
         ),
         LeftAlignedScreenContentV2(
@@ -163,7 +166,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
@@ -195,7 +198,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
@@ -220,13 +223,13 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
             ),
-            primaryButton = "Primary Button",
+            primaryButton = primaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -243,23 +246,23 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
-                    "Image description",
+                    imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
             ),
-            primaryButton = "Primary Button",
+            primaryButton = primaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
-            primaryButton = "Primary Button",
+            primaryButton = primaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
             supportingText = "Supporting Text - $textExtraLong",
-            primaryButton = "Primary Button",
-            secondaryButton = "Secondary Button",
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -284,14 +287,14 @@ internal class LeftAlignedScreenContentProviderV2 :
                     title = ListTitle("Bullet List Title", TitleType.Text),
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
-                    "Secondary Button",
+                    secondaryButtonText,
                     {},
                     showIcon = true,
                 ),
             ),
             supportingText = supportingText,
-            primaryButton = "Primary Button",
-            secondaryButton = "Secondary Button",
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
         ),
     )
 }
