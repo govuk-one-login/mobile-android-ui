@@ -239,6 +239,10 @@ internal fun LeftAlignedScreenV2FromContentParams(content: LeftAlignedScreenCont
  */
 @OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod", "CyclomaticComplexMethod")
+@Deprecated(
+    "Use toBodyContentV2 with optional list title parameter instead - will be removed on 20/01/26",
+    level = DeprecationLevel.WARNING,
+)
 fun LazyListScope.toBodyContent(
     body: List<LeftAlignedScreenBody>?,
     horizontalItemPadding: Dp,
