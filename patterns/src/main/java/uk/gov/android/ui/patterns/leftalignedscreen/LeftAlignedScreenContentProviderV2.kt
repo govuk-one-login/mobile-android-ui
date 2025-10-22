@@ -77,9 +77,9 @@ internal class LeftAlignedScreenContentProviderV2 :
                 ),
                 LeftAlignedScreenBodyV2.BulletList(
                     persistentListOf(
-                        "Bullet 1",
-                        "Bullet 2",
-                        textShort,
+                        ListItem("Bullet 1"),
+                        ListItem("Bullet 2"),
+                        ListItem(textShort),
                     ),
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
@@ -280,9 +280,9 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.Divider(),
                 LeftAlignedScreenBodyV2.BulletList(
                     items = persistentListOf(
-                        "Number 1",
-                        "Number 2",
-                        textShort,
+                        ListItem("Number 1"),
+                        ListItem("Number 2"),
+                        ListItem(textShort),
                     ),
                     title = ListTitle("Bullet List Title", TitleType.Text),
                 ),
