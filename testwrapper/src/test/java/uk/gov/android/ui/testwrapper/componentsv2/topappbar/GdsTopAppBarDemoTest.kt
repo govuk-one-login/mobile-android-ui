@@ -23,7 +23,7 @@ class GdsTopAppBarDemoTest {
     fun testMenu() {
         val itemTitle1 = "Item does something"
         composeTestRule.setContent {
-            GdsTopAppBarDemo(dismiss = {})
+            GdsTopAppBarDemo()
         }
         composeTestRule
             .onNodeWithContentDescription(

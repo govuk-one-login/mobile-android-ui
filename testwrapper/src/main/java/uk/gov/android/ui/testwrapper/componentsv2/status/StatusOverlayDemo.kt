@@ -33,20 +33,9 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StatusOverlayDemo(
-    menuTitleToDisplay: String = "",
-    content: @Composable () -> Unit
-) {
+fun StatusOverlayDemo() {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-
-    LaunchedEffect(menuTitleToDisplay) {
-        if (menuTitleToDisplay.isNotEmpty()) {
-            scope.launch {
-                statusOverlayState.showSnackbar(menuTitleToDisplay)
-            }
-        }
-    }
     Scaffold(
         snackbarHost = {
             GdsStatusOverlay(
@@ -80,22 +69,6 @@ fun StatusOverlayDemo(
                     modifier = Modifier.padding(bottom = smallPadding)
                 )
                 Spacer(modifier = Modifier.height(largePadding))
-                GdsBulletedListDemo(
-                    onTapped = { url ->
-                        scope.launch {
-                            statusOverlayState.showSnackbar("Url: $url")
-                        }
-                    })
-                Spacer(modifier = Modifier.height(largePadding))
-                content()
-                Spacer(modifier = Modifier.height(spacingDouble))
-                GdsRadiosDemo()
-                Spacer(modifier = Modifier.height(spacingDouble))
-                GdsNumberedListDemo { url ->
-                    scope.launch {
-                        statusOverlayState.showSnackbar("Url: $url")
-                    }
-                }
             }
         }
     }

@@ -23,10 +23,13 @@ class MainActivityTest {
     private val resources = context.resources
 
     @Test
-    fun goToStatusOverlay() {
+    fun goToTopAppBar() {
         val itemTitle1 = "Item does something"
         composeTestRule
-            .onNodeWithText(resources.getString(R.string.display_top_app_bar_demo))
+            .onNodeWithText("Top App Bar")
+            .performClick()
+        composeTestRule
+            .onNodeWithText("Top App Bar")
             .performClick()
         composeTestRule
             .onNodeWithContentDescription(
@@ -38,11 +41,18 @@ class MainActivityTest {
 
     @Test
     fun navigateToDialogue() {
-        val dialogueNavButton = "Display Dialogue"
+        val dialogueNavMenuButton = "Dialogue"
+        val displayDialogueButton = "Display Dialogue"
         val dismissButton = "Dismiss"
         val dialogTitle = "Dialogue component"
         composeTestRule
-            .onNodeWithText(dialogueNavButton)
+            .onNodeWithText(dialogueNavMenuButton)
+            .performClick()
+        composeTestRule
+            .onNodeWithText(dialogueNavMenuButton)
+            .performClick()
+        composeTestRule
+            .onNodeWithText(displayDialogueButton)
             .performClick()
         composeTestRule
             .onNodeWithText(dialogTitle)
@@ -51,7 +61,7 @@ class MainActivityTest {
             .onNodeWithText(dismissButton)
             .performClick()
         composeTestRule
-            .onNodeWithText(dialogueNavButton)
+            .onNodeWithText(displayDialogueButton)
             .assertIsDisplayed()
     }
 }

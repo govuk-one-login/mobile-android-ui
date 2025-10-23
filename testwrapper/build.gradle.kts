@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -72,6 +73,11 @@ dependencies {
     implementation(project(":theme"))
     implementation(project(":patterns"))
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.navigation.compose)
+    implementation(libs.androidx.compose.adaptive)
+    implementation(libs.androidx.compose.adaptive.navigation)
+    implementation(libs.androidx.compose.adaptive.layout)
 
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
