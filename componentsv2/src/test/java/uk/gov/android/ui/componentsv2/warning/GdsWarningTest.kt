@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onRoot
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Ignore
 import org.junit.Rule
@@ -74,10 +73,5 @@ class GdsWarningTest {
             .onChildren()
             .onLast()
             .assertTextContains(text)
-    }
-
-    @Test
-    fun testJRE() {
-        assertEquals(System.getProperty("os.arch"), "aarch64")
     }
 }
