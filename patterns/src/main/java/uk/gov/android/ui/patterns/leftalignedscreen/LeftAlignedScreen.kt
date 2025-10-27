@@ -164,7 +164,10 @@ fun LeftAlignedScreen(
  * @param primaryButton primary action button (optional).
  * @param secondaryButton secondary action button (optional).
  */
-
+@Deprecated(
+    "Use LeftAlignedScreenV2 with optional list title parameter instead - will be removed on 20/01/26",
+    level = DeprecationLevel.WARNING,
+)
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun LeftAlignedScreen(
@@ -186,6 +189,76 @@ fun LeftAlignedScreen(
         },
         body = { horizontalItemPadding ->
             toBodyContent(
+                horizontalItemPadding = horizontalItemPadding,
+                body = body,
+            )
+        },
+        supportingText = supportingText?.let { text ->
+            { horizontalPadding ->
+                GdsSupportingText(
+                    text = text,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                )
+            }
+        },
+        primaryButton = primaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    onClick = it.onClick,
+                    buttonType = ButtonType.Primary,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
+            }
+        },
+        secondaryButton = secondaryButton?.let {
+            {
+                GdsButton(
+                    text = it.text,
+                    onClick = it.onClick,
+                    buttonType = ButtonType.Secondary,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
+            }
+        },
+    )
+}
+
+/**
+ * Left Aligned Screen Helper Method
+ *
+ * Uses the slot based method to create the composable
+ *
+ * @param title represents the main title.
+ * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param body representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content (optional).
+ * @param primaryButton primary action button (optional).
+ * @param secondaryButton secondary action button (optional).
+ */
+@OptIn(UnstableDesignSystemAPI::class)
+@Composable
+fun LeftAlignedScreenV2(
+    title: String,
+    modifier: Modifier = Modifier,
+    body: ImmutableList<LeftAlignedScreenBodyV2>? = null,
+    supportingText: String? = null,
+    primaryButton: LeftAlignedScreenButton? = null,
+    secondaryButton: LeftAlignedScreenButton? = null,
+) {
+    LeftAlignedScreen(
+        modifier = modifier,
+        title = { horizontalPadding ->
+            GdsHeading(
+                text = title,
+                modifier = Modifier.padding(horizontal = horizontalPadding),
+                textAlign = GdsHeadingAlignment.LeftAligned,
+            )
+        },
+        body = { horizontalItemPadding ->
+            toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,
                 body = body,
             )
@@ -336,5 +409,29 @@ internal fun PreviewLeftAlignedScreenAccessibility(
 ) {
     GdsTheme {
         LeftAlignedScreenFromContentParams(content)
+    }
+}
+
+@PreviewLightDark
+@Composable
+@Preview(fontScale = 3f)
+internal fun PreviewLeftAlignedScreenV2(
+    @PreviewParameter(LeftAlignedScreenContentProviderV2::class)
+    content: LeftAlignedScreenContentV2,
+) {
+    GdsTheme {
+        LeftAlignedScreenV2FromContentParams(content)
+    }
+}
+
+@Composable
+@Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
+@Preview(showBackground = true, fontScale = 3f)
+internal fun PreviewLeftAlignedScreenV2Accessibility(
+    @PreviewParameter(LeftAlignedScreenContentAccessibilityProviderV2::class)
+    content: LeftAlignedScreenContentV2,
+) {
+    GdsTheme {
+        LeftAlignedScreenV2FromContentParams(content)
     }
 }
