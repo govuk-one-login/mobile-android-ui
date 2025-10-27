@@ -105,15 +105,19 @@ fun GdsTopAppBarDemo() {
                 .fillMaxWidth()
                 .verticalScroll(scrollState)
         ) {
-            FormattedButton {
+            FormattedButton(titleRes = TestWrapperR.string.toggle_title) {
                 if (alignment.value == TopAppBarAlignment.Start) {
                     alignment.value = TopAppBarAlignment.Centre
                 } else {
                     alignment.value = TopAppBarAlignment.Start
                 }
             }
-            FormattedButton { showNavIconButton.value = !showNavIconButton.value }
-            FormattedButton { showActionIconButton.value = !showActionIconButton.value }
+            FormattedButton(titleRes = TestWrapperR.string.show_nav_icon_button) {
+                showNavIconButton.value = !showNavIconButton.value
+            }
+            FormattedButton(titleRes = TestWrapperR.string.show_action_icon_button) {
+                showActionIconButton.value = !showActionIconButton.value
+            }
             repeat(100) {
                 Text(
                     text = "Test",
@@ -126,10 +130,11 @@ fun GdsTopAppBarDemo() {
 
 @Composable
 fun FormattedButton(
+    titleRes: Int,
     onClick: () -> Unit
 ) {
     GdsButton(
-        text = stringResource(TestWrapperR.string.show_nav_icon_button),
+        text = stringResource(titleRes),
         buttonType = ButtonTypeV2.Secondary(),
         onClick = onClick
     )

@@ -6,6 +6,7 @@
     <string name="change_bar_alignment" translatable="false">Change top bar alignment</string>
     <string name="show_nav_icon_button" translatable="false">Toggle to display navigation icon button</string>
     <string name="show_action_icon_button" translatable="false">Toggle to display action icon button</string>
+    <string name="toggle_title" translatable="false">Toggle to change title alignment</string>
 
     <!-- Dialogue demo -->
     <string name="dialogue_demo_content" translatable="false">Some dialogue content</string>
