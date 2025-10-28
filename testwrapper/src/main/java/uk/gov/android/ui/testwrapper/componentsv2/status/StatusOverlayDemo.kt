@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,9 +23,6 @@ import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
-import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
-import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
-import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
