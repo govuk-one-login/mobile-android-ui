@@ -21,9 +21,9 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-        lfs: 'true'
-        submodules: 'true'
-        fetch-depth: 0
+          lfs: 'true'
+          submodules: 'true'
+          fetch-depth: 0
 
       - name: Clean workspace
         uses: ./mobile-android-pipelines/actions/clean-workspace
