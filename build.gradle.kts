@@ -25,9 +25,9 @@ buildscript {
     }
 
     // https://issuetracker.google.com/issues/380600747
-    dependencies {
-        classpath("org.bouncycastle:bcutil-jdk18on:1.81")
-    }
+//    dependencies {
+//        classpath("org.bouncycastle:bcutil-jdk18on:1.81")
+//    }
 }
 
 val apkConfig by rootProject.extra(
