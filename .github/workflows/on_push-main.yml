@@ -20,8 +20,76 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Run deployment workflow
-        uses: govuk-one-login/mobile-android-pipelines@25f449cdb18d493fc19bbb4e91a5877beba3af64
+      - name: Checkout codebase
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          sonar_token: ${{ secrets.SONAR_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: 'true'
+          submodules: 'true'
+          fetch-depth: 0
+
+      - name: Clean workspace
+        uses: ./mobile-android-pipelines/actions/clean-workspace
+
+      - name: Setup GitHub Runner workflow
+        uses: ./mobile-android-pipelines/actions/setup-runner
+        with:
+          gradle-cache-disabled: ${{ inputs.GRADLE_CACHE_DISABLED }}
+
+      - name: Verify Conventional commit standards against latest git tag
+        uses: ./mobile-android-pipelines/actions/verify-conventional-commit
+
+      - name: Lint script files
+        uses: ./mobile-android-pipelines/actions/lint
+
+      - name: Screenshot test
+        run: |
+          ./gradlew patterns:verifyPaparazziDebug \
+          componentsv2:verifyPaparazziDebug \
+          theme:verifyPaparazziDebug \
+          --continue \
+          -Pgpr.user=${{ secrets.GITHUB_ACTOR }} \
+          -Pgpr.token=${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+
+      - name: Run gradle testing suite
+        uses: ./mobile-android-pipelines/actions/run-testing-suite
+
+      - name: Sonar scan
+        uses: ./mobile-android-pipelines/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Bundle reports folder
+        uses: ./mobile-android-pipelines/actions/bundle-reports
+
+      - name: Increment the release version using Conventional Commits
+        id: versioning
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: ./mobile-android-pipelines/actions/increment-version
+
+      - name: Publish release tags
+        if: ${{ github.event_name != 'pull_request'
+          && steps.versioning.outputs.current_version != steps.versioning.outputs.new_version }}
+        uses: ./mobile-android-pipelines/actions/publish-release-tag
+
+      - name: Test local publish
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./mobile-android-pipelines/actions/maven-publish-local
+
+      - name: Publish package
+        if: ${{ github.event_name != 'pull_request'
+          && steps.versioning.outputs.current_version != steps.versioning.outputs.new_version }}
+        uses: ./mobile-android-pipelines/actions/maven-publish
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+
+      - name: Generate Changelog
+        uses: ./mobile-android-pipelines/actions/generate-and-upload-changelog
+        with:
+          current-version: ${{ steps.versioning.outputs.current_version }}
+          new-version: ${{ steps.versioning.outputs.new_version }}
+          version-prefix: ${{ inputs.VERSION_PREFIX }}
+
+      - name: Clean workspace
+        uses: ./mobile-android-pipelines/actions/clean-workspace

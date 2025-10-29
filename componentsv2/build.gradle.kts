@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
@@ -23,8 +24,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     buildTypes {
@@ -122,11 +125,5 @@ mavenPublishingConfig {
 android {
     lint {
         baseline = file("lint-baseline.xml")
-    }
-}
-
-afterEvaluate {
-    tasks.named("testDebugUnitTest") {
-        finalizedBy("verifyPaparazziDebug")
     }
 }

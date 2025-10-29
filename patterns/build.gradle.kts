@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
@@ -6,6 +7,8 @@ plugins {
     alias(libs.plugins.paparazzi)
     id("kotlin-parcelize")
 }
+
+apply(from = rootProject.file("gradle/snapshot-test-filter.gradle.kts"))
 
 android {
     defaultConfig {
@@ -23,8 +26,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     buildTypes {
@@ -75,7 +80,6 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.material)
     implementation(project(":componentsv2"))
     implementation(project(":theme"))
 
@@ -122,11 +126,5 @@ mavenPublishingConfig {
 android {
     lint {
         baseline = file("lint-baseline.xml")
-    }
-}
-
-afterEvaluate {
-    tasks.named("testDebugUnitTest") {
-        finalizedBy("verifyPaparazziDebug")
     }
 }

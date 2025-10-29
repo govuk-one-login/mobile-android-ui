@@ -112,13 +112,13 @@ class DestructiveScreenAccessibilityTest {
             val semanticsNodes = onAllNodes(isRoot().not()).fetchSemanticsNodes()
 
             // root node is skipped due to no accessibility label (text or content description)
-            assertEquals(ERROR_SCREEN_TITLE_TEST_TAG, accessibilityLabel(semanticsNodes[1]))
+            assertEquals(ERROR_SCREEN_TITLE_TEST_TAG, accessibilityLabel(semanticsNodes[2]))
 
             // expected order:body, 3 buttons
-            assertEquals("[Body single line]", accessibilityLabel(semanticsNodes[2]))
-            assertEquals("[Primary Button]", accessibilityLabel(semanticsNodes[3]))
-            assertEquals("[Secondary Button]", accessibilityLabel(semanticsNodes[4]))
-            assertEquals("[Tertiary Button]", accessibilityLabel(semanticsNodes[5]))
+            assertEquals("[Body single line]", accessibilityLabel(semanticsNodes[3]))
+            assertEquals("[Primary Button]", accessibilityLabel(semanticsNodes[4]))
+            assertEquals("[Secondary Button]", accessibilityLabel(semanticsNodes[5]))
+            assertEquals("[Tertiary Button]", accessibilityLabel(semanticsNodes[6]))
         }
     }
 

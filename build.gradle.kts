@@ -23,11 +23,6 @@ buildscript {
         gradlePluginPortal()
         mavenCentral()
     }
-
-    // https://issuetracker.google.com/issues/380600747
-    dependencies {
-        classpath("org.bouncycastle:bcutil-jdk18on:1.80")
-    }
 }
 
 val apkConfig by rootProject.extra(
@@ -59,4 +54,5 @@ plugins {
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
 }
