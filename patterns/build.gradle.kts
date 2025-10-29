@@ -67,9 +67,11 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
+    implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.bundles.compose)
+    implementation(libs.bundles.qr.code.scanning)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)

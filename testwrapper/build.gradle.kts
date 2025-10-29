@@ -73,6 +73,8 @@ dependencies {
     implementation(project(":patterns"))
     implementation(libs.androidx.fragment.ktx)
 
+    testFixturesImplementation(libs.kotlin.stdlib)
+
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)

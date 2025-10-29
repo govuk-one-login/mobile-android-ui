@@ -1,8 +1,11 @@
 [versions]
+accompanist = "0.37.3" # https://github.com/google/accompanist/releases
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
 android-gradle = "8.8.2" # https://developer.android.com/studio/releases/gradle-plugin
+androidx-camera = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/camera
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-orchestrator = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
+androidx-test-rules = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/test
 appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
 archcore-testing = "2.2.0"
 compose = "2025.03.01"
@@ -12,6 +15,7 @@ core-ktx = "1.13.1"
 dagger = "2.56.1" # https://github.com/google/dagger/releases
 detekt-gradle = "1.23.8" # https://github.com/detekt/detekt/releases/tag/v1.23.6
 espresso = "3.6.1" # https://developer.android.com/jetpack/androidx/releases/test
+google-mlkit-barcode = "17.3.0" # https://developers.google.com/ml-kit/release-notes
 junit = "4.13.2" # https://github.com/junit-team/junit4/releases
 junit-bom = "5.11.4"
 kotlin = "2.1.20" # https://kotlinlang.org/docs/releases.html#release-details
@@ -33,6 +37,16 @@ android-build-tool = { group = "com.android.tools.build", name = "gradle", versi
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout-compose" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+# Camera
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
+androidx-camera-compose = { module = "androidx.camera:camera-compose", version.ref = "androidx-camera" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
+androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "androidx-camera" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidx-camera" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
+mlkit-barcode = { module = "com.google.mlkit:barcode-scanning", version.ref = "google-mlkit-barcode" }
 # Compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
@@ -47,6 +61,7 @@ androidx-compose-ui-testmanifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidx-test-orchestrator" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
 androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-android", version.ref = "ui-test-android" }
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "ui-test-android" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
@@ -73,6 +88,15 @@ androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", ve
 
 [bundles]
 compose = ["androidx-compose-material", "androidx-compose-material3", "androidx-compose-ui", "androidx-compose-ui-preview"]
+qr-code-scanning = [
+    "androidx-camera-camera2",
+    "androidx-camera-compose",
+    "androidx-camera-core",
+    "androidx-camera-extensions",
+    "androidx-camera-lifecycle",
+    "androidx-camera-view",
+    "mlkit-barcode",
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle" }
