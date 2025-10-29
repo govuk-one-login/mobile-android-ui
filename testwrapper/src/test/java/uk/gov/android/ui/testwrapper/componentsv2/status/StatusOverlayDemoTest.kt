@@ -17,7 +17,7 @@ class StatusOverlayDemoTest {
     fun testOverlay() {
         val buttonText = "Display overlay"
         composeTestRule.setContent {
-            StatusOverlayDemo {}
+            StatusOverlayDemo()
         }
         composeTestRule
             .onNodeWithText(text = buttonText, useUnmergedTree = true)

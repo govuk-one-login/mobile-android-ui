@@ -5,84 +5,176 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.MutableState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import kotlinx.collections.immutable.persistentListOf
-import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
-import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.dialogue.DialogueButtonParameters
-import uk.gov.android.ui.componentsv2.dialogue.GdsDialogue
-import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
-import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import uk.gov.android.ui.testwrapper.componentsv2.ComponentDetail
+import uk.gov.android.ui.testwrapper.componentsv2.Components
+import uk.gov.android.ui.testwrapper.componentsv2.ComponentsDestination
+import uk.gov.android.ui.testwrapper.componentsv2.dialogueItems
+import uk.gov.android.ui.testwrapper.componentsv2.listItems
+import uk.gov.android.ui.testwrapper.componentsv2.radioItems
+import uk.gov.android.ui.testwrapper.componentsv2.statusItems
+import uk.gov.android.ui.testwrapper.componentsv2.topAppBarItems
+import uk.gov.android.ui.testwrapper.patterns.Patterns
+import uk.gov.android.ui.testwrapper.patterns.PatternsDestination
+import uk.gov.android.ui.testwrapper.theme.Theme
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.smallPadding
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val displayTopAppBarDemo: MutableState<Boolean> = remember {
-                mutableStateOf(false)
-            }
-            var displayDialogue by remember { mutableStateOf(false) }
-            var menuTitleToDisplay by remember { mutableStateOf("") }
+            val navController = rememberNavController()
+            val startDestination = TabDestination.COMPONENTS
+            var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
+
             GdsTheme {
-                StatusOverlayDemo(menuTitleToDisplay = menuTitleToDisplay) {
-                    Column {
-                        GdsButton(
-                            text = stringResource(R.string.display_top_app_bar_demo),
-                            buttonType = ButtonTypeV2.Primary(),
-                            onClick = {
-                                displayTopAppBarDemo.value = !displayTopAppBarDemo.value
-                            }
-                        )
-                        Spacer(modifier = Modifier.height(spacingDouble))
-                        GdsButton(
-                            text = stringResource(R.string.dialogue_demo_button_launch),
-                            buttonType = ButtonTypeV2.Primary(),
-                            onClick = {
-                                displayDialogue = !displayDialogue
-                            }
-                        )
-                    }
-                }
-                if (displayTopAppBarDemo.value) {
-                    GdsTopAppBarDemo(
-                        dismiss = { displayTopAppBarDemo.value = false },
-                        onMenuSelect = { selectedMenuTitle ->
-                            menuTitleToDisplay = selectedMenuTitle
-                        }
-                    )
-                }
-                if (displayDialogue) {
-                    GdsDialogue(
-                        headingText = stringResource(R.string.dialogue_demo_title),
-                        contentText = stringResource(R.string.dialogue_demo_content),
-                        buttonParameters = persistentListOf(
-                            DialogueButtonParameters(
-                                buttonType = ButtonTypeV2.Secondary(),
-                                text = stringResource(R.string.dialogue_demo_button_dismiss),
-                                onClick = { displayDialogue = !displayDialogue },
-                            ),
-                            DialogueButtonParameters(
-                                buttonType = ButtonTypeV2.Primary(),
-                                text = stringResource(R.string.dialogue_demo_button_else),
-                                onClick = { displayDialogue = !displayDialogue },
-                            ),
-                        ),
+                Scaffold { contentPadding ->
+                    PrimaryTabRow(
+                        selectedTabIndex = selectedDestination,
+                        modifier = Modifier.padding(contentPadding)
                     ) {
-                        displayDialogue = !displayDialogue
+                        TabDestination.entries.forEachIndexed { index, destination ->
+                            Tab(
+                                selected = selectedDestination == index,
+                                onClick = {
+                                    navController.navigate(route = destination.route)
+                                    selectedDestination = index
+                                },
+                                text = {
+                                    Text(
+                                        text = destination.label,
+                                        maxLines = 2,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                            )
+                        }
+                    }
+                    AppNavHost(navController, startDestination)
+                }
+            }
+        }
+    }
+}
+
+enum class TabDestination(
+    val route: String,
+    val label: String
+) {
+    COMPONENTS("components", "Components (v2)"),
+    PATTERNS("patterns", "Patterns"),
+    THEME("theme", "Theme")
+}
+
+@Composable
+fun AppNavHost(
+    navController: NavHostController,
+    startDestination: TabDestination,
+    modifier: Modifier = Modifier
+) {
+    val tabPagesOffsetPadding = 50.dp
+    NavHost(
+        navController,
+        startDestination = startDestination.route
+    ) {
+        val mod = modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(top = tabPagesOffsetPadding)
+        TabDestination.entries.forEach { destination ->
+            composable(destination.route) {
+                when (destination) {
+                    TabDestination.COMPONENTS -> Components(mod, navController)
+                    TabDestination.PATTERNS -> Patterns(mod, navController)
+                    TabDestination.THEME -> Theme(mod)
+                }
+            }
+        }
+        ComponentsDestination.entries.forEach { destination ->
+            composable(destination.route) {
+                when (destination) {
+                    ComponentsDestination.LIST -> {
+                        ComponentListDetail(listItems, mod)
+                    }
+
+                    ComponentsDestination.INPUTS -> {
+                        ComponentListDetail(radioItems, mod)
+                    }
+
+                    ComponentsDestination.TOPAPPBAR -> {
+                        ComponentListDetail(topAppBarItems, mod)
+                    }
+
+                    ComponentsDestination.DIALOGUE -> {
+                        ComponentListDetail(dialogueItems, mod)
+                    }
+
+                    ComponentsDestination.STATUS -> {
+                        ComponentListDetail(statusItems, mod)
+                    }
+
+                    else -> {
+                        Placeholder(
+                            label = destination.label,
+                            modifier = mod.padding(smallPadding)
+                        )
                     }
                 }
             }
         }
+        PatternsDestination.entries.forEach { destination ->
+            composable(destination.route) {
+                Placeholder(
+                    label = destination.label,
+                    modifier = mod.padding(smallPadding)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ComponentListDetail(
+    items: List<DetailItem>,
+    modifier: Modifier
+) {
+    ListDetail(
+        items = items,
+        detail = { detailItem ->
+            ComponentDetail(detailItem)
+        },
+        modifier = modifier
+    )
+}
+
+@Composable
+fun Placeholder(label: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        Text("Add list / detail for $label")
     }
 }

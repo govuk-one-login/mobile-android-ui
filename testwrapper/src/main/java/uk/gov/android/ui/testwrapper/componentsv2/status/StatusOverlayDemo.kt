@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -24,29 +23,15 @@ import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
-import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
-import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
-import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.theme.largePadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StatusOverlayDemo(
-    menuTitleToDisplay: String = "",
-    content: @Composable () -> Unit
-) {
+fun StatusOverlayDemo() {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-
-    LaunchedEffect(menuTitleToDisplay) {
-        if (menuTitleToDisplay.isNotEmpty()) {
-            scope.launch {
-                statusOverlayState.showSnackbar(menuTitleToDisplay)
-            }
-        }
-    }
     Scaffold(
         snackbarHost = {
             GdsStatusOverlay(
@@ -80,22 +65,6 @@ fun StatusOverlayDemo(
                     modifier = Modifier.padding(bottom = smallPadding)
                 )
                 Spacer(modifier = Modifier.height(largePadding))
-                GdsBulletedListDemo(
-                    onTapped = { url ->
-                        scope.launch {
-                            statusOverlayState.showSnackbar("Url: $url")
-                        }
-                    })
-                Spacer(modifier = Modifier.height(largePadding))
-                content()
-                Spacer(modifier = Modifier.height(spacingDouble))
-                GdsRadiosDemo()
-                Spacer(modifier = Modifier.height(spacingDouble))
-                GdsNumberedListDemo { url ->
-                    scope.launch {
-                        statusOverlayState.showSnackbar("Url: $url")
-                    }
-                }
             }
         }
     }

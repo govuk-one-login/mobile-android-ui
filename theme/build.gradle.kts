@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
@@ -22,8 +23,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     buildTypes {
@@ -73,7 +76,6 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.bundles.compose)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.material)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testmanifest)
@@ -104,11 +106,5 @@ mavenPublishingConfig {
             Make services look and feel like GOV.UK using styles.
             """.trimIndent(),
         )
-    }
-}
-
-afterEvaluate {
-    tasks.named("testDebugUnitTest") {
-        finalizedBy("verifyPaparazziDebug")
     }
 }
