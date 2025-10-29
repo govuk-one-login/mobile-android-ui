@@ -33,8 +33,6 @@ sealed class BarcodeScanResult {
 
         fun isEmpty(): Boolean = barcodes.isEmpty()
 
-        fun <T> map(transform: (Barcode) -> T) = barcodes.map(transform)
-
         fun mapToUrlStrings(): List<String?> = filterByType(
             Barcode.TYPE_URL,
         ).map { it.url?.url }

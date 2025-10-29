@@ -16,7 +16,7 @@ class CameraContentViewModelTest {
     @Test
     fun useCasesAreStoredViaStateFlow() = runTest {
         model.addAll(
-            providePreviewUseCase(model).provide(),
+            providePreviewUseCase(model::update).provide(),
         )
         assertEquals(
             1,

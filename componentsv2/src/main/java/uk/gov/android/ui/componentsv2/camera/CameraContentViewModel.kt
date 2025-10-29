@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.camera
 
 import androidx.camera.core.Camera
-import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
 import androidx.camera.core.UseCase
 import androidx.camera.core.UseCaseGroup
@@ -10,19 +9,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class CameraContentViewModel : ViewModel(), Preview.SurfaceProvider {
+class CameraContentViewModel : ViewModel() {
     private val _surfaceRequestFlow = MutableStateFlow<SurfaceRequest?>(null)
     val surfaceRequestFlow: StateFlow<SurfaceRequest?> =
         _surfaceRequestFlow
 
     private val _camera = MutableStateFlow<Camera?>(null)
-    val camera: StateFlow<Camera?> = _camera
 
     private val _useCases = MutableStateFlow(UseCaseGroup.Builder())
 
     val useCasesBuilder: StateFlow<UseCaseGroup.Builder> = _useCases
 
-    override fun onSurfaceRequested(request: SurfaceRequest) {
+    fun getCurrentCamera(): Camera? = _camera.value
+
+    fun update(request: SurfaceRequest) {
         _surfaceRequestFlow.update { request }
     }
 
@@ -42,5 +42,6 @@ class CameraContentViewModel : ViewModel(), Preview.SurfaceProvider {
         _useCases.update {
             UseCaseGroup.Builder()
         }
+        _camera.update { null }
     }
 }

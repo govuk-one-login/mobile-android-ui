@@ -31,19 +31,20 @@ class CameraContentTest {
     @Test
     fun configuresCameraUseCases() = runTest {
         val state = StateRestorationTester(composeTestRule)
-        withContext(Dispatchers.Main) {
+        val useCases = withContext(Dispatchers.Main) {
             listOf(
-                providePreviewUseCase(model),
+                providePreviewUseCase(model::update),
                 provideBarcodeAnalysis(
                     options = provideQrScanningOptions(
-                        provideZoomOptions(model.camera.value),
+                        provideZoomOptions(model::getCurrentCamera),
                     ),
                 ),
             ).map(
                 CameraUseCaseProvider::provide,
-            ).let(model::addAll)
+            )
         }
         state.setContent {
+            model.addAll(useCases)
             CameraContent(
                 viewModel = model,
                 modifier = Modifier.fillMaxSize(),

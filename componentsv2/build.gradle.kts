@@ -66,7 +66,9 @@ dependencies {
     androidTestImplementation(composeBom)
     implementation(composeBom)
 
-    implementation(libs.accompanist.permissions)
+    api(libs.bundles.qr.code.scanning)
+    api(libs.accompanist.permissions)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.androidx.compose.material.icons)

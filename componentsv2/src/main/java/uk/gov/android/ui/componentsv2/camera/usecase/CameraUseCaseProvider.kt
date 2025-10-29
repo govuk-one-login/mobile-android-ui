@@ -49,13 +49,13 @@ fun interface CameraUseCaseProvider {
 
         @JvmStatic
         fun provideZoomOptions(
-            camera: Camera? = null,
+            camera: () -> Camera? = { null },
         ): ZoomSuggestionOptions =
             ZoomSuggestionOptions
                 .Builder { zoomRatio ->
-                    camera?.cameraControl?.setZoomRatio(zoomRatio)
+                    camera()?.cameraControl?.setZoomRatio(zoomRatio)
                     true
-                }.setMaxSupportedZoomRatio(camera?.provideMaxZoomRatio() ?: MAX_ZOOM_RATIO)
+                }.setMaxSupportedZoomRatio(camera()?.provideMaxZoomRatio() ?: MAX_ZOOM_RATIO)
                 .build()
 
         @JvmStatic
