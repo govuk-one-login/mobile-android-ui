@@ -69,6 +69,9 @@ dependencies {
     androidTestImplementation(composeBom)
     implementation(composeBom)
 
+    api(libs.bundles.qr.code.scanning)
+    api(libs.accompanist.permissions)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.androidx.compose.material.icons)
@@ -76,6 +79,7 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.bundles.qr.code.scanning)
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)
     implementation(project(":theme"))
@@ -84,11 +88,18 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testmanifest)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.mockito.android)
     androidTestUtil(libs.androidx.test.orchestrator)
 
+    testFixturesApi(libs.bundles.qr.code.scanning)
+    testFixturesApi(libs.androidx.ui.test.android)
+    testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.androidx.ui.test.junit4.android)
+
+    testImplementation(libs.androidx.test.rules)
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)

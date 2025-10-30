@@ -1,6 +1,5 @@
 package uk.gov.android.ui.testwrapper
 
-import android.os.Parcelable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,14 +19,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@Parcelize
-class DetailItem(val label: String, val name: String) : Parcelable
+@Serializable
+class DetailItem(val label: String, val name: String)
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable

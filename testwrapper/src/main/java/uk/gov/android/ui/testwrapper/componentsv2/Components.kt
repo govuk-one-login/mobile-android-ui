@@ -8,13 +8,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.testwrapper.DetailItem
+import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
@@ -24,40 +26,22 @@ import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-enum class ComponentsDestination(
-    val route: String,
-    val label: String
-) {
-    BUTTON("button", "Button"),
-    DIALOGUE("dialogue", "Dialogue"),
-    HEADING("heading", "Heading"),
-    IMAGES("images", "Images"),
-    INPUTS("inputs", "Inputs"),
-    LIST("list", "List"),
-    MENU("menu", "Menu"),
-    STATUS("status", "Status"),
-    SUPPORTING_TEXT("supportingtext", "Supporting Text"),
-    TEXT("text", "Text"),
-    TOPAPPBAR("topappbar", "Top App Bar"),
-    WARNING("warning", "Warning"),
-    CARD("card", "Card")
-}
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Components(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
-        items(ComponentsDestination.entries) { destination ->
+        items(ComponentsDestination.entries()) { destination: ComponentsDestination ->
             GdsHeading(
                 text = destination.label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
-                        navHostController.navigate(destination.route)
+                        onNavigate(destination)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
@@ -86,6 +70,10 @@ val statusItems = listOf(
     DetailItem(label = STATUS_OVERLAY, name = "Status Overlay")
 )
 
+val qrScanningItems = listOf(
+    DetailItem(label = QR_CODE_SCANNING, name = "QR scanning: Demo")
+)
+
 // Add new demo composables here
 @Composable
 fun ComponentDetail(detailItem: DetailItem) {
@@ -96,12 +84,17 @@ fun ComponentDetail(detailItem: DetailItem) {
         TOP_APP_BAR -> GdsTopAppBarDemo()
         DIALOGUE -> GdsDialogueDemo()
         STATUS_OVERLAY -> StatusOverlayDemo()
+        QR_CODE_SCANNING -> {
+            CameraContentDemo()
+        }
     }
 }
 
-private const val NUMBERED_LIST = "numList"
-private const val BULLETED_LIST = "bulList"
-private const val RADIO = "radio"
-private const val TOP_APP_BAR = "topAppBar"
-private const val DIALOGUE = "dialogue"
-private const val STATUS_OVERLAY = "StatusOverlay"
+const val NUMBERED_LIST = "numList"
+const val BULLETED_LIST = "bulList"
+const val RADIO = "radio"
+const val TOP_APP_BAR = "topAppBar"
+const val DIALOGUE = "dialogue"
+const val STATUS_OVERLAY = "StatusOverlay"
+
+const val QR_CODE_SCANNING = "QR Code Scanning"

@@ -10,40 +10,28 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-enum class PatternsDestination(
-    val route: String,
-    val label: String
-) {
-    CENTER_ALIGNED("centrealignedscreen", "Center Aligned Screen"),
-    DIALOG("dialog", "Dialog"),
-    ERROR("errorscreen", "Error Screen"),
-    LEFT_ALIGNED("leftalignedscreen", "Left Aligned Screen"),
-    LOADING("loadingscreen", "Loading Screen"),
-}
-
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Patterns(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
-        items(PatternsDestination.entries) { destination ->
+        items(PatternsDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
-                        navHostController.navigate(destination.route)
+                        onNavigate(destination)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
@@ -53,7 +41,3 @@ fun Patterns(
         }
     }
 }
-
-// Add new demo items here
-
-// Add new demo composables here

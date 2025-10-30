@@ -1,7 +1,8 @@
 #!/bin/sh
 
 echo "Checking commit message conforms to conventional commit template"
-commit_message="$1"
+# Removes comment lines from commit template
+commit_message="$($1 | sed '/^#/d')"
 # exit with a non zero exit code incase of an invalid commit message
 
 # use git-conventional-commits, see https://github.com/qoomon/git-conventional-commits
