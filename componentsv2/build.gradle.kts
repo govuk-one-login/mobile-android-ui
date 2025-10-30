@@ -95,7 +95,9 @@ dependencies {
     androidTestUtil(libs.androidx.test.orchestrator)
 
     testFixturesApi(libs.bundles.qr.code.scanning)
+    testFixturesApi(libs.androidx.ui.test.android)
     testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.androidx.ui.test.junit4.android)
 
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.androidx.ui.test.android)

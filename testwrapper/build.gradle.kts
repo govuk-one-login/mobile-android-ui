@@ -81,6 +81,8 @@ dependencies {
     implementation(libs.androidx.compose.adaptive.layout)
     implementation(libs.kotlinx.serialization.json)
 
+    testFixturesApi(testFixtures(projects.componentsv2))
+    testFixturesApi(libs.androidx.ui.test.junit4.android)
     testFixturesImplementation(libs.kotlin.stdlib)
 
     testImplementation(libs.androidx.ui.test.android)
@@ -93,9 +95,11 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(testFixtures(projects.componentsv2))
     androidTestUtil(libs.androidx.test.orchestrator)
 
     debugImplementation(libs.androidx.compose.ui.tooling)

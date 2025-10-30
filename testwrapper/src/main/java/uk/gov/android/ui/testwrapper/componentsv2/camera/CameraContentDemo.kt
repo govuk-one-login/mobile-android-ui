@@ -8,20 +8,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
-import kotlinx.coroutines.cancel
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.GdsIconButtonDefaults
 import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeScanResult
@@ -31,8 +28,6 @@ import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Compa
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideZoomOptions
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
-import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
-import uk.gov.android.ui.componentsv2.topappbar.TopAppBarAlignment
 import uk.gov.android.ui.testwrapper.R
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
@@ -87,11 +82,12 @@ fun CameraContentDemo(
                 CameraContent(
                     coroutineScope = coroutineScope,
                     viewModel = viewModel,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().testTag("cameraViewfinder")
                 )
             },
             onShowRationale = { launchPermission ->
                 GdsButton(
+                    modifier = Modifier.testTag("permissionRationaleButton"),
                     text = stringResource(
                         R.string.dialogue_demo_camera_permission_rationale
                     ),
@@ -103,6 +99,7 @@ fun CameraContentDemo(
             },
             onRequirePermission = { launchPermission ->
                 GdsButton(
+                    modifier = Modifier.testTag("permissionRequiredButton"),
                     text = stringResource(
                         R.string.dialogue_demo_camera_permission_required
                     ),

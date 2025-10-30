@@ -8,11 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import uk.gov.android.ui.testwrapper.TabDestination.Companion.applyTabDestinations
 import uk.gov.android.ui.testwrapper.componentsv2.ComponentsDestination.Companion.applyComponentDestinations
-import uk.gov.android.ui.testwrapper.patterns.PatternsDestination
-import uk.gov.android.ui.theme.smallPadding
+import uk.gov.android.ui.testwrapper.patterns.PatternsDestination.Companion.applyPatternDestinations
 
 @Composable
 fun AppNavHost(
@@ -32,14 +30,6 @@ fun AppNavHost(
 
         applyTabDestinations(modifier = mod, onNavigate = navController::navigate)
         applyComponentDestinations(modifier = mod)
-
-        PatternsDestination.entries.forEach { destination ->
-            composable(destination.route) {
-                Placeholder(
-                    label = destination.label,
-                    modifier = mod.padding(smallPadding)
-                )
-            }
-        }
+        applyPatternDestinations(modifier = mod)
     }
 }
