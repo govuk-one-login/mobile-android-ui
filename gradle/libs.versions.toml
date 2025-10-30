@@ -20,6 +20,7 @@ junit = "4.13.2" # https://github.com/junit-team/junit4/releases
 junit-bom = "5.11.4"
 kotlin = "2.2.21" # https://kotlinlang.org/docs/releases.html#release-details
 kotlinx-collections-immutable="0.3.8"
+kotlinx-serialization-json = "1.9.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 ktlint-cli = "0.49.1"
 ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 mockito = "5.17.0"
@@ -83,6 +84,7 @@ junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit-bom"
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint-gradle" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
@@ -113,4 +115,5 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }

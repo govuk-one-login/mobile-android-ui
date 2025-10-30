@@ -10,7 +10,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -25,41 +24,22 @@ import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-enum class ComponentsDestination(
-    val route: String,
-    val label: String
-) {
-    BUTTON("button", "Button"),
-    DIALOGUE("dialogue", "Dialogue"),
-    HEADING("heading", "Heading"),
-    IMAGES("images", "Images"),
-    INPUTS("inputs", "Inputs"),
-    LIST("list", "List"),
-    MENU("menu", "Menu"),
-    QR_SCANNING("QR scanning", "QR scanning"),
-    STATUS("status", "Status"),
-    SUPPORTING_TEXT("supportingtext", "Supporting Text"),
-    TEXT("text", "Text"),
-    TOPAPPBAR("topappbar", "Top App Bar"),
-    WARNING("warning", "Warning"),
-    CARD("card", "Card")
-}
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Components(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
-        items(ComponentsDestination.entries) { destination ->
+        items(ComponentsDestination.entries()) { destination: ComponentsDestination ->
             GdsHeading(
                 text = destination.label,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
-                        navHostController.navigate(destination.route)
+                        onNavigate(destination)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
@@ -106,11 +86,11 @@ fun ComponentDetail(detailItem: DetailItem) {
     }
 }
 
-private const val NUMBERED_LIST = "numList"
-private const val BULLETED_LIST = "bulList"
-private const val RADIO = "radio"
-private const val TOP_APP_BAR = "topAppBar"
-private const val DIALOGUE = "dialogue"
-private const val STATUS_OVERLAY = "StatusOverlay"
+const val NUMBERED_LIST = "numList"
+const val BULLETED_LIST = "bulList"
+const val RADIO = "radio"
+const val TOP_APP_BAR = "topAppBar"
+const val DIALOGUE = "dialogue"
+const val STATUS_OVERLAY = "StatusOverlay"
 
-private const val QR_CODE_SCANNING = "QR Code Scanning"
+const val QR_CODE_SCANNING = "QR Code Scanning"

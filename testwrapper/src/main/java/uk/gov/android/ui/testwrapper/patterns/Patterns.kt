@@ -32,7 +32,7 @@ enum class PatternsDestination(
 @Composable
 fun Patterns(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize()
@@ -43,7 +43,7 @@ fun Patterns(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
-                        navHostController.navigate(destination.route)
+                        onNavigate(destination.route)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
