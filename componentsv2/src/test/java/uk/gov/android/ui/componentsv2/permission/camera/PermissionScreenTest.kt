@@ -3,44 +3,42 @@ package uk.gov.android.ui.componentsv2.permission.camera
 import android.Manifest
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.test.rule.GrantPermissionRule
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.componentsv2.PermissionStateStubs
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
 
+@OptIn(ExperimentalPermissionsApi::class)
 @RunWith(RobolectricTestRunner::class)
 class PermissionScreenTest {
     @get:Rule
     val composeTestRule: ComposeContentTestRule = createComposeRule()
 
-    @get:Rule
-    val permissionsRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.CAMERA,
-    )
-
+    private val deniedUnhappyPathFailure = "The permission shouldn't be required!"
+    private val grantedUnhappyPathFailure = "The permission shouldn't have been granted!"
+    private val permanentlyDeniedUnhappyPathFailure =
+        "The permission shouldn't be permanently denied!"
+    private val permission = Manifest.permission.CAMERA
+    private val rationaleUnhappyPathFailure = "The rationale shouldn't have been shown!"
     private var hasReachedHappyPath = false
 
-    @OptIn(ExperimentalPermissionsApi::class)
     @Test
     fun grantedPermissionsDeferToOnGrantPermission() {
         composeTestRule.setContent {
             PermissionScreen(
-                permissionState = rememberPermissionState(Manifest.permission.CAMERA),
+                permissionState = PermissionStateStubs.granted(permission),
+                hasPreviouslyDeniedPermission = false,
                 onGrantPermission = {
                     hasReachedHappyPath = true
                 },
-                onRequirePermission = { launchPermission ->
-                    fail("The permission shouldn't be required!")
-                },
-                onShowRationale = {
-                    fail("The rationale shouldn't have been shown!")
-                },
+                onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
+                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
             )
         }
 
@@ -50,24 +48,104 @@ class PermissionScreenTest {
         )
     }
 
-    @OptIn(ExperimentalPermissionsApi::class)
     @Test
-    fun ungrantedPermissionsDeferToOnRequirePermission() {
+    fun secondarilyRequestedPermissionsDeferToShowingTheRationale() {
         composeTestRule.setContent {
             PermissionScreen(
-                permissionState = rememberPermissionState(Manifest.permission.BLUETOOTH),
-                onGrantPermission = {
-                    fail("The permission shouldn't have been granted!")
-                },
-                onRequirePermission = { launchPermission ->
+                permissionState =
+                PermissionStateStubs.rationale(permission),
+                hasPreviouslyDeniedPermission = false,
+                onGrantPermission = { fail(grantedUnhappyPathFailure) },
+                onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
+                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { launchPermission ->
                     hasReachedHappyPath = true
-                },
-                onShowRationale = {
-                    fail("The rationale shouldn't have been shown!")
                 },
             )
         }
 
         assertTrue("The permission should have been required!", hasReachedHappyPath)
+    }
+
+    @Test
+    fun ungrantedPermissionsDeferToOnRequirePermission() {
+        composeTestRule.setContent {
+            PermissionScreen(
+                permissionState = PermissionStateStubs.denied(permission),
+                hasPreviouslyDeniedPermission = false,
+                onGrantPermission = { fail(grantedUnhappyPathFailure) },
+                onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
+                onRequirePermission = { launchPermission ->
+                    hasReachedHappyPath = true
+                },
+                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+            )
+        }
+
+        assertTrue("The permission should have been required!", hasReachedHappyPath)
+    }
+
+    @Test
+    fun permanentlyDeniedPermissionsRelyOnOuterBooleanFlagAndDeniedStatus() {
+        composeTestRule.setContent {
+            PermissionScreen(
+                permissionState = PermissionStateStubs.denied(permission),
+                hasPreviouslyDeniedPermission = true,
+                onGrantPermission = { fail(grantedUnhappyPathFailure) },
+                onPermissionPermanentlyDenied = {
+                    hasReachedHappyPath = true
+                },
+                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+            )
+        }
+
+        assertTrue("The permission should have been required!", hasReachedHappyPath)
+    }
+
+    @Test
+    fun callingLaunchPermissionViaRequiredPermission() {
+        composeTestRule.setContent {
+            PermissionScreen(
+                permissionState = PermissionStateStubs.denied(permission) {
+                    hasReachedHappyPath = true
+                },
+                hasPreviouslyDeniedPermission = false,
+                onGrantPermission = { fail(grantedUnhappyPathFailure) },
+                onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
+                onRequirePermission = { launchPermission ->
+                    launchPermission()
+                },
+                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+            )
+        }
+
+        assertTrue(
+            "The hoisted lambda should've been called via `onRequirePermission`!",
+            hasReachedHappyPath,
+        )
+    }
+
+    @Test
+    fun callingLaunchPermissionViaPermissionRationale() {
+        composeTestRule.setContent {
+            PermissionScreen(
+                permissionState = PermissionStateStubs.rationale(permission) {
+                    hasReachedHappyPath = true
+                },
+                hasPreviouslyDeniedPermission = false,
+                onGrantPermission = { fail(grantedUnhappyPathFailure) },
+                onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
+                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { launchPermission ->
+                    launchPermission()
+                },
+            )
+        }
+
+        assertTrue(
+            "The hoisted lambda should've been called via `onShowRationale`!",
+            hasReachedHappyPath,
+        )
     }
 }

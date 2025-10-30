@@ -18,4 +18,5 @@
     <string name="dialogue_demo_barcode_button_launch" translatable="false">Display Barcode Dialogue</string>
     <string name="dialogue_demo_camera_permission_rationale" translatable="false">Request camera permission via rationale</string>
     <string name="dialogue_demo_camera_permission_required" translatable="false">Request camera permission</string>
+    <string name="dialogue_demo_camera_open_permissions" translatable="false">Open app permissions</string>
 </resources>

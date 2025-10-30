@@ -1,6 +1,9 @@
 package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -8,12 +11,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
@@ -32,14 +41,23 @@ import uk.gov.android.ui.testwrapper.R
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun CameraContentDemo(
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val permissionState = rememberPermissionState(Manifest.permission.CAMERA)
+    val (
+        hasPreviouslyDeniedPermission,
+        onUpdatePreviouslyDeniedPermission,
+    ) = remember { mutableStateOf(false) }
+
+    val permissionState = rememberPermissionState(Manifest.permission.CAMERA) {
+        onUpdatePreviouslyDeniedPermission(!it)
+    }
     val viewModel = viewModel<CameraContentViewModel>()
+    val context = LocalContext.current
     viewModel.removeUseCases()
 
     listOf(
@@ -78,11 +96,41 @@ fun CameraContentDemo(
     ) {
         PermissionScreen(
             permissionState = permissionState,
+            hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
             onGrantPermission = {
                 CameraContent(
                     coroutineScope = coroutineScope,
                     viewModel = viewModel,
-                    modifier = Modifier.fillMaxSize().testTag("cameraViewfinder")
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .testTag("cameraViewfinder")
+                )
+            },
+            onPermissionPermanentlyDenied = {
+                Text(
+                    text = "${permissionState.permission} is permanently denied.\n\n" +
+                            "Please update your app settings.",
+                    textAlign = TextAlign.Center,
+                )
+
+                GdsButton(
+                    modifier = Modifier.testTag("permissionRationaleButton"),
+                    text = stringResource(
+                        R.string.dialogue_demo_camera_open_permissions
+                    ),
+                    buttonType = ButtonTypeV2.Primary(),
+                    onClick = {
+                        val intent = Intent(
+                            ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.fromParts(
+                                "package",
+                                context.packageName,
+                                null,
+                            )
+                        )
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                    },
                 )
             },
             onShowRationale = { launchPermission ->

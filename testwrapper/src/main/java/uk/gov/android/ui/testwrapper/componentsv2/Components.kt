@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
@@ -82,7 +84,9 @@ fun ComponentDetail(detailItem: DetailItem) {
         TOP_APP_BAR -> GdsTopAppBarDemo()
         DIALOGUE -> GdsDialogueDemo()
         STATUS_OVERLAY -> StatusOverlayDemo()
-        QR_CODE_SCANNING -> CameraContentDemo()
+        QR_CODE_SCANNING -> {
+            CameraContentDemo()
+        }
     }
 }
 
