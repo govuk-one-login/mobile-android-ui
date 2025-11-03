@@ -6,6 +6,21 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.shouldShowRationale
 
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun PermissionScreen(
+    permissionState: PermissionState,
+    logic: PermissionLogic,
+    hasPreviouslyDeniedPermission: Boolean = false,
+) = PermissionScreen(
+    hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
+    onGrantPermission = logic.onGrantPermission,
+    onPermissionPermanentlyDenied = logic.onPermissionPermanentlyDenied,
+    onRequirePermission = logic.onRequirePermission,
+    onShowRationale = logic.onShowRationale,
+    permissionState = permissionState,
+)
+
 /**
  * Composable wrapper for handling runtime permission request logic within an app.
  *

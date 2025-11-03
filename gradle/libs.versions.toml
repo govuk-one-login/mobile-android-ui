@@ -47,6 +47,7 @@ androidx-camera-compose = { module = "androidx.camera:camera-compose", version.r
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
 androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "androidx-camera" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidx-camera" }
+androidx-camera-mlkit-vision = { module = "androidx.camera:camera-mlkit-vision", version.ref = "androidx-camera" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
 androidx-camera-viewfinder-compose = { module = "androidx.camera.viewfinder:viewfinder-compose", version.ref = "androidx-camera" }
 mlkit-barcode = { module = "com.google.mlkit:barcode-scanning", version.ref = "google-mlkit-barcode" }
@@ -102,6 +103,7 @@ qr-code-scanning = [
     "androidx-camera-core",
     "androidx-camera-extensions",
     "androidx-camera-lifecycle",
+    "androidx-camera-mlkit-vision",
     "androidx-camera-view",
     "androidx-camera-viewfinder-compose",
     "mlkit-barcode",

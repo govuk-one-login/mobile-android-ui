@@ -12,37 +12,32 @@ import com.google.mlkit.vision.common.InputImage
 class BarcodeImageAnalyzer(
     options: BarcodeScannerOptions,
     private val onResult: (BarcodeScanResult) -> Unit = {},
+    private val converter: (ImageProxy) -> InputImage? = { null },
 ) : ImageAnalysis.Analyzer {
 
     private val scanner = BarcodeScanning.getClient(options)
 
     @OptIn(ExperimentalGetImage::class)
     override fun analyze(imageProxy: ImageProxy) {
-        if (imageProxy.hasImage()) {
-            val inputImage =
-                InputImage.fromMediaImage(
-                    imageProxy.image!!,
-                    imageProxy.imageInfo.rotationDegrees,
-                )
+        converter(imageProxy)
+            ?.let { inputImage ->
+                scanner
+                    .process(inputImage)
+                    .addOnSuccessListener { barcodeList ->
+                        val validBarcodes = barcodeList.filter {
+                            true
+                        }
 
-            scanner
-                .process(inputImage)
-                .addOnSuccessListener { barcodeList ->
-                    onResult(BarcodeScanResult.Success(barcodeList))
-                }.addOnFailureListener {
-                    // This failure occurs if the barcode scanning model
-                    // fails to download from Google Play Services
-                    onResult(BarcodeScanResult.Failure(it))
-                }.addOnCompleteListener {
-                    // When the image is from CameraX analysis use case, must
-                    // call image.close() on received images when finished
-                    // using them. Otherwise, the scanner may not receive new images
-                    // or the camera may stall.
-                    imageProxy.image?.close()
-                    imageProxy.close()
-                }
-        }
+                        if (validBarcodes.isEmpty()) {
+                            BarcodeScanResult.EmptyScan
+                        } else {
+                            BarcodeScanResult.Success(validBarcodes)
+                        }.let(onResult::invoke)
+                    }.addOnFailureListener {
+                        onResult(BarcodeScanResult.Failure(it))
+                    }.addOnCompleteListener {
+                        imageProxy.close()
+                    }
+            } ?: imageProxy.close()
     }
-
-    private fun ImageProxy.hasImage(): Boolean = image != null
 }

@@ -12,10 +12,7 @@ import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideBarcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.providePreviewUseCase
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideQrScanningOptions
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideZoomOptions
 
 class CameraContentTest {
     @get:Rule
@@ -34,11 +31,6 @@ class CameraContentTest {
         val useCases = withContext(Dispatchers.Main) {
             listOf(
                 providePreviewUseCase(model::update),
-                provideBarcodeAnalysis(
-                    options = provideQrScanningOptions(
-                        provideZoomOptions(model::getCurrentCamera),
-                    ),
-                ),
             ).map(
                 CameraUseCaseProvider::provide,
             )

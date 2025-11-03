@@ -39,7 +39,7 @@ sealed class BarcodeScanResult {
     }
 
     data class Failure(
-        val e: Exception,
+        val e: Throwable,
     ) : BarcodeScanResult() {
         val message: String? = e.message
     }
