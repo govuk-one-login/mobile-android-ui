@@ -4,4 +4,8 @@
     <string name="error_icon_description">Error</string>
     <string name="warning_icon_description">Warning</string>
     <string name="loading">Loading</string>
+
+    <!-- QR Scanner Screen -->
+    <string name="qr_scan_screen_title" translatable="false">@string/position_qr_in_frame_below</string>
+    <string name="position_qr_in_frame_below">Position the QR code in the frame below</string>
 </resources>
