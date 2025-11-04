@@ -6,7 +6,7 @@ import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.providePreviewUseCase
+import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.preview
 
 @RunWith(RobolectricTestRunner::class)
 class CameraContentViewModelTest {
@@ -16,7 +16,7 @@ class CameraContentViewModelTest {
     @Test
     fun useCasesAreStoredViaStateFlow() = runTest {
         model.addAll(
-            providePreviewUseCase(model::update).provide(),
+            preview(model::update).provide(),
         )
         assertEquals(
             1,

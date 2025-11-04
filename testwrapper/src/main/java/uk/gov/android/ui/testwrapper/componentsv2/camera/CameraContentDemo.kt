@@ -2,7 +2,6 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Intent
-import android.graphics.Rect
 import android.net.Uri
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.util.Log
@@ -42,13 +41,12 @@ import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeScanResult
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideBarcodeAnalysis
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.providePreviewUseCase
+import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.barcodeAnalysis
+import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.preview
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.provideZoomOptions
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
 import uk.gov.android.ui.testwrapper.R
-import uk.gov.android.ui.testwrapper.componentsv2.camera.CANVAS_HEIGHT_MULTIPLIER
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -74,8 +72,8 @@ fun CameraContentDemo(
     viewModel.removeUseCases()
 
     listOf(
-        providePreviewUseCase(viewModel::update),
-        provideBarcodeAnalysis(
+        preview(viewModel::update),
+        barcodeAnalysis(
             context = context,
             options = provideQrScanningOptions(
                 provideZoomOptions(viewModel::getCurrentCamera)
