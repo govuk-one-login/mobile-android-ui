@@ -19,11 +19,12 @@ object BarcodeUseCaseProviders {
     @JvmStatic
     fun barcodeAnalysis(
         context: Context,
+        backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
         converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
             relativeScanningWidth = IMAGE_WIDTH_CROP_MULTIPLIER,
         ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
-        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback {},
+        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },
     ): CameraUseCaseProvider {
         val analyzer = BarcodeImageAnalyzer(
             options = options,
@@ -33,7 +34,7 @@ object BarcodeUseCaseProviders {
 
         return CameraUseCaseProvider.imageAnalysis(
             analyzer = analyzer,
-            backpressureStrategy = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
+            backpressureStrategy = backpressureStrategy,
             executor = ContextCompat.getMainExecutor(context),
             outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
         )

@@ -4,7 +4,7 @@ import android.util.Log
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
 
 data object BarcodeScanResultLoggingCallback : BarcodeScanResult.Callback {
-    override fun onResult(result: BarcodeScanResult) {
+    override fun onResult(result: BarcodeScanResult, toggleScanner: () -> Unit) {
         when (result) {
             BarcodeScanResult.EmptyScan -> "Barcode data not found"
             is BarcodeScanResult.Success ->
@@ -19,6 +19,8 @@ data object BarcodeScanResultLoggingCallback : BarcodeScanResult.Callback {
                 this::class.java.simpleName,
                 "Barcode scanning result: $logMessage",
             )
+        }.also {
+            toggleScanner()
         }
     }
 }

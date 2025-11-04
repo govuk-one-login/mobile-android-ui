@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import kotlinx.coroutines.launch
 import uk.gov.android.ui.testwrapper.TabDestination.Companion.applyTabDestinations
 import uk.gov.android.ui.testwrapper.componentsv2.ComponentsDestination.Companion.applyComponentDestinations
 import uk.gov.android.ui.testwrapper.patterns.PatternsDestination.Companion.applyPatternDestinations
@@ -19,6 +21,7 @@ fun AppNavHost(
     modifier: Modifier = Modifier,
 ) {
     val tabPagesOffsetPadding = 50.dp
+    val scope = rememberCoroutineScope()
     NavHost(
         navController,
         modifier = modifier,
@@ -30,7 +33,13 @@ fun AppNavHost(
             .padding(top = tabPagesOffsetPadding)
 
         applyTabDestinations(modifier = mod, onNavigate = navController::navigate)
-        applyComponentDestinations(modifier = mod)
+        applyComponentDestinations(
+            modifier = mod,
+            onNavigate = {
+                scope.launch {
+                    navController.navigate(it)
+                }
+            })
         applyPatternDestinations(modifier = mod)
     }
 }

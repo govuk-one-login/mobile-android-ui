@@ -1,6 +1,11 @@
 package uk.gov.android.ui.testwrapper.componentsv2
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -9,8 +14,10 @@ import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.ComponentListDetail
 import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.Placeholder
+import uk.gov.android.ui.testwrapper.componentsv2.camera.qr.QrScannerResult
 import uk.gov.android.ui.testwrapper.navigation.navTypeOf
 import uk.gov.android.ui.theme.smallPadding
+import uk.gov.android.ui.theme.spacingDouble
 import kotlin.reflect.typeOf
 
 @Serializable
@@ -44,6 +51,7 @@ sealed class ComponentsDestination(
     companion object {
         fun NavGraphBuilder.applyComponentDestinations(
             modifier: Modifier = Modifier,
+            onNavigate: (Any) -> Unit = {},
         ) {
             composable<Placeholder> { navBackStackEntry ->
                 val arguments: Placeholder = navBackStackEntry.toRoute()
@@ -51,11 +59,28 @@ sealed class ComponentsDestination(
                     label = arguments.label, modifier = modifier.padding(smallPadding)
                 )
             }
+            composable<QrScannerResult> { navBackStackEntry ->
+                val arguments: QrScannerResult = navBackStackEntry.toRoute()
+
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = modifier.fillMaxSize(),
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(spacingDouble)
+                    ) {
+                        Text("URL obtained from barcode:")
+                        Text(arguments.url)
+                    }
+                }
+            }
             composable<DetailedItem>(typeMap = DetailedItem.typeMap) { navBackStackEntry ->
                 val arguments: DetailedItem = navBackStackEntry.toRoute()
                 ComponentListDetail(
                     items = arguments.items,
                     modifier = modifier,
+                    onNavigate = onNavigate,
                 )
             }
         }
@@ -66,8 +91,12 @@ sealed class ComponentsDestination(
                 text = "Camera",
                 items = listOf(
                     DetailItem(label = CAMERA_CONTENT, name = "Camera Content: Demo"),
-                    DetailItem(label = QR_CODE_SCANNING, name = "QR scanning: Demo"),
-                )
+                    DetailItem(
+                        label = QR_CODE_CENTRALISED_SCANNING,
+                        name = QR_CODE_CENTRALISED_SCANNING
+                    ),
+                    DetailItem(label = QR_CODE_SCANNING, name = QR_CODE_SCANNING),
+                ).sortedBy(DetailItem::label)
             ),
             DetailedItem(
                 text = "Dialogue",

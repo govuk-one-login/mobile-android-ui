@@ -7,12 +7,16 @@ import uk.gov.android.ui.testwrapper.componentsv2.ComponentDetail
 @Composable
 fun ComponentListDetail(
     items: List<DetailItem>,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
+    onNavigate: (Any) -> Unit = {},
 ) {
     ListDetail(
         items = items,
         detail = { detailItem ->
-            ComponentDetail(detailItem)
+            ComponentDetail(
+                detailItem,
+                onNavigate,
+            )
         },
         modifier = modifier
     )

@@ -2,6 +2,7 @@ package uk.gov.android.ui.patterns.camera.qr
 
 import android.Manifest
 import android.content.Context
+import androidx.camera.core.ImageAnalysis
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
+import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
@@ -50,11 +52,15 @@ fun QrScannerScreen(
     barcodeAnalysisCallback: BarcodeScanResult.Callback,
     viewModel: CameraContentViewModel,
     modifier: Modifier = Modifier,
+    backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
+    scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
+    converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
+        relativeScanningWidth = scanningWidthMultiplier,
+    ),
     instructionText: String = stringResource(R.string.qr_scan_screen_title),
     onPermanentCameraDenial: @Composable ((PermissionState) -> Unit) = { _ -> },
     onShowRationale: @Composable ((PermissionState, () -> Unit) -> Unit) = { _, _ -> },
     onRequirePermission: @Composable ((PermissionState, () -> Unit) -> Unit) = { _, _ -> },
-    scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
@@ -73,13 +79,12 @@ fun QrScannerScreen(
     listOf(
         preview(viewModel::update),
         barcodeAnalysis(
+            backpressureStrategy = backpressureStrategy,
             context = context,
             options = provideQrScanningOptions(
                 provideZoomOptions(viewModel::getCurrentCamera),
             ),
-            converter = CentrallyCroppedImageProxyConverter(
-                relativeScanningWidth = scanningWidthMultiplier,
-            ),
+            converter = converter,
             callback = barcodeAnalysisCallback,
         ),
     ).map(CameraUseCaseProvider::provide)

@@ -46,7 +46,17 @@ sealed class BarcodeScanResult {
 
     data object EmptyScan : BarcodeScanResult()
 
+    /**
+     * Functional interface for encapsulating (hiding) behaviour on a provided [BarcodeScanResult].
+     *
+     * @param result The [BarcodeScanResult] to perform behaviour on, such as validation or
+     * transformation.
+     * @param toggleScanner The lambda call that can re-enable the
+     * [androidx.camera.core.ImageAnalysis.Analyzer] implementation calling this function.
+     *
+     * @sample BarcodeImageAnalyzer
+     */
     fun interface Callback {
-        fun onResult(result: BarcodeScanResult)
+        fun onResult(result: BarcodeScanResult, toggleScanner: () -> Unit)
     }
 }
