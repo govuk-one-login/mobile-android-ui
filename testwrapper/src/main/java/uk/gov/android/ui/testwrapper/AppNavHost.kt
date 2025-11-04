@@ -21,9 +21,10 @@ fun AppNavHost(
     val tabPagesOffsetPadding = 50.dp
     NavHost(
         navController,
+        modifier = modifier,
         startDestination = startDestination
     ) {
-        val mod = modifier
+        val mod = Modifier
             .statusBarsPadding()
             .navigationBarsPadding()
             .padding(top = tabPagesOffsetPadding)
