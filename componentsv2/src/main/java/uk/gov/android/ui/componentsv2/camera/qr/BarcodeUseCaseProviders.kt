@@ -10,7 +10,8 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.ZoomSuggestionOptions
 import com.google.mlkit.vision.barcode.common.Barcode
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter.Companion.RELATIVE_SCANNING_WIDTH_FULL
+import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
+import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter.Companion.IMAGE_WIDTH_CROP_MULTIPLIER
 
 object BarcodeUseCaseProviders {
 
@@ -18,16 +19,16 @@ object BarcodeUseCaseProviders {
     @JvmStatic
     fun barcodeAnalysis(
         context: Context,
-        relativeScanningWidth: Float = RELATIVE_SCANNING_WIDTH_FULL,
+        converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
+            relativeScanningWidth = IMAGE_WIDTH_CROP_MULTIPLIER,
+        ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
         callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback {},
     ): CameraUseCaseProvider {
         val analyzer = BarcodeImageAnalyzer(
             options = options,
             callback = callback,
-            converter = CentrallyCroppedImageProxyConverter(
-                relativeScanningWidth = relativeScanningWidth,
-            ),
+            converter = converter,
         )
 
         return CameraUseCaseProvider.imageAnalysis(

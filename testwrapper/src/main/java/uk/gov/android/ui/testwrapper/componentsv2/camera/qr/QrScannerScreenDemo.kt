@@ -1,4 +1,4 @@
-package uk.gov.android.ui.testwrapper.componentsv2.camera
+package uk.gov.android.ui.testwrapper.componentsv2.camera.qr
 
 import android.Manifest
 import android.content.Context
@@ -14,23 +14,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
-import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
+import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
+import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
+import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.qrScannerOverlay
+import uk.gov.android.ui.testwrapper.componentsv2.camera.BarcodeScanResultLoggingCallback
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraPermissionRationaleButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraRequirePermissionButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.PermanentCameraDenial
@@ -41,8 +44,9 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
-fun CameraContentDemo(
+fun QrScannerScreenDemo(
     modifier: Modifier = Modifier,
+    scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
@@ -66,11 +70,29 @@ fun CameraContentDemo(
             options = provideQrScanningOptions(
                 provideZoomOptions(viewModel::getCurrentCamera)
             ),
+            converter = CentrallyCroppedImageProxyConverter(
+                relativeScanningWidth = scanningWidthMultiplier,
+            ),
             callback = BarcodeScanResultLoggingCallback,
-            converter = ImageProxyConverter.simple(),
         )
     ).map(CameraUseCaseProvider::provide)
         .let(viewModel::addAll)
+
+    val onPermanentCameraDenial: @Composable (permissionState: PermissionState) -> Unit = { state ->
+        PermanentCameraDenial(state, context)
+    }
+    val onShowRationale: @Composable (
+        permissionState: PermissionState,
+        launchPermission: () -> Unit
+    ) -> Unit = { _, launchPermission ->
+        CameraPermissionRationaleButton(launchPermission = launchPermission)
+    }
+    val onRequirePermission: @Composable (
+        permissionState: PermissionState,
+        launchPermission: () -> Unit
+    ) -> Unit = { _, launchPermission ->
+        CameraRequirePermissionButton(launchPermission = launchPermission)
+    }
 
     val permissionLogic = PermissionLogic(
         onGrantPermission = {
@@ -80,17 +102,16 @@ fun CameraContentDemo(
                 modifier = Modifier
                     .fillMaxSize()
                     .testTag("cameraViewfinder")
+                    .qrScannerOverlay(
+                        canvasWidthMultiplier = scanningWidthMultiplier,
+                        overlayTint = colorScheme.qrScannerOverlayBackground,
+                        qrBorderColor = colorScheme.qrScannerOverlayBorder,
+                    )
             )
         },
-        onPermissionPermanentlyDenied = { state ->
-            PermanentCameraDenial(state, context)
-        },
-        onShowRationale = { _, launchPermission ->
-            CameraPermissionRationaleButton(launchPermission = launchPermission)
-        },
-        onRequirePermission = { _, launchPermission ->
-            CameraRequirePermissionButton(launchPermission = launchPermission)
-        }
+        onPermissionPermanentlyDenied = onPermanentCameraDenial,
+        onShowRationale = onShowRationale,
+        onRequirePermission = onRequirePermission,
     )
 
     Column(

@@ -21,7 +21,7 @@ import kotlin.math.floor
  * the output image's size.
  */
 class CentrallyCroppedImageProxyConverter(
-    private val relativeScanningWidth: Float = RELATIVE_SCANNING_WIDTH_FULL,
+    private val relativeScanningWidth: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
 ) : ImageProxyConverter {
     @OptIn(ExperimentalGetImage::class)
     override fun convert(proxy: ImageProxy): InputImage? = proxy.image?.let { image ->
@@ -159,7 +159,7 @@ class CentrallyCroppedImageProxyConverter(
 
     companion object {
         const val NV21_CROP_RECT_MULTIPLIER = 1.5
-        const val RELATIVE_SCANNING_WIDTH_FULL = 1f
+        const val IMAGE_WIDTH_CROP_MULTIPLIER = .6f
         const val SINGLE_PIXEL_STRIDE = 1
         const val YUV_BYTE_ARRAY_MULTIPLIER = 2
         const val YUV_SIZING_SPLIT = 4

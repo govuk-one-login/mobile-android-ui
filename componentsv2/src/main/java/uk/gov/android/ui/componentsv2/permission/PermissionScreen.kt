@@ -35,20 +35,28 @@ fun PermissionScreen(
     permissionState: PermissionState,
     hasPreviouslyDeniedPermission: Boolean = false,
     onGrantPermission: @Composable () -> Unit = {},
-    onPermissionPermanentlyDenied: @Composable () -> Unit = {},
-    onRequirePermission: @Composable (launchPermission: () -> Unit) -> Unit = {},
-    onShowRationale: @Composable (launchPermission: () -> Unit) -> Unit = {},
+    onPermissionPermanentlyDenied: @Composable (
+        permissionState: PermissionState,
+    ) -> Unit = { _ -> },
+    onRequirePermission: @Composable (
+        permissionState: PermissionState,
+        launchPermission: () -> Unit,
+    ) -> Unit = { _, _ -> },
+    onShowRationale: @Composable (
+        permissionState: PermissionState,
+        launchPermission: () -> Unit,
+    ) -> Unit = { _, _ -> },
 ) {
     when {
         permissionState.status.isGranted -> onGrantPermission()
         permissionState.status.shouldShowRationale ->
-            onShowRationale {
+            onShowRationale(permissionState) {
                 permissionState.launchPermissionRequest()
             }
         permissionState.isPermanentlyDenied(hasPreviouslyDeniedPermission) ->
-            onPermissionPermanentlyDenied()
+            onPermissionPermanentlyDenied(permissionState)
         else -> {
-            onRequirePermission {
+            onRequirePermission(permissionState) {
                 permissionState.launchPermissionRequest()
             }
         }

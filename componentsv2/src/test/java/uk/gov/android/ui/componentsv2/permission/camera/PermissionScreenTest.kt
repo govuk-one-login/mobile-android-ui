@@ -37,8 +37,8 @@ class PermissionScreenTest {
                     hasReachedHappyPath = true
                 },
                 onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
-                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
-                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+                onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
             )
         }
 
@@ -57,8 +57,8 @@ class PermissionScreenTest {
                 hasPreviouslyDeniedPermission = false,
                 onGrantPermission = { fail(grantedUnhappyPathFailure) },
                 onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
-                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
-                onShowRationale = { launchPermission ->
+                onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission ->
                     hasReachedHappyPath = true
                 },
             )
@@ -75,10 +75,10 @@ class PermissionScreenTest {
                 hasPreviouslyDeniedPermission = false,
                 onGrantPermission = { fail(grantedUnhappyPathFailure) },
                 onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
-                onRequirePermission = { launchPermission ->
+                onRequirePermission = { _, launchPermission ->
                     hasReachedHappyPath = true
                 },
-                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
             )
         }
 
@@ -95,8 +95,8 @@ class PermissionScreenTest {
                 onPermissionPermanentlyDenied = {
                     hasReachedHappyPath = true
                 },
-                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
-                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+                onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
             )
         }
 
@@ -113,10 +113,10 @@ class PermissionScreenTest {
                 hasPreviouslyDeniedPermission = false,
                 onGrantPermission = { fail(grantedUnhappyPathFailure) },
                 onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
-                onRequirePermission = { launchPermission ->
+                onRequirePermission = { _, launchPermission ->
                     launchPermission()
                 },
-                onShowRationale = { launchPermission -> fail(rationaleUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
             )
         }
 
@@ -136,8 +136,8 @@ class PermissionScreenTest {
                 hasPreviouslyDeniedPermission = false,
                 onGrantPermission = { fail(grantedUnhappyPathFailure) },
                 onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
-                onRequirePermission = { launchPermission -> fail(deniedUnhappyPathFailure) },
-                onShowRationale = { launchPermission ->
+                onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
+                onShowRationale = { _, launchPermission ->
                     launchPermission()
                 },
             )
