@@ -84,9 +84,8 @@ fun ComponentDetail(detailItem: DetailItem) {
         TOP_APP_BAR -> GdsTopAppBarDemo()
         DIALOGUE -> GdsDialogueDemo()
         STATUS_OVERLAY -> StatusOverlayDemo()
-        QR_CODE_SCANNING -> {
-            CameraContentDemo()
-        }
+        CAMERA_CONTENT -> CameraContentDemo()
+        QR_CODE_SCANNING -> CameraContentDemo()
     }
 }
 
@@ -97,4 +96,5 @@ const val TOP_APP_BAR = "topAppBar"
 const val DIALOGUE = "dialogue"
 const val STATUS_OVERLAY = "StatusOverlay"
 
+const val CAMERA_CONTENT = "Camera Content"
 const val QR_CODE_SCANNING = "QR Code Scanning"

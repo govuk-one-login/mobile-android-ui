@@ -8,6 +8,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeSourceStub.Companion.asUrlBarcodes
+import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
 
 @RunWith(RobolectricTestRunner::class)
 class BarcodeScanResultTest {

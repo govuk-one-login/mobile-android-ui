@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.camera.analyzer
+package uk.gov.android.ui.componentsv2.camera
 
 import androidx.annotation.OptIn
 import androidx.camera.core.ExperimentalGetImage

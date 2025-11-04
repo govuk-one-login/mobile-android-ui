@@ -110,6 +110,8 @@ data class CustomColorsScheme(
     val linkDefault: Color = Color.Unspecified,
     val menuItem: Color = Color.Unspecified,
     val menuItemHighlighted: Color = Color.Unspecified,
+    val qrScannerOverlayBackground: Color = Color.Unspecified,
+    val qrScannerOverlayBorder: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -166,6 +168,8 @@ private fun customColors() = CustomColorsScheme(
     linkDefault = Links.default.toMappedColors(),
     menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
     menuItem = Menu.menuItem.toMappedColors(),
+    qrScannerOverlayBackground = QrScannerOverlay.background.toMappedColors(),
+    qrScannerOverlayBorder = QrScannerOverlay.border.toMappedColors(),
 )
 
 internal const val SWATCH_SIZE = 200

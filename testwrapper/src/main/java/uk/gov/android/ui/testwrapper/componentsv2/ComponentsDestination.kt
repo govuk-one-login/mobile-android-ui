@@ -65,7 +65,8 @@ sealed class ComponentsDestination(
             DetailedItem(
                 text = "Camera",
                 items = listOf(
-                    DetailItem(label = QR_CODE_SCANNING, name = "QR scanning: Demo")
+                    DetailItem(label = CAMERA_CONTENT, name = "Camera Content: Demo"),
+                    DetailItem(label = QR_CODE_SCANNING, name = "QR scanning: Demo"),
                 )
             ),
             DetailedItem(

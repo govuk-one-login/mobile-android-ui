@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.camera.analyzer.qr
+package uk.gov.android.ui.componentsv2.camera.qr
 
 import com.google.mlkit.vision.barcode.common.Barcode
 
@@ -45,4 +45,8 @@ sealed class BarcodeScanResult {
     }
 
     data object EmptyScan : BarcodeScanResult()
+
+    fun interface Callback {
+        fun onResult(result: BarcodeScanResult)
+    }
 }

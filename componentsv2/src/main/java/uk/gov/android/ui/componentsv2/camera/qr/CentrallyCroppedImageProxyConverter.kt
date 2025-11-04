@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.camera.analyzer.qr
+package uk.gov.android.ui.componentsv2.camera.qr
 
 import android.graphics.ImageFormat
 import android.graphics.Rect
@@ -7,7 +7,7 @@ import androidx.annotation.OptIn
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
-import uk.gov.android.ui.componentsv2.camera.analyzer.ImageProxyConverter
+import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import kotlin.experimental.inv
 import kotlin.math.ceil
 import kotlin.math.floor

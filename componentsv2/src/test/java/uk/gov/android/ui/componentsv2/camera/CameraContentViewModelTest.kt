@@ -6,7 +6,7 @@ import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.preview
+import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 
 @RunWith(RobolectricTestRunner::class)
 class CameraContentViewModelTest {

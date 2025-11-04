@@ -11,8 +11,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.usecase.CameraUseCaseProvider.Companion.preview
+import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 
 class CameraContentTest {
     @get:Rule
