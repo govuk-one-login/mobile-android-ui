@@ -6,6 +6,7 @@ import android.media.Image
 import androidx.annotation.OptIn
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
+import androidx.compose.ui.geometry.Size
 import com.google.mlkit.vision.common.InputImage
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import kotlin.experimental.inv
@@ -22,17 +23,19 @@ import kotlin.math.floor
  */
 class CentrallyCroppedImageProxyConverter(
     private val relativeScanningWidth: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
+    private val relativeScanningHeight: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
 ) : ImageProxyConverter {
     @OptIn(ExperimentalGetImage::class)
     override fun convert(proxy: ImageProxy): InputImage? = proxy.image?.let { image ->
         val (size, imageArray) = image.toCentralScanningArea(
             relativeScanningWidth = relativeScanningWidth,
+            relativeScanningHeight = relativeScanningHeight,
         )
 
         InputImage.fromByteArray(
             imageArray,
-            size,
-            size,
+            size.width.toInt(),
+            size.height.toInt(),
             proxy.imageInfo.rotationDegrees,
             ImageFormat.NV21,
         )
@@ -40,10 +43,12 @@ class CentrallyCroppedImageProxyConverter(
 
     fun Image.toCentralScanningArea(
         relativeScanningWidth: Float,
-    ): Pair<Int, ByteArray> {
+        relativeScanningHeight: Float,
+    ): Pair<Size, ByteArray> {
         val centerX = width / 2
         val centerY = height / 2
         val scanningAreaWidth = width * relativeScanningWidth
+        val scanningAreaHeight = height * relativeScanningHeight
 
         val scanningAreaStartWidth = centerX - (scanningAreaWidth / 2)
         val scanningAreaStartHeight = centerY - (scanningAreaWidth / 2)
@@ -51,13 +56,16 @@ class CentrallyCroppedImageProxyConverter(
             scanningAreaStartWidth.toInt(),
             scanningAreaStartHeight.toInt(),
             (scanningAreaStartWidth + scanningAreaWidth).toInt(),
-            (scanningAreaStartHeight + scanningAreaWidth).toInt(),
+            (scanningAreaStartHeight + scanningAreaHeight).toInt(),
         )
 
         val nv21 = yuv420888ToNv21(this)
         val croppedNv21 = cropNV21(nv21, width, croppedArea)
 
-        return scanningAreaWidth.toInt() to croppedNv21
+        return Size(
+            scanningAreaWidth,
+            scanningAreaHeight,
+        ) to croppedNv21
     }
 
     private fun yuv420888ToNv21(image: Image): ByteArray {

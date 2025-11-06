@@ -56,6 +56,7 @@ fun QrScannerScreen(
     scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
     converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
         relativeScanningWidth = scanningWidthMultiplier,
+        relativeScanningHeight = scanningWidthMultiplier,
     ),
     instructionText: String = stringResource(R.string.qr_scan_screen_title),
     onPermanentCameraDenial: @Composable ((PermissionState) -> Unit) = { _ -> },

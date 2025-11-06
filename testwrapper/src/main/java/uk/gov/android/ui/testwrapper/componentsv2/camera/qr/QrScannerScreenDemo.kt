@@ -35,6 +35,7 @@ fun QrScannerScreenDemo(
     context: Context = LocalContext.current,
     converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
         relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+        relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
     ),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),

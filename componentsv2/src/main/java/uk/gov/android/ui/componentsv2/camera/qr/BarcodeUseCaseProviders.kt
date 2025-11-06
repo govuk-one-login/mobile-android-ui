@@ -22,6 +22,7 @@ object BarcodeUseCaseProviders {
         backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
         converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
             relativeScanningWidth = IMAGE_WIDTH_CROP_MULTIPLIER,
+            relativeScanningHeight = IMAGE_WIDTH_CROP_MULTIPLIER,
         ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
         callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },

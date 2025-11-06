@@ -71,6 +71,7 @@ fun ComponentDetail(
         QR_CODE_CENTRALISED_SCANNING -> QrScannerScreenDemo(
             converter = CentrallyCroppedImageProxyConverter(
                 relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+                relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
             ),
             onNavigate = onNavigate,
         )
