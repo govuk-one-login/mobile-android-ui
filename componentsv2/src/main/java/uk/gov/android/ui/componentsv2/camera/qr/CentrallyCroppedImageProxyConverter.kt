@@ -51,7 +51,7 @@ class CentrallyCroppedImageProxyConverter(
         val scanningAreaHeight = height * relativeScanningHeight
 
         val scanningAreaStartWidth = centerX - (scanningAreaWidth / 2)
-        val scanningAreaStartHeight = centerY - (scanningAreaWidth / 2)
+        val scanningAreaStartHeight = centerY - (scanningAreaHeight / 2)
         val croppedArea = Rect(
             scanningAreaStartWidth.toInt(),
             scanningAreaStartHeight.toInt(),
