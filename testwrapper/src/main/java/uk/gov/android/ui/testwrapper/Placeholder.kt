@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Placeholder(label: String, modifier: Modifier = Modifier.Companion) {
+fun Placeholder(label: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {

@@ -2,12 +2,8 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera.qr
 
 import android.content.Context
 import android.util.Log
-import androidx.camera.core.ImageAnalysis
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,7 +13,6 @@ import com.google.accompanist.permissions.PermissionState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult

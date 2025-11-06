@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -66,7 +65,7 @@ fun CameraContentDemo(
             options = provideQrScanningOptions(
                 provideZoomOptions(viewModel::getCurrentCamera)
             ),
-            callback = BarcodeScanResultLoggingCallback,
+            callback = barcodeScanResultLoggingCallback,
             converter = ImageProxyConverter.simple(),
         )
     ).map(CameraUseCaseProvider::provide)

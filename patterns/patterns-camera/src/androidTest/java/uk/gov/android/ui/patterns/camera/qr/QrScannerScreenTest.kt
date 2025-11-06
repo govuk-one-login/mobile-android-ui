@@ -44,7 +44,7 @@ class QrScannerScreenTest {
                 },
                 converter = ImageProxyConverter.Companion.simple(),
                 viewModel = model,
-                modifier = Modifier.Companion.fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
             )
         }
 
