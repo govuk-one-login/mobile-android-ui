@@ -2,16 +2,18 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
 plugins {
+    id("uk.gov.pipelines.android-lib-config")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.paparazzi)
-    id("uk.gov.pipelines.android-lib-config")
     id("kotlin-parcelize")
 }
+
+apply(from = rootProject.file("gradle/snapshot-test-filter.gradle.kts"))
 
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
-        namespace = "${apkConfig.applicationId}.componentsv2"
+        namespace = "${apkConfig.applicationId}.patterns.camera"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -46,11 +48,12 @@ android {
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
-                events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
+                        org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
@@ -66,38 +69,31 @@ android {
 
 dependencies {
     val composeBom = platform(libs.androidx.compose.bom)
-    androidTestImplementation(composeBom)
     implementation(composeBom)
+    androidTestImplementation(composeBom)
 
-    api(libs.accompanist.permissions)
+    api(projects.componentsv2.componentsv2Camera)
+    api(libs.bundles.qr.code.scanning)
 
+    implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
-    implementation(libs.androidx.compose.material.icons)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.preview)
+    implementation(libs.bundles.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(project(":theme"))
+    implementation(projects.componentsv2)
+    implementation(projects.theme)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testmanifest)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestUtil(libs.androidx.test.orchestrator)
 
-    testFixturesApi(libs.androidx.ui.test.android)
-    testFixturesApi(libs.android.tools.layoutlib.api)
-    testFixturesImplementation(libs.kotlin.stdlib)
-    testFixturesImplementation(libs.androidx.ui.test.junit4.android)
-
-    testImplementation(libs.androidx.test.rules)
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)
@@ -105,18 +101,27 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.robolectric)
+    testImplementation(testFixtures(projects.componentsv2))
     lintChecks(libs.com.slack.compose.lint.checks)
 }
+
+// https://github.com/Kotlin/dokka/issues/2956
+tasks
+    .matching { task ->
+        task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
+            task.name.contains("javaDocDebugGeneration")
+    }.configureEach {
+        enabled = false
+    }
 
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library Version 2",
+            "Mobile Android Patterns Library",
         )
         description.set(
             """
-            Use pre-built reusable components to build consistent apps - this will replace the
-            components module with a more standardised approach.
+            Patterns are best practice design solutions for specific user-focused tasks and pages.
             """.trimIndent(),
         )
     }

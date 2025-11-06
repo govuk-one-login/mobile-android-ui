@@ -38,7 +38,7 @@ import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZ
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
-import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.qrScannerOverlay
 import uk.gov.android.ui.theme.m3.CustomColorsScheme

@@ -1,6 +1,7 @@
 [versions]
 accompanist = "0.37.3" # https://github.com/google/accompanist/releases
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
+android-tools-layoutlib-api = "31.13.0" # No changelog found
 androidx-camera = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/camera
 android-gradle = "8.13.0" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
@@ -74,6 +75,7 @@ androidx-ui-test-android = { group = "androidx.compose.ui", name = "ui-test-andr
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "ui-test-android" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
+android-tools-layoutlib-api = { module = "com.android.tools.layoutlib:layoutlib-api", version.ref = "android-tools-layoutlib-api" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "archcore-testing" }
 com-slack-compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lint-checks" }

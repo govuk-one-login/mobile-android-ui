@@ -11,7 +11,7 @@ plugins {
 android {
     defaultConfig {
         val apkConfig: ApkConfig by project.rootProject.extra
-        namespace = "${apkConfig.applicationId}.componentsv2"
+        namespace = "${apkConfig.applicationId}.componentsv2.camera"
         compileSdk = apkConfig.sdkVersions.compile
         minSdk = apkConfig.sdkVersions.minimum
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -69,18 +69,16 @@ dependencies {
     androidTestImplementation(composeBom)
     implementation(composeBom)
 
+    api(libs.bundles.qr.code.scanning)
+    api(projects.componentsv2)
     api(libs.accompanist.permissions)
 
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.appcompat)
     implementation(libs.androidx.compose.material.icons)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.preview)
-    implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(project(":theme"))
+    implementation(projects.theme)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testmanifest)
@@ -92,8 +90,9 @@ dependencies {
     androidTestImplementation(libs.mockito.android)
     androidTestUtil(libs.androidx.test.orchestrator)
 
+    testFixturesApi(libs.bundles.qr.code.scanning)
+    testFixturesApi(testFixtures(projects.componentsv2))
     testFixturesApi(libs.androidx.ui.test.android)
-    testFixturesApi(libs.android.tools.layoutlib.api)
     testFixturesImplementation(libs.kotlin.stdlib)
     testFixturesImplementation(libs.androidx.ui.test.junit4.android)
 

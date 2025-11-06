@@ -70,9 +70,11 @@ dependencies {
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(project(":componentsv2"))
+    implementation(projects.componentsv2)
+    implementation(projects.componentsv2.componentsv2Camera)
     implementation(project(":theme"))
-    implementation(project(":patterns"))
+    implementation(projects.patterns)
+    implementation(projects.patterns.patternsCamera)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.navigation.compose)
@@ -82,6 +84,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     testFixturesApi(testFixtures(projects.componentsv2))
+    testFixturesApi(testFixtures(projects.componentsv2.componentsv2Camera))
     testFixturesApi(libs.androidx.ui.test.junit4.android)
     testFixturesImplementation(libs.kotlin.stdlib)
 
@@ -100,6 +103,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation(testFixtures(projects.componentsv2))
+    androidTestImplementation(testFixtures(projects.componentsv2.componentsv2Camera))
     androidTestUtil(libs.androidx.test.orchestrator)
 
     debugImplementation(libs.androidx.compose.ui.tooling)

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Content Tile -->
+    <string name="caption" translatable="false">Caption (optional)</string>
+    <string name="title" translatable="false">Title (required)</string>
+    <string name="body" translatable="false"> Body (optional)</string>
+    <string name="card_content_description">%s Card</string>
+    <string name="divider_test_tag" translatable="false">Divider test tag</string>
+
+    <!-- Gds Top App Bar -->
+    <string name="top_app_bar_title" translatable="false">Title (optional)</string>
+
+    <!-- Annotated String -->
+    <string name="annotated_string" translatable="false"> Annotated string</string>
+    <string name="in_line_icon_id" translatable="false">in-line icon id</string>
+
+    <!-- Images -->
+    <string name="vector_image_content_description" translatable="false">Vector Image Description</string>
+    <string name="icon_content_desc" translatable="false">Icon Description</string>
+
+    <!-- Buttons -->
+    <string name="text_button" translatable="false">Button text</string>
+    <string name="primary_button" translatable="false">Primary Button</string>
+    <string name="secondary_button" translatable="false">Secondary Button</string>
+    <string name="tertiary_button" translatable="false">Tertiary Button</string>
+    <string name="quaternary_button" translatable="false">Quaternary Button</string>
+    <string name="admin_button" translatable="false">Admin Button</string>
+    <string name="error_button" translatable="false">Error Button</string>
+    <string name="disabled_button" translatable="false">Disabled Button</string>
+    <string name="loading_button" translatable="false">Loading Button</string>
+    <string name ="loading_content_desc">Loading</string>
+    <string name="more_vert_icon_button" translatable="false">More</string>
+    <string name="close_icon_button">Close</string>
+    <string name="back_icon_button">Back</string>
+    <string name="info_icon_button">Information</string>
+
+    <!-- BulletedList -->
+    <string name="bullet" translatable="true">bullet %s</string>
+    <string name="heading" translatable="true">%s heading</string>
+    <plurals name="bullet_list_items" translatable="true">
+        <item quantity="one">bulleted list %d item. bullet %s</item>
+        <item quantity="other">bulleted list %d items. bullet %s</item>
+    </plurals>
+
+    <!-- Warning -->
+    <string name="warning" translatable="true">warning</string>
+
+    <!-- Custom Icon Content Description -->
+    <string name="opens_in_external_browser">opens in web browser</string>
+
+    <!-- RadioSelection -->
+    <plurals name="radio_button_unselected" translatable="true">
+        <item quantity="one">
+            Not selected, %s, radio button, 1 of %d, in list, %d items, double tap to select
+        </item>
+        <item quantity="other">
+            Not selected, %s, radio button, %d of %d, double tap to select
+        </item>
+    </plurals>
+    <plurals name="radio_button_selected">
+        <item quantity="one">
+            Selected, %s, radio button, 1 of %d, in list, %d items, double tap to select
+        </item>
+        <item quantity="other">
+            Selected, %s, radio button, %d of %d, double tap to select
+        </item>
+    </plurals>
+
+    <!-- Numbered lists -->
+    <plurals name="content_desc_numbered_list_item">
+        <item quantity="one">
+            numbered list %1$s item %2$s %3$s
+        </item>
+        <item quantity="other">
+            numbered list %1$s items %2$s %3$s
+        </item>
+    </plurals>
+    <string name="numbered_list_multi_style_example" translatable="false">This text includes the <b>bold</b> style in <b>multiple</b> places.</string>
+    <string name="numbered_list_bold_style_example" translatable="false">This text includes <b>bold</b>, <i>italic</i>, <u>underlined</u>, and more styles in one sentence.</string>
+    <string name="bulleted_list_link_example" translatable="false">Build <b>better apps</b> faster with <a href="https://www.android.com">Jetpack Compose</a></string>
+    <string name="number1">one</string>
+    <string name="number2">two</string>
+    <string name="number3">three</string>
+    <string name="number4">four</string>
+    <string name="number5">five</string>
+    <string name="number6">six</string>
+    <string name="number7">seven</string>
+    <string name="number8">eight</string>
+    <string name="number9">nine</string>
+
+    <!-- Dialogues -->
+    <string name="dialogue_example_content" translatable="false">Helpful content which explains the purpose of this Dialog</string>
+    <string name="dialogue_provider_title1" translatable="false">Horizontal buttons</string>
+    <string name="dialogue_provider_title2" translatable="false">Overflow buttons</string>
+    <string name="dialogue_provider_button_yes" translatable="false">Yes</string>
+    <string name="dialogue_provider_button_no" translatable="false">No</string>
+    <string name="dialogue_provider_button_confirm" translatable="false">Confirming action</string>
+    <string name="dialogue_provider_button_dismiss" translatable="false">Dismiss action</string>
+</resources>

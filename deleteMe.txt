@@ -1,0 +1,35 @@
+Type-safe project accessors is an incubating feature.
+> Task :buildLogic:plugins:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :buildLogic:plugins:generateBuildConfig UP-TO-DATE
+> Task :buildLogic:plugins:generateExternalPluginSpecBuilders UP-TO-DATE
+> Task :buildLogic:plugins:extractPrecompiledScriptPluginPlugins UP-TO-DATE
+> Task :buildLogic:plugins:compilePluginsBlocks UP-TO-DATE
+> Task :buildLogic:plugins:generatePrecompiledScriptPluginAccessors UP-TO-DATE
+> Task :buildLogic:plugins:generateScriptPluginAdapters UP-TO-DATE
+> Task :buildLogic:plugins:compileKotlin UP-TO-DATE
+> Task :buildLogic:plugins:compileJava NO-SOURCE
+> Task :buildLogic:plugins:pluginDescriptors UP-TO-DATE
+> Task :buildLogic:plugins:processResources UP-TO-DATE
+> Task :buildLogic:plugins:classes UP-TO-DATE
+> Task :buildLogic:plugins:jar UP-TO-DATE
+
+> Configure project :componentsv2
+WARNING: The option setting 'android.experimental.enableTestFixtures=true' is experimental.
+The current default is 'false'.
+WARNING: The option setting 'android.experimental.enableTestFixturesKotlinSupport=true' is experimental.
+The current default is 'false'.
+🔍 Snapshot task detected: false
+🔍 Snapshot task detected: false
+
+> Task :dependencies
+
+------------------------------------------------------------
+Root project 'mobile-android-ui'
+------------------------------------------------------------
+
+No configurations
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+BUILD SUCCESSFUL in 3s
+11 actionable tasks: 1 executed, 10 up-to-date
