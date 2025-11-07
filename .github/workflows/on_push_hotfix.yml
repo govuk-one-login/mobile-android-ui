@@ -1,0 +1,33 @@
+name: On Push Hotfix
+
+on:
+  push:
+    branches:
+      - temp/hotfix
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  push_hotfix:
+    env:
+      JDK_VERSION: 17
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: 'Checkout codebase'
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          lfs: 'true'
+          fetch-depth: 0
+      - name: Run hotfix merge checks
+        uses: ./mobile-android-pipelines/actions/hotfix-merge
+        with:
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
