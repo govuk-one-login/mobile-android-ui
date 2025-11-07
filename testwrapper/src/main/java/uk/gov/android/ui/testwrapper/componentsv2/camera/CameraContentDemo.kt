@@ -2,6 +2,7 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Context
+import androidx.camera.core.UseCase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -58,42 +59,9 @@ fun CameraContentDemo(
 
     viewModel.removeUseCases()
 
-    listOf(
-        preview(viewModel::update),
-        barcodeAnalysis(
-            context = context,
-            options =
-            provideQrScanningOptions(
-                provideZoomOptions(viewModel::getCurrentCamera),
-            ),
-            callback = barcodeScanResultLoggingCallback,
-            converter = ImageProxyConverter.simple(),
-        ),
-    ).map(CameraUseCaseProvider::provide)
-        .let(viewModel::addAll)
+    generateCameraUseCases(viewModel, context).let(viewModel::addAll)
 
-    val permissionLogic =
-        PermissionLogic(
-            onGrantPermission = {
-                CameraContent(
-                    coroutineScope = coroutineScope,
-                    viewModel = viewModel,
-                    modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .testTag("cameraViewfinder"),
-                )
-            },
-            onPermissionPermanentlyDenied = { state ->
-                PermanentCameraDenial(state, context)
-            },
-            onShowRationale = { _, launchPermission ->
-                CameraPermissionRationaleButton(launchPermission = launchPermission)
-            },
-            onRequirePermission = { _, launchPermission ->
-                CameraRequirePermissionButton(launchPermission = launchPermission)
-            },
-        )
+    val permissionLogic = generatePermissionLogic(coroutineScope, viewModel, context)
 
     Column(
         modifier =
@@ -111,3 +79,46 @@ fun CameraContentDemo(
         )
     }
 }
+
+@OptIn(ExperimentalPermissionsApi::class)
+private fun generatePermissionLogic(
+    coroutineScope: CoroutineScope,
+    viewModel: CameraContentViewModel,
+    context: Context,
+): PermissionLogic = PermissionLogic(
+    onGrantPermission = {
+        CameraContent(
+            coroutineScope = coroutineScope,
+            viewModel = viewModel,
+            modifier =
+            Modifier
+                .fillMaxSize()
+                .testTag("cameraViewfinder"),
+        )
+    },
+    onPermissionPermanentlyDenied = { state ->
+        PermanentCameraDenial(state, context)
+    },
+    onShowRationale = { _, launchPermission ->
+        CameraPermissionRationaleButton(launchPermission = launchPermission)
+    },
+    onRequirePermission = { _, launchPermission ->
+        CameraRequirePermissionButton(launchPermission = launchPermission)
+    },
+)
+
+private fun generateCameraUseCases(
+    viewModel: CameraContentViewModel,
+    context: Context,
+): List<UseCase> = listOf(
+    preview(viewModel::update),
+    barcodeAnalysis(
+        context = context,
+        options =
+        provideQrScanningOptions(
+            provideZoomOptions(viewModel::getCurrentCamera),
+        ),
+        callback = barcodeScanResultLoggingCallback,
+        converter = ImageProxyConverter.simple(),
+    ),
+).map(CameraUseCaseProvider::provide)

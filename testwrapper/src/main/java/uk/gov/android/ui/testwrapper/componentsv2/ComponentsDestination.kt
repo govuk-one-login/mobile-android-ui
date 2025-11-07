@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.ComponentListDetail
 import uk.gov.android.ui.testwrapper.DetailItem
@@ -27,10 +29,18 @@ sealed class ComponentsDestination(
     @Serializable
     data class DetailedItem(
         val text: String,
-        val items: List<DetailItem>,
+        val items: PersistentList<DetailItem>,
     ) : ComponentsDestination(
         label = text,
     ) {
+        constructor(
+            text: String,
+            items: List<DetailItem>,
+        ) : this(
+            text = text,
+            items = items.sortedBy(DetailItem::label).toPersistentList(),
+        )
+
         companion object {
             /**
              * Mappings for serializing the [DetailedItem] properties. Specifically, this would be
@@ -38,7 +48,7 @@ sealed class ComponentsDestination(
              */
             val typeMap =
                 mapOf(
-                    typeOf<List<DetailItem>>() to navTypeOf<List<DetailItem>>(),
+                    typeOf<PersistentList<DetailItem>>() to navTypeOf<PersistentList<DetailItem>>(),
                 )
         }
     }
@@ -99,7 +109,7 @@ sealed class ComponentsDestination(
                             name = QR_CODE_CENTRALISED_SCANNING,
                         ),
                         DetailItem(label = QR_CODE_SCANNING, name = QR_CODE_SCANNING),
-                    ).sortedBy(DetailItem::label),
+                    ),
                 ),
                 DetailedItem(
                     text = "Dialogue",
