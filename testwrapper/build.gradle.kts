@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -40,8 +42,11 @@ android {
         compose = true
     }
     packaging {
-        // Exclude multiple copies of the 2.0 Apache Licence
-        resources.excludes += "META-INF/AL2.0"
+        // Exclude multiple copies of licences
+        listOf(
+            "META-INF/AL2.0",
+            "META-INF/LGPL2.1",
+        ).forEach(resources.excludes::plusAssign)
     }
     @Suppress("UnstableApiUsage")
     testOptions {
@@ -50,9 +55,9 @@ android {
         unitTests.all {
             it.testLogging {
                 events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
                 )
             }
         }

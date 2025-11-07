@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
@@ -39,7 +40,13 @@ android {
             enableUnitTestCoverage = true
         }
     }
-
+    packaging {
+        // Exclude multiple copies of licences
+        listOf(
+            "META-INF/AL2.0",
+            "META-INF/LGPL2.1",
+        ).forEach(resources.excludes::plusAssign)
+    }
     @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -47,9 +54,9 @@ android {
         unitTests.all {
             it.testLogging {
                 events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
                 )
             }
         }
