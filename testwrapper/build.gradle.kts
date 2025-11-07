@@ -39,6 +39,10 @@ android {
     buildFeatures {
         compose = true
     }
+    packaging {
+        // Exclude multiple copies of the 2.0 Apache Licence
+        resources.excludes += "META-INF/AL2.0"
+    }
     @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
