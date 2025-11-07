@@ -23,19 +23,20 @@ fun Patterns(
     onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         items(PatternsDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
                         onNavigate(destination)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3
+                style = GdsHeadingStyle.Title3,
             )
             HorizontalDivider(color = Color.Black)
         }

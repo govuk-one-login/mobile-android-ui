@@ -7,9 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Placeholder(label: String, modifier: Modifier = Modifier) {
+fun Placeholder(
+    label: String,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Text("Add list / detail for $label")
     }

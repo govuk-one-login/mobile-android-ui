@@ -14,14 +14,15 @@ fun Theme(
     onNavigate: (Any) -> Unit = {},
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Text(
             "Coming soon",
-            modifier = Modifier.clickable {
+            modifier =
+            Modifier.clickable {
                 // Navigate to itself for now
                 onNavigate(TabDestination.Theme)
-            }
+            },
         )
     }
 }

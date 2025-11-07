@@ -14,26 +14,27 @@ sealed class TabDestination(
 ) {
     @Serializable
     data object Components : TabDestination(
-        label = "Components (v2)"
+        label = "Components (v2)",
     )
 
     @Serializable
     data object Patterns : TabDestination(
-        label = "Patterns"
+        label = "Patterns",
     )
 
     @Serializable
     data object Theme : TabDestination(
-        label = "Theme"
+        label = "Theme",
     )
 
     companion object {
         @JvmStatic
-        fun entries() = listOf(
-            TabDestination.Components,
-            TabDestination.Patterns,
-            TabDestination.Theme,
-        ).sortedBy(TabDestination::label)
+        fun entries() =
+            listOf(
+                TabDestination.Components,
+                TabDestination.Patterns,
+                TabDestination.Theme,
+            ).sortedBy(TabDestination::label)
 
         fun NavGraphBuilder.applyTabDestinations(
             modifier: Modifier = Modifier,

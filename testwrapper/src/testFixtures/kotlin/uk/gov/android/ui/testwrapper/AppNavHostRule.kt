@@ -1,7 +1,5 @@
 package uk.gov.android.ui.testwrapper
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.internal.ComposableFunction0
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.onNodeWithText
@@ -15,16 +13,13 @@ import uk.gov.android.ui.componentsv2.Renderer
 
 class AppNavHostRule(
     composeTestRule: ComposeContentTestRule,
-) : ComposeContentTestRule by composeTestRule, Renderer<Any> {
-
+) : ComposeContentTestRule by composeTestRule,
+    Renderer<Any> {
     lateinit var navController: TestNavHostController
 
+    inline fun <reified T : Any> currentBackStackRoute() = navController.currentBackStackEntry?.toRoute<T>()
 
-    inline fun <reified T : Any> currentBackStackRoute() =
-        navController.currentBackStackEntry?.toRoute<T>()
-
-    inline fun <reified T : Any> hasCurrentBackStackRoute() =
-        assertNotNull(currentBackStackRoute<T>())
+    inline fun <reified T : Any> hasCurrentBackStackRoute() = assertNotNull(currentBackStackRoute<T>())
 
     override fun render(input: Any) {
         setContent {

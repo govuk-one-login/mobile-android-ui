@@ -19,27 +19,28 @@ class CameraContentDemoRule(
     private val cameraViewfinderTag: String = "cameraViewfinder",
 ) : ComposeContentTestRule by composeTestRule,
     Renderer<Modifier> {
-
     override fun render(input: Modifier) {
         setContent {
             CameraContentDemo(modifier = input)
         }
     }
 
-    fun assertPermissionButtonDoesNotExist() = onAllNodesWithRole(Role.Button)
-        .assertCountEquals(0)
+    fun assertPermissionButtonDoesNotExist() =
+        onAllNodesWithRole(Role.Button)
+            .assertCountEquals(0)
 
-    fun assertPermissionButtonExists(
-        containedText: String,
-    ) = onNodeWithRole(Role.Button)
-        .assertExists()
-        .assertIsDisplayed()
-        .assertTextContains(containedText)
+    fun assertPermissionButtonExists(containedText: String) =
+        onNodeWithRole(Role.Button)
+            .assertExists()
+            .assertIsDisplayed()
+            .assertTextContains(containedText)
 
-    fun assertCameraIsRendered() = onNodeWithTag(cameraViewfinderTag)
-        .assertExists()
-        .assertIsDisplayed()
+    fun assertCameraIsRendered() =
+        onNodeWithTag(cameraViewfinderTag)
+            .assertExists()
+            .assertIsDisplayed()
 
-    fun assertCameraIsNotRendered() = onNodeWithTag(cameraViewfinderTag)
-        .assertDoesNotExist()
+    fun assertCameraIsNotRendered() =
+        onNodeWithTag(cameraViewfinderTag)
+            .assertDoesNotExist()
 }

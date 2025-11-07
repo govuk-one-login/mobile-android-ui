@@ -28,10 +28,11 @@ import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButton
 fun QrScannerScreenDemo(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current,
-    converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
-        relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
-        relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
-    ),
+    converter: ImageProxyConverter =
+        CentrallyCroppedImageProxyConverter(
+            relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+            relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
+        ),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
     onNavigate: (Any) -> Unit = {},
@@ -41,13 +42,13 @@ fun QrScannerScreenDemo(
     }
     val onShowRationale: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit
+        launchPermission: () -> Unit,
     ) -> Unit = { _, launchPermission ->
         CameraPermissionRationaleButton(launchPermission = launchPermission)
     }
     val onRequirePermission: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit
+        launchPermission: () -> Unit,
     ) -> Unit = { _, launchPermission ->
         CameraRequirePermissionButton(launchPermission = launchPermission)
     }
@@ -69,7 +70,7 @@ fun QrScannerScreenDemo(
                 coroutineScope.cancel(
                     CancellationException(
                         "Navigating away from CameraContent",
-                    )
+                    ),
                 )
                 onNavigate(QrScannerResult(url))
             }

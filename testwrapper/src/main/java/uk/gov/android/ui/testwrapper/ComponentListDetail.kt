@@ -18,6 +18,6 @@ fun ComponentListDetail(
                 onNavigate,
             )
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
-import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -29,6 +28,7 @@ import uk.gov.android.ui.componentsv2.button.GdsIconButtonDefaults
 import uk.gov.android.ui.componentsv2.menu.GdsMenu
 import uk.gov.android.ui.componentsv2.menu.GdsMenuContent
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.componentsv2.topappbar.TopAppBarAlignment
 import uk.gov.android.ui.componentsv2.topappbar.TopBarActionButton
 import uk.gov.android.ui.theme.smallPadding
@@ -58,52 +58,59 @@ fun GdsTopAppBarDemo() {
         topBar = {
             GdsTopAppBar(
                 title = stringResource(R.string.title),
-                navigationButton = if (showNavIconButton.value) {
+                navigationButton =
+                if (showNavIconButton.value) {
                     GdsIconButtonDefaults.defaultCloseContent()
-                } else null,
+                } else {
+                    null
+                },
                 onClick = {
                     scope.launch {
                         statusOverlayState.showSnackbar("Dismiss button pressed")
                     }
                 },
-                actions = if (showActionIconButton.value) {
+                actions =
+                if (showActionIconButton.value) {
                     persistentListOf(
                         TopBarActionButton(
                             content = GdsIconButtonDefaults.defaultInfoContent(),
                             onClick = {
                                 isMenuExpanded = !isMenuExpanded
                                 println("Click action button")
-                            }
+                            },
                         ),
                     )
-                } else null,
+                } else {
+                    null
+                },
                 scrollBehaviour = scrollBehavior,
                 alignment = alignment.value,
                 menu = {
                     GdsMenu(
                         expanded = isMenuExpanded,
-                        content = persistentListOf(
+                        content =
+                        persistentListOf(
                             GdsMenuContent(itemTitle1) {
                                 scope.launch {
                                     statusOverlayState.showSnackbar("Selected: $itemTitle1")
                                 }
                             },
-                            GdsMenuContent(itemTitle2) {}
+                            GdsMenuContent(itemTitle2) {},
                         ),
                         onDismissRequest = {
                             isMenuExpanded = !isMenuExpanded
-                        }
+                        },
                     )
-                }
+                },
             )
         },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     ) { paddingValues ->
         Column(
             Modifier
                 .padding(paddingValues)
                 .fillMaxWidth()
-                .verticalScroll(scrollState)
+                .verticalScroll(scrollState),
         ) {
             FormattedButton(titleRes = TestWrapperR.string.toggle_title) {
                 if (alignment.value == TopAppBarAlignment.Start) {
@@ -121,7 +128,7 @@ fun GdsTopAppBarDemo() {
             repeat(100) {
                 Text(
                     text = "Test",
-                    modifier = Modifier.padding(horizontal = smallPadding)
+                    modifier = Modifier.padding(horizontal = smallPadding),
                 )
             }
         }
@@ -131,11 +138,11 @@ fun GdsTopAppBarDemo() {
 @Composable
 fun FormattedButton(
     titleRes: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     GdsButton(
         text = stringResource(titleRes),
         buttonType = ButtonTypeV2.Secondary(),
-        onClick = onClick
+        onClick = onClick,
     )
 }

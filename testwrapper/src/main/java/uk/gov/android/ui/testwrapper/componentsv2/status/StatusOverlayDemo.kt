@@ -38,21 +38,22 @@ fun StatusOverlayDemo() {
                 hostState = statusOverlayState,
                 modifier = Modifier.padding(horizontal = spacingDouble),
             )
-        }
+        },
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(smallPadding)
                     .navigationBarsPadding()
-                    .statusBarsPadding()
+                    .statusBarsPadding(),
             ) {
                 GdsButton(
                     text = "Display overlay",
@@ -62,7 +63,7 @@ fun StatusOverlayDemo() {
                             statusOverlayState.showSnackbar("This is a message")
                         }
                     },
-                    modifier = Modifier.padding(bottom = smallPadding)
+                    modifier = Modifier.padding(bottom = smallPadding),
                 )
                 Spacer(modifier = Modifier.height(largePadding))
             }

@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class QrScannerResult(
-    val url: String
+    val url: String,
 )

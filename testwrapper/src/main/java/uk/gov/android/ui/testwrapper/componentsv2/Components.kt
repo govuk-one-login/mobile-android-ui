@@ -35,19 +35,20 @@ fun Components(
     onNavigate: (Any) -> Unit = {},
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         items(ComponentsDestination.entries()) { destination: ComponentsDestination ->
             GdsHeading(
                 text = destination.label,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxWidth()
                     .clickable(onClick = {
                         onNavigate(destination)
                     })
                     .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3
+                style = GdsHeadingStyle.Title3,
             )
             HorizontalDivider(color = Color.Black)
         }
@@ -68,17 +69,20 @@ fun ComponentDetail(
         DIALOGUE -> GdsDialogueDemo()
         STATUS_OVERLAY -> StatusOverlayDemo()
         CAMERA_CONTENT -> CameraContentDemo()
-        QR_CODE_CENTRALISED_SCANNING -> QrScannerScreenDemo(
-            converter = CentrallyCroppedImageProxyConverter(
-                relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
-                relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
-            ),
-            onNavigate = onNavigate,
-        )
-        QR_CODE_SCANNING -> QrScannerScreenDemo(
-            converter = ImageProxyConverter.simple(),
-            onNavigate = onNavigate,
-        )
+        QR_CODE_CENTRALISED_SCANNING ->
+            QrScannerScreenDemo(
+                converter =
+                CentrallyCroppedImageProxyConverter(
+                    relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+                    relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
+                ),
+                onNavigate = onNavigate,
+            )
+        QR_CODE_SCANNING ->
+            QrScannerScreenDemo(
+                converter = ImageProxyConverter.simple(),
+                onNavigate = onNavigate,
+            )
     }
 }
 

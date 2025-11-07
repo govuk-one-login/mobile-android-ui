@@ -37,7 +37,6 @@ import uk.gov.android.ui.theme.m3.CustomColorsScheme
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
-
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun CameraContentDemo(
@@ -52,9 +51,10 @@ fun CameraContentDemo(
         onUpdatePreviouslyDeniedPermission,
     ) = remember { mutableStateOf(false) }
 
-    val permissionState = rememberPermissionState(Manifest.permission.CAMERA) {
-        onUpdatePreviouslyDeniedPermission(!it)
-    }
+    val permissionState =
+        rememberPermissionState(Manifest.permission.CAMERA) {
+            onUpdatePreviouslyDeniedPermission(!it)
+        }
 
     viewModel.removeUseCases()
 
@@ -62,38 +62,42 @@ fun CameraContentDemo(
         preview(viewModel::update),
         barcodeAnalysis(
             context = context,
-            options = provideQrScanningOptions(
-                provideZoomOptions(viewModel::getCurrentCamera)
+            options =
+            provideQrScanningOptions(
+                provideZoomOptions(viewModel::getCurrentCamera),
             ),
             callback = barcodeScanResultLoggingCallback,
             converter = ImageProxyConverter.simple(),
-        )
+        ),
     ).map(CameraUseCaseProvider::provide)
         .let(viewModel::addAll)
 
-    val permissionLogic = PermissionLogic(
-        onGrantPermission = {
-            CameraContent(
-                coroutineScope = coroutineScope,
-                viewModel = viewModel,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .testTag("cameraViewfinder")
-            )
-        },
-        onPermissionPermanentlyDenied = { state ->
-            PermanentCameraDenial(state, context)
-        },
-        onShowRationale = { _, launchPermission ->
-            CameraPermissionRationaleButton(launchPermission = launchPermission)
-        },
-        onRequirePermission = { _, launchPermission ->
-            CameraRequirePermissionButton(launchPermission = launchPermission)
-        }
-    )
+    val permissionLogic =
+        PermissionLogic(
+            onGrantPermission = {
+                CameraContent(
+                    coroutineScope = coroutineScope,
+                    viewModel = viewModel,
+                    modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .testTag("cameraViewfinder"),
+                )
+            },
+            onPermissionPermanentlyDenied = { state ->
+                PermanentCameraDenial(state, context)
+            },
+            onShowRationale = { _, launchPermission ->
+                CameraPermissionRationaleButton(launchPermission = launchPermission)
+            },
+            onRequirePermission = { _, launchPermission ->
+                CameraRequirePermissionButton(launchPermission = launchPermission)
+            },
+        )
 
     Column(
-        modifier = modifier
+        modifier =
+        modifier
             .background(colorScheme.dialogBackground)
             .padding(spacingDouble)
             .fillMaxSize(),

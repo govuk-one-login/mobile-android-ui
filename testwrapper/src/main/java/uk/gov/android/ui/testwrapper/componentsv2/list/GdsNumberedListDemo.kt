@@ -24,42 +24,44 @@ import uk.gov.android.ui.theme.spacingDouble
 fun GdsNumberedListDemo() {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    val title = ListTitle(
-        text = "Numbered list",
-        titleType = TitleType.Heading,
-    )
-    val numberedListItems = persistentListOf(
-        ListItem(
-            text = "Line three bullet list content"
-        ),
-        ListItem(
-            spannableText = R.string.bulleted_list_link_example,
-            icon = R.drawable.ic_external_site,
-            onLinkTapped = {
-                scope.launch {
-                    statusOverlayState.showSnackbar("Link with icon clicked")
-                }
-            }
-        ),
-        ListItem(
-            spannableText = R.string.bulleted_list_link_example,
-            onLinkTapped = {
-                scope.launch {
-                    statusOverlayState.showSnackbar("Link clicked")
-                }
-            }
-        ),
-        ListItem(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-        ),
-    )
+    val title =
+        ListTitle(
+            text = "Numbered list",
+            titleType = TitleType.Heading,
+        )
+    val numberedListItems =
+        persistentListOf(
+            ListItem(
+                text = "Line three bullet list content",
+            ),
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                icon = R.drawable.ic_external_site,
+                onLinkTapped = {
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Link with icon clicked")
+                    }
+                },
+            ),
+            ListItem(
+                spannableText = R.string.bulleted_list_link_example,
+                onLinkTapped = {
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Link clicked")
+                    }
+                },
+            ),
+            ListItem(
+                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+            ),
+        )
     Scaffold(
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
                 modifier = Modifier.padding(horizontal = spacingDouble),
             )
-        }
+        },
     ) {
         GdsNumberedList(
             numberedListItems = numberedListItems,

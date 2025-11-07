@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
+import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 
 class CameraContentTest {
     @get:Rule
@@ -27,14 +28,29 @@ class CameraContentTest {
     private val model = CameraContentViewModel()
 
     @Test
-    fun configuresCameraUseCases() = runTest {
+    fun configuresFullSurfaceAnalysis() = runTest {
+        performJourney(
+            converter = ImageProxyConverter.simple(),
+        )
+    }
+
+    @Test
+    fun configuresCroppedSurfaceAnalysis() = runTest {
+        performJourney(
+            converter = CentrallyCroppedImageProxyConverter(),
+        )
+    }
+
+    private fun performJourney(
+        converter: ImageProxyConverter,
+    ) = runTest {
         val state = StateRestorationTester(composeTestRule)
         val useCases = withContext(Dispatchers.Main) {
             listOf(
                 preview(model::update),
                 barcodeAnalysis(
                     context = ApplicationProvider.getApplicationContext(),
-                    converter = ImageProxyConverter.simple(),
+                    converter = converter,
                 ),
             ).map(
                 CameraUseCaseProvider::provide,

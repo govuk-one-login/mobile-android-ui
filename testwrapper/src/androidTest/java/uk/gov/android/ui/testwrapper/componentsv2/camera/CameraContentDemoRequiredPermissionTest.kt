@@ -1,25 +1,12 @@
 package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextContains
-import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import uk.gov.android.ui.componentsv2.matchers.SemanticsMatchers.hasRole
-import uk.gov.android.ui.componentsv2.rules.ComposeContentTestRuleExtensions.onNodeWithRole
 import uk.gov.android.ui.testwrapper.R
 
 class CameraContentDemoRequiredPermissionTest {
@@ -32,13 +19,14 @@ class CameraContentDemoRequiredPermissionTest {
     private val resources = InstrumentationRegistry.getInstrumentation().targetContext.resources
 
     @Test
-    fun permissionRequestButtonExists() = runTest {
-        screenRule.apply {
-            render(Modifier)
-            assertPermissionButtonExists(
-                resources.getString(R.string.dialogue_demo_camera_permission_required)
-            )
-            assertCameraIsNotRendered()
+    fun permissionRequestButtonExists() =
+        runTest {
+            screenRule.apply {
+                render(Modifier)
+                assertPermissionButtonExists(
+                    resources.getString(R.string.dialogue_demo_camera_permission_required),
+                )
+                assertCameraIsNotRendered()
+            }
         }
-    }
 }

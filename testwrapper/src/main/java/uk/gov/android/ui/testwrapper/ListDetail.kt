@@ -29,7 +29,10 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @Serializable
 @Parcelize
-class DetailItem(val label: String, val name: String) : Parcelable
+class DetailItem(
+    val label: String,
+    val name: String,
+) : Parcelable
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
@@ -42,7 +45,8 @@ fun List(
             items.forEach { detailItem ->
                 item {
                     ListItem(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .clickable {
                                 onItemClick(detailItem)
                             },
@@ -51,7 +55,7 @@ fun List(
                                 text = detailItem.name,
                                 textAlign = GdsHeadingAlignment.LeftAligned,
                                 style = GdsHeadingStyle.Body,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
                             )
                         },
                     )
@@ -82,10 +86,10 @@ fun ListDetail(
                         scope.launch {
                             scaffoldNavigator.navigateTo(
                                 ListDetailPaneScaffoldRole.Detail,
-                                item
+                                item,
                             )
                         }
-                    }
+                    },
                 )
             }
         },
@@ -96,6 +100,6 @@ fun ListDetail(
                 }
             }
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }

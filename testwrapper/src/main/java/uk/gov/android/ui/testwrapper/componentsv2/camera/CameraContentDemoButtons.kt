@@ -17,7 +17,6 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.testwrapper.R
 
 object CameraContentDemoButtons {
-
     @Composable
     fun CameraRequirePermissionButton(
         modifier: Modifier = Modifier,
@@ -25,8 +24,9 @@ object CameraContentDemoButtons {
     ) {
         GdsButton(
             modifier = modifier.testTag("permissionRequiredButton"),
-            text = stringResource(
-                R.string.dialogue_demo_camera_permission_required
+            text =
+            stringResource(
+                R.string.dialogue_demo_camera_permission_required,
             ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
@@ -42,8 +42,9 @@ object CameraContentDemoButtons {
     ) {
         GdsButton(
             modifier = modifier.testTag("permissionRationaleButton"),
-            text = stringResource(
-                R.string.dialogue_demo_camera_permission_rationale
+            text =
+            stringResource(
+                R.string.dialogue_demo_camera_permission_rationale,
             ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
@@ -60,27 +61,30 @@ object CameraContentDemoButtons {
         modifier: Modifier = Modifier,
     ) {
         Text(
-            text = "${permissionState.permission} is permanently denied.\n\n" +
-                    "Please update your app settings.",
+            text =
+            "${permissionState.permission} is permanently denied.\n\n" +
+                "Please update your app settings.",
             textAlign = TextAlign.Center,
         )
 
-        val openSettingsText = stringResource(
-            R.string.dialogue_demo_camera_open_permissions
-        )
+        val openSettingsText =
+            stringResource(
+                R.string.dialogue_demo_camera_open_permissions,
+            )
         GdsButton(
             modifier = modifier.testTag("permissionRationaleButton"),
             text = openSettingsText,
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
-                val intent = Intent(
-                    ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.fromParts(
-                        "package",
-                        context.packageName,
-                        null,
+                val intent =
+                    Intent(
+                        ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.fromParts(
+                            "package",
+                            context.packageName,
+                            null,
+                        ),
                     )
-                )
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             },

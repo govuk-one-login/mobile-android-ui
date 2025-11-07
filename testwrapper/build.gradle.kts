@@ -1,8 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("uk.gov.pipelines.android-app-config")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
@@ -27,7 +26,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -54,17 +53,22 @@ android {
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
-                events = setOf(
-                    TestLogEvent.FAILED,
-                    TestLogEvent.PASSED,
-                    TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        TestLogEvent.FAILED,
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
+    }
+
+    ktlint {
+        version = libs.versions.ktlint.cli.get()
     }
 }
 
@@ -91,6 +95,8 @@ dependencies {
     implementation(libs.androidx.compose.adaptive.navigation)
     implementation(libs.androidx.compose.adaptive.layout)
     implementation(libs.kotlinx.serialization.json)
+
+    lintChecks(libs.com.slack.compose.lint.checks)
 
     testFixturesApi(testFixtures(projects.componentsv2))
     testFixturesApi(testFixtures(projects.componentsv2.componentsv2Camera))

@@ -25,12 +25,13 @@ fun AppNavHost(
     NavHost(
         navController,
         modifier = modifier,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
-        val mod = Modifier
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .padding(top = tabPagesOffsetPadding)
+        val mod =
+            Modifier
+                .statusBarsPadding()
+                .navigationBarsPadding()
+                .padding(top = tabPagesOffsetPadding)
 
         applyTabDestinations(modifier = mod, onNavigate = navController::navigate)
         applyComponentDestinations(
@@ -39,7 +40,8 @@ fun AppNavHost(
                 scope.launch {
                     navController.navigate(it)
                 }
-            })
+            },
+        )
         applyPatternDestinations(modifier = mod)
     }
 }

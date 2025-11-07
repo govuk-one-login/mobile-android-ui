@@ -42,7 +42,7 @@ class QrScannerScreenTest {
                 barcodeAnalysisCallback = { result, _ ->
                     barcodeScanResult = result
                 },
-                converter = ImageProxyConverter.Companion.simple(),
+                converter = ImageProxyConverter.simple(),
                 viewModel = model,
                 modifier = Modifier.fillMaxSize(),
             )

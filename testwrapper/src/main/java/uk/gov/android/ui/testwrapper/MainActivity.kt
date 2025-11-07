@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold { contentPadding ->
                     PrimaryTabRow(
                         selectedTabIndex = selectedDestination,
-                        modifier = Modifier.padding(contentPadding)
+                        modifier = Modifier.padding(contentPadding),
                     ) {
                         TabDestination.entries().forEachIndexed { index, destination ->
                             Tab(
@@ -46,9 +46,9 @@ class MainActivity : ComponentActivity() {
                                     Text(
                                         text = destination.label,
                                         maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis
+                                        overflow = TextOverflow.Ellipsis,
                                     )
-                                }
+                                },
                             )
                         }
                     }
@@ -58,4 +58,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
