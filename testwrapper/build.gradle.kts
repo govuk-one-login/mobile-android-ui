@@ -91,7 +91,10 @@ dependencies {
     testFixturesApi(testFixtures(projects.componentsv2.componentsv2Camera))
     testFixturesApi(libs.androidx.ui.test.junit4.android)
     testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.androidx.navigation.testing)
+    testFixturesImplementation(libs.navigation.compose)
 
+    testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)
