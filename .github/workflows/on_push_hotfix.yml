@@ -33,3 +33,4 @@ jobs:
           GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SCREENSHOT_TEST_COMMAND: 'patterns:verifyPaparazziDebug componentsv2:verifyPaparazziDebug theme:verifyPaparazziDebug'
