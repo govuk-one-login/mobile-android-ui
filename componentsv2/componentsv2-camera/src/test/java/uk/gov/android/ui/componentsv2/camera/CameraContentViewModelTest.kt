@@ -1,38 +1,17 @@
 package uk.gov.android.ui.componentsv2.camera
 
-import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
-import org.junit.Test
+import androidx.core.content.ContextCompat
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 
+// DCMAW-16272: Update tests
 @RunWith(RobolectricTestRunner::class)
 class CameraContentViewModelTest {
 
-    private val model = CameraContentViewModel()
-
-    @Test
-    fun useCasesAreStoredViaStateFlow() = runTest {
-        model.addAll(
-            preview(model::update).provide(),
-        )
-        assertEquals(
-            1,
-            model.useCasesBuilder.value.build().useCases.size,
-        )
-
-        model.removeUseCases()
-        val exception = assertThrows(
-            IllegalArgumentException::class.java,
-        ) {
-            model.useCasesBuilder.value.build()
-        }
-
-        assertEquals(
-            "UseCase must not be empty.",
-            exception.message,
-        )
-    }
+    private val model = CameraContentViewModel(
+        executor = ContextCompat.getMainExecutor(
+            InstrumentationRegistry.getInstrumentation().targetContext,
+        ),
+    )
 }

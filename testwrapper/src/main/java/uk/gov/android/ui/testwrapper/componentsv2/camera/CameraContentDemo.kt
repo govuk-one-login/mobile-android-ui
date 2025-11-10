@@ -6,7 +6,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.camera.core.UseCase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,8 +27,6 @@ import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.cameraContentViewModelFactory
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
@@ -66,8 +63,15 @@ fun CameraContentDemo(
         }
 
     viewModel.removeUseCases()
-
-    generateCameraUseCases(viewModel, context).let(viewModel::addAll)
+    barcodeAnalysis(
+        context = context,
+        options =
+        provideQrScanningOptions(
+            provideZoomOptions(viewModel::getCurrentCamera),
+        ),
+        callback = barcodeScanResultLoggingCallback,
+        converter = ImageProxyConverter.simple(),
+    ).let(viewModel::update)
 
     val permissionLogic = generatePermissionLogic(coroutineScope, viewModel, context)
 
@@ -129,19 +133,3 @@ private fun generatePermissionLogic(
         CameraRequirePermissionButton(launchPermission = launchPermission)
     },
 )
-
-private fun generateCameraUseCases(
-    viewModel: CameraContentViewModel,
-    context: Context,
-): List<UseCase> = listOf(
-    preview(viewModel::update),
-    barcodeAnalysis(
-        context = context,
-        options =
-        provideQrScanningOptions(
-            provideZoomOptions(viewModel::getCurrentCamera),
-        ),
-        callback = barcodeScanResultLoggingCallback,
-        converter = ImageProxyConverter.simple(),
-    ),
-).map(CameraUseCaseProvider::provide)

@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.ZoomSuggestionOptions
 import com.google.mlkit.vision.barcode.common.Barcode
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
+import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProviders
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter.Companion.IMAGE_WIDTH_CROP_MULTIPLIER
 
@@ -26,20 +26,16 @@ object BarcodeUseCaseProviders {
         ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
         callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },
-    ): CameraUseCaseProvider {
-        val analyzer = BarcodeImageAnalyzer(
+    ): ImageAnalysis = CameraUseCaseProviders.imageAnalysis(
+        analyzer = BarcodeImageAnalyzer(
             options = options,
             callback = callback,
             converter = converter,
-        )
-
-        return CameraUseCaseProvider.imageAnalysis(
-            analyzer = analyzer,
-            backpressureStrategy = backpressureStrategy,
-            executor = ContextCompat.getMainExecutor(context),
-            outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
-        )
-    }
+        ),
+        backpressureStrategy = backpressureStrategy,
+        executor = ContextCompat.getMainExecutor(context),
+        outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
+    )
 
     const val MAX_ZOOM_RATIO = 10f
 
