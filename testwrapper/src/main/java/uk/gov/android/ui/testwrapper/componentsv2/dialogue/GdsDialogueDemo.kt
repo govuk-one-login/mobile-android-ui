@@ -27,11 +27,14 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GdsDialogueDemo() {
+fun GdsDialogueDemo(
+    modifier: Modifier = Modifier,
+) {
     var displayDialogue by remember { mutableStateOf(false) }
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     Scaffold(
+        modifier = modifier,
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,

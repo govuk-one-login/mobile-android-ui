@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -60,34 +61,36 @@ object CameraContentDemoButtons {
         context: Context,
         modifier: Modifier = Modifier,
     ) {
-        Text(
-            text =
-            "${permissionState.permission} is permanently denied.\n\n" +
-                "Please update your app settings.",
-            textAlign = TextAlign.Center,
-        )
-
-        val openSettingsText =
-            stringResource(
-                R.string.dialogue_demo_camera_open_permissions,
+        Column(modifier = modifier) {
+            Text(
+                text =
+                "${permissionState.permission} is permanently denied.\n\n" +
+                    "Please update your app settings.",
+                textAlign = TextAlign.Center,
             )
-        GdsButton(
-            modifier = modifier.testTag("permissionRationaleButton"),
-            text = openSettingsText,
-            buttonType = ButtonTypeV2.Primary(),
-            onClick = {
-                val intent =
-                    Intent(
-                        ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.fromParts(
-                            "package",
-                            context.packageName,
-                            null,
-                        ),
-                    )
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
-            },
-        )
+
+            val openSettingsText =
+                stringResource(
+                    R.string.dialogue_demo_camera_open_permissions,
+                )
+            GdsButton(
+                modifier = Modifier.testTag("permissionRationaleButton"),
+                text = openSettingsText,
+                buttonType = ButtonTypeV2.Primary(),
+                onClick = {
+                    val intent =
+                        Intent(
+                            ACTION_APPLICATION_DETAILS_SETTINGS,
+                            Uri.fromParts(
+                                "package",
+                                context.packageName,
+                                null,
+                            ),
+                        )
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+                },
+            )
+        }
     }
 }
