@@ -1,9 +1,14 @@
 package uk.gov.android.ui.componentsv2.camera
 
 import androidx.camera.compose.CameraXViewfinder
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
+import androidx.camera.core.UseCase
 import androidx.camera.core.UseCaseGroup
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.viewfinder.compose.MutableCoordinateTransformer
@@ -32,7 +37,7 @@ import kotlinx.coroutines.withContext
  * [androidx.camera.core.UseCase] objects via [CameraContentViewModel.addAll].
  */
 @Composable
-fun CameraContent(
+fun CameraContentWithViewModel(
     viewModel: CameraContentViewModel,
     modifier: Modifier = Modifier,
     cameraSelector: CameraSelector = DEFAULT_BACK_CAMERA,
@@ -46,22 +51,69 @@ fun CameraContent(
     val surfaceRequest: SurfaceRequest? by viewModel
         .surfaceRequestFlow
         .collectAsStateWithLifecycle()
-    val useCasesBuilder: UseCaseGroup.Builder by viewModel
-        .useCasesBuilder
-        .collectAsStateWithLifecycle()
+    val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
+    val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+        initialValue = null,
+    )
+    val imageCaptureUseCase: ImageCapture? by
+        viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+            initialValue = null,
+        )
 
+    CameraContent(
+        surfaceRequest = surfaceRequest,
+        previewUseCase = previewUseCase,
+        analysisUseCase = analysisUseCase,
+        imageCaptureUseCase = imageCaptureUseCase,
+        onViewModelUpdate = viewModel::update,
+        alignment = alignment,
+        contentScale = contentScale,
+        coordinateTransformer = coordinateTransformer,
+        modifier = modifier,
+        cameraSelector = cameraSelector,
+        coroutineScope = coroutineScope,
+        mainDispatcher = mainDispatcher,
+        lifecycleOwner = lifecycleOwner,
+    )
+}
+
+/**
+ * UI for showing camera content to the User.
+ *
+ */
+@Composable
+fun CameraContent(
+    surfaceRequest: SurfaceRequest?,
+    previewUseCase: Preview,
+    modifier: Modifier = Modifier,
+    analysisUseCase: ImageAnalysis? = null,
+    imageCaptureUseCase: ImageCapture? = null,
+    cameraSelector: CameraSelector = DEFAULT_BACK_CAMERA,
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    coordinateTransformer: MutableCoordinateTransformer? = null,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Crop,
+    onViewModelUpdate: (Camera) -> Unit = {},
+) {
     val context = LocalContext.current
 
     // Cancel the camera listener when leaving this composition.
-    DisposableEffect(lifecycleOwner, useCasesBuilder) {
+    DisposableEffect(previewUseCase, imageCaptureUseCase, analysisUseCase) {
+        val useCaseGroup = UseCaseGroup.Builder().apply {
+            addUseCase(previewUseCase)
+            analysisUseCase?.let(::addUseCase)
+            imageCaptureUseCase?.let(::addUseCase)
+        }.build()
+
         val provider = ProcessCameraProvider.getInstance(context).get()
 
         coroutineScope.launch {
-            val useCaseGroup = useCasesBuilder.build()
             provider.unbindAll()
 
             withContext(mainDispatcher) {
-                viewModel.update(
+                onViewModelUpdate(
                     provider.bindToLifecycle(
                         lifecycleOwner,
                         cameraSelector,
@@ -76,14 +128,12 @@ fun CameraContent(
             } finally {
                 withContext(mainDispatcher) {
                     provider.unbindAll()
-                    viewModel.removeUseCases()
                 }
             }
         }
 
         onDispose {
             provider.unbindAll()
-            viewModel.removeUseCases()
         }
     }
 

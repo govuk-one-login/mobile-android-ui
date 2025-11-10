@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.ComponentListDetail
@@ -29,17 +28,10 @@ sealed class ComponentsDestination(
     @Serializable
     data class DetailedItem(
         val text: String,
-        val items: PersistentList<DetailItem>,
+        val items: List<DetailItem>,
     ) : ComponentsDestination(
         label = text,
     ) {
-        constructor(
-            text: String,
-            items: List<DetailItem>,
-        ) : this(
-            text = text,
-            items = items.sortedBy(DetailItem::label).toPersistentList(),
-        )
 
         companion object {
             /**
@@ -48,7 +40,7 @@ sealed class ComponentsDestination(
              */
             val typeMap =
                 mapOf(
-                    typeOf<PersistentList<DetailItem>>() to navTypeOf<PersistentList<DetailItem>>(),
+                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>(),
                 )
         }
     }
@@ -89,7 +81,7 @@ sealed class ComponentsDestination(
             composable<DetailedItem>(typeMap = DetailedItem.typeMap) { navBackStackEntry ->
                 val arguments: DetailedItem = navBackStackEntry.toRoute()
                 ComponentListDetail(
-                    items = arguments.items,
+                    items = arguments.items.toPersistentList(),
                     modifier = modifier,
                     onNavigate = onNavigate,
                 )

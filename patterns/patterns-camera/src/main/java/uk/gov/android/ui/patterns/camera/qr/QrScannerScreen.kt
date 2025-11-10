@@ -1,8 +1,11 @@
 package uk.gov.android.ui.patterns.camera.qr
 
 import android.Manifest
-import android.content.Context
+import androidx.camera.core.Camera
 import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.core.SurfaceRequest
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -27,15 +29,6 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
-import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
-import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
 import uk.gov.android.ui.patterns.camera.R
@@ -49,21 +42,18 @@ import uk.gov.android.ui.theme.spacingDouble
 @Composable
 @OptIn(ExperimentalPermissionsApi::class)
 fun QrScannerScreen(
-    barcodeAnalysisCallback: BarcodeScanResult.Callback,
-    viewModel: CameraContentViewModel,
+    surfaceRequest: SurfaceRequest?,
+    previewUseCase: Preview,
+    onUpdateViewModelCamera: (Camera) -> Unit,
     modifier: Modifier = Modifier,
-    backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
+    analysisUseCase: ImageAnalysis? = null,
+    imageCaptureUseCase: ImageCapture? = null,
     scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
-    converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
-        relativeScanningWidth = scanningWidthMultiplier,
-        relativeScanningHeight = scanningWidthMultiplier,
-    ),
     instructionText: String = stringResource(R.string.qr_scan_screen_title),
     onPermanentCameraDenial: @Composable ((PermissionState) -> Unit) = { _ -> },
     onShowRationale: @Composable ((PermissionState, () -> Unit) -> Unit) = { _, _ -> },
     onRequirePermission: @Composable ((PermissionState, () -> Unit) -> Unit) = { _, _ -> },
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
-    context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ) {
     val (
@@ -75,30 +65,18 @@ fun QrScannerScreen(
         onUpdatePreviouslyDeniedPermission(!it)
     }
 
-    viewModel.removeUseCases()
-
-    listOf(
-        preview(viewModel::update),
-        barcodeAnalysis(
-            backpressureStrategy = backpressureStrategy,
-            context = context,
-            options = provideQrScanningOptions(
-                provideZoomOptions(viewModel::getCurrentCamera),
-            ),
-            converter = converter,
-            callback = barcodeAnalysisCallback,
-        ),
-    ).map(CameraUseCaseProvider::provide)
-        .let(viewModel::addAll)
-
     val permissionLogic = PermissionLogic(
         onGrantPermission = {
             QrScannerPermissionGranted(
-                instructionText,
-                colorScheme,
-                coroutineScope,
-                viewModel,
-                scanningWidthMultiplier,
+                instructionText = instructionText,
+                previewUseCase = previewUseCase,
+                analysisUseCase = analysisUseCase,
+                imageCaptureUseCase = imageCaptureUseCase,
+                colorScheme = colorScheme,
+                coroutineScope = coroutineScope,
+                scanningWidthMultiplier = scanningWidthMultiplier,
+                surfaceRequest = surfaceRequest,
+                onUpdateViewModelCamera = onUpdateViewModelCamera,
             )
         },
         onPermissionPermanentlyDenied = onPermanentCameraDenial,
@@ -126,10 +104,14 @@ fun QrScannerScreen(
 private fun QrScannerPermissionGranted(
     instructionText: String,
     colorScheme: CustomColorsScheme,
+    previewUseCase: Preview,
     coroutineScope: CoroutineScope,
-    viewModel: CameraContentViewModel,
     scanningWidthMultiplier: Float,
+    surfaceRequest: SurfaceRequest?,
+    onUpdateViewModelCamera: (Camera) -> Unit,
     modifier: Modifier = Modifier,
+    imageCaptureUseCase: ImageCapture? = null,
+    analysisUseCase: ImageAnalysis? = null,
 ) {
     Box(modifier = modifier) {
         Box(
@@ -147,9 +129,12 @@ private fun QrScannerPermissionGranted(
                 modifier = Modifier.padding(all = smallPadding),
             )
         }
+
         CameraContent(
-            coroutineScope = coroutineScope,
-            viewModel = viewModel,
+            surfaceRequest = surfaceRequest,
+            previewUseCase = previewUseCase,
+            analysisUseCase = analysisUseCase,
+            imageCaptureUseCase = imageCaptureUseCase,
             modifier = Modifier
                 .fillMaxSize()
                 .testTag("cameraViewfinder")
@@ -158,6 +143,8 @@ private fun QrScannerPermissionGranted(
                     overlayTint = colorScheme.qrScannerOverlayBackground,
                     qrBorderColor = colorScheme.qrScannerOverlayBorder,
                 ),
+            coroutineScope = coroutineScope,
+            onViewModelUpdate = onUpdateViewModelCamera,
         )
     }
 }

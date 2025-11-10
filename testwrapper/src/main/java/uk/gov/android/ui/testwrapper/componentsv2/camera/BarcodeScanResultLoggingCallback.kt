@@ -15,10 +15,10 @@ val barcodeScanResultLoggingCallback =
 
             is BarcodeScanResult.Failure -> result.message
         }.let { logMessage ->
-            Log.i(
-                "BarcodeScanResultLoggingCallback",
-                "Barcode scanning result: $logMessage",
-            )
+            val logTag = "BarcodeScanResultLoggingCallback"
+            if (Log.isLoggable(logTag, Log.INFO)) {
+                Log.i(logTag, "Barcode scanning result: $logMessage")
+            }
         }.also {
             toggleScanner()
         }

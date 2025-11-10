@@ -58,7 +58,7 @@ class CameraContentTest {
         }
         state.setContent {
             model.addAll(useCases)
-            CameraContent(
+            CameraContentWithViewModel(
                 viewModel = model,
                 modifier = Modifier.fillMaxSize(),
             )

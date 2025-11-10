@@ -2,6 +2,10 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Context
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.core.SurfaceRequest
 import androidx.camera.core.UseCase
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +31,7 @@ import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProvider.Companion.preview
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
+import uk.gov.android.ui.componentsv2.camera.cameraContentViewModelFactory
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
@@ -45,7 +51,9 @@ fun CameraContentDemo(
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
+    viewModel: CameraContentViewModel = cameraContentViewModelFactory(context).create(
+        CameraContentViewModel::class.java,
+    ),
 ) {
     val (
         hasPreviouslyDeniedPermission,
@@ -87,13 +95,28 @@ private fun generatePermissionLogic(
     context: Context,
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
+        val surfaceRequest: SurfaceRequest? by
+            viewModel.surfaceRequestFlow.collectAsStateWithLifecycle()
+        val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
+        val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+            initialValue = null,
+        )
+        val imageCaptureUseCase: ImageCapture? by
+            viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+                initialValue = null,
+            )
+
         CameraContent(
             coroutineScope = coroutineScope,
-            viewModel = viewModel,
+            previewUseCase = previewUseCase,
+            analysisUseCase = analysisUseCase,
+            imageCaptureUseCase = imageCaptureUseCase,
             modifier =
             Modifier
                 .fillMaxSize()
                 .testTag("cameraViewfinder"),
+            surfaceRequest = surfaceRequest,
+            onViewModelUpdate = viewModel::update,
         )
     },
     onPermissionPermanentlyDenied = { state ->
