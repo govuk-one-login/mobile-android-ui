@@ -3,8 +3,10 @@ package uk.gov.android.ui.componentsv2.camera
 import android.Manifest
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
@@ -24,8 +26,6 @@ class CameraContentTest {
         Manifest.permission.CAMERA,
     )
 
-    private val model = CameraContentViewModel()
-
     @Test
     fun configuresFullSurfaceAnalysis() = runTest {
         performJourney(
@@ -43,22 +43,31 @@ class CameraContentTest {
     private fun performJourney(
         converter: ImageProxyConverter,
     ) = runTest {
+        val testTag = "cameraViewfinder"
         val state = StateRestorationTester(composeTestRule)
-        model.update(preview(model))
-        model.update(
-            barcodeAnalysis(
-                context = ApplicationProvider.getApplicationContext(),
-                converter = converter,
-            ),
-        )
 
         state.setContent {
+            val model = CameraContentViewModel()
+
+            model.update(preview(model))
+            model.update(
+                barcodeAnalysis(
+                    context = ApplicationProvider.getApplicationContext(),
+                    converter = converter,
+                ),
+            )
+
             CameraContentWithViewModel(
                 viewModel = model,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag(testTag),
             )
         }
 
         state.emulateSavedInstanceStateRestore()
+
+        composeTestRule.onNodeWithTag(testTag)
+            .assertExists()
     }
 }
