@@ -1,62 +1,32 @@
-package uk.gov.android.ui.componentsv2.camera
+package uk.gov.android.ui.patterns.camera
 
-import android.content.Context
 import androidx.camera.core.Camera
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
 import androidx.camera.core.UseCase
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
-import java.util.concurrent.Executor
 
-@Suppress("UNCHECKED_CAST")
-fun cameraContentViewModelFactory(
-    context: Context,
-) = object : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CameraContentViewModel(
-            executor = ContextCompat.getMainExecutor(context),
-        ) as T
-    }
-}
-
-class CameraContentViewModel(
-    private val executor: Executor,
-) : ViewModel(), Preview.SurfaceProvider {
+class CameraContentViewModel() : ViewModel(), Preview.SurfaceProvider {
     private val _surfaceRequestFlow = MutableStateFlow<SurfaceRequest?>(null)
-    val surfaceRequestFlow: StateFlow<SurfaceRequest?> =
+    val surfaceRequest: StateFlow<SurfaceRequest?> =
         _surfaceRequestFlow
 
     private val _camera = MutableStateFlow<Camera?>(null)
 
-    private val _previewUseCase = MutableStateFlow<Preview>(
+    private val _previewUseCase = MutableStateFlow(
         Preview.Builder().build().apply {
             this.surfaceProvider = this@CameraContentViewModel
         },
     )
     val previewUseCase: StateFlow<Preview> = _previewUseCase
 
-    private val _imageAnalyzer = MutableStateFlow<ImageAnalysis.Analyzer?>(null)
-    val imageAnalyzer: StateFlow<ImageAnalysis.Analyzer?> = _imageAnalyzer
-
     private val _analysisUseCase = MutableStateFlow<ImageAnalysis?>(null)
-    val analysisUseCase = combine(
-        _analysisUseCase,
-        imageAnalyzer,
-    ) { analysis, analyzer ->
-        analyzer?.let { useCase ->
-            analysis?.setAnalyzer(executor, useCase)
-        }
-
-        analysis
-    }
+    val analysisUseCase: StateFlow<ImageAnalysis?> = _analysisUseCase
 
     private val _imageCaptureUseCase = MutableStateFlow<ImageCapture?>(null)
     val imageCaptureUseCase: StateFlow<ImageCapture?> = _imageCaptureUseCase
@@ -75,33 +45,27 @@ class CameraContentViewModel(
         }
     }
 
+    fun addAll(vararg useCases: UseCase) = addAll(useCases.toList())
+
     fun getCurrentCamera(): Camera? = _camera.value
 
-    fun update(builder: Preview) {
-        _previewUseCase.update { builder }
+    fun update(useCase: Preview) {
+        _previewUseCase.update { useCase }
     }
 
-    fun update(builder: ImageAnalysis) {
-        _analysisUseCase.update { builder }
+    fun update(useCase: ImageAnalysis) {
+        _analysisUseCase.update { useCase }
     }
 
-    fun update(builder: ImageCapture) {
-        _imageCaptureUseCase.update { builder }
-    }
-
-    fun update(analyzer: ImageAnalysis.Analyzer) {
-        _imageAnalyzer.update { analyzer }
-    }
-
-    fun update(request: SurfaceRequest) {
-        _surfaceRequestFlow.update { request }
+    fun update(useCase: ImageCapture) {
+        _imageCaptureUseCase.update { useCase }
     }
 
     fun update(result: Camera) {
         _camera.update { result }
     }
 
-    fun removeUseCases() {
+    fun resetState() {
         _camera.update { null }
         _previewUseCase.update {
             Preview.Builder().build().apply {
@@ -110,6 +74,12 @@ class CameraContentViewModel(
         }
         _analysisUseCase.update { null }
         _imageCaptureUseCase.update { null }
+        _surfaceRequestFlow.update { null }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        resetState()
     }
 
     override fun onSurfaceRequested(request: SurfaceRequest) {

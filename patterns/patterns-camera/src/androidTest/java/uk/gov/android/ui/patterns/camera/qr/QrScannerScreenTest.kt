@@ -12,8 +12,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
+import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -26,16 +25,15 @@ class QrScannerScreenTest {
         Manifest.permission.CAMERA,
     )
 
-    private val model = CameraContentViewModel()
     private val resources = ApplicationProvider.getApplicationContext<Context>().resources
-    private var barcodeScanResult: BarcodeScanResult = BarcodeScanResult.EmptyScan
 
     @Test
     fun configuresCameraUseCases() = runTest {
         val state = StateRestorationTester(composeTestRule)
 
         state.setContent {
-            // DCMAW-16272: Update tests
+            val model = CameraContentViewModel()
+            QrScannerViewModelScreen(viewModel = model)
         }
 
         composeTestRule

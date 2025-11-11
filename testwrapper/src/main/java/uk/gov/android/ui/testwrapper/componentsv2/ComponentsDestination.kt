@@ -15,8 +15,8 @@ import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.ComponentListDetail
 import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.Placeholder
-import uk.gov.android.ui.testwrapper.componentsv2.camera.qr.QrScannerResult
 import uk.gov.android.ui.testwrapper.navigation.navTypeOf
+import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerResult
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
 import kotlin.reflect.typeOf

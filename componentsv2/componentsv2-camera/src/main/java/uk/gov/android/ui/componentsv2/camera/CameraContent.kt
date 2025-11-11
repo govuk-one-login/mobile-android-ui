@@ -8,7 +8,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.camera.core.UseCase
 import androidx.camera.core.UseCaseGroup
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.viewfinder.compose.MutableCoordinateTransformer
@@ -29,12 +28,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 
 /**
  * UI for showing camera content to the User.
  *
  * Configure the [viewModel] before calling this composable function, such as for setting up Camera
- * [androidx.camera.core.UseCase] objects via [CameraContentViewModel.addAll].
+ * [androidx.camera.core.UseCase] objects via [uk.gov.android.ui.patterns.camera.CameraContentViewModel.addAll].
  */
 @Composable
 fun CameraContentWithViewModel(
@@ -49,7 +49,7 @@ fun CameraContentWithViewModel(
     contentScale: ContentScale = ContentScale.Crop,
 ) {
     val surfaceRequest: SurfaceRequest? by viewModel
-        .surfaceRequestFlow
+        .surfaceRequest
         .collectAsStateWithLifecycle()
     val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
     val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(

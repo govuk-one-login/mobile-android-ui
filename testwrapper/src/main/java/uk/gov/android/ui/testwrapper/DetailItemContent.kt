@@ -27,14 +27,14 @@ fun DetailItemContent(
 ) {
     Card(modifier = modifier) {
         LazyColumn(
-            modifier = Modifier.Companion.fillMaxSize()
+            modifier = Modifier.fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background),
         ) {
             items.forEach { detailItem ->
                 item {
                     ListItem(
                         modifier =
-                        Modifier.Companion
+                        Modifier
                             .clickable {
                                 onItemClick(detailItem)
                             },
@@ -43,11 +43,11 @@ fun DetailItemContent(
                                 text = detailItem.name,
                                 textAlign = GdsHeadingAlignment.LeftAligned,
                                 style = GdsHeadingStyle.Body,
-                                modifier = Modifier.Companion.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth(),
                             )
                         },
                     )
-                    HorizontalDivider(color = Color.Companion.Black)
+                    HorizontalDivider(color = Color.Black)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package uk.gov.android.ui.testwrapper.componentsv2.camera.qr
+package uk.gov.android.ui.testwrapper.patterns.camera.qr
 
 import android.Manifest
 import android.content.Context
@@ -22,29 +22,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
-import uk.gov.android.ui.componentsv2.camera.cameraContentViewModelFactory
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
-import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
+import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
-import uk.gov.android.ui.patterns.camera.R
-import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
+import uk.gov.android.ui.patterns.camera.CameraContentViewModel
+import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions
 import uk.gov.android.ui.patterns.camera.qr.QrScannerScreen
-import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraPermissionRationaleButton
-import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraRequirePermissionButton
-import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.PermanentCameraDenial
+import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons
 import uk.gov.android.ui.theme.m3.CustomColorsScheme
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
@@ -57,18 +51,16 @@ fun QrScannerScreenDemo(
     context: Context = LocalContext.current,
     converter: ImageProxyConverter =
         CentrallyCroppedImageProxyConverter(
-            relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
-            relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
+            relativeScanningWidth = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
+            relativeScanningHeight = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
         ),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    viewModel: CameraContentViewModel = cameraContentViewModelFactory(context).create(
-        CameraContentViewModel::class.java,
-    ),
+    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
     onNavigate: (Any) -> Unit = {},
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    viewModel.removeUseCases()
+    viewModel.resetState()
     qrScannerDemoAnalysis(
         context = context,
         getCurrentCamera = viewModel::getCurrentCamera,
@@ -122,7 +114,7 @@ private fun qrScannerDemoPermissionLogic(
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
-            viewModel.surfaceRequestFlow.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
+            viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
         val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle(
             lifecycleOwner = lifecycleOwner,
         )
@@ -138,25 +130,24 @@ private fun qrScannerDemoPermissionLogic(
 
         QrScannerScreen(
             modifier = Modifier,
-            instructionText = stringResource(R.string.qr_scan_screen_title),
             surfaceRequest = surfaceRequest,
             previewUseCase = previewUseCase,
             analysisUseCase = analysisUseCase,
             imageCaptureUseCase = imageCaptureUseCase,
-            scanningWidthMultiplier = CANVAS_WIDTH_MULTIPLIER,
+            scanningWidthMultiplier = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
             coroutineScope = coroutineScope,
             onUpdateViewModelCamera = viewModel::update,
             colors = colorScheme.qrScannerOverlay,
         )
     },
     onPermissionPermanentlyDenied = { state ->
-        PermanentCameraDenial(state, context)
+        CameraContentDemoButtons.PermanentCameraDenial(state, context)
     },
     onShowRationale = { _, launchPermission ->
-        CameraPermissionRationaleButton(launchPermission = launchPermission)
+        CameraContentDemoButtons.CameraPermissionRationaleButton(launchPermission = launchPermission)
     },
     onRequirePermission = { _, launchPermission ->
-        CameraRequirePermissionButton(launchPermission = launchPermission)
+        CameraContentDemoButtons.CameraRequirePermissionButton(launchPermission = launchPermission)
     },
 )
 
@@ -184,11 +175,11 @@ private fun qrScannerDemoAnalysis(
     getCurrentCamera: () -> Camera?,
     onNavigate: (Any) -> Unit,
     converter: ImageProxyConverter,
-) = barcodeAnalysis(
+) = BarcodeUseCaseProviders.barcodeAnalysis(
     context = context,
     options =
-    provideQrScanningOptions(
-        provideZoomOptions(getCurrentCamera),
+    BarcodeUseCaseProviders.provideQrScanningOptions(
+        BarcodeUseCaseProviders.provideZoomOptions(getCurrentCamera),
     ),
     callback = qrScannerDemoCallback(onNavigate),
     converter = converter,

@@ -18,13 +18,13 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
 import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
-import uk.gov.android.ui.testwrapper.componentsv2.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
+import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 

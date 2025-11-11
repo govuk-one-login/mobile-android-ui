@@ -22,18 +22,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
-import uk.gov.android.ui.componentsv2.camera.cameraContentViewModelFactory
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
+import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraPermissionRationaleButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraRequirePermissionButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.PermanentCameraDenial
@@ -48,9 +48,7 @@ fun CameraContentDemo(
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    viewModel: CameraContentViewModel = cameraContentViewModelFactory(context).create(
-        CameraContentViewModel::class.java,
-    ),
+    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
 ) {
     val (
         hasPreviouslyDeniedPermission,
@@ -62,7 +60,7 @@ fun CameraContentDemo(
             onUpdatePreviouslyDeniedPermission(!it)
         }
 
-    viewModel.removeUseCases()
+    viewModel.resetState()
     barcodeAnalysis(
         context = context,
         options =
@@ -100,7 +98,7 @@ private fun generatePermissionLogic(
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
-            viewModel.surfaceRequestFlow.collectAsStateWithLifecycle()
+            viewModel.surfaceRequest.collectAsStateWithLifecycle()
         val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
         val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
             initialValue = null,

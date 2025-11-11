@@ -1,4 +1,4 @@
-package uk.gov.android.ui.testwrapper.componentsv2.camera.qr
+package uk.gov.android.ui.testwrapper.patterns.camera.qr
 
 import kotlinx.serialization.Serializable
 

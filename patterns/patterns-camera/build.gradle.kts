@@ -81,6 +81,7 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
+    api(projects.theme)
     api(projects.componentsv2.componentsv2Camera)
     api(libs.bundles.qr.code.scanning)
 
@@ -92,7 +93,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)
     implementation(projects.componentsv2)
-    implementation(projects.theme)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testmanifest)
@@ -102,6 +102,8 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestUtil(libs.androidx.test.orchestrator)
+
+    testFixturesImplementation(libs.bundles.compose)
 
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
