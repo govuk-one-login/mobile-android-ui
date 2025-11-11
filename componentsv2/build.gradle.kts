@@ -40,7 +40,13 @@ android {
             enableUnitTestCoverage = true
         }
     }
-
+    packaging {
+        // Exclude multiple copies of licences
+        listOf(
+            "META-INF/AL2.0",
+            "META-INF/LGPL2.1",
+        ).forEach(resources.excludes::plusAssign)
+    }
     @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"

@@ -8,7 +8,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -87,9 +86,7 @@ fun QrScannerScreenDemo(
     )
 
     Column(
-        modifier =
-        modifier
-            .background(colorScheme.qrScannerOverlayBackground)
+        modifier = modifier
             .padding(spacingDouble)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,

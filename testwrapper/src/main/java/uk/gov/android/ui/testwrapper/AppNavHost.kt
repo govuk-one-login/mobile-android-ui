@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -32,6 +33,7 @@ fun AppNavHost(
                 .statusBarsPadding()
                 .navigationBarsPadding()
                 .padding(top = tabPagesOffsetPadding)
+                .testTag("entries")
 
         applyTabDestinations(modifier = mod, onNavigate = navController::navigate)
         applyComponentDestinations(
