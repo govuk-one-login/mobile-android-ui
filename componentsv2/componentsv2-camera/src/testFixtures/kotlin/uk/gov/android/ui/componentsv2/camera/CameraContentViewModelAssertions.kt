@@ -17,6 +17,13 @@ import uk.gov.android.ui.componentsv2.camera.assertions.HasPreview
 import uk.gov.android.ui.componentsv2.camera.assertions.HasSurfaceRequest
 import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 
+/**
+ * Convenience object for holding assertions related to the [CameraContentViewModel].
+ *
+ * Suppresses `TooManyFunctions` as the object follows a similar architectural pattern to
+ * [org.junit.Assert] and [org.hamcrest.CoreMatchers].
+ */
+@Suppress("TooManyFunctions")
 object CameraContentViewModelAssertions {
     fun hasCamera() = hasCamera(any(Camera::class.java))
     fun hasCamera(

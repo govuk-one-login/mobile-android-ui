@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class CameraContentViewModel() : ViewModel(), Preview.SurfaceProvider {
+class CameraContentViewModel : ViewModel(), Preview.SurfaceProvider {
     private val _surfaceRequestFlow = MutableStateFlow<SurfaceRequest?>(null)
     val surfaceRequest: StateFlow<SurfaceRequest?> =
         _surfaceRequestFlow
