@@ -58,11 +58,12 @@ fun QrScannerScreenDemo(
     onNavigate: (Any) -> Unit = {},
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
+    val camera: Camera? by viewModel.camera.collectAsStateWithLifecycle()
 
     viewModel.resetState()
     qrScannerDemoAnalysis(
         context = context,
-        getCurrentCamera = viewModel::getCurrentCamera,
+        getCurrentCamera = { camera },
         converter = converter,
         onNavigate = onNavigate,
     ).let(viewModel::update)
@@ -159,12 +160,13 @@ private fun qrScannerDemoCallback(
         is BarcodeScanResult.Success -> result.firstOrNull()?.url?.url
         is BarcodeScanResult.Single -> result.barcode.url?.url
         else -> {
-            toggleScanner()
             null
         }
     }?.let { url ->
         onNavigate(QrScannerResult(url))
     }
+
+    toggleScanner()
 }
 
 private fun qrScannerDemoAnalysis(

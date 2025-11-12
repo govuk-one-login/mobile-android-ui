@@ -11,7 +11,7 @@ internal class HasCamera(
 ) : TypeSafeMatcher<CameraContentViewModel>() {
     override fun matchesSafely(
         item: CameraContentViewModel?,
-    ): Boolean = matcher.matches(item?.getCurrentCamera())
+    ): Boolean = matcher.matches(item?.camera?.value)
 
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)
@@ -21,6 +21,6 @@ internal class HasCamera(
         item: CameraContentViewModel?,
         mismatchDescription: Description?,
     ) {
-        matcher.describeMismatch(item?.getCurrentCamera(), mismatchDescription)
+        matcher.describeMismatch(item?.camera?.value, mismatchDescription)
     }
 }

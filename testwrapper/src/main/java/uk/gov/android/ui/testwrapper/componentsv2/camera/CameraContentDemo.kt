@@ -2,6 +2,7 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Context
+import androidx.camera.core.Camera
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -55,6 +56,8 @@ fun CameraContentDemo(
         onUpdatePreviouslyDeniedPermission,
     ) = remember { mutableStateOf(false) }
 
+    val camera: Camera? by viewModel.camera.collectAsStateWithLifecycle()
+
     val permissionState =
         rememberPermissionState(Manifest.permission.CAMERA) {
             onUpdatePreviouslyDeniedPermission(!it)
@@ -65,7 +68,7 @@ fun CameraContentDemo(
         context = context,
         options =
         provideQrScanningOptions(
-            provideZoomOptions(viewModel::getCurrentCamera),
+            provideZoomOptions { camera },
         ),
         callback = barcodeScanResultLoggingCallback,
         converter = ImageProxyConverter.simple(),

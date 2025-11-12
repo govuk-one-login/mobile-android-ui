@@ -28,17 +28,16 @@ object CameraContentViewModelHelper {
         }
     }
     fun TestScope.monitor(model: CameraContentViewModel) {
-        backgroundScope.launch {
-            model.surfaceRequest.collect {}
-        }
-        backgroundScope.launch {
-            model.previewUseCase.collect {}
-        }
-        backgroundScope.launch {
-            model.analysisUseCase.collect {}
-        }
-        backgroundScope.launch {
-            model.imageCaptureUseCase.collect {}
+        listOf(
+            model.surfaceRequest,
+            model.previewUseCase,
+            model.analysisUseCase,
+            model.imageCaptureUseCase,
+            model.camera,
+        ).forEach { flow ->
+            backgroundScope.launch {
+                flow.collect {}
+            }
         }
     }
 }

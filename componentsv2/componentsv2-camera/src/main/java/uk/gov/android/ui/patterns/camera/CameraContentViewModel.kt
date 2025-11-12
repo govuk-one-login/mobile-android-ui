@@ -17,6 +17,7 @@ class CameraContentViewModel : ViewModel(), Preview.SurfaceProvider {
         _surfaceRequestFlow
 
     private val _camera = MutableStateFlow<Camera?>(null)
+    val camera: StateFlow<Camera?> = _camera
 
     private val _previewUseCase = MutableStateFlow(
         Preview.Builder().build().apply {
@@ -46,8 +47,6 @@ class CameraContentViewModel : ViewModel(), Preview.SurfaceProvider {
     }
 
     fun addAll(vararg useCases: UseCase) = addAll(useCases.toList())
-
-    fun getCurrentCamera(): Camera? = _camera.value
 
     fun update(useCase: Preview) {
         _previewUseCase.update { useCase }
