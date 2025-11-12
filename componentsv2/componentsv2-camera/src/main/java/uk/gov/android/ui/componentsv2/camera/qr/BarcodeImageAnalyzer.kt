@@ -6,7 +6,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import kotlinx.coroutines.runBlocking
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 
 @OptIn(ExperimentalGetImage::class)
@@ -35,20 +34,12 @@ class BarcodeImageAnalyzer(
             scanner
                 .process(inputImage)
                 .addOnSuccessListener { barcodeList ->
-                    val validBarcodes = barcodeList.filter {
-                        true
-                    }
-
-                    if (validBarcodes.isEmpty()) {
-                        BarcodeScanResult.EmptyScan
-                    } else {
-                        BarcodeScanResult.Success(validBarcodes)
+                    when {
+                        barcodeList.size == 1 -> BarcodeScanResult.Single(barcodeList[0])
+                        barcodeList.isEmpty() -> BarcodeScanResult.EmptyScan
+                        else -> BarcodeScanResult.Success(barcodeList)
                     }.let { result ->
-                        runBlocking {
-                            onResult(result) {
-                                isScanningEnabled = true
-                            }
-                        }
+                        onResult(result) { isScanningEnabled = true }
                     }
                 }.addOnFailureListener {
                     onResult(BarcodeScanResult.Failure(it)) {
