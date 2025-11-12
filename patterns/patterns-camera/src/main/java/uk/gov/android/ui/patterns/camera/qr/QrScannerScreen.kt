@@ -26,7 +26,7 @@ import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.qrScannerOverlay
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.QrScannerOverlay
+import uk.gov.android.ui.theme.m3.QrScannerOverlayDefaults
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.smallPadding
 
@@ -63,7 +63,7 @@ fun QrScannerScreen(
     modifier: Modifier = Modifier,
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
-    colors: QrScannerOverlay = GdsLocalColorScheme.current.qrScannerOverlay,
+    colors: QrScannerOverlayDefaults = GdsLocalColorScheme.current.qrScannerOverlay,
     backgroundTint: Color = colors.background.toMappedColors(),
     borderColor: Color = colors.border.toMappedColors(),
     instructionContent: @Composable () -> Unit = {

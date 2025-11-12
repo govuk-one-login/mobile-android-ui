@@ -18,14 +18,14 @@ import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.QrScannerOverlay
+import uk.gov.android.ui.theme.m3.QrScannerOverlayDefaults
 import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Composable
 fun QrScannerViewModelScreen(
     viewModel: CameraContentViewModel,
     modifier: Modifier = Modifier,
-    colors: QrScannerOverlay = GdsLocalColorScheme.current.qrScannerOverlay,
+    colors: QrScannerOverlayDefaults = GdsLocalColorScheme.current.qrScannerOverlay,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
     instructionContent: @Composable () -> Unit = {

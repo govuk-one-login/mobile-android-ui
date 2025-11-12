@@ -110,7 +110,7 @@ data class CustomColorsScheme(
     val linkDefault: Color = Color.Unspecified,
     val menuItem: Color = Color.Unspecified,
     val menuItemHighlighted: Color = Color.Unspecified,
-    val qrScannerOverlay: QrScannerOverlay = QrScannerOverlay.defaults(),
+    val qrScannerOverlay: QrScannerOverlayDefaults = QrScannerOverlayDefaults,
     val qrScannerOverlayBackground: Color = Color.Unspecified,
     val qrScannerOverlayBorder: Color = Color.Unspecified,
 )
@@ -125,7 +125,6 @@ val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
 @Suppress("ForbiddenComment")
 @Composable
 private fun customColors(): CustomColorsScheme {
-    val qrScannerOverlay: QrScannerOverlay = QrScannerOverlay.defaults()
     return CustomColorsScheme(
         cardBackground = Backgrounds.card.toMappedColors(),
         listBackground = Backgrounds.list.toMappedColors(),
@@ -171,9 +170,9 @@ private fun customColors(): CustomColorsScheme {
         linkDefault = Links.default.toMappedColors(),
         menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
         menuItem = Menu.menuItem.toMappedColors(),
-        qrScannerOverlay = qrScannerOverlay,
-        qrScannerOverlayBackground = qrScannerOverlay.background.toMappedColors(),
-        qrScannerOverlayBorder = qrScannerOverlay.border.toMappedColors(),
+        qrScannerOverlay = QrScannerOverlayDefaults,
+        qrScannerOverlayBackground = QrScannerOverlayDefaults.background.toMappedColors(),
+        qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
     )
 }
 

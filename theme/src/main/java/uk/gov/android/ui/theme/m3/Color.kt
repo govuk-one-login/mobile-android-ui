@@ -103,22 +103,15 @@ object Menu {
     val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
 }
 
-interface QrScannerOverlay {
-    val background: ColorPair
-    val border: ColorPair
-
-    companion object {
-        fun defaults() = object : QrScannerOverlay {
-            override val background = ColorPair(
-                light = Color(0x80000000),
-                dark = Color(0x80000000),
-            )
-            override val border = ColorPair(
-                light = Color(0xFFFFFFFF),
-                dark = Color(0xFFFFFFFF),
-            )
-        }
-    }
+object QrScannerOverlayDefaults {
+    var background: ColorPair = ColorPair(
+        light = Color(0x80000000),
+        dark = Color(0x80000000),
+    )
+    var border: ColorPair = ColorPair(
+        light = Color(0xFFFFFFFF),
+        dark = Color(0xFFFFFFFF),
+    )
 }
 
 @Suppress("ForbiddenComment")
