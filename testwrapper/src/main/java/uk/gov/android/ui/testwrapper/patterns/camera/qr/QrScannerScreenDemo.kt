@@ -28,13 +28,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
+import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions
 import uk.gov.android.ui.patterns.camera.qr.QrScannerScreen
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons
@@ -58,12 +58,11 @@ fun QrScannerScreenDemo(
     onNavigate: (Any) -> Unit = {},
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val camera: Camera? by viewModel.camera.collectAsStateWithLifecycle()
 
     viewModel.resetState()
     qrScannerDemoAnalysis(
         context = context,
-        getCurrentCamera = { camera },
+        getCurrentCamera = viewModel::getCurrentCamera,
         converter = converter,
         onNavigate = onNavigate,
     ).let(viewModel::update)
@@ -113,15 +112,15 @@ private fun qrScannerDemoPermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
             viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
-        val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle(
+        val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle(
             lifecycleOwner = lifecycleOwner,
         )
-        val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+        val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
             initialValue = null,
             lifecycleOwner = lifecycleOwner,
         )
         val imageCaptureUseCase: ImageCapture? by
-            viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+            viewModel.imageCapture.collectAsStateWithLifecycle(
                 initialValue = null,
                 lifecycleOwner = lifecycleOwner,
             )

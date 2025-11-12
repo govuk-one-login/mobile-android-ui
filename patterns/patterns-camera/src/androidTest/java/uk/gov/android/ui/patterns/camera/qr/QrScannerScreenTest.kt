@@ -12,7 +12,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
+import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
 
 @OptIn(ExperimentalPermissionsApi::class)

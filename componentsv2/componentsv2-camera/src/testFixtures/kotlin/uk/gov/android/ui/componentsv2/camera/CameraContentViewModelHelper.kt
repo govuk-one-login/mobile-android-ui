@@ -7,7 +7,6 @@ import androidx.camera.core.CameraInfo
 import androidx.camera.core.impl.CameraConfig
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestScope
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 
 object CameraContentViewModelHelper {
     object DummyCamera : Camera {
@@ -30,9 +29,9 @@ object CameraContentViewModelHelper {
     fun TestScope.monitor(model: CameraContentViewModel) {
         listOf(
             model.surfaceRequest,
-            model.previewUseCase,
-            model.analysisUseCase,
-            model.imageCaptureUseCase,
+            model.preview,
+            model.imageAnalysis,
+            model.imageCapture,
             model.camera,
         ).forEach { flow ->
             backgroundScope.launch {

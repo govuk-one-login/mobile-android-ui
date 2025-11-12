@@ -14,7 +14,7 @@ import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.CoroutineScope
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
+import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
@@ -42,15 +42,15 @@ fun QrScannerViewModelScreen(
 
     val surfaceRequest: SurfaceRequest? by
         viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
-    val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle(
+    val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle(
         lifecycleOwner = lifecycleOwner,
     )
-    val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+    val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
         initialValue = null,
         lifecycleOwner = lifecycleOwner,
     )
     val imageCaptureUseCase: ImageCapture? by
-        viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+        viewModel.imageCapture.collectAsStateWithLifecycle(
             initialValue = null,
             lifecycleOwner = lifecycleOwner,
         )

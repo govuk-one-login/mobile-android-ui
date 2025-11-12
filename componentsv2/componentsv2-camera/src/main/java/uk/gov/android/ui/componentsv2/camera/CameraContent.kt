@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.camera
 
 import androidx.camera.compose.CameraXViewfinder
-import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.ImageAnalysis
@@ -28,13 +27,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.CameraHolder
 
 /**
  * UI for showing camera content to the User.
  *
  * Configure the [viewModel] before calling this composable function, such as for setting up Camera
- * [androidx.camera.core.UseCase] objects via [uk.gov.android.ui.patterns.camera.CameraContentViewModel.addAll].
+ * [androidx.camera.core.UseCase] objects via [CameraContentViewModel.addAll].
  */
 @Composable
 fun CameraContentWithViewModel(
@@ -51,12 +50,12 @@ fun CameraContentWithViewModel(
     val surfaceRequest: SurfaceRequest? by viewModel
         .surfaceRequest
         .collectAsStateWithLifecycle()
-    val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
-    val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+    val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle()
+    val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
         initialValue = null,
     )
     val imageCaptureUseCase: ImageCapture? by
-        viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+        viewModel.imageCapture.collectAsStateWithLifecycle(
             initialValue = null,
         )
 
@@ -65,7 +64,7 @@ fun CameraContentWithViewModel(
         previewUseCase = previewUseCase,
         analysisUseCase = analysisUseCase,
         imageCaptureUseCase = imageCaptureUseCase,
-        onViewModelUpdate = viewModel::update,
+        cameraUpdater = viewModel::update,
         alignment = alignment,
         contentScale = contentScale,
         coordinateTransformer = coordinateTransformer,
@@ -95,7 +94,7 @@ fun CameraContent(
     coordinateTransformer: MutableCoordinateTransformer? = null,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Crop,
-    onViewModelUpdate: (Camera) -> Unit = {},
+    cameraUpdater: CameraHolder.Updater = CameraHolder.Updater {},
 ) {
     val context = LocalContext.current
 
@@ -113,7 +112,7 @@ fun CameraContent(
             provider.unbindAll()
 
             withContext(mainDispatcher) {
-                onViewModelUpdate(
+                cameraUpdater.update(
                     provider.bindToLifecycle(
                         lifecycleOwner,
                         cameraSelector,

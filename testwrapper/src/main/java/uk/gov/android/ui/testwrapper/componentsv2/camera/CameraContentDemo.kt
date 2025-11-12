@@ -2,7 +2,6 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Context
-import androidx.camera.core.Camera
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
@@ -28,13 +27,13 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
+import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideQrScanningOptions
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.provideZoomOptions
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.componentsv2.permission.PermissionScreen
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraPermissionRationaleButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.CameraRequirePermissionButton
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons.PermanentCameraDenial
@@ -56,8 +55,6 @@ fun CameraContentDemo(
         onUpdatePreviouslyDeniedPermission,
     ) = remember { mutableStateOf(false) }
 
-    val camera: Camera? by viewModel.camera.collectAsStateWithLifecycle()
-
     val permissionState =
         rememberPermissionState(Manifest.permission.CAMERA) {
             onUpdatePreviouslyDeniedPermission(!it)
@@ -68,7 +65,7 @@ fun CameraContentDemo(
         context = context,
         options =
         provideQrScanningOptions(
-            provideZoomOptions { camera },
+            provideZoomOptions(viewModel::getCurrentCamera),
         ),
         callback = barcodeScanResultLoggingCallback,
         converter = ImageProxyConverter.simple(),
@@ -102,12 +99,12 @@ private fun generatePermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
             viewModel.surfaceRequest.collectAsStateWithLifecycle()
-        val previewUseCase: Preview by viewModel.previewUseCase.collectAsStateWithLifecycle()
-        val analysisUseCase: ImageAnalysis? by viewModel.analysisUseCase.collectAsStateWithLifecycle(
+        val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle()
+        val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
             initialValue = null,
         )
         val imageCaptureUseCase: ImageCapture? by
-            viewModel.imageCaptureUseCase.collectAsStateWithLifecycle(
+            viewModel.imageCapture.collectAsStateWithLifecycle(
                 initialValue = null,
             )
 
@@ -121,7 +118,7 @@ private fun generatePermissionLogic(
                 .fillMaxSize()
                 .testTag("cameraViewfinder"),
             surfaceRequest = surfaceRequest,
-            onViewModelUpdate = viewModel::update,
+            cameraUpdater = viewModel::update,
         )
     },
     onPermissionPermanentlyDenied = { state ->

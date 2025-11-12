@@ -15,7 +15,6 @@ import org.junit.Test
 import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProviders.preview
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 
 class CameraContentTest {
     @get:Rule

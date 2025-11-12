@@ -5,7 +5,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,8 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
+import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.CameraHolder
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.qrScannerOverlay
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
@@ -59,7 +59,7 @@ fun QrScannerScreen(
     previewUseCase: Preview,
     scanningWidthMultiplier: Float,
     coroutineScope: CoroutineScope,
-    onUpdateViewModelCamera: (Camera) -> Unit,
+    onUpdateViewModelCamera: CameraHolder.Updater,
     modifier: Modifier = Modifier,
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
@@ -93,7 +93,7 @@ fun QrScannerScreen(
                     qrBorderColor = borderColor,
                 ),
             coroutineScope = coroutineScope,
-            onViewModelUpdate = onUpdateViewModelCamera,
+            cameraUpdater = onUpdateViewModelCamera,
         )
     }
 }

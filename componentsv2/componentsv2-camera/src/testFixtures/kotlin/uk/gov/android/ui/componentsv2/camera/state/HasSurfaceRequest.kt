@@ -1,16 +1,15 @@
-package uk.gov.android.ui.componentsv2.camera.assertions
+package uk.gov.android.ui.componentsv2.camera.state
 
 import androidx.camera.core.SurfaceRequest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
 
 internal class HasSurfaceRequest(
     private val matcher: Matcher<SurfaceRequest>,
-) : TypeSafeMatcher<CameraContentViewModel>() {
+) : TypeSafeMatcher<CameraContentState.SurfaceRequester.State>() {
     override fun matchesSafely(
-        item: CameraContentViewModel?,
+        item: CameraContentState.SurfaceRequester.State?,
     ): Boolean = matcher.matches(item?.surfaceRequest?.value)
 
     override fun describeTo(description: Description?) {
@@ -18,7 +17,7 @@ internal class HasSurfaceRequest(
     }
 
     override fun describeMismatchSafely(
-        item: CameraContentViewModel?,
+        item: CameraContentState.SurfaceRequester.State?,
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.surfaceRequest?.value, mismatchDescription)

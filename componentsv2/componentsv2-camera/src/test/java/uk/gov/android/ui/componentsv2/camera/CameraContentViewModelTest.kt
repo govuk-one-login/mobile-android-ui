@@ -4,12 +4,10 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.camera.core.UseCase
 import androidx.camera.video.VideoCapture
 import androidx.camera.video.VideoOutput
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -18,14 +16,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.hasCamera
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.hasImageAnalysis
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.hasImageCapture
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.hasPreview
-import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.hasSurfaceRequest
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.isInInitialState
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelHelper.monitor
-import uk.gov.android.ui.patterns.camera.CameraContentViewModel
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasCamera
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasCurrentCamera
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasImageAnalysis
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasImageCapture
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasPreview
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasSurfaceRequest
 
 @RunWith(RobolectricTestRunner::class)
 class CameraContentViewModelTest {
@@ -53,11 +51,13 @@ class CameraContentViewModelTest {
 
         assertNotEquals(
             preview,
-            model.previewUseCase.value,
+            model.preview.value,
         )
 
-        verifyUseCaseFlow(
-            preview,
+        model.addAll(preview)
+
+        assertThat(
+            model,
             hasPreview(preview),
         )
     }
@@ -66,8 +66,10 @@ class CameraContentViewModelTest {
     fun canUpdateImageAnalysisUseCase() = runTest {
         monitor(model)
 
-        verifyUseCaseFlow(
-            imageAnalysis,
+        model.addAll(imageAnalysis)
+
+        assertThat(
+            model,
             hasImageAnalysis(imageAnalysis),
         )
     }
@@ -76,8 +78,10 @@ class CameraContentViewModelTest {
     fun canUpdateImageCaptureUseCase() = runTest {
         monitor(model)
 
-        verifyUseCaseFlow(
-            imageCapture,
+        model.addAll(imageCapture)
+
+        assertThat(
+            model,
             hasImageCapture(imageCapture),
         )
     }
@@ -91,6 +95,18 @@ class CameraContentViewModelTest {
         assertThat(
             model,
             hasCamera(camera),
+        )
+    }
+
+    @Test
+    fun cameraVerificationOccursViaPublicStateFlowAccessor() = runTest {
+        monitor(model)
+
+        model.update(camera)
+
+        assertThat(
+            model,
+            hasCurrentCamera(camera),
         )
     }
 
@@ -149,18 +165,6 @@ class CameraContentViewModelTest {
         assertThat(
             model,
             isInInitialState(),
-        )
-    }
-
-    private fun verifyUseCaseFlow(
-        useCase: UseCase,
-        assertion: Matcher<CameraContentViewModel>,
-    ) {
-        model.addAll(useCase)
-
-        assertThat(
-            model,
-            assertion,
         )
     }
 }
