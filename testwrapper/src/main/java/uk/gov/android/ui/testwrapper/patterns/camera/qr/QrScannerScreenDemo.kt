@@ -164,9 +164,7 @@ private fun qrScannerDemoCallback(
         }
     }?.let { url ->
         onNavigate(QrScannerResult(url))
-    }
-
-    toggleScanner()
+    } ?: toggleScanner()
 }
 
 private fun qrScannerDemoAnalysis(
