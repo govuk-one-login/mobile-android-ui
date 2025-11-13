@@ -12,6 +12,10 @@ import com.google.mlkit.vision.common.InputImage
  * @sample ImageProxyConverter.simple
  */
 fun interface ImageProxyConverter {
+    /**
+     * @return An [InputImage] when the provided [proxy] is successfully converted.
+     * Returns `null` when conversion isn't possible.
+     */
     fun convert(proxy: ImageProxy): InputImage?
 
     companion object {

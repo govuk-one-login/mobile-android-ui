@@ -1,94 +1,62 @@
 package uk.gov.android.ui.componentsv2.camera.state
 
-import androidx.camera.core.Camera
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.core.SurfaceRequest
-import kotlinx.coroutines.flow.StateFlow
+import uk.gov.android.ui.componentsv2.camera.state.analyzer.ImageAnalyzer
+import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
+import uk.gov.android.ui.componentsv2.camera.state.capture.ImageCapturer
+import uk.gov.android.ui.componentsv2.camera.state.preview.ImagePreviewer
+import uk.gov.android.ui.componentsv2.camera.state.surfacerequest.SurfaceRequester
 
+/**
+ * Sealed interface containing convenience interfaces combining different camera use case states.
+ */
 sealed interface CameraContentState {
-    sealed interface CameraHolder {
-        interface Complete : State, Updater
-        interface State {
-            val camera: StateFlow<Camera?>
 
-            /**
-             * Function that returns the latest [Camera] value within the [camera] property.
-             *
-             * Use this when collecting the [camera] causes recomposition / testing issues.
-             */
-            fun getCurrentCamera(): Camera? = camera.value
-        }
-        fun interface Updater {
-            fun update(camera: Camera?)
-        }
-    }
+    /**
+     * Interface that combines both [States] and [Updaters].
+     *
+     * @sample uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
+     *
+     * @see States
+     * @see Updaters
+     */
+    interface Complete :
+        CameraHolder.Complete,
+        ImageAnalyzer.Complete,
+        ImageCapturer.Complete,
+        ImagePreviewer.Complete,
+        SurfaceRequester.Complete,
+        States,
+        Updaters
 
-    interface Complete : States, Updaters
-
-    sealed interface ImageAnalyzer {
-        interface Complete : State, Updater
-
-        interface State {
-            val imageAnalysis: StateFlow<ImageAnalysis?>
-        }
-
-        fun interface Updater {
-            fun update(imageAnalysis: ImageAnalysis?)
-        }
-    }
-
-    sealed interface ImageCapturer {
-        interface Complete : State, Updater
-
-        interface State {
-            val imageCapture: StateFlow<ImageCapture?>
-        }
-
-        fun interface Updater {
-            fun update(imageCapture: ImageCapture?)
-        }
-    }
-
-    sealed interface Previewer {
-        interface Complete : State, Updater
-
-        interface State {
-            val preview: StateFlow<Preview>
-        }
-
-        fun interface Updater {
-            fun update(preview: Preview)
-        }
-    }
-
+    /**
+     * Property bag Interface that combines all of the StateFlow based Interfaces.
+     *
+     * @see CameraHolder.State
+     * @see ImageAnalyzer.State
+     * @see ImageCapturer.State
+     * @see ImagePreviewer.State
+     * @see SurfaceRequester.State
+     */
     interface States :
         CameraHolder.State,
         ImageAnalyzer.State,
         ImageCapturer.State,
-        Previewer.State,
+        ImagePreviewer.State,
         SurfaceRequester.State
 
-    sealed interface SurfaceRequester {
-        interface Complete : State, Updater
-
-        interface State {
-            val surfaceRequest: StateFlow<SurfaceRequest?>
-        }
-
-        fun interface Updater : Preview.SurfaceProvider {
-            override fun onSurfaceRequested(request: SurfaceRequest) {
-                update(request)
-            }
-            fun update(surfaceRequest: SurfaceRequest?)
-        }
-    }
-
+    /**
+     * Interface that combines all of the StateFlow updater Interfaces.
+     *
+     * @see CameraHolder.Updater
+     * @see ImageAnalyzer.Updater
+     * @see ImageCapturer.Updater
+     * @see ImagePreviewer.Updater
+     * @see SurfaceRequester.Updater
+     */
     interface Updaters :
         CameraHolder.Updater,
         ImageAnalyzer.Updater,
         ImageCapturer.Updater,
-        Previewer.Updater,
+        ImagePreviewer.Updater,
         SurfaceRequester.Updater
 }

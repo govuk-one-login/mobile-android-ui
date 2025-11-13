@@ -27,7 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.CameraHolder
+import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
 
 /**
  * UI for showing camera content to the User.

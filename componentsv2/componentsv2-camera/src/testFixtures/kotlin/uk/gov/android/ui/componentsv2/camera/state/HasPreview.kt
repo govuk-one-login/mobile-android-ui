@@ -4,12 +4,13 @@ import androidx.camera.core.Preview
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import uk.gov.android.ui.componentsv2.camera.state.preview.ImagePreviewer
 
 internal class HasPreview(
     private val matcher: Matcher<Preview>,
-) : TypeSafeMatcher<CameraContentState.Previewer.State>() {
+) : TypeSafeMatcher<ImagePreviewer.State>() {
     override fun matchesSafely(
-        item: CameraContentState.Previewer.State?,
+        item: ImagePreviewer.State?,
     ): Boolean = matcher.matches(item?.preview?.value)
 
     override fun describeTo(description: Description?) {
@@ -17,7 +18,7 @@ internal class HasPreview(
     }
 
     override fun describeMismatchSafely(
-        item: CameraContentState.Previewer.State?,
+        item: ImagePreviewer.State?,
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.preview?.value, mismatchDescription)

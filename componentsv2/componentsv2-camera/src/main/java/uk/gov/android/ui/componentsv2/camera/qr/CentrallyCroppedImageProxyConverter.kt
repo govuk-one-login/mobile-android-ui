@@ -16,31 +16,48 @@ import kotlin.math.floor
 /**
  * [ImageProxyConverter] implementation that crops the input from a provided [ImageProxy].
  *
- * This is based on the centre point of the input image.
+ * Internally converts [ImageFormat.YUV_420_888] into [ImageFormat.NV21] via byte array
+ * manipulation.
  *
+ * Image cropping is based on the centre point of the input image, going outwards.
+ *
+ * @param expectedFormat The expected [ImageFormat] of the provided [ImageProxy]. If the format
+ * doesn't match what's contained within the [ImageProxy], this implementation returns null when
+ * calling [ImageProxyConverter.convert]. Defaults to [ImageFormat.YUV_420_888].
  * @param relativeScanningWidth The percentage of the input image's width that should be used for
- * the output image's size.
+ * the output image's size. Defaults to [IMAGE_WIDTH_CROP_MULTIPLIER].
+ * @param relativeScanningHeight The percentage of the input image's height that should be used for
+ * the output image's size. Defaults to [IMAGE_WIDTH_CROP_MULTIPLIER].
  */
 class CentrallyCroppedImageProxyConverter(
+    private val expectedFormat: Int = ImageFormat.YUV_420_888,
     private val relativeScanningWidth: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
     private val relativeScanningHeight: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
 ) : ImageProxyConverter {
     @OptIn(ExperimentalGetImage::class)
     override fun convert(proxy: ImageProxy): InputImage? = proxy.image?.let { image ->
-        val (size, imageArray) = image.toCentralScanningArea(
-            relativeScanningWidth = relativeScanningWidth,
-            relativeScanningHeight = relativeScanningHeight,
-        )
+        if (proxy.format == expectedFormat) {
+            val (size, imageArray) = image.toCentralScanningArea(
+                relativeScanningWidth = relativeScanningWidth,
+                relativeScanningHeight = relativeScanningHeight,
+            )
 
-        InputImage.fromByteArray(
-            imageArray,
-            size.width.toInt(),
-            size.height.toInt(),
-            proxy.imageInfo.rotationDegrees,
-            ImageFormat.NV21,
-        )
+            InputImage.fromByteArray(
+                imageArray,
+                size.width.toInt(),
+                size.height.toInt(),
+                proxy.imageInfo.rotationDegrees,
+                ImageFormat.NV21,
+            )
+        } else {
+            null
+        }
     }
 
+    /**
+     * @return A [Pair] containing the cropped image's [Size], as well as cropped output as an
+     * NV-21 style byte array.
+     */
     fun Image.toCentralScanningArea(
         relativeScanningWidth: Float,
         relativeScanningHeight: Float,
@@ -68,6 +85,9 @@ class CentrallyCroppedImageProxyConverter(
         ) to croppedNv21
     }
 
+    /**
+     * Converts the provided [image] into an NV-21 style byte array.
+     */
     private fun yuv420888ToNv21(image: Image): ByteArray {
         val width = image.width
         val height = image.height

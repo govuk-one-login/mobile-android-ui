@@ -4,14 +4,15 @@ import androidx.camera.core.Camera
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
 
 internal class HasCamera(
     private val matcher: Matcher<Camera>,
-    private val getCamera: CameraContentState.CameraHolder.State?.() -> Camera?,
-) : TypeSafeMatcher<CameraContentState.CameraHolder.State>() {
+    private val getCamera: CameraHolder.State?.() -> Camera?,
+) : TypeSafeMatcher<CameraHolder.State>() {
 
     override fun matchesSafely(
-        item: CameraContentState.CameraHolder.State?,
+        item: CameraHolder.State?,
     ): Boolean = matcher.matches(getCamera(item))
 
     override fun describeTo(description: Description?) {
@@ -19,7 +20,7 @@ internal class HasCamera(
     }
 
     override fun describeMismatchSafely(
-        item: CameraContentState.CameraHolder.State?,
+        item: CameraHolder.State?,
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(getCamera(item), mismatchDescription)

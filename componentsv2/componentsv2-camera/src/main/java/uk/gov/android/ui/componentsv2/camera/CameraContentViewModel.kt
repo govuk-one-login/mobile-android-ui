@@ -5,31 +5,19 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.StateFlow
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentState
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.CameraHolder
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.ImageAnalyzer
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.ImageCapturer
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.Previewer
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.SurfaceRequester
-import uk.gov.android.ui.componentsv2.camera.state.MutableCameraHolder
-import uk.gov.android.ui.componentsv2.camera.state.MutableImageAnalyzer
-import uk.gov.android.ui.componentsv2.camera.state.MutableImageCapturer
-import uk.gov.android.ui.componentsv2.camera.state.MutablePreviewer
-import uk.gov.android.ui.componentsv2.camera.state.MutableSurfaceRequester
+import uk.gov.android.ui.componentsv2.camera.state.CompleteCameraContentState
 
+/**
+ * [ViewModel] companion to the [CameraContent] Composable UI.
+ *
+ * Relies on interface delegation to provide [StateFlow] properties exposing Camera [UseCase]s.
+ */
 class CameraContentViewModel @JvmOverloads constructor(
-    cameraHolder: CameraHolder.Complete = MutableCameraHolder(),
-    imageAnalyzer: ImageAnalyzer.Complete = MutableImageAnalyzer(),
-    imageCapturer: ImageCapturer.Complete = MutableImageCapturer(),
-    previewer: Previewer.Complete = MutablePreviewer(),
-    surfaceRequester: SurfaceRequester.Complete = MutableSurfaceRequester(),
+    state: CameraContentState.Complete = CompleteCameraContentState(),
 ) : ViewModel(),
-    CameraHolder.Complete by cameraHolder,
-    ImageAnalyzer.Complete by imageAnalyzer,
-    ImageCapturer.Complete by imageCapturer,
-    Previewer.Complete by previewer,
-    SurfaceRequester.Complete by surfaceRequester,
-    CameraContentState.Complete {
+    CameraContentState.Complete by state {
 
     init {
         update(
@@ -40,6 +28,12 @@ class CameraContentViewModel @JvmOverloads constructor(
         )
     }
 
+    /**
+     * Adds the provided [useCases] to the delegated [StateFlow] properties based on the
+     * implementation.
+     *
+     * @throws IllegalArgumentException when providing an unknown [UseCase] implementation.
+     */
     fun addAll(useCases: List<UseCase>) = useCases.forEach { useCase ->
         when (useCase) {
             is ImageAnalysis -> update(useCase)
@@ -54,8 +48,17 @@ class CameraContentViewModel @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Adds the provided [useCases] to the delegated [StateFlow] properties based on the
+     * implementation.
+     *
+     * @throws IllegalArgumentException when providing an unknown [UseCase] implementation.
+     */
     fun addAll(vararg useCases: UseCase) = addAll(useCases.toList())
 
+    /**
+     * Updates the delegated [StateFlow] properties to their initially expected values.
+     */
     fun resetState() {
         update(camera = null)
         update(

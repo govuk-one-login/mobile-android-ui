@@ -1,16 +1,11 @@
 package uk.gov.android.ui.componentsv2.camera
 
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.core.SurfaceRequest
 import androidx.camera.video.VideoCapture
 import androidx.camera.video.VideoOutput
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,22 +13,21 @@ import org.mockito.Mockito.mock
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelAssertions.isInInitialState
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModelHelper.monitor
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentState
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasCamera
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasCurrentCamera
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasImageAnalysis
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasImageCapture
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasPreview
 import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateAssertions.hasSurfaceRequest
+import uk.gov.android.ui.componentsv2.camera.state.CameraContentStateHelper
+import uk.gov.android.ui.componentsv2.camera.state.CompleteCameraContentState
 
 @RunWith(RobolectricTestRunner::class)
 class CameraContentViewModelTest {
 
-    private val model = CameraContentViewModel()
-    private val preview = Preview.Builder().build()
-    private val imageAnalysis = ImageAnalysis.Builder().build()
-    private val imageCapture = ImageCapture.Builder().build()
-    private val camera = CameraContentViewModelHelper.DummyCamera
-    private val surfaceRequest: SurfaceRequest = mock()
+    private val state: CameraContentState.Complete = CompleteCameraContentState()
+    private val model = CameraContentViewModel(state = state)
+    private val helper = CameraContentStateHelper()
 
     @Test
     fun initialState() = runTest {
@@ -42,83 +36,6 @@ class CameraContentViewModelTest {
         assertThat(
             model,
             isInInitialState(),
-        )
-    }
-
-    @Test
-    fun canUpdatePreviewUseCase() = runTest {
-        monitor(model)
-
-        assertNotEquals(
-            preview,
-            model.preview.value,
-        )
-
-        model.addAll(preview)
-
-        assertThat(
-            model,
-            hasPreview(preview),
-        )
-    }
-
-    @Test
-    fun canUpdateImageAnalysisUseCase() = runTest {
-        monitor(model)
-
-        model.addAll(imageAnalysis)
-
-        assertThat(
-            model,
-            hasImageAnalysis(imageAnalysis),
-        )
-    }
-
-    @Test
-    fun canUpdateImageCaptureUseCase() = runTest {
-        monitor(model)
-
-        model.addAll(imageCapture)
-
-        assertThat(
-            model,
-            hasImageCapture(imageCapture),
-        )
-    }
-
-    @Test
-    fun canUpdateCurrentCamera() = runTest {
-        monitor(model)
-
-        model.update(camera)
-
-        assertThat(
-            model,
-            hasCamera(camera),
-        )
-    }
-
-    @Test
-    fun cameraVerificationOccursViaPublicStateFlowAccessor() = runTest {
-        monitor(model)
-
-        model.update(camera)
-
-        assertThat(
-            model,
-            hasCurrentCamera(camera),
-        )
-    }
-
-    @Test
-    fun canUpdateSurfaceRequest() = runTest {
-        monitor(model)
-
-        model.onSurfaceRequested(surfaceRequest)
-
-        assertThat(
-            model,
-            hasSurfaceRequest(surfaceRequest),
         )
     }
 
@@ -142,12 +59,12 @@ class CameraContentViewModelTest {
         monitor(model)
 
         model.addAll(
-            preview,
-            imageAnalysis,
-            imageCapture,
+            helper.preview,
+            helper.imageAnalysis,
+            helper.imageCapture,
         )
-        model.update(camera)
-        model.onSurfaceRequested(surfaceRequest)
+        model.update(helper.camera)
+        model.onSurfaceRequested(helper.surfaceRequest)
 
         assertThat(
             model,

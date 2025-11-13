@@ -9,6 +9,11 @@ import org.hamcrest.CoreMatchers.any
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matcher
+import uk.gov.android.ui.componentsv2.camera.state.analyzer.ImageAnalyzer
+import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
+import uk.gov.android.ui.componentsv2.camera.state.capture.ImageCapturer
+import uk.gov.android.ui.componentsv2.camera.state.preview.ImagePreviewer
+import uk.gov.android.ui.componentsv2.camera.state.surfacerequest.SurfaceRequester
 
 /**
  * Convenience object for holding assertions related to the [CameraContentState].
@@ -24,7 +29,7 @@ object CameraContentStateAssertions {
     ) = hasCamera(equalTo(expected))
     fun hasCamera(
         matcher: Matcher<Camera>,
-    ): Matcher<in CameraContentState.CameraHolder.State> = HasCamera.viaFunction(matcher)
+    ): Matcher<in CameraHolder.State> = HasCamera.viaFunction(matcher)
     fun hasNoCamera() = hasCamera(nullValue(Camera::class.java))
 
     fun hasCurrentCamera() = hasCurrentCamera(any(Camera::class.java))
@@ -33,7 +38,7 @@ object CameraContentStateAssertions {
     ) = hasCurrentCamera(equalTo(expected))
     fun hasCurrentCamera(
         matcher: Matcher<Camera>,
-    ): Matcher<in CameraContentState.CameraHolder.State> = HasCamera.viaFlow(matcher)
+    ): Matcher<in CameraHolder.State> = HasCamera.viaFlow(matcher)
     fun hasNullCurrentCamera() = hasCurrentCamera(nullValue(Camera::class.java))
 
     fun hasPreview() = hasPreview(any(Preview::class.java))
@@ -43,7 +48,7 @@ object CameraContentStateAssertions {
 
     fun hasPreview(
         matcher: Matcher<Preview>,
-    ): Matcher<in CameraContentState.Previewer.State> = HasPreview(matcher)
+    ): Matcher<in ImagePreviewer.State> = HasPreview(matcher)
 
     fun hasImageAnalysis() = hasImageAnalysis(any(ImageAnalysis::class.java))
     fun hasImageAnalysis(
@@ -51,7 +56,7 @@ object CameraContentStateAssertions {
     ) = hasImageAnalysis(equalTo(expected))
     fun hasImageAnalysis(
         matcher: Matcher<ImageAnalysis>,
-    ): Matcher<in CameraContentState.ImageAnalyzer.State> = HasImageAnalysis(matcher)
+    ): Matcher<in ImageAnalyzer.State> = HasImageAnalysis(matcher)
     fun hasNoImageAnalysis() = hasImageAnalysis(
         nullValue(ImageAnalysis::class.java),
     )
@@ -62,7 +67,7 @@ object CameraContentStateAssertions {
     ) = hasImageCapture(equalTo(expected))
     fun hasImageCapture(
         matcher: Matcher<ImageCapture>,
-    ): Matcher<in CameraContentState.ImageCapturer.State> = HasImageCapture(matcher)
+    ): Matcher<in ImageCapturer.State> = HasImageCapture(matcher)
     fun hasNoImageCapture() = hasImageCapture(
         nullValue(ImageCapture::class.java),
     )
@@ -73,7 +78,7 @@ object CameraContentStateAssertions {
     ) = hasSurfaceRequest(equalTo(expected))
     fun hasSurfaceRequest(
         matcher: Matcher<SurfaceRequest>,
-    ): Matcher<in CameraContentState.SurfaceRequester.State> = HasSurfaceRequest(matcher)
+    ): Matcher<in SurfaceRequester.State> = HasSurfaceRequest(matcher)
     fun hasNoSurfaceRequest() = hasSurfaceRequest(
         nullValue(SurfaceRequest::class.java),
     )

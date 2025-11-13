@@ -12,7 +12,6 @@ import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.camera.CameraUseCaseProviders.preview
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeUseCaseProviders.barcodeAnalysis
 import uk.gov.android.ui.componentsv2.camera.qr.CentrallyCroppedImageProxyConverter
 
@@ -48,7 +47,6 @@ class CameraContentTest {
         state.setContent {
             val model = CameraContentViewModel()
 
-            model.update(preview(model))
             model.update(
                 barcodeAnalysis(
                     context = ApplicationProvider.getApplicationContext(),
