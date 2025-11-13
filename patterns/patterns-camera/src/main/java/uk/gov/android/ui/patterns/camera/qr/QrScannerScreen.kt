@@ -21,7 +21,7 @@ import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContent
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
-import uk.gov.android.ui.componentsv2.camera.state.CameraContentState.CameraHolder
+import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
 import uk.gov.android.ui.componentsv2.permission.PermissionLogic
 import uk.gov.android.ui.patterns.camera.R
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.qrScannerOverlay

@@ -102,6 +102,7 @@ dependencies {
     testFixturesApi(libs.androidx.ui.test.android)
     testFixturesImplementation(libs.kotlin.stdlib)
     testFixturesImplementation(libs.androidx.ui.test.junit4.android)
+    testFixturesImplementation(libs.mockito.kotlin)
 
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.androidx.ui.test.android)

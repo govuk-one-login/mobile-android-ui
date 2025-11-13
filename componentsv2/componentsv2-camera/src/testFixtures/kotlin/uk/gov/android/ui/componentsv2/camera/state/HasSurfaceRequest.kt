@@ -4,12 +4,13 @@ import androidx.camera.core.SurfaceRequest
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import uk.gov.android.ui.componentsv2.camera.state.surfacerequest.SurfaceRequester
 
 internal class HasSurfaceRequest(
     private val matcher: Matcher<SurfaceRequest>,
-) : TypeSafeMatcher<CameraContentState.SurfaceRequester.State>() {
+) : TypeSafeMatcher<SurfaceRequester.State>() {
     override fun matchesSafely(
-        item: CameraContentState.SurfaceRequester.State?,
+        item: SurfaceRequester.State?,
     ): Boolean = matcher.matches(item?.surfaceRequest?.value)
 
     override fun describeTo(description: Description?) {
@@ -17,7 +18,7 @@ internal class HasSurfaceRequest(
     }
 
     override fun describeMismatchSafely(
-        item: CameraContentState.SurfaceRequester.State?,
+        item: SurfaceRequester.State?,
         mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.surfaceRequest?.value, mismatchDescription)

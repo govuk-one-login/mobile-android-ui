@@ -7,8 +7,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.layout.boundsInRoot
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -19,6 +17,14 @@ object ModifierExtensions {
     const val BORDER_OFFSET = 7f
     const val QR_BORDER_OVERLAY_STROKE_WIDTH = 5
 
+    /**
+     * Draws a cornered square in the centre of the Composable UI:
+     *
+     * ```
+     * ⌜ ⌝
+     * ⌞ ⌟
+     * ```
+     */
     @Suppress("LongParameterList")
     fun ContentDrawScope.drawQrOverlayBorder(
         width: Float,
@@ -75,6 +81,12 @@ object ModifierExtensions {
         )
     }
 
+    /**
+     * Overlays the Composable UI with a tint and draws a cornered square in the centre of the
+     * Composable.
+     *
+     * @see drawQrOverlayBorder
+     */
     fun Modifier.qrScannerOverlay(
         overlayTint: Color,
         qrBorderColor: Color,
@@ -109,9 +121,6 @@ object ModifierExtensions {
                     borderLength = borderLength,
                     color = qrBorderColor,
                 )
-            }
-            .onGloballyPositioned { layoutCoordinates ->
-                layoutCoordinates.boundsInRoot()
             },
     )
 }
