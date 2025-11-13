@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
@@ -50,9 +51,9 @@ android {
             it.testLogging {
                 events =
                     setOf(
-                        org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                        org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                        org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                        TestLogEvent.FAILED,
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
                     )
             }
         }
@@ -72,13 +73,15 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
+    implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.bundles.compose)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(project(":componentsv2"))
+    implementation(projects.componentsv2)
+    implementation(projects.componentsv2.componentsv2Camera)
     implementation(project(":theme"))
 
     debugImplementation(libs.androidx.compose.ui.tooling)

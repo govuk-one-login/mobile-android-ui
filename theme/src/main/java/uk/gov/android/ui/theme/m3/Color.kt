@@ -103,6 +103,17 @@ object Menu {
     val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
 }
 
+object QrScannerOverlayDefaults {
+    var background: ColorPair = ColorPair(
+        light = Color(0x80000000),
+        dark = Color(0x80000000),
+    )
+    var border: ColorPair = ColorPair(
+        light = Color(0xFFFFFFFF),
+        dark = Color(0xFFFFFFFF),
+    )
+}
+
 @Suppress("ForbiddenComment")
 // TODO: Once we have the GdsSwitch/Toggle we should replace this with that version e.g. GdsSwitch.defaultColors()
 @Composable

@@ -1,8 +1,10 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    id("uk.gov.pipelines.android-app-config")
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -12,6 +14,7 @@ android {
     defaultConfig {
         applicationId = "uk.gov.android.ui.testwrapper"
         minSdk = 29
+        //noinspection OldTargetApi
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -24,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -38,23 +41,35 @@ android {
     buildFeatures {
         compose = true
     }
+    packaging {
+        // Exclude multiple copies of licences
+        listOf(
+            "META-INF/AL2.0",
+            "META-INF/LGPL2.1",
+        ).forEach(resources.excludes::plusAssign)
+    }
     @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
             it.testLogging {
-                events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
-                )
+                events =
+                    setOf(
+                        TestLogEvent.FAILED,
+                        TestLogEvent.PASSED,
+                        TestLogEvent.SKIPPED,
+                    )
             }
         }
         unitTests {
             isReturnDefaultValues = true
             isIncludeAndroidResources = true
         }
+    }
+
+    ktlint {
+        version = libs.versions.ktlint.cli.get()
     }
 }
 
@@ -69,16 +84,29 @@ dependencies {
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.compose.material3)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(project(":componentsv2"))
+    implementation(projects.componentsv2)
+    implementation(projects.componentsv2.componentsv2Camera)
     implementation(project(":theme"))
-    implementation(project(":patterns"))
+    implementation(projects.patterns)
+    implementation(projects.patterns.patternsCamera)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.navigation.compose)
     implementation(libs.androidx.compose.adaptive)
     implementation(libs.androidx.compose.adaptive.navigation)
     implementation(libs.androidx.compose.adaptive.layout)
+    implementation(libs.kotlinx.serialization.json)
 
+    lintChecks(libs.com.slack.compose.lint.checks)
+
+    testFixturesApi(testFixtures(projects.componentsv2))
+    testFixturesApi(testFixtures(projects.componentsv2.componentsv2Camera))
+    testFixturesApi(libs.androidx.ui.test.junit4.android)
+    testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.androidx.navigation.testing)
+    testFixturesImplementation(libs.navigation.compose)
+
+    testImplementation(libs.androidx.navigation.testing)
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)
@@ -89,9 +117,12 @@ dependencies {
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(testFixtures(projects.componentsv2))
+    androidTestImplementation(testFixtures(projects.componentsv2.componentsv2Camera))
     androidTestUtil(libs.androidx.test.orchestrator)
 
     debugImplementation(libs.androidx.compose.ui.tooling)

@@ -27,9 +27,8 @@ class GdsTopAppBarDemoTest {
         }
         composeTestRule
             .onNodeWithContentDescription(
-                resources.getString(uk.gov.android.ui.componentsv2.R.string.info_icon_button)
-            )
-            .performClick()
+                resources.getString(uk.gov.android.ui.componentsv2.R.string.info_icon_button),
+            ).performClick()
         composeTestRule.onNodeWithText(itemTitle1).assertIsDisplayed()
     }
 }

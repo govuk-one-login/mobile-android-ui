@@ -29,30 +29,34 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StatusOverlayDemo() {
+fun StatusOverlayDemo(
+    modifier: Modifier = Modifier,
+) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     Scaffold(
+        modifier = modifier,
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
                 modifier = Modifier.padding(horizontal = spacingDouble),
             )
-        }
+        },
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(smallPadding)
                     .navigationBarsPadding()
-                    .statusBarsPadding()
+                    .statusBarsPadding(),
             ) {
                 GdsButton(
                     text = "Display overlay",
@@ -62,7 +66,7 @@ fun StatusOverlayDemo() {
                             statusOverlayState.showSnackbar("This is a message")
                         }
                     },
-                    modifier = Modifier.padding(bottom = smallPadding)
+                    modifier = Modifier.padding(bottom = smallPadding),
                 )
                 Spacer(modifier = Modifier.height(largePadding))
             }

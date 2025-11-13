@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import uk.gov.pipelines.config.ApkConfig
 
@@ -39,7 +40,13 @@ android {
             enableUnitTestCoverage = true
         }
     }
-
+    packaging {
+        // Exclude multiple copies of licences
+        listOf(
+            "META-INF/AL2.0",
+            "META-INF/LGPL2.1",
+        ).forEach(resources.excludes::plusAssign)
+    }
     @Suppress("UnstableApiUsage")
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
@@ -47,9 +54,9 @@ android {
         unitTests.all {
             it.testLogging {
                 events = setOf(
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED,
-                    org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
                 )
             }
         }
@@ -69,6 +76,8 @@ dependencies {
     androidTestImplementation(composeBom)
     implementation(composeBom)
 
+    api(libs.accompanist.permissions)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
     implementation(libs.androidx.compose.material.icons)
@@ -84,11 +93,18 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.testmanifest)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.mockito.android)
     androidTestUtil(libs.androidx.test.orchestrator)
 
+    testFixturesApi(libs.androidx.ui.test.android)
+    testFixturesApi(libs.android.tools.layoutlib.api)
+    testFixturesImplementation(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.androidx.ui.test.junit4.android)
+
+    testImplementation(libs.androidx.test.rules)
     testImplementation(libs.androidx.ui.test.android)
     testImplementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.arch.core)
