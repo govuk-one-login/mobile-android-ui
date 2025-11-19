@@ -18,6 +18,9 @@ jobs:
     name: Verify code base when pull request is published/updated
     runs-on: ubuntu-24.04
     steps:
+      - name: Clean runner
+        uses: ./mobile-android-pipelines/actions/clean-runner
+
       - name: Checkout codebase
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
