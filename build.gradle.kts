@@ -18,6 +18,10 @@ buildscript {
         )
     )
 
+    subprojects {
+        group = mavenGroupId
+    }
+
     repositories {
         google()
         gradlePluginPortal()
