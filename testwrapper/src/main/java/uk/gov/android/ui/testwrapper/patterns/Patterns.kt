@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
+import uk.gov.android.ui.patterns.loadingscreen.LoadingScreen
+import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -42,3 +44,15 @@ fun Patterns(
         }
     }
 }
+
+@OptIn(UnstableDesignSystemAPI::class)
+@Composable
+fun PatternDetail(
+    detailItem: DetailItem,
+) {
+    when (detailItem.label) {
+        LOADING_SCREEN -> LoadingScreen()
+    }
+}
+
+const val LOADING_SCREEN = "loadingScreen"
