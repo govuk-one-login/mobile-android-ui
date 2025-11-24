@@ -85,25 +85,25 @@ val Typography = Typography(
     displaySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH1,
     ),
     headlineLarge = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH2,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH2,
     ),
     headlineMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH3,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH3,
     ),
     headlineSmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH4,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH4,
     ),
     bodyLarge = DefaultTextStyle.copy(
