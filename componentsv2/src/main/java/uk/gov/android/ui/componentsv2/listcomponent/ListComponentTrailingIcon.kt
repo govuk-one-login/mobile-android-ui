@@ -1,16 +1,16 @@
 package uk.gov.android.ui.componentsv2.listcomponent
 
-sealed class ListComponentTrailingIcon() {
+sealed interface ListComponentTrailingIcon {
     class OpenInNew(
-        onClick: () -> Unit,
-    )
+        val onClick: () -> Unit,
+    ) : ListComponentTrailingIcon
 
     class NavigateNext(
-        onClick: () -> Unit,
-    )
+        val onClick: () -> Unit,
+    ) : ListComponentTrailingIcon
 
     class Switch(
-        checked: Boolean,
-        onToggle: () -> Unit,
-    )
+        val checked: Boolean,
+        val onToggle: () -> Unit,
+    ) : ListComponentTrailingIcon
 }
