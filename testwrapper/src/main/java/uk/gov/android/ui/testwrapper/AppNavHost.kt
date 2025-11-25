@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import uk.gov.android.ui.testwrapper.TabDestination.Companion.applyTabDestinations
 import uk.gov.android.ui.testwrapper.componentsv2.ComponentsDestination.Companion.applyComponentDestinations
 import uk.gov.android.ui.testwrapper.patterns.PatternsDestination.Companion.applyPatternDestinations
+import uk.gov.android.ui.testwrapper.theme.ThemeDestination.Companion.applyThemeDestinations
 
 @Composable
 fun AppNavHost(
@@ -45,5 +46,6 @@ fun AppNavHost(
             },
         )
         applyPatternDestinations(modifier = mod)
+        applyThemeDestinations(modifier = mod)
     }
 }
