@@ -48,6 +48,7 @@ object Buttons {
 object Dividers {
     val default = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
     val card = ColorPair(Color(0xFF505A5f), Color(0xFFB1B4B6))
+    val list = ColorPair(Color(0xFFB1B4B6), Color(0xFF505A5f))
 }
 
 object Icons {

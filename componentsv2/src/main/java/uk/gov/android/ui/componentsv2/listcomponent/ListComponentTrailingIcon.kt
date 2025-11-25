@@ -8,9 +8,4 @@ sealed interface ListComponentTrailingIcon {
     class NavigateNext(
         val onClick: () -> Unit,
     ) : ListComponentTrailingIcon
-
-    class Switch(
-        val checked: Boolean,
-        val onToggle: () -> Unit,
-    ) : ListComponentTrailingIcon
 }

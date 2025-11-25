@@ -5,26 +5,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Switch
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.Image
 import uk.gov.android.ui.theme.m3.Backgrounds
+import uk.gov.android.ui.theme.m3.Dividers
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
@@ -44,13 +45,13 @@ fun ListComponent(
 ) {
     Card(
         modifier =
-        modifier.fillMaxWidth(),
+            modifier.fillMaxWidth(),
         shape = RectangleShape,
         colors = CardColors(
-            containerColor = Backgrounds.card.toMappedColors(),
-            contentColor = Backgrounds.card.toMappedColors(),
-            disabledContainerColor = Backgrounds.card.toMappedColors(),
-            disabledContentColor = Backgrounds.card.toMappedColors(),
+            containerColor = Backgrounds.list.toMappedColors(),
+            contentColor = Backgrounds.list.toMappedColors(),
+            disabledContainerColor = Backgrounds.list.toMappedColors(),
+            disabledContentColor = Backgrounds.list.toMappedColors(),
         ),
         elevation = CardDefaults.cardElevation(),
     ) {
@@ -70,7 +71,6 @@ fun ListComponent(
                     contentDescription = it.contentDescription,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .size(width = 42.dp, height = 30.dp)
                         .align(alignment = Alignment.CenterVertically)
                         .padding(end = smallPadding),
                 )
@@ -81,15 +81,23 @@ fun ListComponent(
                     .align(alignment = Alignment.CenterVertically),
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(text = title, color = Red, style = Typography.bodyLarge)
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = Typography.bodyLarge,
+                )
                 subtitle?.let {
-                    Text(text = subtitle, color = Red, style = Typography.bodySmall)
+                    Text(
+                        text = subtitle,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = Typography.bodySmall,
+                    )
                 }
             }
             trailingText?.let {
                 Text(
                     text = trailingText,
-                    color = Red,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = Typography.bodySmall,
                     maxLines = 1,
                     modifier = Modifier
@@ -101,61 +109,141 @@ fun ListComponent(
                 when (icon) {
                     is ListComponentTrailingIcon.NavigateNext -> {
                         Image(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_dot),
+                            imageVector = ImageVector.vectorResource(R.drawable.navigate_next),
                             contentDescription = "",
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
-                                .size(width = 24.dp, height = 24.dp)
                                 .align(alignment = Alignment.CenterVertically)
                                 .padding(start = smallPadding),
                         )
                     }
 
                     is ListComponentTrailingIcon.OpenInNew -> Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_external_site),
+                        imageVector = ImageVector.vectorResource(R.drawable.open_in_new),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .size(width = 24.dp, height = 24.dp)
                             .align(alignment = Alignment.CenterVertically)
                             .padding(start = smallPadding),
                     )
-
-                    is ListComponentTrailingIcon.Switch ->
-                        Switch(
-                            checked = icon.checked,
-                            onCheckedChange = { icon.onToggle },
-                            modifier = Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = smallPadding),
-                        )
                 }
             }
         }
         if (showDivider) {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Red,
+                color = Dividers.list.toMappedColors(),
                 modifier = Modifier,
             )
         }
     }
 }
 
+internal data class ListComponentPreviewParameters(
+    val title: String,
+    val leadingImage: Image? = null,
+    val subtitle: String? = null,
+    val trailingText: String? = null,
+    val trailingIcon: ListComponentTrailingIcon? = null,
+    val showDivider: Boolean = true,
+)
+
+internal class ListComponentPreviewParametersProvider :
+    PreviewParameterProvider<ListComponentPreviewParameters> {
+    override val values: Sequence<ListComponentPreviewParameters> = sequenceOf(
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = null,
+            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            trailingText = null,
+            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = Image(
+                R.drawable.palceholder_leading_image,
+                "",
+            ),
+            subtitle = null,
+            trailingText = null,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = Image(
+                R.drawable.palceholder_leading_image,
+                "",
+            ),
+            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            trailingText = null,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = null,
+            subtitle = null,
+            trailingText = null,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = null,
+            subtitle = null,
+            trailingText = null,
+            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = null,
+            subtitle = null,
+            trailingText = null,
+            trailingIcon = null,
+            showDivider = true,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title",
+            leadingImage = null,
+            subtitle = null,
+            trailingText = "100+",
+            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            showDivider = true,
+        ),
+
+        ListComponentPreviewParameters(
+            title = "Really long title string that potentially spans multiple lines and " +
+                    "takes up a lot of space with no divider",
+            leadingImage = Image(
+                R.drawable.palceholder_leading_image,
+                "",
+            ),
+            subtitle = "Really long subtitle string that potentially spans multiple lines and " +
+                    "takes up a lot of space with no divider",
+            trailingText = "100+",
+            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            showDivider = false,
+        ),
+    )
+}
+
 @Composable
 @PreviewLightDark
-internal fun ListComponentPreview() {
+internal fun ListComponentPreview(
+    @PreviewParameter(ListComponentPreviewParametersProvider::class)
+    parameters: ListComponentPreviewParameters,
+) {
     GdsTheme {
         ListComponent(
-            title = "Hello",
-            leadingImage = Image(
-                R.drawable.arrow_forward,
-                "HELLO",
-            ),
-            subtitle = "Subtitle text that might be a bit long and span multiple lines",
-            trailingText = "100+",
-            trailingIcon = ListComponentTrailingIcon.Switch(true) { println("") },
-            showDivider = true,
+            title = parameters.title,
+            leadingImage = parameters.leadingImage,
+            subtitle = parameters.subtitle,
+            trailingText = parameters.trailingText,
+            trailingIcon = parameters.trailingIcon,
+            showDivider = parameters.showDivider,
         )
     }
 }
