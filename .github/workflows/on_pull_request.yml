@@ -76,6 +76,8 @@ jobs:
       - name: Test local publish
         if: ${{ github.event_name == 'pull_request' }}
         uses: ./mobile-android-pipelines/actions/maven-publish-local
+        with:
+          version-name: ${{ steps.versioning.outputs.new_version }}
 
       - name: Publish package
         if: ${{ github.event_name != 'pull_request'
@@ -84,6 +86,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          VERSION_NAME: ${{ steps.versioning.outputs.new_version }}
 
       - name: Generate Changelog
         uses: ./mobile-android-pipelines/actions/generate-and-upload-changelog
