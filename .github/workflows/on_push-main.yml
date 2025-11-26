@@ -57,18 +57,19 @@ jobs:
       - name: Run gradle testing suite
         uses: ./mobile-android-pipelines/actions/run-testing-suite
 
-      - name: Sonar scan
-        uses: ./mobile-android-pipelines/actions/sonar-scan
-        with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Bundle reports folder
-        uses: ./mobile-android-pipelines/actions/bundle-reports
-
       - name: Increment the release version using Conventional Commits
         id: versioning
         if: ${{ github.event_name != 'pull_request' }}
         uses: ./mobile-android-pipelines/actions/increment-version
+
+      - name: Sonar scan
+        uses: ./mobile-android-pipelines/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          version-name: ${{ steps.versioning.outputs.new_version }}
+
+      - name: Bundle reports folder
+        uses: ./mobile-android-pipelines/actions/bundle-reports
 
       - name: Publish release tags
         if: ${{ github.event_name != 'pull_request'
