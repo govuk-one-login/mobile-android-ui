@@ -2,33 +2,23 @@ package uk.gov.android.ui.componentsv2.listcomponent
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -53,12 +43,14 @@ fun ListComponent(
     trailingText: String? = null,
     trailingIcon: ListComponentTrailingIcon? = null,
     showDivider: Boolean = true,
+    onClick: () -> Unit,
 ) {
-    val height = remember { mutableStateOf(56.dp) }
-    Column (
+    Column(
         modifier = modifier
-            .height(height.value)
-            .background(Backgrounds.list.toMappedColors()),
+            .background(Backgrounds.list.toMappedColors())
+            .clickable(
+                onClick = onClick
+            ),
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -84,11 +76,12 @@ fun ListComponent(
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .align(alignment = Alignment.CenterVertically)
-                        .padding(end = smallPadding),
+                        .padding(end = smallPadding, top = 8.dp, bottom = 8.dp),
                 )
             }
             Column(
                 modifier = Modifier
+                    .padding(top = smallPadding, bottom = smallPadding)
                     .weight(1f)
                     .align(alignment = Alignment.CenterVertically),
                 horizontalAlignment = Alignment.Start,
@@ -97,11 +90,6 @@ fun ListComponent(
                     text = title,
                     color = MaterialTheme.colorScheme.onBackground,
                     style = Typography.bodyLarge,
-                    onTextLayout = { textLayoutResult: TextLayoutResult ->
-                        if (textLayoutResult.lineCount > 1) {
-                            height.value = 1000.dp
-                        }
-                    }
                 )
                 subtitle?.let {
                     Text(
@@ -137,7 +125,7 @@ fun ListComponent(
 
                     is ListComponentTrailingIcon.OpenInNew -> Image(
                         imageVector = ImageVector.vectorResource(R.drawable.open_in_new),
-                        contentDescription = "",
+                        contentDescription = "Opens in web browser. ",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .align(alignment = Alignment.CenterVertically)
@@ -169,53 +157,53 @@ internal class ListComponentPreviewParametersProvider :
     PreviewParameterProvider<ListComponentPreviewParameters> {
     override val values: Sequence<ListComponentPreviewParameters> = sequenceOf(
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 1",
             leadingImage = null,
             subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            trailingIcon = ListComponentTrailingIcon.OpenInNew,
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 2",
             leadingImage = Image(
-                R.drawable.palceholder_leading_image,
+                R.drawable.placeholder_leading_image,
                 "",
             ),
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            trailingIcon = ListComponentTrailingIcon.NavigateNext,
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 3",
             leadingImage = Image(
-                R.drawable.palceholder_leading_image,
+                R.drawable.placeholder_leading_image,
                 "",
             ),
             subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            trailingIcon = ListComponentTrailingIcon.NavigateNext,
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 4",
             leadingImage = null,
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            trailingIcon = ListComponentTrailingIcon.NavigateNext,
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 5",
             leadingImage = null,
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            trailingIcon = ListComponentTrailingIcon.OpenInNew,
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 6",
             leadingImage = null,
             subtitle = null,
             trailingText = null,
@@ -223,30 +211,40 @@ internal class ListComponentPreviewParametersProvider :
             showDivider = true,
         ),
         ListComponentPreviewParameters(
-            title = "Title",
+            title = "Title 7",
             leadingImage = null,
             subtitle = null,
             trailingText = "100+",
-            trailingIcon = ListComponentTrailingIcon.NavigateNext {},
+            trailingIcon = ListComponentTrailingIcon.NavigateNext,
             showDivider = true,
         ),
 
         ListComponentPreviewParameters(
-            title = "Really long title string that potentially spans multiple lines and " +
+            title = "Title 8 - Really long title string that potentially spans multiple lines and " +
                     "takes up a lot of space with no divider",
             leadingImage = Image(
-                R.drawable.palceholder_leading_image,
+                R.drawable.placeholder_leading_image,
                 "",
             ),
             subtitle = "Really long subtitle string that potentially spans multiple lines and " +
                     "takes up a lot of space with no divider",
             trailingText = "100+",
-            trailingIcon = ListComponentTrailingIcon.OpenInNew {},
+            trailingIcon = ListComponentTrailingIcon.OpenInNew,
             showDivider = false,
+        ),
+        ListComponentPreviewParameters(
+            title = "Title 9 - Large image",
+            leadingImage = Image(
+                R.drawable.placeholder_leading_image_portrait,
+                "",
+            ),
+            subtitle = null,
+            trailingText = "100+",
+            trailingIcon = null,
+            showDivider = true,
         ),
     )
 }
-
 
 
 @Composable
@@ -263,6 +261,7 @@ internal fun ListComponentPreview(
             trailingText = parameters.trailingText,
             trailingIcon = parameters.trailingIcon,
             showDivider = parameters.showDivider,
+            onClick = {},
         )
     }
 }

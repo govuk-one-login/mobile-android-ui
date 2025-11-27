@@ -1,11 +1,7 @@
 package uk.gov.android.ui.componentsv2.listcomponent
 
 sealed interface ListComponentTrailingIcon {
-    class OpenInNew(
-        val onClick: () -> Unit,
-    ) : ListComponentTrailingIcon
+    object OpenInNew : ListComponentTrailingIcon
 
-    class NavigateNext(
-        val onClick: () -> Unit,
-    ) : ListComponentTrailingIcon
+    object NavigateNext : ListComponentTrailingIcon
 }
