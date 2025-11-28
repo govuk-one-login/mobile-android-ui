@@ -1,7 +1,13 @@
 package uk.gov.android.ui.componentsv2.listcomponent
 
-sealed interface ListComponentTrailingIcon {
-    object OpenInNew : ListComponentTrailingIcon
+import androidx.compose.ui.Alignment
 
-    object NavigateNext : ListComponentTrailingIcon
+sealed interface ListComponentTrailingIcon {
+    class OpenInNew(
+        val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
+    ) : ListComponentTrailingIcon
+
+    class NavigateNext(
+        val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
+    ) : ListComponentTrailingIcon
 }

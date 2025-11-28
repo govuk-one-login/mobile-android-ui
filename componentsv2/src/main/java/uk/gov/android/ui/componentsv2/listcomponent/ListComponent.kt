@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -115,20 +116,20 @@ fun ListComponent(
                     is ListComponentTrailingIcon.NavigateNext -> {
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.navigate_next),
-                            contentDescription = "",
+                            contentDescription = "Button. ",
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
-                                .align(alignment = Alignment.CenterVertically)
+                                .align(alignment = icon.verticalAlignment)
                                 .padding(start = smallPadding),
                         )
                     }
 
                     is ListComponentTrailingIcon.OpenInNew -> Image(
                         imageVector = ImageVector.vectorResource(R.drawable.open_in_new),
-                        contentDescription = "Opens in web browser. ",
+                        contentDescription = "Button. " + stringResource(R.string.opens_in_external_browser),
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .align(alignment = Alignment.CenterVertically)
+                            .align(alignment = icon.verticalAlignment)
                             .padding(start = smallPadding),
                     )
                 }
@@ -161,7 +162,7 @@ internal class ListComponentPreviewParametersProvider :
             leadingImage = null,
             subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.OpenInNew,
+            trailingIcon = ListComponentTrailingIcon.OpenInNew(),
             showDivider = true,
         ),
         ListComponentPreviewParameters(
@@ -172,7 +173,7 @@ internal class ListComponentPreviewParametersProvider :
             ),
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext(),
             showDivider = true,
         ),
         ListComponentPreviewParameters(
@@ -183,7 +184,7 @@ internal class ListComponentPreviewParametersProvider :
             ),
             subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext(),
             showDivider = true,
         ),
         ListComponentPreviewParameters(
@@ -191,7 +192,7 @@ internal class ListComponentPreviewParametersProvider :
             leadingImage = null,
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.NavigateNext,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext(),
             showDivider = true,
         ),
         ListComponentPreviewParameters(
@@ -199,7 +200,7 @@ internal class ListComponentPreviewParametersProvider :
             leadingImage = null,
             subtitle = null,
             trailingText = null,
-            trailingIcon = ListComponentTrailingIcon.OpenInNew,
+            trailingIcon = ListComponentTrailingIcon.OpenInNew(),
             showDivider = true,
         ),
         ListComponentPreviewParameters(
@@ -215,7 +216,7 @@ internal class ListComponentPreviewParametersProvider :
             leadingImage = null,
             subtitle = null,
             trailingText = "100+",
-            trailingIcon = ListComponentTrailingIcon.NavigateNext,
+            trailingIcon = ListComponentTrailingIcon.NavigateNext(),
             showDivider = true,
         ),
 
@@ -229,7 +230,7 @@ internal class ListComponentPreviewParametersProvider :
             subtitle = "Really long subtitle string that potentially spans multiple lines and " +
                     "takes up a lot of space with no divider",
             trailingText = "100+",
-            trailingIcon = ListComponentTrailingIcon.OpenInNew,
+            trailingIcon = ListComponentTrailingIcon.OpenInNew(verticalAlignment = Alignment.Top),
             showDivider = false,
         ),
         ListComponentPreviewParameters(
