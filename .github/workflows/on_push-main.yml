@@ -27,9 +27,6 @@ jobs:
           submodules: 'true'
           fetch-depth: 0
 
-      - name: Clean runner
-        uses: ./mobile-android-pipelines/actions/clean-runner
-
       - name: Clean workspace
         uses: ./mobile-android-pipelines/actions/clean-workspace
 
