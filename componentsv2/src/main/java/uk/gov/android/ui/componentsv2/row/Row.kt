@@ -18,8 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
@@ -56,12 +56,12 @@ fun Row(
 ) {
     Column(
         modifier = modifier
-            .background(Backgrounds.list.toMappedColors())
+            .background(Backgrounds.row.toMappedColors())
             .clickable(
                 enabled = clickEnabled,
                 onClick = onClick,
             )
-            .semantics{ role = Role.Button },
+            .semantics { role = Role.Button },
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -81,13 +81,15 @@ fun Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             leadingImage?.let {
-                val displayMetrics = LocalContext.current.resources.displayMetrics
-                val defaultDensity = listOf(displayMetrics.xdpi, displayMetrics.ydpi).average()/BASELINE_DENSITY
-                val displayScalingFactor = LocalDensity.current.density / defaultDensity.toFloat()
-                val imageScalingFactor = if (scaleLeadingImageWithFontSize)
-                    LocalDensity.current.fontScale * displayScalingFactor
-                else
+                val localDensityCurrent = LocalDensity.current
+                val displayMetrics = LocalResources.current.displayMetrics
+                val defaultDensity = listOf(displayMetrics.xdpi, displayMetrics.ydpi).average() / BASELINE_DENSITY
+                val displayScalingFactor = localDensityCurrent.density / defaultDensity.toFloat()
+                val imageScalingFactor = if (scaleLeadingImageWithFontSize) {
+                    localDensityCurrent.fontScale * displayScalingFactor
+                } else {
                     displayScalingFactor
+                }
                 val image = ImageVector.vectorResource(it.drawable)
                 Image(
                     imageVector = image,
@@ -160,7 +162,7 @@ fun Row(
         if (showDivider) {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Dividers.list.toMappedColors(),
+                color = Dividers.row.toMappedColors(),
                 modifier = Modifier,
             )
         }
@@ -246,42 +248,42 @@ internal class RowPreviewParametersProvider :
         ),
         RowPreviewParameters(
             title = "Title 8 - Really long title string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
             subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(),
             showDivider = false,
         ),
         RowPreviewParameters(
             title = "Title 9 - Really long title string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
             subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
             showDivider = false,
         ),
         RowPreviewParameters(
             title = "Title 10 - Really long title string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
             subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                    "takes up a lot of space with no divider",
+                "takes up a lot of space with no divider",
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Bottom),
             showDivider = false,
@@ -299,7 +301,6 @@ internal class RowPreviewParametersProvider :
         ),
     )
 }
-
 
 @Composable
 @PreviewLightDark

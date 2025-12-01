@@ -35,10 +35,8 @@ import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
-import uk.gov.android.ui.componentsv2.row.Row
 import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowList
-import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
@@ -112,7 +110,7 @@ sealed class LeftAlignedScreenBodyV2 {
     ) : LeftAlignedScreenBodyV2()
 
     data class RowList(
-        val rowData: List<RowData>
+        val rowData: ImmutableList<RowData>,
     ) : LeftAlignedScreenBodyV2()
 }
 

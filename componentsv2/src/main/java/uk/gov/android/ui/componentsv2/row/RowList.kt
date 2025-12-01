@@ -2,13 +2,16 @@ package uk.gov.android.ui.componentsv2.row
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun RowList(
-    rows: List<RowData>
+    rows: ImmutableList<RowData>,
+    modifier: Modifier = Modifier,
 ) {
     if (rows.isEmpty()) return
-    Column {
+    Column(modifier = modifier) {
         rows.forEachIndexed { index, row ->
             Row(
                 title = row.title,
