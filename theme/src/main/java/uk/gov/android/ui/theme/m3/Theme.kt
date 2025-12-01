@@ -69,6 +69,13 @@ fun GdsTheme(
 
 data class CustomColorsScheme(
     val cardBackground: Color = Color.Unspecified,
+    @Deprecated(
+        message = "The previously named List Component has been renamed to Row to avoid " +
+                "confusion.",
+        replaceWith = ReplaceWith("uk.gov.android.ui.theme.m3.GdsLocalColorScheme" +
+                ".current.rowBackground"),
+    )
+    val listBackground: Color = Color.Unspecified,
     val rowBackground: Color = Color.Unspecified,
     val topBarBackground: Color = Color.Unspecified,
     val topBarScrolledBackground: Color = Color.Unspecified,
@@ -127,6 +134,7 @@ val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
 private fun customColors(): CustomColorsScheme {
     return CustomColorsScheme(
         cardBackground = Backgrounds.card.toMappedColors(),
+        listBackground = Backgrounds.row.toMappedColors(),
         rowBackground = Backgrounds.row.toMappedColors(),
         topBarBackground = Backgrounds.topBar.toMappedColors(),
         topBarScrolledBackground = Backgrounds.topBarScrolled.toMappedColors(),
@@ -380,6 +388,7 @@ fun ThemeV2CustomPreview() {
         val backgroundCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(cardBackground, "Backgrounds - Card"),
+                SwatchColor(listBackground, "Backgrounds - List"),
                 SwatchColor(rowBackground, "Backgrounds - Row"),
                 SwatchColor(topBarBackground, "Backgrounds - Top Bar"),
                 SwatchColor(topBarScrolledBackground, "Backgrounds - Top Bar Scrolled"),

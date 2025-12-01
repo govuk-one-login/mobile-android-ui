@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -33,6 +34,7 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.Image
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.Dividers
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
@@ -56,12 +58,12 @@ fun Row(
 ) {
     Column(
         modifier = modifier
-            .background(Backgrounds.row.toMappedColors())
+            .background(GdsLocalColorScheme.current.listBackground)
             .clickable(
                 enabled = clickEnabled,
                 onClick = onClick,
             )
-            .semantics { role = Role.Button },
+            .semantics { if (clickEnabled) role = Role.Button },
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -179,7 +181,17 @@ internal data class RowPreviewParameters(
     val trailingText: String? = null,
     val trailingIcon: RowTrailingIcon? = null,
     val showDivider: Boolean = true,
-)
+) {
+    fun toRowData(): RowData = RowData(
+        title = title,
+        leadingImage = leadingImage,
+        scaleLeadingImageWithFontSize = scaleLeadingImageWithFontSize,
+        subtitle = subtitle,
+        trailingText = trailingText,
+        trailingIcon = trailingIcon,
+        onClick = {}
+    )
+}
 
 internal class RowPreviewParametersProvider :
     PreviewParameterProvider<RowPreviewParameters> {

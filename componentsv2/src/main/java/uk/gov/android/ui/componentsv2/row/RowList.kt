@@ -3,7 +3,10 @@ package uk.gov.android.ui.componentsv2.row
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
 fun RowList(
@@ -26,5 +29,15 @@ fun RowList(
                 onClick = row.onClick,
             )
         }
+    }
+}
+
+@Preview
+@Composable
+internal fun RowListPreview() {
+    GdsTheme {
+        RowList(
+            rows = RowPreviewParametersProvider().values.map { it.toRowData() }.toImmutableList()
+        )
     }
 }
