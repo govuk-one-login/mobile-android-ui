@@ -1,13 +1,13 @@
-package uk.gov.android.ui.componentsv2.listcomponent
+package uk.gov.android.ui.componentsv2.row
 
 import androidx.compose.ui.Alignment
 
-sealed interface ListComponentTrailingIcon {
+sealed interface RowTrailingIcon {
     class OpenInNew(
         val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
-    ) : ListComponentTrailingIcon
+    ) : RowTrailingIcon
 
     class NavigateNext(
         val verticalAlignment: Alignment.Vertical = Alignment.CenterVertically
-    ) : ListComponentTrailingIcon
+    ) : RowTrailingIcon
 }
