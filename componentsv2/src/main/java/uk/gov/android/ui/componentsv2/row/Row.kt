@@ -16,9 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -54,7 +54,6 @@ fun Row(
     clickEnabled: Boolean = true,
     onClick: () -> Unit,
 ) {
-    val trailingIconSize = if (scaleLeadingImageWithFontSize) LocalDensity.current.fontScale else 1f
     Column(
         modifier = modifier
             .background(Backgrounds.list.toMappedColors())
@@ -82,13 +81,24 @@ fun Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             leadingImage?.let {
+                val displayMetrics = LocalContext.current.resources.displayMetrics
+                val defaultDensity = listOf(displayMetrics.xdpi, displayMetrics.ydpi).average()/BASELINE_DENSITY
+                val displayScalingFactor = LocalDensity.current.density / defaultDensity.toFloat()
+                val imageScalingFactor = if (scaleLeadingImageWithFontSize)
+                    LocalDensity.current.fontScale * displayScalingFactor
+                else
+                    displayScalingFactor
+                val image = ImageVector.vectorResource(it.drawable)
                 Image(
-                    imageVector = ImageVector.vectorResource(it.drawable),
+                    imageVector = image,
                     contentDescription = it.contentDescription,
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
+                        .size(
+                            height = image.defaultHeight * imageScalingFactor,
+                            width = image.defaultWidth * imageScalingFactor,
+                        )
                         .padding(end = smallPadding, top = xsmallPadding, bottom = xsmallPadding)
-                        .scale(trailingIconSize)
                         .align(alignment = Alignment.CenterVertically),
                 )
             }
@@ -162,6 +172,8 @@ fun Row(
         }
     }
 }
+
+const val BASELINE_DENSITY = 160
 
 internal data class RowPreviewParameters(
     val title: String,
