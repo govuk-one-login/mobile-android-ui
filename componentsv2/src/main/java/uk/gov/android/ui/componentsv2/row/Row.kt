@@ -142,10 +142,7 @@ fun Row(
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .align(alignment = icon.verticalAlignment)
-                                .padding(start = smallPadding, top = smallPadding, bottom = smallPadding)
-                                .semantics {
-                                    this.role = Role.Button
-                                },
+                                .padding(start = smallPadding, top = smallPadding, bottom = smallPadding),
                         )
                     }
 
@@ -155,10 +152,7 @@ fun Row(
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .align(alignment = icon.verticalAlignment)
-                            .padding(start = smallPadding, top = smallPadding, bottom = smallPadding)
-                            .semantics {
-                                role = Role.Button
-                            },
+                            .padding(start = smallPadding, top = smallPadding, bottom = smallPadding),
                     )
                 }
             }
