@@ -68,18 +68,17 @@ fun Row(
     }
 
     Column(
-        modifier =
-            if (clickEnabled) {
-                modifier
-                    .background(GdsLocalColorScheme.current.rowBackground)
-                    .clickable(
-                        role = Role.Button,
-                        onClick = onClick,
-                    )
-            } else
-                modifier
-                    .background(GdsLocalColorScheme.current.rowBackground)
-                    .semantics(mergeDescendants = true) {},
+        modifier = if (clickEnabled) {
+            modifier
+                .background(GdsLocalColorScheme.current.rowBackground)
+                .clickable(
+                    role = Role.Button,
+                    onClick = onClick,
+                )
+        } else
+            modifier
+                .background(GdsLocalColorScheme.current.rowBackground)
+                .semantics(mergeDescendants = true) {},
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -326,7 +325,7 @@ internal class RowPreviewParametersProvider :
 }
 
 private const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
-        "takes up a lot of space"
+    "takes up a lot of space"
 
 @Composable
 @PreviewLightDark
