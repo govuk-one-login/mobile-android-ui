@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -67,17 +69,17 @@ fun Row(
 
     Column(
         modifier =
-        if (clickEnabled) {
-            modifier
-                .background(GdsLocalColorScheme.current.rowBackground)
-                .clickable(
-                    role = Role.Button,
-                    onClick = onClick,
-                )
-        } else
-            modifier
-                .background(GdsLocalColorScheme.current.rowBackground)
-                .semantics(mergeDescendants = true) {},
+            if (clickEnabled) {
+                modifier
+                    .background(GdsLocalColorScheme.current.rowBackground)
+                    .clickable(
+                        role = Role.Button,
+                        onClick = onClick,
+                    )
+            } else
+                modifier
+                    .background(GdsLocalColorScheme.current.rowBackground)
+                    .semantics(mergeDescendants = true) {},
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -145,10 +147,9 @@ fun Row(
             trailingIcon?.let { icon ->
                 when (icon) {
                     is RowTrailingIcon.NavigateNext -> {
-                        Image(
+                        Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.navigate_next),
                             contentDescription = null,
-                            contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .align(alignment = icon.verticalAlignment)
                                 .padding(
@@ -156,13 +157,13 @@ fun Row(
                                     top = smallPadding,
                                     bottom = smallPadding,
                                 ),
+                            tint = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
-                    is RowTrailingIcon.OpenInNew -> Image(
+                    is RowTrailingIcon.OpenInNew -> Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.open_in_new),
                         contentDescription = stringResource(R.string.opens_in_external_browser),
-                        contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .align(alignment = icon.verticalAlignment)
                             .padding(
@@ -170,6 +171,7 @@ fun Row(
                                 top = smallPadding,
                                 bottom = smallPadding,
                             ),
+                        tint = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }
@@ -196,7 +198,7 @@ fun getDisplayScalingFactor(): Float {
     return displayScalingFactor
 }
 
-const val BASELINE_DENSITY = 160
+private const val BASELINE_DENSITY = 160
 
 internal data class RowPreviewParameters(
     val title: String,
@@ -323,8 +325,8 @@ internal class RowPreviewParametersProvider :
     )
 }
 
-const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
-    "takes up a lot of space"
+private const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
+        "takes up a lot of space"
 
 @Composable
 @PreviewLightDark
@@ -341,6 +343,25 @@ internal fun RowPreview(
             trailingText = parameters.trailingText,
             trailingIcon = parameters.trailingIcon,
             showDivider = parameters.showDivider,
+            onClick = {},
+        )
+    }
+}
+
+@Composable
+@PreviewFontScale
+internal fun RowPreviewFontScale() {
+    GdsTheme {
+        Row(
+            title = "Title - Varying font scale",
+            leadingImage = Image(
+                drawable = R.drawable.placeholder_leading_image,
+                contentDescription = "",
+            ),
+            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            trailingText = "100+",
+            trailingIcon = RowTrailingIcon.OpenInNew(),
+            scaleLeadingImageWithFontSize = true,
             onClick = {},
         )
     }
