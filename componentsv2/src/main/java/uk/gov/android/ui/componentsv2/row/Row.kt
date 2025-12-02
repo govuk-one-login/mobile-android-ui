@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -287,43 +286,37 @@ internal class RowPreviewParametersProvider :
             showDivider = true,
         ),
         RowPreviewParameters(
-            title = "Title 8 - Really long title string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            title = "Title 8 - $LONG_STRING",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
-            subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            subtitle = LONG_STRING,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(),
             showDivider = false,
         ),
         RowPreviewParameters(
-            title = "Title 9 - Really long title string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            title = "Title 9 - $LONG_STRING",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
-            subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            subtitle = LONG_STRING,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
             showDivider = false,
         ),
         RowPreviewParameters(
-            title = "Title 10 - Really long title string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            title = "Title 10 - $LONG_STRING",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
                 "",
             ),
             scaleLeadingImageWithFontSize = true,
-            subtitle = "Really long subtitle string that potentially spans multiple lines and " +
-                "takes up a lot of space with no divider",
+            subtitle = LONG_STRING,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Bottom),
             showDivider = false,
@@ -341,6 +334,9 @@ internal class RowPreviewParametersProvider :
         ),
     )
 }
+
+const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
+        "takes up a lot of space"
 
 @Composable
 @PreviewLightDark
