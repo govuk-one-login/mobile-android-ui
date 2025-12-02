@@ -13,8 +13,7 @@ fun RowList(
     rows: ImmutableList<RowData>,
     modifier: Modifier = Modifier,
 ) {
-    if (rows.isEmpty()) return
-    val rowsSize = rows.size - 1
+    val lastRowIndex = rows.size - 1
     Column(modifier = modifier) {
         rows.forEachIndexed { index, row ->
             Row(
@@ -25,7 +24,7 @@ fun RowList(
                 subtitle = row.subtitle,
                 trailingText = row.trailingText,
                 trailingIcon = row.trailingIcon,
-                showDivider = index != rowsSize,
+                showDivider = index != lastRowIndex,
                 clickEnabled = row.clickEnabled,
                 onClick = row.onClick,
             )
