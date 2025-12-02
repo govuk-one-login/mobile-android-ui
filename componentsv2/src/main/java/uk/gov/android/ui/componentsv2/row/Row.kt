@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -32,7 +31,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.Image
-import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.Dividers
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -57,13 +55,18 @@ fun Row(
     onClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .background(GdsLocalColorScheme.current.listBackground)
-            .clickable(
-                enabled = clickEnabled,
-                onClick = onClick,
-            )
-            .semantics { if (clickEnabled) role = Role.Button },
+        modifier =
+        if (clickEnabled) {
+            modifier
+                .background(GdsLocalColorScheme.current.rowBackground)
+                .clickable(
+                    role = Role.Button,
+                    onClick = onClick,
+                )
+        } else
+            modifier
+                .background(GdsLocalColorScheme.current.rowBackground)
+                .semantics(mergeDescendants = true) {},
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -85,7 +88,8 @@ fun Row(
             leadingImage?.let {
                 val localDensityCurrent = LocalDensity.current
                 val displayMetrics = LocalResources.current.displayMetrics
-                val defaultDensity = listOf(displayMetrics.xdpi, displayMetrics.ydpi).average() / BASELINE_DENSITY
+                val defaultDensity =
+                    listOf(displayMetrics.xdpi, displayMetrics.ydpi).average() / BASELINE_DENSITY
                 val displayScalingFactor = localDensityCurrent.density / defaultDensity.toFloat()
                 val imageScalingFactor = if (scaleLeadingImageWithFontSize) {
                     localDensityCurrent.fontScale * displayScalingFactor
@@ -146,7 +150,11 @@ fun Row(
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .align(alignment = icon.verticalAlignment)
-                                .padding(start = smallPadding, top = smallPadding, bottom = smallPadding),
+                                .padding(
+                                    start = smallPadding,
+                                    top = smallPadding,
+                                    bottom = smallPadding,
+                                ),
                         )
                     }
 
@@ -156,7 +164,11 @@ fun Row(
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .align(alignment = icon.verticalAlignment)
-                            .padding(start = smallPadding, top = smallPadding, bottom = smallPadding),
+                            .padding(
+                                start = smallPadding,
+                                top = smallPadding,
+                                bottom = smallPadding,
+                            ),
                     )
                 }
             }
@@ -180,6 +192,7 @@ internal data class RowPreviewParameters(
     val subtitle: String? = null,
     val trailingText: String? = null,
     val trailingIcon: RowTrailingIcon? = null,
+    val clickEnabled: Boolean = true,
     val showDivider: Boolean = true,
 ) {
     fun toRowData(): RowData = RowData(
@@ -189,7 +202,8 @@ internal data class RowPreviewParameters(
         subtitle = subtitle,
         trailingText = trailingText,
         trailingIcon = trailingIcon,
-        onClick = {}
+        clickEnabled = clickEnabled,
+        onClick = {},
     )
 }
 
