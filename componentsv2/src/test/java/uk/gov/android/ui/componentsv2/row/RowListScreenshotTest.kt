@@ -27,7 +27,7 @@ internal class RowListScreenshotTest(
             val result: MutableList<Pair<ImmutableList<RowData>, NightMode>> = mutableListOf()
 
             RowPreviewParametersProvider().values
-                .map { row -> row.toRowData() }
+                .map { eachRow -> eachRow.toRowData() }
                 .toImmutableList()
                 .apply(applyNightMode(result))
 

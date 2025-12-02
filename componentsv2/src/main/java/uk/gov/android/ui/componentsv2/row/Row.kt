@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.row
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.Image
 import uk.gov.android.ui.theme.m3.Dividers
@@ -54,6 +56,16 @@ fun Row(
     clickEnabled: Boolean = true,
     onClick: () -> Unit,
 ) {
+    var imageScalingFactor = 1f
+    leadingImage?.let {
+        val displayScalingFactor = getDisplayScalingFactor()
+        imageScalingFactor = if (scaleLeadingImageWithFontSize) {
+            LocalDensity.current.fontScale * displayScalingFactor
+        } else {
+            displayScalingFactor
+        }
+    }
+
     Column(
         modifier =
         if (clickEnabled) {
@@ -86,16 +98,6 @@ fun Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             leadingImage?.let {
-                val localDensityCurrent = LocalDensity.current
-                val displayMetrics = LocalResources.current.displayMetrics
-                val defaultDensity =
-                    listOf(displayMetrics.xdpi, displayMetrics.ydpi).average() / BASELINE_DENSITY
-                val displayScalingFactor = localDensityCurrent.density / defaultDensity.toFloat()
-                val imageScalingFactor = if (scaleLeadingImageWithFontSize) {
-                    localDensityCurrent.fontScale * displayScalingFactor
-                } else {
-                    displayScalingFactor
-                }
                 val image = ImageVector.vectorResource(it.drawable)
                 Image(
                     imageVector = image,
@@ -146,7 +148,7 @@ fun Row(
                     is RowTrailingIcon.NavigateNext -> {
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.navigate_next),
-                            contentDescription = "",
+                            contentDescription = null,
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .align(alignment = icon.verticalAlignment)
@@ -177,10 +179,22 @@ fun Row(
             HorizontalDivider(
                 thickness = 1.dp,
                 color = Dividers.row.toMappedColors(),
-                modifier = Modifier,
             )
         }
     }
+}
+
+@VisibleForTesting
+@Composable
+fun getDisplayScalingFactor(): Float {
+    val displayMetrics = LocalResources.current.displayMetrics
+    val defaultDensity =
+        persistentListOf(displayMetrics.xdpi, displayMetrics.ydpi).average() / BASELINE_DENSITY
+    if (defaultDensity <= 0.0) {
+        return 1f
+    }
+    val displayScalingFactor = LocalDensity.current.density / defaultDensity.toFloat()
+    return displayScalingFactor
 }
 
 const val BASELINE_DENSITY = 160

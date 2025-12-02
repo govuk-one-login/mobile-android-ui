@@ -14,6 +14,7 @@ fun RowList(
     modifier: Modifier = Modifier,
 ) {
     if (rows.isEmpty()) return
+    val rowsSize = rows.size - 1
     Column(modifier = modifier) {
         rows.forEachIndexed { index, row ->
             Row(
@@ -24,7 +25,7 @@ fun RowList(
                 subtitle = row.subtitle,
                 trailingText = row.trailingText,
                 trailingIcon = row.trailingIcon,
-                showDivider = index != (rows.size - 1),
+                showDivider = index != rowsSize,
                 clickEnabled = row.clickEnabled,
                 onClick = row.onClick,
             )
