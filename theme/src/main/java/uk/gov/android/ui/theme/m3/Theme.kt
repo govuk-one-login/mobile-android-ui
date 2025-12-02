@@ -70,11 +70,9 @@ fun GdsTheme(
 data class CustomColorsScheme(
     val cardBackground: Color = Color.Unspecified,
     @Deprecated(
-        message = "The previously named List Component has been renamed to Row to avoid " +
-            "confusion.",
+        message = "The previously named List Component has been renamed to Row to avoid confusion.",
         replaceWith = ReplaceWith(
-            "uk.gov.android.ui.theme.m3.GdsLocalColorScheme" +
-                ".current.rowBackground",
+            "uk.gov.android.ui.theme.m3.GdsLocalColorScheme.current.rowBackground",
         ),
     )
     val listBackground: Color = Color.Unspecified,

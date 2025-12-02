@@ -310,7 +310,7 @@ internal class RowPreviewParametersProvider :
             showDivider = false,
         ),
         RowPreviewParameters(
-            title = "Title 10 - Large image",
+            title = "Title 10 - Portrait image",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image_portrait,
                 "",
