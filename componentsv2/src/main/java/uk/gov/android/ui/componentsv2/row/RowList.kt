@@ -1,6 +1,8 @@
 package uk.gov.android.ui.componentsv2.row
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -14,7 +16,8 @@ fun RowList(
     modifier: Modifier = Modifier,
 ) {
     val lastRowIndex = rows.size - 1
-    Column(modifier = modifier) {
+    val scrollState = rememberScrollState()
+    Column(modifier = modifier.verticalScroll(scrollState)) {
         rows.forEachIndexed { index, row ->
             Row(
                 title = row.title,

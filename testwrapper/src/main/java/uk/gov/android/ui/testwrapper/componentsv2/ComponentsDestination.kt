@@ -88,6 +88,7 @@ sealed class ComponentsDestination(
             }
         }
 
+        @Suppress("LongMethod")
         @JvmStatic
         fun entries() =
             listOf(
@@ -145,6 +146,13 @@ sealed class ComponentsDestination(
                     items =
                     listOf(
                         DetailItem(label = TOP_APP_BAR, name = "Top App Bar"),
+                    ),
+                ),
+                DetailedItem(
+                    text = "Row List",
+                    items =
+                    listOf(
+                        DetailItem(label = ROW_LIST, name = "Row List"),
                     ),
                 ),
             ).sortedBy(ComponentsDestination::label)
