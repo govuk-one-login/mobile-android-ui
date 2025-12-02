@@ -294,7 +294,7 @@ internal class RowPreviewParametersProvider :
             scaleLeadingImageWithFontSize = true,
             subtitle = LONG_STRING,
             trailingText = "100+",
-            trailingIcon = RowTrailingIcon.OpenInNew(),
+            trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
             showDivider = false,
         ),
         RowPreviewParameters(
@@ -306,23 +306,11 @@ internal class RowPreviewParametersProvider :
             scaleLeadingImageWithFontSize = true,
             subtitle = LONG_STRING,
             trailingText = "100+",
-            trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
-            showDivider = false,
-        ),
-        RowPreviewParameters(
-            title = "Title 10 - $LONG_STRING",
-            leadingImage = Image(
-                R.drawable.placeholder_leading_image,
-                "",
-            ),
-            scaleLeadingImageWithFontSize = true,
-            subtitle = LONG_STRING,
-            trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Bottom),
             showDivider = false,
         ),
         RowPreviewParameters(
-            title = "Title 11 - Large image",
+            title = "Title 10 - Large image",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image_portrait,
                 "",
