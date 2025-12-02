@@ -336,7 +336,7 @@ internal class RowPreviewParametersProvider :
 }
 
 const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
-        "takes up a lot of space"
+    "takes up a lot of space"
 
 @Composable
 @PreviewLightDark
