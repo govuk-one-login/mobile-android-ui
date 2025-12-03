@@ -1,6 +1,8 @@
 package uk.gov.android.ui.testwrapper.componentsv2.row
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ fun RowListDemo(
 ) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
     fun onClick(message: String) = scope.launch {
         statusOverlayState.showSnackbar(message)
     }
@@ -56,8 +59,8 @@ fun RowListDemo(
             ),
             trailingIcon = RowTrailingIcon.NavigateNext(),
             trailingText = "100+",
-            subtitle = "Enabled button, no leading image content description, leading image doesn't scale with " +
-                "font size, no trailing icon content description for navigate_next icon",
+            subtitle = "Enabled button, no leading image content description, leading image " +
+                "doesn't scale with $COMMON_SUBTITLE_DESCRIPTION",
             onClick = { onClick("Row 3 clicked") },
         ),
         RowData(
@@ -69,8 +72,8 @@ fun RowListDemo(
             scaleLeadingImageWithFontSize = true,
             trailingIcon = RowTrailingIcon.NavigateNext(Alignment.Top),
             trailingText = "100+",
-            subtitle = "Enabled button, no leading image content description, leading image does scale with " +
-                "font size, no trailing icon content description for navigate_next icon",
+            subtitle = "Enabled button, no leading image content description, leading image " +
+                "does scale with $COMMON_SUBTITLE_DESCRIPTION",
             onClick = { onClick("Row 4 clicked") },
         ),
 
@@ -82,8 +85,8 @@ fun RowListDemo(
             ),
             scaleLeadingImageWithFontSize = true,
             trailingIcon = RowTrailingIcon.NavigateNext(Alignment.Bottom),
-            subtitle = "Enabled button, with leading image content description, leading image does scale with " +
-                "font size, no trailing icon content description for navigate_next icon",
+            subtitle = "Enabled button, with leading image content description, leading image " +
+                "does scale with $COMMON_SUBTITLE_DESCRIPTION",
             onClick = { onClick("Row 5 clicked") },
         ),
         RowData(
@@ -142,7 +145,11 @@ fun RowListDemo(
         RowList(
             rows = rowDataList,
             modifier = modifier
-                .padding(paddingValues = paddingValues),
+                .padding(paddingValues = paddingValues)
+                .verticalScroll(scrollState),
         )
     }
 }
+
+private const val COMMON_SUBTITLE_DESCRIPTION = "font size, no trailing icon content " +
+    "description for navigate_next icon"

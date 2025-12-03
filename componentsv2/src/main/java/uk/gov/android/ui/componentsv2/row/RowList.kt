@@ -1,23 +1,23 @@
 package uk.gov.android.ui.componentsv2.row
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 fun RowList(
     rows: ImmutableList<RowData>,
     modifier: Modifier = Modifier,
+    leftContentPadding: Dp = smallPadding,
 ) {
     val lastRowIndex = rows.size - 1
-    val scrollState = rememberScrollState()
-    Column(modifier = modifier.verticalScroll(scrollState)) {
+    Column(modifier = modifier) {
         rows.forEachIndexed { index, row ->
             Row(
                 title = row.title,
@@ -28,6 +28,7 @@ fun RowList(
                 trailingText = row.trailingText,
                 trailingIcon = row.trailingIcon,
                 showDivider = index != lastRowIndex,
+                leftContentPadding = leftContentPadding,
                 clickEnabled = row.clickEnabled,
                 onClick = row.onClick,
             )

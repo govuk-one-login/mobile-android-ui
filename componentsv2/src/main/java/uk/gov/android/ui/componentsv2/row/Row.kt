@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
@@ -54,6 +55,7 @@ fun Row(
     trailingText: String? = null,
     trailingIcon: RowTrailingIcon? = null,
     showDivider: Boolean = true,
+    leftContentPadding: Dp = smallPadding,
     clickEnabled: Boolean = true,
     onClick: () -> Unit,
 ) {
@@ -91,7 +93,7 @@ fun Row(
         Row(
             modifier = Modifier
                 .padding(
-                    start = smallPadding,
+                    start = leftContentPadding,
                     end = mediumPadding,
                 )
                 .fillMaxWidth(),
@@ -227,7 +229,7 @@ internal class RowPreviewParametersProvider :
         RowPreviewParameters(
             title = "Title 1",
             leadingImage = null,
-            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = null,
             trailingIcon = RowTrailingIcon.OpenInNew(),
             showDivider = true,
@@ -249,7 +251,7 @@ internal class RowPreviewParametersProvider :
                 R.drawable.placeholder_leading_image,
                 "",
             ),
-            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = null,
             trailingIcon = RowTrailingIcon.NavigateNext(),
             showDivider = true,
@@ -326,6 +328,8 @@ internal class RowPreviewParametersProvider :
 
 private const val LONG_STRING = "Really long string that potentially spans multiple lines and " +
     "takes up a lot of space"
+private const val SUBTITLE_PLACEHOLDER = "Supporting line text lorem ipsum " +
+    "dolor sit amet, consectetur."
 
 @Composable
 @PreviewLightDark
@@ -357,7 +361,7 @@ internal fun RowPreviewFontScale() {
                 drawable = R.drawable.placeholder_leading_image,
                 contentDescription = "",
             ),
-            subtitle = "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+            subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(),
             scaleLeadingImageWithFontSize = true,
