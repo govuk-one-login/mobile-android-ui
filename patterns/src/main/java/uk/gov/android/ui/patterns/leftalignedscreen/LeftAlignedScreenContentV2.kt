@@ -86,6 +86,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val items: ImmutableList<ListItem>,
         val title: ListTitle? = null,
     ) : LeftAlignedScreenBodyV2()
+
     data class NumberedList(val list: ImmutableList<ListItem>) : LeftAlignedScreenBodyV2()
 
     data class Image(
@@ -185,7 +186,9 @@ fun LazyListScope.toBodyContentV2(
                 item {
                     GdsBulletedList(
                         bulletListItems = it.items,
-                        modifier = Modifier.fillMaxWidth().padding(itemPadding),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(itemPadding),
                         title = it.title,
                     )
                 }
