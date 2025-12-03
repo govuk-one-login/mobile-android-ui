@@ -10,6 +10,17 @@ import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
+/**
+ * A vertical list of multiple [Row] components.
+ *
+ * Displays a collection of [RowData] items in a column layout that automatically handles
+ * dividers between rows where needed.
+ *
+ * @param rows The list of row data to display
+ * @param modifier Modifier to be applied to the root Column
+ * @param leftContentPadding Padding applied to the left side of [Row] content. Pass parent
+ * pattern / screen padding to align content with parent content
+ */
 @Composable
 fun RowList(
     rows: ImmutableList<RowData>,

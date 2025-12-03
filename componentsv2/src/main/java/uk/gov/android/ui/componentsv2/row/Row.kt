@@ -44,6 +44,25 @@ import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
+/**
+ * A single clickable row component.
+ *
+ * Displays content in a horizontal layout with consistent styling and an optional divider.
+ * For multiple rows, use [RowList] can be used.
+ *
+ * @param title The main text content of the row
+ * @param modifier Modifier to be applied to the root component
+ * @param leadingImage Optional image to display at the start of the row
+ * @param scaleLeadingImageWithFontSize Whether the leading image should scale with font size
+ * as well as display size
+ * @param subtitle Optional secondary text displayed below the title
+ * @param trailingText Optional text displayed at the end of the row
+ * @param trailingIcon Optional icon displayed at the end of the row
+ * @param showDivider Whether to show a divider below the row
+ * @param leftContentPadding Padding applied to the left side of row content
+ * @param clickEnabled Whether the row is clickable
+ * @param onClick Callback invoked when the row is clicked
+ */
 @Suppress("LongMethod")
 @Composable
 fun Row(
