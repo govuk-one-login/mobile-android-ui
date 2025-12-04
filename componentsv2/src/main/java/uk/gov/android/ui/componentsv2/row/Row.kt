@@ -6,8 +6,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,7 +33,7 @@ import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R
@@ -40,7 +43,6 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
-import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
@@ -59,7 +61,7 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param trailingText Optional text displayed at the end of the row
  * @param trailingIcon Optional icon displayed at the end of the row
  * @param showDivider Whether to show a divider below the row
- * @param leftContentPadding Padding applied to the left side of row content
+ * @param horizontalPadding Padding values applied to the horizontal sides of row content
  * @param clickEnabled Whether the row is clickable
  * @param onClick Callback invoked when the row is clicked
  */
@@ -74,7 +76,7 @@ fun Row(
     trailingText: String? = null,
     trailingIcon: RowTrailingIcon? = null,
     showDivider: Boolean = true,
-    leftContentPadding: Dp = smallPadding,
+    horizontalPadding: PaddingValues = PaddingValues(horizontal = smallPadding),
     clickEnabled: Boolean = true,
     onClick: () -> Unit,
 ) {
@@ -112,8 +114,9 @@ fun Row(
         Row(
             modifier = Modifier
                 .padding(
-                    start = leftContentPadding,
-                    end = mediumPadding,
+                    start = horizontalPadding.calculateStartPadding(LayoutDirection.Ltr),
+                    end = horizontalPadding.calculateEndPadding(LayoutDirection.Ltr) +
+                        xsmallPadding,
                 )
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,

@@ -307,7 +307,7 @@ fun LazyListScope.toBodyContentV2(
                 item {
                     RowList(
                         rows = it.rowData,
-                        leftContentPadding = horizontalItemPadding,
+                        horizontalPadding = itemPadding,
                     )
                 }
             }
