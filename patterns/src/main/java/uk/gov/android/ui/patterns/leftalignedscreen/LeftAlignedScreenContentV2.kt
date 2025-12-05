@@ -11,8 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -37,6 +35,8 @@ import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.row.RowData
+import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
@@ -86,6 +86,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val items: ImmutableList<ListItem>,
         val title: ListTitle? = null,
     ) : LeftAlignedScreenBodyV2()
+
     data class NumberedList(val list: ImmutableList<ListItem>) : LeftAlignedScreenBodyV2()
 
     data class Image(
@@ -107,6 +108,10 @@ sealed class LeftAlignedScreenBodyV2 {
         val thickness: Dp = dividerThickness,
         val color: Color? = null,
         val modifier: Modifier = Modifier,
+    ) : LeftAlignedScreenBodyV2()
+
+    data class RowList(
+        val rowData: ImmutableList<RowData>,
     ) : LeftAlignedScreenBodyV2()
 }
 
@@ -181,7 +186,9 @@ fun LazyListScope.toBodyContentV2(
                 item {
                     GdsBulletedList(
                         bulletListItems = it.items,
-                        modifier = Modifier.fillMaxWidth().padding(itemPadding),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(itemPadding),
                         title = it.title,
                     )
                 }
@@ -292,6 +299,15 @@ fun LazyListScope.toBodyContentV2(
                         thickness = it.thickness,
                         color = it.color ?: colorScheme.surface,
                         modifier = it.modifier.padding(itemPadding),
+                    )
+                }
+            }
+
+            is LeftAlignedScreenBodyV2.RowList -> {
+                item {
+                    RowList(
+                        rows = it.rowData,
+                        horizontalPadding = itemPadding,
                     )
                 }
             }
