@@ -14,11 +14,15 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
+import uk.gov.android.ui.componentsv2.images.Image
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
+import uk.gov.android.ui.componentsv2.row.RowData
+import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
+import uk.gov.android.ui.componentsv2.R as componentsv2R
 
 internal class LeftAlignedScreenContentProviderV2 :
     PreviewParameterProvider<LeftAlignedScreenContentV2> {
@@ -285,6 +289,50 @@ internal class LeftAlignedScreenContentProviderV2 :
                         ListItem(textShort),
                     ),
                     title = ListTitle("Bullet List Title", TitleType.Text),
+                ),
+                LeftAlignedScreenBodyV2.SecondaryButton(
+                    secondaryButtonText,
+                    {},
+                    showIcon = true,
+                ),
+            ),
+            supportingText = supportingText,
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
+        ),
+        LeftAlignedScreenContentV2(
+            title = title,
+            body = listOf(
+                LeftAlignedScreenBodyV2.Text(
+                    textShort,
+                    modifier = Modifier.padding(
+                        top = spacingTriple,
+                    ),
+                ),
+                LeftAlignedScreenBodyV2.RowList(
+                    rowData = persistentListOf(
+                        RowData(
+                            title = "Basic Row component",
+                            onClick = {},
+                        ),
+                        RowData(
+                            title = "Row component with click disabled",
+                            clickEnabled = false,
+                            onClick = {},
+                        ),
+                        RowData(
+                            title = "Full Row component",
+                            subtitle = "Subtitle String",
+                            leadingImage = Image(
+                                drawable = componentsv2R.drawable.placeholder_leading_image,
+                                contentDescription = "",
+                            ),
+                            scaleLeadingImageWithFontSize = true,
+                            trailingText = "100+",
+                            trailingIcon = RowTrailingIcon.OpenInNew(),
+                            onClick = {},
+                        ),
+                    ),
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     secondaryButtonText,

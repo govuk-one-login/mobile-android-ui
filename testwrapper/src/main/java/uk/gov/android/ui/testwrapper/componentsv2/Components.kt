@@ -22,6 +22,7 @@ import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
+import uk.gov.android.ui.testwrapper.componentsv2.row.RowListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
 import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
@@ -83,6 +84,7 @@ fun ComponentDetail(
                 converter = ImageProxyConverter.simple(),
                 onNavigate = onNavigate,
             )
+        ROW_LIST -> RowListDemo()
     }
 }
 
@@ -96,3 +98,4 @@ const val STATUS_OVERLAY = "StatusOverlay"
 const val CAMERA_CONTENT = "Camera Content"
 const val QR_CODE_CENTRALISED_SCANNING = "QR Scanning: Centrally cropping"
 const val QR_CODE_SCANNING = "QR Scanning: Full image scanning"
+const val ROW_LIST = "rowList"
