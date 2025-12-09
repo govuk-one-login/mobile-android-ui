@@ -21,11 +21,14 @@ jobs:
 
     steps:
       - name: Checkout codebase
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
         with:
           lfs: 'true'
           submodules: 'true'
           fetch-depth: 0
+
+      - name: Clean runner
+        uses: ./mobile-android-pipelines/actions/clean-runner
 
       - name: Clean workspace
         uses: ./mobile-android-pipelines/actions/clean-workspace
@@ -54,18 +57,19 @@ jobs:
       - name: Run gradle testing suite
         uses: ./mobile-android-pipelines/actions/run-testing-suite
 
-      - name: Sonar scan
-        uses: ./mobile-android-pipelines/actions/sonar-scan
-        with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Bundle reports folder
-        uses: ./mobile-android-pipelines/actions/bundle-reports
-
       - name: Increment the release version using Conventional Commits
         id: versioning
         if: ${{ github.event_name != 'pull_request' }}
         uses: ./mobile-android-pipelines/actions/increment-version
+
+      - name: Sonar scan
+        uses: ./mobile-android-pipelines/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          version-name: ${{ steps.versioning.outputs.new_version }}
+
+      - name: Bundle reports folder
+        uses: ./mobile-android-pipelines/actions/bundle-reports
 
       - name: Publish release tags
         if: ${{ github.event_name != 'pull_request'
@@ -75,6 +79,8 @@ jobs:
       - name: Test local publish
         if: ${{ github.event_name == 'pull_request' }}
         uses: ./mobile-android-pipelines/actions/maven-publish-local
+        with:
+          version-name: ${{ steps.versioning.outputs.new_version }}
 
       - name: Publish package
         if: ${{ github.event_name != 'pull_request'
@@ -83,6 +89,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          VERSION_NAME: ${{ steps.versioning.outputs.new_version }}
 
       - name: Generate Changelog
         uses: ./mobile-android-pipelines/actions/generate-and-upload-changelog

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
+    <!-- BulletedList -->
+    <string name="close_icon_button">Cau</string>
+    <string name="back_icon_button">Yn ôl</string>
+    <string name="info_icon_button">Gwybodaeth</string>
+    <string name="bullet">bwled %s</string>
+    <string name="heading">%s penawd</string>
+    <plurals name="bullet_list_items" translatable="true">
+        <item quantity="zero">rhestr bwledi %d eitem</item>
+        <item quantity="one">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="two">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="few">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="many">rhestr bwledi %d eitem. bwled %s</item>
+        <item quantity="other">rhestr bwledi %d eitem. bwled %s</item>
+    </plurals>
+
+    <!-- Warning -->
+    <string name="warning">rhybudd</string>
+    <string name="opens_in_external_browser">Agor mewn porwr gwe</string>
+
+    <!-- RadioSelection -->
+    <plurals name="radio_button_unselected" translatable="true">
+        <item quantity="zero">
+            Heb ei ddewis, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="one">
+            Heb ei ddewis, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="two">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="other">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="few">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="many">
+            Heb ei ddewis, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+    </plurals>
+    <plurals name="radio_button_selected">
+        <item quantity="zero">
+            Dewiswyd, %s, botwm radio, 0 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="one">
+            Dewiswyd, %s, botwm radio, 1 o %d, yn y rhestr, %d o eitemau, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="two">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="other">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="few">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+        <item quantity="many">
+            Dewiswyd, %s, botwm radio, %d o %d, tapiwch ddwywaith i ddewis
+        </item>
+    </plurals>
+
+    <!-- Numbered lists -->
+    <plurals name="content_desc_numbered_list_item">
+        <item quantity="one" tools:ignore="TypographyQuotes">
+            rhestr wedi\'i rhifo %1$s eitem %2$s %3$s
+        </item>
+        <item quantity="other" tools:ignore="TypographyQuotes">
+            rhestr wedi\'i rhifo %1$s o eitemau %2$s %3$s
+        </item>
+    </plurals>
+    <string name="number1">un</string>
+    <string name="number2">dau</string>
+    <string name="number3">tri</string>
+    <string name="number4">pedwar</string>
+    <string name="number5">pump</string>
+    <string name="number6">chwech</string>
+    <string name="number7">saith</string>
+    <string name="number8">wyth</string>
+    <string name="number9">naw</string>
+    <string name="card_content_description">Cerdyn %s</string>
+
+    <!-- Buttons -->
+    <string name ="loading_content_desc">Llwytho</string>
+</resources>

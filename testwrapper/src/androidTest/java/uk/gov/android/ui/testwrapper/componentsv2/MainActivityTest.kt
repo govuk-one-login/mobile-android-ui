@@ -2,10 +2,13 @@ package uk.gov.android.ui.testwrapper.componentsv2
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -25,17 +28,21 @@ class MainActivityTest {
     @Test
     fun goToTopAppBar() {
         val itemTitle1 = "Item does something"
+        val topAppBarButtonText = "Top App Bar"
+
+        composeTestRule.onNodeWithTag("entries")
+            .performScrollToNode(hasText(topAppBarButtonText))
+
         composeTestRule
-            .onNodeWithText("Top App Bar")
+            .onNodeWithText(topAppBarButtonText)
             .performClick()
         composeTestRule
-            .onNodeWithText("Top App Bar")
+            .onNodeWithText(topAppBarButtonText)
             .performClick()
         composeTestRule
             .onNodeWithContentDescription(
-                resources.getString(uk.gov.android.ui.componentsv2.R.string.info_icon_button)
-            )
-            .performClick()
+                resources.getString(uk.gov.android.ui.componentsv2.R.string.info_icon_button),
+            ).performClick()
         composeTestRule.onNodeWithText(itemTitle1).assertIsDisplayed()
     }
 

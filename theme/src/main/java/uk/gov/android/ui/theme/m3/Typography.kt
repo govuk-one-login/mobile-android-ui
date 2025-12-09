@@ -65,9 +65,9 @@ private val DefaultTextStyle = TextStyle.Default.copy(
  * [Material3 typography styles](https://m3.material.io/blog/migrating-material-3)
  *
  * Material3                    -> GDS
- * 1. textAppearanceDisplayLarge   => Wallet primary field
- * 2. textAppearanceDisplayMedium  => Wallet live document footer
- * 3. textAppearanceDisplaySmall   => Large Headline
+ * 1. textAppearanceDisplayLarge   => No current GDS design
+ * 2. textAppearanceDisplayMedium  => No current GDS design
+ * 3. textAppearanceDisplaySmall   => Large Title
  * 4. textAppearanceHeadlineLarge  => Title 1
  * 5. textAppearanceHeadlineMedium => Title 2
  * 6. textAppearanceHeadlineSmall  => Title 3
@@ -85,25 +85,25 @@ val Typography = Typography(
     displaySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH1,
     ),
     headlineLarge = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH2,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH2,
     ),
     headlineMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH3,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH3,
     ),
     headlineSmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH4,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightH4,
     ),
     bodyLarge = DefaultTextStyle.copy(
@@ -115,25 +115,25 @@ val Typography = Typography(
     bodyMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeCallout,
-        fontWeight = FontWeight.ExtraLight,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightB2,
     ),
     bodySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeSubheadline,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightB3,
     ),
     labelMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_light))),
         fontSize = textSizeFootnote,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightB4,
     ),
     labelSmall = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_light))),
         fontSize = textSizeCaption,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
         lineHeight = lineHeightB5,
     ),
     labelLarge = DefaultTextStyle.copy(
@@ -159,8 +159,15 @@ val Typography = Typography(
 /**
  * Supplementary class to contain text styles not defined in Typography
  *
- *  * 1. headlineSmallMono   => Wallet primary field
- *  * 2. bodyLargeMono  => Wallet live document footer
+ * displaySmallReg   => Large Title light font family (ff) / normal font weight (fw)
+ * headlineLargeReg  => Title 1 light ff / normal fw
+ * headlineMediumReg => Title 2 light ff / normal fw
+ * headlineSmallReg => Title 3 light ff / normal fw
+ * bodyMediumBold => Callout bold ff / normal fw
+ * bodySmallBold => Subheadline bold ff / normal fw
+ * labelMediumBold => Footnote bold ff / normal fw
+ * labelSmallBold => Caption bold ff / normal fw
+ * bodyLargeBold => Body bold ff / normal fw
  */
 val ExtraTypography = GdsTypography(
     headlineSmallMono = DefaultTextStyle.copy(
@@ -175,9 +182,63 @@ val ExtraTypography = GdsTypography(
         fontWeight = FontWeight.Bold,
         lineHeight = lineHeightB1,
     ),
+    displaySmallReg = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = textSizeH1,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightH1,
+    ),
+    headlineLargeReg = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = textSizeH2,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightH2,
+    ),
+    headlineMediumReg = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = textSizeH3,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightH3,
+    ),
+    headlineSmallReg = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_light)),
+        fontSize = textSizeH4,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightH4,
+    ),
+    bodyMediumBold = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
+        fontSize = textSizeCallout,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB2,
+    ),
+    bodySmallBold = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
+        fontSize = textSizeSubheadline,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB3,
+    ),
+    labelMediumBold = DefaultTextStyle.copy(
+        fontFamily = FontFamily((Font(R.font.gds_transport_bold))),
+        fontSize = textSizeFootnote,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB4,
+    ),
+    labelSmallBold = DefaultTextStyle.copy(
+        fontFamily = FontFamily((Font(R.font.gds_transport_bold))),
+        fontSize = textSizeCaption,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB5,
+    ),
+    bodyLargeBold = DefaultTextStyle.copy(
+        fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
+        fontSize = textSizeBody,
+        fontWeight = FontWeight.Normal,
+        lineHeight = lineHeightB1,
+    ),
 )
 
-internal object TypographyPreviewParams {
+object TypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
         "Large Title" to Typography.displayLarge,
         "displayMedium" to Typography.displayMedium,
@@ -197,10 +258,17 @@ internal object TypographyPreviewParams {
     )
 }
 
-internal object ExtraTypographyPreviewParams {
+object ExtraTypographyPreviewParams {
     val types: List<Pair<String, TextStyle>> = listOf(
-        "Wallet primary field" to ExtraTypography.headlineSmallMono,
-        "Wallet live document footer" to ExtraTypography.bodyLargeMono,
+        "Large Headline Regular" to ExtraTypography.displaySmallReg,
+        "Title 1 Regular" to ExtraTypography.headlineLargeReg,
+        "Title 2 Regular" to ExtraTypography.headlineMediumReg,
+        "Title 3 Regular" to ExtraTypography.headlineSmallReg,
+        "Body Bold" to ExtraTypography.bodyLargeBold,
+        "Callout Bold" to ExtraTypography.bodyMediumBold,
+        "Subheadline Bold" to ExtraTypography.bodySmallBold,
+        "Footnote Bold" to ExtraTypography.labelMediumBold,
+        "Caption Bold" to ExtraTypography.labelSmallBold,
     )
 }
 
@@ -275,4 +343,13 @@ internal fun ExtraTypographyPreview() {
 data class GdsTypography(
     val headlineSmallMono: TextStyle,
     val bodyLargeMono: TextStyle,
+    val displaySmallReg: TextStyle,
+    val headlineLargeReg: TextStyle,
+    val headlineMediumReg: TextStyle,
+    val headlineSmallReg: TextStyle,
+    val bodyMediumBold: TextStyle,
+    val bodySmallBold: TextStyle,
+    val labelMediumBold: TextStyle,
+    val labelSmallBold: TextStyle,
+    val bodyLargeBold: TextStyle,
 )

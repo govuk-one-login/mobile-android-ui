@@ -13,7 +13,7 @@ val scrim = ColorPair(Color(0x4D000000))
 object Backgrounds {
     val screen = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
     val card = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
-    val list = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
+    val row = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
     val topBar = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
     val topBarScrolled = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
     val navigationBar = ColorPair(Color(0xFFFFFFFF), Color(0xFF262626))
@@ -48,6 +48,7 @@ object Buttons {
 object Dividers {
     val default = ColorPair(Color(0xFF6F777B), Color(0xFFFFFFFF))
     val card = ColorPair(Color(0xFF505A5f), Color(0xFFB1B4B6))
+    val row = ColorPair(Color(0xFFB1B4B6), Color(0xFF505A5f))
 }
 
 object Icons {
@@ -101,6 +102,17 @@ object Switch {
 object Menu {
     val menuItem = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
     val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
+}
+
+object QrScannerOverlayDefaults {
+    var background: ColorPair = ColorPair(
+        light = Color(0x80000000),
+        dark = Color(0x80000000),
+    )
+    var border: ColorPair = ColorPair(
+        light = Color(0xFFFFFFFF),
+        dark = Color(0xFFFFFFFF),
+    )
 }
 
 @Suppress("ForbiddenComment")
