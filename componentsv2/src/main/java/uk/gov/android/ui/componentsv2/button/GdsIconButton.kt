@@ -140,6 +140,12 @@ object GdsIconButtonDefaults {
         icon = Icons.Outlined.Info,
         contentDescription = stringResource(R.string.info_icon_button),
     )
+
+    @Composable
+    fun defaultMoreContent() = IconButtonContent(
+        icon = Icons.Outlined.Info,
+        contentDescription = stringResource(R.string.more_vert_icon_button),
+    )
 }
 
 data class GdsIconButtonPreviewParams(

@@ -78,6 +78,24 @@ class GdsIconButtonTest {
     }
 
     @Test
+    fun testMoreIconButton() {
+        composeTestRule.setContent {
+            val content = GdsIconButtonDefaults.defaultMoreContent()
+            GdsIconButton(
+                onClick = { onClick++ },
+                content = content,
+            )
+        }
+        assertEquals(0, onClick)
+        composeTestRule.apply {
+            onNodeWithContentDescription(
+                context.getString(R.string.more_vert_icon_button),
+            ).assertIsDisplayed().performClick()
+        }
+        assertEquals(1, onClick)
+    }
+
+    @Test
     fun testCustomIconButton() {
         composeTestRule.setContent {
             GdsIconButton(
