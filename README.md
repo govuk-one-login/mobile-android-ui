@@ -75,3 +75,14 @@ You can use the following command to check the SHA 256 checksum of a file
 ```bash
 shasum -a 256 gradle-8.10.2-bin.zip
 ```
+## Hotfix changes
+There are GitHub Actions workflows for a hotfix pull request and merging a hotfix to a temporary 
+hotfix branch. 
+
+The temporary hotfix branch is currently expected to be named "temp/hotfix". If a different name is
+desired please edit the value under "branches:" in `.github/workflows/on_push_hotfix.yml`.
+The hotfix branch name should should be in the format "hotfix/M.m.p".
+
+Once the hotfix PR has been approved and the "Squash and merge" button pressed, the merge title 
+must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to allow for the
+correct version to be extracted and used as a tag.
