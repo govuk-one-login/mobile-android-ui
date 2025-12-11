@@ -29,7 +29,7 @@
     <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="loading_button" translatable="false">Loading Button</string>
     <string name ="loading_content_desc">Loading</string>
-    <string name="more_vert_icon_button" translatable="false">More</string>
+    <string name="more_vert_icon_button">More</string>
     <string name="close_icon_button">Close</string>
     <string name="back_icon_button">Back</string>
     <string name="info_icon_button">Information</string>
