@@ -26,7 +26,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -87,26 +86,7 @@ fun GdsBulletedList(
  * @param bulletListItems list of items to be displayed - see [ListItem]
  * @param modifier [Modifier] that can be applied to the entire bullet list
  * @param title (nullable) optional title for the list - see [ListTitle]
- * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set - only used when required and if the accessibility is not already met without using this.
  *
- * If the accessibility (TalkBack) focus/ reading order is affected by this component, you might need to set the [traversalIndex] for all elements including this list.
- *
- * **Please ensure that the [accessibilityIndex] is the index required in your layout plus 1:**
- * ```
- *  // The index required it would be 7
- *  GdsBulletedList(
- *      title = ListTitle(
- *          text = bulletListTitle,
- *          titleType = TitleType.Text
- *       ),
- *       bulletListItems = persistentListOf(
- *           ListItem(bullet1),
- *           ListItem(bullet2)
- *       ),
- *       accessibilityIndex = 8
- *  )
- *
- * ```
  */
 @Composable
 @JvmName("GdsBulletedListV2")
@@ -114,7 +94,6 @@ fun GdsBulletedList(
     bulletListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
-    accessibilityIndex: Float = 0f,
 ) {
     val context = LocalContext.current
     Column(
@@ -122,7 +101,7 @@ fun GdsBulletedList(
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            BulletedListTitle(it, accessibilityIndex = accessibilityIndex - 1f)
+            BulletedListTitle(it)
         }
 
         bulletListItems.forEachIndexed { i, item ->
@@ -142,7 +121,6 @@ fun GdsBulletedList(
             BulletListItem(
                 text = item,
                 bulletContentDescription = bulletContentDescription,
-                accessibilityIndex = accessibilityIndex,
             )
         }
     }
@@ -153,14 +131,11 @@ fun GdsBulletedList(
  *
  * @param title The contents of the title
  * @param modifier Set the content description and traversal index
- * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
- * reader
  */
 @Composable
 private fun BulletedListTitle(
     title: ListTitle,
     modifier: Modifier = Modifier,
-    accessibilityIndex: Float = LOW_PRIORITY_INDEX,
 ) {
     val titleContentDescription: String
 
@@ -189,7 +164,6 @@ private fun BulletedListTitle(
             .padding(bottom = listItemTitleBottomPadding)
             .semantics {
                 contentDescription = titleContentDescription
-                this.traversalIndex = accessibilityIndex
             },
     )
 }
@@ -200,7 +174,6 @@ private fun BulletListItem(
     text: String,
     bulletContentDescription: String,
     modifier: Modifier = Modifier,
-    accessibilityIndex: Float = 0f,
 ) {
     Row(
         modifier = modifier
@@ -208,7 +181,6 @@ private fun BulletListItem(
             .padding(top = listItemTopPadding)
             .semantics {
                 contentDescription = bulletContentDescription
-                this.traversalIndex = accessibilityIndex
             },
     ) {
         Image(
@@ -240,21 +212,17 @@ private fun BulletListItem(
  * @param text The text content of the bulleted list item
  * @param bulletContentDescription The content description for the entire bulleted list item
  * @param modifier Set the background and accessibility traversalIndex
- * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
- * reader
  */
 @Composable
 private fun BulletListItem(
     text: ListItem,
     bulletContentDescription: String,
     modifier: Modifier = Modifier,
-    accessibilityIndex: Float = 0f,
 ) {
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
             .semantics(true) {
-                this.traversalIndex = accessibilityIndex
             }
             .padding(top = listItemTopPadding),
         verticalAlignment = Alignment.CenterVertically,
@@ -485,4 +453,3 @@ private const val TEXT_LINE_POSITION_DIVIDER = 2
 internal val iconPlaceholderWidth = 20.sp
 internal val iconPlaceholdHeight = 1.em
 internal const val NO_ICON_REFERENCE = 0
-private const val LOW_PRIORITY_INDEX = -1f
