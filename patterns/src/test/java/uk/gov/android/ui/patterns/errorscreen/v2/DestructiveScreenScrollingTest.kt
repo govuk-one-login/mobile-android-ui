@@ -28,7 +28,6 @@ import uk.gov.android.ui.patterns.utils.BDD.Then
 import uk.gov.android.ui.patterns.utils.BDD.When
 import uk.gov.android.ui.patterns.utils.TestUtils.loremIpsum
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(RobolectricTestRunner::class)
 class DestructiveScreenScrollingTest {
@@ -38,7 +37,6 @@ class DestructiveScreenScrollingTest {
     private lateinit var mandatoryIcon: ErrorScreenIcon
     private lateinit var mandatoryTitle: String
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun `test scrolling behaviour in the body content`() = with(composeTestRule) {
         Given("a body content with multiple lines and paragraphs") {

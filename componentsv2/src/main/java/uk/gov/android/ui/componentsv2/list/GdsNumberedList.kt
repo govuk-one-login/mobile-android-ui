@@ -40,7 +40,6 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
  * A composable that displays a numbered list of items.
@@ -155,7 +154,6 @@ private fun GdsNumberedListLayout(
  * @param title The contents of the title
  * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 private fun NumberedListTitle(
     title: ListTitle,

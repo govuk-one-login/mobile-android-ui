@@ -39,7 +39,6 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_B
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 private const val ONE_THIRD = 1f / 3f
 private const val DENSITY_PREVIEW_INDEX = 5
@@ -278,7 +277,6 @@ internal fun PreviewErrorScreenHighDensity() {
     }
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 internal fun ErrorScreenPreviewComposable(
     @PreviewParameter(ErrorScreenContentProvider::class)

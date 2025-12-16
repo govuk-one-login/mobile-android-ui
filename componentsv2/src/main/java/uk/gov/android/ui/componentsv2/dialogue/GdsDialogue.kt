@@ -36,7 +36,6 @@ import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.smallPadding
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 import uk.gov.android.ui.theme.xsmallPadding
 
 /**
@@ -48,7 +47,6 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param modifier Modifier
  * @param onDismissRequest Dismiss listener
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun GdsDialogue(
     headingText: String?,

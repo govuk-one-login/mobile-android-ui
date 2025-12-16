@@ -8,13 +8,11 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 class GdsHeadingTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun titleHasContentDescriptionAndHeadingRole() {
         val title = "Title"

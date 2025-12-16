@@ -16,14 +16,12 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(Parameterized::class)
 internal class DestructiveScreenScreenshotTest(
     private val parameters: Pair<ErrorScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
-    @OptIn(UnstableDesignSystemAPI::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsTheme {

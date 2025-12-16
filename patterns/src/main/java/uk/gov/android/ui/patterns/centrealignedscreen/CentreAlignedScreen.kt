@@ -48,7 +48,6 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 private const val ONE_THIRD = 1f / 3f
 
@@ -176,7 +175,6 @@ fun CentreAlignedScreen(
  * @param primaryButton primary action button (optional).
  * @param secondaryButton secondary action button (optional).
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod")
 @Composable
 fun CentreAlignedScreen(

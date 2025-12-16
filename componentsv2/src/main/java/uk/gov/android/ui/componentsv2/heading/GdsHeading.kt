@@ -23,7 +23,6 @@ import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 sealed class GdsHeadingStyle(val style: TextStyle) {
     data object LargeTitle : GdsHeadingStyle(Typography.displaySmall)
@@ -52,7 +51,6 @@ enum class GdsHeadingAlignment {
  * @param textColour The color of the text. Defaults to the theme's `onBackground`.
  * @param textFontWeight Font weight override for the heading text (optional).
  */
-@UnstableDesignSystemAPI
 @Composable
 fun GdsHeading(
     text: String,
@@ -147,7 +145,6 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
     )
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true)

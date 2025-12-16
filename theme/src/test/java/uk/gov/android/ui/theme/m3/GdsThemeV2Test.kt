@@ -9,7 +9,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(AndroidJUnit4::class)
 class GdsThemeV2Test {
@@ -17,7 +16,6 @@ class GdsThemeV2Test {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun `default local text style is body large`() {
         composeTestRule.setContent {
@@ -29,7 +27,6 @@ class GdsThemeV2Test {
         }
     }
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun `test content`() {
         composeTestRule.setContent {
@@ -39,7 +36,6 @@ class GdsThemeV2Test {
         }
     }
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun `test darkTheme true`() {
         composeTestRule.setContent {
@@ -49,7 +45,6 @@ class GdsThemeV2Test {
         }
     }
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun `test darkTheme false`() {
         composeTestRule.setContent {

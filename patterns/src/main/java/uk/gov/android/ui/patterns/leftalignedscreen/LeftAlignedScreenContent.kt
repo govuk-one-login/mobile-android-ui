@@ -54,7 +54,6 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContent(
     val title: String,
@@ -128,7 +127,6 @@ data class LeftAlignedScreenButton(
     val enabled: Boolean = true,
 )
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenContent) {
     LeftAlignedScreen(
@@ -179,7 +177,6 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
     )
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 internal fun LeftAlignedScreenV2FromContentParams(content: LeftAlignedScreenContentV2) {
     LeftAlignedScreen(
@@ -237,7 +234,6 @@ internal fun LeftAlignedScreenV2FromContentParams(content: LeftAlignedScreenCont
  * @param body [List<LeftAlignedScreenBody>?] represents the list of LeftAlignedScreenBody
  * @param horizontalItemPadding [Dp] represents the horizontal padding
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod", "CyclomaticComplexMethod")
 @Deprecated(
     "Use toBodyContentV2 with optional list title parameter instead - will be removed on 20/01/26",

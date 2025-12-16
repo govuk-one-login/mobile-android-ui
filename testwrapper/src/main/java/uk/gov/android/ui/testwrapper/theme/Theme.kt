@@ -16,9 +16,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.theme.styles.StylesDemo
 import uk.gov.android.ui.theme.smallPadding
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Theme(
     modifier: Modifier = Modifier,
@@ -45,7 +43,6 @@ fun Theme(
     }
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ThemeDetail(
     detailItem: DetailItem,

@@ -16,7 +16,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 class CentreAlignedScreenTest {
     @get:Rule
@@ -62,7 +61,6 @@ class CentreAlignedScreenTest {
         assertTrue(didClick)
     }
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun titleHasContentDescriptionAndHeadingRole() {
         val title = "Test title"
