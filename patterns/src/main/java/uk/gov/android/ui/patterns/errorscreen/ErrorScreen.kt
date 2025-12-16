@@ -35,7 +35,6 @@ import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCRE
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
  * Renders a centre-aligned error screen with a structured layout.
@@ -52,7 +51,6 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
  */
 @Deprecated("Use [patterns.errorscreen.v2/ErrorScreen] instead")
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun ErrorScreen(
     icon: ErrorScreenIcon,

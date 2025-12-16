@@ -12,9 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @RunWith(RobolectricTestRunner::class)
 class GdsHeadingTest {
 

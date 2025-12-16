@@ -40,7 +40,6 @@ import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 internal data class LeftAlignedScreenContentV2(
     val title: String,
@@ -115,7 +114,6 @@ sealed class LeftAlignedScreenBodyV2 {
     ) : LeftAlignedScreenBodyV2()
 }
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenContentV2) {
     LeftAlignedScreen(
@@ -173,7 +171,6 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
  * @param body [List<LeftAlignedScreenBodyV2>?] represents the list of LeftAlignedScreenBodyV2
  * @param horizontalItemPadding [Dp] represents the horizontal padding
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Suppress("LongMethod", "CyclomaticComplexMethod")
 fun LazyListScope.toBodyContentV2(
     body: List<LeftAlignedScreenBodyV2>?,

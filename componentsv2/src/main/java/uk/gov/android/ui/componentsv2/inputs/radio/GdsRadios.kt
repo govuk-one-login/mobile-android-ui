@@ -38,7 +38,6 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 /**
  * A composable that displays a list of radio selection options.
@@ -50,7 +49,6 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  * @param title An optional title to display above the radio selection options.
  * @sample GdsRadiosSample
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun GdsRadios(
     items: ImmutableList<String>,

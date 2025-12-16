@@ -20,9 +20,7 @@ import uk.gov.android.ui.patterns.utils.BDD.Given
 import uk.gov.android.ui.patterns.utils.BDD.Then
 import uk.gov.android.ui.patterns.utils.BDD.When
 import uk.gov.android.ui.patterns.utils.TestUtils.getString
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @RunWith(RobolectricTestRunner::class)
 class ErrorScreenParameterTest {
     @get:Rule

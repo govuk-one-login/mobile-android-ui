@@ -35,7 +35,6 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 private const val ONE_THIRD = 1f / 3f
 private const val FONT_SCALE_DOUBLE = 2f
@@ -168,7 +167,6 @@ fun LeftAlignedScreen(
     "Use LeftAlignedScreenV2 with optional list title parameter instead - will be removed on 20/01/26",
     level = DeprecationLevel.WARNING,
 )
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun LeftAlignedScreen(
     title: String,
@@ -238,7 +236,6 @@ fun LeftAlignedScreen(
  * @param primaryButton primary action button (optional).
  * @param secondaryButton secondary action button (optional).
  */
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun LeftAlignedScreenV2(
     title: String,

@@ -16,9 +16,7 @@ import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun DetailItemContent(
     items: ImmutableList<DetailItem>,

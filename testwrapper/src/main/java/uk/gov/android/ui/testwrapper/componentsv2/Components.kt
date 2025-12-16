@@ -27,9 +27,7 @@ import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
 import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.theme.smallPadding
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Components(
     modifier: Modifier = Modifier,

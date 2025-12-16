@@ -18,7 +18,6 @@ import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
-@OptIn(UnstableDesignSystemAPI::class)
 @Composable
 fun Patterns(
     modifier: Modifier = Modifier,

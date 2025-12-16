@@ -44,7 +44,6 @@ import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.dialog.FullScreenDialogue
 import uk.gov.android.ui.patterns.dialog.FullScreenDialogueTopAppBar
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 class LeftAlignedScreenKeyboardNavTest {
     @get:Rule
@@ -97,7 +96,7 @@ class LeftAlignedScreenKeyboardNavTest {
     @SuppressLint("ComposeUnstableReceiver")
     @Suppress("LongMethod")
     @Composable
-    @OptIn(UnstableDesignSystemAPI::class, ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     private fun Content(isLargeFont: Boolean) {
         GdsTheme {
             FullScreenDialogue(

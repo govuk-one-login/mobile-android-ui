@@ -18,7 +18,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
-import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -65,7 +64,6 @@ class CentreAlignedScreenTest {
         assertTrue(didClick)
     }
 
-    @OptIn(UnstableDesignSystemAPI::class)
     @Test
     fun titleHasContentDescriptionAndHeadingRole() {
         val title = "Test title"
