@@ -39,7 +39,7 @@ class LeftAlignedScreenV2Test {
 
         composeTestRule.setContent {
             LeftAlignedScreenV2(
-                titleText,
+                title = titleText,
                 primaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
@@ -64,7 +64,7 @@ class LeftAlignedScreenV2Test {
 
         composeTestRule.setContent {
             LeftAlignedScreenV2(
-                titleText,
+                title = titleText,
                 primaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
@@ -87,7 +87,7 @@ class LeftAlignedScreenV2Test {
     fun titleHasContentDescriptionAndHeadingRole() {
         composeTestRule.setContent {
             LeftAlignedScreenV2(
-                titleText,
+                title = titleText,
             )
         }
 
