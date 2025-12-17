@@ -164,7 +164,7 @@ fun LeftAlignedScreen(
  * @param secondaryButton secondary action button (optional).
  */
 @Deprecated(
-    "Use LeftAlignedScreenV2 with optional list title parameter instead - will be removed on 20/01/26",
+    "Use LeftAlignedScreenV2 with optional list title parameter - will be removed on 20/01/26",
     level = DeprecationLevel.WARNING,
 )
 @Composable
@@ -229,7 +229,7 @@ fun LeftAlignedScreen(
  *
  * Uses the slot based method to create the composable
  *
- * @param title represents the main title.
+ * @param title represents the main title (optional).
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param body representing the main content (optional).
  * @param supportingText additional text displayed below in the bottom content (optional).
@@ -238,7 +238,7 @@ fun LeftAlignedScreen(
  */
 @Composable
 fun LeftAlignedScreenV2(
-    title: String,
+    title: String? = null,
     modifier: Modifier = Modifier,
     body: ImmutableList<LeftAlignedScreenBodyV2>? = null,
     supportingText: String? = null,
@@ -247,13 +247,15 @@ fun LeftAlignedScreenV2(
 ) {
     LeftAlignedScreen(
         modifier = modifier,
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
-        },
+        title = title?.let { titleText ->
+            { horizontalPadding ->
+                GdsHeading(
+                    text = titleText,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.LeftAligned,
+                )
+            }
+        } ?: {},
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,

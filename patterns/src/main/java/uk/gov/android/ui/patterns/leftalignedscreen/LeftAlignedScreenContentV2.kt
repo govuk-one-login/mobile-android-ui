@@ -42,7 +42,7 @@ import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContentV2(
-    val title: String,
+    val title: String?,
     val body: List<LeftAlignedScreenBodyV2>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,
@@ -117,13 +117,15 @@ sealed class LeftAlignedScreenBodyV2 {
 @Composable
 internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenContentV2) {
     LeftAlignedScreen(
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = content.title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
-        },
+        title = content.title?.let { title ->
+            { horizontalPadding ->
+                GdsHeading(
+                    text = title,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.LeftAligned,
+                )
+            }
+        } ?: {},
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,

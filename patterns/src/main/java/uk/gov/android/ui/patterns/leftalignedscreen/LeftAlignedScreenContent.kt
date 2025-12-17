@@ -180,13 +180,15 @@ internal fun LeftAlignedScreenFromContentParams(content: LeftAlignedScreenConten
 @Composable
 internal fun LeftAlignedScreenV2FromContentParams(content: LeftAlignedScreenContentV2) {
     LeftAlignedScreen(
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = content.title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
-        },
+        title = content.title?.let { title ->
+            { horizontalPadding ->
+                GdsHeading(
+                    text = title,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.LeftAligned,
+                )
+            }
+        } ?: {},
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,
