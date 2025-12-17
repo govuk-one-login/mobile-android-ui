@@ -229,8 +229,8 @@ fun LeftAlignedScreen(
  *
  * Uses the slot based method to create the composable
  *
- * @param title represents the main title (optional).
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
+ * @param title represents the main title (optional).
  * @param body representing the main content (optional).
  * @param supportingText additional text displayed below in the bottom content (optional).
  * @param primaryButton primary action button (optional).
@@ -238,8 +238,8 @@ fun LeftAlignedScreen(
  */
 @Composable
 fun LeftAlignedScreenV2(
-    title: String? = null,
     modifier: Modifier = Modifier,
+    title: String? = null,
     body: ImmutableList<LeftAlignedScreenBodyV2>? = null,
     supportingText: String? = null,
     primaryButton: LeftAlignedScreenButton? = null,
