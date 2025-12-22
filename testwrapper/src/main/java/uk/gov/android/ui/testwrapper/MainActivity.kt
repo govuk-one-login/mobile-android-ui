@@ -12,6 +12,8 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -28,31 +30,36 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val startDestination = TabDestination.Components
             var selectedDestination by rememberSaveable { mutableIntStateOf(0) }
+            var displayTabRow by remember { mutableStateOf(true) }
 
             GdsTheme {
                 Scaffold { contentPadding ->
-                    PrimaryTabRow(
-                        selectedTabIndex = selectedDestination,
-                        modifier = Modifier.padding(contentPadding),
-                    ) {
-                        TabDestination.entries().forEachIndexed { index, destination ->
-                            Tab(
-                                selected = selectedDestination == index,
-                                onClick = {
-                                    navController.navigate(route = destination)
-                                    selectedDestination = index
-                                },
-                                text = {
-                                    Text(
-                                        text = destination.label,
-                                        maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                },
-                            )
+                    if (displayTabRow) {
+                        PrimaryTabRow(
+                            selectedTabIndex = selectedDestination,
+                            modifier = Modifier.padding(contentPadding),
+                        ) {
+                            TabDestination.entries().forEachIndexed { index, destination ->
+                                Tab(
+                                    selected = selectedDestination == index,
+                                    onClick = {
+                                        navController.navigate(route = destination)
+                                        selectedDestination = index
+                                    },
+                                    text = {
+                                        Text(
+                                            text = destination.label,
+                                            maxLines = 2,
+                                            overflow = TextOverflow.Ellipsis,
+                                        )
+                                    },
+                                )
+                            }
                         }
                     }
-                    AppNavHost(navController, startDestination)
+                    AppNavHost(navController, startDestination) { displayTab ->
+                        displayTabRow = displayTab
+                    }
                 }
             }
         }

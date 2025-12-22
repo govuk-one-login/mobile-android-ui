@@ -1,6 +1,7 @@
 package uk.gov.android.ui.testwrapper.patterns
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -46,7 +47,10 @@ sealed class PatternsDestination(
     }
 
     companion object {
-        fun NavGraphBuilder.applyPatternDestinations(modifier: Modifier = Modifier) {
+        fun NavGraphBuilder.applyPatternDestinations(
+            modifier: Modifier = Modifier,
+            displayTabRow: (Boolean) -> Unit
+            ) {
             composable<Placeholder> { navBackStackEntry ->
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
@@ -59,6 +63,7 @@ sealed class PatternsDestination(
                 PatternListDetail(
                     items = arguments.items.toPersistentList(),
                     modifier = modifier,
+                    displayTabRow = displayTabRow
                 )
             }
         }
@@ -74,6 +79,7 @@ sealed class PatternsDestination(
                     items =
                     listOf(
                         DetailItem(label = LOADING_SCREEN, name = "Loading Screen"),
+                        DetailItem(label = LOADING_FULL_SCREEN, name = "Loading Full Screen"),
                     ),
                 ),
                 // Add new demo items here
