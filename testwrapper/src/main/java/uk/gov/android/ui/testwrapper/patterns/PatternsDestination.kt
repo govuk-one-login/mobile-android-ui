@@ -1,7 +1,6 @@
 package uk.gov.android.ui.testwrapper.patterns
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -49,8 +48,8 @@ sealed class PatternsDestination(
     companion object {
         fun NavGraphBuilder.applyPatternDestinations(
             modifier: Modifier = Modifier,
-            displayTabRow: (Boolean) -> Unit
-            ) {
+            displayTabRow: (Boolean) -> Unit,
+        ) {
             composable<Placeholder> { navBackStackEntry ->
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
@@ -63,7 +62,7 @@ sealed class PatternsDestination(
                 PatternListDetail(
                     items = arguments.items.toPersistentList(),
                     modifier = modifier,
-                    displayTabRow = displayTabRow
+                    displayTabRow = displayTabRow,
                 )
             }
         }
@@ -72,7 +71,19 @@ sealed class PatternsDestination(
             listOf(
                 Placeholder(text = "Center Aligned Screen"),
                 Placeholder(text = "Dialog"),
-                Placeholder(text = "Error Screen"),
+                DetailedItem(
+                    text = "Error Screen",
+                    items =
+                    listOf(
+                        DetailItem(label = ERROR_SCREEN, name = "Error Screen"),
+                        DetailItem(label = ERROR_FULL_SCREEN, name = "Error Full Screen"),
+                        DetailItem(label = ERROR_SCREEN, name = "Error Screen (Deprecated)"),
+                        DetailItem(
+                            label = ERROR_FULL_SCREEN,
+                            name = "Error Full Screen (Deprecated)",
+                        ),
+                    ),
+                ),
                 Placeholder(text = "Left Aligned Screen"),
                 DetailedItem(
                     text = "Loading Screen",
@@ -80,6 +91,8 @@ sealed class PatternsDestination(
                     listOf(
                         DetailItem(label = LOADING_SCREEN, name = "Loading Screen"),
                         DetailItem(label = LOADING_FULL_SCREEN, name = "Loading Full Screen"),
+                        DetailItem(label = LOADING_DYNAMIC_SCREEN, name = "Loading Dynamic Screen"),
+                        DetailItem(label = LOADING_DYNAMIC_FULL_SCREEN, name = "Loading Dynamic Full Screen"),
                     ),
                 ),
                 // Add new demo items here

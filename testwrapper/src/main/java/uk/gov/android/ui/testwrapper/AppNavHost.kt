@@ -21,7 +21,7 @@ fun AppNavHost(
     navController: NavHostController,
     startDestination: Any,
     modifier: Modifier = Modifier,
-    displayTabRow: (Boolean) -> Unit = {}
+    displayTabRow: (Boolean) -> Unit = {},
 ) {
     val tabPagesOffsetPadding = 50.dp
     val scope = rememberCoroutineScope()
