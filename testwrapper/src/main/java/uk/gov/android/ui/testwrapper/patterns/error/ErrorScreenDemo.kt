@@ -1,7 +1,5 @@
 package uk.gov.android.ui.testwrapper.patterns.error
 
-import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,11 +7,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -23,8 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.android.awaitFrame
-import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
@@ -33,6 +24,7 @@ import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreen
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenBodyContent
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenIcon
+import uk.gov.android.ui.testwrapper.FullScreenBackHandler
 import uk.gov.android.ui.theme.m3.Typography
 
 @Composable
@@ -42,18 +34,7 @@ fun ErrorScreenDemo(
     displayTabRow: (Boolean) -> Unit = {},
 ) {
     if (isFullScreen) {
-        val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-        var backPressHandled by remember { mutableStateOf(false) }
-        val coroutineScope = rememberCoroutineScope()
-        BackHandler(enabled = !backPressHandled) {
-            backPressHandled = true
-            displayTabRow(true)
-            coroutineScope.launch {
-                awaitFrame()
-                onBackPressedDispatcher?.onBackPressed()
-                backPressHandled = false
-            }
-        }
+        FullScreenBackHandler(displayTabRow)
     }
     ErrorScreen(
         icon = { horizontalPadding ->
