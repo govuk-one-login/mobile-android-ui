@@ -1,6 +1,6 @@
 [versions]
 accompanist = "0.37.3" # https://github.com/google/accompanist/releases
-activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
+activity = "1.12.2" # https://developer.android.com/jetpack/androidx/releases/activity
 android-tools-layoutlib-api = "31.13.0" # No changelog found
 androidx-camera = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/camera
 android-gradle = "8.13.0" # https://developer.android.com/studio/releases/gradle-plugin
