@@ -344,6 +344,50 @@ internal class LeftAlignedScreenContentProviderV2 :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
+        LeftAlignedScreenContentV2(
+            title = null,
+            body = listOf(
+                LeftAlignedScreenBodyV2.Text(
+                    textShort,
+                    modifier = Modifier.padding(
+                        top = spacingTriple,
+                    ),
+                ),
+                LeftAlignedScreenBodyV2.RowList(
+                    rowData = persistentListOf(
+                        RowData(
+                            title = "Basic Row component",
+                            onClick = {},
+                        ),
+                        RowData(
+                            title = "Row component with click disabled",
+                            clickEnabled = false,
+                            onClick = {},
+                        ),
+                        RowData(
+                            title = "Full Row component",
+                            subtitle = "Subtitle String",
+                            leadingImage = Image(
+                                drawable = componentsv2R.drawable.placeholder_leading_image,
+                                contentDescription = "",
+                            ),
+                            scaleLeadingImageWithFontSize = true,
+                            trailingText = "100+",
+                            trailingIcon = RowTrailingIcon.OpenInNew(),
+                            onClick = {},
+                        ),
+                    ),
+                ),
+                LeftAlignedScreenBodyV2.SecondaryButton(
+                    secondaryButtonText,
+                    {},
+                    showIcon = true,
+                ),
+            ),
+            supportingText = supportingText,
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
+        ),
     )
 }
 
