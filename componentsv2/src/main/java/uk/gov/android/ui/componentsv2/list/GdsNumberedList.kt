@@ -18,7 +18,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.invisibleToUser
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,17 +40,14 @@ import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
 
+
 /**
  * A composable that displays a numbered list of items.
  *
  * @param numberedListItems The list of options to display.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the numbered list items.
- * @param accessibilityIndex sets the [traversalIndex] in semantics for the list items and the title is set - only used when required and if the accessibility is not already met without using this.
- *
- * If the accessibility (TalkBack) focus/ reading order is affected by this component, you might need to set the [traversalIndex] for all elements including this list.
- *
- * **Please ensure that the [accessibilityIndex] is the index required in your layout plus 1:**
+ * @param accessibilityIndex previously used to index the talkback components
  * ```
  *  // The index required it would be 7
  *  GdsBulletedList(
@@ -63,11 +59,12 @@ import uk.gov.android.ui.theme.spacingSingle
  *          ListItem(bullet1),
  *          ListItem(bullet2)
  *      ),
- *      accessibilityIndex = 8
+ *      accessibilityIndex = 0
  *  )
  * ```
  *
  */
+@Deprecated("Use V2 GdsNumberedList with no accessibilityIndex parameter instead")
 @Composable
 fun GdsNumberedList(
     numberedListItems: ImmutableList<ListItem>,
@@ -82,10 +79,50 @@ fun GdsNumberedList(
         title?.let {
             // Decrement the accessibilityIndex to ensure that all items are traversed by the
             // screen reader in the correct order
-            val titleIndex = accessibilityIndex - 1f
-            NumberedListTitle(it, titleIndex)
+            NumberedListTitle(it)
         }
-        GdsNumberedListLayout(numberedListItems, accessibilityIndex)
+        GdsNumberedListLayout(numberedListItems)
+    }
+}
+/**
+ * A composable that displays a numbered list of items.
+ *
+ * @param numberedListItems The list of options to display.
+ * @param modifier The modifier to apply to the layout.
+ * @param title An optional title to display above the numbered list items.
+ * @param accessibilityIndex previously used to index the talkback components
+ * ```
+ *  // The index required it would be 7
+ *  GdsBulletedList(
+ *      title = ListTitle(
+ *          text = bulletListTitle,
+ *          titleType = TitleType.Text
+ *      ),
+ *      bulletListItems = persistentListOf(
+ *          ListItem(bullet1),
+ *          ListItem(bullet2)
+ *      ),
+ *      accessibilityIndex = 0
+ *  )
+ * ```
+ *
+ */
+@Composable
+fun GdsNumberedList(
+    numberedListItems: ImmutableList<ListItem>,
+    modifier: Modifier = Modifier,
+    title: ListTitle? = null,
+) {
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background),
+    ) {
+        title?.let {
+            // Decrement the accessibilityIndex to ensure that all items are traversed by the
+            // screen reader in the correct order
+            NumberedListTitle(it)
+        }
+        GdsNumberedListLayout(numberedListItems)
     }
 }
 
@@ -93,12 +130,10 @@ fun GdsNumberedList(
  * Measure the widths of the index element and display the numbered list
  *
  *  @param numberedListItems The list of items to be displayed
- *  @param accessibilityIndex
  */
 @Composable
 private fun GdsNumberedListLayout(
     numberedListItems: ImmutableList<ListItem>,
-    accessibilityIndex: Float = 0f,
 ) {
     val context = LocalContext.current
     SubcomposeLayout { constraints ->
@@ -131,7 +166,6 @@ private fun GdsNumberedListLayout(
                     listItem = item,
                     itemContentDescription = contentDescription,
                     maxWidthIndex.width.pxToDp(),
-                    accessibilityIndex = accessibilityIndex,
                 )
             }
         }.map { it.measure(looseConstraints) }
@@ -152,12 +186,10 @@ private fun GdsNumberedListLayout(
  * Render the numbered list title depending on the title type
  *
  * @param title The contents of the title
- * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
  */
 @Composable
 private fun NumberedListTitle(
     title: ListTitle,
-    accessibilityIndex: Float = 0f,
 ) {
     when (title.titleType) {
         TitleType.BoldText -> {
@@ -169,7 +201,6 @@ private fun NumberedListTitle(
                 modifier = Modifier
                     .padding(bottom = listItemTitleBottomPadding)
                     .semantics {
-                        this.traversalIndex = accessibilityIndex
                         contentDescription = title.text
                     }
                     .testTag(TAG_TITLE_BOLD),
@@ -212,7 +243,6 @@ private fun NumberedListTitle(
  * @param itemContentDescription The content description for the entire numbered list item
  * @param minIndexWidth The minimum width of the IndexText composable to ensure all index numbers
  * are rendered correctly. It follows the number in the list with the largest width
- * @param accessibilityIndex Defines the order that focused elements will be moved to in a screen
  */
 @Composable
 private fun NumberedListItem(
@@ -220,7 +250,6 @@ private fun NumberedListItem(
     listItem: ListItem,
     itemContentDescription: String,
     minIndexWidth: Dp,
-    accessibilityIndex: Float,
 ) {
     Row(
         modifier = Modifier
@@ -229,9 +258,7 @@ private fun NumberedListItem(
                 start = listItemLeftPadding,
                 top = spacingSingle,
             )
-            .semantics(true) {
-                this.traversalIndex = accessibilityIndex
-            },
+            .semantics(true) { },
     ) {
         IndexText(
             index,
