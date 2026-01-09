@@ -40,7 +40,6 @@ import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingSingle
 
-
 /**
  * A composable that displays a numbered list of items.
  *
@@ -49,7 +48,6 @@ import uk.gov.android.ui.theme.spacingSingle
  * @param title An optional title to display above the numbered list items.
  * @param accessibilityIndex previously used to index the talkback components
  * ```
- *  // The index required it would be 7
  *  GdsBulletedList(
  *      title = ListTitle(
  *          text = bulletListTitle,
@@ -77,22 +75,19 @@ fun GdsNumberedList(
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            // Decrement the accessibilityIndex to ensure that all items are traversed by the
-            // screen reader in the correct order
             NumberedListTitle(it)
         }
         GdsNumberedListLayout(numberedListItems)
     }
 }
+
 /**
  * A composable that displays a numbered list of items.
  *
  * @param numberedListItems The list of options to display.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the numbered list items.
- * @param accessibilityIndex previously used to index the talkback components
  * ```
- *  // The index required it would be 7
  *  GdsBulletedList(
  *      title = ListTitle(
  *          text = bulletListTitle,
@@ -101,8 +96,7 @@ fun GdsNumberedList(
  *      bulletListItems = persistentListOf(
  *          ListItem(bullet1),
  *          ListItem(bullet2)
- *      ),
- *      accessibilityIndex = 0
+ *      )
  *  )
  * ```
  *
@@ -118,8 +112,6 @@ fun GdsNumberedList(
             .background(MaterialTheme.colorScheme.background),
     ) {
         title?.let {
-            // Decrement the accessibilityIndex to ensure that all items are traversed by the
-            // screen reader in the correct order
             NumberedListTitle(it)
         }
         GdsNumberedListLayout(numberedListItems)
