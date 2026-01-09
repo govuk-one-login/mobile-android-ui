@@ -3,7 +3,6 @@ accompanist = "0.37.3" # https://github.com/google/accompanist/releases
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
 android-tools-layoutlib-api = "31.13.0" # No changelog found
 androidx-camera = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/camera
-android-gradle = "8.13.0" # https://developer.android.com/studio/releases/gradle-plugin
 androidx-test-ext-junit = "1.2.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-orchestrator = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/test
 androidx-test-rules = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/test
@@ -14,7 +13,6 @@ compose-lint-checks = "1.4.2"
 constraintlayout-compose = "1.1.1"
 core-ktx = "1.13.1"
 dagger = "2.56.1" # https://github.com/google/dagger/releases
-detekt-gradle = "1.23.8" # https://github.com/detekt/detekt/releases/tag/v1.23.6
 espresso = "3.6.1" # https://developer.android.com/jetpack/androidx/releases/test
 google-mlkit-barcode = "17.3.0" # https://developers.google.com/ml-kit/release-notes
 junit = "4.13.2" # https://github.com/junit-team/junit4/releases
@@ -23,12 +21,10 @@ kotlin = "2.2.21" # https://kotlinlang.org/docs/releases.html#release-details
 kotlinx-collections-immutable="0.3.8"
 kotlinx-serialization-json = "1.9.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 ktlint-cli = "0.49.1"
-ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 mockito = "5.17.0"
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 paparazzi = "2.0.0-alpha02"
 robolectric = "4.14.1"
-sonarqube-gradle = "7.0.1.6134" # https://github.com/SonarSource/sonar-scanner-gradle/releases
 ui-test-android = "1.7.8"
 lifecycle-runtime-ktx = "2.9.3"
 fragment-ktx = "1.8.9"
@@ -36,7 +32,6 @@ androidxNavigation = "2.9.1"
 navigationRuntimeKtx = "2.9.5"
 
 [libraries]
-android-build-tool = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout-compose" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
@@ -80,18 +75,14 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "archcore-testing" }
 com-slack-compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lint-checks" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit-bom" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 junit-vintage = { group = "org.junit.vintage", name = "junit-vintage-engine" }
-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
-ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint-gradle" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
-sonarqube-gradle = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonarqube-gradle" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
@@ -113,12 +104,7 @@ qr-code-scanning = [
 ]
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "android-gradle" }
-android-library = { id = "com.android.library", version.ref = "android-gradle" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
