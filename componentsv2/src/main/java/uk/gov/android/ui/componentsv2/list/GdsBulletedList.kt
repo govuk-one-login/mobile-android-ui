@@ -104,7 +104,7 @@ fun GdsBulletedList(
  * ```
  */
 @Suppress("UnusedParameter")
-@Deprecated("Use V2 GdsBulletedList with no accessibilityIndex parameter instead")
+@Deprecated("Use V2 GdsBulletedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026")
 @Composable
 @JvmName("GdsBulletedListV2")
 fun GdsBulletedList(
