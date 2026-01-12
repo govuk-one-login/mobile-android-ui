@@ -48,3 +48,5 @@ bioPref
 (?i)ASM
 refreshVersions
 UI
+(?i)Hotfix
+gradlew

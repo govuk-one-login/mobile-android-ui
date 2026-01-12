@@ -8,7 +8,7 @@ This library contains the `GdsTheme`, collecting the colour schemes, fonts/typog
 
 ### Components 
 
-This library contains 'building blocks', smaller, reusable components - the only new components to be created should have full specs provided by the UCD team.
+This library contains 'building blocks', smaller, reusable components - the only new components to be created should have full specs provided by the user centred design (UCD) team.
 All new components should be created in `componentsv2` module - `components` module will be deprecated and removed once all dependencies from other repositories have been removed. 
 
 ### Patterns
@@ -81,7 +81,7 @@ hotfix branch.
 
 The temporary hotfix branch is currently expected to be named "temp/hotfix". If a different name is
 desired please edit the value under "branches:" in `.github/workflows/on_push_hotfix.yml`.
-The hotfix branch name should should be in the format "hotfix/M.m.p".
+The hotfix branch name should be in the format "hotfix/M.m.p".
 
 Once the hotfix PR has been approved and the "Squash and merge" button pressed, the merge title 
 must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to allow for the
