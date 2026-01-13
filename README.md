@@ -16,6 +16,11 @@ All new components should be created in `componentsv2` module - `components` mod
 This library contains page patterns to help with the creation of similar styles of page. They use components from the `componentsv2` library to build larger patterns.
 All new components should be created in `patterns` module - `pages` module will be deprecated and removed once all dependencies from other repositories have been removed.
 
+## Status
+
+[![On Push Main](https://github.com/govuk-one-login/mobile-android-ui/actions/workflows/on_push-main.yml/badge.svg)](https://github.com/govuk-one-login/mobile-android-ui/actions/workflows/on_push-main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mobile-android-ui&metric=alert_status&token=49eea2b8e294354d3c1e3e850b32d3c6992e913e)](https://sonarcloud.io/summary/new_code?id=mobile-android-ui)
+
 ## Installation
 
 To use these libraries please refer to the GitHub Packages to find the latest versions for each.
