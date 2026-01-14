@@ -1,5 +1,8 @@
 # Android GOV UK UI Library
 
+[![On Push Main](https://github.com/govuk-one-login/mobile-android-ui/actions/workflows/on_push-main.yml/badge.svg)](https://github.com/govuk-one-login/mobile-android-ui/actions/workflows/on_push-main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mobile-android-ui&metric=alert_status&token=49eea2b8e294354d3c1e3e850b32d3c6992e913e)](https://sonarcloud.io/summary/new_code?id=mobile-android-ui)
+
 Libraries to provide some useful and generic UI components, pages and themes to be used across GOV.UK Android applications.
 
 ### Theme
