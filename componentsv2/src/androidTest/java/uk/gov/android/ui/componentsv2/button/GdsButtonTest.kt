@@ -13,6 +13,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParameters
+import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProvider
 
 class GdsButtonTest {
     private val context: Context = ApplicationProvider.getApplicationContext()

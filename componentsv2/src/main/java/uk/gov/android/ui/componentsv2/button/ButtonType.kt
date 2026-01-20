@@ -86,11 +86,11 @@ sealed class ButtonTypeV2(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
-    data class Admin(
+    data class Destructive(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 
-    data class Destructive(
+    data class Admin(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
     ) : ButtonTypeV2(textStyle = textStyle)
 

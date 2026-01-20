@@ -17,6 +17,8 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
 import uk.gov.android.ui.testwrapper.DetailItem
+import uk.gov.android.ui.testwrapper.componentsv2.button.primary.PrimaryButtonDemo
+import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
@@ -64,6 +66,8 @@ fun ComponentDetail(
         BULLETED_LIST -> GdsBulletedListDemo()
         NUMBERED_LIST -> GdsNumberedListDemo()
         RADIO -> GdsRadiosDemo()
+        PRIMARY_BUTTON -> PrimaryButtonDemo()
+        SECONDARY_BUTTON -> SecondaryButtonDemo()
         TOP_APP_BAR -> GdsTopAppBarDemo()
         DIALOGUE -> GdsDialogueDemo()
         STATUS_OVERLAY -> StatusOverlayDemo()
@@ -92,6 +96,9 @@ const val RADIO = "radio"
 const val TOP_APP_BAR = "topAppBar"
 const val DIALOGUE = "dialogue"
 const val STATUS_OVERLAY = "StatusOverlay"
+
+const val PRIMARY_BUTTON = "primary_button"
+const val SECONDARY_BUTTON = "secondary_button"
 
 const val CAMERA_CONTENT = "Camera Content"
 const val QR_CODE_CENTRALISED_SCANNING = "QR Scanning: Centrally cropping"
