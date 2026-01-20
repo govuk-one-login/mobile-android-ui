@@ -19,7 +19,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun PrimaryButtonDemo(
     modifier: Modifier = Modifier,
-    ) {
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
