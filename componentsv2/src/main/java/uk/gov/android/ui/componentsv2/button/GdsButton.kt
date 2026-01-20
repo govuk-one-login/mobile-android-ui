@@ -304,8 +304,8 @@ private fun Content(
     buttonType: ButtonTypeV2,
     buttonColors: ButtonColors,
     loading: Boolean,
-    modifier: Modifier = Modifier,
     enabled: Boolean,
+    modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     textAlign: TextAlign = TextAlign.Center,
 ) {
