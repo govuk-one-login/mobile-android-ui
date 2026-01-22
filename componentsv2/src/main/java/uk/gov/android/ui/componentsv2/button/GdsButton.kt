@@ -322,7 +322,7 @@ private fun Content(
                     ?: stringResource(R.string.opens_in_external_browser),
                 isIconTrailing = buttonType.isIconTrailing,
                 color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
-                iconBackgroundColor = if (enabled)buttonColors.containerColor else buttonColors.disabledContainerColor,
+                iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
             )
         } else if (loading) {
