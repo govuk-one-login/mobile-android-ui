@@ -120,6 +120,7 @@ data class CustomColorsScheme(
     val qrScannerOverlay: QrScannerOverlayDefaults = QrScannerOverlayDefaults,
     val qrScannerOverlayBackground: Color = Color.Unspecified,
     val qrScannerOverlayBorder: Color = Color.Unspecified,
+    val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -181,6 +182,8 @@ private fun customColors(): CustomColorsScheme {
         qrScannerOverlay = QrScannerOverlayDefaults,
         qrScannerOverlayBackground = QrScannerOverlayDefaults.background.toMappedColors(),
         qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
+        destructiveNativeButtonTextHighlighted =
+        Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
     )
 }
 

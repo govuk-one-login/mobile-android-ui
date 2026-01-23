@@ -238,7 +238,7 @@ private fun setShadowColors(
     } else {
         when (buttonType) {
             is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
-            is ButtonTypeV2.Destructive -> {
+            is ButtonTypeV2.Destructive, is ButtonTypeV2.SecondaryDestructive -> {
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
 
@@ -367,7 +367,7 @@ private fun getContentPadding(
     }
 
 internal enum class ButtonTypePreview {
-    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon, IconLeading, IconSecondary
+    Primary, Secondary, Tertiary, Quaternary, Admin, Error, ErrorSecondary, Custom, Icon, IconLeading, IconSecondary
 }
 
 @Composable
@@ -378,6 +378,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
     ButtonTypePreview.Quaternary -> ButtonType.Quaternary
     ButtonTypePreview.Admin -> ButtonType.Admin
     ButtonTypePreview.Error -> ButtonType.Error
+    ButtonTypePreview.ErrorSecondary -> ButtonType.Error
     ButtonTypePreview.Custom -> ButtonType.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
@@ -417,6 +418,7 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Quaternary -> ButtonTypeV2.Quaternary()
     ButtonTypePreview.Admin -> ButtonTypeV2.Admin()
     ButtonTypePreview.Error -> ButtonTypeV2.Destructive()
+    ButtonTypePreview.ErrorSecondary -> ButtonTypeV2.SecondaryDestructive()
     ButtonTypePreview.Custom -> ButtonTypeV2.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
@@ -539,6 +541,10 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.Error,
         ),
         ButtonParametersV2(
+            text = R.string.error_button,
+            buttonType = ButtonTypePreview.ErrorSecondary,
+        ),
+        ButtonParametersV2(
             text = R.string.text_button,
             buttonType = ButtonTypePreview.Icon,
         ),
@@ -635,6 +641,8 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
             GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 
         buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
+        buttonType is ButtonTypeV2.SecondaryDestructive ->
+            GdsLocalColorScheme.current.destructiveNativeButtonTextHighlighted
         buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
         else -> LocalRippleConfiguration.current?.color ?: Color.Unspecified
     }
