@@ -238,7 +238,7 @@ private fun setShadowColors(
     } else {
         when (buttonType) {
             is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
-            is ButtonTypeV2.Destructive, is ButtonTypeV2.SecondaryDestructive -> {
+            is ButtonTypeV2.Destructive -> {
                 GdsLocalColorScheme.current.destructiveButtonShadow
             }
 
@@ -541,10 +541,6 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.Error,
         ),
         ButtonParametersV2(
-            text = R.string.error_button,
-            buttonType = ButtonTypePreview.ErrorSecondary,
-        ),
-        ButtonParametersV2(
             text = R.string.text_button,
             buttonType = ButtonTypePreview.Icon,
         ),
@@ -575,6 +571,10 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ButtonParametersV2(
             text = R.string.text_button,
             buttonType = ButtonTypePreview.Custom,
+        ),
+        ButtonParametersV2(
+            text = R.string.secondary_destructive_button,
+            buttonType = ButtonTypePreview.ErrorSecondary,
         ),
     )
 }

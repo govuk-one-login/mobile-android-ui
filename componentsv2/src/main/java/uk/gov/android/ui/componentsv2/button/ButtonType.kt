@@ -169,7 +169,7 @@ fun ButtonTypeV2.buttonColors() = when (this) {
     )
 
     is ButtonTypeV2.Destructive -> GdsButtonDefaults.defaultErrorColors()
-    is ButtonTypeV2.SecondaryDestructive -> GdsButtonDefaults.defaultErrorColors()
+    is ButtonTypeV2.SecondaryDestructive -> GdsButtonDefaults.defaultSecondaryDestructiveColors()
     is ButtonTypeV2.Icon -> buttonColors
     is ButtonTypeV2.Primary -> GdsButtonDefaults.defaultPrimaryColors()
     is ButtonTypeV2.Quaternary -> GdsButtonDefaults.defaultQuaternaryColors()
@@ -239,6 +239,14 @@ object GdsButtonDefaults {
     fun defaultErrorColors() = ButtonDefaults.buttonColors(
         containerColor = colorScheme.error,
         contentColor = colorScheme.onError,
+        disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
+    )
+
+    @Composable
+    fun defaultSecondaryDestructiveColors() = ButtonDefaults.buttonColors(
+        containerColor = Color.Transparent,
+        contentColor = GdsLocalColorScheme.current.destructiveNativeButtonText,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
         disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
