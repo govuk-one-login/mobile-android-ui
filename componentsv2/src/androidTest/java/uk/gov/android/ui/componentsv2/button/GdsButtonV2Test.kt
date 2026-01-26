@@ -173,6 +173,19 @@ class GdsButtonV2Test {
     }
 
     @Test
+    fun testErrorSecondary() {
+        setupContent(parameters[13])
+        composeTestRule.onNodeWithText(
+            resources.getString(R.string.secondary_destructive_button),
+        ).apply {
+            assertIsDisplayed()
+            performClick()
+        }
+
+        assertEquals(1, onClick)
+    }
+
+    @Test
     fun testPreview() {
         composeTestRule.setContent {
             ButtonPreviewV2(parameters[0])

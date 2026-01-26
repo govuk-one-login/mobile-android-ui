@@ -377,8 +377,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
     ButtonTypePreview.Tertiary -> ButtonType.Tertiary
     ButtonTypePreview.Quaternary -> ButtonType.Quaternary
     ButtonTypePreview.Admin -> ButtonType.Admin
-    ButtonTypePreview.Error -> ButtonType.Error
-    ButtonTypePreview.ErrorSecondary -> ButtonType.Error
+    ButtonTypePreview.Error, ButtonTypePreview.ErrorSecondary -> ButtonType.Error
     ButtonTypePreview.Custom -> ButtonType.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
