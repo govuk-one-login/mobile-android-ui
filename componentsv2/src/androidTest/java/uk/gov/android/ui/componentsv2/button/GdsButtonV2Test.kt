@@ -176,7 +176,7 @@ class GdsButtonV2Test {
 
     @Test
     fun testErrorSecondary() {
-        setupContent(parameters[13])
+        setupContent(parameters[14])
         composeTestRule.onNodeWithText(
             resources.getString(R.string.secondary_destructive_button),
         ).apply {
