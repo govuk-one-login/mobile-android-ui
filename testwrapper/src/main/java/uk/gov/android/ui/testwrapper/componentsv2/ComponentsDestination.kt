@@ -126,7 +126,15 @@ sealed class ComponentsDestination(
                         DetailItem(label = BULLETED_LIST, name = "Bulleted List"),
                     ),
                 ),
-                Placeholder(text = "Button"),
+                DetailedItem(
+                    text = "Button",
+                    items =
+                    listOf(
+                        DetailItem(label = PRIMARY_BUTTON, name = "Primary Button"),
+                        DetailItem(label = SECONDARY_BUTTON, name = "Secondary Button"),
+
+                    ),
+                ),
                 Placeholder(text = "Card"),
                 Placeholder(text = "Heading"),
                 Placeholder(text = "Images"),

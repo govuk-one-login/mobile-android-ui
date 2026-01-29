@@ -6,6 +6,8 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
+import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParameters
+import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProvider
 
 @RunWith(Parameterized::class)
 internal class GdsButtonScreenshotTest(

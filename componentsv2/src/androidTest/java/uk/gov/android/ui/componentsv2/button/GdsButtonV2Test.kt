@@ -13,6 +13,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
+import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProviderV2
 
 class GdsButtonV2Test {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -174,7 +176,7 @@ class GdsButtonV2Test {
 
     @Test
     fun testErrorSecondary() {
-        setupContent(parameters[13])
+        setupContent(parameters[14])
         composeTestRule.onNodeWithText(
             resources.getString(R.string.secondary_destructive_button),
         ).apply {
