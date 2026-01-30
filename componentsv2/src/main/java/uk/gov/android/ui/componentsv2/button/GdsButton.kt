@@ -5,7 +5,6 @@ package uk.gov.android.ui.componentsv2.button
 import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
-import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,9 +42,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParameters
+import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
+import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProvider
+import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProviderV2
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomShadow
 import uk.gov.android.ui.theme.buttonContentHorizontal
@@ -118,6 +120,7 @@ fun GdsButton(
                 loading = loading,
                 buttonColors = colors,
                 modifier = contentModifier,
+                enabled = enabled,
                 contentPosition = contentPosition,
                 textAlign = textAlign,
             )
@@ -301,6 +304,7 @@ private fun Content(
     buttonType: ButtonTypeV2,
     buttonColors: ButtonColors,
     loading: Boolean,
+    enabled: Boolean,
     modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     textAlign: TextAlign = TextAlign.Center,
@@ -309,19 +313,7 @@ private fun Content(
         modifier = modifier,
         horizontalArrangement = contentPosition,
     ) {
-        if (buttonType is ButtonTypeV2.Icon) {
-            GdsAnnotatedString(
-                text = text,
-                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
-                icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
-                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
-                    ?: stringResource(R.string.opens_in_external_browser),
-                isIconTrailing = buttonType.isIconTrailing,
-                color = buttonColors.contentColor,
-                iconBackgroundColor = buttonColors.containerColor,
-                textAlign = textAlign,
-            )
-        } else if (loading) {
+        if (loading) {
             Box(contentAlignment = Alignment.Center) {
                 Text(
                     text = text,
@@ -338,6 +330,18 @@ private fun Content(
                     color = buttonColors.disabledContentColor,
                 )
             }
+        } else if (buttonType is ButtonTypeV2.Icon) {
+            GdsAnnotatedString(
+                text = text,
+                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
+                icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
+                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
+                    ?: stringResource(R.string.opens_in_external_browser),
+                isIconTrailing = buttonType.isIconTrailing,
+                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
+                iconBackgroundColor = Color.Transparent,
+                textAlign = textAlign,
+            )
         } else {
             Text(
                 text = text,
@@ -367,7 +371,7 @@ private fun getContentPadding(
     }
 
 internal enum class ButtonTypePreview {
-    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon, IconLeading, IconSecondary
+    Primary, Secondary, Tertiary, Quaternary, Admin, Error, ErrorSecondary, Custom, Icon, IconLeading, IconSecondary
 }
 
 @Composable
@@ -377,7 +381,7 @@ internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
     ButtonTypePreview.Tertiary -> ButtonType.Tertiary
     ButtonTypePreview.Quaternary -> ButtonType.Quaternary
     ButtonTypePreview.Admin -> ButtonType.Admin
-    ButtonTypePreview.Error -> ButtonType.Error
+    ButtonTypePreview.Error, ButtonTypePreview.ErrorSecondary -> ButtonType.Error
     ButtonTypePreview.Custom -> ButtonType.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
@@ -417,6 +421,7 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Quaternary -> ButtonTypeV2.Quaternary()
     ButtonTypePreview.Admin -> ButtonTypeV2.Admin()
     ButtonTypePreview.Error -> ButtonTypeV2.Destructive()
+    ButtonTypePreview.ErrorSecondary -> ButtonTypeV2.SecondaryDestructive()
     ButtonTypePreview.Custom -> ButtonTypeV2.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
@@ -445,131 +450,6 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
         textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
-    )
-}
-
-internal data class ButtonParameters(
-    @StringRes
-    val text: Int,
-    val buttonType: ButtonTypePreview,
-    val modifier: Modifier = Modifier,
-    val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    val contentModifier: Modifier = Modifier,
-    val enabled: Boolean = true,
-)
-
-internal data class ButtonParametersV2(
-    @StringRes
-    val text: Int,
-    val buttonType: ButtonTypePreview,
-    val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    val modifier: Modifier? = null,
-    val contentModifier: Modifier = Modifier,
-    val enabled: Boolean = true,
-    val loading: Boolean = false,
-    val shape: Shape = GdsButtonDefaults.defaultShape,
-)
-
-internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonParameters> {
-    override val values: Sequence<ButtonParameters> = sequenceOf(
-        ButtonParameters(
-            text = R.string.primary_button,
-            buttonType = ButtonTypePreview.Primary,
-        ),
-        ButtonParameters(
-            R.string.secondary_button,
-            ButtonTypePreview.Secondary,
-        ),
-        ButtonParameters(
-            R.string.tertiary_button,
-            ButtonTypePreview.Tertiary,
-        ),
-        ButtonParameters(
-            R.string.quaternary_button,
-            ButtonTypePreview.Quaternary,
-        ),
-        ButtonParameters(
-            R.string.admin_button,
-            ButtonTypePreview.Admin,
-        ),
-        ButtonParameters(
-            R.string.error_button,
-            ButtonTypePreview.Error,
-        ),
-        ButtonParameters(
-            R.string.text_button,
-            ButtonTypePreview.Icon,
-        ),
-        ButtonParameters(
-            R.string.text_button,
-            ButtonTypePreview.IconLeading,
-        ),
-        ButtonParameters(
-            text = R.string.disabled_button,
-            buttonType = ButtonTypePreview.Primary,
-            enabled = false,
-        ),
-    )
-}
-
-internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<ButtonParametersV2> {
-    override val values: Sequence<ButtonParametersV2> = sequenceOf(
-        ButtonParametersV2(
-            text = R.string.primary_button,
-            buttonType = ButtonTypePreview.Primary,
-        ),
-        ButtonParametersV2(
-            text = R.string.secondary_button,
-            buttonType = ButtonTypePreview.Secondary,
-        ),
-        ButtonParametersV2(
-            text = R.string.tertiary_button,
-            buttonType = ButtonTypePreview.Tertiary,
-        ),
-        ButtonParametersV2(
-            text = R.string.quaternary_button,
-            buttonType = ButtonTypePreview.Quaternary,
-        ),
-        ButtonParametersV2(
-            text = R.string.admin_button,
-            buttonType = ButtonTypePreview.Admin,
-        ),
-        ButtonParametersV2(
-            text = R.string.error_button,
-            buttonType = ButtonTypePreview.Error,
-        ),
-        ButtonParametersV2(
-            text = R.string.text_button,
-            buttonType = ButtonTypePreview.Icon,
-        ),
-        ButtonParametersV2(
-            text = R.string.text_button,
-            buttonType = ButtonTypePreview.IconLeading,
-        ),
-        ButtonParametersV2(
-            text = R.string.disabled_button,
-            buttonType = ButtonTypePreview.Primary,
-            enabled = false,
-        ),
-        ButtonParametersV2(
-            text = R.string.loading_button,
-            buttonType = ButtonTypePreview.Primary,
-            enabled = false,
-            loading = true,
-        ),
-        ButtonParametersV2(
-            text = R.string.primary_button,
-            buttonType = ButtonTypePreview.Primary,
-            shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
-        ),
-        ButtonParametersV2(
-            text = R.string.text_button,
-            buttonType = ButtonTypePreview.IconSecondary,
-        ),
-        ButtonParametersV2(
-            text = R.string.text_button,
-            buttonType = ButtonTypePreview.Custom,
-        ),
     )
 }
 
@@ -635,9 +515,9 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
             GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 
         buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
+        buttonType is ButtonTypeV2.SecondaryDestructive ->
+            GdsLocalColorScheme.current.destructiveNativeButtonTextHighlighted
         buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
         else -> LocalRippleConfiguration.current?.color ?: Color.Unspecified
     }
 }
-
-private val BUTTON_RADIUS = 12.dp
