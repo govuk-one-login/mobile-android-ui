@@ -12,12 +12,16 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import junit.framework.TestCase.assertTrue
+import kotlinx.collections.immutable.persistentListOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.list.TitleType
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -26,14 +30,17 @@ class CentreAlignedScreenTest {
 
     private lateinit var title: SemanticsMatcher
     private lateinit var continueButton: SemanticsMatcher
+    private lateinit var exitButton: SemanticsMatcher
 
     private val titleText = "Title"
     private val buttonText = "Continue"
+    private val secondaryButtonText = "Exit"
 
     @Before
     fun setUp() {
         title = hasText(titleText)
         continueButton = hasText(buttonText)
+        exitButton = hasText(secondaryButtonText)
     }
 
     @Test
@@ -46,6 +53,23 @@ class CentreAlignedScreenTest {
                 primaryButton = CentreAlignedScreenButton(
                     text = buttonText,
                     onClick = { didClick = true },
+                ),
+                body = persistentListOf(
+                    CentreAlignedScreenBodyContent.BulletList(
+                        title = ListTitle(text = "Bulleted list", titleType = TitleType.Text),
+                        items = persistentListOf("Item 1", "Item 2"),
+                    ),
+                    CentreAlignedScreenBodyContent.NumberedList(
+                        title = ListTitle(text = "Bulleted list", titleType = TitleType.Text),
+                        items = persistentListOf(
+                            ListItem("Item 1"),
+                            ListItem("Item 2"),
+                        ),
+                    ),
+                    CentreAlignedScreenBodyContent.Button(
+                        text = secondaryButtonText,
+                        onClick = {},
+                    ),
                 ),
             )
         }
@@ -60,6 +84,12 @@ class CentreAlignedScreenTest {
             .assertIsEnabled()
             .assertHasClickAction()
             .performClick()
+
+        composeTestRule
+            .onNode(exitButton)
+            .assertIsDisplayed()
+            .assertIsEnabled()
+            .assertHasClickAction()
 
         assertTrue(didClick)
     }

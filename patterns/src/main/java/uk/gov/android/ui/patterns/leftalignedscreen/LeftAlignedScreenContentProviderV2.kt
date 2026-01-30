@@ -27,7 +27,7 @@ import uk.gov.android.ui.componentsv2.R as componentsv2R
 internal class LeftAlignedScreenContentProviderV2 :
     PreviewParameterProvider<LeftAlignedScreenContentV2> {
     private val title = "Do you have a UK passport or passport with a biometric chip?"
-    private val textShort = LoremIpsum(5).values.first()
+    internal val textShort = LoremIpsum(5).values.first()
     private val textLong = LoremIpsum(25).values.first()
     private val textExtraLong = LoremIpsum(100).values.first()
     private val supportingText =

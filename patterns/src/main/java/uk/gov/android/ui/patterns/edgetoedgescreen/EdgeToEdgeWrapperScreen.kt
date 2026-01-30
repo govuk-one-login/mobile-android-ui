@@ -1,3 +1,5 @@
+package uk.gov.android.ui.patterns.edgetoedgescreen
+
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -14,12 +16,6 @@ import androidx.compose.ui.Modifier
  * edge to edge requirements
  */
 @Composable
-@Deprecated(
-    message = "This composable has been moved to a more appropriate package",
-    replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.edgetoedgescreen.EdgeToEdgeWrapperScreen",
-    ),
-)
 fun EdgeToEdgeWrapperScreen(
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
         .navigationBarsPadding()

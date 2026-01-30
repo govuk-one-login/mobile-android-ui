@@ -60,7 +60,7 @@ fun LoadingScreen(
 @OptIn(UnstableDesignSystemAPI::class)
 @PreviewLightDark
 @Composable
-private fun PreviewDefaultLoadingScreen(
+internal fun PreviewDefaultLoadingScreen(
     @PreviewParameter(LoadingScreenContentProvider::class)
     content: String,
 ) {
@@ -72,7 +72,7 @@ private fun PreviewDefaultLoadingScreen(
 @OptIn(UnstableDesignSystemAPI::class)
 @PreviewLightDark
 @Composable
-private fun PreviewDefaultLoadingScreenNoContent() {
+internal fun PreviewDefaultLoadingScreenNoContent() {
     GdsTheme {
         LoadingScreen()
     }
