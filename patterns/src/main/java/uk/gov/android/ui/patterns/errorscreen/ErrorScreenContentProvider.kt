@@ -10,7 +10,6 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 
 internal class ErrorScreenContentProvider :
     PreviewParameterProvider<ErrorScreenContent> {
-    private val errorTitle = "This is an Error View title"
     private val warningTitle = "This is an Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
     private val bodyContentBoldLine = "Body single line (bold)"
@@ -20,10 +19,8 @@ internal class ErrorScreenContentProvider :
 
     override val values: Sequence<ErrorScreenContent> = sequenceOf(
         ErrorScreenContent(
-            configurationDescription = """
-                Content 0 - Basic Error Screen with only an icon and title
-            """.trimIndent(),
-            title = errorTitle,
+            content0,
+            title = ERROR_TITLE,
             icon = ErrorScreenIcon.ErrorIcon,
         ),
         ErrorScreenContent(
@@ -37,7 +34,7 @@ internal class ErrorScreenContentProvider :
             configurationDescription = """
                 Content 2 - Basic Error Screen with no buttons and left aligned Icon button
             """.trimIndent(),
-            title = errorTitle,
+            title = ERROR_TITLE,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
                 CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
@@ -65,7 +62,7 @@ internal class ErrorScreenContentProvider :
                 Content 3 - Basic Error Screen with one button, multiple single lines and center
                             aligned secondary button
             """.trimIndent(),
-            title = errorTitle,
+            title = ERROR_TITLE,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
                 CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
@@ -89,7 +86,7 @@ internal class ErrorScreenContentProvider :
                 Content 4 - Basic Error Screen with two buttons, multiple paragraphs and center
                             aligned secondary button
             """.trimIndent(),
-            title = errorTitle,
+            title = ERROR_TITLE,
             icon = ErrorScreenIcon.ErrorIcon,
             body = persistentListOf(
                 CentreAlignedScreenBodyContent.Text(bodyContentSingleLine),
@@ -152,3 +149,8 @@ internal class ErrorScreenContentProvider :
 
     private fun loremIpsum(words: Int): String = LoremIpsum(words).values.joinToString(" ")
 }
+
+internal val content0 = """
+                Content 0 - Basic Error Screen with only an icon and title
+""".trimIndent()
+internal const val ERROR_TITLE = "This is an Error View title"

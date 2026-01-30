@@ -17,9 +17,6 @@ internal class CentreAlignedScreenContentProvider :
     private val content =
         "Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
-    private val supportingText =
-        "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit,."
-
     @Suppress("MaxLineLength")
     private val supportingTextLong =
         "Supporting Text Long - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Body content - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -47,7 +44,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            supportingText,
+            SUPPORTING_TEXT,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
             CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
@@ -68,7 +65,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            supportingText,
+            SUPPORTING_TEXT,
             CentreAlignedScreenButton(
                 text = PRIMARY_BUTTON,
                 onClick = {},
@@ -86,7 +83,7 @@ internal class CentreAlignedScreenContentProvider :
             persistentListOf(
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            supportingText,
+            SUPPORTING_TEXT,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
             CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
@@ -107,7 +104,7 @@ internal class CentreAlignedScreenContentProvider :
                 ),
                 CentreAlignedScreenBodyContent.Text(content),
             ),
-            supportingText,
+            SUPPORTING_TEXT,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
         ),
         CentreAlignedScreenContent(
@@ -161,7 +158,7 @@ internal class CentreAlignedScreenContentProvider :
                     ),
                 ),
             ),
-            supportingText,
+            SUPPORTING_TEXT,
         ),
         CentreAlignedScreenContent(
             title,
@@ -186,4 +183,6 @@ internal class CentreAlignedScreenContentProvider :
 private const val SUB1 = "Sub Title 1"
 private const val PRIMARY_BUTTON = "Primary button"
 private const val SECONDARY_BUTTON = "Secondary button"
-private const val ONE_LINE = "One line content resource component"
+internal const val ONE_LINE = "One line content resource component"
+private const val SUPPORTING_TEXT =
+    "Supporting Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit,."
