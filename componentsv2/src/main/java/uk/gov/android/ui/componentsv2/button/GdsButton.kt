@@ -313,19 +313,7 @@ private fun Content(
         modifier = modifier,
         horizontalArrangement = contentPosition,
     ) {
-        if (buttonType is ButtonTypeV2.Icon) {
-            GdsAnnotatedString(
-                text = text,
-                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
-                icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
-                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
-                    ?: stringResource(R.string.opens_in_external_browser),
-                isIconTrailing = buttonType.isIconTrailing,
-                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
-                iconBackgroundColor = Color.Transparent,
-                textAlign = textAlign,
-            )
-        } else if (loading) {
+        if (loading) {
             Box(contentAlignment = Alignment.Center) {
                 Text(
                     text = text,
@@ -342,6 +330,18 @@ private fun Content(
                     color = buttonColors.disabledContentColor,
                 )
             }
+        } else if (buttonType is ButtonTypeV2.Icon) {
+            GdsAnnotatedString(
+                text = text,
+                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
+                icon = buttonType.icon ?: ImageVector.vectorResource(R.drawable.ic_external_site),
+                iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
+                    ?: stringResource(R.string.opens_in_external_browser),
+                isIconTrailing = buttonType.isIconTrailing,
+                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
+                iconBackgroundColor = Color.Transparent,
+                textAlign = textAlign,
+            )
         } else {
             Text(
                 text = text,
