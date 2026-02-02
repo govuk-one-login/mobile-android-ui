@@ -36,7 +36,7 @@ import uk.gov.android.ui.componentsv2.topappbar.TopAppBarAlignment
 import uk.gov.android.ui.componentsv2.topappbar.TopBarActionButton
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.testwrapper.R as TestWrapperR
+import uk.gov.android.ui.uitestwrapper.R as TestWrapperR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
