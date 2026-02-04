@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
@@ -22,9 +23,8 @@ class CustomFullScreenDialogueScreenshotTest(
         GdsTheme {
             FullScreenDialogue(
                 topAppBar = {
-                    FullScreenDialogueTopAppBar(
-                        title = { Text(parameters.first) },
-                        onCloseClick = { },
+                    GdsTopAppBar(
+                        title = parameters.first,
                     )
                 },
                 content = {

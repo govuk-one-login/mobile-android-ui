@@ -40,9 +40,9 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
 import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.inputs.radio.TitleType
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.dialog.FullScreenDialogue
-import uk.gov.android.ui.patterns.dialog.FullScreenDialogueTopAppBar
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 class LeftAlignedScreenKeyboardNavTest {
@@ -52,7 +52,7 @@ class LeftAlignedScreenKeyboardNavTest {
     private val titleTag = "textItem1"
     private val firstButtonTag = "firstButton"
     private val firstButton = composeTestRule.onNode(hasTestTag(firstButtonTag))
-    private val closeButton = composeTestRule.onNode(hasContentDescription("Close"))
+    private val closeButton = composeTestRule.onNode(hasContentDescription("Back"))
     private val contentTag = "contentTag"
     private val content = composeTestRule.onNode(hasTestTag(contentTag))
     private val firstParaTag = "firstPara"
@@ -101,9 +101,7 @@ class LeftAlignedScreenKeyboardNavTest {
         GdsTheme {
             FullScreenDialogue(
                 topAppBar = {
-                    FullScreenDialogueTopAppBar(
-                        onCloseClick = {},
-                    )
+                    GdsTopAppBar()
                 },
                 content = {
                     var selectedItem by rememberSaveable { mutableStateOf<Int?>(null) }
