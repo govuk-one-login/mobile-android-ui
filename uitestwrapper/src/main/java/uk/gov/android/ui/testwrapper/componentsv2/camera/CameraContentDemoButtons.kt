@@ -15,7 +15,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.testwrapper.R
+import uk.gov.android.ui.uitestwrapper.R
 
 object CameraContentDemoButtons {
     @Composable

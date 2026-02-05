@@ -7,7 +7,7 @@ import androidx.test.rule.GrantPermissionRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.testwrapper.R
+import uk.gov.android.ui.uitestwrapper.R
 
 class CameraContentDemoRequiredPermissionTest {
     @get:Rule

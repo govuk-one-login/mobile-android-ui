@@ -22,8 +22,8 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.dialogue.DialogueButtonParameters
 import uk.gov.android.ui.componentsv2.dialogue.GdsDialogue
 import uk.gov.android.ui.componentsv2.status.GdsStatusOverlay
-import uk.gov.android.ui.testwrapper.R
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.uitestwrapper.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import uk.gov.android.ui.testwrapper.MainActivity
-import uk.gov.android.ui.testwrapper.R
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

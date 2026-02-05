@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "uk.gov.android.ui.testwrapper"
+    namespace = "uk.gov.android.ui.uitestwrapper"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "uk.gov.android.ui.testwrapper"
+        applicationId = "uk.gov.android.ui.uitestwrapper"
         minSdk = 29
         //noinspection OldTargetApi
         targetSdk = 35
