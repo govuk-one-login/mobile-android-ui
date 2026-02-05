@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
  */
 @Composable
 @Deprecated(
-    message = "This composable has been moved to a more appropriate package",
+    message = "This composable has been moved to a more appropriate package. Aim to be removed " +
+        "by 05/04/2026",
     replaceWith = ReplaceWith(
         "uk.gov.android.ui.patterns.edgetoedgescreen.EdgeToEdgeWrapperScreen",
     ),
+    level = DeprecationLevel.WARNING,
 )
 fun EdgeToEdgeWrapperScreen(
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
