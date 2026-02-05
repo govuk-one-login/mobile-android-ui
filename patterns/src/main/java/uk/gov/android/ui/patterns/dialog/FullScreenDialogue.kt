@@ -87,7 +87,7 @@ fun FullScreenDialogue(
  * @param onDismissRequest Executes when the user tries to dismiss the dialog.
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
  * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
- *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
+ *   See [GdsTopAppBar] for a pre-configured implementation.
  * @param onBack Overrides the device back button - if **null**, it will keep the default back button behaviour
  * @param content The content to be displayed inside the dialog.
  *
@@ -152,7 +152,7 @@ fun FullScreenDialogue(
  *
  * @param modifier Modifier to be applied to the layout corresponding to the dialog content
  * @param topAppBar Requires any type of [TopAppBar] to allow customisation.
- *   See [FullScreenDialogTopAppBar] for a pre-configured implementation.
+ *   See [GdsTopAppBar] for a pre-configured implementation.
  * @param onBack Overrides the device back button - if **null**, it will keep the default back button behaviour
  * @param content The content to be displayed inside the dialog.
  *
@@ -235,10 +235,7 @@ internal fun ModalDialogWithCustomisedTopAppBarPreview(
     GdsTheme {
         FullScreenDialogue(
             topAppBar = {
-                FullScreenDialogueTopAppBar(
-                    title = { Text("") },
-                    onCloseClick = {},
-                )
+                GdsTopAppBar()
             },
             content = { parameters.content },
         )

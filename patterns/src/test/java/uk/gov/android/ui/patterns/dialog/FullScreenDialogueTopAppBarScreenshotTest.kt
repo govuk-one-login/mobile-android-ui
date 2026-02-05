@@ -1,11 +1,11 @@
 package uk.gov.android.ui.patterns.dialog
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 
@@ -16,12 +16,8 @@ class FullScreenDialogueTopAppBarScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
-            FullScreenDialogueTopAppBar(
-                onCloseClick = {},
-                title = {
-                    val text = parameters.first
-                    Text(text = text)
-                },
+            GdsTopAppBar(
+                title = parameters.first,
             )
         }
     }
