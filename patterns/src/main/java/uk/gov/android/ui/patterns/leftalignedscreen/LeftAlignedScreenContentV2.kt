@@ -1,19 +1,35 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,6 +38,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -113,6 +130,13 @@ sealed class LeftAlignedScreenBodyV2 {
         val rowData: ImmutableList<RowData>,
     ) : LeftAlignedScreenBodyV2()
 }
+
+data class LeftAlignedScreenButton(
+    val text: String,
+    val onClick: () -> Unit,
+    val modifier: Modifier = Modifier.fillMaxWidth(),
+    val enabled: Boolean = true,
+)
 
 @Composable
 internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenContentV2) {
@@ -325,3 +349,35 @@ private fun LazyListScope.toAnnotatedText(
         )
     }
 }
+
+/**
+ * Adds a downwards scroll when a keyboard down arrow is pressed
+ *
+ * @param scrollState [LazyListState] represents the list state
+ * @return augmented [Modifier]
+ */
+@Composable
+fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
+    val coroutineScope = rememberCoroutineScope()
+    val interactionSource = remember { MutableInteractionSource() }
+    val focusRequester = remember { FocusRequester() }
+    var focusEnabled by remember { mutableStateOf(true) }
+    return this
+        .onKeyEvent {
+            if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionDown) {
+                if (scrollState.canScrollForward) {
+                    coroutineScope.launch {
+                        scrollState.animateScrollBy(SCROLL_MULTIPLIER * scrollState.layoutInfo.viewportSize.height)
+                    }
+                }
+                focusEnabled = false
+            } else if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionUp) {
+                focusEnabled = true
+            }
+            false
+        }
+        .focusRequester(focusRequester)
+        .focusable(enabled = focusEnabled, interactionSource = interactionSource)
+}
+
+private const val SCROLL_MULTIPLIER = 0.8f

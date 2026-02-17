@@ -15,7 +15,7 @@ internal class LeftAlignedScreenV2ScreenshotTest(
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsTheme {
-            LeftAlignedScreenV2FromContentParams(parameters)
+            LeftAlignedScreenFromContentParamsV2(parameters)
         }
     }
 
