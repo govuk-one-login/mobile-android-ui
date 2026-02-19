@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.notlazyleftalignedscreen
+package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -51,59 +50,67 @@ import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.row.RowData
+import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.SCROLL_MULTIPLIER
 import uk.gov.android.ui.theme.dividerThickness
 
-internal data class NotLazyLeftAlignedScreenContent(
+internal data class LeftAlignedScreenContentV3(
     val title: String,
-    val body: List<NotLazyLeftAlignedScreenBody>? = null,
+    val body: PersistentList<LeftAlignedScreenBodyV3>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,
     val primaryButtonIsEnabled: Boolean = true,
     val secondaryButton: String? = null,
 )
 
-sealed class NotLazyLeftAlignedScreenBody {
+sealed class LeftAlignedScreenBodyV3 {
     data class SecondaryButton(
         val text: String,
         val onClick: () -> Unit,
         val showIcon: Boolean = false,
         val enabled: Boolean = true,
         val modifier: Modifier = Modifier,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class AnnotatedText(
         val text: AnnotatedString,
         val modifier: Modifier = Modifier,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class Text(
         val text: String,
         val modifier: Modifier = Modifier,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class Title(
         val text: String,
         val modifier: Modifier = Modifier,
         val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
         val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class Warning(
         val text: String,
         val modifier: Modifier = Modifier,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
-    data class BulletList(val bullets: PersistentList<String>) : NotLazyLeftAlignedScreenBody()
-    data class NumberedList(val list: PersistentList<ListItem>) : NotLazyLeftAlignedScreenBody()
+    data class BulletList(
+        val items: PersistentList<ListItem>,
+        val title: ListTitle? = null,
+    ) : LeftAlignedScreenBodyV3()
+
+    data class NumberedList(val list: PersistentList<ListItem>) : LeftAlignedScreenBodyV3()
 
     data class Image(
         val image: Int,
         val contentDescription: String,
         val modifier: Modifier = Modifier,
         val contentScale: ContentScale = ContentScale.FillWidth,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class Selection(
         val items: PersistentList<String>,
@@ -111,16 +118,20 @@ sealed class NotLazyLeftAlignedScreenBody {
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
         val title: RadioSelectionTitle? = null,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
 
     data class Divider(
         val thickness: Dp = dividerThickness,
         val color: Color? = null,
         val modifier: Modifier = Modifier,
-    ) : NotLazyLeftAlignedScreenBody()
+    ) : LeftAlignedScreenBodyV3()
+
+    data class RowList(
+        val rowData: PersistentList<RowData>,
+    ) : LeftAlignedScreenBodyV3()
 }
 
-data class NotLazyLeftAlignedScreenButton(
+data class LeftAlignedScreenButtonConfiguration(
     val text: String,
     val onClick: () -> Unit,
     val modifier: Modifier = Modifier.fillMaxWidth(),
@@ -128,8 +139,8 @@ data class NotLazyLeftAlignedScreenButton(
 )
 
 @Composable
-internal fun NotLazyLeftAlignedScreenFromContentParams(content: NotLazyLeftAlignedScreenContent) {
-    NotLazyLeftAlignedScreen(
+internal fun LeftAlignedScreenV3FromContentParamsV3(content: LeftAlignedScreenContentV3) {
+    LeftAlignedScreenV3(
         title = { horizontalPadding ->
             GdsHeading(
                 text = content.title,
@@ -138,57 +149,7 @@ internal fun NotLazyLeftAlignedScreenFromContentParams(content: NotLazyLeftAlign
             )
         },
         body = { horizontalItemPadding ->
-            toBodyContent(
-                horizontalItemPadding = horizontalItemPadding,
-                body = content.body,
-            )
-        },
-        supportingText = content.supportingText?.let { text ->
-            { horizontalPadding ->
-                GdsSupportingText(
-                    text = text,
-                    modifier = Modifier.padding(horizontal = horizontalPadding),
-                )
-            }
-        },
-        primaryButton = content.primaryButton?.let {
-            {
-                GdsButton(
-                    text = it,
-                    onClick = {},
-                    buttonType = ButtonType.Primary,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    enabled = content.primaryButtonIsEnabled,
-                )
-            }
-        },
-        secondaryButton = content.secondaryButton?.let {
-            {
-                GdsButton(
-                    text = it,
-                    onClick = {},
-                    buttonType = ButtonType.Secondary,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
-            }
-        },
-    )
-}
-
-@Composable
-internal fun NotLazyLeftAlignedScreenV2FromContentParams(content: NotLazyLeftAlignedScreenContentV2) {
-    NotLazyLeftAlignedScreen(
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = content.title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
-        },
-        body = { horizontalItemPadding ->
-            toBodyContentV2(
+            toBodyContentV3(
                 horizontalItemPadding = horizontalItemPadding,
                 body = content.body,
             )
@@ -228,40 +189,39 @@ internal fun NotLazyLeftAlignedScreenV2FromContentParams(content: NotLazyLeftAli
 }
 
 /**
- * The toBodyContent function is an extension function on the LazyListScope that aims to
- * abstract away the repetitive logic used to render a Lazy list of NotLazyLeftAlignedScreenBody
+ * The toBodyContent function aims to abstract away the repetitive logic used to render
+ * [LeftAlignedScreenBodyV3]
  *
- * @param body [List<NotLazyLeftAlignedScreenBody>?] represents the list of NotLazyLeftAlignedScreenBody
- * @param horizontalItemPadding [Dp] represents the horizontal padding
+ * @param body nullable list of [LeftAlignedScreenBodyV3]
+ * @param horizontalItemPadding horizontal padding in [Dp]
  */
 @Suppress("LongMethod", "CyclomaticComplexMethod")
-@Deprecated(
-    "Use toBodyContentV2 with optional list title parameter instead - will be removed on 20/01/26",
-    level = DeprecationLevel.WARNING,
-)
 @Composable
-fun toBodyContent(
-    body: List<NotLazyLeftAlignedScreenBody>?,
+fun toBodyContentV3(
+    body: PersistentList<LeftAlignedScreenBodyV3>?,
     horizontalItemPadding: Dp,
 ) {
     val itemPadding = PaddingValues(horizontal = horizontalItemPadding)
     body?.forEach {
         when (it) {
-            is NotLazyLeftAlignedScreenBody.BulletList -> {
+            is LeftAlignedScreenBodyV3.BulletList -> {
                 GdsBulletedList(
-                    bulletListItems = it.bullets,
-                    modifier = Modifier.padding(itemPadding),
+                    bulletListItems = it.items,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(itemPadding),
+                    title = it.title,
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.NumberedList -> {
+            is LeftAlignedScreenBodyV3.NumberedList -> {
                 GdsNumberedList(
                     numberedListItems = it.list,
                     modifier = Modifier.padding(itemPadding),
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.Image -> {
+            is LeftAlignedScreenBodyV3.Image -> {
                 Image(
                     painter = painterResource(it.image),
                     contentDescription = it.contentDescription,
@@ -270,20 +230,20 @@ fun toBodyContent(
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.Text -> {
+            is LeftAlignedScreenBodyV3.Text -> {
                 Text(
                     text = it.text,
                     modifier = it.modifier.padding(itemPadding),
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = colorScheme.onBackground,
                     style = MaterialTheme.typography.bodyLarge,
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.AnnotatedText -> {
+            is LeftAlignedScreenBodyV3.AnnotatedText -> {
                 toAnnotatedText(it, itemPadding)
             }
 
-            is NotLazyLeftAlignedScreenBody.Title -> {
+            is LeftAlignedScreenBodyV3.Title -> {
                 GdsHeading(
                     text = it.text,
                     modifier = it.modifier.padding(itemPadding),
@@ -292,7 +252,7 @@ fun toBodyContent(
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.Warning -> {
+            is LeftAlignedScreenBodyV3.Warning -> {
                 GdsWarningText(
                     text = it.text,
                     modifier = it.modifier.padding(itemPadding),
@@ -301,9 +261,9 @@ fun toBodyContent(
 
             // TODO update button color with GdsThemeV2, once available
             // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
-            is NotLazyLeftAlignedScreenBody.SecondaryButton -> {
+            is LeftAlignedScreenBodyV3.SecondaryButton -> {
                 val buttonType = if (it.showIcon) {
-                    val contentColor = MaterialTheme.colorScheme.secondary
+                    val contentColor = colorScheme.secondary
                     ButtonType.Icon(
                         buttonColors = customButtonColors(
                             contentColor = contentColor,
@@ -327,7 +287,7 @@ fun toBodyContent(
                 )
             }
 
-            is NotLazyLeftAlignedScreenBody.Selection -> {
+            is LeftAlignedScreenBodyV3.Selection -> {
                 GdsSelection(
                     items = it.items,
                     selectedItem = it.selectedItem,
@@ -339,36 +299,24 @@ fun toBodyContent(
 
             // TODO update color with GdsThemeV2 once available
             // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
-            is NotLazyLeftAlignedScreenBody.Divider -> {
+            is LeftAlignedScreenBodyV3.Divider -> {
                 HorizontalDivider(
                     thickness = it.thickness,
                     color = it.color ?: colorScheme.surface,
                     modifier = it.modifier.padding(itemPadding),
                 )
             }
+
+            is LeftAlignedScreenBodyV3.RowList -> {
+                RowList(
+                    rows = it.rowData,
+                    horizontalPadding = itemPadding,
+                )
+            }
         }
     }
 }
 
-@Composable
-private fun toAnnotatedText(
-    it: NotLazyLeftAlignedScreenBody.AnnotatedText,
-    itemPadding: PaddingValues,
-) {
-    Text(
-        text = it.text,
-        modifier = it.modifier.padding(itemPadding),
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyLarge,
-    )
-}
-
-/**
- * Adds a downwards scroll when a keyboard down arrow is pressed
- *
- * @param scrollState [LazyListState] represents the list state
- * @return augmented [Modifier]
- */
 @Composable
 fun Modifier.bringIntoView(scrollState: ScrollState): Modifier {
     val coroutineScope = rememberCoroutineScope()
@@ -393,4 +341,15 @@ fun Modifier.bringIntoView(scrollState: ScrollState): Modifier {
         .focusable(enabled = focusEnabled, interactionSource = interactionSource)
 }
 
-private const val SCROLL_MULTIPLIER = 0.8f
+@Composable
+private fun toAnnotatedText(
+    it: LeftAlignedScreenBodyV3.AnnotatedText,
+    itemPadding: PaddingValues,
+) {
+    Text(
+        text = it.text,
+        modifier = it.modifier.padding(itemPadding),
+        color = colorScheme.onBackground,
+        style = MaterialTheme.typography.bodyLarge,
+    )
+}
