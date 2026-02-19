@@ -56,6 +56,7 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.SCROLL_MULTIPLIER
 import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContentV2(
@@ -379,5 +380,3 @@ fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
         .focusRequester(focusRequester)
         .focusable(enabled = focusEnabled, interactionSource = interactionSource)
 }
-
-private const val SCROLL_MULTIPLIER = 0.8f

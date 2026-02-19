@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.notlazyleftalignedscreen
+package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ScrollState
@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -24,10 +20,6 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.CollectionInfo
-import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.collectionInfo
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -39,41 +31,40 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.patterns.notlazyleftalignedscreen.NotLazyLeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.FONT_SCALE_DOUBLE
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.ONE_THIRD
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTestTagV3.BODY_LAS_COLUMN_TEST_TAG_V3
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
-private const val ONE_THIRD = 1f / 3f
-private const val FONT_SCALE_DOUBLE = 2f
-
 /**
- * Left Aligned Screen
+ * Left Aligned Screen V3
  *
  * This pattern displays the main content which is placed in a scrollable container.
  * The bottom content (supporting text, primary and secondary button) is fixed.
  * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @sample LazyListScope.toBodyContent
  * @param body representing the main content.
  * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
- * @sample NotLazyLeftAlignedScreenFromContentParams
  * @param forceScroll [Boolean] determines whether a scroll can be added to a keyboard down arrow event to avoid focus becoming stuck
+ * @sample [toBodyContentV3]
+ * @sample LeftAlignedScreenV3FromContentParamsV3
  */
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
-fun NotLazyLeftAlignedScreen(
+fun LeftAlignedScreenV3(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     body: @Composable ((horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    arrangement: Arrangement.Vertical = NotLazyLeftAlignedScreenDefaults.ItemArrangement,
+    arrangement: Arrangement.Vertical = LeftAlignedScreenDefaultsV3.ItemArrangement,
     forceScroll: Boolean = false,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -167,23 +158,19 @@ fun NotLazyLeftAlignedScreen(
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param body representing the main content (optional).
  * @param supportingText additional text displayed below in the bottom content (optional).
- * @param primaryButton primary action button (optional).
- * @param secondaryButton secondary action button (optional).
+ * @param primaryButtonConfiguration primary action button (optional).
+ * @param secondaryButtonConfiguration secondary action button (optional).
  */
-@Deprecated(
-    "Use NotLazyLeftAlignedScreenV2 with optional list title parameter instead - will be removed on 20/01/26",
-    level = DeprecationLevel.WARNING,
-)
 @Composable
-fun NotLazyLeftAlignedScreen(
+fun LeftAlignedScreenV3(
     title: String,
     modifier: Modifier = Modifier,
-    body: PersistentList<NotLazyLeftAlignedScreenBody>? = null,
+    body: PersistentList<LeftAlignedScreenBodyV3>? = null,
     supportingText: String? = null,
-    primaryButton: NotLazyLeftAlignedScreenButton? = null,
-    secondaryButton: NotLazyLeftAlignedScreenButton? = null,
+    primaryButtonConfiguration: LeftAlignedScreenButtonConfiguration? = null,
+    secondaryButtonConfiguration: LeftAlignedScreenButtonConfiguration? = null,
 ) {
-    NotLazyLeftAlignedScreen(
+    LeftAlignedScreenV3(
         modifier = modifier,
         title = { horizontalPadding ->
             GdsHeading(
@@ -193,7 +180,7 @@ fun NotLazyLeftAlignedScreen(
             )
         },
         body = { horizontalItemPadding ->
-            toBodyContent(
+            toBodyContentV3(
                 horizontalItemPadding = horizontalItemPadding,
                 body = body,
             )
@@ -206,7 +193,7 @@ fun NotLazyLeftAlignedScreen(
                 )
             }
         },
-        primaryButton = primaryButton?.let {
+        primaryButton = primaryButtonConfiguration?.let {
             {
                 GdsButton(
                     text = it.text,
@@ -217,76 +204,7 @@ fun NotLazyLeftAlignedScreen(
                 )
             }
         },
-        secondaryButton = secondaryButton?.let {
-            {
-                GdsButton(
-                    text = it.text,
-                    onClick = it.onClick,
-                    buttonType = ButtonType.Secondary,
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
-                )
-            }
-        },
-    )
-}
-
-/**
- * Left Aligned Screen Helper Method
- *
- * Uses the slot based method to create the composable
- *
- * @param title represents the main title.
- * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @param body representing the main content (optional).
- * @param supportingText additional text displayed below in the bottom content (optional).
- * @param primaryButton primary action button (optional).
- * @param secondaryButton secondary action button (optional).
- */
-@Composable
-fun NotLazyLeftAlignedScreenV2(
-    title: String,
-    modifier: Modifier = Modifier,
-    body: PersistentList<NotLazyLeftAlignedScreenBodyV2>? = null,
-    supportingText: String? = null,
-    primaryButton: NotLazyLeftAlignedScreenButton? = null,
-    secondaryButton: NotLazyLeftAlignedScreenButton? = null,
-) {
-    NotLazyLeftAlignedScreen(
-        modifier = modifier,
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
-        },
-        body = { horizontalItemPadding ->
-            toBodyContentV2(
-                horizontalItemPadding = horizontalItemPadding,
-                body = body,
-            )
-        },
-        supportingText = supportingText?.let { text ->
-            { horizontalPadding ->
-                GdsSupportingText(
-                    text = text,
-                    modifier = Modifier.padding(horizontal = horizontalPadding),
-                )
-            }
-        },
-        primaryButton = primaryButton?.let {
-            {
-                GdsButton(
-                    text = it.text,
-                    onClick = it.onClick,
-                    buttonType = ButtonType.Primary,
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
-                )
-            }
-        },
-        secondaryButton = secondaryButton?.let {
+        secondaryButton = secondaryButtonConfiguration?.let {
             {
                 GdsButton(
                     text = it.text,
@@ -320,13 +238,13 @@ private fun MainContent(
     Column(
         verticalArrangement = arrangement,
         modifier = columnModifier
-            .testTag(BODY_LAZY_COLUMN_TEST_TAG)
+            .testTag(BODY_LAS_COLUMN_TEST_TAG_V3)
             .verticalScroll(scrollState),
     ) {
-        title(NotLazyLeftAlignedScreenDefaults.HorizontalPadding)
+        title(LeftAlignedScreenDefaultsV3.HorizontalPadding)
 
         body?.let {
-            it(NotLazyLeftAlignedScreenDefaults.HorizontalPadding)
+            it(LeftAlignedScreenDefaultsV3.HorizontalPadding)
         }
 
         bottomContent?.invoke()
@@ -341,13 +259,13 @@ private fun BottomContent(
     secondaryButton: (@Composable () -> Unit)? = null,
 ) {
     Column(
-        modifier.padding(horizontal = NotLazyLeftAlignedScreenDefaults.HorizontalPadding),
+        modifier.padding(horizontal = LeftAlignedScreenDefaultsV3.HorizontalPadding),
     ) {
         val supportingTextPadding =
             if (primaryButton == null || secondaryButton == null) {
-                NotLazyLeftAlignedScreenDefaults.HorizontalPadding
+                LeftAlignedScreenDefaultsV3.HorizontalPadding
             } else
-                NotLazyLeftAlignedScreenDefaults.NoPadding
+                LeftAlignedScreenDefaultsV3.NoPadding
 
         supportingText?.let {
             Row(
@@ -356,7 +274,7 @@ private fun BottomContent(
                     bottom = supportingTextPadding,
                 ),
             ) {
-                it.invoke(NotLazyLeftAlignedScreenDefaults.HorizontalPadding)
+                it.invoke(LeftAlignedScreenDefaultsV3.HorizontalPadding)
             }
         }
         primaryButton?.let {
@@ -380,60 +298,36 @@ private fun BottomContent(
     }
 }
 
-object NotLazyLeftAlignedScreenDefaults {
+object LeftAlignedScreenDefaultsV3 {
     val ItemArrangement = Arrangement.spacedBy(spacingDouble)
     val HorizontalPadding: Dp = spacingDouble
     val NoPadding: Dp = 0.dp
 }
 
-internal object NotLazyLeftAlignedScreenTestTag {
-    const val BODY_LAZY_COLUMN_TEST_TAG = "BODY_LAZY_COLUMN_TEST_TAG"
+internal object LeftAlignedScreenTestTagV3 {
+    const val BODY_LAS_COLUMN_TEST_TAG_V3 = "BODY_LAS_COLUMN_TEST_TAG_V3"
 }
 
 @PreviewLightDark
 @Composable
 @Preview(fontScale = 3f)
-internal fun PreviewNotLazyLeftAlignedScreen(
-    @PreviewParameter(NotLazyLeftAlignedScreenContentProvider::class)
-    content: NotLazyLeftAlignedScreenContent,
+internal fun PreviewLeftAlignedScreenV3(
+    @PreviewParameter(LeftAlignedScreenContentProviderV3::class)
+    content: LeftAlignedScreenContentV3,
 ) {
     GdsTheme {
-        NotLazyLeftAlignedScreenFromContentParams(content)
+        LeftAlignedScreenV3FromContentParamsV3(content)
     }
 }
 
 @Composable
 @Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
 @Preview(showBackground = true, fontScale = 3f)
-internal fun PreviewNotLazyLeftAlignedScreenAccessibility(
-    @PreviewParameter(NotLazyLeftAlignedScreenContentAccessibilityProvider::class)
-    content: NotLazyLeftAlignedScreenContent,
+internal fun PreviewLeftAlignedScreenV3Accessibility(
+    @PreviewParameter(LeftAlignedScreenContentAccessibilityProviderV3::class)
+    content: LeftAlignedScreenContentV3,
 ) {
     GdsTheme {
-        NotLazyLeftAlignedScreenFromContentParams(content)
-    }
-}
-
-@PreviewLightDark
-@Composable
-@Preview(fontScale = 3f)
-internal fun PreviewNotLazyLeftAlignedScreenV2(
-    @PreviewParameter(NotLazyLeftAlignedScreenContentProviderV2::class)
-    content: NotLazyLeftAlignedScreenContentV2,
-) {
-    GdsTheme {
-        NotLazyLeftAlignedScreenV2FromContentParams(content)
-    }
-}
-
-@Composable
-@Preview(showBackground = true, fontScale = FONT_SCALE_DOUBLE)
-@Preview(showBackground = true, fontScale = 3f)
-internal fun PreviewNotLazyLeftAlignedScreenV2Accessibility(
-    @PreviewParameter(NotLazyLeftAlignedScreenContentAccessibilityProviderV2::class)
-    content: NotLazyLeftAlignedScreenContentV2,
-) {
-    GdsTheme {
-        NotLazyLeftAlignedScreenV2FromContentParams(content)
+        LeftAlignedScreenV3FromContentParamsV3(content)
     }
 }

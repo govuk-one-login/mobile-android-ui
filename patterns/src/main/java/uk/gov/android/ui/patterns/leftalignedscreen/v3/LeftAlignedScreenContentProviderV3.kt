@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.notlazyleftalignedscreen
+package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +11,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -25,8 +24,8 @@ import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
 import uk.gov.android.ui.componentsv2.R as componentsv2R
 
-internal class NotLazyLeftAlignedScreenContentProviderV2 :
-    PreviewParameterProvider<NotLazyLeftAlignedScreenContentV2> {
+internal class LeftAlignedScreenContentProviderV3 :
+    PreviewParameterProvider<LeftAlignedScreenContentV3> {
     private val title = "Do you have a UK passport or passport with a biometric chip?"
     internal val textShort = LoremIpsum(5).values.first()
     private val textLong = LoremIpsum(25).values.first()
@@ -40,16 +39,16 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
     private val primaryButtonText = "Primary Button"
 
     override val values = sequenceOf(
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                     modifier = Modifier.padding(
                         top = spacingTriple,
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.AnnotatedText(
+                LeftAlignedScreenBodyV3.AnnotatedText(
                     buildAnnotatedString {
                         append(textShort)
                         withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
@@ -58,36 +57,36 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
                         append(". $textShort")
                     },
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Title(
+                LeftAlignedScreenBodyV3.Title(
                     text = "Title2 - Left Aligned",
                     style = GdsHeadingStyle.Title2,
                     textAlign = GdsHeadingAlignment.LeftAligned,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Title(
+                LeftAlignedScreenBodyV3.Title(
                     text = "Title2 - Center Aligned",
                     style = GdsHeadingStyle.Title2,
                     textAlign = GdsHeadingAlignment.CenterAligned,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Title(
+                LeftAlignedScreenBodyV3.Title(
                     text = "Title2 - Right Aligned",
                     style = GdsHeadingStyle.Title2,
                     textAlign = GdsHeadingAlignment.RightAligned,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.BulletList(
+                LeftAlignedScreenBodyV3.BulletList(
                     persistentListOf(
                         ListItem("Bullet 1"),
                         ListItem("Bullet 2"),
                         ListItem(textShort),
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.SecondaryButton(
+                LeftAlignedScreenBodyV3.SecondaryButton(
                     secondaryButtonText,
                     {},
                 ),
@@ -96,28 +95,28 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                     modifier = Modifier.padding(
                         top = spacingTriple,
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Divider(),
-                NotLazyLeftAlignedScreenBodyV2.NumberedList(
+                LeftAlignedScreenBodyV3.Divider(),
+                LeftAlignedScreenBodyV3.NumberedList(
                     persistentListOf(
                         ListItem("Number 1"),
                         ListItem("Number 2"),
                         ListItem(textShort),
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.SecondaryButton(
+                LeftAlignedScreenBodyV3.SecondaryButton(
                     secondaryButtonText,
                     {},
                     showIcon = true,
@@ -127,26 +126,26 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textLong,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Selection(
+                LeftAlignedScreenBodyV3.Selection(
                     items = selectionItems,
                     selectedItem = null,
                     onItemSelected = {},
@@ -156,31 +155,31 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             primaryButton = primaryButtonText,
             primaryButtonIsEnabled = false,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textLong,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(top = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
                         .background(Color.Gray),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.SecondaryButton(
+                LeftAlignedScreenBodyV3.SecondaryButton(
                     "Read more about the types of photo ID you can use",
                     {},
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Selection(
+                LeftAlignedScreenBodyV3.Selection(
                     items = selectionItems,
                     selectedItem = 1,
                     onItemSelected = {},
@@ -188,20 +187,20 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             ),
             supportingText = supportingText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textLong,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
@@ -210,23 +209,23 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
                 ),
             ),
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textLong,
                     modifier = Modifier.padding(
                         bottom = spacingTriple,
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
@@ -236,20 +235,20 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             ),
             primaryButton = primaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textExtraLong,
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Image(
+                LeftAlignedScreenBodyV3.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
@@ -259,31 +258,31 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             ),
             primaryButton = primaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             primaryButton = primaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             supportingText = "Supporting Text - $textExtraLong",
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                     modifier = Modifier.padding(
                         top = spacingTriple,
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Warning(
+                LeftAlignedScreenBodyV3.Warning(
                     warning,
                     Modifier.padding(vertical = spacingTriple),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.Divider(),
-                NotLazyLeftAlignedScreenBodyV2.BulletList(
+                LeftAlignedScreenBodyV3.Divider(),
+                LeftAlignedScreenBodyV3.BulletList(
                     items = persistentListOf(
                         ListItem("Number 1"),
                         ListItem("Number 2"),
@@ -291,7 +290,7 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
                     ),
                     title = ListTitle("Bullet List Title", TitleType.Text),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.SecondaryButton(
+                LeftAlignedScreenBodyV3.SecondaryButton(
                     secondaryButtonText,
                     {},
                     showIcon = true,
@@ -301,16 +300,16 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
-        NotLazyLeftAlignedScreenContentV2(
+        LeftAlignedScreenContentV3(
             title = title,
             body = persistentListOf(
-                NotLazyLeftAlignedScreenBodyV2.Text(
+                LeftAlignedScreenBodyV3.Text(
                     textShort,
                     modifier = Modifier.padding(
                         top = spacingTriple,
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.RowList(
+                LeftAlignedScreenBodyV3.RowList(
                     rowData = persistentListOf(
                         RowData(
                             title = "Basic Row component",
@@ -335,7 +334,7 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
                         ),
                     ),
                 ),
-                NotLazyLeftAlignedScreenBodyV2.SecondaryButton(
+                LeftAlignedScreenBodyV3.SecondaryButton(
                     secondaryButtonText,
                     {},
                     showIcon = true,
@@ -348,13 +347,13 @@ internal class NotLazyLeftAlignedScreenContentProviderV2 :
     )
 }
 
-internal class NotLazyLeftAlignedScreenContentAccessibilityProviderV2 :
-    PreviewParameterProvider<NotLazyLeftAlignedScreenContentV2> {
+internal class LeftAlignedScreenContentAccessibilityProviderV3 :
+    PreviewParameterProvider<LeftAlignedScreenContentV3> {
     private val title = "Do you have a UK passport or passport with a biometric chip?"
     private val textExtraLong = LoremIpsum(50).values.first()
 
-    override val values: Sequence<NotLazyLeftAlignedScreenContentV2> = sequenceOf(
-        NotLazyLeftAlignedScreenContentV2(
+    override val values: Sequence<LeftAlignedScreenContentV3> = sequenceOf(
+        LeftAlignedScreenContentV3(
             title = title,
             supportingText = "Supporting Text - $textExtraLong",
             primaryButton = "Primary Button",

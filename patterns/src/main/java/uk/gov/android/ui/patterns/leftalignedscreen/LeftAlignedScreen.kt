@@ -32,12 +32,11 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.FONT_SCALE_DOUBLE
+import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.ONE_THIRD
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
-
-private const val ONE_THIRD = 1f / 3f
-private const val FONT_SCALE_DOUBLE = 2f
 
 /**
  * Left Aligned Screen
