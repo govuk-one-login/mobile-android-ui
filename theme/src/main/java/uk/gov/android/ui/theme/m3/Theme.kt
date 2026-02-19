@@ -29,12 +29,29 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 
+/**
+ * @param darkTheme
+ * @param shapes
+ * @param typography
+ * @param enableActivityEdgeToEdge
+ *   When `true`, manually enables edge-to-edge display in the host Activity.
+ *
+ *   This is an Activity-level side effect that extends beyond the composable content within this theme.
+ *
+ *   Activities that don't yet support edge-to-edge can pass `false` to opt out from this behaviour.
+ *
+ *   This parameter becomes redundant once the app targets Android 16 (API 36), where edge-to-edge is enforced.
+ *
+ *   See [edge-to-edge opt-out going away](https://developer.android.com/about/versions/16/behavior-changes-16#edge-to-edge)
+ * @param content
+ */
 @Suppress("DEPRECATED")
 @Composable
 fun GdsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
+    enableActivityEdgeToEdge: Boolean = true,
     content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
@@ -56,7 +73,9 @@ fun GdsTheme(
                     WindowCompat
                         .getInsetsController(window, view)
                         .isAppearanceLightStatusBars = !darkTheme
-                    WindowCompat.setDecorFitsSystemWindows(window, false)
+                    if (enableActivityEdgeToEdge) {
+                        WindowCompat.setDecorFitsSystemWindows(window, false)
+                    }
                     val insetsController = WindowCompat.getInsetsController(window, view)
                     insetsController.isAppearanceLightNavigationBars = !darkTheme
                     insetsController.isAppearanceLightStatusBars = !darkTheme
