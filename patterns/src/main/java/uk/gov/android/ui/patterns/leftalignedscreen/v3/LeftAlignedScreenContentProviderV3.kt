@@ -22,7 +22,7 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.spacingTriple
-import uk.gov.android.ui.componentsv2.R as componentsv2R
+import uk.gov.android.ui.componentsv2.R as componentsV2R
 
 internal class LeftAlignedScreenContentProviderV3 :
     PreviewParameterProvider<LeftAlignedScreenContentV3> {
@@ -324,7 +324,7 @@ internal class LeftAlignedScreenContentProviderV3 :
                             title = "Full Row component",
                             subtitle = "Subtitle String",
                             leadingImage = Image(
-                                drawable = componentsv2R.drawable.placeholder_leading_image,
+                                drawable = componentsV2R.drawable.placeholder_leading_image,
                                 contentDescription = "",
                             ),
                             scaleLeadingImageWithFontSize = true,
