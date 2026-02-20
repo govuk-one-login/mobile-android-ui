@@ -34,6 +34,7 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.FONT_SCALE_DOUBLE
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.ONE_THIRD
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTestTagV3.BODY_LAS_COLUMN_TEST_TAG_V3
+import uk.gov.android.ui.patterns.utils.keyboardScrollable
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -239,7 +240,8 @@ private fun MainContent(
         verticalArrangement = arrangement,
         modifier = columnModifier
             .testTag(BODY_LAS_COLUMN_TEST_TAG_V3)
-            .verticalScroll(scrollState),
+            .verticalScroll(scrollState)
+            .keyboardScrollable(scrollState),
     ) {
         title(LeftAlignedScreenDefaultsV3.HorizontalPadding)
 
