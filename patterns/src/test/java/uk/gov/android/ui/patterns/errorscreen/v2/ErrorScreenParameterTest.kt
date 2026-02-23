@@ -5,10 +5,15 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
@@ -353,5 +358,27 @@ class ErrorScreenParameterTest {
         Then("the tertiary button should be displayed") {
             onNodeWithText(tertiaryButtonText).assertIsDisplayed()
         }
+    }
+
+    @Test
+    fun `lazy column has semantic collection info with rows and columns set to zero`() {
+        composeTestRule.setContent {
+            ErrorScreen(
+                title = { },
+                icon = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG)
+            .assert(
+                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
+            )
+            .assert(
+                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
+                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
+                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
+                },
+            )
     }
 }

@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertContentDescriptionEquals
@@ -9,6 +10,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import junit.framework.TestCase.assertTrue
@@ -108,5 +110,26 @@ class CentreAlignedScreenTest {
             .onNodeWithText(title)
             .assertContentDescriptionEquals(title)
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+    }
+
+    @Test
+    fun `lazy column has semantic collection info with rows and columns set to zero`() {
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+            .assert(
+                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
+            )
+            .assert(
+                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
+                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
+                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
+                },
+            )
     }
 }

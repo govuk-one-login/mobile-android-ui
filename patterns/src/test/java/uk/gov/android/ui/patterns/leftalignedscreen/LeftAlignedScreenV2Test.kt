@@ -1,9 +1,14 @@
 package uk.gov.android.ui.patterns.leftalignedscreen
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performScrollTo
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
@@ -130,5 +135,26 @@ class LeftAlignedScreenV2Test {
             get(index).performScrollTo().assertIsDisplayed()
         }
         return this
+    }
+
+    @Test
+    fun `lazy column has semantic collection info with rows and columns set to zero`() {
+        composeTestRule.setContent {
+            LeftAlignedScreen(
+                title = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+            .assert(
+                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
+            )
+            .assert(
+                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
+                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
+                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
+                },
+            )
     }
 }
