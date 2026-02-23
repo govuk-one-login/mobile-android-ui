@@ -57,6 +57,7 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenConstants.SCROLL_MULTIPLIER
 import uk.gov.android.ui.theme.dividerThickness
+import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 
 internal data class LeftAlignedScreenContentV3(
     val title: String,
@@ -302,7 +303,7 @@ fun toBodyContentV3(
             is LeftAlignedScreenBodyV3.Divider -> {
                 HorizontalDivider(
                     thickness = it.thickness,
-                    color = it.color ?: colorScheme.surface,
+                    color = it.color ?: GdsLocalColorScheme.current.dividerDefault,
                     modifier = it.modifier.padding(itemPadding),
                 )
             }
