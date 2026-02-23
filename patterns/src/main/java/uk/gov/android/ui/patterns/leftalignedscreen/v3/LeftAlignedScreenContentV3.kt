@@ -150,7 +150,7 @@ internal fun LeftAlignedScreenV3FromContentParamsV3(content: LeftAlignedScreenCo
             )
         },
         body = { horizontalItemPadding ->
-            toBodyContentV3(
+            BodyContentV3(
                 horizontalItemPadding = horizontalItemPadding,
                 body = content.body,
             )
@@ -196,9 +196,9 @@ internal fun LeftAlignedScreenV3FromContentParamsV3(content: LeftAlignedScreenCo
  * @param body nullable list of [LeftAlignedScreenBodyV3]
  * @param horizontalItemPadding horizontal padding in [Dp]
  */
-@Suppress("LongMethod", "CyclomaticComplexMethod")
+@Suppress("LongMethod", "CyclomaticComplexMethod", "ComposeModifierMissing")
 @Composable
-fun toBodyContentV3(
+fun BodyContentV3(
     body: PersistentList<LeftAlignedScreenBodyV3>?,
     horizontalItemPadding: Dp,
 ) {
@@ -241,7 +241,7 @@ fun toBodyContentV3(
             }
 
             is LeftAlignedScreenBodyV3.AnnotatedText -> {
-                toAnnotatedText(it, itemPadding)
+                ToAnnotatedText(it, itemPadding)
             }
 
             is LeftAlignedScreenBodyV3.Title -> {
@@ -343,7 +343,7 @@ fun Modifier.bringIntoView(scrollState: ScrollState): Modifier {
 }
 
 @Composable
-private fun toAnnotatedText(
+private fun ToAnnotatedText(
     it: LeftAlignedScreenBodyV3.AnnotatedText,
     itemPadding: PaddingValues,
 ) {

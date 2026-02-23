@@ -51,7 +51,7 @@ import uk.gov.android.ui.theme.spacingDouble
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param arrangement specifies the vertical alignment and default spacing between each component (optional).
  * @param forceScroll [Boolean] determines whether a scroll can be added to a keyboard down arrow event to avoid focus becoming stuck
- * @sample [toBodyContentV3]
+ * @sample [BodyContentV3]
  * @sample LeftAlignedScreenV3FromContentParamsV3
  */
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -180,7 +180,7 @@ fun LeftAlignedScreenV3(
             )
         },
         body = { horizontalItemPadding ->
-            toBodyContentV3(
+            BodyContentV3(
                 horizontalItemPadding = horizontalItemPadding,
                 body = body,
             )
