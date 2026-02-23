@@ -21,6 +21,9 @@ import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.CollectionInfo
+import androidx.compose.ui.semantics.collectionInfo
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -240,7 +243,13 @@ private fun MainContent(
     LazyColumn(
         verticalArrangement = arrangement,
         modifier = columnModifier
-            .testTag(BODY_LAZY_COLUMN_TEST_TAG),
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG)
+            .semantics {
+                collectionInfo = CollectionInfo(
+                    rowCount = 0,
+                    columnCount = 0,
+                )
+            },
         state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }

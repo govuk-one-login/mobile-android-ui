@@ -21,6 +21,8 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.CollectionInfo
+import androidx.compose.ui.semantics.collectionInfo
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -171,7 +173,13 @@ private fun MainContent(
         ),
         modifier = modifier
             .fillMaxSize()
-            .testTag(ERROR_BODY_LAZY_COLUMN_TEST_TAG),
+            .testTag(ERROR_BODY_LAZY_COLUMN_TEST_TAG)
+            .semantics {
+                collectionInfo = CollectionInfo(
+                    rowCount = 0,
+                    columnCount = 0,
+                )
+            },
     ) {
         item {
             Column(
