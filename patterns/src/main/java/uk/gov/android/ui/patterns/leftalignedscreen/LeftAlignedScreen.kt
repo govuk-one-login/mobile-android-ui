@@ -33,6 +33,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -240,7 +241,8 @@ private fun MainContent(
     LazyColumn(
         verticalArrangement = arrangement,
         modifier = columnModifier
-            .testTag(BODY_LAZY_COLUMN_TEST_TAG),
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG)
+            .clearListSemanticsForTalkBack(),
         state = scrollState,
     ) {
         item { title(LeftAlignedScreenDefaults.HorizontalPadding) }

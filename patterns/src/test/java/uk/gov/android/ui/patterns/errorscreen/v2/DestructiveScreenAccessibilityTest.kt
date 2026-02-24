@@ -32,11 +32,11 @@ import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
-import uk.gov.android.ui.patterns.utils.BDD.And
-import uk.gov.android.ui.patterns.utils.BDD.Given
-import uk.gov.android.ui.patterns.utils.BDD.Then
-import uk.gov.android.ui.patterns.utils.BDD.When
-import uk.gov.android.ui.patterns.utils.TestUtils.getString
+import uk.gov.android.ui.patterns.testutils.BDD.And
+import uk.gov.android.ui.patterns.testutils.BDD.Given
+import uk.gov.android.ui.patterns.testutils.BDD.Then
+import uk.gov.android.ui.patterns.testutils.BDD.When
+import uk.gov.android.ui.patterns.testutils.TestUtils.getString
 
 @RunWith(RobolectricTestRunner::class)
 class DestructiveScreenAccessibilityTest {

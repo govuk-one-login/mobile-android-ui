@@ -9,6 +9,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import junit.framework.TestCase.assertTrue
@@ -22,6 +23,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
+import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -108,5 +110,18 @@ class CentreAlignedScreenTest {
             .onNodeWithText(title)
             .assertContentDescriptionEquals(title)
             .assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+    }
+
+    @Test
+    fun `lazy column has semantic collection info with rows and columns set to zero`() {
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+            .assertListSemanticsCleared()
     }
 }

@@ -3,9 +3,9 @@ package uk.gov.android.ui.patterns.errorscreen.v2
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import uk.gov.android.ui.patterns.R
-import uk.gov.android.ui.patterns.utils.BDD.Given
-import uk.gov.android.ui.patterns.utils.BDD.Then
-import uk.gov.android.ui.patterns.utils.BDD.When
+import uk.gov.android.ui.patterns.testutils.BDD.Given
+import uk.gov.android.ui.patterns.testutils.BDD.Then
+import uk.gov.android.ui.patterns.testutils.BDD.When
 
 class DestructiveScreenContentTest {
 

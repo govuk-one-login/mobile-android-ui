@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.utils
+package uk.gov.android.ui.patterns.testutils
 
 import android.content.Context
 import androidx.annotation.StringRes

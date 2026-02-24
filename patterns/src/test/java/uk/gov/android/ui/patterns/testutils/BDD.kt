@@ -1,4 +1,4 @@
-package uk.gov.android.ui.patterns.utils
+package uk.gov.android.ui.patterns.testutils
 
 object BDD {
     fun Given(step: String, block: () -> Unit = {}) {

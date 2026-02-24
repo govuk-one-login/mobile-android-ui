@@ -4,12 +4,14 @@ import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performScrollTo
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(RobolectricTestRunner::class)
@@ -130,5 +132,18 @@ class LeftAlignedScreenV2Test {
             get(index).performScrollTo().assertIsDisplayed()
         }
         return this
+    }
+
+    @Test
+    fun `lazy column has semantic collection info with rows and columns set to zero`() {
+        composeTestRule.setContent {
+            LeftAlignedScreen(
+                title = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+            .assertListSemanticsCleared()
     }
 }
