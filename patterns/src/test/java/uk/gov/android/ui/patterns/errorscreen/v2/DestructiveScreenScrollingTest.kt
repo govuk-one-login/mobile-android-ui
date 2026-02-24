@@ -22,11 +22,11 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenIcon
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
-import uk.gov.android.ui.patterns.utils.BDD.And
-import uk.gov.android.ui.patterns.utils.BDD.Given
-import uk.gov.android.ui.patterns.utils.BDD.Then
-import uk.gov.android.ui.patterns.utils.BDD.When
-import uk.gov.android.ui.patterns.utils.TestUtils.loremIpsum
+import uk.gov.android.ui.patterns.testutils.BDD.And
+import uk.gov.android.ui.patterns.testutils.BDD.Given
+import uk.gov.android.ui.patterns.testutils.BDD.Then
+import uk.gov.android.ui.patterns.testutils.BDD.When
+import uk.gov.android.ui.patterns.testutils.TestUtils.loremIpsum
 import uk.gov.android.ui.theme.spacingDouble
 
 @RunWith(RobolectricTestRunner::class)

@@ -20,10 +20,10 @@ import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
-import uk.gov.android.ui.patterns.utils.BDD.Given
-import uk.gov.android.ui.patterns.utils.BDD.Then
-import uk.gov.android.ui.patterns.utils.BDD.When
-import uk.gov.android.ui.patterns.utils.TestUtils.getString
+import uk.gov.android.ui.patterns.testutils.BDD.Given
+import uk.gov.android.ui.patterns.testutils.BDD.Then
+import uk.gov.android.ui.patterns.testutils.BDD.When
+import uk.gov.android.ui.patterns.testutils.TestUtils.getString
 
 @RunWith(RobolectricTestRunner::class)
 class DestructiveScreenPreviewTest {
