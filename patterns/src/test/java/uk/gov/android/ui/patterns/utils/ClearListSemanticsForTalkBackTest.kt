@@ -3,16 +3,13 @@ package uk.gov.android.ui.patterns.utils
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 
 @RunWith(RobolectricTestRunner::class)
 class ClearListSemanticsForTalkBackTest {
@@ -32,15 +29,7 @@ class ClearListSemanticsForTalkBackTest {
 
         composeTestRule
             .onNodeWithTag(TEST_TAG)
-            .assert(
-                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
-            )
-            .assert(
-                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
-                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
-                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
-                },
-            )
+            .assertListSemanticsCleared()
     }
 
     companion object {

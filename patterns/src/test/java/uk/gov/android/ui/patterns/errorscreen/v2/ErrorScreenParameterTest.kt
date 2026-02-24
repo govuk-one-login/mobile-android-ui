@@ -5,10 +5,6 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -24,6 +20,7 @@ import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.testutils.BDD.Given
 import uk.gov.android.ui.patterns.testutils.BDD.Then
 import uk.gov.android.ui.patterns.testutils.BDD.When
+import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 import uk.gov.android.ui.patterns.testutils.TestUtils.getString
 
 @RunWith(RobolectricTestRunner::class)
@@ -371,14 +368,6 @@ class ErrorScreenParameterTest {
 
         composeTestRule
             .onNodeWithTag(ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG)
-            .assert(
-                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
-            )
-            .assert(
-                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
-                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
-                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
-                },
-            )
+            .assertListSemanticsCleared()
     }
 }

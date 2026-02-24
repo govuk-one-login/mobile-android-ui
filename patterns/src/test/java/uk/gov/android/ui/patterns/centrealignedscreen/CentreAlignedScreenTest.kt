@@ -1,7 +1,6 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertContentDescriptionEquals
@@ -24,6 +23,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
+import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -122,14 +122,6 @@ class CentreAlignedScreenTest {
 
         composeTestRule
             .onNodeWithTag(CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
-            .assert(
-                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
-            )
-            .assert(
-                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
-                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
-                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
-                },
-            )
+            .assertListSemanticsCleared()
     }
 }
