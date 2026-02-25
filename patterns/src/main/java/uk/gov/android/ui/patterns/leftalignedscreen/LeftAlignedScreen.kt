@@ -61,8 +61,8 @@ private const val FONT_SCALE_DOUBLE = 2f
 @Suppress("LongMethod")
 @Composable
 fun LeftAlignedScreen(
-    title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
+    title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
@@ -166,21 +166,24 @@ fun LeftAlignedScreen(
  */
 @Composable
 fun LeftAlignedScreenV2(
-    title: String,
     modifier: Modifier = Modifier,
+    title: String? = null,
     body: ImmutableList<LeftAlignedScreenBodyV2>? = null,
     supportingText: String? = null,
     primaryButton: LeftAlignedScreenButton? = null,
     secondaryButton: LeftAlignedScreenButton? = null,
+    forceScroll: Boolean = false,
 ) {
     LeftAlignedScreen(
         modifier = modifier,
-        title = { horizontalPadding ->
-            GdsHeading(
-                text = title,
-                modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned,
-            )
+        title = title?.let {
+            { horizontalPadding ->
+                GdsHeading(
+                    text = it,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    textAlign = GdsHeadingAlignment.LeftAligned,
+                )
+            }
         },
         body = { horizontalItemPadding ->
             toBodyContentV2(
@@ -218,13 +221,14 @@ fun LeftAlignedScreenV2(
                 )
             }
         },
+        forceScroll = forceScroll,
     )
 }
 
 @Composable
 private fun MainContent(
-    title: @Composable (horizontalPadding: Dp) -> Unit,
     forceScroll: Boolean,
+    title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
@@ -245,7 +249,7 @@ private fun MainContent(
             .clearListSemanticsForTalkBack(),
         state = scrollState,
     ) {
-        item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
+        item { title?.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
 
         body?.let {
             it(LeftAlignedScreenDefaults.HorizontalPadding)

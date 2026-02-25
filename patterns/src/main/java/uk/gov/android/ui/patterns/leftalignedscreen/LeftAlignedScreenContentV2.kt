@@ -16,7 +16,6 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -103,7 +102,10 @@ sealed class LeftAlignedScreenBodyV2 {
         val title: ListTitle? = null,
     ) : LeftAlignedScreenBodyV2()
 
-    data class NumberedList(val list: ImmutableList<ListItem>) : LeftAlignedScreenBodyV2()
+    data class NumberedList(
+        val list: ImmutableList<ListItem>,
+        val title: ListTitle? = null,
+    ) : LeftAlignedScreenBodyV2()
 
     data class Image(
         val image: Int,
@@ -218,6 +220,7 @@ fun LazyListScope.toBodyContentV2(
             is LeftAlignedScreenBodyV2.NumberedList -> {
                 item {
                     GdsNumberedList(
+                        title = it.title,
                         numberedListItems = it.list,
                         modifier = Modifier.padding(itemPadding),
                     )
@@ -351,7 +354,7 @@ private fun LazyListScope.toAnnotatedText(
 }
 
 /**
- * Adds a downwards scroll when a keyboard down arrow is pressed
+ * Adds a downwards and upwards scroll when a keyboard down or up arrow is pressed
  *
  * @param scrollState [LazyListState] represents the list state
  * @return augmented [Modifier]
@@ -361,23 +364,34 @@ fun Modifier.bringIntoView(scrollState: LazyListState): Modifier {
     val coroutineScope = rememberCoroutineScope()
     val interactionSource = remember { MutableInteractionSource() }
     val focusRequester = remember { FocusRequester() }
-    var focusEnabled by remember { mutableStateOf(true) }
     return this
         .onKeyEvent {
-            if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionDown) {
-                if (scrollState.canScrollForward) {
+            when {
+                it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown &&
+                    scrollState.canScrollForward -> {
                     coroutineScope.launch {
-                        scrollState.animateScrollBy(SCROLL_MULTIPLIER * scrollState.layoutInfo.viewportSize.height)
+                        scrollState.animateScrollBy(
+                            SCROLL_MULTIPLIER * scrollState.layoutInfo.viewportSize.height,
+                        )
                     }
+                    true
                 }
-                focusEnabled = false
-            } else if (it.type == KeyEventType.KeyUp && it.key == Key.DirectionUp) {
-                focusEnabled = true
+
+                it.type == KeyEventType.KeyDown && it.key == Key.DirectionUp &&
+                    scrollState.canScrollBackward -> {
+                    coroutineScope.launch {
+                        scrollState.animateScrollBy(
+                            -SCROLL_MULTIPLIER * scrollState.layoutInfo.viewportSize.height,
+                        )
+                    }
+                    true
+                }
+
+                else -> false
             }
-            false
         }
         .focusRequester(focusRequester)
-        .focusable(enabled = focusEnabled, interactionSource = interactionSource)
+        .focusable(interactionSource = interactionSource)
 }
 
-private const val SCROLL_MULTIPLIER = 0.8f
+private const val SCROLL_MULTIPLIER = 0.4f

@@ -68,7 +68,20 @@ sealed class PatternsDestination(
                 Placeholder(text = "Center Aligned Screen"),
                 Placeholder(text = "Dialog"),
                 Placeholder(text = "Error Screen"),
-                Placeholder(text = "Left Aligned Screen"),
+                DetailedItem(
+                    text = "Left Aligned Screen",
+                    items =
+                    listOf(
+                        DetailItem(
+                            label = LEFT_ALIGNED_SCREEN,
+                            name = "Left Aligned Screen",
+                        ),
+                        DetailItem(
+                            label = LEFT_ALIGNED_SCREEN_NO_TITLE,
+                            name = "Left Aligned Screen No Title",
+                        ),
+                    ),
+                ),
                 DetailedItem(
                     text = "Loading Screen",
                     items =
