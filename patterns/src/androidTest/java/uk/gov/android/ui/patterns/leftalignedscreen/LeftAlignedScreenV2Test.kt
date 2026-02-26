@@ -111,9 +111,9 @@ class LeftAlignedScreenV2Test {
                 title = titleText,
                 body = persistentListOf(
                     LeftAlignedScreenBodyV2.BulletList(
-                        items = longListItems()
-                    )
-                )
+                        items = longListItems(),
+                    ),
+                ),
             )
         }
 
