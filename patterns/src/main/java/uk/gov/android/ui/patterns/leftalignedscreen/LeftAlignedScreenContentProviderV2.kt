@@ -15,6 +15,7 @@ import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.Image
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
@@ -149,6 +150,7 @@ internal class LeftAlignedScreenContentProviderV2 :
                     items = selectionItems,
                     selectedItem = null,
                     onItemSelected = {},
+                    title = GdsRadiosTitle(text = "Title", style = GdsHeadingStyle.Title1),
                 ),
             ),
             supportingText = supportingText,

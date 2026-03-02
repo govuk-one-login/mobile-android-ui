@@ -37,9 +37,9 @@ import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
-import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
-import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
-import uk.gov.android.ui.componentsv2.inputs.radio.TitleType
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadios
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
 import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.dialog.FullScreenDialogue
@@ -160,11 +160,11 @@ class LeftAlignedScreenKeyboardNavTest {
                                 )
                             }
                             item {
-                                GdsSelection(
+                                GdsRadios(
                                     title =
-                                    RadioSelectionTitle(
+                                    GdsRadiosTitle(
                                         "Do you have a passport with a biometric chip?",
-                                        TitleType.Heading,
+                                        GdsHeadingStyle.Title1,
                                     ),
                                     items =
                                     listOf("Yes", "No, use a different type of photo ID")

@@ -46,8 +46,8 @@ import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
-import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
-import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadios
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
@@ -117,7 +117,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val selectedItem: Int?,
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
-        val title: RadioSelectionTitle? = null,
+        val title: GdsRadiosTitle? = null,
     ) : LeftAlignedScreenBodyV2()
 
     data class Divider(
@@ -302,7 +302,7 @@ fun LazyListScope.toBodyContentV2(
 
             is LeftAlignedScreenBodyV2.Selection -> {
                 item {
-                    GdsSelection(
+                    GdsRadios(
                         items = it.items,
                         selectedItem = it.selectedItem,
                         onItemSelected = it.onItemSelected,
