@@ -10,7 +10,6 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
-import junit.framework.TestCase.assertEquals
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Ignore
 import org.junit.Rule
@@ -18,8 +17,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenBodyContent
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenButton
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenContent
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenIcon
+import uk.gov.android.ui.patterns.errorscreen.v2.PreviewErrorScreen
+import uk.gov.android.ui.patterns.errorscreen.v2.PreviewErrorScreenAccessibility
 import uk.gov.android.ui.patterns.testutils.BDD.Given
 import uk.gov.android.ui.patterns.testutils.BDD.Then
 import uk.gov.android.ui.patterns.testutils.BDD.When
@@ -30,58 +34,15 @@ class DestructiveScreenPreviewTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val singleLineText = CentreAlignedScreenBodyContent.Text("Body single line")
+    private val singleLineText = ErrorScreenBodyContent.Text("Body single line")
     private val body = persistentListOf(singleLineText)
-    private val primaryButton = CentreAlignedScreenButton(text = "Primary Button", onClick = {})
-    private val secondaryButton = CentreAlignedScreenButton(text = "Secondary Button", onClick = {})
-    private val tertiaryButton = CentreAlignedScreenButton(text = "Tertiary Button", onClick = {})
-    private val contentConfigurationDescription = "Test content"
+    private val primaryButton = ErrorScreenButton(text = "Primary Button", onClick = {})
+    private val secondaryButton = ErrorScreenButton(text = "Secondary Button", onClick = {})
+    private val tertiaryButton = ErrorScreenButton(text = "Tertiary Button", onClick = {})
 
     private lateinit var mandatoryIcon: ErrorScreenIcon
     private lateinit var mandatoryTitle: String
     private lateinit var content: ErrorScreenContent
-
-    @Ignore(
-        "This pattern will be removed once replaced with the v2 ErrorScreen - investigate how " +
-            "to test this when bottom content is drawn twice but only displayed once",
-    )
-    @Test
-    fun `test mandatory parameters - preview`() = with(composeTestRule) {
-        Given("a preview with a content provided") {
-            mandatoryIcon = ErrorScreenIcon.ErrorIcon
-            mandatoryTitle = "Title"
-            content = ErrorScreenContent(
-                configurationDescription = "Test content",
-                title = mandatoryTitle,
-                icon = mandatoryIcon,
-                body = body,
-                primaryButton = primaryButton,
-                secondaryButton = secondaryButton,
-                tertiaryButton = tertiaryButton,
-            )
-        }
-
-        When("the preview is composed with the content") {
-            setContent {
-                PreviewErrorScreen(content)
-            }
-        }
-
-        Then("the content should be displayed") {
-            assertEquals(contentConfigurationDescription, content.configurationDescription)
-            onNodeWithText(content.title).assertIsDisplayed()
-            onNodeWithContentDescription(getString(mandatoryIcon.description)).assertIsDisplayed()
-            val bodyChild = content.body?.first() as CentreAlignedScreenBodyContent.Text
-            onNodeWithTag(BODY_LAZY_COLUMN_TEST_TAG)
-                .performTouchInput { swipeUp() }
-                .onChildren()
-                .onLast()
-                .assertTextContains(bodyChild.bodyText)
-            onNodeWithText(content.primaryButton!!.text).assertIsDisplayed()
-            onNodeWithText(content.secondaryButton!!.text).assertIsDisplayed()
-            onNodeWithText(content.tertiaryButton!!.text).assertIsDisplayed()
-        }
-    }
 
     @Test
     fun `test default parameters - when no icon provided`() = with(composeTestRule) {
