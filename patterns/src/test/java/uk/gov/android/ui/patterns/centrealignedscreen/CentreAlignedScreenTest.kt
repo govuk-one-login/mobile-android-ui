@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -33,16 +34,19 @@ class CentreAlignedScreenTest {
     private lateinit var title: SemanticsMatcher
     private lateinit var continueButton: SemanticsMatcher
     private lateinit var exitButton: SemanticsMatcher
+    private lateinit var buttonContentDesc: SemanticsMatcher
 
     private val titleText = "Title"
     private val buttonText = "Continue"
     private val secondaryButtonText = "Exit"
+    private val buttonContentDescText = "opens in web browser"
 
     @Before
     fun setUp() {
         title = hasText(titleText)
         continueButton = hasText(buttonText)
         exitButton = hasText(secondaryButtonText)
+        buttonContentDesc = hasContentDescription(buttonContentDescText)
     }
 
     @Test
@@ -123,5 +127,41 @@ class CentreAlignedScreenTest {
         composeTestRule
             .onNodeWithTag(CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
             .assertListSemanticsCleared()
+    }
+
+    @Test
+    fun `primary button contains icon`() {
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = "Button with icon",
+                primaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { },
+                    showIcon = true,
+                ),
+            )
+        }
+
+        composeTestRule
+            .onNode(buttonContentDesc)
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun `secondary button contains icon`() {
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = "Button with icon",
+                secondaryButton = CentreAlignedScreenButton(
+                    text = buttonText,
+                    onClick = { },
+                    showIcon = true,
+                ),
+            )
+        }
+
+        composeTestRule
+            .onNode(buttonContentDesc)
+            .assertIsDisplayed()
     }
 }
