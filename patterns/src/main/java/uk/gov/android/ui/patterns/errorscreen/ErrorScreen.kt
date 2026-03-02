@@ -21,10 +21,10 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.button.buttonColors
-import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
@@ -33,6 +33,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.toBodyContent
 import uk.gov.android.ui.patterns.errorscreen.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -110,14 +111,14 @@ fun ErrorScreen(
 @Composable
 private fun PrimaryButton(button: CentreAlignedScreenButton) {
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = ButtonType.Primary.buttonColors(),
-            fontWeight = FontWeight.Bold,
-            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+        ButtonTypeV2.Icon(
+            buttonColors = ButtonTypeV2.Primary().buttonColors(),
+            textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
             contentDescription = stringResource(R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Primary
+        ButtonTypeV2.Primary()
     }
 
     GdsButton(
@@ -132,16 +133,16 @@ private fun PrimaryButton(button: CentreAlignedScreenButton) {
 @Composable
 private fun SecondaryButton(button: CentreAlignedScreenButton) {
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = customButtonColors(
+        ButtonTypeV2.Icon(
+            buttonColors = customColors(
                 contentColor = colorScheme.primary,
                 containerColor = colorScheme.background,
             ),
-            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
             contentDescription = stringResource(R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Secondary
+        ButtonTypeV2.Secondary()
     }
 
     GdsButton(

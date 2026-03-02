@@ -18,9 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.customButtonColors
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
@@ -137,16 +137,16 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = customButtonColors(
+        ButtonTypeV2.Icon(
+            buttonColors = customColors(
                 contentColor = colorScheme.primary,
                 containerColor = colorScheme.background,
             ),
-            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
             contentDescription = stringResource(R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Secondary
+        ButtonTypeV2.Secondary()
     }
 
     GdsButton(

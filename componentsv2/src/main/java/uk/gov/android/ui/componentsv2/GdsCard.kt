@@ -38,7 +38,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
@@ -396,7 +396,7 @@ private fun Buttons(
         if (displayPrimary) {
             GdsButton(
                 text = text,
-                buttonType = ButtonType.Primary,
+                buttonType = ButtonTypeV2.Primary(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
@@ -418,12 +418,12 @@ private fun Buttons(
                     text = text,
                     onClick = onClick,
                     buttonType = secondaryIcon?.let {
-                        ButtonType.Icon(
-                            buttonColors = ButtonType.Secondary.buttonColors(),
-                            iconImage = secondaryIcon,
+                        ButtonTypeV2.Icon(
+                            buttonColors = ButtonTypeV2.Secondary().buttonColors(),
+                            icon = secondaryIcon,
                             contentDescription = secondaryIconContentDescription ?: "",
                         )
-                    } ?: ButtonType.Secondary,
+                    } ?: ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
                     contentPosition = Arrangement.Start,
                     contentModifier = Modifier.fillMaxWidth(),
@@ -453,7 +453,7 @@ private fun Buttons(
         if (displayPrimary) {
             GdsButton(
                 text = text,
-                buttonType = ButtonType.Primary,
+                buttonType = ButtonTypeV2.Primary(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
@@ -469,12 +469,12 @@ private fun Buttons(
                     text = text,
                     onClick = onClick,
                     buttonType = secondaryIcon?.let {
-                        ButtonType.Icon(
-                            buttonColors = ButtonType.Secondary.buttonColors(),
-                            iconImage = secondaryIcon,
+                        ButtonTypeV2.Icon(
+                            buttonColors = ButtonTypeV2.Secondary().buttonColors(),
+                            icon = secondaryIcon,
                             contentDescription = secondaryIconContentDescription ?: "",
                         )
-                    } ?: ButtonType.Secondary,
+                    } ?: ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
                     contentPosition = Arrangement.Start,
                     contentModifier = Modifier

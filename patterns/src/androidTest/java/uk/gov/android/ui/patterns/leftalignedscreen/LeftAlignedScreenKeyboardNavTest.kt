@@ -33,7 +33,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
@@ -149,7 +149,7 @@ class LeftAlignedScreenKeyboardNavTest {
                             item {
                                 GdsButton(
                                     text = "Read more about the types of photo ID you can use",
-                                    buttonType = ButtonType.Secondary,
+                                    buttonType = ButtonTypeV2.Secondary(),
                                     onClick = dropUnlessResumed { },
                                     modifier = Modifier
                                         .padding(horizontal = horizontalPadding)
@@ -179,7 +179,7 @@ class LeftAlignedScreenKeyboardNavTest {
                         primaryButton = {
                             GdsButton(
                                 text = "Continue",
-                                buttonType = ButtonType.Primary,
+                                buttonType = ButtonTypeV2.Primary(),
                                 onClick =
                                 dropUnlessResumed {
                                 },

@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
@@ -201,7 +201,7 @@ fun LeftAlignedScreenV2(
                 GdsButton(
                     text = it.text,
                     onClick = it.onClick,
-                    buttonType = ButtonType.Primary,
+                    buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier.fillMaxWidth(),
                     enabled = it.enabled,
                 )
@@ -212,7 +212,7 @@ fun LeftAlignedScreenV2(
                 GdsButton(
                     text = it.text,
                     onClick = it.onClick,
-                    buttonType = ButtonType.Secondary,
+                    buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
                     enabled = it.enabled,
                 )

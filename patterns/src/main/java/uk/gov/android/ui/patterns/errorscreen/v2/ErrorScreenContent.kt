@@ -18,10 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.button.buttonColors
-import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
@@ -148,14 +148,14 @@ internal fun LazyListScope.toBodyContent(
 @Composable
 internal fun PrimaryButton(button: ErrorScreenButton) {
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = ButtonType.Primary.buttonColors(),
-            fontWeight = FontWeight.Bold,
-            iconImage = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
+        ButtonTypeV2.Icon(
+            buttonColors = ButtonTypeV2.Primary().buttonColors(),
+            textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
             contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Primary
+        ButtonTypeV2.Primary()
     }
 
     GdsButton(
@@ -171,16 +171,16 @@ internal fun PrimaryButton(button: ErrorScreenButton) {
 @Composable
 internal fun SecondaryButton(button: ErrorScreenButton) {
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = customButtonColors(
+        ButtonTypeV2.Icon(
+            buttonColors = customColors(
                 contentColor = colorScheme.primary,
                 containerColor = colorScheme.background,
             ),
-            iconImage = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
+            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
             contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Secondary
+        ButtonTypeV2.Secondary()
     }
 
     GdsButton(
@@ -200,16 +200,16 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
     val buttonType = if (button.showIcon) {
-        ButtonType.Icon(
-            buttonColors = customButtonColors(
+        ButtonTypeV2.Icon(
+            buttonColors = customColors(
                 contentColor = colorScheme.primary,
                 containerColor = colorScheme.background,
             ),
-            iconImage = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
+            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
             contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
         )
     } else {
-        ButtonType.Secondary
+        ButtonTypeV2.Secondary()
     }
 
     GdsButton(

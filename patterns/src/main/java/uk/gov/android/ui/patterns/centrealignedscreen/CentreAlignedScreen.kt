@@ -32,10 +32,10 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.button.buttonColors
-import uk.gov.android.ui.componentsv2.button.customButtonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
@@ -225,10 +225,10 @@ fun CentreAlignedScreen(
                 if (it.showIcon) {
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Icon(
-                            buttonColors = ButtonType.Primary.buttonColors(),
-                            fontWeight = FontWeight.Bold,
-                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                        buttonType = ButtonTypeV2.Icon(
+                            buttonColors = ButtonTypeV2.Primary().buttonColors(),
+                            textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),
                         ),
                         onClick = it.onClick,
@@ -238,7 +238,7 @@ fun CentreAlignedScreen(
                 } else {
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Primary,
+                        buttonType = ButtonTypeV2.Primary(),
                         onClick = it.onClick,
                         modifier = Modifier.fillMaxWidth(),
                         enabled = it.enabled,
@@ -251,12 +251,12 @@ fun CentreAlignedScreen(
                 if (it.showIcon) {
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Icon(
-                            buttonColors = customButtonColors(
+                        buttonType = ButtonTypeV2.Icon(
+                            buttonColors = customColors(
                                 contentColor = colorScheme.primary,
                                 containerColor = colorScheme.background,
                             ),
-                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),
                         ),
                         onClick = it.onClick,
@@ -266,7 +266,7 @@ fun CentreAlignedScreen(
                 } else {
                     GdsButton(
                         text = it.text,
-                        buttonType = ButtonType.Secondary,
+                        buttonType = ButtonTypeV2.Secondary(),
                         onClick = it.onClick,
                         modifier = Modifier.fillMaxWidth(),
                         enabled = it.enabled,
