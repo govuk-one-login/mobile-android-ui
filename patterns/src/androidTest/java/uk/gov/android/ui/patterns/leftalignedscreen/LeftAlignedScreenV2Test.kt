@@ -29,14 +29,17 @@ class LeftAlignedScreenV2Test {
 
     private lateinit var title: SemanticsMatcher
     private lateinit var continueButton: SemanticsMatcher
+    private lateinit var supportingText: SemanticsMatcher
 
     private val titleText = "Title"
     private val buttonText = "Continue"
+    private val extraText = "Extra text"
 
     @Before
     fun setUp() {
         title = hasText(titleText)
         continueButton = hasText(buttonText)
+        supportingText = hasText(extraText)
     }
 
     @Test
@@ -121,6 +124,81 @@ class LeftAlignedScreenV2Test {
             .onNode(hasText("Item one"))
             .performKeyInput { keyDown(Key.DirectionDown) }
             .performKeyInput { keyDown(Key.DirectionUp) }
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun scrollableContentForceScroll() {
+        composeTestRule.setContent {
+            LeftAlignedScreenV2(
+                title = titleText,
+                body = persistentListOf(
+                    LeftAlignedScreenBodyV2.BulletList(
+                        items = longListItems(),
+                    ),
+                ),
+                forceScroll = true,
+            )
+        }
+
+        composeTestRule
+            .onNode(hasText("Item one"))
+            .performKeyInput { keyDown(Key.DirectionDown) }
+            .performKeyInput { keyDown(Key.DirectionUp) }
+    }
+
+    @Test
+    fun onClickWhenSecondaryButtonIsEnabled() {
+        var didClick = false
+
+        composeTestRule.setContent {
+            LeftAlignedScreenV2(
+                secondaryButton = LeftAlignedScreenButton(
+                    buttonText,
+                    onClick = { didClick = true },
+                    enabled = true,
+                ),
+            )
+        }
+
+        composeTestRule
+            .onNode(continueButton)
+            .assertIsDisplayed()
+            .assertIsEnabled()
+            .assertHasClickAction()
+            .performClick()
+
+        assertTrue(didClick)
+    }
+
+    @Test
+    fun onClickWhenSecondaryButtonIsEnabledForceScroll() {
+        var didClick = false
+
+        composeTestRule.setContent {
+            LeftAlignedScreenV2(
+                secondaryButton = LeftAlignedScreenButton(
+                    buttonText,
+                    onClick = { didClick = true },
+                    enabled = true,
+                ),
+                forceScroll = false,
+                supportingText = extraText,
+            )
+        }
+
+        composeTestRule
+            .onNode(supportingText)
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNode(continueButton)
+            .assertIsDisplayed()
+            .assertIsEnabled()
+            .assertHasClickAction()
+            .performClick()
+
+        assertTrue(didClick)
     }
 
     private fun longListItems(): PersistentList<ListItem> {
