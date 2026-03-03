@@ -65,7 +65,6 @@ fun LeftAlignedScreenNoTitleDemo() {
         ),
         primaryButton = LeftAlignedScreenButton(text = "Allow", onClick = {}),
         secondaryButton = LeftAlignedScreenButton(text = "Cancel", onClick = {}),
-        forceScroll = true,
     )
 }
 
