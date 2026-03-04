@@ -177,6 +177,20 @@ internal class CentreAlignedScreenContentProvider :
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
             CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
         ),
+        CentreAlignedScreenContent(
+            title,
+            image,
+            persistentListOf(
+                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE),
+                CentreAlignedScreenBodyContent.Button(
+                    text = PRIMARY_BUTTON,
+                    onClick = {},
+                    showIcon = true,
+                ),
+            ),
+            SUPPORTING_TEXT,
+        ),
     )
 }
 
