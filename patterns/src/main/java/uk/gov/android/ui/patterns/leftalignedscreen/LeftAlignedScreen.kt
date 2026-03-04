@@ -166,8 +166,8 @@ fun LeftAlignedScreen(
  */
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV2 with added forceScroll parameter instead. Aim to be removed " +
-        "by 04/05/2026",
+    message = "Use LeftAlignedScreenV2 with added forceScroll parameter instead. Aim to be " +
+            "removed by 04/05/2026",
     replaceWith = ReplaceWith(
         "uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenV2",
     ),
