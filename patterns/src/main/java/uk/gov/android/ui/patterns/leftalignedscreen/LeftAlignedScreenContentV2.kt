@@ -311,7 +311,13 @@ fun LazyListScope.toBodyContentV2(
                         onItemSelected = it.onItemSelected,
                         modifier = it.modifier,
                         title = it.title,
-                    )
+                    GdsRadios(
+items = it.items,
+selectedItem = it.selectedItem,
+onItemSelected = it.onItemSelected,
+modifier = it.modifier.padding(horizontal = horizontalItemPadding),
+title = it.title,
+)
                 }
             }
 
