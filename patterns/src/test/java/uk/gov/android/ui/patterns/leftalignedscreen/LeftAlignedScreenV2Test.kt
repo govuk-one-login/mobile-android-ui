@@ -77,6 +77,7 @@ class LeftAlignedScreenV2Test {
                         text = content.primaryButton!!,
                         onClick = {},
                     ),
+                    forceScroll = true,
                 )
             }
         }
