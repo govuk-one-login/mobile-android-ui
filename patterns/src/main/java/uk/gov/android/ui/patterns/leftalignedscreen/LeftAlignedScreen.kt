@@ -284,7 +284,7 @@ fun LeftAlignedScreenV2(
                 GdsButton(
                     text = it.text,
                     onClick = it.onClick,
-                    buttonType = ButtonType.Primary,
+                    buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier.fillMaxWidth(),
                     enabled = it.enabled,
                 )
@@ -295,7 +295,7 @@ fun LeftAlignedScreenV2(
                 GdsButton(
                     text = it.text,
                     onClick = it.onClick,
-                    buttonType = ButtonType.Secondary,
+                    buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
                     enabled = it.enabled,
                 )
