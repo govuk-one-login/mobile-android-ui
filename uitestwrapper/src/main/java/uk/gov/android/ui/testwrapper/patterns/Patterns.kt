@@ -15,6 +15,8 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.patterns.loadingscreen.LoadingScreen
 import uk.gov.android.ui.testwrapper.DetailItem
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -51,7 +53,11 @@ fun PatternDetail(
 ) {
     when (detailItem.label) {
         LOADING_SCREEN -> LoadingScreen()
+        LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()
+        LEFT_ALIGNED_SCREEN_NO_TITLE -> LeftAlignedScreenNoTitleDemo()
     }
 }
 
 const val LOADING_SCREEN = "loadingScreen"
+const val LEFT_ALIGNED_SCREEN = "leftAlignedScreen"
+const val LEFT_ALIGNED_SCREEN_NO_TITLE = "leftAlignedScreenNoTitle"
