@@ -170,8 +170,8 @@ private fun customColors(): CustomColorsScheme {
         navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
         navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
         // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
-        selectedRadioButton = Radio.selectedRadioButton.toMappedColors(),
-        unselectedRadioButton = Radio.unselectedRadioButton.toMappedColors(),
+        selectedRadioButton = Radios.selectedRadioButton.toMappedColors(),
+        unselectedRadioButton = Radios.unselectedRadioButton.toMappedColors(),
         primaryButtonHighlighted = Buttons.primaryHighlighted.toMappedColors(),
         secondaryTextAndSymbolButtonHighlighted =
         Buttons.secondaryTextAndSymbolHighlighted.toMappedColors(),

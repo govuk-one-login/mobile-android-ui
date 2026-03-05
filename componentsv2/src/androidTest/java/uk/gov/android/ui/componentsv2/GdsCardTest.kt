@@ -223,7 +223,7 @@ class GdsCardTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsCardPreview(parameters[0])
+            GdsCardUpdatedPreview(parameters[0])
         }
         composeTestRule.apply {
             onNodeWithContentDescription(

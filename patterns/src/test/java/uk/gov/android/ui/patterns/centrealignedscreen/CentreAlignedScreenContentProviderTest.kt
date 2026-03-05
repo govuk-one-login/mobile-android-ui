@@ -33,6 +33,43 @@ class CentreAlignedScreenContentProviderTest {
             .assertAreDisplayed()
     }
 
+    @Test
+    fun testButtonsWithIcons() {
+        val content = contentList[1]
+        setupScreen(content)
+        val secondaryButton = hasText(content.secondaryButton?.text ?: "Secondary button")
+        val primaryButton = hasText(content.primaryButton?.text ?: "Primary button")
+
+        composeTestRule
+            .onAllNodes(primaryButton)
+            .assertAreDisplayed()
+        composeTestRule
+            .onAllNodes(primaryButton)
+            .assertAreDisplayed()
+
+        composeTestRule
+            .onAllNodes(secondaryButton)
+            .assertAreDisplayed()
+
+        composeTestRule
+            .onAllNodes(secondaryButton)
+            .assertAreDisplayed()
+    }
+
+    @Test
+    fun testSecondaryButtonWithIcon() {
+        val content = contentList[10]
+        setupScreen(content)
+        val primaryButton = hasText(content.primaryButton?.text ?: "Primary button")
+
+        composeTestRule
+            .onAllNodes(primaryButton)
+            .assertAreDisplayed()
+        composeTestRule
+            .onAllNodes(primaryButton)
+            .assertAreDisplayed()
+    }
+
     private fun setupScreen(content: CentreAlignedScreenContent) {
         composeTestRule.setContent {
             GdsTheme {

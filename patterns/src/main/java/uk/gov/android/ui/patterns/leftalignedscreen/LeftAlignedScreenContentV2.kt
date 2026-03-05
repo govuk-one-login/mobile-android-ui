@@ -39,14 +39,14 @@ import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.button.ButtonType
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.customButtonColors
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
-import uk.gov.android.ui.componentsv2.inputs.radio.GdsSelection
-import uk.gov.android.ui.componentsv2.inputs.radio.RadioSelectionTitle
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadios
+import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
@@ -119,7 +119,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val selectedItem: Int?,
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
-        val title: RadioSelectionTitle? = null,
+        val title: GdsRadiosTitle? = null,
     ) : LeftAlignedScreenBodyV2()
 
     data class Divider(
@@ -169,7 +169,7 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
                 GdsButton(
                     text = it,
                     onClick = {},
-                    buttonType = ButtonType.Primary,
+                    buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier
                         .fillMaxWidth(),
                     enabled = content.primaryButtonIsEnabled,
@@ -181,7 +181,7 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
                 GdsButton(
                     text = it,
                     onClick = {},
-                    buttonType = ButtonType.Secondary,
+                    buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier
                         .fillMaxWidth(),
                 )
@@ -279,16 +279,16 @@ fun LazyListScope.toBodyContentV2(
                 item {
                     val buttonType = if (it.showIcon) {
                         val contentColor = colorScheme.secondary
-                        ButtonType.Icon(
-                            buttonColors = customButtonColors(
+                        ButtonTypeV2.Icon(
+                            buttonColors = customColors(
                                 contentColor = contentColor,
                                 containerColor = colorScheme.background,
                             ),
-                            iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),
                         )
                     } else {
-                        ButtonType.Secondary
+                        ButtonTypeV2.Secondary()
                     }
 
                     GdsButton(
@@ -305,11 +305,11 @@ fun LazyListScope.toBodyContentV2(
 
             is LeftAlignedScreenBodyV2.Selection -> {
                 item {
-                    GdsSelection(
+                    GdsRadios(
                         items = it.items,
                         selectedItem = it.selectedItem,
                         onItemSelected = it.onItemSelected,
-                        modifier = it.modifier,
+                        modifier = it.modifier.padding(horizontal = horizontalItemPadding),
                         title = it.title,
                     )
                 }
