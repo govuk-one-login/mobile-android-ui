@@ -14,10 +14,41 @@ This library contains the `GdsTheme`, collecting the colour schemes, fonts/typog
 This library contains 'building blocks', smaller, reusable components - the only new components to be created should have full specs provided by the user centred design (UCD) team.
 All new components should be created in `componentsv2` module - `components` module will be deprecated and removed once all dependencies from other repositories have been removed. 
 
+Components include:
+
+- GdsButton
+- GdsIconButton
+- GdsDialogue
+- GdsHeading
+- GdsIcon
+- GdsVectorImage
+- GdsRadios
+- GdsBulletedList
+- GdsNumberedList
+- GdsMenu
+- PermissionScreen
+- Row
+- RowList
+- StatusOverlay
+- GdsSupportingText
+- GdsAnnotatedString
+- GdsTopAppBar
+- GdsWarningText
+- GdsCard
+
 ### Patterns
 
 This library contains page patterns to help with the creation of similar styles of page. They use components from the `componentsv2` library to build larger patterns.
 All new components should be created in `patterns` module - `pages` module will be deprecated and removed once all dependencies from other repositories have been removed.
+
+Patterns include:
+
+- CentreAlignedScreen
+- FullScreenDialogue
+- EdgeToEdgeWrapperScreen
+- ErrorScreen
+- LeftAlignedScreen
+- LoadingScreen
 
 ## Installation
 
@@ -89,3 +120,9 @@ The hotfix branch name should be in the format "hotfix/M.m.p".
 Once the hotfix PR has been approved and the "Squash and merge" button pressed, the merge title 
 must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to allow for the
 correct version to be extracted and used as a tag.
+
+## Test Wrapper
+The UI test wrapper is a standalone app that allows components, themes and patterns to be 
+demonstrated before they go into production code.
+It contains three tabs representing the Themes, componentsv2 and patterns modules
+
