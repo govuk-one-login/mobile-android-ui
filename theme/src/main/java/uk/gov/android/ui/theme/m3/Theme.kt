@@ -183,7 +183,7 @@ private fun customColors(): CustomColorsScheme {
         unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
         selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
         selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
-        dividerDefault = Dividers.default.toMappedColors(),
+        dividerDefault = Dividers.card.toMappedColors(),
         focusState = Buttons.focusState.toMappedColors(),
         focusStateContent = Buttons.focusStateTextAndSymbol.toMappedColors(),
         focusButtonHighlighted = Buttons.focusStateHighlighted.toMappedColors(),
