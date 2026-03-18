@@ -134,7 +134,6 @@ private fun qrScannerDemoPermissionLogic(
             scanningWidthMultiplier = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
             coroutineScope = coroutineScope,
             onUpdateViewModelCamera = viewModel::update,
-            colors = colorScheme.qrScannerOverlay,
         )
     },
     onPermissionPermanentlyDenied = { state ->
