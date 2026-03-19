@@ -5,7 +5,6 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -30,6 +29,7 @@ import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.Borders
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.QrScannerOverlayDefaults
+import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.smallPadding
 
@@ -58,7 +58,7 @@ import uk.gov.android.ui.theme.smallPadding
  */
 @Deprecated(
     message = "This was removed to be replaced by variant without the colors parameter",
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun QrScannerScreen(
@@ -143,7 +143,7 @@ fun QrScannerScreen(
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = stringResource(R.string.qr_scan_screen_title),
-            textColor = borderColor,
+            textColor = Text.qrScanner.toMappedColors(),
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(2f),
