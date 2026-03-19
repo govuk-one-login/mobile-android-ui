@@ -71,8 +71,8 @@ fun QrScannerScreen(
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
     colors: QrScannerOverlayDefaults = GdsLocalColorScheme.current.qrScannerOverlay,
-    backgroundTint: Color = Backgrounds.qrScanner.toMappedColors(),
-    borderColor: Color = Borders.qrScanner.toMappedColors(),
+    backgroundTint: Color = colors.background.toMappedColors(),
+    borderColor: Color = colors.border.toMappedColors(),
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = stringResource(R.string.qr_scan_screen_title),
