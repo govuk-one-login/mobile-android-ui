@@ -258,10 +258,6 @@ fun ThemeV2Material3Preview() {
 
             val usedAdditionalMaterialColors = listOf(
                 SwatchColor(surface, "Surface - Same as Background"),
-                SwatchColor(
-                    outlineVariant,
-                    "Outline Variant - Divider/ Separator Line Android Card",
-                ),
                 SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)"),
             )
 
@@ -490,6 +486,7 @@ fun ThemeV2CustomPreview() {
         val dividersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(dividerDefault, "Divider - Default"),
+                SwatchColor(dividerCard, "Divider - Card"),
             )
         }
 
