@@ -104,7 +104,7 @@ object Borders {
 
 @Deprecated(
     message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
-            " - will aim to be removed by 19th of May",
+        " - will aim to be removed by 19th of May",
     level = DeprecationLevel.WARNING,
 )
 object QrScannerOverlayDefaults {
