@@ -55,7 +55,7 @@ private const val DENSITY_PREVIEW_INDEX = 5
  * NOTE FOR TESTING: This function uses SubcomposeLayout to measure the bottom content so we know
  * whether to move it into the container body. The buttons in the bottom content can be
  * measured twice which results in a call to composeTestRule.onNode failing as 2 nodes are detected.
- * The workaround to this issue is to call composeTestRule.onAllNodes and interrogate the 2nd mode.
+ * The workaround to this issue is to call composeTestRule.onAllNodes[1].
  *
  * @param icon image displayed at the top of the screen. [GdsIcon] is recommended.
  * @param title represents the main title. Use of [GdsHeading] is recommended.
