@@ -38,6 +38,8 @@ import uk.gov.android.ui.componentsv2.permission.PermissionScreen
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions
 import uk.gov.android.ui.patterns.camera.qr.QrScannerScreen
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons
+import uk.gov.android.ui.theme.m3.Backgrounds
+import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
@@ -121,14 +123,15 @@ private fun qrScannerDemoPermissionLogic(
             )
 
         QrScannerScreen(
+            text = "Test",
             modifier = Modifier,
             surfaceRequest = surfaceRequest,
             previewUseCase = previewUseCase,
             analysisUseCase = analysisUseCase,
             imageCaptureUseCase = imageCaptureUseCase,
-            scanningWidthMultiplier = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
             coroutineScope = coroutineScope,
             onUpdateViewModelCamera = viewModel::update,
+            backgroundTextColor = Backgrounds.qrScannerPrompt.toMappedColors(),
         )
     },
     onPermissionPermanentlyDenied = { state ->

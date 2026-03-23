@@ -5,8 +5,10 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceRequest
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -31,6 +34,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.QrScannerOverlayDefaults
 import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.toMappedColors
+import uk.gov.android.ui.theme.mediumPadding
 import uk.gov.android.ui.theme.smallPadding
 
 /**
@@ -128,28 +132,32 @@ fun QrScannerScreen(
  * image capture occurs.
  * @param onUpdateViewModelCamera The function to call when there's a new instance of [Camera].
  */
+@JvmName("QrScannerV2")
 @Composable
 fun QrScannerScreen(
     surfaceRequest: SurfaceRequest?,
     previewUseCase: Preview,
-    scanningWidthMultiplier: Float,
     coroutineScope: CoroutineScope,
     onUpdateViewModelCamera: CameraHolder.Updater,
+    text: String = stringResource(R.string.qr_scan_screen_title),
     modifier: Modifier = Modifier,
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
     backgroundTint: Color = Backgrounds.qrScanner.toMappedColors(),
     borderColor: Color = Borders.qrScanner.toMappedColors(),
+    backgroundTextColor: Color = Backgrounds.qrScannerPrompt.toMappedColors(),
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
-            instructionText = stringResource(R.string.qr_scan_screen_title),
+            instructionText = text,
             textColor = Text.qrScanner.toMappedColors(),
+            textBackground = backgroundTextColor,
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(2f),
         )
     },
 ) {
+    val density = LocalDensity.current
     Box(modifier = modifier) {
         instructionContent()
 
@@ -162,9 +170,9 @@ fun QrScannerScreen(
                 .fillMaxSize()
                 .testTag("cameraViewfinder")
                 .qrScannerOverlay(
-                    canvasWidthMultiplier = scanningWidthMultiplier,
                     overlayTint = backgroundTint,
                     qrBorderColor = borderColor,
+                    density = density,
                 ),
             coroutineScope = coroutineScope,
             cameraUpdater = onUpdateViewModelCamera,
@@ -188,6 +196,30 @@ fun QrOverlayText(
             color = textColor,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(all = smallPadding),
+        )
+    }
+}
+
+@Composable
+fun QrOverlayText(
+    instructionText: String,
+    textColor: Color,
+    textBackground: Color,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        Text(
+            text = instructionText,
+            style = MaterialTheme.typography.headlineSmall,
+            color = textColor,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(textBackground)
+                .padding(horizontal = smallPadding, vertical = mediumPadding),
         )
     }
 }

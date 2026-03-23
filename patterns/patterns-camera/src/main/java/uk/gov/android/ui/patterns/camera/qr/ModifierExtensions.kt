@@ -7,8 +7,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import uk.gov.android.ui.theme.smallPadding
 
 object ModifierExtensions {
 
@@ -118,6 +120,57 @@ object ModifierExtensions {
 
                 drawQrOverlayBorder(
                     width = width,
+                    borderLength = borderLength,
+                    color = qrBorderColor,
+                )
+            },
+    )
+
+    /**
+     * Overlays the Composable UI with a tint and draws a cornered square in the centre of the
+     * Composable which takes teh width of the entire screen and adds a 16.dp padding vertically.
+     *
+     * @see drawQrOverlayBorder
+     */
+    fun Modifier.qrScannerOverlay(
+        overlayTint: Color,
+        qrBorderColor: Color,
+        density: Density,
+        canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER,
+    ) = this.then(
+        Modifier
+            .drawWithContent {
+                // Calculate vertical padding to Px (Float)
+                val padding = with(density) { smallPadding.toPx() }
+                // Calculate total padding if added vertically
+                val totalVerticalPadding = padding * 2
+                val canvasWidth = size.width
+                val canvasHeight = size.height
+                // Calculate the width of the canvas/ focus square taking away the padding that will be applied vertically
+                val width = canvasWidth - totalVerticalPadding
+                // Calculate the border height
+                val borderLength = width * canvasHeightMultiplier
+                // Size of the rectangle (requires to be a square
+                val rectangleSize = Size(width, width)
+                // Calculate offset, which should be width of the entire screen/ canvas minus the padding (16.dp)
+                val rectangleOffset = Offset(
+                    width - (width - padding),
+                    canvasHeight * canvasHeightMultiplier,
+                )
+
+                drawContent()
+                drawRect(overlayTint)
+
+                // Draws the rectangle in the middle
+                drawRect(
+                    topLeft = rectangleOffset,
+                    size = rectangleSize,
+                    color = Color.Transparent,
+                    blendMode = BlendMode.SrcIn,
+                )
+
+                drawQrOverlayBorder(
+                    width = canvasWidth - totalVerticalPadding,
                     borderLength = borderLength,
                     color = qrBorderColor,
                 )
