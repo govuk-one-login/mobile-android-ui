@@ -221,9 +221,6 @@ val light_theme_onSurfaceVariant = Color(0xFF505A5F)
 // Currently not used
 val light_theme_outline = Color.White
 
-// Decorative elements (divider -> Design term: separator line)
-val light_theme_outlineVariant = Color(0xFF505A5F)
-
 // Currently not used
 val light_theme_inverseSurface = Color.White
 val light_theme_inverseOnSurface = Color.White
@@ -292,9 +289,6 @@ val dark_theme_onSurfaceVariant = Color(0xFFFFFFFF)
 
 // Currently not used
 val dark_theme_outline = Color.White
-
-// Decorative elements (divider -> Design term: separator line)
-val dark_theme_outlineVariant = Color(0xFFB1B4B6)
 
 // Currently not used
 val dark_theme_inverseSurface = Color.Black

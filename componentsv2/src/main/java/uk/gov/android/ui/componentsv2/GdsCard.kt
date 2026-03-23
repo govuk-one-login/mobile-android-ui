@@ -245,7 +245,7 @@ private fun Buttons(
     if (displayDivider) {
         HorizontalDivider(
             thickness = dividerThickness,
-            color = GdsLocalColorScheme.current.dividerDefault,
+            color = GdsLocalColorScheme.current.dividerCard,
         )
     }
     text?.let {

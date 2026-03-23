@@ -112,6 +112,7 @@ data class CustomColorsScheme(
     val unselectedRadioButton: Color = Color.Unspecified,
     val buttonShadow: Color = Color.Unspecified,
     val dividerDefault: Color = Color.Unspecified,
+    val dividerCard: Color = Color.Unspecified,
     val primaryButtonHighlighted: Color = Color.Unspecified,
     val secondaryTextAndSymbolButtonHighlighted: Color = Color.Unspecified,
     val disabledButton: Color = Color.Unspecified,
@@ -184,6 +185,7 @@ private fun customColors(): CustomColorsScheme {
         selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
         selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
         dividerDefault = Dividers.default.toMappedColors(),
+        dividerCard = Dividers.card.toMappedColors(),
         focusState = Buttons.focusState.toMappedColors(),
         focusStateContent = Buttons.focusStateTextAndSymbol.toMappedColors(),
         focusButtonHighlighted = Buttons.focusStateHighlighted.toMappedColors(),
@@ -256,10 +258,6 @@ fun ThemeV2Material3Preview() {
 
             val usedAdditionalMaterialColors = listOf(
                 SwatchColor(surface, "Surface - Same as Background"),
-                SwatchColor(
-                    outlineVariant,
-                    "Outline Variant - Divider/ Separator Line Android Card",
-                ),
                 SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)"),
             )
 
@@ -488,6 +486,7 @@ fun ThemeV2CustomPreview() {
         val dividersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(dividerDefault, "Divider - Default"),
+                SwatchColor(dividerCard, "Divider - Card"),
             )
         }
 
