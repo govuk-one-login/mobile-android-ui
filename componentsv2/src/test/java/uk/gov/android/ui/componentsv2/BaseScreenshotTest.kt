@@ -22,12 +22,16 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  *
  * @sample IconScreenshotTest
  */
-abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
+abstract class BaseScreenshotTest(
+    nightMode: NightMode = NOTNIGHT,
+    locale: String? = null,
+) {
 
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6.copy(
             nightMode = nightMode,
+            locale = locale,
         ),
         renderingMode = SHRINK,
         showSystemUi = false,
