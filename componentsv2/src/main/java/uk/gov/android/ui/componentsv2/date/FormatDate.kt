@@ -1,6 +1,7 @@
-package uk.gov.android.ui.componentsv2.utils
+package uk.gov.android.ui.componentsv2.date
 
 import androidx.compose.runtime.Composable
+import uk.gov.android.ui.componentsv2.utils.primaryLocale
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale

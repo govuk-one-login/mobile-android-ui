@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.utils
+package uk.gov.android.ui.componentsv2.date
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -9,4 +9,4 @@ import java.util.Locale
  */
 @Composable
 fun primaryLocale(): Locale =
-    LocalResources.current.configuration.locales[0]
+    LocalResources.current.configuration.locale

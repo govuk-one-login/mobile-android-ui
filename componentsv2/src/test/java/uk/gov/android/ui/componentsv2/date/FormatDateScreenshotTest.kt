@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.utils
+package uk.gov.android.ui.componentsv2.date
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
