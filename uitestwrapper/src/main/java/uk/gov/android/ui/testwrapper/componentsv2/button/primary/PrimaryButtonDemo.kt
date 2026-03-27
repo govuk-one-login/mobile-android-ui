@@ -64,5 +64,19 @@ fun PrimaryButtonDemo(
                 smallPadding,
             ),
         )
+
+        // Primary Button
+        GdsButton(
+            text = stringResource(R.string.primary_button),
+            buttonType = ButtonTypeV2.Primary(),
+            onClick = {},
+            enabled = true,
+            contentModifier = Modifier.padding(),
+            contentPosition = Arrangement.Absolute.Center,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(
+                smallPadding,
+            ),
+        )
     }
 }
