@@ -139,8 +139,8 @@ fun QrScannerScreen(
     previewUseCase: Preview,
     coroutineScope: CoroutineScope,
     onUpdateViewModelCamera: CameraHolder.Updater,
-    text: String = stringResource(R.string.qr_scan_screen_title),
     modifier: Modifier = Modifier,
+    instructionsText: String = stringResource(R.string.position_qr_in_frame_below),
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
     backgroundTint: Color = Backgrounds.qrScanner.toMappedColors(),
@@ -148,7 +148,7 @@ fun QrScannerScreen(
     backgroundTextColor: Color = Backgrounds.qrScannerPrompt.toMappedColors(),
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
-            instructionText = text,
+            instructionText = instructionsText,
             textColor = Text.qrScanner.toMappedColors(),
             textBackground = backgroundTextColor,
             modifier = Modifier
@@ -158,7 +158,10 @@ fun QrScannerScreen(
     },
 ) {
     val density = LocalDensity.current
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center,
+    ) {
         instructionContent()
 
         CameraContent(

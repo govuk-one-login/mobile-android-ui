@@ -121,7 +121,6 @@ private fun qrScannerDemoPermissionLogic(
             )
 
         QrScannerScreen(
-            text = "Test",
             modifier = Modifier,
             surfaceRequest = surfaceRequest,
             previewUseCase = previewUseCase,
