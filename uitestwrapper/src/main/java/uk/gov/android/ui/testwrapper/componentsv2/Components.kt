@@ -20,13 +20,16 @@ import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.componentsv2.button.primary.PrimaryButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
+import uk.gov.android.ui.testwrapper.componentsv2.card.GdsCardDemo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
+import uk.gov.android.ui.testwrapper.componentsv2.heading.GdsHeadingDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.row.RowListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
+import uk.gov.android.ui.testwrapper.componentsv2.warning.GdsWarningDemo
 import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.theme.smallPadding
 
@@ -58,6 +61,7 @@ fun Components(
 
 // Add new demo composables here
 @Composable
+@Suppress("CyclomaticComplexMethod")
 fun ComponentDetail(
     detailItem: DetailItem,
     onNavigate: (Any) -> Unit = {},
@@ -87,6 +91,9 @@ fun ComponentDetail(
                 onNavigate = onNavigate,
             )
         ROW_LIST -> RowListDemo()
+        CARD -> GdsCardDemo()
+        WARNING -> GdsWarningDemo()
+        HEADING -> GdsHeadingDemo()
     }
 }
 
@@ -104,3 +111,6 @@ const val CAMERA_CONTENT = "Camera Content"
 const val QR_CODE_CENTRALISED_SCANNING = "QR Scanning: Centrally cropping"
 const val QR_CODE_SCANNING = "QR Scanning: Full image scanning"
 const val ROW_LIST = "rowList"
+const val CARD = "card"
+const val WARNING = "warning"
+const val HEADING = "heading"

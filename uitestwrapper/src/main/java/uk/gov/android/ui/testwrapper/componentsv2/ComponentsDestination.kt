@@ -135,13 +135,31 @@ sealed class ComponentsDestination(
 
                     ),
                 ),
-                Placeholder(text = "Card"),
-                Placeholder(text = "Heading"),
+                DetailedItem(
+                    text = "Card",
+                    items =
+                    listOf(
+                        DetailItem(label = CARD, name = "Card with button and image"),
+                    ),
+                ),
+                DetailedItem(
+                    text = "Heading",
+                    items =
+                    listOf(
+                        DetailItem(label = HEADING, name = "Heading with body style"),
+                    ),
+                ),
                 Placeholder(text = "Images"),
                 Placeholder(text = "Menu"),
                 Placeholder(text = "Supporting Text"),
                 Placeholder(text = "Text"),
-                Placeholder(text = "Warning"),
+                DetailedItem(
+                    text = "Warning",
+                    items =
+                    listOf(
+                        DetailItem(label = WARNING, name = "Warning"),
+                    ),
+                ),
                 DetailedItem(
                     text = "Status",
                     items =
