@@ -152,7 +152,13 @@ sealed class ComponentsDestination(
                 Placeholder(text = "Images"),
                 Placeholder(text = "Menu"),
                 Placeholder(text = "Supporting Text"),
-                Placeholder(text = "Text"),
+                DetailedItem(
+                    text = "Text",
+                    items =
+                    listOf(
+                        DetailItem(label = ANNOTATED_STRING, name = "GdsAnnotatedString"),
+                    ),
+                ),
                 DetailedItem(
                     text = "Warning",
                     items =

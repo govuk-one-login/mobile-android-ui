@@ -28,6 +28,7 @@ import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.row.RowListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
+import uk.gov.android.ui.testwrapper.componentsv2.text.GdsAnnotatedStringDemo
 import uk.gov.android.ui.testwrapper.componentsv2.topappbar.GdsTopAppBarDemo
 import uk.gov.android.ui.testwrapper.componentsv2.warning.GdsWarningDemo
 import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
@@ -94,6 +95,7 @@ fun ComponentDetail(
         CARD -> GdsCardDemo()
         WARNING -> GdsWarningDemo()
         HEADING -> GdsHeadingDemo()
+        ANNOTATED_STRING -> GdsAnnotatedStringDemo()
     }
 }
 
@@ -114,3 +116,4 @@ const val ROW_LIST = "rowList"
 const val CARD = "card"
 const val WARNING = "warning"
 const val HEADING = "heading"
+const val ANNOTATED_STRING = "annotatedString"
