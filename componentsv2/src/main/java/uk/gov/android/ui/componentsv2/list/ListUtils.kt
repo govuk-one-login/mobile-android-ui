@@ -26,7 +26,6 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -37,10 +36,10 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.xsmallPadding
-import uk.gov.android.ui.theme.R as themeR
 
 enum class TitleType {
     BoldText, Heading, Text
@@ -151,9 +150,7 @@ fun Spanned.toAnnotatedString(
                             SpanStyle(fontFamily = fontFamily, fontWeight = FontWeight.Bold)
                         } ?: run {
                             SpanStyle(
-                                fontFamily = FontFamily(
-                                    Font(themeR.font.gds_transport_bold),
-                                ),
+                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily,
                             )
                         },
                         start,
