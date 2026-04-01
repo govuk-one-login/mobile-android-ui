@@ -55,6 +55,8 @@ class BarcodeImageAnalyzer(
     override fun analyze(imageProxy: ImageProxy) {
         if (isScanningEnabled) {
             handleImageProxy(imageProxy)
+        } else {
+            imageProxy.close()
         }
     }
 
