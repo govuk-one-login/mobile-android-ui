@@ -21,6 +21,8 @@ object Backgrounds {
     val dialogue = ColorPair(Color(0xFFFFFFFF), Color(0xFF262626))
     val menuItem = ColorPair(Color(0xFFF3F2F1), Color(0xFF262626))
     val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
+    val qrScanner = ColorPair(Color(0x4D000000))
+    val qrScannerPrompt = ColorPair(Color(0x80000000))
 }
 
 object Buttons {
@@ -69,6 +71,7 @@ object Text {
     val primary = ColorPair(Color(0xFF0B0C0C), Color(0xFFFFFFFF))
     val secondary = ColorPair(Color(0xFF505A5F), Color(0xFFFFFFFF))
     val statusOverlay = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
+    val qrScanner = ColorPair(Color(0xFFFFFFFF))
 }
 
 object NavigationElements {
@@ -95,15 +98,18 @@ object Menu {
     val menuItemHighlighted = ColorPair(Color(0xFFE7E6E5), Color(0xFF3C3C3C))
 }
 
+object Borders {
+    val qrScanner = ColorPair(Color(0xFFFFFFFF))
+}
+
+@Deprecated(
+    message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
+        " - will aim to be removed by 19th of May",
+    level = DeprecationLevel.WARNING,
+)
 object QrScannerOverlayDefaults {
-    var background: ColorPair = ColorPair(
-        light = Color(0x80000000),
-        dark = Color(0x80000000),
-    )
-    var border: ColorPair = ColorPair(
-        light = Color(0xFFFFFFFF),
-        dark = Color(0xFFFFFFFF),
-    )
+    var background: ColorPair = Backgrounds.qrScanner
+    var border: ColorPair = Borders.qrScanner
 }
 
 @Suppress("ForbiddenComment")
