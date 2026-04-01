@@ -38,15 +38,12 @@ import uk.gov.android.ui.componentsv2.permission.PermissionScreen
 import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions
 import uk.gov.android.ui.patterns.camera.qr.QrScannerScreen
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButtons
-import uk.gov.android.ui.theme.m3.CustomColorsScheme
-import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun QrScannerScreenDemo(
     modifier: Modifier = Modifier,
-    colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     converter: ImageProxyConverter =
         CentrallyCroppedImageProxyConverter(
@@ -81,7 +78,6 @@ fun QrScannerScreenDemo(
         viewModel = viewModel,
         lifecycleOwner = lifecycleOwner,
         coroutineScope = coroutineScope,
-        colorScheme = colorScheme,
         context = context,
     )
 
@@ -106,7 +102,6 @@ private fun qrScannerDemoPermissionLogic(
     viewModel: CameraContentViewModel,
     lifecycleOwner: LifecycleOwner,
     coroutineScope: CoroutineScope,
-    colorScheme: CustomColorsScheme,
     context: Context,
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
@@ -131,10 +126,8 @@ private fun qrScannerDemoPermissionLogic(
             previewUseCase = previewUseCase,
             analysisUseCase = analysisUseCase,
             imageCaptureUseCase = imageCaptureUseCase,
-            scanningWidthMultiplier = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
             coroutineScope = coroutineScope,
             onUpdateViewModelCamera = viewModel::update,
-            colors = colorScheme.qrScannerOverlay,
         )
     },
     onPermissionPermanentlyDenied = { state ->
