@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
-import com.android.ide.common.rendering.api.SessionParams.RenderingMode.NORMAL
 import com.android.resources.NightMode
 import com.android.resources.NightMode.NIGHT
 import com.android.resources.NightMode.NOTNIGHT

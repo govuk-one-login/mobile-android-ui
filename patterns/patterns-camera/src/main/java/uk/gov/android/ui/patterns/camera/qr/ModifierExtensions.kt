@@ -179,7 +179,7 @@ object ModifierExtensions {
 
     /**
      * Overlays the Composable UI with a tint and draws a cornered square in the centre of the
-     * Composable which takes teh width of the entire screen and adds a 16.dp padding vertically.
+     * Composable which takes the width of the entire screen and adds a 16.dp padding vertically.
      *
      * @see drawQrOverlayBorderCentered
      */
