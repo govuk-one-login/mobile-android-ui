@@ -59,6 +59,11 @@ private const val ONE_THIRD = 1f / 3f
  *
  * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
  *
+ * NOTE FOR TESTING: This function uses SubcomposeLayout to measure the bottom content so we know
+ * whether to move it into the container body. The buttons in the bottom content can be
+ * measured twice which results in a call to composeTestRule.onNode failing as 2 nodes are detected.
+ * The workaround to this issue is to call composeTestRule.onAllNodes[1].
+ *
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param image image displayed at the top of the screen (optional).
