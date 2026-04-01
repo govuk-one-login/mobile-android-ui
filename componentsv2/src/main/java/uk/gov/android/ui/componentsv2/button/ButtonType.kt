@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.m3.adminButton
@@ -30,10 +31,10 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Immutable
 sealed class ButtonTypeV2(
-    open val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+    open val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
 ) {
     data class Primary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Secondary(
@@ -41,19 +42,19 @@ sealed class ButtonTypeV2(
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Tertiary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Quaternary(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Destructive(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Admin(
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+        override val textStyle: TextStyle = ExtraTypography.bodyLargeBold,
     ) : ButtonTypeV2(textStyle = textStyle)
 
     data class SecondaryDestructive(
@@ -77,7 +78,7 @@ sealed class ButtonTypeV2(
     ) : ButtonTypeV2(textStyle = textStyle) {
         init {
             if (icon != null && contentDescription == null) {
-                throw Exception("You must provide a content decsription for the icon used")
+                throw Exception("You must provide a content description for the icon used")
             }
         }
     }

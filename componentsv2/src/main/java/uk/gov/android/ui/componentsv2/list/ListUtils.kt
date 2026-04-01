@@ -26,6 +26,7 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -35,6 +36,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Links
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.xsmallPadding
@@ -71,7 +73,10 @@ internal data class ListWrapper(
 
 @SuppressLint("ComposeUnstableReceiver")
 @Composable
-fun ListItem.createDisplayText(context: Context): ListContent {
+fun ListItem.createDisplayText(
+    context: Context,
+    boldTextFontFamily: FontFamily? = null,
+): ListContent {
     return when {
         this.text.isNotEmpty() -> {
             ListContent(text = this.text)
@@ -79,7 +84,10 @@ fun ListItem.createDisplayText(context: Context): ListContent {
 
         this.icon == NO_ICON_REFERENCE -> {
             val spanned = SpannedString(context.getText(this.spannableText))
-            val annotatedString = spanned.toAnnotatedString(this.onLinkTapped)
+            val annotatedString = spanned.toAnnotatedString(
+                this.onLinkTapped,
+                fontFamily = boldTextFontFamily,
+            )
             ListContent(annotatedString = annotatedString)
         }
 
@@ -88,6 +96,7 @@ fun ListItem.createDisplayText(context: Context): ListContent {
             val annotatedString = spanned.toAnnotatedString(
                 this.onLinkTapped,
                 isIcon = true,
+                fontFamily = boldTextFontFamily,
             )
             val inlineIconContent = persistentMapOf(
                 Pair(
@@ -121,10 +130,12 @@ fun ListItem.createDisplayText(context: Context): ListContent {
 }
 
 @SuppressLint("ComposeUnstableReceiver")
+@Suppress("LongMethod")
 @Composable
 fun Spanned.toAnnotatedString(
     linkTapListener: (String) -> Unit = {},
     isIcon: Boolean = false,
+    fontFamily: FontFamily? = null,
 ): AnnotatedString = buildAnnotatedString {
     append(this@toAnnotatedString.toString())
 
@@ -135,7 +146,13 @@ fun Spanned.toAnnotatedString(
             is StyleSpan -> {
                 when (span.style) {
                     Typeface.BOLD -> addStyle(
-                        SpanStyle(fontWeight = FontWeight.Bold),
+                        fontFamily?.let {
+                            SpanStyle(fontFamily = fontFamily, fontWeight = FontWeight.Bold)
+                        } ?: run {
+                            SpanStyle(
+                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily,
+                            )
+                        },
                         start,
                         end,
                     )
