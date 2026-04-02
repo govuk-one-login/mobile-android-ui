@@ -14,6 +14,7 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.buttonColors
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
@@ -34,6 +35,7 @@ fun PrimaryButtonDemo(
             buttonType = ButtonTypeV2.Icon(
                 buttonColors = ButtonTypeV2.Primary().buttonColors(),
                 contentDescription = stringResource(R.string.primary_button),
+                textStyle = ExtraTypography.bodyLargeBold,
             ),
             onClick = {},
             enabled = true,
@@ -57,6 +59,20 @@ fun PrimaryButtonDemo(
             ),
             onClick = { },
             enabled = false,
+            contentModifier = Modifier.padding(),
+            contentPosition = Arrangement.Absolute.Center,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(
+                smallPadding,
+            ),
+        )
+
+        // Primary Button
+        GdsButton(
+            text = stringResource(R.string.primary_button),
+            buttonType = ButtonTypeV2.Primary(),
+            onClick = {},
+            enabled = true,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
             textAlign = TextAlign.Center,

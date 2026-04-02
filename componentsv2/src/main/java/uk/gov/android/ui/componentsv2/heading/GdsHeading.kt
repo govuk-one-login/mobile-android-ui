@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.theme.m3.ColorPair
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.Typography
@@ -66,7 +67,7 @@ fun GdsHeading(
         GdsHeadingStyle.Title1 -> Typography.headlineLarge
         GdsHeadingStyle.Title2 -> Typography.headlineMedium
         GdsHeadingStyle.Title3 -> Typography.headlineSmall
-        GdsHeadingStyle.Body -> Typography.bodyLarge
+        GdsHeadingStyle.Body -> ExtraTypography.bodyLargeBold
         is GdsHeadingStyle.Custom -> style.customStyle
     }
 
