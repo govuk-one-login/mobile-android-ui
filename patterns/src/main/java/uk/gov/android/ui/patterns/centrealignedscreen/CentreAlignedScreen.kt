@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,6 +45,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.leftalignedscreen.bringIntoView
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -292,12 +295,15 @@ private fun MainContent(
     arrangement: Arrangement.Vertical =
         Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically),
 ) {
+    val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
         verticalArrangement = arrangement,
         modifier = modifier
             .fillMaxSize()
+            .bringIntoView(scrollState)
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
+        state = scrollState,
     ) {
         image?.let {
             item { image(HorizontalPadding) }
