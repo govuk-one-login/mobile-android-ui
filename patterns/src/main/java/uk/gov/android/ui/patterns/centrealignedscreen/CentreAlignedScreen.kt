@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -77,6 +78,7 @@ private const val ONE_THIRD = 1f / 3f
  * @param secondaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  */
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @SuppressWarnings("squid:S107")
 @Composable
@@ -90,7 +92,7 @@ fun CentreAlignedScreen(
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
-    val screenHeight = LocalWindowInfo.current.containerSize.height.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
