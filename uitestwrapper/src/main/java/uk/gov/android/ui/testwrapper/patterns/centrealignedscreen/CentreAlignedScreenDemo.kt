@@ -54,7 +54,7 @@ fun CentreAlignedScrollableScreenDemo() {
     CentreAlignedScreen(
         title = "Centre Aligned Screen",
         image = CentreAlignedScreenImage(
-            uk.gov.android.ui.componentsv2.R.drawable.ic_vector_image,
+            componentsR.drawable.ic_vector_image,
             "Description",
         ),
         body = persistentListOf(
