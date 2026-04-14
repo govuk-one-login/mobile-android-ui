@@ -61,8 +61,8 @@ sealed class CentreAlignedScreenBodyContent {
 
 data class CentreAlignedScreenImage(
     @DrawableRes val image: Int,
-    val tint: Color? = null,
     val description: String,
+    val tint: Color? = null,
 )
 
 data class CentreAlignedScreenButton(

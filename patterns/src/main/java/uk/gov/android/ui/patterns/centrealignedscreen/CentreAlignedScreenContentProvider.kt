@@ -23,8 +23,8 @@ internal class CentreAlignedScreenContentProvider :
 
     private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
-        null,
         "Image description",
+        null,
     )
 
     override val values: Sequence<CentreAlignedScreenContent> = sequenceOf(

@@ -20,6 +20,7 @@ fun CentreAlignedScreenDemo() {
         image = CentreAlignedScreenImage(
             componentsR.drawable.ic_vector_image,
             "Description",
+            tint = null,
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
@@ -56,6 +57,7 @@ fun CentreAlignedScrollableScreenDemo() {
         image = CentreAlignedScreenImage(
             componentsR.drawable.ic_vector_image,
             "Description",
+            null,
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
