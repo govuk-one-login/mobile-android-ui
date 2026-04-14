@@ -213,7 +213,7 @@ fun CentreAlignedScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = horizontalPadding),
-                    colorFilter = it.tint?.let { tint -> ColorFilter.tint(tint) }
+                    colorFilter = it.tint?.let { tint -> ColorFilter.tint(tint) },
                 )
             }
         },
