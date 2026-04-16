@@ -65,9 +65,7 @@ sealed class PatternsDestination(
 
         fun entries() =
             listOf(
-                Placeholder(text = "Center Aligned Screen"),
                 Placeholder(text = "Dialog"),
-                Placeholder(text = "Error Screen"),
                 DetailedItem(
                     text = "Left Aligned Screen",
                     items =
@@ -79,6 +77,38 @@ sealed class PatternsDestination(
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN_NO_TITLE,
                             name = "Left Aligned Screen No Title",
+                        ),
+                    ),
+                ),
+                DetailedItem(
+                    text = "Centre Aligned Screen",
+                    items =
+                    listOf(
+                        DetailItem(
+                            label = CENTRED_ALIGNED_SCREEN,
+                            name = "Centred Aligned Screen",
+                        ),
+                        DetailItem(
+                            label = CENTRED_ALIGNED_SCROLLABLE_SCREEN,
+                            name = "Centred Aligned Scrollable Screen",
+                        ),
+                    ),
+                ),
+                DetailedItem(
+                    text = "Error Screen",
+                    items =
+                    listOf(
+                        DetailItem(
+                            label = ERROR_SCREEN,
+                            name = "Error Screen",
+                        ),
+                        DetailItem(
+                            label = ERROR_SCROLLABLE_SCREEN,
+                            name = "Error Scrollable Screen",
+                        ),
+                        DetailItem(
+                            label = ERROR_BOTTOM_CONTENT_LARGE_SCREEN,
+                            name = "Error Bottom Content Larger Than 1/3 Screen",
                         ),
                     ),
                 ),

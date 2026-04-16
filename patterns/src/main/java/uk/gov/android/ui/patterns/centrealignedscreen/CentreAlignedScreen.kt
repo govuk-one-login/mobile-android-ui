@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.centrealignedscreen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,6 +46,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.leftalignedscreen.bringIntoView
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -59,6 +63,11 @@ private const val ONE_THIRD = 1f / 3f
  *
  * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
  *
+ * NOTE FOR TESTING: This function uses SubcomposeLayout to measure the bottom content so we know
+ * whether to move it into the container body. The buttons in the bottom content can be
+ * measured twice which results in a call to composeTestRule.onNode failing as 2 nodes are detected.
+ * The workaround to this issue is to call composeTestRule.onAllNodes[1].
+ *
  * @param title represents the main title. Use of [GdsHeading] is recommended
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param image image displayed at the top of the screen (optional).
@@ -69,6 +78,7 @@ private const val ONE_THIRD = 1f / 3f
  * @param secondaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  */
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @SuppressWarnings("squid:S107")
 @Composable
@@ -82,7 +92,7 @@ fun CentreAlignedScreen(
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
-    val screenHeight = LocalWindowInfo.current.containerSize.height.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
@@ -287,12 +297,15 @@ private fun MainContent(
     arrangement: Arrangement.Vertical =
         Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically),
 ) {
+    val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
         verticalArrangement = arrangement,
         modifier = modifier
             .fillMaxSize()
+            .bringIntoView(scrollState)
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
+        state = scrollState,
     ) {
         image?.let {
             item { image(HorizontalPadding) }
