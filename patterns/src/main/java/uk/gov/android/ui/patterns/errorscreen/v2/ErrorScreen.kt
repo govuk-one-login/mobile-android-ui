@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.errorscreen.v2
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,14 +11,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -36,6 +39,7 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalP
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
+import uk.gov.android.ui.patterns.leftalignedscreen.bringIntoView
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -67,6 +71,7 @@ private const val DENSITY_PREVIEW_INDEX = 5
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
  */
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
 fun ErrorScreen(
@@ -78,7 +83,7 @@ fun ErrorScreen(
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
 ) {
-    val screenHeight = LocalWindowInfo.current.containerSize.height.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
@@ -170,6 +175,7 @@ private fun MainContent(
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     bottomContent: (@Composable () -> Unit)? = null,
 ) {
+    val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
@@ -177,8 +183,10 @@ private fun MainContent(
         ),
         modifier = modifier
             .fillMaxSize()
+            .bringIntoView(scrollState)
             .testTag(ERROR_BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
+        state = scrollState,
     ) {
         item {
             Column(

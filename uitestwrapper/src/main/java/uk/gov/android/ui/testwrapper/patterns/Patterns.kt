@@ -15,6 +15,11 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.patterns.loadingscreen.LoadingScreen
 import uk.gov.android.ui.testwrapper.DetailItem
+import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedScrollableScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorBottomContentLargeScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
 import uk.gov.android.ui.theme.smallPadding
@@ -55,9 +60,19 @@ fun PatternDetail(
         LOADING_SCREEN -> LoadingScreen()
         LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()
         LEFT_ALIGNED_SCREEN_NO_TITLE -> LeftAlignedScreenNoTitleDemo()
+        CENTRED_ALIGNED_SCREEN -> CentreAlignedScreenDemo()
+        CENTRED_ALIGNED_SCROLLABLE_SCREEN -> CentreAlignedScrollableScreenDemo()
+        ERROR_SCREEN -> ErrorScreenDemo()
+        ERROR_SCROLLABLE_SCREEN -> ErrorScrollableScreenDemo()
+        ERROR_BOTTOM_CONTENT_LARGE_SCREEN -> ErrorBottomContentLargeScreenDemo()
     }
 }
 
 const val LOADING_SCREEN = "loadingScreen"
 const val LEFT_ALIGNED_SCREEN = "leftAlignedScreen"
 const val LEFT_ALIGNED_SCREEN_NO_TITLE = "leftAlignedScreenNoTitle"
+const val CENTRED_ALIGNED_SCREEN = "centreAlignedScreen"
+const val CENTRED_ALIGNED_SCROLLABLE_SCREEN = "centreAlignedScrollableScreen"
+const val ERROR_SCREEN = "errorScreen"
+const val ERROR_SCROLLABLE_SCREEN = "errorScrollableScreen"
+const val ERROR_BOTTOM_CONTENT_LARGE_SCREEN = "errorBottomContentLargeScreen"
