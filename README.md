@@ -7,7 +7,12 @@ Libraries to provide some useful and generic UI components, pages and themes to 
 
 ### Theme
 
-This library contains the `GdsTheme`, collecting the colour schemes, fonts/typography and some useful dimensions.
+This library contains:
+- The `GdsTheme`
+- Pre-defined colour objects in line with the GDS Design System
+- Day and night mode colour schemes
+- Typography text styles
+- Commonly used dimensions.
 
 ### Components 
 
