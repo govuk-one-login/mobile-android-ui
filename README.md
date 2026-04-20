@@ -7,12 +7,17 @@ Libraries to provide some useful and generic UI components, pages and themes to 
 
 ### Theme
 
-This library contains the `GdsTheme`, collecting the colour schemes, fonts/typography and some useful dimensions.
+This library contains:
+- The `GdsTheme`
+- Pre-defined colour objects in line with the GDS Design System
+- Day and night mode colour schemes
+- Typography text styles
+- Commonly used dimensions.
 
 ### Components 
 
 This library contains 'building blocks', smaller, reusable components - the only new components to be created should have full specs provided by the user centred design (UCD) team.
-All new components should be created in `componentsv2` module - `components` module will be deprecated and removed once all dependencies from other repositories have been removed. 
+All new components should be created in `componentsv2` module
 
 Components include:
 
@@ -35,11 +40,12 @@ Components include:
 - GdsTopAppBar
 - GdsWarningText
 - GdsCard
+- CameraContent (componentsv2-camera submodule)
 
 ### Patterns
 
 This library contains page patterns to help with the creation of similar styles of page. They use components from the `componentsv2` library to build larger patterns.
-All new components should be created in `patterns` module - `pages` module will be deprecated and removed once all dependencies from other repositories have been removed.
+All new components should be created in `patterns` module
 
 Patterns include:
 
@@ -49,6 +55,7 @@ Patterns include:
 - ErrorScreen
 - LeftAlignedScreen
 - LoadingScreen
+- QrScannerScreen (patterns-camera submodule)
 
 ## Installation
 
