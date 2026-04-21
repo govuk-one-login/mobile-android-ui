@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.rule.GrantPermissionRule
@@ -40,6 +41,12 @@ class QrScannerScreenTest {
             .onNodeWithText(
                 resources.getString(R.string.qr_scan_screen_title),
             ).assertExists()
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithContentDescription(
+                resources.getString(R.string.qr_scan_screen_title_content_desc),
+            )
+            .assertExists()
             .assertIsDisplayed()
     }
 }
