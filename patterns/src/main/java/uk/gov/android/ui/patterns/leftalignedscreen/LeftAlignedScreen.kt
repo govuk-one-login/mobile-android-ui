@@ -36,6 +36,7 @@ import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BOD
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
 
 private const val ONE_THIRD = 1f / 3f
 private const val FONT_SCALE_DOUBLE = 2f
@@ -324,7 +325,7 @@ private fun MainContent(
     val columnModifier = if (forceScroll) {
         Modifier
             .fillMaxSize()
-            .bringIntoView(scrollState)
+            .bringIntoViewV2(scrollState)
     } else {
         Modifier.fillMaxSize()
     }

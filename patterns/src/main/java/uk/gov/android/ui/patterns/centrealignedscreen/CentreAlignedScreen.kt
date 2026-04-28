@@ -46,7 +46,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
-import uk.gov.android.ui.patterns.leftalignedscreen.bringIntoView
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
