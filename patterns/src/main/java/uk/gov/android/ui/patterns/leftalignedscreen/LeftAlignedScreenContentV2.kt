@@ -41,7 +41,7 @@ import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.dividerThickness
-import uk.gov.android.ui.patterns.utils.scroll.bringIntoView as bringIntoViewV2
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
 
 internal data class LeftAlignedScreenContentV2(
     val title: String,
@@ -345,6 +345,9 @@ private fun LazyListScope.toAnnotatedText(
  * @param scrollState [LazyListState] represents the list state
  * @return augmented [Modifier]
  */
-@Deprecated("Use uk.gov.android.ui.patterns.utils.scroll.bringIntoView")
+@Deprecated(
+    "Use uk.gov.android.ui.patterns.utils.scroll.bringIntoView",
+    level = DeprecationLevel.WARNING,
+)
 @Composable
 fun Modifier.bringIntoView(scrollState: LazyListState): Modifier = this.bringIntoViewV2(scrollState)

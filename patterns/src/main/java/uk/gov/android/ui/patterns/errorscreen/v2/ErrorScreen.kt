@@ -39,8 +39,8 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalP
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
-import uk.gov.android.ui.patterns.utils.scroll.bringIntoView
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
