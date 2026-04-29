@@ -31,6 +31,7 @@ fun QrScannerViewModelScreen(
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = stringResource(R.string.qr_scan_screen_title),
+            instructionTextContentDesc = stringResource(R.string.qr_scan_screen_title_content_desc),
             textColor = colors.border.toMappedColors(),
             modifier = Modifier
                 .fillMaxSize()

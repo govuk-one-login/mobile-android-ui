@@ -7,5 +7,7 @@
 
     <!-- QR Scanner Screen -->
     <string name="qr_scan_screen_title" translatable="false">@string/position_qr_in_frame_below</string>
+    <string name="qr_scan_screen_title_content_desc" translatable="false">@string/position_qr_in_frame_below_content_desc</string>
     <string name="position_qr_in_frame_below">Point your camera at the QR code</string>
+    <string name="position_qr_in_frame_below_content_desc">Point your phone\’s camera at the QR code on your computer or tablet</string>
 </resources>

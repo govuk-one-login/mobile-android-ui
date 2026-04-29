@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.CoroutineScope
@@ -80,6 +82,7 @@ fun QrScannerScreen(
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = stringResource(R.string.qr_scan_screen_title),
+            instructionTextContentDesc = stringResource(R.string.qr_scan_screen_title_content_desc),
             textColor = borderColor,
             modifier = Modifier
                 .fillMaxSize()
@@ -141,6 +144,9 @@ fun QrScannerScreen(
     onUpdateViewModelCamera: CameraHolder.Updater,
     modifier: Modifier = Modifier,
     instructionsText: String = stringResource(R.string.position_qr_in_frame_below),
+    instructionTextContentDesc: String = stringResource(
+        R.string.position_qr_in_frame_below_content_desc,
+    ),
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
     backgroundTint: Color = Backgrounds.qrScanner.toMappedColors(),
@@ -149,6 +155,7 @@ fun QrScannerScreen(
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = instructionsText,
+            instructionTextContentDesc = instructionTextContentDesc,
             textColor = Text.qrScanner.toMappedColors(),
             textBackground = backgroundTextColor,
             modifier = Modifier
@@ -186,6 +193,7 @@ fun QrScannerScreen(
 @Composable
 fun QrOverlayText(
     instructionText: String,
+    instructionTextContentDesc: String,
     textColor: Color,
     modifier: Modifier = Modifier,
 ) {
@@ -198,7 +206,11 @@ fun QrOverlayText(
             style = MaterialTheme.typography.headlineMedium,
             color = textColor,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(all = smallPadding),
+            modifier = Modifier
+                .padding(all = smallPadding)
+                .semantics {
+                    this.contentDescription = instructionTextContentDesc
+                },
         )
     }
 }
@@ -206,6 +218,7 @@ fun QrOverlayText(
 @Composable
 fun QrOverlayText(
     instructionText: String,
+    instructionTextContentDesc: String,
     textColor: Color,
     textBackground: Color,
     modifier: Modifier = Modifier,
@@ -222,7 +235,10 @@ fun QrOverlayText(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(textBackground)
-                .padding(horizontal = smallPadding, vertical = mediumPadding),
+                .padding(horizontal = smallPadding, vertical = mediumPadding)
+                .semantics {
+                    this.contentDescription = instructionTextContentDesc
+                },
         )
     }
 }
