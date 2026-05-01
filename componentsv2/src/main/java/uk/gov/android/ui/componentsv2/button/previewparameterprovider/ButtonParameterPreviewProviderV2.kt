@@ -76,5 +76,9 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             text = R.string.secondary_destructive_button,
             buttonType = ButtonTypePreview.ErrorSecondary,
         ),
+        ButtonParametersV2(
+            text = R.string.text_button,
+            buttonType = ButtonTypePreview.IconPrimary,
+        ),
     )
 }

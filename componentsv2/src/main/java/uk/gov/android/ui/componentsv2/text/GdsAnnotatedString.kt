@@ -19,6 +19,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,12 +34,47 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.xsmallPadding
 
+@Deprecated(
+    message = "Use GdsAnnotatedString with textStyle parameter instead" +
+        "- will aim to be removed on 1st of July",
+    replaceWith = ReplaceWith("uk.gov.android.ui.componentsv2.text - GdsAnnotatedString"),
+    level = DeprecationLevel.WARNING,
+)
 @Composable
 fun GdsAnnotatedString(
     text: String,
     fontWeight: FontWeight,
     icon: ImageVector,
     iconContentDescription: String,
+    modifier: Modifier = Modifier,
+    iconId: String = stringResource(R.string.in_line_icon_id),
+    color: Color = MaterialTheme.colorScheme.onBackground,
+    iconColor: Color? = null,
+    iconBackgroundColor: Color = MaterialTheme.colorScheme.background,
+    isIconTrailing: Boolean = true,
+    textAlign: TextAlign = TextAlign.Center,
+) = GdsAnnotatedString(
+    text = text,
+    fontWeight = fontWeight,
+    icon = icon,
+    iconContentDescription = iconContentDescription,
+    textStyle = Typography.labelLarge,
+    modifier = modifier,
+    iconId = iconId,
+    color = color,
+    iconColor = iconColor,
+    iconBackgroundColor = iconBackgroundColor,
+    isIconTrailing = isIconTrailing,
+    textAlign = textAlign,
+)
+
+@Composable
+fun GdsAnnotatedString(
+    text: String,
+    fontWeight: FontWeight,
+    icon: ImageVector,
+    iconContentDescription: String,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier,
     iconId: String = stringResource(R.string.in_line_icon_id),
     color: Color = MaterialTheme.colorScheme.onBackground,
@@ -85,7 +121,7 @@ fun GdsAnnotatedString(
         text = annotatedString,
         inlineContent = inlineIconContent,
         fontWeight = fontWeight,
-        style = Typography.labelLarge,
+        style = textStyle,
         textAlign = textAlign,
         color = color,
     )
@@ -141,6 +177,7 @@ internal fun AnnotatedStringPreview(
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
                 isIconTrailing = parameters.isIconTrailing,
+                textStyle = Typography.labelLarge,
             )
         }
     }
