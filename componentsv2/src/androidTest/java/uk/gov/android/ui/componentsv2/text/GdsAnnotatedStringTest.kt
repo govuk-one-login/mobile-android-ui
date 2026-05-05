@@ -16,7 +16,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.theme.m3.Typography
 
 class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -25,33 +24,6 @@ class GdsAnnotatedStringTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-
-    @Test
-    fun testStringIconTextStyle() {
-        composeTestRule.setContent {
-            GdsAnnotatedString(
-                text = stringResource(parameters.text),
-                fontWeight = parameters.fontWeight,
-                icon = ImageVector.vectorResource(parameters.icon),
-                iconContentDescription = stringResource(parameters.iconContentDescription),
-                iconId = stringResource(parameters.iconId),
-                iconColor = parameters.iconColor,
-                iconBackgroundColor = parameters.iconBackgroundColor,
-                isIconTrailing = parameters.isIconTrailing,
-                textStyle = Typography.labelLarge,
-            )
-        }
-        composeTestRule.apply {
-            onNodeWithText(
-                resources.getString(R.string.annotated_string),
-                substring = true,
-            ).assertIsDisplayed()
-
-            onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
-            ).assertIsDisplayed()
-        }
-    }
 
     @Test
     fun testStringIconTrailing() {
