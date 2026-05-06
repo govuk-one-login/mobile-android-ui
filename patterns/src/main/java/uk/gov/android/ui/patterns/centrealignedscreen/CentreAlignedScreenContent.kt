@@ -144,6 +144,7 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
             ),
             icon = ImageVector.vectorResource(R.drawable.ic_external_site),
             contentDescription = stringResource(R.string.opens_in_external_browser),
+            textStyle = Typography.bodyLarge,
         )
     } else {
         ButtonTypeV2.Secondary()
