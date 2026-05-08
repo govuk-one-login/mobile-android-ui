@@ -6,4 +6,5 @@
 
     <!-- QR Scanner Screen -->
     <string name="position_qr_in_frame_below">Pwyntiwch eich camera at y cod QR</string>
+    <string name="position_qr_in_frame_below_content_desc">Pwyntiwch gamera eich ffôn at y cod QR ar eich cyfrifiadur neu dabled</string>
 </resources>
