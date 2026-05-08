@@ -48,6 +48,7 @@ import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomShadow
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -199,6 +200,7 @@ private fun Content(
                 color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
                 iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
+                textStyle = buttonType.textStyle,
             )
         } else {
             Text(
@@ -229,7 +231,18 @@ private fun getContentPadding(
     }
 
 internal enum class ButtonTypePreview {
-    Primary, Secondary, Tertiary, Quaternary, Admin, Error, ErrorSecondary, Custom, Icon, IconLeading, IconSecondary
+    Primary,
+    Secondary,
+    Tertiary,
+    Quaternary,
+    Admin,
+    Error,
+    ErrorSecondary,
+    Custom,
+    Icon,
+    IconLeading,
+    IconPrimary,
+    IconSecondary,
 }
 
 @Composable
@@ -249,7 +262,7 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Icon -> ButtonTypeV2.Icon(
         buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
         icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        textStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )
@@ -257,16 +270,24 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.IconLeading -> ButtonTypeV2.Icon(
         buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
         icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        textStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
         isIconTrailing = false,
     )
 
+    ButtonTypePreview.IconPrimary -> ButtonTypeV2.Icon(
+        buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
+        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
+        textStyle = ExtraTypography.bodyLargeBold,
+        contentDescription = stringResource(R.string.icon_content_desc),
+        shadowColor = GdsLocalColorScheme.current.buttonShadow,
+    )
+
     ButtonTypePreview.IconSecondary -> ButtonTypeV2.Icon(
         buttonColors = GdsButtonDefaults.defaultSecondaryColors(),
         icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = Typography.titleSmall.copy(fontWeight = FontWeight.Light),
+        textStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
         contentDescription = stringResource(R.string.icon_content_desc),
         shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )

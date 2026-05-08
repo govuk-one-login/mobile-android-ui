@@ -74,7 +74,7 @@ sealed class ButtonTypeV2(
         var contentDescription: String? = null,
         val isIconTrailing: Boolean = true,
         val shadowColor: Color = Color.Transparent,
-        override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
+        override val textStyle: TextStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
     ) : ButtonTypeV2(textStyle = textStyle) {
         init {
             if (icon != null && contentDescription == null) {
