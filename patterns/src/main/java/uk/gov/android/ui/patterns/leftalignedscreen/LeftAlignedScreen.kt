@@ -33,10 +33,10 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
-import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
 
 private const val ONE_THIRD = 1f / 3f
 private const val FONT_SCALE_DOUBLE = 2f
@@ -325,7 +325,7 @@ private fun MainContent(
     val columnModifier = if (forceScroll) {
         Modifier
             .fillMaxSize()
-            .bringIntoViewV2(scrollState)
+            .keyboardScroll(scrollState)
     } else {
         Modifier.fillMaxSize()
     }
