@@ -25,6 +25,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
 import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
+import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.hasKeyboardScroll
 
 @RunWith(RobolectricTestRunner::class)
 class CentreAlignedScreenTest {
@@ -163,5 +164,18 @@ class CentreAlignedScreenTest {
         composeTestRule
             .onNode(buttonContentDesc)
             .assertIsDisplayed()
+    }
+
+    @Test
+    fun `lazy column has keyboard scroll enabled`() {
+        composeTestRule.setContent {
+            CentreAlignedScreen(
+                title = { },
+            )
+        }
+
+        composeTestRule
+            .onNodeWithTag(CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+            .assert(hasKeyboardScroll())
     }
 }
