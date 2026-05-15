@@ -19,6 +19,7 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.ComposeTestRule
@@ -32,18 +33,26 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.patterns.utils.BringIntoViewTest.Companion.NUM_ITEMS
-import uk.gov.android.ui.patterns.utils.BringIntoViewTest.Companion.containerHeight
-import uk.gov.android.ui.patterns.utils.BringIntoViewTest.Companion.itemHeight
-import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView
+import uk.gov.android.ui.patterns.utils.KeyboardScrollTest.Companion.NUM_ITEMS
+import uk.gov.android.ui.patterns.utils.KeyboardScrollTest.Companion.containerHeight
+import uk.gov.android.ui.patterns.utils.KeyboardScrollTest.Companion.itemHeight
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
+import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.hasKeyboardScroll
 
 @OptIn(ExperimentalTestApi::class)
 @RunWith(RobolectricTestRunner::class)
-class BringIntoViewTest {
+class KeyboardScrollTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     private val focusRequester = FocusRequester()
+
+    @Test
+    fun `modifier exposes semantics for matcher`() {
+        setUpColumn()
+
+        composeTestRule.onNodeWithTag(TEST_TAG).assert(hasKeyboardScroll())
+    }
 
     @Test
     fun `keyboard can scroll down and up for non-lazy list`() {
@@ -97,7 +106,7 @@ class BringIntoViewTest {
                 numItems = numItems,
                 modifier = Modifier
                     .focusRequester(focusRequester)
-                    .bringIntoView(scrollState),
+                    .keyboardScroll(scrollState),
             )
         }
     }
@@ -109,7 +118,7 @@ class BringIntoViewTest {
                 listState = listState,
                 modifier = Modifier
                     .focusRequester(focusRequester)
-                    .bringIntoView(listState),
+                    .keyboardScroll(listState),
             )
         }
     }
@@ -135,7 +144,7 @@ class BringIntoViewTest {
             .performKeyInput { pressKey(Key.DirectionDown) }
 
     companion object {
-        const val TEST_TAG = "bringIntoViewTest"
+        const val TEST_TAG = "keyboardScrollTest"
         const val NUM_ITEMS = 50
         const val FIRST_ITEM = "Item 0"
         val containerHeight = 100.dp
@@ -153,7 +162,7 @@ private fun TestColumn(
         modifier = modifier
             .height(containerHeight)
             .verticalScroll(scrollState)
-            .testTag(BringIntoViewTest.TEST_TAG),
+            .testTag(KeyboardScrollTest.TEST_TAG),
     ) {
         repeat(numItems) { index ->
             BasicText(
@@ -173,7 +182,7 @@ private fun TestLazyColumn(
         state = listState,
         modifier = modifier
             .height(containerHeight)
-            .testTag(BringIntoViewTest.TEST_TAG),
+            .testTag(KeyboardScrollTest.TEST_TAG),
     ) {
         items(numItems) { index ->
             BasicText(

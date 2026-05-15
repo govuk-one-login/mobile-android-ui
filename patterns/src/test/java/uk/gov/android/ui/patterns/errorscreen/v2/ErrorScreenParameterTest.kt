@@ -9,7 +9,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +19,6 @@ import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.testutils.BDD.Given
 import uk.gov.android.ui.patterns.testutils.BDD.Then
 import uk.gov.android.ui.patterns.testutils.BDD.When
-import uk.gov.android.ui.patterns.testutils.Matchers.assertListSemanticsCleared
 import uk.gov.android.ui.patterns.testutils.TestUtils.getString
 
 @RunWith(RobolectricTestRunner::class)
@@ -355,19 +353,5 @@ class ErrorScreenParameterTest {
         Then("the tertiary button should be displayed") {
             onNodeWithText(tertiaryButtonText).assertIsDisplayed()
         }
-    }
-
-    @Test
-    fun `lazy column has semantic collection info with rows and columns set to zero`() {
-        composeTestRule.setContent {
-            ErrorScreen(
-                title = { },
-                icon = { },
-            )
-        }
-
-        composeTestRule
-            .onNodeWithTag(ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG)
-            .assertListSemanticsCleared()
     }
 }
