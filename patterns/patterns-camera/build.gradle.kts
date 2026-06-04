@@ -1,9 +1,9 @@
+import uk.gov.android.ui.extensions.disableJavadocGeneration
 import uk.gov.android.ui.extensions.namespace
 
 plugins {
     id("uk.gov.android.ui.android-lib-config")
     id("kotlin-parcelize")
-    id("uk.gov.android.ui.disable-javadoc")
 }
 
 android {
@@ -45,3 +45,6 @@ mavenPublishingConfig {
         )
     }
 }
+
+// Temporary workaround to be removed after upgrading to AGP 9.3-alpha05
+disableJavadocGeneration()
