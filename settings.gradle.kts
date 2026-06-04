@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("${rootProject.projectDir}/build-logic")
     repositories {
         google()
         mavenCentral()
@@ -16,7 +17,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mobile-android-ui"
-includeBuild("${rootProject.projectDir}/mobile-android-pipelines/buildLogic")
 include(":componentsv2")
 include(":componentsv2:componentsv2-camera")
 include(":patterns")
