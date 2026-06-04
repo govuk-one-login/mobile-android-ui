@@ -23,6 +23,8 @@ dependencies {
     implementation(projects.componentsv2)
     implementation(projects.componentsv2.componentsv2Camera)
     implementation(project(":theme"))
+
+    testFixturesApi(libs.androidx.ui.test.android)
 }
 
 mavenPublishingConfig {

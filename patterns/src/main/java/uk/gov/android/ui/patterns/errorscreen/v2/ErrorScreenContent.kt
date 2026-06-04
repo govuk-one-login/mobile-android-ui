@@ -27,6 +27,7 @@ import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -150,7 +151,7 @@ internal fun PrimaryButton(button: ErrorScreenButton) {
     val buttonType = if (button.showIcon) {
         ButtonTypeV2.Icon(
             buttonColors = ButtonTypeV2.Primary().buttonColors(),
-            textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+            textStyle = ExtraTypography.bodyLargeBold,
             icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
             contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
         )

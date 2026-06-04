@@ -25,7 +25,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -46,8 +45,9 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
-import uk.gov.android.ui.patterns.leftalignedscreen.bringIntoView
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -237,7 +237,7 @@ fun CentreAlignedScreen(
                         text = it.text,
                         buttonType = ButtonTypeV2.Icon(
                             buttonColors = ButtonTypeV2.Primary().buttonColors(),
-                            textStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            textStyle = ExtraTypography.bodyLargeBold,
                             icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),
                         ),
@@ -266,6 +266,7 @@ fun CentreAlignedScreen(
                                 contentColor = colorScheme.primary,
                                 containerColor = colorScheme.background,
                             ),
+                            textStyle = Typography.bodyLarge,
                             icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                             contentDescription = stringResource(R.string.opens_in_external_browser),
                         ),
@@ -302,7 +303,7 @@ private fun MainContent(
         verticalArrangement = arrangement,
         modifier = modifier
             .fillMaxSize()
-            .bringIntoView(scrollState)
+            .keyboardScroll(scrollState)
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
         state = scrollState,
