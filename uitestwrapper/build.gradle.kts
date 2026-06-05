@@ -1,25 +1,16 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 plugins {
-    id("uk.gov.pipelines.android-app-config")
-    alias(libs.plugins.compose.compiler)
+    id("uk.gov.android.ui.android-app-config")
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "uk.gov.android.ui.uitestwrapper"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "uk.gov.android.ui.uitestwrapper"
-        minSdk = 29
-        //noinspection OldTargetApi
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -38,47 +29,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
-    packaging {
-        // Exclude multiple copies of licences
-        listOf(
-            "META-INF/AL2.0",
-            "META-INF/LGPL2.1",
-        ).forEach(resources.excludes::plusAssign)
-    }
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
-        animationsDisabled = true
-        unitTests.all {
-            it.testLogging {
-                events =
-                    setOf(
-                        TestLogEvent.FAILED,
-                        TestLogEvent.PASSED,
-                        TestLogEvent.SKIPPED,
-                    )
-            }
-        }
-        unitTests {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
-        }
-    }
-
-    ktlint {
-        version = libs.versions.ktlint.cli.get()
-    }
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.ui.preview)
@@ -97,8 +53,6 @@ dependencies {
     implementation(libs.androidx.compose.adaptive.layout)
     implementation(libs.kotlinx.serialization.json)
 
-    lintChecks(libs.com.slack.compose.lint.checks)
-
     testFixturesApi(testFixtures(projects.componentsv2))
     testFixturesApi(testFixtures(projects.componentsv2.componentsv2Camera))
     testFixturesApi(libs.androidx.ui.test.junit4.android)
@@ -107,24 +61,9 @@ dependencies {
     testFixturesImplementation(libs.navigation.compose)
 
     testImplementation(libs.androidx.navigation.testing)
-    testImplementation(libs.androidx.ui.test.android)
-    testImplementation(libs.androidx.ui.test.junit4.android)
-    testImplementation(libs.arch.core)
-    testImplementation(libs.hilt.android.testing)
-    testImplementation(libs.junit)
-    testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.robolectric)
 
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.rules)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.junit4)
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation(testFixtures(projects.componentsv2))
     androidTestImplementation(testFixtures(projects.componentsv2.componentsv2Camera))
-    androidTestUtil(libs.androidx.test.orchestrator)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.testmanifest)
 }

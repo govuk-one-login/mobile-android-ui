@@ -1,78 +1,18 @@
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import uk.gov.pipelines.config.ApkConfig
+import uk.gov.android.ui.extensions.disableJavadocGeneration
+import uk.gov.android.ui.extensions.namespace
 
 plugins {
-    id("uk.gov.pipelines.android-lib-config")
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.paparazzi)
+    id("uk.gov.android.ui.android-lib-config")
     id("kotlin-parcelize")
+}
+
+android {
+    namespace("patterns", project)
 }
 
 apply(from = rootProject.file("gradle/snapshot-test-filter.gradle.kts"))
 
-android {
-    defaultConfig {
-        val apkConfig: ApkConfig by project.rootProject.extra
-        namespace = "${apkConfig.applicationId}.patterns"
-        compileSdk = apkConfig.sdkVersions.compile
-        minSdk = apkConfig.sdkVersions.minimum
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        compose = true
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-        debug {
-            enableAndroidTestCoverage = true
-            enableUnitTestCoverage = true
-        }
-    }
-
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
-        animationsDisabled = true
-        unitTests.all {
-            it.testLogging {
-                events =
-                    setOf(
-                        TestLogEvent.FAILED,
-                        TestLogEvent.PASSED,
-                        TestLogEvent.SKIPPED,
-                    )
-            }
-        }
-        unitTests {
-            isReturnDefaultValues = true
-            isIncludeAndroidResources = true
-        }
-    }
-
-    ktlint {
-        version = libs.versions.ktlint.cli.get()
-    }
-}
-
 dependencies {
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
-
     implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
@@ -84,34 +24,8 @@ dependencies {
     implementation(projects.componentsv2.componentsv2Camera)
     implementation(project(":theme"))
 
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.testmanifest)
-
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.compose.ui.junit4)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestUtil(libs.androidx.test.orchestrator)
-
     testFixturesApi(libs.androidx.ui.test.android)
-
-    testImplementation(libs.androidx.ui.test.android)
-    testImplementation(libs.androidx.ui.test.junit4.android)
-    testImplementation(libs.arch.core)
-    testImplementation(libs.hilt.android.testing)
-    testImplementation(libs.junit)
-    testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.robolectric)
-    lintChecks(libs.com.slack.compose.lint.checks)
 }
-
-// https://github.com/Kotlin/dokka/issues/2956
-tasks
-    .matching { task ->
-        task.name.contains("javaDocReleaseGeneration", ignoreCase = true) or
-            task.name.contains("javaDocDebugGeneration")
-    }.configureEach {
-        enabled = false
-    }
 
 mavenPublishingConfig {
     mavenConfigBlock {
@@ -126,8 +40,5 @@ mavenPublishingConfig {
     }
 }
 
-android {
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
-}
+// Temporary workaround to be removed after upgrading to AGP 9.3-alpha05
+disableJavadocGeneration()
