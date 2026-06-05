@@ -36,7 +36,7 @@ val apkConfig by rootProject.extra(
         override val sdkVersions = object : ApkConfig.SdkVersions {
             override val minimum = 29
             override val target = 35
-            override val compile = 35
+            override val compile = 36
         }
     }
 )
