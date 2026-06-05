@@ -185,6 +185,7 @@ private fun Content(
                         height = GdsButtonDefaults.spinnerDefaultSize,
                     ),
                     color = buttonColors.disabledContentColor,
+                    strokeWidth = GdsButtonDefaults.spinnerDefaultStrokeWidth,
                 )
             }
         } else if (buttonType is ButtonTypeV2.Icon) {
