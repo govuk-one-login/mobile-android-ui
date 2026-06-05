@@ -84,9 +84,9 @@ fun GdsButton(
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
-    val shadowColor = setShadowColors(buttonType, enabled, focusStateEnabled)
-    val interactionSource = remember { MutableInteractionSource() }
     val checkIfDisabled = !(!enabled || loading)
+    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled)
+    val interactionSource = remember { MutableInteractionSource() }
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
     val colour = getRippleColour(buttonType, focusStateEnabled)
     CompositionLocalProvider(
