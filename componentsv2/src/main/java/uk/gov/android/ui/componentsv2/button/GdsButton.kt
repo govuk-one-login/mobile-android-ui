@@ -3,8 +3,6 @@
 package uk.gov.android.ui.componentsv2.button
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.content.res.Configuration.UI_MODE_TYPE_NORMAL
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +36,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.R
@@ -296,8 +294,7 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
 }
 
 @Composable
-@Preview(name = "Light", showBackground = true)
-@Preview(name = "Dark", uiMode = UI_MODE_NIGHT_YES or UI_MODE_TYPE_NORMAL)
+@PreviewLightDark
 internal fun ButtonPreviewV2(
     @PreviewParameter(ButtonParameterPreviewProviderV2::class)
     parameters: ButtonParametersV2,

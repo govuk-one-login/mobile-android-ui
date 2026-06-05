@@ -17,4 +17,10 @@ internal data class ButtonParametersV2(
     val enabled: Boolean = true,
     val loading: Boolean = false,
     val shape: Shape = GdsButtonDefaults.defaultShape,
-)
+) {
+    override fun toString(): String = buildString {
+        append(buttonType.name)
+        if (!enabled) append("_Disabled")
+        if (loading) append("_Loading")
+    }
+}
