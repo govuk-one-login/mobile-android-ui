@@ -1,5 +1,3 @@
-@file:Suppress("TooManyFunctions")
-
 package uk.gov.android.ui.componentsv2.button
 
 import android.annotation.SuppressLint
