@@ -179,7 +179,9 @@ private fun Content(
                     fontWeight = buttonType.textStyle.fontWeight,
                     style = buttonType.textStyle,
                     textAlign = textAlign,
-                    modifier = Modifier.alpha(0f),
+                    modifier = Modifier
+                        .padding(top = 2.dp)
+                        .alpha(0f),
                 )
                 CircularProgressIndicator(
                     modifier = Modifier.size(
