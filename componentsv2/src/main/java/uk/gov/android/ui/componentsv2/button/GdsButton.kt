@@ -298,21 +298,10 @@ internal fun ButtonPreviewV2(
     parameters: ButtonParametersV2,
 ) {
     GdsTheme {
-        parameters.modifier?.let {
-            GdsButton(
-                text = stringResource(parameters.text),
-                buttonType = parameters.buttonType.toButtonTypeV2(),
-                modifier = parameters.modifier,
-                contentPosition = parameters.contentPosition,
-                contentModifier = parameters.contentModifier,
-                enabled = parameters.enabled,
-                loading = parameters.loading,
-                onClick = {},
-                shape = parameters.shape,
-            )
-        } ?: GdsButton(
+        GdsButton(
             text = stringResource(parameters.text),
             buttonType = parameters.buttonType.toButtonTypeV2(),
+            modifier = parameters.modifier ?: Modifier,
             contentPosition = parameters.contentPosition,
             contentModifier = parameters.contentModifier,
             enabled = parameters.enabled,
