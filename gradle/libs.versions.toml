@@ -1,5 +1,6 @@
 [versions]
 accompanist = "0.37.3" # https://github.com/google/accompanist/releases
+android-gradle = "8.13.2" # https://developer.android.com/studio/releases/gradle-plugin
 activity = "1.9.3" # https://developer.android.com/jetpack/androidx/releases/activity
 android-tools-layoutlib-api = "31.13.0" # No changelog found
 androidx-camera = "1.5.1" # https://developer.android.com/jetpack/androidx/releases/camera
@@ -21,6 +22,7 @@ kotlin = "2.2.21" # https://kotlinlang.org/docs/releases.html#release-details
 kotlinx-collections-immutable="0.3.8"
 kotlinx-serialization-json = "1.9.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 ktlint-cli = "0.49.1"
+ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 mockito = "5.17.0"
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases
 paparazzi = "2.0.0-alpha02"
@@ -88,6 +90,13 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
 androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidxNavigation" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+# Gradle plugins
+android-build-tool = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-compose-gradle-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
+ktlint-gradle = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint-gradle" }
+uk-gov-pipelines-plugins = { module = "uk.gov.pipelines:plugins" }
+paparazzi-gradle = { module = "app.cash.paparazzi:paparazzi-gradle-plugin", version.ref = "paparazzi" }
 
 [bundles]
 compose = ["androidx-compose-material", "androidx-compose-material3", "androidx-compose-ui", "androidx-compose-ui-preview"]
