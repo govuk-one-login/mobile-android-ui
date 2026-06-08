@@ -295,7 +295,7 @@ internal fun ButtonPreviewV2(
         GdsButton(
             text = stringResource(parameters.text),
             buttonType = parameters.buttonType.toButtonTypeV2(),
-            modifier = parameters.modifier ?: Modifier,
+            modifier = parameters.modifier,
             contentPosition = parameters.contentPosition,
             contentModifier = parameters.contentModifier,
             enabled = parameters.enabled,

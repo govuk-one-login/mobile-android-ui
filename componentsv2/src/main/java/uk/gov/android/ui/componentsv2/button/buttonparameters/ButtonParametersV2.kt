@@ -12,7 +12,7 @@ internal data class ButtonParametersV2(
     val text: Int,
     val buttonType: ButtonTypePreview,
     val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    val modifier: Modifier? = null,
+    val modifier: Modifier = Modifier,
     val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
     val loading: Boolean = false,
