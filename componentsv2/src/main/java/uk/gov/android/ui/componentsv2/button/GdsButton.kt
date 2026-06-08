@@ -81,7 +81,8 @@ fun GdsButton(
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val checkIfDisabled = !(!enabled || loading)
-    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled)
+    val isShaped = shape != GdsButtonDefaults.defaultShape
+    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled, isShaped)
     val interactionSource = remember { MutableInteractionSource() }
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
     val colour = getRippleColour(buttonType, focusStateEnabled)
@@ -132,24 +133,16 @@ private fun setShadowColors(
     buttonType: ButtonTypeV2,
     isEnabled: Boolean,
     isInFocus: Boolean,
+    isShaped: Boolean,
 ): Color {
-    return if (!isEnabled) {
-        GdsLocalColorScheme.current.disabledButtonShadow
-    } else if (isInFocus) {
-        GdsLocalColorScheme.current.focusStateShadow
-    } else {
-        when (buttonType) {
-            is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
-            is ButtonTypeV2.Destructive -> {
-                GdsLocalColorScheme.current.destructiveButtonShadow
-            }
-
-            is ButtonTypeV2.Icon -> {
-                buttonType.shadowColor
-            }
-
-            else -> Color.Transparent
-        }
+    return when {
+        isShaped -> Color.Transparent
+        !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
+        isInFocus -> GdsLocalColorScheme.current.focusStateShadow
+        buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
+        buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonShadow
+        buttonType is ButtonTypeV2.Icon -> buttonType.shadowColor
+        else -> Color.Transparent
     }
 }
 
