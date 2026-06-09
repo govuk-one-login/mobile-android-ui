@@ -2,12 +2,18 @@ package uk.gov.android.ui.componentsv2.utils
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.theme.buttonShadowSize
@@ -45,8 +51,7 @@ object ModifierExtensions {
 
 /**
  * This modifier allows for adding bottom shadow to components.
- *
- * It allows for custom color and size of the shadow.
+ * It allows for custom colour and size of the shadow.
  *
  * @param shadowColor - [Color] for the shadow **only**
  * @param shadowHeight = defaults to 2.dp but can be overridden
@@ -63,4 +68,50 @@ fun Modifier.customBottomShadow(
         Offset(size.width, size.height),
         shadowHeightPx,
     )
+}
+
+/**
+ * This modifier draws a bottom border clipped to the provided [Shape].
+ * Useful for adding a shaped bottom stroke to components like buttons.
+ *
+ * Note: This currently clips a rectangle to the shape rather than following the bottom edge.
+ * See https://govukverify.atlassian.net/browse/DCMAW-20843
+ *
+ * @param color - [Color] for the border
+ * @param shape - [Shape] used to clip the border drawing
+ * @param strokeWidth - [Dp] width of the border stroke
+ */
+fun Modifier.customBottomBorder(
+    color: Color,
+    shape: Shape,
+    strokeWidth: Dp,
+) = this.drawWithContent {
+    drawContent()
+    val strokeWidthPx = strokeWidth.toPx()
+
+    val outline = shape.createOutline(
+        size = size,
+        layoutDirection = layoutDirection,
+        density = this,
+    )
+
+    clipPath(path = outline.toPath()) {
+        drawRect(
+            color = color,
+            topLeft = Offset(
+                x = 0f,
+                y = size.height - strokeWidthPx,
+            ),
+            size = Size(
+                width = size.width,
+                height = strokeWidthPx,
+            ),
+        )
+    }
+}
+
+private fun Outline.toPath(): Path = when (this) {
+    is Outline.Rectangle -> Path().apply { addRect(rect) }
+    is Outline.Rounded -> Path().apply { addRoundRect(roundRect) }
+    is Outline.Generic -> path
 }

@@ -41,7 +41,7 @@ import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
 import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProviderV2
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
-import uk.gov.android.ui.componentsv2.utils.customBottomShadow
+import uk.gov.android.ui.componentsv2.utils.customBottomBorder
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.ExtraTypography
@@ -81,8 +81,7 @@ fun GdsButton(
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val checkIfDisabled = !(!enabled || loading)
-    val isShaped = shape != GdsButtonDefaults.defaultShape
-    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled, isShaped)
+    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled)
     val interactionSource = remember { MutableInteractionSource() }
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
     val colour = getRippleColour(buttonType, focusStateEnabled)
@@ -92,7 +91,7 @@ fun GdsButton(
         Button(
             colors = colors,
             modifier = modifier
-                .customBottomShadow(shadowColor)
+                .customBottomBorder(shadowColor, shape, GdsButtonDefaults.borderStrokeWidthDefault)
                 .minimumInteractiveComponentSize()
                 .semantics(mergeDescendants = true) {
                     if (loading) {
@@ -133,17 +132,13 @@ private fun setShadowColors(
     buttonType: ButtonTypeV2,
     isEnabled: Boolean,
     isInFocus: Boolean,
-    isShaped: Boolean,
-): Color {
-    return when {
-        isShaped -> Color.Transparent
-        !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
-        isInFocus -> GdsLocalColorScheme.current.focusStateShadow
-        buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
-        buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonShadow
-        buttonType is ButtonTypeV2.Icon -> buttonType.shadowColor
-        else -> Color.Transparent
-    }
+): Color = when {
+    !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
+    isInFocus -> GdsLocalColorScheme.current.focusStateShadow
+    buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
+    buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonShadow
+    buttonType is ButtonTypeV2.Icon -> buttonType.shadowColor
+    else -> Color.Transparent
 }
 
 @Composable
