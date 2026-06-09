@@ -169,8 +169,7 @@ private fun Content(
                 )
                 CircularProgressIndicator(
                     modifier = Modifier.size(
-                        width = GdsButtonDefaults.spinnerDefaultSize,
-                        height = GdsButtonDefaults.spinnerDefaultSize,
+                        size = GdsButtonDefaults.spinnerDefaultSize,
                     ),
                     color = buttonColors.disabledContentColor,
                     strokeWidth = GdsButtonDefaults.spinnerDefaultStrokeWidth,
