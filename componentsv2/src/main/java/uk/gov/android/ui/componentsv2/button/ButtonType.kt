@@ -102,7 +102,9 @@ fun ButtonTypeV2.buttonColors() = when (this) {
 }
 
 object GdsButtonDefaults {
+    val borderStrokeWidthDefault: Dp = 2.dp
     val spinnerDefaultSize: Dp = 22.dp
+    val spinnerDefaultStrokeWidth: Dp = 2.dp
     val defaultShape: Shape = RectangleShape
     fun customRoundedShape(radius: Dp): Shape = RoundedCornerShape(radius)
 
