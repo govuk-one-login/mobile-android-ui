@@ -9,8 +9,7 @@ import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
 
 private val BUTTON_RADIUS = 12.dp
 internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<ButtonParametersV2> {
-
-    override val values: Sequence<ButtonParametersV2> = sequenceOf(
+    private val parameters = listOf(
         ButtonParametersV2(
             text = R.string.primary_button,
             buttonType = ButtonTypePreview.Primary,
@@ -81,4 +80,8 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.IconPrimary,
         ),
     )
+
+    override val values: Sequence<ButtonParametersV2> = parameters.asSequence()
+
+    override fun getDisplayName(index: Int): String = parameters[index].toString()
 }
