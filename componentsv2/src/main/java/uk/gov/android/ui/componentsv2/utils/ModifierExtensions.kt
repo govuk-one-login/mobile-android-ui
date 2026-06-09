@@ -2,10 +2,10 @@ package uk.gov.android.ui.componentsv2.utils
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -57,6 +57,11 @@ object ModifierExtensions {
  * @param shadowHeight = defaults to 2.dp but can be overridden
  *
  */
+@Deprecated(
+    message = "Superseded by customBottomBorder" +
+        " - will aim to be removed by 9th of July",
+    level = DeprecationLevel.WARNING,
+)
 fun Modifier.customBottomShadow(
     shadowColor: Color,
     shadowHeight: Dp = buttonShadowSize,
