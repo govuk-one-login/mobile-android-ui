@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
@@ -16,7 +15,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
@@ -50,32 +48,6 @@ object ModifierExtensions {
 }
 
 /**
- * This modifier allows for adding bottom shadow to components.
- * It allows for custom colour and size of the shadow.
- *
- * @param shadowColor - [Color] for the shadow **only**
- * @param shadowHeight = defaults to 2.dp but can be overridden
- *
- */
-@Deprecated(
-    message = "Superseded by customBottomBorder" +
-        " - will aim to be removed by 9th of July",
-    level = DeprecationLevel.WARNING,
-)
-fun Modifier.customBottomShadow(
-    shadowColor: Color,
-    shadowHeight: Dp = buttonShadowSize,
-) = this.drawBehind {
-    val shadowHeightPx = shadowHeight.toPx()
-    drawLine(
-        shadowColor,
-        Offset(0f, size.height),
-        Offset(size.width, size.height),
-        shadowHeightPx,
-    )
-}
-
-/**
  * This modifier draws a bottom border clipped to the provided [Shape].
  * Useful for adding a shaped bottom stroke to components like buttons.
  *
@@ -86,7 +58,7 @@ fun Modifier.customBottomShadow(
  * @param shape - [Shape] used to clip the border drawing
  * @param strokeWidth - [Dp] width of the border stroke
  */
-fun Modifier.customBottomBorder(
+internal fun Modifier.customBottomBorder(
     color: Color,
     shape: Shape,
     strokeWidth: Dp,
