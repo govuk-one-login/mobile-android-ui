@@ -21,7 +21,7 @@ import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.smallPadding
 
-private const val VISIBLE_DELAY = 2000L
+private const val BUTTON_LOADING_DURATION = 2000L // Milliseconds
 
 @Composable
 fun PrimaryButtonDemo(
@@ -33,20 +33,20 @@ fun PrimaryButtonDemo(
             .padding(smallPadding),
         verticalArrangement = Arrangement.spacedBy(smallPadding),
     ) {
-        var isIconLoading by remember { mutableStateOf(false) }
-        var isPrimaryLoading by remember { mutableStateOf(false) }
+        var isIconButtonLoading by remember { mutableStateOf(false) }
+        var isPrimaryButtonLoading by remember { mutableStateOf(false) }
 
-        LaunchedEffect(isIconLoading) {
-            if (isIconLoading) {
-                delay(VISIBLE_DELAY)
-                isIconLoading = false
+        LaunchedEffect(isIconButtonLoading) {
+            if (isIconButtonLoading) {
+                delay(BUTTON_LOADING_DURATION)
+                isIconButtonLoading = false
             }
         }
 
-        LaunchedEffect(isPrimaryLoading) {
-            if (isPrimaryLoading) {
-                delay(VISIBLE_DELAY)
-                isPrimaryLoading = false
+        LaunchedEffect(isPrimaryButtonLoading) {
+            if (isPrimaryButtonLoading) {
+                delay(BUTTON_LOADING_DURATION)
+                isPrimaryButtonLoading = false
             }
         }
 
@@ -58,9 +58,9 @@ fun PrimaryButtonDemo(
                 contentDescription = stringResource(R.string.primary_button),
                 textStyle = ExtraTypography.bodyLargeBold,
             ),
-            onClick = { isIconLoading = true },
+            onClick = { isIconButtonLoading = true },
             enabled = true,
-            loading = isIconLoading,
+            loading = isIconButtonLoading,
             modifier = Modifier.fillMaxWidth(),
         )
 
@@ -83,9 +83,9 @@ fun PrimaryButtonDemo(
         GdsButton(
             text = stringResource(R.string.primary_button),
             buttonType = ButtonTypeV2.Primary(),
-            onClick = { isPrimaryLoading = true },
+            onClick = { isPrimaryButtonLoading = true },
             enabled = true,
-            loading = isPrimaryLoading,
+            loading = isPrimaryButtonLoading,
             modifier = Modifier.fillMaxWidth(),
         )
     }
