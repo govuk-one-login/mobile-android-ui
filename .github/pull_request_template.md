@@ -17,7 +17,7 @@
 
 ### Before creating the pull request
 
-- [ ] Commit messages that conform to conventional commit messages.
+- [ ] Messages conform to conventional commits.
 - [ ] Ran the app locally ensuring it builds.
 - [ ] Tests pass locally.
 - [ ] Pull request has a clear title with a short description about the feature or update.
