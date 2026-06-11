@@ -59,7 +59,7 @@ Patterns include:
 
 ## Installation
 
-To use these libraries please refer to the GitHub Packages to find the latest versions for each.
+To use these libraries, read more about the GitHub Packages to find the latest versions for each.
 
 ### Gradle
 
@@ -78,8 +78,8 @@ dependencies {
 ```
 
 ## v4.0.0 Breaking Changes
-- in `components` - Configured the GdsButton to work with `AnnotatedString` in the `components/m3/buttons` to allow the IconButton to persist within the button and increase size/ move to another line accordingly when increasing font/ display size on device.
-The `GdsButton` and any pages using it (for example: `ErrorPage`) need to be the same version in order to be used in the same codebase.
+- in `components` - Configured the GdsButton to work with `AnnotatedString` in the `components/m3/buttons` to let the IconButton persist within the button and increase size/ move to another line accordingly when increasing font/ display size on device.
+The `GdsButton` and any pages using it (for example: `ErrorPage`) need to be the same version to be used in the same codebase.
 
 ## Updating gradle-wrapper
 
@@ -125,8 +125,8 @@ desired please edit the value under "branches:" in `.github/workflows/on_push_ho
 The hotfix branch name should be in the format "hotfix/M.m.p".
 
 Once the hotfix PR has been approved and the "Squash and merge" button pressed, the merge title 
-must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to allow for the
-correct version to be extracted and used as a tag.
+must be in the format "Merge pull request #xxx from govuk-one-login/release/M.m.p" to let the
+correct version be extracted and used as a tag.
 
 ## Test Wrapper
 The UI test wrapper is a standalone app that allows components, themes and patterns to be 
