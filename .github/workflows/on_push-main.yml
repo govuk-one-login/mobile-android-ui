@@ -37,6 +37,7 @@ jobs:
         uses: ./mobile-android-pipelines/actions/setup-runner
         with:
           gradle-cache-disabled: ${{ inputs.GRADLE_CACHE_DISABLED }}
+          install-vale: true
 
       - name: Verify Conventional commit standards against latest git tag
         uses: ./mobile-android-pipelines/actions/verify-conventional-commit
