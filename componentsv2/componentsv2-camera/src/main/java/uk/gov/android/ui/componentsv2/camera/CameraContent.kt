@@ -109,9 +109,8 @@ fun CameraContent(
         val provider = ProcessCameraProvider.getInstance(context).get()
 
         coroutineScope.launch {
-            provider.unbindAll()
-
             withContext(mainDispatcher) {
+                provider.unbindAll()
                 cameraUpdater.update(
                     provider.bindToLifecycle(
                         lifecycleOwner,
