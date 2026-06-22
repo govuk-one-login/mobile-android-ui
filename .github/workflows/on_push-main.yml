@@ -37,6 +37,7 @@ jobs:
         uses: ./mobile-android-pipelines/actions/setup-runner
         with:
           gradle-cache-disabled: ${{ inputs.GRADLE_CACHE_DISABLED }}
+          install-vale: true
 
       - name: Verify Conventional commit standards against latest git tag
         uses: ./mobile-android-pipelines/actions/verify-conventional-commit
@@ -92,10 +93,18 @@ jobs:
           VERSION_NAME: ${{ steps.versioning.outputs.new_version }}
 
       - name: Generate Changelog
+        id: changelog
         uses: ./mobile-android-pipelines/actions/generate-and-upload-changelog
         with:
           current-version: ${{ steps.versioning.outputs.current_version }}
           new-version: ${{ steps.versioning.outputs.new_version }}
+
+      - name: Publish GitHub Release
+        if: ${{ steps.versioning.outputs.current_version != steps.versioning.outputs.new_version }}
+        uses: ./mobile-android-pipelines/actions/publish-github-release
+        with:
+          version: ${{ steps.versioning.outputs.new_version }}
+          changelog-path: ${{ steps.changelog.outputs.path }}
 
       - name: Clean workspace
         uses: ./mobile-android-pipelines/actions/clean-workspace
