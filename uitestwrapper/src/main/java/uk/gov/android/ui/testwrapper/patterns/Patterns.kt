@@ -33,6 +33,7 @@ fun Patterns(
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
+        @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(PatternsDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,

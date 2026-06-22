@@ -25,6 +25,7 @@ fun Theme(
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
+        @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(ThemeDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,
