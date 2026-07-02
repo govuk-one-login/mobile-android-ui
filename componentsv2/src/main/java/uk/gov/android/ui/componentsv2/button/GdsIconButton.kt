@@ -17,6 +17,7 @@ import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.RippleDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -100,8 +101,10 @@ private fun getFocusStateColors(focusState: Boolean) = if (focusState) {
     GdsIconButtonDefaults.colors()
 }
 
+@Suppress("ComposeRedundantComposable") // Reads GdsLocalColorScheme.current
+@ReadOnlyComposable
 @Composable
-private fun getRippleColour(isInFocus: Boolean) = if (isInFocus) {
+private fun getRippleColour(isInFocus: Boolean): Color = if (isInFocus) {
     GdsLocalColorScheme.current.focusButtonHighlighted
 } else {
     GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted

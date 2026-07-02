@@ -154,6 +154,7 @@ private fun generateActions(
     null
 }
 
+@Suppress("ComposeRedundantComposable") // Emits UI
 @Composable
 private fun GdsTopAppBarDemoMenu(
     isMenuExpanded: Boolean,

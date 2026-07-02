@@ -4,10 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.util.Log
 import androidx.camera.core.Camera
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.core.SurfaceRequest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +17,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -51,7 +46,7 @@ fun QrScannerScreenDemo(
             relativeScanningHeight = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
         ),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
+    viewModel: CameraContentViewModel = viewModel(),
     onNavigate: (Any) -> Unit = {},
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -74,11 +69,46 @@ fun QrScannerScreenDemo(
             onUpdatePreviouslyDeniedPermission(!it)
         }
 
-    val permissionLogic = qrScannerDemoPermissionLogic(
-        viewModel = viewModel,
+    val surfaceRequest by viewModel.surfaceRequest.collectAsStateWithLifecycle(
         lifecycleOwner = lifecycleOwner,
-        coroutineScope = coroutineScope,
-        context = context,
+    )
+    val previewUseCase by viewModel.preview.collectAsStateWithLifecycle(
+        lifecycleOwner = lifecycleOwner,
+    )
+    val analysisUseCase by viewModel.imageAnalysis.collectAsStateWithLifecycle(
+        initialValue = null,
+        lifecycleOwner = lifecycleOwner,
+    )
+    val imageCaptureUseCase by viewModel.imageCapture.collectAsStateWithLifecycle(
+        initialValue = null,
+        lifecycleOwner = lifecycleOwner,
+    )
+
+    val permissionLogic = PermissionLogic(
+        onGrantPermission = {
+            QrScannerScreen(
+                modifier = Modifier,
+                surfaceRequest = surfaceRequest,
+                previewUseCase = previewUseCase,
+                analysisUseCase = analysisUseCase,
+                imageCaptureUseCase = imageCaptureUseCase,
+                coroutineScope = coroutineScope,
+                onUpdateViewModelCamera = viewModel::update,
+            )
+        },
+        onPermissionPermanentlyDenied = { state ->
+            CameraContentDemoButtons.PermanentCameraDenial(state, context)
+        },
+        onShowRationale = { _, launchPermission ->
+            CameraContentDemoButtons.CameraPermissionRationaleButton(
+                launchPermission = launchPermission,
+            )
+        },
+        onRequirePermission = { _, launchPermission ->
+            CameraContentDemoButtons.CameraRequirePermissionButton(
+                launchPermission = launchPermission,
+            )
+        },
     )
 
     Column(
@@ -95,51 +125,6 @@ fun QrScannerScreenDemo(
         )
     }
 }
-
-@Composable
-@OptIn(ExperimentalPermissionsApi::class)
-private fun qrScannerDemoPermissionLogic(
-    viewModel: CameraContentViewModel,
-    lifecycleOwner: LifecycleOwner,
-    coroutineScope: CoroutineScope,
-    context: Context,
-): PermissionLogic = PermissionLogic(
-    onGrantPermission = {
-        val surfaceRequest: SurfaceRequest? by
-            viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
-        val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle(
-            lifecycleOwner = lifecycleOwner,
-        )
-        val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
-            initialValue = null,
-            lifecycleOwner = lifecycleOwner,
-        )
-        val imageCaptureUseCase: ImageCapture? by
-            viewModel.imageCapture.collectAsStateWithLifecycle(
-                initialValue = null,
-                lifecycleOwner = lifecycleOwner,
-            )
-
-        QrScannerScreen(
-            modifier = Modifier,
-            surfaceRequest = surfaceRequest,
-            previewUseCase = previewUseCase,
-            analysisUseCase = analysisUseCase,
-            imageCaptureUseCase = imageCaptureUseCase,
-            coroutineScope = coroutineScope,
-            onUpdateViewModelCamera = viewModel::update,
-        )
-    },
-    onPermissionPermanentlyDenied = { state ->
-        CameraContentDemoButtons.PermanentCameraDenial(state, context)
-    },
-    onShowRationale = { _, launchPermission ->
-        CameraContentDemoButtons.CameraPermissionRationaleButton(launchPermission = launchPermission)
-    },
-    onRequirePermission = { _, launchPermission ->
-        CameraContentDemoButtons.CameraRequirePermissionButton(launchPermission = launchPermission)
-    },
-)
 
 private fun qrScannerDemoCallback(
     onNavigate: (Any) -> Unit = {},

@@ -408,6 +408,7 @@ internal fun PreviewCentreAlignedScreen(
 @ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Preview(showBackground = true, fontScale = 2f)
+@Suppress("ComposeRedundantComposable") // Emits UI
 @Composable
 internal fun PreviewCentreAlignedScreenAccessibility() {
     val content = CentreAlignedScreenContentProvider().values.elementAt(1)

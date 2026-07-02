@@ -16,6 +16,7 @@ import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -127,6 +128,8 @@ private fun setFocusStateColors(
     buttonType: ButtonTypeV2,
 ) = if (focusStateEnabled) GdsButtonDefaults.defaultFocusColors() else buttonType.buttonColors()
 
+@Suppress("ComposeRedundantComposable") // Reads GdsLocalColorScheme.current
+@ReadOnlyComposable
 @Composable
 private fun setShadowColors(
     buttonType: ButtonTypeV2,

@@ -13,6 +13,7 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenImage
 import uk.gov.android.ui.componentsv2.R as componentsR
 
 @SuppressLint("ComposeModifierMissing")
+@Suppress("ComposeRedundantComposable") // Emits UI
 @Composable
 fun CentreAlignedScreenDemo() {
     CentreAlignedScreen(
@@ -49,6 +50,7 @@ fun CentreAlignedScreenDemo() {
 }
 
 @SuppressLint("ComposeModifierMissing")
+@Suppress("ComposeRedundantComposable") // Emits UI
 @Composable
 fun CentreAlignedScrollableScreenDemo() {
     CentreAlignedScreen(

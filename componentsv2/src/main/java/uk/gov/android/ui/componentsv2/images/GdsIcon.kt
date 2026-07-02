@@ -67,7 +67,6 @@ internal data class IconPreviewParameters(
     val size: Dp? = null,
 )
 
-@Composable
 private fun Color.ifSpecified(
     default: Color,
 ): Color = if (this != Color.Unspecified) {

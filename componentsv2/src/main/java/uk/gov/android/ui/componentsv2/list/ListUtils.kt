@@ -130,7 +130,7 @@ fun ListItem.createDisplayText(
 }
 
 @SuppressLint("ComposeUnstableReceiver")
-@Suppress("LongMethod")
+@Suppress("LongMethod", "ComposeRedundantComposable") // Calls toMappedColors() which is @Composable
 @Composable
 fun Spanned.toAnnotatedString(
     linkTapListener: (String) -> Unit = {},
