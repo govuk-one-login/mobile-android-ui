@@ -1,6 +1,6 @@
 package uk.gov.android.ui
 
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.CommonExtension
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -8,8 +8,8 @@ val libs = the<LibrariesForLibs>()
 
 project.plugins.apply("app.cash.paparazzi")
 
-configure<BaseExtension> {
-    testOptions {
+configure<CommonExtension> {
+    testOptions.apply {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {

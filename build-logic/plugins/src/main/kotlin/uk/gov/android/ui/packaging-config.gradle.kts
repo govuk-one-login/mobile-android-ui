@@ -1,9 +1,9 @@
 package uk.gov.android.ui
 
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.CommonExtension
 
-configure<BaseExtension> {
-    packagingOptions {
+configure<CommonExtension> {
+    packaging.apply {
         listOf(
             "META-INF/AL2.0",
             "META-INF/LGPL2.1",
