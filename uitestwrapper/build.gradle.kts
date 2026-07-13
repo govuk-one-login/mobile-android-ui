@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.concurrent.futures.ktx)
     implementation(libs.kotlinx.collections.immutable)
     implementation(projects.componentsv2)
     implementation(projects.componentsv2.componentsv2Camera)
