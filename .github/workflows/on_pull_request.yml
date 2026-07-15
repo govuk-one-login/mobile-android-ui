@@ -34,6 +34,7 @@ jobs:
         with:
           gradle-cache-disabled: ${{ inputs.GRADLE_CACHE_DISABLED }}
           install-vale: true
+          accept-android-licences: true # TODO: Remove and switch to AOSP ATDs
 
       - name: Verify Conventional commit standards against latest git tag
         uses: ./mobile-android-pipelines/actions/verify-conventional-commit
