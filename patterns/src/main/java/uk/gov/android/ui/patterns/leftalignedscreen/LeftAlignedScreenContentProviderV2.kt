@@ -22,6 +22,7 @@ import uk.gov.android.ui.componentsv2.list.TitleType
 import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
 import uk.gov.android.ui.componentsv2.R as componentsv2R
 

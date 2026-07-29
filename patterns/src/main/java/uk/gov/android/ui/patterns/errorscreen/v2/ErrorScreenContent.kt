@@ -98,7 +98,7 @@ internal fun LazyListScope.toBodyContent(
             is ErrorScreenBodyContent.Text -> {
                 item {
                     val textStyle = if (item.useBoldStyle) {
-                        Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        ExtraTypography.bodyLargeBold
                     } else {
                         Typography.bodyLarge
                     }

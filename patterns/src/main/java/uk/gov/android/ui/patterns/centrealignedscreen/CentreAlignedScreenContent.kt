@@ -25,6 +25,7 @@ import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -81,7 +82,7 @@ internal fun LazyListScope.toBodyContent(
             is CentreAlignedScreenBodyContent.Text -> {
                 item {
                     val textStyle = if (item.useBoldStyle) {
-                        Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        ExtraTypography.bodyLargeBold
                     } else {
                         Typography.bodyLarge
                     }
