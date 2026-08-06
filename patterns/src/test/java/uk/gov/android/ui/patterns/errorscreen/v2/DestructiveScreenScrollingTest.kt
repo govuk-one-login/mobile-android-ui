@@ -1,5 +1,8 @@
 package uk.gov.android.ui.patterns.errorscreen.v2
 
+import android.annotation.SuppressLint
+import androidx.compose.material.Text
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertIsDisplayed
@@ -20,6 +23,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.testutils.BDD.And
 import uk.gov.android.ui.patterns.testutils.BDD.Given
@@ -36,6 +40,7 @@ class DestructiveScreenScrollingTest {
     private lateinit var mandatoryIcon: ErrorScreenIcon
     private lateinit var mandatoryTitle: String
 
+    @SuppressLint("CheckResult")
     @Test
     fun `test scrolling behaviour in the body content`() = with(composeTestRule) {
         Given("a body content with multiple lines and paragraphs") {
@@ -60,6 +65,9 @@ class DestructiveScreenScrollingTest {
                     body = {
                         toBodyContent(body, spacingDouble)
                     },
+                    supportingText = { _, _ ->
+                        GdsSupportingText(text = "Supporting text")
+                    }
                 )
             }
         }
