@@ -64,8 +64,8 @@ internal class DestructiveScreenScreenshotTest(
                 },
                 supportingText =
                     parameters.supportingText?.let {
-                        { horizontalPadding, topPadding ->
-                            SupportingTextBody(it, horizontalPadding, topPadding)
+                        {
+                            SupportingTextBody(it)
                         }
                     }
             )

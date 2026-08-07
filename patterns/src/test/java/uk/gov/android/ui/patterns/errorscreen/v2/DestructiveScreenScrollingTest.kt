@@ -65,7 +65,7 @@ class DestructiveScreenScrollingTest {
                     body = {
                         toBodyContent(body, spacingDouble)
                     },
-                    supportingText = { _, _ ->
+                    supportingText = {
                         GdsSupportingText(text = "Supporting text")
                     }
                 )

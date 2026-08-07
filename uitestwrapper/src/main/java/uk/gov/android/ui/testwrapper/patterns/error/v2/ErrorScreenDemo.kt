@@ -174,11 +174,11 @@ fun ErrorBottomContentLargeScreenDemo() {
                 modifier = Modifier.fillMaxWidth(),
             )
         },
-        supportingText = { horizontalPadding,_ ->
+        supportingText = {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.errorScreenDemo(horizontalPadding),
+                modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
@@ -187,7 +187,6 @@ fun ErrorBottomContentLargeScreenDemo() {
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-@Suppress("MagicNumber")
 fun ErrorScreenSupportingTextDemo() {
     ErrorScreen(
         icon = { padding ->
@@ -223,11 +222,11 @@ fun ErrorScreenSupportingTextDemo() {
                 modifier = Modifier.fillMaxWidth(),
             )
         },
-        supportingText = { horizontalPadding,_ ->
+        supportingText = {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.errorScreenDemo(horizontalPadding),
+                modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
