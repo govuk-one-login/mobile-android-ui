@@ -15,6 +15,7 @@ import uk.gov.android.ui.theme.smallPadding
 import kotlin.reflect.typeOf
 
 @Serializable
+@Suppress("LongMethod")
 sealed class PatternsDestination(
     val label: String,
 ) {
@@ -109,6 +110,10 @@ sealed class PatternsDestination(
                         DetailItem(
                             label = ERROR_BOTTOM_CONTENT_LARGE_SCREEN,
                             name = "Error Bottom Content Larger Than 1/3 Screen",
+                        ),
+                        DetailItem(
+                            label = ERROR_SCREEN_SUPPORTING_TEXT,
+                            name = "Error Screen supporting text",
                         ),
                     ),
                 ),

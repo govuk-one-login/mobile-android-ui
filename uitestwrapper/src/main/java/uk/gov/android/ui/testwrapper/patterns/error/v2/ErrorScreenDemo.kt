@@ -120,6 +120,7 @@ fun ErrorScrollableScreenDemo() {
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
+@Suppress("LongMethod")
 fun ErrorBottomContentLargeScreenDemo() {
     ErrorScreen(
         icon = { padding ->
@@ -173,6 +174,63 @@ fun ErrorBottomContentLargeScreenDemo() {
                 modifier = Modifier.fillMaxWidth(),
             )
         },
+        supportingText = { horizontalPadding,_ ->
+            Text(
+                text = "Supporting text",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.errorScreenDemo(horizontalPadding),
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+    )
+}
+
+@SuppressLint("ComposeModifierMissing")
+@Composable
+@Suppress("MagicNumber")
+fun ErrorScreenSupportingTextDemo() {
+    ErrorScreen(
+        icon = { padding ->
+            GdsIcon(
+                image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
+                contentDescription = stringResource(patternsR.string.error_icon_description),
+                modifier = Modifier.errorScreenDemo(padding),
+            )
+        },
+        title = { padding ->
+            GdsHeading(
+                text = "Error Screen",
+                modifier = Modifier.padding(padding),
+                textAlign = GdsHeadingAlignment.CenterAligned,
+            )
+        },
+        body = { padding ->
+            item {
+                Text(
+                    text = "Body text",
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.errorScreenDemo(padding),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+        },
+        primaryButton = {
+            val text = stringResource(componentsR.string.primary_button)
+            GdsButton(
+                text = text,
+                buttonType = ButtonTypeV2.Primary(),
+                onClick = {},
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        supportingText = { horizontalPadding,_ ->
+            Text(
+                text = "Supporting text",
+                textAlign = TextAlign.Center,
+                modifier = Modifier.errorScreenDemo(horizontalPadding),
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
     )
 }
 

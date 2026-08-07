@@ -100,8 +100,8 @@ fun ErrorScreen(
         modifier = modifier.background(colorScheme.background),
     ) {
         val verticalPaddingRequired = primaryButton != null ||
-            secondaryButton != null ||
-            tertiaryButton != null
+                secondaryButton != null ||
+                tertiaryButton != null
 
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         If the height is over 1/3 of the total screen, the BottomContent is moved
@@ -139,6 +139,7 @@ fun ErrorScreen(
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,
                                 tertiaryButton = tertiaryButton,
+                                supportingText = supportingText
                             )
                         }
                     },
@@ -332,16 +333,22 @@ internal fun ErrorScreenPreviewComposable(
             toBodyContent(content.body, horizontalPadding)
         },
         primaryButton =
-        content.primaryButton?.let {
-            { PrimaryButton(it) }
-        },
+            content.primaryButton?.let {
+                { PrimaryButton(it) }
+            },
         secondaryButton =
-        content.secondaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.secondaryButton?.let {
+                { SecondaryButton(it) }
+            },
         tertiaryButton =
-        content.tertiaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.tertiaryButton?.let {
+                { SecondaryButton(it) }
+            },
+        supportingText =
+            content.supportingText?.let {
+                { horizontalPadding, topPadding ->
+                    SupportingTextBody(it, horizontalPadding, topPadding)
+                }
+            }
     )
 }

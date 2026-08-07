@@ -4,9 +4,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Typography
@@ -36,6 +39,7 @@ internal data class ErrorScreenContent(
     val title: String,
     val icon: ErrorScreenIcon = ErrorScreenIcon.ErrorIcon,
     val body: ImmutableList<ErrorScreenBodyContent>? = null,
+    val supportingText: String? = null,
     val primaryButton: ErrorScreenButton? = null,
     val secondaryButton: ErrorScreenButton? = null,
     val tertiaryButton: ErrorScreenButton? = null,
@@ -221,5 +225,26 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         contentModifier = Modifier
             .fillMaxWidth(),
         contentPosition = contentPosition,
+    )
+}
+
+// Helper for supporting text
+@Composable
+internal fun SupportingTextBody(
+    text: String,
+    horizontalPadding: Dp,
+    topPadding: Dp
+) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .padding(
+                top = topPadding,
+                start = horizontalPadding,
+                end = horizontalPadding
+            )
+            .fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onBackground,
     )
 }
