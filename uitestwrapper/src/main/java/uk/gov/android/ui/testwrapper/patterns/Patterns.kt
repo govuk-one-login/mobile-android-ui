@@ -19,6 +19,7 @@ import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedS
 import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorBottomContentLargeScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenSupportingTextDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
@@ -66,6 +67,7 @@ fun PatternDetail(
         ERROR_SCREEN -> ErrorScreenDemo()
         ERROR_SCROLLABLE_SCREEN -> ErrorScrollableScreenDemo()
         ERROR_BOTTOM_CONTENT_LARGE_SCREEN -> ErrorBottomContentLargeScreenDemo()
+        ERROR_SCREEN_SUPPORTING_TEXT -> ErrorScreenSupportingTextDemo()
     }
 }
 
@@ -76,4 +78,5 @@ const val CENTRED_ALIGNED_SCREEN = "centreAlignedScreen"
 const val CENTRED_ALIGNED_SCROLLABLE_SCREEN = "centreAlignedScrollableScreen"
 const val ERROR_SCREEN = "errorScreen"
 const val ERROR_SCROLLABLE_SCREEN = "errorScrollableScreen"
+const val ERROR_SCREEN_SUPPORTING_TEXT = "errorScreenSupportingText"
 const val ERROR_BOTTOM_CONTENT_LARGE_SCREEN = "errorBottomContentLargeScreen"

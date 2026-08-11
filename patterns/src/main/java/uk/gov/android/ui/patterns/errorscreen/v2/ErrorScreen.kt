@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -35,6 +37,9 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults
+import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
@@ -42,6 +47,7 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_S
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -66,6 +72,7 @@ private const val DENSITY_PREVIEW_INDEX = 5
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @sample LazyListScope.toBodyContent
  * @param body list of items representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
@@ -79,6 +86,7 @@ fun ErrorScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
@@ -92,20 +100,21 @@ fun ErrorScreen(
         modifier = modifier.background(colorScheme.background),
     ) {
         val verticalPaddingRequired = primaryButton != null ||
-            secondaryButton != null ||
-            tertiaryButton != null
+                secondaryButton != null ||
+                tertiaryButton != null
 
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         If the height is over 1/3 of the total screen, the BottomContent is moved
         into the MainContent which is scrollable */
         SubcomposeLayout { constraints ->
-            // Draw the BottomContent to enable checking it's height
+            // Draw the BottomContent to enable checking its height
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
                     verticalPaddingRequired = verticalPaddingRequired,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
                     tertiaryButton = tertiaryButton,
+                    supportingText = supportingText
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -130,6 +139,7 @@ fun ErrorScreen(
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,
                                 tertiaryButton = tertiaryButton,
+                                supportingText = supportingText
                             )
                         }
                     },
@@ -223,6 +233,7 @@ private fun BottomContent(
     primaryButton: @Composable (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)?,
     tertiaryButton: @Composable (() -> Unit)?,
+    supportingText: (@Composable () -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -236,6 +247,8 @@ private fun BottomContent(
                 vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
             ),
     ) {
+        supportingText?.invoke()
+
         primaryButton?.invoke()
 
         secondaryButton?.invoke()
@@ -320,16 +333,22 @@ internal fun ErrorScreenPreviewComposable(
             toBodyContent(content.body, horizontalPadding)
         },
         primaryButton =
-        content.primaryButton?.let {
-            { PrimaryButton(it) }
-        },
+            content.primaryButton?.let {
+                { PrimaryButton(it) }
+            },
         secondaryButton =
-        content.secondaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.secondaryButton?.let {
+                { SecondaryButton(it) }
+            },
         tertiaryButton =
-        content.tertiaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.tertiaryButton?.let {
+                { SecondaryButton(it) }
+            },
+        supportingText =
+            content.supportingText?.let {
+                {
+                    SupportingTextBody(it)
+                }
+            }
     )
 }

@@ -144,6 +144,27 @@ internal class ErrorScreenContentProvider :
                 showIcon = true,
             ),
         ),
+        ErrorScreenContent(
+            configurationDescription = """
+                Content 6 - Basic Error Screen with supporting text
+            """.trimIndent(),
+            title = warningTitle,
+            icon = ErrorScreenIcon.WarningIcon,
+            body = persistentListOf(
+                ErrorScreenBodyContent.Text(bodyContentSingleLine),
+            ),
+            primaryButton = ErrorScreenButton(
+                text = primaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            secondaryButton = ErrorScreenButton(
+                text = secondaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            supportingText = "Supporting text"
+        ),
     )
 
     private fun loremIpsum(words: Int): String = LoremIpsum(words).values.joinToString(" ")
