@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
@@ -22,6 +21,7 @@ import uk.gov.android.ui.componentsv2.list.TitleType
 import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
 import uk.gov.android.ui.componentsv2.R as componentsv2R
 
@@ -52,7 +52,9 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.AnnotatedText(
                     buildAnnotatedString {
                         append(textShort)
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                        withStyle(
+                            SpanStyle(fontFamily = ExtraTypography.bodyLargeBold.fontFamily),
+                        ) {
                             append(" 26 June 2024 at 2:56pm (UK time)")
                         }
                         append(". $textShort")
