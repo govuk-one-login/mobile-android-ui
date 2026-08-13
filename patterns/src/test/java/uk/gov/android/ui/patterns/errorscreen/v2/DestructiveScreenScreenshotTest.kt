@@ -62,6 +62,12 @@ internal class DestructiveScreenScreenshotTest(
                         SecondaryButton(it)
                     }
                 },
+                supportingText =
+                    parameters.supportingText?.let {
+                        {
+                            SupportingTextBody(it)
+                        }
+                    }
             )
         }
     }
