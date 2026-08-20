@@ -67,6 +67,9 @@ sealed class ButtonTypeV2(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
     ) : ButtonTypeV2(textStyle = textStyle)
 
+    @Deprecated(
+        message = "Use the GdsButton.icon parameter instead."
+    )
     @Suppress("TooGenericExceptionThrown")
     data class Icon(
         val buttonColors: ButtonColors,

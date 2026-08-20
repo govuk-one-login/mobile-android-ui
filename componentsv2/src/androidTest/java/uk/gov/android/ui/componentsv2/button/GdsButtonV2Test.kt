@@ -120,7 +120,7 @@ class GdsButtonV2Test {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -140,7 +140,7 @@ class GdsButtonV2Test {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -200,6 +200,7 @@ class GdsButtonV2Test {
         composeTestRule.setContent {
             GdsButton(
                 text = parameters.text,
+                icon = parameters.icon?.toButtonIcon(),
                 buttonType = parameters.buttonType.toButtonTypeV2(),
                 onClick = { onClick++ },
                 loading = parameters.loading,
