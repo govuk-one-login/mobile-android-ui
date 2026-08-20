@@ -51,6 +51,8 @@ import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
+import uk.gov.android.ui.theme.smallPadding
+import uk.gov.android.ui.theme.xsmallPadding
 
 /**
  * Gds Button that meets Design System specs
@@ -280,12 +282,14 @@ internal fun ButtonPreviewV2(
     parameters: ButtonParametersV2,
 ) {
     GdsTheme {
-        // Display buttons in a full width container so that full width button variants are
-        // visually distinct from non-full width buttons
+        // Display buttons in a full width container with visible background to help distinguish
+        // full width from non-full width variants and light mode from dark mode variants
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.background)
+                .padding(xsmallPadding),
+            contentAlignment = Alignment.Center,
         ) {
             GdsButton(
                 text = parameters.text,
