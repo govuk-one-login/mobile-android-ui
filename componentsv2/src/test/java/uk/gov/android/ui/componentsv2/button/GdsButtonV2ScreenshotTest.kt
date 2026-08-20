@@ -1,6 +1,12 @@
 package uk.gov.android.ui.componentsv2.button
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
@@ -8,6 +14,7 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
 import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProviderV2
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class GdsButtonV2ScreenshotTest(
@@ -16,14 +23,27 @@ internal class GdsButtonV2ScreenshotTest(
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsButton(
-            text = stringResource(parameters.text),
-            buttonType = parameters.buttonType.toButtonTypeV2(),
-            onClick = {},
-            contentPosition = parameters.contentPosition,
-            enabled = parameters.enabled,
-            loading = parameters.loading,
-        )
+        Surface(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.background),
+            ) {
+                GdsButton(
+                    modifier = parameters.modifier,
+                    text = parameters.text,
+                    buttonType = parameters.buttonType.toButtonTypeV2(),
+                    onClick = {},
+                    contentPosition = parameters.contentPosition,
+                    contentModifier = parameters.contentModifier,
+                    textAlign = parameters.textAlign,
+                    enabled = parameters.enabled,
+                    loading = parameters.loading,
+                )
+            }
+        }
     }
 
     companion object {

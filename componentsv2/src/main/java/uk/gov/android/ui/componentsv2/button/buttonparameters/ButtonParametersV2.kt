@@ -4,14 +4,15 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.style.TextAlign
 import uk.gov.android.ui.componentsv2.button.ButtonTypePreview
 import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
 
 internal data class ButtonParametersV2(
-    @StringRes
-    val text: Int,
+    val text: String,
     val buttonType: ButtonTypePreview,
     val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    val textAlign: TextAlign = TextAlign.Center,
     val modifier: Modifier = Modifier,
     val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
