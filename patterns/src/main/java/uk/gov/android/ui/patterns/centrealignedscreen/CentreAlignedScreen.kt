@@ -17,14 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -33,11 +30,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
-import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
@@ -47,7 +42,6 @@ import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefault
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
-import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -232,57 +226,30 @@ fun CentreAlignedScreen(
         },
         primaryButton = primaryButton?.let {
             {
-                if (it.showIcon) {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonTypeV2.Icon(
-                            buttonColors = ButtonTypeV2.Primary().buttonColors(),
-                            textStyle = ExtraTypography.bodyLargeBold,
-                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
-                            contentDescription = stringResource(R.string.opens_in_external_browser),
-                        ),
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                } else {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonTypeV2.Primary(),
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                }
+                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+
+                GdsButton(
+                    text = it.text,
+                    icon = icon,
+                    buttonType = ButtonTypeV2.Primary(),
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
             }
         },
         secondaryButton = secondaryButton?.let {
             {
-                if (it.showIcon) {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonTypeV2.Icon(
-                            buttonColors = customColors(
-                                contentColor = colorScheme.primary,
-                                containerColor = colorScheme.background,
-                            ),
-                            textStyle = Typography.bodyLarge,
-                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
-                            contentDescription = stringResource(R.string.opens_in_external_browser),
-                        ),
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                } else {
-                    GdsButton(
-                        text = it.text,
-                        buttonType = ButtonTypeV2.Secondary(),
-                        onClick = it.onClick,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = it.enabled,
-                    )
-                }
+                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+
+                GdsButton(
+                    text = it.text,
+                    icon = icon,
+                    buttonType = ButtonTypeV2.Secondary(),
+                    onClick = it.onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = it.enabled,
+                )
             }
         },
     )
