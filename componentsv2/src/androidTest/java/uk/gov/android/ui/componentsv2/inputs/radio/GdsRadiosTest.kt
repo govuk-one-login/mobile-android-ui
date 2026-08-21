@@ -1,8 +1,14 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.requestFocus
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performKeyInput
+import androidx.compose.ui.test.pressKey
 import junit.framework.TestCase.assertEquals
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -29,7 +35,7 @@ class GdsRadiosTest {
             )
         }
 
-        composeTestRule.onNodeWithText("Option 2", useUnmergedTree = true).performClick()
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).performClick()
         verify(onItemSelected).invoke(1)
     }
 
@@ -46,7 +52,62 @@ class GdsRadiosTest {
             )
         }
 
-        composeTestRule.onNodeWithText("Option 2", useUnmergedTree = true).performClick()
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).performClick()
         assertEquals(1, selectedItem)
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun testKeyboardSelectionWithSpace() {
+        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
+        val onItemSelected = mock<(Int) -> Unit>()
+
+        composeTestRule.setContent {
+            GdsRadios(
+                items = items,
+                selectedItem = null,
+                onItemSelected = onItemSelected,
+            )
+        }
+
+       
+        
+        composeTestRule.onNode(
+            hasContentDescription("Option 1", substring = true),
+        ).apply {
+            requestFocus()
+            performKeyInput {
+                pressKey(Key.Spacebar)
+            }
+        }
+
+        verify(onItemSelected).invoke(0)
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun testKeyboardFocusMovement() {
+        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
+
+        composeTestRule.setContent {
+            GdsRadios(
+                items = items,
+                selectedItem = null,
+                onItemSelected = {},
+            )
+        }
+
+        composeTestRule.onNode(hasContentDescription("Option 1", substring = true)).apply {
+            requestFocus()
+            assertIsFocused()
+        }
+
+
+        composeTestRule.onNode(hasContentDescription("Option 1", substring = true))
+            .performKeyInput {
+            pressKey(Key.DirectionDown)
+        }
+
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).assertIsFocused()
     }
 }

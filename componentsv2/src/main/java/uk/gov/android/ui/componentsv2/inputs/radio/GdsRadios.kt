@@ -1,12 +1,17 @@
+
+
 package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -14,10 +19,14 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -38,6 +47,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
 /**
  * A composable that displays a list of radio selection options.
@@ -47,6 +57,8 @@ import uk.gov.android.ui.theme.spacingSingle
  * @param onItemSelected A callback function that is called when an item is selected.
  * @param modifier The modifier to apply to the layout.
  * @param title An optional title to display above the radio selection options.
+ * @param focusedItemIndexForPreview Used only for screenshot previews to simulate external keyboard
+ * focus on the item at the given index. Has no effect at runtime.
  * @sample GdsRadiosSample
  */
 @Composable
@@ -56,6 +68,7 @@ fun GdsRadios(
     onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
     title: GdsRadiosTitle? = null,
+    focusedItemIndexForPreview: Int? = null,
 ) {
     Column(
         modifier
@@ -82,6 +95,7 @@ fun GdsRadios(
                 },
                 index = index,
                 totalOptions = items.size,
+                isFocusedForPreview = focusedItemIndexForPreview == index,
             )
         }
     }
@@ -97,7 +111,10 @@ fun GdsRadioOptionItem(
     index: Int,
     totalOptions: Int,
     modifier: Modifier = Modifier,
+    isFocusedForPreview: Boolean = false,
 ) {
+    var isFocused by remember { mutableStateOf(isFocusedForPreview) }
+
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
         option = radioOption,
@@ -115,23 +132,49 @@ fun GdsRadioOptionItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .clearAndSetSemantics {
+            .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
             }
-            .semantics(mergeDescendants = true) {}
-            .clickable(onClick = onOptionSelected),
+            .onFocusChanged { isFocused = it.isFocused }
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onOptionSelected,
+            ),
         horizontalArrangement = Arrangement.Start,
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
-            RadioButton(
-                selected = isSelected,
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = GdsLocalColorScheme.current.selectedRadioButton,
-                    unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton,
-                ),
-                onClick = onOptionSelected,
-                modifier = Modifier.padding(top = spacingDouble, end = spacingDouble, bottom = spacingDouble),
-            )
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .padding(vertical = spacingSingleAndAHalf)
+                    .padding(end = spacingDouble)
+                    .then(
+                        if (isFocused) {
+                            Modifier.background(
+                                color = GdsLocalColorScheme.current.focusState,
+                                shape = CircleShape,
+                            )
+                        } else {
+                            Modifier
+                        },
+                    )
+                    .padding(4.dp),
+            ) {
+                RadioButton(
+                    selected = isSelected,
+                    colors = getRadioButtonFocusStateColors(isFocused),
+                    // onClick is null so the RadioButton is not an independent focus target.
+                    // The parent Row's clickable modifier handles all interaction (touch, keyboard
+                    // Space/Enter) and is the single focus stop for the whole row.
+
+                    // Add clearAndSetSemantics to internal children of the RadioButton to ensure
+                    // TalkBack announcements are in line with the previous implementation,
+                    // treating the row as the single semantic node.
+                    onClick = null,
+                    modifier = Modifier.clearAndSetSemantics {},
+                )
+            }
         }
         Text(
             text = text,
@@ -139,9 +182,23 @@ fun GdsRadioOptionItem(
             style = Typography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = spacingSingle),
+                .padding(end = spacingSingle)
+                .clearAndSetSemantics {},
         )
     }
+}
+
+@Composable
+private fun getRadioButtonFocusStateColors(isFocused: Boolean) = if (isFocused) {
+    RadioButtonDefaults.colors(
+        selectedColor = GdsLocalColorScheme.current.focusStateContent,
+        unselectedColor = GdsLocalColorScheme.current.focusStateContent,
+    )
+} else {
+    RadioButtonDefaults.colors(
+        selectedColor = GdsLocalColorScheme.current.selectedRadioButton,
+        unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton,
+    )
 }
 
 @Composable
@@ -176,6 +233,7 @@ internal data class GdsRadiosPreviewData(
     val items: ImmutableList<String>,
     val title: GdsRadiosTitle? = null,
     val selectedIndex: Int? = null,
+    val focusedItemIndex: Int? = null,
 )
 
 data class GdsRadiosContent(
@@ -231,6 +289,19 @@ internal class GdsRadiosProvider : PreviewParameterProvider<GdsRadiosPreviewData
             title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
             selectedIndex = 3,
         ),
+        // Focused state previews – simulate external keyboard focus on the radio icon
+        GdsRadiosPreviewData(
+            items = persistentListOf(OPTION1, OPTION2),
+            title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
+            selectedIndex = null,
+            focusedItemIndex = 0,
+        ),
+        GdsRadiosPreviewData(
+            items = persistentListOf(OPTION1, OPTION2),
+            title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
+            selectedIndex = 1,
+            focusedItemIndex = 1,
+        ),
     )
 }
 
@@ -246,6 +317,7 @@ internal fun GdsRadiosPreview(
             onItemSelected = {},
             title = radioSelectionItems.title,
             modifier = Modifier.padding(horizontal = spacingDouble),
+            focusedItemIndexForPreview = radioSelectionItems.focusedItemIndex,
         )
     }
 }
@@ -253,7 +325,7 @@ internal fun GdsRadiosPreview(
 const val OPTION1 = "option one"
 const val OPTION2 = "option two"
 const val LONG_OPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
-    "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
-    "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
-    "aliquip ex ea commodo consequat"
+        "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
+        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
+        "aliquip ex ea commodo consequat"
 private const val EXAMPLE_TITLE = "Example Title"
