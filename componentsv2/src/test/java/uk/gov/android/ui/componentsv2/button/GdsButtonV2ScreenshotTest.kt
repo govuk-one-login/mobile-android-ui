@@ -42,6 +42,7 @@ internal class GdsButtonV2ScreenshotTest(
                     modifier = parameters.modifier,
                     text = parameters.text,
                     buttonType = parameters.buttonType.toButtonTypeV2(),
+                    icon = parameters.icon?.toButtonIcon(),
                     onClick = {},
                     contentPosition = parameters.contentPosition,
                     contentModifier = parameters.contentModifier,

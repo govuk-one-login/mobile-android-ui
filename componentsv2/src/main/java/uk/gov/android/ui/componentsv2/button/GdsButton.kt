@@ -47,11 +47,8 @@ import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomBorder
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
-import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Typography
-import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.xsmallPadding
 
 /**
@@ -67,6 +64,7 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param loading - controls if the content should display a Loading Spinner and disable the button
  * @param textAlign - default: Centre - controls the text alignment
  * @param shape - default: Rectangle - controls the button shape
+ * @param icon - default: None (null) - the icon to display alongside the text
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,6 +80,7 @@ fun GdsButton(
     loading: Boolean = false,
     textAlign: TextAlign = TextAlign.Center,
     shape: Shape = GdsButtonDefaults.defaultShape,
+    icon: ButtonIcon? = null,
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
@@ -114,6 +113,7 @@ fun GdsButton(
         ) {
             Content(
                 text = text,
+                icon = icon,
                 buttonType = buttonType,
                 loading = loading,
                 buttonColors = colors,
@@ -138,6 +138,7 @@ private fun setShadowColors(
     isEnabled: Boolean,
     isInFocus: Boolean,
 ): Color = when {
+    buttonType is ButtonTypeV2.Secondary -> Color.Transparent
     !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
     isInFocus -> GdsLocalColorScheme.current.focusStateShadow
     buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
@@ -146,9 +147,11 @@ private fun setShadowColors(
     else -> Color.Transparent
 }
 
+@Suppress("LongMethod")
 @Composable
 private fun Content(
     text: String,
+    icon: ButtonIcon?,
     buttonType: ButtonTypeV2,
     buttonColors: ButtonColors,
     loading: Boolean,
@@ -180,6 +183,18 @@ private fun Content(
                     strokeWidth = GdsButtonDefaults.spinnerDefaultStrokeWidth,
                 )
             }
+        } else if (icon != null) {
+            GdsAnnotatedString(
+                text = text,
+                fontWeight = buttonType.textStyle.fontWeight ?: FontWeight.Bold,
+                icon = icon.icon,
+                iconContentDescription = icon.contentDescription,
+                isIconTrailing = icon.position.isTrailing(),
+                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
+                iconBackgroundColor = Color.Transparent,
+                textAlign = textAlign,
+                textStyle = buttonType.textStyle,
+            )
         } else if (buttonType is ButtonTypeV2.Icon) {
             GdsAnnotatedString(
                 text = text,
@@ -223,10 +238,7 @@ private fun getContentPadding(
 
 internal enum class ButtonTypePreview {
     Primary,
-    PrimaryIcon,
-    PrimaryIconLeading,
     Secondary,
-    SecondaryIcon,
     Tertiary,
     Quaternary,
     Admin,
@@ -247,31 +259,6 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Custom -> ButtonTypeV2.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
-    )
-
-    ButtonTypePreview.PrimaryIconLeading -> ButtonTypeV2.Icon(
-        buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
-        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
-        contentDescription = stringResource(R.string.icon_content_desc),
-        shadowColor = GdsLocalColorScheme.current.buttonShadow,
-        isIconTrailing = false,
-    )
-
-    ButtonTypePreview.PrimaryIcon -> ButtonTypeV2.Icon(
-        buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
-        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = ExtraTypography.bodyLargeBold,
-        contentDescription = stringResource(R.string.icon_content_desc),
-        shadowColor = GdsLocalColorScheme.current.buttonShadow,
-    )
-
-    ButtonTypePreview.SecondaryIcon -> ButtonTypeV2.Icon(
-        buttonColors = GdsButtonDefaults.defaultSecondaryColors(),
-        icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-        textStyle = Typography.labelLarge.copy(fontWeight = FontWeight.Light),
-        contentDescription = stringResource(R.string.icon_content_desc),
-        shadowColor = GdsLocalColorScheme.current.buttonShadow,
     )
 }
 
@@ -294,6 +281,7 @@ internal fun ButtonPreviewV2(
             GdsButton(
                 text = parameters.text,
                 buttonType = parameters.buttonType.toButtonTypeV2(),
+                icon = parameters.icon?.toButtonIcon(),
                 modifier = parameters.modifier,
                 contentPosition = parameters.contentPosition,
                 textAlign = parameters.textAlign,

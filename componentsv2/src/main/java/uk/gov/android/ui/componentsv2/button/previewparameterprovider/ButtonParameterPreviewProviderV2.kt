@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIconPreview
 import uk.gov.android.ui.componentsv2.button.ButtonTypePreview
 import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
 import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
@@ -43,11 +43,13 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ),
         ButtonParametersV2(
             text = "Primary button (icon)",
-            buttonType = ButtonTypePreview.PrimaryIcon,
+            icon = ButtonIconPreview.Trailing,
+            buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParametersV2(
-            text = "Primary button (icon)",
-            buttonType = ButtonTypePreview.PrimaryIconLeading,
+            text = "Primary button (leading icon)",
+            icon = ButtonIconPreview.Leading,
+            buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParametersV2(
             text = "Primary button (disabled)",
@@ -69,7 +71,8 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ),
         ButtonParametersV2(
             text = "Secondary button (icon)",
-            buttonType = ButtonTypePreview.SecondaryIcon,
+            icon = ButtonIconPreview.Trailing,
+            buttonType = ButtonTypePreview.Secondary,
         ),
         ButtonParametersV2(
             text = "Custom button",
@@ -77,7 +80,8 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ),
         ButtonParametersV2(
             text = "Primary button (disabled, icon)",
-            buttonType = ButtonTypePreview.PrimaryIcon,
+            icon = ButtonIconPreview.Trailing,
+            buttonType = ButtonTypePreview.Primary,
             enabled = false,
         ),
         ButtonParametersV2(
@@ -86,7 +90,8 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ),
         ButtonParametersV2(
             text = "Secondary button (full width, icon)",
-            buttonType = ButtonTypePreview.SecondaryIcon,
+            icon = ButtonIconPreview.Trailing,
+            buttonType = ButtonTypePreview.Secondary,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             contentModifier = Modifier.fillMaxWidth()
