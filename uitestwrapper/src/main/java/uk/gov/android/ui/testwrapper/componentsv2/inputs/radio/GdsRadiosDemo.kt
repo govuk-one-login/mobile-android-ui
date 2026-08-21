@@ -1,9 +1,11 @@
 package uk.gov.android.ui.testwrapper.componentsv2.inputs.radio
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -23,17 +25,30 @@ fun GdsRadiosDemo(
     onSelected: (String) -> Unit = {},
 ) {
     GdsTheme {
-        var selectedIndex by remember { mutableIntStateOf(0) }
-        val radioItems = persistentListOf(OPTION1, OPTION2, LONG_OPTION)
-        GdsRadios(
-            items = radioItems,
-            selectedItem = selectedIndex,
-            onItemSelected = { selectedItem ->
-                selectedIndex = selectedItem
-                onSelected(radioItems[selectedIndex])
-            },
-            title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Body),
-            modifier = modifier.padding(smallPadding),
-        )
+        Column(modifier = modifier) {
+            var selectedIndex by remember { mutableIntStateOf(0) }
+            val radioItems = persistentListOf(OPTION1, OPTION2, LONG_OPTION)
+            GdsRadios(
+                items = radioItems,
+                selectedItem = selectedIndex,
+                onItemSelected = { selectedItem ->
+                    selectedIndex = selectedItem
+                    onSelected(radioItems[selectedIndex])
+                },
+                title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Body),
+                modifier = Modifier.padding(smallPadding),
+            )
+
+            // Focus state preview — simulates external keyboard focus on the first item
+            var focusedPreviewIndex by remember { mutableStateOf<Int?>(0) }
+            GdsRadios(
+                items = persistentListOf(OPTION1, OPTION2),
+                selectedItem = null,
+                onItemSelected = { focusedPreviewIndex = it },
+                title = GdsRadiosTitle("Focus state (keyboard) without selection", GdsHeadingStyle.Body),
+                focusedItemIndexForPreview = focusedPreviewIndex,
+                modifier = Modifier.padding(smallPadding),
+            )
+        }
     }
 }
