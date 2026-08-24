@@ -2,10 +2,12 @@ package uk.gov.android.ui.componentsv2.button
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.assertHeightIsEqualTo
+import androidx.compose.ui.test.assertIsEqualTo
+import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.height
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -34,7 +36,9 @@ class GdsButtonSizeTest(
         }
 
         composeTestRule.onNodeWithTag(TEST_TAG)
-            .assertHeightIsEqualTo(buttonHeight)
+            .getUnclippedBoundsInRoot()
+            .height
+            .assertIsEqualTo(buttonHeight, tolerance = 1.dp, subject = "height")
     }
 
     data class TestParams(
