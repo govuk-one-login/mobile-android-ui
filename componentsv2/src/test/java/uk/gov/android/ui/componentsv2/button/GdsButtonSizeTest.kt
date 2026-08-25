@@ -12,9 +12,11 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
+import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.annotation.GraphicsMode
 
-@RunWith(Parameterized::class)
+@RunWith(ParameterizedRobolectricTestRunner::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
 class GdsButtonSizeTest(
     private val params: TestParams,
 ) {
@@ -52,14 +54,12 @@ class GdsButtonSizeTest(
     }
 
     companion object {
-        private val baseHeight = 48.dp
-        private val shadowHeight = 2.dp
-        private val buttonHeight = baseHeight + shadowHeight
+        private val buttonHeight = 48.dp
 
         private const val TEST_TAG = "Button"
 
         @JvmStatic
-        @Parameterized.Parameters(name = "{0}")
+        @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
         fun parameters(): List<TestParams> = listOf(
             TestParams(name = "primary", buttonType = ButtonTypeV2.Primary()),
             TestParams(name = "primary with icon", buttonType = ButtonTypeV2.Primary(), icon = true),
