@@ -87,7 +87,7 @@ fun ErrorScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    supportingText: (@Composable (topPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
@@ -234,7 +234,7 @@ private fun BottomContent(
     primaryButton: @Composable (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)?,
     tertiaryButton: @Composable (() -> Unit)?,
-    supportingText: (@Composable (topPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -248,7 +248,10 @@ private fun BottomContent(
                 vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
             ),
     ) {
-        supportingText?.invoke(listItemTopPadding)
+        if (supportingText != null) {
+            Spacer(modifier = Modifier.padding(top = listItemTopPadding))
+            supportingText.invoke()
+        }
 
         primaryButton?.invoke()
 
@@ -347,8 +350,8 @@ internal fun ErrorScreenPreviewComposable(
             },
         supportingText =
             content.supportingText?.let {
-                { topPadding ->
-                    SupportingTextBody(it, topPadding)
+                {
+                    SupportingTextBody(it)
                 }
             }
     )

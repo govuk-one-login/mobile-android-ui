@@ -169,7 +169,11 @@ internal fun PrimaryButton(button: ErrorScreenButton) {
 // Helper for secondary button with icon
 @Composable
 internal fun SecondaryButton(button: ErrorScreenButton) {
-    val icon = if (button.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
+    } else {
+        null
+    }
 
     GdsButton(
         text = button.text,
@@ -188,7 +192,11 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         .fillMaxWidth()
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
-    val icon = if (button.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
+    } else {
+        null
+    }
 
     GdsButton(
         text = button.text,
@@ -205,13 +213,12 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
 // Helper for supporting text
 @Composable
 internal fun SupportingTextBody(
-    text: String,
-    topPadding: Dp
+    text: String
 ) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth().padding(top = topPadding),
+        modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.onBackground,
     )
 }

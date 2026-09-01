@@ -66,7 +66,7 @@ internal class DestructiveScreenScreenshotTest(
                 supportingText =
                     parameters.supportingText?.let { text ->
                         {
-                            SupportingTextBody(text, it)
+                            SupportingTextBody(text)
                         }
                     }
             )
