@@ -15,6 +15,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.BaseScreenshotTest
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
@@ -63,9 +64,9 @@ internal class DestructiveScreenScreenshotTest(
                     }
                 },
                 supportingText =
-                    parameters.supportingText?.let {
+                    parameters.supportingText?.let { text ->
                         {
-                            SupportingTextBody(it)
+                            SupportingTextBody(text)
                         }
                     }
             )
