@@ -15,10 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.delay
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.buttonColors
-import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.smallPadding
 
 private const val BUTTON_LOADING_DURATION = 2000L // Milliseconds
@@ -53,11 +52,8 @@ fun PrimaryButtonDemo(
         // Primary Button with Icon
         GdsButton(
             text = stringResource(R.string.primary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Primary().buttonColors(),
-                contentDescription = stringResource(R.string.primary_button),
-                textStyle = ExtraTypography.bodyLargeBold,
-            ),
+            icon = ButtonIcon.opensInWebBrowser(),
+            buttonType = ButtonTypeV2.Primary(),
             onClick = { isIconButtonLoading = true },
             enabled = true,
             loading = isIconButtonLoading,
@@ -67,13 +63,8 @@ fun PrimaryButtonDemo(
         // Disabled Primary button with Icon
         GdsButton(
             text = stringResource(R.string.primary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Primary().buttonColors(),
-                textStyle = ButtonTypeV2.Primary().textStyle.copy(
-                    color = ButtonTypeV2.Primary().buttonColors().contentColor,
-                ),
-                contentDescription = stringResource(R.string.primary_button),
-            ),
+            icon = ButtonIcon.opensInWebBrowser(),
+            buttonType = ButtonTypeV2.Primary(),
             onClick = { },
             enabled = false,
             modifier = Modifier.fillMaxWidth(),

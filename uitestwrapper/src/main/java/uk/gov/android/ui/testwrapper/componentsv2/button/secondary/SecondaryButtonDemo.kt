@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.theme.smallPadding
 
 @Suppress("LongMethod")
@@ -31,16 +31,11 @@ fun SecondaryButtonDemo(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start,
     ) {
-        // Enabled Secondary button with default  Icon
+        // Enabled Secondary button with preset icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Secondary().buttonColors(),
-                textStyle = ButtonTypeV2.Secondary().textStyle.copy(
-                    color = ButtonTypeV2.Secondary().buttonColors().contentColor,
-                ),
-                contentDescription = stringResource(R.string.secondary_button),
-            ),
+            icon = ButtonIcon.opensInWebBrowser(),
+            buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = true,
             contentModifier = Modifier.padding(),
@@ -48,16 +43,11 @@ fun SecondaryButtonDemo(
             textAlign = TextAlign.Left,
         )
 
-        // Disabled Secondary button with  default Icon
+        // Disabled Secondary button with preset icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Secondary().buttonColors(),
-                textStyle = ButtonTypeV2.Primary().textStyle.copy(
-                    color = ButtonTypeV2.Primary().buttonColors().contentColor,
-                ),
-                contentDescription = stringResource(R.string.secondary_button),
-            ),
+            icon = ButtonIcon.opensInWebBrowser(),
+            buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = false,
             contentModifier = Modifier.padding(),
@@ -65,17 +55,14 @@ fun SecondaryButtonDemo(
             textAlign = TextAlign.Left,
         )
 
-        // Enabled  Secondary button with  error filled  Icon
+        // Enabled Secondary button with error icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Secondary().buttonColors(),
+            icon = ButtonIcon(
                 icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                textStyle = ButtonTypeV2.Primary().textStyle.copy(
-                    color = ButtonTypeV2.Primary().buttonColors().contentColor,
-                ),
                 contentDescription = stringResource(R.string.secondary_button),
             ),
+            buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = true,
             contentModifier = Modifier.padding(),
@@ -83,17 +70,14 @@ fun SecondaryButtonDemo(
             textAlign = TextAlign.Left,
         )
 
-        // Disabled Secondary button with  error filled Icon
+        // Disabled Secondary button with error icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            buttonType = ButtonTypeV2.Icon(
-                buttonColors = ButtonTypeV2.Secondary().buttonColors(),
+            icon = ButtonIcon(
                 icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                textStyle = ButtonTypeV2.Primary().textStyle.copy(
-                    color = ButtonTypeV2.Primary().buttonColors().contentColor,
-                ),
                 contentDescription = stringResource(R.string.secondary_button),
             ),
+            buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = false,
             contentModifier = Modifier.padding(),

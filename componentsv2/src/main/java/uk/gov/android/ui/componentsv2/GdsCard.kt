@@ -38,9 +38,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTitlePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
@@ -134,8 +134,12 @@ fun GdsCard(
                                 text = buttonText,
                                 displayPrimary = displayPrimary,
                                 displaySecondary = displaySecondary,
-                                secondaryIcon = secondaryIcon,
-                                secondaryIconContentDescription = secondaryIconContentDescription,
+                                secondaryIcon = secondaryIcon?.let {
+                                    ButtonIcon(
+                                        icon = secondaryIcon,
+                                        secondaryIconContentDescription ?: ""
+                                    )
+                                },
                                 onClick = onClick,
                             )
                         }
@@ -237,9 +241,8 @@ private fun Buttons(
     displayDivider: Boolean,
     text: String?,
     displayPrimary: Boolean,
-    secondaryIcon: ImageVector?,
+    secondaryIcon: ButtonIcon?,
     displaySecondary: Boolean,
-    secondaryIconContentDescription: String?,
     onClick: () -> Unit,
 ) {
     if (displayDivider) {
@@ -267,13 +270,8 @@ private fun Buttons(
                 GdsButton(
                     text = text,
                     onClick = onClick,
-                    buttonType = secondaryIcon?.let {
-                        ButtonTypeV2.Icon(
-                            buttonColors = ButtonTypeV2.Secondary().buttonColors(),
-                            icon = secondaryIcon,
-                            contentDescription = secondaryIconContentDescription ?: "",
-                        )
-                    } ?: ButtonTypeV2.Secondary(),
+                    icon = secondaryIcon,
+                    buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
                     contentPosition = Arrangement.Start,
                     contentModifier = Modifier

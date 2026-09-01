@@ -83,7 +83,11 @@ fun GdsIconButton(
             Icon(
                 imageVector = content.icon,
                 contentDescription = content.contentDescription,
-                tint = color.contentColor,
+                tint = if (focusStateEnabled) {
+                    GdsLocalColorScheme.current.focusStateContent
+                } else {
+                    color.contentColor
+                },
                 modifier = contentModifier,
             )
         }

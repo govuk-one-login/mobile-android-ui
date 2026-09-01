@@ -67,6 +67,10 @@ sealed class ButtonTypeV2(
         override val textStyle: TextStyle = Typography.bodyLarge.copy(fontWeight = FontWeight.Light),
     ) : ButtonTypeV2(textStyle = textStyle)
 
+    @Deprecated(
+        message = "Use the GdsButton.icon parameter instead. " +
+                "This API is due to be removed on 30th October 2026 (DCMAW-22263)"
+    )
     @Suppress("TooGenericExceptionThrown")
     data class Icon(
         val buttonColors: ButtonColors,
