@@ -231,12 +231,13 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
 // Helper for supporting text
 @Composable
 internal fun SupportingTextBody(
-    text: String
+    text: String,
+    topPadding: Dp
 ) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(top = topPadding),
         color = MaterialTheme.colorScheme.onBackground,
     )
 }

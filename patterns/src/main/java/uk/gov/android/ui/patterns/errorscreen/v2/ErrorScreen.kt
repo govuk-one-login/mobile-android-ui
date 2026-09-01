@@ -46,6 +46,7 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_B
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -86,7 +87,7 @@ fun ErrorScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    supportingText: (@Composable () -> Unit)? = null,
+    supportingText: (@Composable (topPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
@@ -233,7 +234,7 @@ private fun BottomContent(
     primaryButton: @Composable (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)?,
     tertiaryButton: @Composable (() -> Unit)?,
-    supportingText: (@Composable () -> Unit)? = null,
+    supportingText: (@Composable (topPadding: Dp) -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
@@ -247,7 +248,7 @@ private fun BottomContent(
                 vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
             ),
     ) {
-        supportingText?.invoke()
+        supportingText?.invoke(listItemTopPadding)
 
         primaryButton?.invoke()
 
@@ -346,8 +347,8 @@ internal fun ErrorScreenPreviewComposable(
             },
         supportingText =
             content.supportingText?.let {
-                {
-                    SupportingTextBody(it)
+                { topPadding ->
+                    SupportingTextBody(it, topPadding)
                 }
             }
     )
