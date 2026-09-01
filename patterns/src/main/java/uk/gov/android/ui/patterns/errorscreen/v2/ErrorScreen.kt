@@ -249,7 +249,7 @@ private fun BottomContent(
             ),
     ) {
         if (supportingText != null) {
-            Spacer(modifier = Modifier.padding(top = listItemTopPadding))
+            Spacer(modifier = Modifier.height(listItemTopPadding))
             supportingText.invoke()
         }
 
