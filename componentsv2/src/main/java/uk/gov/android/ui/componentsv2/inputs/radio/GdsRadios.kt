@@ -32,11 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.key.type
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -149,14 +144,6 @@ internal fun GdsRadioOptionItem(
         modifier = modifier
             .onFocusChanged { isFocused = it.isFocused }
             .focusable()
-            .onKeyEvent {
-                if (it.type == KeyEventType.KeyUp && (it.key == Key.Spacebar || it.key == Key.Enter)) {
-                    onOptionSelected()
-                    true
-                } else {
-                    false
-                }
-            }
             .selectable(
                 selected = isSelected,
                 onClick = onOptionSelected,
