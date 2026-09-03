@@ -4,6 +4,7 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -139,10 +140,15 @@ internal fun GdsRadioOptionItem(
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    // Added onKeyEvent listener to ensure test Focus Movement can be tested
+    //This was necessary because the default selectable behavior was not reliably triggering
+    // when testing remotely
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .onFocusChanged { isFocused = it.isFocused }
+            .focusable()
             .onKeyEvent {
                 if (it.type == KeyEventType.KeyUp && (it.key == Key.Spacebar || it.key == Key.Enter)) {
                     onOptionSelected()
