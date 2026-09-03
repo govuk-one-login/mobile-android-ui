@@ -76,6 +76,7 @@ class GdsRadiosTest {
             hasContentDescription("Option 1", substring = true),
         ).apply {
             requestFocus()
+            composeTestRule.waitForIdle()
             performKeyInput {
                 pressKey(Key.Spacebar)
             }
@@ -97,8 +98,10 @@ class GdsRadiosTest {
             )
         }
 
+        // Focus the first option using requestFocus
         composeTestRule.onNode(hasContentDescription("Option 1", substring = true)).apply {
             requestFocus()
+            composeTestRule.waitForIdle()
             assertIsFocused()
         }
 
