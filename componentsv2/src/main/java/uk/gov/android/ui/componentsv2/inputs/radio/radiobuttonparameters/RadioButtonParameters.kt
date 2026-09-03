@@ -7,6 +7,7 @@ internal data class GdsRadiosPreviewData(
     val items: ImmutableList<String>,
     val title: GdsRadiosTitle? = null,
     val selectedIndex: Int? = null,
+    val focusedIndex: Int? = null,
 )
 
 data class GdsRadiosContent(
