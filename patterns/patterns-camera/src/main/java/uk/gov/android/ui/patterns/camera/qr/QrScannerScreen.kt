@@ -63,7 +63,8 @@ import uk.gov.android.ui.theme.smallPadding
  * @param onUpdateViewModelCamera The function to call when there's a new instance of [Camera].
  */
 @Deprecated(
-    message = "To be replaced by variant without the colors parameter - will aim to be removed on 19th of May",
+    message = "To be replaced by variant without the colors " +
+        "parameter - will aim to be removed on 19th of May",
     level = DeprecationLevel.WARNING,
 )
 @Composable

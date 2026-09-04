@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.testutils
 
+@Suppress("ktlint:standard:function-naming")
 object BDD {
     fun Given(step: String, block: () -> Unit = {}) {
         println("Step: Given $step")
