@@ -15,16 +15,16 @@ import uk.gov.android.ui.componentsv2.camera.state.CompleteCameraContentState
  * Relies on interface delegation to provide [StateFlow] properties exposing Camera [UseCase]s.
  */
 class CameraContentViewModel @JvmOverloads constructor(
-    state: CameraContentState.Complete = CompleteCameraContentState(),
+    state: CameraContentState.Complete = CompleteCameraContentState()
 ) : ViewModel(),
     CameraContentState.Complete by state {
 
     init {
         update(
             preview =
-            Preview.Builder().build().apply {
-                this.surfaceProvider = this@CameraContentViewModel
-            },
+                Preview.Builder().build().apply {
+                    this.surfaceProvider = this@CameraContentViewModel
+                }
         )
     }
 
@@ -37,12 +37,15 @@ class CameraContentViewModel @JvmOverloads constructor(
     fun addAll(useCases: List<UseCase>) = useCases.forEach { useCase ->
         when (useCase) {
             is ImageAnalysis -> update(useCase)
+
             is ImageCapture -> update(useCase)
+
             is Preview -> update(useCase)
+
             else -> {
                 throw IllegalArgumentException(
                     "Cannot update viewmodel state with an instance of " +
-                        useCase::class.java.simpleName,
+                        useCase::class.java.simpleName
                 )
             }
         }
@@ -63,9 +66,9 @@ class CameraContentViewModel @JvmOverloads constructor(
         update(camera = null)
         update(
             preview =
-            Preview.Builder().build().apply {
-                this.surfaceProvider = this@CameraContentViewModel
-            },
+                Preview.Builder().build().apply {
+                    this.surfaceProvider = this@CameraContentViewModel
+                }
         )
         update(imageAnalysis = null)
         update(imageCapture = null)

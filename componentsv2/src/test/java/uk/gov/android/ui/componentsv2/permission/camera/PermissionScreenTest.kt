@@ -38,9 +38,9 @@ class PermissionScreenTest {
             },
             onPermissionPermanentlyDenied = { fail(permanentlyDeniedUnhappyPathFailure) },
             onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
-            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
+            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) }
         ),
-        state = PermissionStateStubs.granted(permission),
+        state = PermissionStateStubs.granted(permission)
     )
 
     @Test
@@ -51,9 +51,9 @@ class PermissionScreenTest {
             onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
             onShowRationale = { _, launchPermission ->
                 hasReachedHappyPath = true
-            },
+            }
         ),
-        state = PermissionStateStubs.rationale(permission),
+        state = PermissionStateStubs.rationale(permission)
     )
 
     @Test
@@ -64,9 +64,9 @@ class PermissionScreenTest {
             onRequirePermission = { _, launchPermission ->
                 hasReachedHappyPath = true
             },
-            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
+            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) }
         ),
-        state = PermissionStateStubs.denied(permission),
+        state = PermissionStateStubs.denied(permission)
     )
 
     @Test
@@ -77,11 +77,11 @@ class PermissionScreenTest {
                 hasReachedHappyPath = true
             },
             onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
-            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
+            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) }
 
         ),
         hasPreviouslyDeniedPermission = true,
-        state = PermissionStateStubs.denied(permission),
+        state = PermissionStateStubs.denied(permission)
     )
 
     @Test
@@ -92,9 +92,9 @@ class PermissionScreenTest {
             onRequirePermission = { _, launchPermission ->
                 launchPermission()
             },
-            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) },
+            onShowRationale = { _, launchPermission -> fail(rationaleUnhappyPathFailure) }
         ),
-        state = PermissionStateStubs.denied(permission) { hasReachedHappyPath = true },
+        state = PermissionStateStubs.denied(permission) { hasReachedHappyPath = true }
     )
 
     @Test
@@ -105,21 +105,21 @@ class PermissionScreenTest {
             onRequirePermission = { _, launchPermission -> fail(deniedUnhappyPathFailure) },
             onShowRationale = { _, launchPermission ->
                 launchPermission()
-            },
+            }
         ),
-        state = PermissionStateStubs.rationale(permission) { hasReachedHappyPath = true },
+        state = PermissionStateStubs.rationale(permission) { hasReachedHappyPath = true }
     )
 
     private fun performLogicFlow(
         logic: PermissionLogic,
         state: PermissionState,
-        hasPreviouslyDeniedPermission: Boolean = false,
+        hasPreviouslyDeniedPermission: Boolean = false
     ) = runTest {
         composeTestRule.setContent {
             PermissionScreen(
                 permissionState = state,
                 hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
-                logic = logic,
+                logic = logic
             )
         }
 

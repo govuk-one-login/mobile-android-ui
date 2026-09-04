@@ -6,12 +6,10 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import uk.gov.android.ui.componentsv2.camera.state.capture.ImageCapturer
 
-internal class HasImageCapture(
-    private val matcher: Matcher<ImageCapture>,
-) : TypeSafeMatcher<ImageCapturer.State>() {
-    override fun matchesSafely(
-        item: ImageCapturer.State?,
-    ): Boolean = matcher.matches(item?.imageCapture?.value)
+internal class HasImageCapture(private val matcher: Matcher<ImageCapture>) :
+    TypeSafeMatcher<ImageCapturer.State>() {
+    override fun matchesSafely(item: ImageCapturer.State?): Boolean =
+        matcher.matches(item?.imageCapture?.value)
 
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)
@@ -19,7 +17,7 @@ internal class HasImageCapture(
 
     override fun describeMismatchSafely(
         item: ImageCapturer.State?,
-        mismatchDescription: Description?,
+        mismatchDescription: Description?
     ) {
         matcher.describeMismatch(item?.imageCapture?.value, mismatchDescription)
     }

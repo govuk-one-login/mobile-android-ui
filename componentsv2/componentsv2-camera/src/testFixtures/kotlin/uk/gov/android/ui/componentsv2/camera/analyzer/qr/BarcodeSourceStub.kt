@@ -29,7 +29,7 @@ data class BarcodeSourceStub(
     private val displayValue: String? = null,
     private val rawValue: String? = null,
     private val rawBytes: ByteArray? = null,
-    private val cornerPoints: Array<out Point?>? = null,
+    private val cornerPoints: Array<out Point?>? = null
 ) : BarcodeSource {
     override fun getFormat(): Int = format
     override fun getValueType(): Int = valueType
@@ -98,26 +98,22 @@ data class BarcodeSourceStub(
         @JvmStatic
         fun unknown(): Barcode = BarcodeSourceStub(
             format = Barcode.FORMAT_UNKNOWN,
-            valueType = Barcode.TYPE_UNKNOWN,
+            valueType = Barcode.TYPE_UNKNOWN
         ).let(::Barcode)
 
         @JvmStatic
-        fun urlQrCode(
-            url: String,
-            title: String = "Barcode Test URL",
-        ): Barcode = BarcodeSourceStub(
+        fun urlQrCode(url: String, title: String = "Barcode Test URL"): Barcode = BarcodeSourceStub(
             format = Barcode.FORMAT_QR_CODE,
             valueType = Barcode.TYPE_URL,
             urlBookmark = Barcode.UrlBookmark(
                 title,
-                url,
-            ),
+                url
+            )
         ).let(::Barcode)
 
-        fun List<String>.asUrlBarcodes(
-            title: String = "Barcode Test URL",
-        ): List<Barcode> = map { url ->
-            urlQrCode(url = url, title = title)
-        }
+        fun List<String>.asUrlBarcodes(title: String = "Barcode Test URL"): List<Barcode> =
+            map { url ->
+                urlQrCode(url = url, title = title)
+            }
     }
 }

@@ -17,7 +17,7 @@ import uk.gov.android.ui.theme.m3.Typography
 fun GdsSupportingText(
     text: String,
     modifier: Modifier = Modifier,
-    textAlign: TextAlign = TextAlign.Start,
+    textAlign: TextAlign = TextAlign.Start
 ) {
     Text(
         text = text,
@@ -25,14 +25,14 @@ fun GdsSupportingText(
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
             .fillMaxWidth(),
-        textAlign = textAlign,
+        textAlign = textAlign
     )
 }
 
 internal class SupportingTextPreviewProvider : PreviewParameterProvider<String> {
     override val values: Sequence<String> = sequenceOf(
         "Short supporting text",
-        "Long supporting text - ${LoremIpsum(20).values.first()}",
+        "Long supporting text - ${LoremIpsum(20).values.first()}"
     )
 }
 
@@ -40,7 +40,7 @@ internal class SupportingTextPreviewProvider : PreviewParameterProvider<String> 
 @Composable
 private fun PreviewSupportingText(
     @PreviewParameter(SupportingTextPreviewProvider::class)
-    parameters: String,
+    parameters: String
 ) {
     GdsTheme {
         GdsSupportingText(parameters)

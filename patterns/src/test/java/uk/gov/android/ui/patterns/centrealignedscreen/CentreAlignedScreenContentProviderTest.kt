@@ -79,7 +79,7 @@ class CentreAlignedScreenContentProviderTest {
                     body = content.body,
                     supportingText = content.supportingText,
                     primaryButton = content.primaryButton,
-                    secondaryButton = content.secondaryButton,
+                    secondaryButton = content.secondaryButton
                 )
             }
         }

@@ -18,26 +18,23 @@ import uk.gov.android.ui.testwrapper.theme.styles.StylesDemo
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-fun Theme(
-    modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun Theme(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
     ) {
         @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(ThemeDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {
-                        onNavigate(destination)
-                    })
-                    .padding(smallPadding),
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onNavigate(destination)
+                        })
+                        .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3,
+                style = GdsHeadingStyle.Title3
             )
             HorizontalDivider(color = Color.Black)
         }
@@ -45,9 +42,7 @@ fun Theme(
 }
 
 @Composable
-fun ThemeDetail(
-    detailItem: DetailItem,
-) {
+fun ThemeDetail(detailItem: DetailItem) {
     when (detailItem.label) {
         STYLES_SCREEN -> StylesDemo()
     }

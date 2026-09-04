@@ -30,46 +30,37 @@ internal data class CentreAlignedScreenContent(
     val body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     val supportingText: String? = null,
     val primaryButton: CentreAlignedScreenButton? = null,
-    val secondaryButton: CentreAlignedScreenButton? = null,
+    val secondaryButton: CentreAlignedScreenButton? = null
 )
 
 sealed class CentreAlignedScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : CentreAlignedScreenBodyContent()
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<String>,
-    ) : CentreAlignedScreenBodyContent()
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : CentreAlignedScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        CentreAlignedScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<String>) :
+        CentreAlignedScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        CentreAlignedScreenBodyContent()
     data class Button(
         val text: String,
         val onClick: () -> Unit,
         val leftAligned: Boolean = false,
-        val showIcon: Boolean = false,
+        val showIcon: Boolean = false
     ) : CentreAlignedScreenBodyContent()
 }
 
-data class CentreAlignedScreenImage(
-    @DrawableRes val image: Int,
-    val description: String,
-)
+data class CentreAlignedScreenImage(@DrawableRes val image: Int, val description: String)
 
 data class CentreAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,
     val showIcon: Boolean = false,
-    val enabled: Boolean = true,
+    val enabled: Boolean = true
 )
 
 @Suppress("LongMethod")
 internal fun LazyListScope.toBodyContent(
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
-    horizontalItemPadding: Dp,
+    horizontalItemPadding: Dp
 ) {
     val itemPadding = PaddingValues(horizontal = horizontalItemPadding)
     body?.forEach { item ->
@@ -88,7 +79,7 @@ internal fun LazyListScope.toBodyContent(
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(itemPadding),
+                            .padding(itemPadding)
                     )
                 }
             }
@@ -100,7 +91,7 @@ internal fun LazyListScope.toBodyContent(
                         Modifier
                             .fillMaxWidth()
                             .padding(itemPadding),
-                        item.title,
+                        item.title
                     )
                 }
             }
@@ -112,7 +103,7 @@ internal fun LazyListScope.toBodyContent(
                         Modifier
                             .fillMaxWidth()
                             .padding(itemPadding),
-                        item.title,
+                        item.title
                     )
                 }
             }
@@ -132,7 +123,11 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
         .fillMaxWidth()
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
-    val icon = if (button.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
+    } else {
+        null
+    }
 
     GdsButton(
         text = button.text,
@@ -141,6 +136,6 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
         onClick = button.onClick,
         modifier = buttonModifier,
         contentModifier = Modifier.fillMaxWidth(),
-        contentPosition = contentPosition,
+        contentPosition = contentPosition
     )
 }

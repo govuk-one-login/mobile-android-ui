@@ -59,25 +59,25 @@ class CentreAlignedScreenTest {
                 title = titleText,
                 primaryButton = CentreAlignedScreenButton(
                     text = buttonText,
-                    onClick = { didClick = true },
+                    onClick = { didClick = true }
                 ),
                 body = persistentListOf(
                     CentreAlignedScreenBodyContent.BulletList(
                         title = ListTitle(text = "Bulleted list", titleType = TitleType.Text),
-                        items = persistentListOf("Item 1", "Item 2"),
+                        items = persistentListOf("Item 1", "Item 2")
                     ),
                     CentreAlignedScreenBodyContent.NumberedList(
                         title = ListTitle(text = "Bulleted list", titleType = TitleType.Text),
                         items = persistentListOf(
                             ListItem("Item 1"),
-                            ListItem("Item 2"),
-                        ),
+                            ListItem("Item 2")
+                        )
                     ),
                     CentreAlignedScreenBodyContent.Button(
                         text = secondaryButtonText,
-                        onClick = {},
-                    ),
-                ),
+                        onClick = {}
+                    )
+                )
             )
         }
 
@@ -107,7 +107,7 @@ class CentreAlignedScreenTest {
 
         composeTestRule.setContent {
             CentreAlignedScreen(
-                title = { GdsHeading(text = title) },
+                title = { GdsHeading(text = title) }
             )
         }
 
@@ -121,7 +121,7 @@ class CentreAlignedScreenTest {
     fun `lazy column has semantic collection info with rows and columns set to zero`() {
         composeTestRule.setContent {
             CentreAlignedScreen(
-                title = { },
+                title = { }
             )
         }
 
@@ -138,8 +138,8 @@ class CentreAlignedScreenTest {
                 primaryButton = CentreAlignedScreenButton(
                     text = buttonText,
                     onClick = { },
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             )
         }
 
@@ -156,8 +156,8 @@ class CentreAlignedScreenTest {
                 secondaryButton = CentreAlignedScreenButton(
                     text = buttonText,
                     onClick = { },
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             )
         }
 
@@ -170,7 +170,7 @@ class CentreAlignedScreenTest {
     fun `lazy column has keyboard scroll enabled`() {
         composeTestRule.setContent {
             CentreAlignedScreen(
-                title = { },
+                title = { }
             )
         }
 

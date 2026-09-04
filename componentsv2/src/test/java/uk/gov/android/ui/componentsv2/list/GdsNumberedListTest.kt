@@ -57,7 +57,7 @@ class GdsNumberedListTest {
         composeTestRule
             .onNodeWithContentDescription(
                 "numbered list ${one.convertToWord(context)} " +
-                    "item ${one.convertToWord(context)} ${item.listItems[0].text}",
+                    "item ${one.convertToWord(context)} ${item.listItems[0].text}"
             )
             .assertExists()
     }
@@ -149,7 +149,7 @@ class GdsNumberedListTest {
     fun verifyStyledElements() {
         val title = ListTitle(
             text = "Multi style list text",
-            titleType = TitleType.Heading,
+            titleType = TitleType.Heading
         )
         val lineOneText = "Line one"
         val lineTwoText = resources.getText(R.string.numbered_list_bold_style_example).toString()
@@ -159,7 +159,7 @@ class GdsNumberedListTest {
             ListItem(lineOneText),
             ListItem(spannableText = R.string.numbered_list_bold_style_example),
             ListItem(lineThreeText),
-            ListItem(spannableText = R.string.numbered_list_multi_style_example),
+            ListItem(spannableText = R.string.numbered_list_multi_style_example)
         )
         setupComposable(numberedListItems, title)
 
@@ -175,13 +175,13 @@ class GdsNumberedListTest {
     fun testStyledElementsAreDisplayed() {
         val title = ListTitle(
             text = "Multi style list text",
-            titleType = TitleType.Heading,
+            titleType = TitleType.Heading
         )
         val lineOneText = resources.getText(R.string.numbered_list_bold_style_example).toString()
         val lineTwoText = resources.getText(R.string.numbered_list_multi_style_example).toString()
         val numberedListItems = persistentListOf(
             ListItem(spannableText = R.string.numbered_list_bold_style_example),
-            ListItem(spannableText = R.string.numbered_list_multi_style_example),
+            ListItem(spannableText = R.string.numbered_list_multi_style_example)
         )
         setupComposable(numberedListItems, title)
 
@@ -199,19 +199,19 @@ class GdsNumberedListTest {
     fun testLinkElementsAreDisplayed() {
         val title = ListTitle(
             text = "Numbered Link list text",
-            titleType = TitleType.Heading,
+            titleType = TitleType.Heading
         )
         val lineOneText = resources.getText(R.string.bulleted_list_link_example).toString()
         val numberedListItems = persistentListOf(
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
-                onLinkTapped = {},
-            ),
+                onLinkTapped = {}
+            )
         )
         composeTestRule.setContent {
             GdsNumberedList(
                 numberedListItems = numberedListItems,
-                title = title,
+                title = title
             )
         }
 
@@ -229,13 +229,13 @@ class GdsNumberedListTest {
     fun testLinkIconElementsAreDisplayed() {
         val title = ListTitle(
             text = "Link list text",
-            titleType = TitleType.Heading,
+            titleType = TitleType.Heading
         )
         val numberedListItems = persistentListOf(
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
-                icon = R.drawable.ic_external_site,
-            ),
+                icon = R.drawable.ic_external_site
+            )
         )
         setupComposable(numberedListItems, title)
 
@@ -254,14 +254,14 @@ class GdsNumberedListTest {
     private fun setupComposable(
         items: ImmutableList<ListItem>,
         title: ListTitle?,
-        modifier: Modifier = Modifier,
+        modifier: Modifier = Modifier
     ) {
         composeTestRule.setContent {
             GdsTheme {
                 GdsNumberedList(
                     numberedListItems = items,
                     title = title,
-                    modifier = modifier,
+                    modifier = modifier
                 )
             }
         }

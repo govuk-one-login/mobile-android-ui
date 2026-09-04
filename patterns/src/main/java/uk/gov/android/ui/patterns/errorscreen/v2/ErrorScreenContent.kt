@@ -37,31 +37,25 @@ internal data class ErrorScreenContent(
     val supportingText: String? = null,
     val primaryButton: ErrorScreenButton? = null,
     val secondaryButton: ErrorScreenButton? = null,
-    val tertiaryButton: ErrorScreenButton? = null,
+    val tertiaryButton: ErrorScreenButton? = null
 )
 
 sealed class ErrorScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : ErrorScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        ErrorScreenBodyContent()
 
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
     data class Button(
         val text: String,
         val onClick: () -> Unit,
         val leftAligned: Boolean = false,
         val showIcon: Boolean = false,
-        val enabled: Boolean = true,
+        val enabled: Boolean = true
     ) : ErrorScreenBodyContent()
 }
 
@@ -69,27 +63,24 @@ data class ErrorScreenButton(
     val text: String,
     val onClick: () -> Unit,
     val showIcon: Boolean = false,
-    val enabled: Boolean = true,
+    val enabled: Boolean = true
 )
 
-enum class ErrorScreenIcon(
-    @DrawableRes val icon: Int,
-    @StringRes val description: Int,
-) {
+enum class ErrorScreenIcon(@DrawableRes val icon: Int, @StringRes val description: Int) {
     ErrorIcon(
         icon = R.drawable.ic_warning_error,
-        description = R.string.error_icon_description,
+        description = R.string.error_icon_description
     ),
     WarningIcon(
         icon = R.drawable.ic_warning_error,
-        description = R.string.warning_icon_description,
-    ),
+        description = R.string.warning_icon_description
+    )
 }
 
 @Suppress("LongMethod")
 internal fun LazyListScope.toBodyContent(
     body: ImmutableList<ErrorScreenBodyContent>? = null,
-    horizontalItemPadding: Dp,
+    horizontalItemPadding: Dp
 ) {
     val itemPadding = PaddingValues(horizontal = horizontalItemPadding)
     body?.forEach { item ->
@@ -108,7 +99,7 @@ internal fun LazyListScope.toBodyContent(
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(itemPadding),
+                            .padding(itemPadding)
                     )
                 }
             }
@@ -120,7 +111,7 @@ internal fun LazyListScope.toBodyContent(
                         Modifier
                             .fillMaxWidth()
                             .padding(itemPadding),
-                        item.title,
+                        item.title
                     )
                 }
             }
@@ -132,7 +123,7 @@ internal fun LazyListScope.toBodyContent(
                         Modifier
                             .fillMaxWidth()
                             .padding(itemPadding),
-                        item.title,
+                        item.title
                     )
                 }
             }
@@ -149,8 +140,12 @@ internal fun LazyListScope.toBodyContent(
 internal fun PrimaryButton(button: ErrorScreenButton) {
     val icon = if (button.showIcon) {
         ButtonIcon(
-            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
-            contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
+            icon = ImageVector.vectorResource(
+                uk.gov.android.ui.componentsv2.R.drawable.ic_external_site
+            ),
+            contentDescription = stringResource(
+                uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser
+            )
         )
     } else {
         null
@@ -162,7 +157,7 @@ internal fun PrimaryButton(button: ErrorScreenButton) {
         buttonType = ButtonTypeV2.Primary(),
         onClick = button.onClick,
         modifier = Modifier.fillMaxWidth(),
-        enabled = button.enabled,
+        enabled = button.enabled
     )
 }
 
@@ -181,7 +176,7 @@ internal fun SecondaryButton(button: ErrorScreenButton) {
         buttonType = ButtonTypeV2.Secondary(),
         onClick = button.onClick,
         modifier = Modifier.fillMaxWidth(),
-        enabled = button.enabled,
+        enabled = button.enabled
     )
 }
 
@@ -206,19 +201,17 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         modifier = buttonModifier,
         contentModifier = Modifier
             .fillMaxWidth(),
-        contentPosition = contentPosition,
+        contentPosition = contentPosition
     )
 }
 
 // Helper for supporting text
 @Composable
-internal fun SupportingTextBody(
-    text: String
-) {
+internal fun SupportingTextBody(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.onBackground,
+        color = MaterialTheme.colorScheme.onBackground
     )
 }

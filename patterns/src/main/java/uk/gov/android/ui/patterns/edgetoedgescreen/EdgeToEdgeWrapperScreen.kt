@@ -21,7 +21,7 @@ fun EdgeToEdgeWrapperScreen(
         .navigationBarsPadding()
         .statusBarsPadding()
         .windowInsetsPadding(WindowInsets.displayCutout),
-    content: @Composable (PaddingValues) -> Unit,
+    content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(modifier = modifier) { paddingValues ->
         content(paddingValues)

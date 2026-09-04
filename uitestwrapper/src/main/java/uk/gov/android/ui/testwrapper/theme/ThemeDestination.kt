@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import kotlin.reflect.typeOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.DetailItem
@@ -12,26 +13,20 @@ import uk.gov.android.ui.testwrapper.Placeholder
 import uk.gov.android.ui.testwrapper.ThemeListDetail
 import uk.gov.android.ui.testwrapper.navigation.navTypeOf
 import uk.gov.android.ui.theme.smallPadding
-import kotlin.reflect.typeOf
 
 @Serializable
-sealed class ThemeDestination(
-    val label: String,
-) {
+sealed class ThemeDestination(val label: String) {
     @Serializable
-    data class Placeholder(
-        val text: String,
-    ) : ThemeDestination(
-        label = text,
-    )
+    data class Placeholder(val text: String) :
+        ThemeDestination(
+            label = text
+        )
 
     @Serializable
-    data class DetailedItem(
-        val text: String,
-        val items: List<DetailItem>,
-    ) : ThemeDestination(
-        label = text,
-    ) {
+    data class DetailedItem(val text: String, val items: List<DetailItem>) :
+        ThemeDestination(
+            label = text
+        ) {
 
         companion object {
             /**
@@ -40,7 +35,7 @@ sealed class ThemeDestination(
              */
             val typeMap =
                 mapOf(
-                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>(),
+                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>()
                 )
         }
     }
@@ -51,28 +46,27 @@ sealed class ThemeDestination(
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
                     label = arguments.label,
-                    modifier = modifier.padding(smallPadding),
+                    modifier = modifier.padding(smallPadding)
                 )
             }
             composable<DetailedItem>(typeMap = DetailedItem.typeMap) { navBackStackEntry ->
                 val arguments: DetailedItem = navBackStackEntry.toRoute()
                 ThemeListDetail(
                     items = arguments.items.toPersistentList(),
-                    modifier = modifier,
+                    modifier = modifier
                 )
             }
         }
 
-        fun entries() =
-            listOf(
-                DetailedItem(
-                    text = "Styles",
-                    items =
+        fun entries() = listOf(
+            DetailedItem(
+                text = "Styles",
+                items =
                     listOf(
-                        DetailItem(label = STYLES_SCREEN, name = "Current Styles"),
-                    ),
-                ),
-                // Add new demo items here
-            ).sortedBy(ThemeDestination::label)
+                        DetailItem(label = STYLES_SCREEN, name = "Current Styles")
+                    )
+            )
+            // Add new demo items here
+        ).sortedBy(ThemeDestination::label)
     }
 }

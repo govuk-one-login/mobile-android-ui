@@ -23,7 +23,7 @@ class ClearListSemanticsForTalkBackTest {
                 content = { },
                 modifier = Modifier
                     .clearListSemanticsForTalkBack()
-                    .testTag(TEST_TAG),
+                    .testTag(TEST_TAG)
             )
         }
 

@@ -10,7 +10,7 @@ import uk.gov.android.ui.theme.m3.toMappedColors
 
 @RunWith(Parameterized::class)
 internal class GdsHeadingScreenshotTest(
-    private val parameters: Pair<HeadingParameters, NightMode>,
+    private val parameters: Pair<HeadingParameters, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -21,7 +21,7 @@ internal class GdsHeadingScreenshotTest(
                 style = parameters.style,
                 textFontWeight = parameters.fontWeight,
                 textAlign = parameters.textAlign,
-                textColour = parameters.textColour.colors.toMappedColors(),
+                textColour = parameters.textColour.colors.toMappedColors()
             )
         }
     }

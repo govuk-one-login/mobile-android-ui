@@ -11,6 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R as componentsv2R
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.Image
@@ -23,7 +24,6 @@ import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
-import uk.gov.android.ui.componentsv2.R as componentsv2R
 
 internal class LeftAlignedScreenContentProviderV2 :
     PreviewParameterProvider<LeftAlignedScreenContentV2> {
@@ -46,57 +46,57 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.Text(
                     textShort,
                     modifier = Modifier.padding(
-                        top = spacingTriple,
-                    ),
+                        top = spacingTriple
+                    )
                 ),
                 LeftAlignedScreenBodyV2.AnnotatedText(
                     buildAnnotatedString {
                         append(textShort)
                         withStyle(
-                            SpanStyle(fontFamily = ExtraTypography.bodyLargeBold.fontFamily),
+                            SpanStyle(fontFamily = ExtraTypography.bodyLargeBold.fontFamily)
                         ) {
                             append(" 26 June 2024 at 2:56pm (UK time)")
                         }
                         append(". $textShort")
-                    },
+                    }
                 ),
                 LeftAlignedScreenBodyV2.Title(
                     text = "Title2 - Left Aligned",
                     style = GdsHeadingStyle.Title2,
-                    textAlign = GdsHeadingAlignment.LeftAligned,
+                    textAlign = GdsHeadingAlignment.LeftAligned
                 ),
                 LeftAlignedScreenBodyV2.Title(
                     text = "Title2 - Center Aligned",
                     style = GdsHeadingStyle.Title2,
-                    textAlign = GdsHeadingAlignment.CenterAligned,
+                    textAlign = GdsHeadingAlignment.CenterAligned
                 ),
                 LeftAlignedScreenBodyV2.Title(
                     text = "Title2 - Right Aligned",
                     style = GdsHeadingStyle.Title2,
-                    textAlign = GdsHeadingAlignment.RightAligned,
+                    textAlign = GdsHeadingAlignment.RightAligned
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
+                        .background(Color.Gray)
                 ),
                 LeftAlignedScreenBodyV2.BulletList(
                     persistentListOf(
                         ListItem("Bullet 1"),
                         ListItem("Bullet 2"),
-                        ListItem(textShort),
-                    ),
+                        ListItem(textShort)
+                    )
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     secondaryButtonText,
-                    {},
-                ),
+                    {}
+                )
             ),
             supportingText = supportingText,
             primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
+            secondaryButton = secondaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -104,173 +104,173 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.Text(
                     textShort,
                     modifier = Modifier.padding(
-                        top = spacingTriple,
-                    ),
+                        top = spacingTriple
+                    )
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(vertical = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Divider(),
                 LeftAlignedScreenBodyV2.NumberedList(
                     persistentListOf(
                         ListItem("Number 1"),
                         ListItem("Number 2"),
-                        ListItem(textShort),
-                    ),
+                        ListItem(textShort)
+                    )
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     secondaryButtonText,
                     {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             supportingText = supportingText,
             primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
+            secondaryButton = secondaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
             body = listOf(
                 LeftAlignedScreenBodyV2.Text(
-                    textShort,
+                    textShort
                 ),
                 LeftAlignedScreenBodyV2.Text(
-                    textLong,
+                    textLong
                 ),
                 LeftAlignedScreenBodyV2.Warning(
-                    warning,
+                    warning
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
+                        .background(Color.Gray)
                 ),
                 LeftAlignedScreenBodyV2.Selection(
                     items = selectionItems,
                     selectedItem = null,
                     onItemSelected = {},
-                    title = GdsRadiosTitle(text = "Title", style = GdsHeadingStyle.Title1),
-                ),
+                    title = GdsRadiosTitle(text = "Title", style = GdsHeadingStyle.Title1)
+                )
             ),
             supportingText = supportingText,
             primaryButton = primaryButtonText,
-            primaryButtonIsEnabled = false,
+            primaryButtonIsEnabled = false
         ),
         LeftAlignedScreenContentV2(
             title = title,
             body = listOf(
                 LeftAlignedScreenBodyV2.Text(
-                    textShort,
+                    textShort
                 ),
                 LeftAlignedScreenBodyV2.Text(
-                    textLong,
+                    textLong
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(top = spacingTriple),
+                    Modifier.padding(top = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
+                        .background(Color.Gray)
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     "Read more about the types of photo ID you can use",
-                    {},
+                    {}
                 ),
                 LeftAlignedScreenBodyV2.Selection(
                     items = selectionItems,
                     selectedItem = 1,
-                    onItemSelected = {},
-                ),
+                    onItemSelected = {}
+                )
             ),
-            supportingText = supportingText,
+            supportingText = supportingText
         ),
         LeftAlignedScreenContentV2(
             title = title,
             body = listOf(
                 LeftAlignedScreenBodyV2.Text(
-                    textShort,
+                    textShort
                 ),
                 LeftAlignedScreenBodyV2.Text(
-                    textLong,
+                    textLong
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(vertical = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-            ),
+                        .background(Color.Gray)
+                )
+            )
         ),
         LeftAlignedScreenContentV2(
             title = title,
             body = listOf(
                 LeftAlignedScreenBodyV2.Text(
-                    textShort,
+                    textShort
                 ),
                 LeftAlignedScreenBodyV2.Text(
                     textLong,
                     modifier = Modifier.padding(
-                        bottom = spacingTriple,
-                    ),
+                        bottom = spacingTriple
+                    )
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(vertical = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
+                        .background(Color.Gray)
+                )
             ),
-            primaryButton = primaryButtonText,
+            primaryButton = primaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
             body = listOf(
                 LeftAlignedScreenBodyV2.Text(
-                    textShort,
+                    textShort
                 ),
                 LeftAlignedScreenBodyV2.Text(
-                    textExtraLong,
+                    textExtraLong
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(vertical = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Image(
                     R.drawable.preview__gdsvectorimage,
                     imageDescription,
                     Modifier
                         .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
+                        .background(Color.Gray)
+                )
             ),
-            primaryButton = primaryButtonText,
+            primaryButton = primaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
-            primaryButton = primaryButtonText,
+            primaryButton = primaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
             supportingText = "Supporting Text - $textExtraLong",
             primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
+            secondaryButton = secondaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -278,31 +278,31 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.Text(
                     textShort,
                     modifier = Modifier.padding(
-                        top = spacingTriple,
-                    ),
+                        top = spacingTriple
+                    )
                 ),
                 LeftAlignedScreenBodyV2.Warning(
                     warning,
-                    Modifier.padding(vertical = spacingTriple),
+                    Modifier.padding(vertical = spacingTriple)
                 ),
                 LeftAlignedScreenBodyV2.Divider(),
                 LeftAlignedScreenBodyV2.BulletList(
                     items = persistentListOf(
                         ListItem("Number 1"),
                         ListItem("Number 2"),
-                        ListItem(textShort),
+                        ListItem(textShort)
                     ),
-                    title = ListTitle("Bullet List Title", TitleType.Text),
+                    title = ListTitle("Bullet List Title", TitleType.Text)
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     secondaryButtonText,
                     {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             supportingText = supportingText,
             primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
+            secondaryButton = secondaryButtonText
         ),
         LeftAlignedScreenContentV2(
             title = title,
@@ -310,44 +310,44 @@ internal class LeftAlignedScreenContentProviderV2 :
                 LeftAlignedScreenBodyV2.Text(
                     textShort,
                     modifier = Modifier.padding(
-                        top = spacingTriple,
-                    ),
+                        top = spacingTriple
+                    )
                 ),
                 LeftAlignedScreenBodyV2.RowList(
                     rowData = persistentListOf(
                         RowData(
                             title = "Basic Row component",
-                            onClick = {},
+                            onClick = {}
                         ),
                         RowData(
                             title = "Row component with click disabled",
                             clickEnabled = false,
-                            onClick = {},
+                            onClick = {}
                         ),
                         RowData(
                             title = "Full Row component",
                             subtitle = "Subtitle String",
                             leadingImage = Image(
                                 drawable = componentsv2R.drawable.placeholder_leading_image,
-                                contentDescription = "",
+                                contentDescription = ""
                             ),
                             scaleLeadingImageWithFontSize = true,
                             trailingText = "100+",
                             trailingIcon = RowTrailingIcon.OpenInNew(),
-                            onClick = {},
-                        ),
-                    ),
+                            onClick = {}
+                        )
+                    )
                 ),
                 LeftAlignedScreenBodyV2.SecondaryButton(
                     secondaryButtonText,
                     {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             supportingText = supportingText,
             primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
-        ),
+            secondaryButton = secondaryButtonText
+        )
     )
 }
 
@@ -361,7 +361,7 @@ internal class LeftAlignedScreenContentAccessibilityProviderV2 :
             title = title,
             supportingText = "Supporting Text - $textExtraLong",
             primaryButton = "Primary Button",
-            secondaryButton = "Secondary Button",
-        ),
+            secondaryButton = "Secondary Button"
+        )
     )
 }

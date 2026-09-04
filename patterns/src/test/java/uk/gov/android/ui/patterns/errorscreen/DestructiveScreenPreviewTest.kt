@@ -74,7 +74,7 @@ class DestructiveScreenPreviewTest {
 
     @Ignore(
         "This pattern will be removed once replaced with the v2 ErrorScreen - investigate how " +
-            "to test this when bottom content is drawn twice but only displayed once",
+            "to test this when bottom content is drawn twice but only displayed once"
     )
     @Test
     fun `test mandatory parameters - accessibility preview`() = with(composeTestRule) {
@@ -88,7 +88,7 @@ class DestructiveScreenPreviewTest {
                 body = body,
                 primaryButton = primaryButton,
                 secondaryButton = secondaryButton,
-                tertiaryButton = tertiaryButton,
+                tertiaryButton = tertiaryButton
             )
         }
 

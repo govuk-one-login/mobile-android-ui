@@ -28,11 +28,11 @@ class GdsVectorImageTest {
                 modifier = parameters.modifier,
                 color = parameters.color,
                 contentDescription = stringResource(parameters.contentDescription),
-                scale = parameters.scale,
+                scale = parameters.scale
             )
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.vector_image_content_description),
+            resources.getString(R.string.vector_image_content_description)
         ).assertIsDisplayed()
     }
 
@@ -42,7 +42,7 @@ class GdsVectorImageTest {
             VectorImagePreview(parameters)
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.vector_image_content_description),
+            resources.getString(R.string.vector_image_content_description)
         ).assertIsDisplayed()
     }
 }

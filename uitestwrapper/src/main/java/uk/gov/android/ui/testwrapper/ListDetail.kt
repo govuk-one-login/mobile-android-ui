@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 fun ListDetail(
     items: ImmutableList<DetailItem>,
     modifier: Modifier = Modifier,
-    detail: @Composable ((DetailItem) -> Unit) = {},
+    detail: @Composable ((DetailItem) -> Unit) = {}
 ) {
     val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator<DetailItem>()
     val scope = rememberCoroutineScope()
@@ -31,10 +31,10 @@ fun ListDetail(
                         scope.launch {
                             scaffoldNavigator.navigateTo(
                                 ListDetailPaneScaffoldRole.Detail,
-                                item,
+                                item
                             )
                         }
-                    },
+                    }
                 )
             }
         },
@@ -45,6 +45,6 @@ fun ListDetail(
                 }
             }
         },
-        modifier = modifier,
+        modifier = modifier
     )
 }

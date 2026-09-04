@@ -30,18 +30,18 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 fun GdsMenu(
     expanded: Boolean,
     content: ImmutableList<GdsMenuContent>,
-    onDismissRequest: () -> Unit = {},
+    onDismissRequest: () -> Unit = {}
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colour = getRippleColour(focusStateEnabled)
     CompositionLocalProvider(
-        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
+        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour)
     ) {
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = Modifier
-                .background(color = GdsLocalColorScheme.current.menuItem),
+                .background(color = GdsLocalColorScheme.current.menuItem)
         ) {
             content.forEach { item ->
                 var isItemFocused by remember { mutableStateOf(false) }
@@ -50,13 +50,13 @@ fun GdsMenu(
                         Text(
                             text = item.title,
                             style = MaterialTheme.typography.bodyMedium.copy(
-                                fontWeight = FontWeight.Normal,
-                            ),
+                                fontWeight = FontWeight.Normal
+                            )
                         )
                     },
                     onClick = item.onClick,
                     colors = MenuDefaults.itemColors(
-                        textColor = getTextColour(isItemFocused),
+                        textColor = getTextColour(isItemFocused)
                     ),
                     modifier = Modifier
                         .background(color = getBackgroundColour(isItemFocused))
@@ -64,7 +64,7 @@ fun GdsMenu(
                         .onFocusChanged { focusState ->
                             focusStateEnabled = focusState.isFocused
                             isItemFocused = focusState.isFocused
-                        },
+                        }
                 )
             }
         }
@@ -72,28 +72,22 @@ fun GdsMenu(
 }
 
 @Composable
-private fun getRippleColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusButtonHighlighted
-    } else {
-        GdsLocalColorScheme.current.menuItemHighlighted
-    }
+private fun getRippleColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusButtonHighlighted
+} else {
+    GdsLocalColorScheme.current.menuItemHighlighted
 }
 
 @Composable
-private fun getBackgroundColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusState
-    } else {
-        GdsLocalColorScheme.current.menuItem
-    }
+private fun getBackgroundColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusState
+} else {
+    GdsLocalColorScheme.current.menuItem
 }
 
 @Composable
-private fun getTextColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusStateContent
-    } else {
-        MaterialTheme.colorScheme.onBackground
-    }
+private fun getTextColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusStateContent
+} else {
+    MaterialTheme.colorScheme.onBackground
 }

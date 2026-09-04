@@ -11,13 +11,12 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RunWith(Parameterized::class)
-class FullScreenDialogueTopAppBarScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+class FullScreenDialogueTopAppBarScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             GdsTopAppBar(
-                title = parameters.first,
+                title = parameters.first
             )
         }
     }

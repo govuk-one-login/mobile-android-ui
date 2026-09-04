@@ -44,10 +44,10 @@ class ErrorScreenSemanticsTest {
             icon = {
                 GdsIcon(
                     image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                    contentDescription = "Error",
+                    contentDescription = "Error"
                 )
             },
-            title = { GdsHeading("Title") },
+            title = { GdsHeading("Title") }
         )
     }
 }

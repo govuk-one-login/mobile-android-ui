@@ -33,26 +33,23 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  */
 @UnstableDesignSystemAPI
 @Composable
-fun LoadingScreen(
-    modifier: Modifier = Modifier,
-    text: String = stringResource(R.string.loading),
-) {
+fun LoadingScreen(modifier: Modifier = Modifier, text: String = stringResource(R.string.loading)) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CircularProgressIndicator(
-            color = GdsLocalColorScheme.current.spinnerIcon,
+            color = GdsLocalColorScheme.current.spinnerIcon
         )
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = largePadding),
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -62,7 +59,7 @@ fun LoadingScreen(
 @Composable
 internal fun PreviewDefaultLoadingScreen(
     @PreviewParameter(LoadingScreenContentProvider::class)
-    content: String,
+    content: String
 ) {
     GdsTheme {
         LoadingScreen(text = content)

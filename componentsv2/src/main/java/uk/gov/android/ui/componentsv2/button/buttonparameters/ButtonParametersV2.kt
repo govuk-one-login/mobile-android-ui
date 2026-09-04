@@ -18,7 +18,7 @@ internal data class ButtonParametersV2(
     val contentModifier: Modifier = Modifier,
     val enabled: Boolean = true,
     val loading: Boolean = false,
-    val shape: Shape = GdsButtonDefaults.defaultShape,
+    val shape: Shape = GdsButtonDefaults.defaultShape
 ) {
     override fun toString(): String = buildString {
         append(buttonType.name)

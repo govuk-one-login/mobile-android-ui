@@ -90,7 +90,7 @@ fun ErrorScreen(
     supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    tertiaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -98,11 +98,11 @@ fun ErrorScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.background(colorScheme.background),
+        modifier = modifier.background(colorScheme.background)
     ) {
         val verticalPaddingRequired = primaryButton != null ||
-                secondaryButton != null ||
-                tertiaryButton != null
+            secondaryButton != null ||
+            tertiaryButton != null
 
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         If the height is over 1/3 of the total screen, the BottomContent is moved
@@ -143,7 +143,7 @@ fun ErrorScreen(
                                 supportingText = supportingText
                             )
                         }
-                    },
+                    }
                 )
             }.map {
                 // Check the height of the BottomContent and how much it should take to display the
@@ -153,8 +153,8 @@ fun ErrorScreen(
                 it.measure(
                     // Calculate the MainContent display widow/ section
                     constraints.copy(
-                        maxHeight = constraints.maxHeight - appliedBottomContentAnchored,
-                    ),
+                        maxHeight = constraints.maxHeight - appliedBottomContentAnchored
+                    )
                 )
             }
 
@@ -184,20 +184,20 @@ private fun MainContent(
     icon: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    bottomContent: (@Composable () -> Unit)? = null,
+    bottomContent: (@Composable () -> Unit)? = null
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
-            Alignment.CenterVertically,
+            Alignment.CenterVertically
         ),
         modifier = modifier
             .fillMaxSize()
             .keyboardScroll(scrollState)
             .testTag(ERROR_BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
-        state = scrollState,
+        state = scrollState
     ) {
         item {
             Column(
@@ -205,13 +205,13 @@ private fun MainContent(
                     .testTag(ERROR_SCREEN_TITLE_TEST_TAG)
                     .semantics(mergeDescendants = true) {
                         heading()
-                    },
+                    }
             ) {
                 icon?.invoke(HorizontalPadding)
 
                 Spacer(
                     modifier = Modifier
-                        .height(VerticalPadding),
+                        .height(VerticalPadding)
                 )
 
                 title?.invoke(HorizontalPadding)
@@ -234,19 +234,19 @@ private fun BottomContent(
     primaryButton: @Composable (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)?,
     tertiaryButton: @Composable (() -> Unit)?,
-    supportingText: (@Composable () -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
-            Alignment.CenterVertically,
+            Alignment.CenterVertically
         ),
         modifier = Modifier
             .fillMaxWidth()
             .padding(
                 horizontal = HorizontalPadding,
-                vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
-            ),
+                vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp
+            )
     ) {
         if (supportingText != null) {
             Spacer(modifier = Modifier.height(listItemTopPadding))
@@ -277,7 +277,7 @@ internal object ErrorScreenTitleTestTag {
 @Composable
 internal fun PreviewErrorScreen(
     @PreviewParameter(ErrorScreenContentProvider::class)
-    content: ErrorScreenContent,
+    content: ErrorScreenContent
 ) {
     GdsTheme {
         ErrorScreenPreviewComposable(content)
@@ -290,7 +290,7 @@ internal fun PreviewErrorScreen(
 @Composable
 internal fun PreviewErrorScreenAccessibility(
     @PreviewParameter(ErrorScreenContentProvider::class)
-    content: ErrorScreenContent,
+    content: ErrorScreenContent
 ) {
     GdsTheme {
         ErrorScreenPreviewComposable(content)
@@ -304,7 +304,7 @@ internal fun PreviewErrorScreenAccessibility(
 internal fun PreviewErrorScreenHighDensity() {
     GdsTheme {
         ErrorScreenPreviewComposable(
-            ErrorScreenContentProvider().values.elementAt(DENSITY_PREVIEW_INDEX),
+            ErrorScreenContentProvider().values.elementAt(DENSITY_PREVIEW_INDEX)
         )
     }
 }
@@ -312,7 +312,7 @@ internal fun PreviewErrorScreenHighDensity() {
 @Composable
 internal fun ErrorScreenPreviewComposable(
     @PreviewParameter(ErrorScreenContentProvider::class)
-    content: ErrorScreenContent,
+    content: ErrorScreenContent
 ) {
     ErrorScreen(
         icon = { horizontalPadding ->
@@ -322,7 +322,7 @@ internal fun ErrorScreenPreviewComposable(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPadding),
-                color = colorScheme.onBackground,
+                color = colorScheme.onBackground
             )
         },
         title = { horizontalPadding ->
@@ -330,7 +330,7 @@ internal fun ErrorScreenPreviewComposable(
                 text = content.title,
                 modifier = Modifier
                     .padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.CenterAligned,
+                textAlign = GdsHeadingAlignment.CenterAligned
             )
         },
         body = { horizontalPadding ->

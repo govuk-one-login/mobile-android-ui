@@ -23,7 +23,7 @@ internal class CentreAlignedScreenContentProvider :
 
     private val image = CentreAlignedScreenImage(
         R.drawable.preview__gdsvectorimage,
-        "Image description",
+        "Image description"
     )
 
     override val values: Sequence<CentreAlignedScreenContent> = sequenceOf(
@@ -39,14 +39,14 @@ internal class CentreAlignedScreenContentProvider :
                         ONE_LINE,
                         ONE_LINE,
                         ONE_LINE,
-                        ONE_LINE,
-                    ),
+                        ONE_LINE
+                    )
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(content)
             ),
             SUPPORTING_TEXT,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
-            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {})
         ),
         CentreAlignedScreenContent(
             title,
@@ -60,32 +60,32 @@ internal class CentreAlignedScreenContentProvider :
                         ListItem(ONE_LINE),
                         ListItem(ONE_LINE),
                         ListItem(ONE_LINE),
-                        ListItem(ONE_LINE),
-                    ),
+                        ListItem(ONE_LINE)
+                    )
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(content)
             ),
             SUPPORTING_TEXT,
             CentreAlignedScreenButton(
                 text = PRIMARY_BUTTON,
                 onClick = {},
-                showIcon = true,
+                showIcon = true
             ),
             CentreAlignedScreenButton(
                 text = SECONDARY_BUTTON,
                 onClick = {},
-                showIcon = true,
-            ),
+                showIcon = true
+            )
         ),
         CentreAlignedScreenContent(
             "Information Banner Title",
             image,
             persistentListOf(
-                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(content)
             ),
             SUPPORTING_TEXT,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
-            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {})
         ),
         CentreAlignedScreenContent(
             title,
@@ -99,13 +99,13 @@ internal class CentreAlignedScreenContentProvider :
                         ONE_LINE,
                         ONE_LINE,
                         ONE_LINE,
-                        ONE_LINE,
-                    ),
+                        ONE_LINE
+                    )
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(content)
             ),
             SUPPORTING_TEXT,
-            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {})
         ),
         CentreAlignedScreenContent(
             title,
@@ -119,12 +119,12 @@ internal class CentreAlignedScreenContentProvider :
                         ONE_LINE,
                         ONE_LINE,
                         ONE_LINE,
-                        ONE_LINE,
-                    ),
+                        ONE_LINE
+                    )
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
+                CentreAlignedScreenBodyContent.Text(content)
             ),
-            secondaryButton = CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
+            secondaryButton = CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {})
         ),
         CentreAlignedScreenContent(
             title,
@@ -137,11 +137,11 @@ internal class CentreAlignedScreenContentProvider :
                         ONE_LINE,
                         ONE_LINE,
                         ONE_LINE,
-                        ONE_LINE,
-                    ),
+                        ONE_LINE
+                    )
                 ),
-                CentreAlignedScreenBodyContent.Text(content),
-            ),
+                CentreAlignedScreenBodyContent.Text(content)
+            )
         ),
         CentreAlignedScreenContent(
             title,
@@ -154,28 +154,28 @@ internal class CentreAlignedScreenContentProvider :
                         ONE_LINE,
                         ONE_LINE,
                         ONE_LINE,
-                        ONE_LINE,
-                    ),
-                ),
+                        ONE_LINE
+                    )
+                )
             ),
-            SUPPORTING_TEXT,
+            SUPPORTING_TEXT
         ),
         CentreAlignedScreenContent(
             title,
-            image,
+            image
         ),
         CentreAlignedScreenContent(
-            title,
+            title
         ),
         CentreAlignedScreenContent(
             title,
             image,
             persistentListOf(
-                CentreAlignedScreenBodyContent.Text(ONE_LINE),
+                CentreAlignedScreenBodyContent.Text(ONE_LINE)
             ),
             supportingTextLong,
             CentreAlignedScreenButton(text = PRIMARY_BUTTON, onClick = {}),
-            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {}),
+            CentreAlignedScreenButton(text = SECONDARY_BUTTON, onClick = {})
         ),
         CentreAlignedScreenContent(
             title,
@@ -186,11 +186,11 @@ internal class CentreAlignedScreenContentProvider :
                 CentreAlignedScreenBodyContent.Button(
                     text = PRIMARY_BUTTON,
                     onClick = {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
-            SUPPORTING_TEXT,
-        ),
+            SUPPORTING_TEXT
+        )
     )
 }
 

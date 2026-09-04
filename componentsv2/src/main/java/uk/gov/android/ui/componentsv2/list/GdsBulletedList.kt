@@ -51,11 +51,11 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 fun GdsBulletedList(
     bulletListItems: ImmutableList<String>,
     modifier: Modifier = Modifier,
-    title: ListTitle? = null,
+    title: ListTitle? = null
 ) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
     ) {
         title?.let {
             BulletedListTitle(it)
@@ -67,12 +67,12 @@ fun GdsBulletedList(
                     R.plurals.bullet_list_items,
                     bulletListItems.size,
                     bulletListItems.size,
-                    item,
+                    item
                 )
             } else {
                 stringResource(
                     R.string.bullet,
-                    item,
+                    item
                 )
             }
             BulletListItem(item, bulletContentDescription)
@@ -104,19 +104,21 @@ fun GdsBulletedList(
  * ```
  */
 @Suppress("UnusedParameter")
-@Deprecated("Use V2 GdsBulletedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026")
+@Deprecated(
+    "Use V2 GdsBulletedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026"
+)
 @Composable
 @JvmName("GdsBulletedListV2")
 fun GdsBulletedList(
     bulletListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
-    accessibilityIndex: Float = 0f,
+    accessibilityIndex: Float = 0f
 ) {
     val context = LocalContext.current
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
     ) {
         title?.let {
             BulletedListTitle(it)
@@ -128,17 +130,17 @@ fun GdsBulletedList(
                     R.plurals.bullet_list_items,
                     bulletListItems.size,
                     bulletListItems.size,
-                    item.toContentDescription(context),
+                    item.toContentDescription(context)
                 )
             } else {
                 stringResource(
                     R.string.bullet,
-                    item.toContentDescription(context),
+                    item.toContentDescription(context)
                 )
             }
             BulletListItem(
                 text = item,
-                bulletContentDescription = bulletContentDescription,
+                bulletContentDescription = bulletContentDescription
             )
         }
     }
@@ -171,12 +173,12 @@ fun GdsBulletedList(
 fun GdsBulletedList(
     bulletListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
-    title: ListTitle? = null,
+    title: ListTitle? = null
 ) {
     val context = LocalContext.current
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
     ) {
         title?.let {
             BulletedListTitle(it)
@@ -188,17 +190,17 @@ fun GdsBulletedList(
                     R.plurals.bullet_list_items,
                     bulletListItems.size,
                     bulletListItems.size,
-                    item.toContentDescription(context),
+                    item.toContentDescription(context)
                 )
             } else {
                 stringResource(
                     R.string.bullet,
-                    item.toContentDescription(context),
+                    item.toContentDescription(context)
                 )
             }
             BulletListItem(
                 text = item,
-                bulletContentDescription = bulletContentDescription,
+                bulletContentDescription = bulletContentDescription
             )
         }
     }
@@ -211,10 +213,7 @@ fun GdsBulletedList(
  * @param modifier Set the content description and traversal index
  */
 @Composable
-private fun BulletedListTitle(
-    title: ListTitle,
-    modifier: Modifier = Modifier,
-) {
+private fun BulletedListTitle(title: ListTitle, modifier: Modifier = Modifier) {
     val titleContentDescription: String
 
     val textStyle = when (title.titleType) {
@@ -242,7 +241,7 @@ private fun BulletedListTitle(
             .padding(bottom = listItemTitleBottomPadding)
             .semantics {
                 contentDescription = titleContentDescription
-            },
+            }
     )
 }
 
@@ -251,7 +250,7 @@ private fun BulletedListTitle(
 private fun BulletListItem(
     text: String,
     bulletContentDescription: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -259,7 +258,7 @@ private fun BulletListItem(
             .padding(top = listItemTopPadding)
             .semantics {
                 contentDescription = bulletContentDescription
-            },
+            }
     ) {
         Image(
             painter = painterResource(R.drawable.ic_dot),
@@ -269,17 +268,17 @@ private fun BulletListItem(
                 .padding(
                     start = listItemLeftPadding,
                     end = listItemRightPadding,
-                    top = listItemTopPadding,
+                    top = listItemTopPadding
                 )
                 .align(Alignment.Top)
-                .semantics { invisibleToUser() },
+                .semantics { invisibleToUser() }
         )
 
         Text(
             text = text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = Modifier.semantics { invisibleToUser() },
+            modifier = Modifier.semantics { invisibleToUser() }
         )
     }
 }
@@ -295,18 +294,18 @@ private fun BulletListItem(
 private fun BulletListItem(
     text: ListItem,
     bulletContentDescription: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
             .semantics(true) { }
             .padding(top = listItemTopPadding),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         ListTextIcon(
             listItem = text,
-            contentDescription = bulletContentDescription,
+            contentDescription = bulletContentDescription
         )
     }
 }
@@ -322,10 +321,7 @@ private fun BulletListItem(
 @SuppressLint("ComposeModifierMissing")
 @Suppress("LongMethod")
 @Composable
-fun BulletedLine(
-    listContent: ListContent,
-    bulletContentDescription: String,
-) {
+fun BulletedLine(listContent: ListContent, bulletContentDescription: String) {
     val bullet = ImageVector.vectorResource(R.drawable.ic_dot)
     val painter = rememberVectorPainter(image = bullet)
     // The line number of a single or multi line text element of the bulleted list that the bullet
@@ -354,7 +350,7 @@ fun BulletedLine(
                         left = textLineLeft - bulletRightPadding,
                         top = textLineTop +
                             (textLineBottom - textLineTop) / TEXT_LINE_POSITION_DIVIDER -
-                            imageSize.height / TEXT_LINE_POSITION_DIVIDER,
+                            imageSize.height / TEXT_LINE_POSITION_DIVIDER
                     ) {
                         draw(painter.intrinsicSize, colorFilter = ColorFilter.tint(bulletTint))
                     }
@@ -378,7 +374,7 @@ fun BulletedLine(
                         textLineLeft = layoutResult.getLineLeft(textLineIndex)
                     }
                 },
-                modifier = bulletModifier,
+                modifier = bulletModifier
             )
         } else {
             Text(
@@ -394,7 +390,7 @@ fun BulletedLine(
                     }
                 },
                 inlineContent = listContent.inlineTextContent,
-                modifier = bulletModifier,
+                modifier = bulletModifier
             )
         }
     }
@@ -407,14 +403,11 @@ fun BulletedLine(
  * @param contentDescription The content description for the entire bulleted list item
  */
 @Composable
-private fun ListTextIcon(
-    listItem: ListItem,
-    contentDescription: String,
-) {
+private fun ListTextIcon(listItem: ListItem, contentDescription: String) {
     val bulletListContent = listItem.createDisplayText(LocalContext.current)
     BulletedLine(
         listContent = bulletListContent,
-        bulletContentDescription = contentDescription,
+        bulletContentDescription = contentDescription
     )
 }
 
@@ -423,68 +416,70 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
     override val values: Sequence<ListWrapper> = sequenceOf(
         ListWrapper(
             items = persistentListOf(
-                LINE1,
+                LINE1
             ),
             listItems = persistentListOf(
-                ListItem(LINE1),
+                ListItem(LINE1)
             ),
-            title = ListTitle("Example Heading", TitleType.Heading),
+            title = ListTitle("Example Heading", TitleType.Heading)
         ),
         ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
             ),
             listItems = persistentListOf(
                 ListItem(LINE1),
                 ListItem(LINE2),
-                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
+                ListItem(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+                )
             ),
-            title = ListTitle("Example Title", TitleType.Text),
+            title = ListTitle("Example Title", TitleType.Text)
         ),
         ListWrapper(
             items = persistentListOf(
                 LINE1,
-                LINE2,
+                LINE2
             ),
             listItems = persistentListOf(
                 ListItem(LINE1),
-                ListItem(LINE2),
+                ListItem(LINE2)
             ),
-            title = ListTitle("Example Title", TitleType.BoldText),
+            title = ListTitle("Example Title", TitleType.BoldText)
         ),
         ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
                 LINE3,
-                LINE4,
+                LINE4
             ),
             listItems = persistentListOf(
                 ListItem(LINE1),
                 ListItem(LINE2),
                 ListItem(LINE3),
-                ListItem(LINE4),
-            ),
+                ListItem(LINE4)
+            )
         ),
         ListWrapper(
             items = persistentListOf(
                 LINE1,
                 LINE2,
                 LINE3,
-                LINE4,
+                LINE4
             ),
             listItems = persistentListOf(
                 ListItem(
-                    spannableText = R.string.bulleted_list_link_example,
+                    spannableText = R.string.bulleted_list_link_example
                 ),
                 ListItem(
                     spannableText = R.string.bulleted_list_link_example,
-                    icon = R.drawable.ic_external_site,
-                ),
-            ),
-        ),
+                    icon = R.drawable.ic_external_site
+                )
+            )
+        )
     )
 }
 
@@ -494,12 +489,12 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
 @Preview
 internal fun GdsBulletedListDeprecatedPreview(
     @PreviewParameter(BulletedListProvider::class)
-    bulletListWrapper: ListWrapper,
+    bulletListWrapper: ListWrapper
 ) {
     GdsTheme {
         GdsBulletedList(
             bulletListItems = bulletListWrapper.items,
-            title = bulletListWrapper.title,
+            title = bulletListWrapper.title
         )
     }
 }
@@ -510,12 +505,12 @@ internal fun GdsBulletedListDeprecatedPreview(
 @Preview
 internal fun GdsBulletedListPreview(
     @PreviewParameter(BulletedListProvider::class)
-    bulletListWrapper: ListWrapper,
+    bulletListWrapper: ListWrapper
 ) {
     GdsTheme {
         GdsBulletedList(
             bulletListItems = bulletListWrapper.listItems,
-            title = bulletListWrapper.title,
+            title = bulletListWrapper.title
         )
     }
 }

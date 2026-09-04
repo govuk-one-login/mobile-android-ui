@@ -80,7 +80,7 @@ fun GdsButton(
     loading: Boolean = false,
     textAlign: TextAlign = TextAlign.Center,
     shape: Shape = GdsButtonDefaults.defaultShape,
-    icon: ButtonIcon? = null,
+    icon: ButtonIcon? = null
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
@@ -90,7 +90,7 @@ fun GdsButton(
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
     val colour = getRippleColour(buttonType, focusStateEnabled)
     CompositionLocalProvider(
-        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
+        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour)
     ) {
         Button(
             colors = colors,
@@ -108,8 +108,8 @@ fun GdsButton(
             enabled = checkIfDisabled,
             interactionSource = interactionSource,
             contentPadding = getContentPadding(
-                contentPosition = contentPosition,
-            ),
+                contentPosition = contentPosition
+            )
         ) {
             Content(
                 text = text,
@@ -120,23 +120,21 @@ fun GdsButton(
                 modifier = contentModifier,
                 enabled = enabled,
                 contentPosition = contentPosition,
-                textAlign = textAlign,
+                textAlign = textAlign
             )
         }
     }
 }
 
 @Composable
-private fun setFocusStateColors(
-    focusStateEnabled: Boolean,
-    buttonType: ButtonTypeV2,
-) = if (focusStateEnabled) GdsButtonDefaults.defaultFocusColors() else buttonType.buttonColors()
+private fun setFocusStateColors(focusStateEnabled: Boolean, buttonType: ButtonTypeV2) =
+    if (focusStateEnabled) GdsButtonDefaults.defaultFocusColors() else buttonType.buttonColors()
 
 @Composable
 private fun setShadowColors(
     buttonType: ButtonTypeV2,
     isEnabled: Boolean,
-    isInFocus: Boolean,
+    isInFocus: Boolean
 ): Color = when {
     buttonType is ButtonTypeV2.Secondary -> Color.Transparent
     !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
@@ -158,11 +156,11 @@ private fun Content(
     enabled: Boolean,
     modifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    textAlign: TextAlign = TextAlign.Center,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = contentPosition,
+        horizontalArrangement = contentPosition
     ) {
         if (loading) {
             Box(contentAlignment = Alignment.Center) {
@@ -173,14 +171,14 @@ private fun Content(
                     textAlign = textAlign,
                     modifier = Modifier
                         .padding(top = 2.dp)
-                        .alpha(0f),
+                        .alpha(0f)
                 )
                 CircularProgressIndicator(
                     modifier = Modifier.size(
-                        size = GdsButtonDefaults.spinnerDefaultSize,
+                        size = GdsButtonDefaults.spinnerDefaultSize
                     ),
                     color = buttonColors.disabledContentColor,
-                    strokeWidth = GdsButtonDefaults.spinnerDefaultStrokeWidth,
+                    strokeWidth = GdsButtonDefaults.spinnerDefaultStrokeWidth
                 )
             }
         } else if (icon != null) {
@@ -193,7 +191,7 @@ private fun Content(
                 color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
                 iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
-                textStyle = buttonType.textStyle,
+                textStyle = buttonType.textStyle
             )
         } else if (buttonType is ButtonTypeV2.Icon) {
             GdsAnnotatedString(
@@ -206,7 +204,7 @@ private fun Content(
                 color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
                 iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
-                textStyle = buttonType.textStyle,
+                textStyle = buttonType.textStyle
             )
         } else {
             Text(
@@ -214,25 +212,23 @@ private fun Content(
                 fontWeight = buttonType.textStyle.fontWeight,
                 style = buttonType.textStyle,
                 textAlign = textAlign,
-                modifier = Modifier.padding(top = 2.dp),
+                modifier = Modifier.padding(top = 2.dp)
             )
         }
     }
 }
 
-private fun getContentPadding(
-    contentPosition: Arrangement.Horizontal,
-) =
+private fun getContentPadding(contentPosition: Arrangement.Horizontal) =
     if (contentPosition == Arrangement.Start) {
         PaddingValues(
             end = buttonContentHorizontal,
             top = buttonContentVertical,
-            bottom = buttonContentVertical,
+            bottom = buttonContentVertical
         )
     } else {
         PaddingValues(
             horizontal = buttonContentHorizontal,
-            vertical = buttonContentVertical,
+            vertical = buttonContentVertical
         )
     }
 
@@ -244,21 +240,28 @@ internal enum class ButtonTypePreview {
     Admin,
     Error,
     ErrorSecondary,
-    Custom,
+    Custom
 }
 
 @Composable
 internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Primary -> ButtonTypeV2.Primary()
+
     ButtonTypePreview.Secondary -> ButtonTypeV2.Secondary()
+
     ButtonTypePreview.Tertiary -> ButtonTypeV2.Tertiary()
+
     ButtonTypePreview.Quaternary -> ButtonTypeV2.Quaternary()
+
     ButtonTypePreview.Admin -> ButtonTypeV2.Admin()
+
     ButtonTypePreview.Error -> ButtonTypeV2.Destructive()
+
     ButtonTypePreview.ErrorSecondary -> ButtonTypeV2.SecondaryDestructive()
+
     ButtonTypePreview.Custom -> ButtonTypeV2.Custom(
         contentColor = Color.Red,
-        containerColor = Color.Cyan,
+        containerColor = Color.Cyan
     )
 }
 
@@ -266,7 +269,7 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
 @PreviewLightDark
 internal fun ButtonPreviewV2(
     @PreviewParameter(ButtonParameterPreviewProviderV2::class)
-    parameters: ButtonParametersV2,
+    parameters: ButtonParametersV2
 ) {
     GdsTheme {
         // Display buttons in a full width container with visible background to help distinguish
@@ -276,7 +279,7 @@ internal fun ButtonPreviewV2(
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.background)
                 .padding(xsmallPadding),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             GdsButton(
                 text = parameters.text,
@@ -289,7 +292,7 @@ internal fun ButtonPreviewV2(
                 enabled = parameters.enabled,
                 loading = parameters.loading,
                 onClick = {},
-                shape = parameters.shape,
+                shape = parameters.shape
             )
         }
     }
@@ -297,17 +300,20 @@ internal fun ButtonPreviewV2(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color {
-    return when {
-        isInFocus -> GdsLocalColorScheme.current.focusButtonHighlighted
-        buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.primaryButtonHighlighted
-        buttonType is ButtonTypeV2.Secondary ->
-            GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
+private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color = when {
+    isInFocus -> GdsLocalColorScheme.current.focusButtonHighlighted
 
-        buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
-        buttonType is ButtonTypeV2.SecondaryDestructive ->
-            GdsLocalColorScheme.current.destructiveNativeButtonTextHighlighted
-        buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
-        else -> LocalRippleConfiguration.current?.color ?: Color.Unspecified
-    }
+    buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.primaryButtonHighlighted
+
+    buttonType is ButtonTypeV2.Secondary ->
+        GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
+
+    buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
+
+    buttonType is ButtonTypeV2.SecondaryDestructive ->
+        GdsLocalColorScheme.current.destructiveNativeButtonTextHighlighted
+
+    buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
+
+    else -> LocalRippleConfiguration.current?.color ?: Color.Unspecified
 }

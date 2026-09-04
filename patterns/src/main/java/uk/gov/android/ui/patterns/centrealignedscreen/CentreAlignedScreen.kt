@@ -84,7 +84,7 @@ fun CentreAlignedScreen(
     supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    tertiaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -102,7 +102,7 @@ fun CentreAlignedScreen(
                     supportingText = supportingText,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
-                    tertiaryButton = tertiaryButton,
+                    tertiaryButton = tertiaryButton
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -128,10 +128,10 @@ fun CentreAlignedScreen(
                                 supportingText = supportingText,
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,
-                                tertiaryButton = tertiaryButton,
+                                tertiaryButton = tertiaryButton
                             )
                         }
-                    },
+                    }
                 )
             }.map {
                 // Check the height of the Bottom Content and how much it should take to display the
@@ -141,8 +141,8 @@ fun CentreAlignedScreen(
                 it.measure(
                     // Calculate the main content display widow/ section
                     constraints.copy(
-                        maxHeight = constraints.maxHeight - appliedBottomContentHeightApplied,
-                    ),
+                        maxHeight = constraints.maxHeight - appliedBottomContentHeightApplied
+                    )
                 )
             }
 
@@ -188,14 +188,14 @@ fun CentreAlignedScreen(
     body: ImmutableList<CentreAlignedScreenBodyContent>? = null,
     supportingText: String? = null,
     primaryButton: CentreAlignedScreenButton? = null,
-    secondaryButton: CentreAlignedScreenButton? = null,
+    secondaryButton: CentreAlignedScreenButton? = null
 ) {
     CentreAlignedScreen(
         title = { horizontalPadding ->
             GdsHeading(
                 text = title,
                 modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.CenterAligned,
+                textAlign = GdsHeadingAlignment.CenterAligned
             )
         },
         image = image?.let {
@@ -205,7 +205,7 @@ fun CentreAlignedScreen(
                     contentDescription = it.description,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = horizontalPadding),
+                        .padding(horizontal = horizontalPadding)
                 )
             }
         },
@@ -220,13 +220,17 @@ fun CentreAlignedScreen(
                 SupportingText(
                     text = supportingText,
                     horizontalItemPadding = horizontalPadding,
-                    verticalItemPadding = verticalPadding,
+                    verticalItemPadding = verticalPadding
                 )
             }
         },
         primaryButton = primaryButton?.let {
             {
-                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+                val icon = if (it.showIcon) {
+                    ButtonIcon.opensInWebBrowser()
+                } else {
+                    null
+                }
 
                 GdsButton(
                     text = it.text,
@@ -234,13 +238,17 @@ fun CentreAlignedScreen(
                     buttonType = ButtonTypeV2.Primary(),
                     onClick = it.onClick,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
         },
         secondaryButton = secondaryButton?.let {
             {
-                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+                val icon = if (it.showIcon) {
+                    ButtonIcon.opensInWebBrowser()
+                } else {
+                    null
+                }
 
                 GdsButton(
                     text = it.text,
@@ -248,10 +256,10 @@ fun CentreAlignedScreen(
                     buttonType = ButtonTypeV2.Secondary(),
                     onClick = it.onClick,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
-        },
+        }
     )
 }
 
@@ -263,7 +271,7 @@ private fun MainContent(
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     bottomContent: @Composable (() -> Unit)? = null,
     arrangement: Arrangement.Vertical =
-        Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically),
+        Arrangement.spacedBy(VerticalPadding, Alignment.CenterVertically)
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
@@ -273,7 +281,7 @@ private fun MainContent(
             .keyboardScroll(scrollState)
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
-        state = scrollState,
+        state = scrollState
     ) {
         image?.let {
             item { image(HorizontalPadding) }
@@ -300,7 +308,7 @@ private fun SupportingText(
     text: String?,
     horizontalItemPadding: Dp,
     verticalItemPadding: Dp,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     text?.let {
         Text(
@@ -312,9 +320,9 @@ private fun SupportingText(
                 .padding(
                     top = verticalItemPadding,
                     start = horizontalItemPadding,
-                    end = horizontalItemPadding,
+                    end = horizontalItemPadding
                 ),
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -326,14 +334,14 @@ private fun BottomContent(
     supportingText: (@Composable (horizontalPadding: Dp, topPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
-    tertiaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null
 ) {
     val buttons = listOfNotNull(primaryButton, secondaryButton, tertiaryButton).toImmutableList()
     val verticalItemPadding = if (buttons.isEmpty() || !isAnchored) NoPadding else VerticalPadding
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacingDouble, Alignment.Bottom),
-        modifier = modifier.padding(horizontal = HorizontalPadding, vertical = verticalItemPadding),
+        modifier = modifier.padding(horizontal = HorizontalPadding, vertical = verticalItemPadding)
     ) {
         supportingText?.invoke(HorizontalPadding, NoPadding)
         buttons.forEach {
@@ -358,7 +366,7 @@ internal object CentreAlignedScreenTestTag {
 @Composable
 internal fun PreviewCentreAlignedScreen(
     @PreviewParameter(CentreAlignedScreenContentProvider::class)
-    content: CentreAlignedScreenContent,
+    content: CentreAlignedScreenContent
 ) {
     GdsTheme {
         CentreAlignedScreen(
@@ -367,7 +375,7 @@ internal fun PreviewCentreAlignedScreen(
             body = content.body,
             supportingText = content.supportingText,
             primaryButton = content.primaryButton,
-            secondaryButton = content.secondaryButton,
+            secondaryButton = content.secondaryButton
         )
     }
 }
@@ -385,7 +393,7 @@ internal fun PreviewCentreAlignedScreenAccessibility() {
             body = content.body,
             supportingText = content.supportingText,
             primaryButton = content.primaryButton,
-            secondaryButton = content.secondaryButton,
+            secondaryButton = content.secondaryButton
         )
     }
 }

@@ -20,14 +20,14 @@ import uk.gov.android.ui.testwrapper.theme.ThemeDestination.Companion.applyTheme
 fun AppNavHost(
     navController: NavHostController,
     startDestination: Any,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val tabPagesOffsetPadding = 50.dp
     val scope = rememberCoroutineScope()
     NavHost(
         navController,
         modifier = modifier,
-        startDestination = startDestination,
+        startDestination = startDestination
     ) {
         val mod =
             Modifier
@@ -43,7 +43,7 @@ fun AppNavHost(
                 scope.launch {
                     navController.navigate(it)
                 }
-            },
+            }
         )
         applyPatternDestinations(modifier = mod)
         applyThemeDestinations(modifier = mod)

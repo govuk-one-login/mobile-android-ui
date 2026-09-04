@@ -45,18 +45,18 @@ fun CameraContentWithViewModel(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     coordinateTransformer: MutableCoordinateTransformer? = null,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     val surfaceRequest: SurfaceRequest? by viewModel
         .surfaceRequest
         .collectAsStateWithLifecycle()
     val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle()
     val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
-        initialValue = null,
+        initialValue = null
     )
     val imageCaptureUseCase: ImageCapture? by
         viewModel.imageCapture.collectAsStateWithLifecycle(
-            initialValue = null,
+            initialValue = null
         )
 
     CameraContent(
@@ -72,7 +72,7 @@ fun CameraContentWithViewModel(
         cameraSelector = cameraSelector,
         coroutineScope = coroutineScope,
         mainDispatcher = mainDispatcher,
-        lifecycleOwner = lifecycleOwner,
+        lifecycleOwner = lifecycleOwner
     )
 }
 
@@ -94,7 +94,7 @@ fun CameraContent(
     coordinateTransformer: MutableCoordinateTransformer? = null,
     alignment: Alignment = Alignment.Center,
     contentScale: ContentScale = ContentScale.Crop,
-    cameraUpdater: CameraHolder.Updater = CameraHolder.Updater {},
+    cameraUpdater: CameraHolder.Updater = CameraHolder.Updater {}
 ) {
     val context = LocalContext.current
 
@@ -115,8 +115,8 @@ fun CameraContent(
                     provider.bindToLifecycle(
                         lifecycleOwner,
                         cameraSelector,
-                        useCaseGroup,
-                    ),
+                        useCaseGroup
+                    )
                 )
             }
 
@@ -140,7 +140,7 @@ fun CameraContent(
         contentScale = contentScale,
         coordinateTransformer = coordinateTransformer,
         modifier = modifier,
-        surfaceRequest = surfaceRequest,
+        surfaceRequest = surfaceRequest
     )
 }
 
@@ -156,7 +156,7 @@ fun CameraContent(
     modifier: Modifier = Modifier,
     coordinateTransformer: MutableCoordinateTransformer? = null,
     alignment: Alignment = Alignment.Center,
-    contentScale: ContentScale = ContentScale.Crop,
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     surfaceRequest?.let { request: SurfaceRequest ->
         CameraXViewfinder(
@@ -164,7 +164,7 @@ fun CameraContent(
             modifier = modifier,
             coordinateTransformer = coordinateTransformer,
             alignment = alignment,
-            contentScale = contentScale,
+            contentScale = contentScale
         )
     }
 }

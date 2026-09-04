@@ -64,10 +64,10 @@ class DestructiveScreenAccessibilityTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -99,7 +99,7 @@ class DestructiveScreenAccessibilityTest {
                 icon = {
                     GdsIcon(
                         image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                        contentDescription = "Error",
+                        contentDescription = "Error"
                     )
                 },
                 title = { GdsHeading(mandatoryTitle) },
@@ -112,26 +112,26 @@ class DestructiveScreenAccessibilityTest {
                     PrimaryButton(
                         ErrorScreenButton(
                             text = primaryButtonText,
-                            onClick = {},
-                        ),
+                            onClick = {}
+                        )
                     )
                 },
                 secondaryButton = {
                     SecondaryButton(
                         ErrorScreenButton(
                             text = secondaryButtonText,
-                            onClick = {},
-                        ),
+                            onClick = {}
+                        )
                     )
                 },
                 tertiaryButton = {
                     SecondaryButton(
                         ErrorScreenButton(
                             text = tertiaryButtonText,
-                            onClick = {},
-                        ),
+                            onClick = {}
+                        )
                     )
-                },
+                }
             )
         }
 
@@ -176,10 +176,10 @@ class DestructiveScreenAccessibilityTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }

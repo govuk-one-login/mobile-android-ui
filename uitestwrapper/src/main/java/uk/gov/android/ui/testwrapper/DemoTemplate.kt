@@ -9,11 +9,9 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Composable
 @Suppress("ComposeModifierMissing")
-fun DemoTemplate(
-    content: @Composable () -> Unit,
-) {
+fun DemoTemplate(content: @Composable () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(smallPadding),
+        modifier = Modifier.fillMaxSize().padding(smallPadding)
     ) {
         content()
     }

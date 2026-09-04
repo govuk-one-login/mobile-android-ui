@@ -48,10 +48,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -75,10 +75,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -103,18 +103,20 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
-                    modifier = customModifier,
+                    modifier = customModifier
                 )
             }
         }
 
         Then("the default modifier should be applied") {
             onNodeWithText(mandatoryTitle).assertIsNotDisplayed()
-            onNodeWithContentDescription(getString(mandatoryIcon.description)).assertIsNotDisplayed()
+            onNodeWithContentDescription(
+                getString(mandatoryIcon.description)
+            ).assertIsNotDisplayed()
         }
     }
 
@@ -131,10 +133,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -157,7 +159,7 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -165,7 +167,7 @@ class ErrorScreenParameterTest {
                         item {
                             Text(singleLineText)
                         }
-                    },
+                    }
                 )
             }
         }
@@ -188,10 +190,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -214,7 +216,7 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -222,10 +224,10 @@ class ErrorScreenParameterTest {
                         PrimaryButton(
                             ErrorScreenButton(
                                 text = primaryButtonText,
-                                onClick = {},
-                            ),
+                                onClick = {}
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -248,10 +250,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -274,7 +276,7 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -282,10 +284,10 @@ class ErrorScreenParameterTest {
                         SecondaryButton(
                             ErrorScreenButton(
                                 text = secondaryButtonText,
-                                onClick = {},
-                            ),
+                                onClick = {}
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -308,10 +310,10 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
-                    title = { GdsHeading(mandatoryTitle) },
+                    title = { GdsHeading(mandatoryTitle) }
                 )
             }
         }
@@ -334,7 +336,7 @@ class ErrorScreenParameterTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -342,10 +344,10 @@ class ErrorScreenParameterTest {
                         SecondaryButton(
                             ErrorScreenButton(
                                 text = tertiaryButtonText,
-                                onClick = {},
-                            ),
+                                onClick = {}
+                            )
                         )
-                    },
+                    }
                 )
             }
         }

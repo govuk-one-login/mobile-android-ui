@@ -17,6 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.componentsv2.R as componentsR
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.testutils.BDD.And
@@ -24,7 +25,6 @@ import uk.gov.android.ui.patterns.testutils.BDD.Given
 import uk.gov.android.ui.patterns.testutils.BDD.Then
 import uk.gov.android.ui.patterns.testutils.BDD.When
 import uk.gov.android.ui.patterns.testutils.TestUtils.getString
-import uk.gov.android.ui.componentsv2.R as componentsR
 
 @RunWith(RobolectricTestRunner::class)
 @Suppress("LargeClass")
@@ -54,7 +54,7 @@ class DestructiveScreenButtonTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -62,10 +62,10 @@ class DestructiveScreenButtonTest {
                         PrimaryButton(
                             ErrorScreenButton(
                                 text = mandatoryButtonText,
-                                onClick = mandatoryButtonOnClick,
-                            ),
+                                onClick = mandatoryButtonOnClick
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -104,7 +104,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -112,10 +112,10 @@ class DestructiveScreenButtonTest {
                             PrimaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -156,7 +156,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -165,10 +165,10 @@ class DestructiveScreenButtonTest {
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
                                     onClick = mandatoryButtonOnClick,
-                                    showIcon = true,
-                                ),
+                                    showIcon = true
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -182,7 +182,9 @@ class DestructiveScreenButtonTest {
 
             Then("the custom show icon value should be applied") {
                 onNodeWithText(mandatoryButtonText, substring = true).assertIsDisplayed()
-                onNodeWithContentDescription(getString(componentsR.string.opens_in_external_browser))
+                onNodeWithContentDescription(
+                    getString(componentsR.string.opens_in_external_browser)
+                )
                     .assertIsDisplayed()
             }
 
@@ -209,7 +211,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -217,10 +219,10 @@ class DestructiveScreenButtonTest {
                             PrimaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -259,7 +261,7 @@ class DestructiveScreenButtonTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -268,10 +270,10 @@ class DestructiveScreenButtonTest {
                             ErrorScreenButton(
                                 text = mandatoryButtonText,
                                 onClick = mandatoryButtonOnClick,
-                                enabled = false,
-                            ),
+                                enabled = false
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -310,7 +312,7 @@ class DestructiveScreenButtonTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -318,10 +320,10 @@ class DestructiveScreenButtonTest {
                         SecondaryButton(
                             ErrorScreenButton(
                                 text = mandatoryButtonText,
-                                onClick = mandatoryButtonOnClick,
-                            ),
+                                onClick = mandatoryButtonOnClick
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -360,7 +362,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -368,10 +370,10 @@ class DestructiveScreenButtonTest {
                             SecondaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -412,7 +414,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -421,10 +423,10 @@ class DestructiveScreenButtonTest {
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
                                     onClick = mandatoryButtonOnClick,
-                                    showIcon = true,
-                                ),
+                                    showIcon = true
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -438,7 +440,9 @@ class DestructiveScreenButtonTest {
 
             Then("the custom show icon value should be applied") {
                 onNodeWithText(mandatoryButtonText, substring = true).assertIsDisplayed()
-                onNodeWithContentDescription(getString(componentsR.string.opens_in_external_browser))
+                onNodeWithContentDescription(
+                    getString(componentsR.string.opens_in_external_browser)
+                )
                     .assertIsDisplayed()
             }
 
@@ -465,7 +469,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -473,10 +477,10 @@ class DestructiveScreenButtonTest {
                             SecondaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -516,7 +520,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -525,10 +529,10 @@ class DestructiveScreenButtonTest {
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
                                     onClick = mandatoryButtonOnClick,
-                                    enabled = false,
-                                ),
+                                    enabled = false
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -567,7 +571,7 @@ class DestructiveScreenButtonTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },
@@ -575,10 +579,10 @@ class DestructiveScreenButtonTest {
                         SecondaryButton(
                             ErrorScreenButton(
                                 text = mandatoryButtonText,
-                                onClick = mandatoryButtonOnClick,
-                            ),
+                                onClick = mandatoryButtonOnClick
+                            )
                         )
-                    },
+                    }
                 )
             }
         }
@@ -617,7 +621,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -625,10 +629,10 @@ class DestructiveScreenButtonTest {
                             SecondaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -669,7 +673,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -678,10 +682,10 @@ class DestructiveScreenButtonTest {
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
                                     onClick = mandatoryButtonOnClick,
-                                    showIcon = true,
-                                ),
+                                    showIcon = true
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -695,7 +699,9 @@ class DestructiveScreenButtonTest {
 
             Then("the custom show icon value should be applied") {
                 onNodeWithText(mandatoryButtonText, substring = true).assertIsDisplayed()
-                onNodeWithContentDescription(getString(componentsR.string.opens_in_external_browser))
+                onNodeWithContentDescription(
+                    getString(componentsR.string.opens_in_external_browser)
+                )
                     .assertIsDisplayed()
             }
 
@@ -722,7 +728,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -730,10 +736,10 @@ class DestructiveScreenButtonTest {
                             SecondaryButton(
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
-                                    onClick = mandatoryButtonOnClick,
-                                ),
+                                    onClick = mandatoryButtonOnClick
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }
@@ -773,7 +779,7 @@ class DestructiveScreenButtonTest {
                         icon = {
                             GdsIcon(
                                 image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                                contentDescription = "Error",
+                                contentDescription = "Error"
                             )
                         },
                         title = { GdsHeading(mandatoryTitle) },
@@ -782,10 +788,10 @@ class DestructiveScreenButtonTest {
                                 ErrorScreenButton(
                                     text = mandatoryButtonText,
                                     onClick = mandatoryButtonOnClick,
-                                    enabled = false,
-                                ),
+                                    enabled = false
+                                )
                             )
-                        },
+                        }
                     )
                 }
             }

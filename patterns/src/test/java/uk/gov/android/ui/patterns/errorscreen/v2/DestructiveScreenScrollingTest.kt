@@ -58,7 +58,7 @@ class DestructiveScreenScrollingTest {
                     icon = {
                         GdsIcon(
                             image = ImageVector.vectorResource(ErrorScreenIcon.ErrorIcon.icon),
-                            contentDescription = "Error",
+                            contentDescription = "Error"
                         )
                     },
                     title = { GdsHeading(mandatoryTitle) },

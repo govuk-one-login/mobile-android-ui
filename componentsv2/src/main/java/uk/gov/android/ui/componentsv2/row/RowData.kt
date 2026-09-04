@@ -13,5 +13,5 @@ data class RowData(
     val trailingText: String? = null,
     val trailingIcon: RowTrailingIcon? = null,
     val clickEnabled: Boolean = true,
-    val onClick: () -> Unit,
+    val onClick: () -> Unit
 )

@@ -9,16 +9,16 @@ import uk.gov.android.ui.testwrapper.componentsv2.ComponentDetail
 fun ComponentListDetail(
     items: ImmutableList<DetailItem>,
     modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
+    onNavigate: (Any) -> Unit = {}
 ) {
     ListDetail(
         items = items,
         detail = { detailItem ->
             ComponentDetail(
                 detailItem,
-                onNavigate,
+                onNavigate
             )
         },
-        modifier = modifier,
+        modifier = modifier
     )
 }

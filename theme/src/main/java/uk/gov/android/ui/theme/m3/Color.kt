@@ -105,7 +105,7 @@ object Borders {
 @Deprecated(
     message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
         " - will aim to be removed by 19th of May",
-    level = DeprecationLevel.WARNING,
+    level = DeprecationLevel.WARNING
 )
 object QrScannerOverlayDefaults {
     var background: ColorPair = Backgrounds.qrScanner
@@ -118,7 +118,7 @@ object QrScannerOverlayDefaults {
 fun Switch.defaultColors(): SwitchColors = SwitchDefaults.colors().copy(
     uncheckedTrackColor = GdsLocalColorScheme.current.unselectedBackgroundSwitch,
     uncheckedThumbColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
-    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
+    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch
 )
 
 /**
@@ -126,30 +126,23 @@ fun Switch.defaultColors(): SwitchColors = SwitchDefaults.colors().copy(
  *
  * When the colors are the same for both environments, then  the dark mode can be left as null as it will default to the light color.
  */
-data class ColorPair(
-    val light: Color,
-    var dark: Color = light,
-)
+data class ColorPair(val light: Color, var dark: Color = light)
 
 /**
  * Allows for custom/ specific colors to be displayed based on the dynamic light/ dark mode
  */
 @Composable
-fun customDynamicColor(light: Color, dark: Color): Color {
-    return if (isSystemInDarkTheme()) {
-        dark
-    } else {
-        light
-    }
+fun customDynamicColor(light: Color, dark: Color): Color = if (isSystemInDarkTheme()) {
+    dark
+} else {
+    light
 }
 
 /**
  * Maps the ColorPair to use correct color when in light or dark mode
  */
 @Composable
-fun ColorPair.toMappedColors(): Color {
-    return customDynamicColor(this.light, this.dark)
-}
+fun ColorPair.toMappedColors(): Color = customDynamicColor(this.light, this.dark)
 
 // Anything below this can be removed once all the repos are using the GdsThemeV2 and all referenced to these colours have been removed
 

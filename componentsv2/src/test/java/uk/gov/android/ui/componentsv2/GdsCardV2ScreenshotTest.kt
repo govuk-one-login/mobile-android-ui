@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
 internal class GdsCardV2ScreenshotTest(
-    private val parameters: Pair<GdsCardPreviewParameters, NightMode>,
+    private val parameters: Pair<GdsCardPreviewParameters, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -25,7 +25,7 @@ internal class GdsCardV2ScreenshotTest(
             displayDivider = parameters.displayDivider,
             displayPrimary = parameters.displayPrimary,
             buttonText = parameters.buttonText?.let { stringResource(it) },
-            displaySecondary = parameters.displaySecondary,
+            displaySecondary = parameters.displaySecondary
         )
     }
 

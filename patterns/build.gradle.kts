@@ -30,12 +30,12 @@ dependencies {
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Patterns Library",
+            "Mobile Android Patterns Library"
         )
         description.set(
             """
             Patterns are best practice design solutions for specific user-focused tasks and pages.
-            """.trimIndent(),
+            """.trimIndent()
         )
     }
 }

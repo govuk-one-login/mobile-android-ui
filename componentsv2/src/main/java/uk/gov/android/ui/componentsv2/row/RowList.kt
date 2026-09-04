@@ -25,7 +25,7 @@ import uk.gov.android.ui.theme.smallPadding
 fun RowList(
     rows: ImmutableList<RowData>,
     modifier: Modifier = Modifier,
-    horizontalPadding: PaddingValues = PaddingValues(horizontal = smallPadding),
+    horizontalPadding: PaddingValues = PaddingValues(horizontal = smallPadding)
 ) {
     val lastRowIndex = rows.size - 1
     Column(modifier = modifier) {
@@ -41,7 +41,7 @@ fun RowList(
                 showDivider = index != lastRowIndex,
                 horizontalPadding = horizontalPadding,
                 clickEnabled = row.clickEnabled,
-                onClick = row.onClick,
+                onClick = row.onClick
             )
         }
     }
@@ -52,7 +52,7 @@ fun RowList(
 internal fun RowListPreview() {
     GdsTheme {
         RowList(
-            rows = RowPreviewParametersProvider().values.map { it.toRowData() }.toImmutableList(),
+            rows = RowPreviewParametersProvider().values.map { it.toRowData() }.toImmutableList()
         )
     }
 }

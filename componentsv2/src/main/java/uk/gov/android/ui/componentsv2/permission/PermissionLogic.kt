@@ -13,14 +13,14 @@ data class PermissionLogic
 constructor(
     val onGrantPermission: @Composable () -> Unit = {},
     val onPermissionPermanentlyDenied: @Composable (
-        permissionState: PermissionState,
+        permissionState: PermissionState
     ) -> Unit = { _ -> },
     val onRequirePermission: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit,
+        launchPermission: () -> Unit
     ) -> Unit = { _, _ -> },
     val onShowRationale: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit,
-    ) -> Unit = { _, _ -> },
+        launchPermission: () -> Unit
+    ) -> Unit = { _, _ -> }
 )

@@ -43,7 +43,7 @@ val DarkColorPaletteV2 = darkColorScheme(
     inverseSurface = Color.Magenta,
     inverseOnSurface = Color.Magenta,
     inversePrimary = Color.Magenta,
-    scrim = scrim.dark,
+    scrim = scrim.dark
 )
 
 /**
@@ -85,5 +85,5 @@ val LightColorPaletteV2 = lightColorScheme(
     inverseSurface = Color.Magenta,
     inverseOnSurface = Color.Magenta,
     inversePrimary = Color.Magenta,
-    scrim = scrim.light,
+    scrim = scrim.light
 )

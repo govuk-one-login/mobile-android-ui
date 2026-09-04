@@ -66,8 +66,7 @@ class GdsThemeEdgeToEdgeTest {
         return isEdgeToEdgeEnabledApi30To34()
     }
 
-    private fun isEdgeToEdgeEnabledApi30To34(): Boolean =
-        composeTestRule.activity.window
-            .decorView.systemUiVisibility and
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE != 0
+    private fun isEdgeToEdgeEnabledApi30To34(): Boolean = composeTestRule.activity.window
+        .decorView.systemUiVisibility and
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE != 0
 }

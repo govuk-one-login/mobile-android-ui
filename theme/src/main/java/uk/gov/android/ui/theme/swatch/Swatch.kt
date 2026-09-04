@@ -35,19 +35,19 @@ fun Swatch(modifier: Modifier = Modifier, data: SwatchColor) {
                     .background(backgroundColor)
                     .width(swatchSize)
                     .aspectRatio(ASPECT_RATIO)
-                    .padding(spacingDouble),
+                    .padding(spacingDouble)
 
-            ),
+            )
         ) {
             Text(
                 modifier = Modifier.testTag(LABEL_TEST_TAG),
                 text = label,
-                color = textColor,
+                color = textColor
             )
             Text(
                 modifier = Modifier.testTag(HEX_TEST_TAG),
                 text = backgroundColor.toHexString(),
-                color = textColor,
+                color = textColor
             )
         }
     }
@@ -68,8 +68,8 @@ internal fun SwatchPreview() {
             modifier = Modifier.padding(spacingDouble),
             data = SwatchColor(
                 MaterialTheme.colorScheme.primary,
-                "Primary",
-            ),
+                "Primary"
+            )
         )
     }
 }

@@ -5,8 +5,7 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.list.ListItem
 
-internal class ErrorScreenContentProvider :
-    PreviewParameterProvider<ErrorScreenContent> {
+internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreenContent> {
     private val errorTitle = "This is an Error View title"
     private val warningTitle = "This is a Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
@@ -21,14 +20,14 @@ internal class ErrorScreenContentProvider :
                 Content 0 - Basic Error Screen with only an icon and title
             """.trimIndent(),
             title = errorTitle,
-            icon = ErrorScreenIcon.ErrorIcon,
+            icon = ErrorScreenIcon.ErrorIcon
         ),
         ErrorScreenContent(
             configurationDescription = """
                 Content 1 - Basic Warning Screen with only an icon and title
             """.trimIndent(),
             title = warningTitle,
-            icon = ErrorScreenIcon.WarningIcon,
+            icon = ErrorScreenIcon.WarningIcon
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -45,16 +44,16 @@ internal class ErrorScreenContentProvider :
                     items = persistentListOf(
                         ListItem("Here we can list things we want the user to know"),
                         ListItem("we can use this as a way to step them through an action"),
-                        ListItem("or give details of a process"),
-                    ),
+                        ListItem("or give details of a process")
+                    )
                 ),
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
                     leftAligned = true,
-                    showIcon = true,
-                ),
-            ),
+                    showIcon = true
+                )
+            )
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -71,14 +70,14 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = false,
-            ),
+                showIcon = false
+            )
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -94,24 +93,24 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(3)}"),
                 ErrorScreenBodyContent.Text(
                     "Body multiple paragraph - ${loremIpsum(7)}",
-                    true,
+                    true
                 ),
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = false,
+                showIcon = false
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = false,
-            ),
+                showIcon = false
+            )
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -125,24 +124,24 @@ internal class ErrorScreenContentProvider :
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = true,
+                showIcon = true
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true,
+                showIcon = true
             ),
             tertiaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true,
-            ),
+                showIcon = true
+            )
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -151,20 +150,20 @@ internal class ErrorScreenContentProvider :
             title = warningTitle,
             icon = ErrorScreenIcon.WarningIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine),
+                ErrorScreenBodyContent.Text(bodyContentSingleLine)
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = true,
+                showIcon = true
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true,
+                showIcon = true
             ),
             supportingText = "Supporting text"
-        ),
+        )
     )
 
     private fun loremIpsum(words: Int): String = LoremIpsum(words).values.joinToString(" ")

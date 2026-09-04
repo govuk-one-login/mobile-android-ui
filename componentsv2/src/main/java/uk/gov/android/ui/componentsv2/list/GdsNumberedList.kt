@@ -63,17 +63,19 @@ import uk.gov.android.ui.theme.spacingSingle
  *
  */
 @Suppress("UnusedParameter")
-@Deprecated("Use V2 GdsNumberedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026")
+@Deprecated(
+    "Use V2 GdsNumberedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026"
+)
 @Composable
 fun GdsNumberedList(
     numberedListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
     title: ListTitle? = null,
-    accessibilityIndex: Float = 0f,
+    accessibilityIndex: Float = 0f
 ) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
     ) {
         title?.let {
             NumberedListTitle(it)
@@ -106,11 +108,11 @@ fun GdsNumberedList(
 fun GdsNumberedList(
     numberedListItems: ImmutableList<ListItem>,
     modifier: Modifier = Modifier,
-    title: ListTitle? = null,
+    title: ListTitle? = null
 ) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.background),
+            .background(MaterialTheme.colorScheme.background)
     ) {
         title?.let {
             NumberedListTitle(it)
@@ -125,9 +127,7 @@ fun GdsNumberedList(
  *  @param numberedListItems The list of items to be displayed
  */
 @Composable
-private fun GdsNumberedListLayout(
-    numberedListItems: ImmutableList<ListItem>,
-) {
+private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
     val context = LocalContext.current
     SubcomposeLayout { constraints ->
         val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
@@ -149,7 +149,7 @@ private fun GdsNumberedListLayout(
                         numberedListItems.size,
                         numberedListItems.size.convertToWord(context),
                         ONE.convertToWord(context),
-                        item.toContentDescription(context),
+                        item.toContentDescription(context)
                     )
                 } else {
                     "${displayIndex.convertToWord(context)} ${item.toContentDescription(context)}"
@@ -158,7 +158,7 @@ private fun GdsNumberedListLayout(
                     "$displayIndex.",
                     listItem = item,
                     itemContentDescription = contentDescription,
-                    maxWidthIndex.width.pxToDp(),
+                    maxWidthIndex.width.pxToDp()
                 )
             }
         }.map { it.measure(looseConstraints) }
@@ -181,9 +181,7 @@ private fun GdsNumberedListLayout(
  * @param title The contents of the title
  */
 @Composable
-private fun NumberedListTitle(
-    title: ListTitle,
-) {
+private fun NumberedListTitle(title: ListTitle) {
     when (title.titleType) {
         TitleType.BoldText -> {
             Text(
@@ -196,7 +194,7 @@ private fun NumberedListTitle(
                     .semantics {
                         contentDescription = title.text
                     }
-                    .testTag(TAG_TITLE_BOLD),
+                    .testTag(TAG_TITLE_BOLD)
             )
         }
 
@@ -209,7 +207,7 @@ private fun NumberedListTitle(
                     .testTag(TAG_TITLE_HEADING),
                 style = GdsHeadingStyle.Title3,
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                textColour = MaterialTheme.colorScheme.onBackground,
+                textColour = MaterialTheme.colorScheme.onBackground
             )
         }
 
@@ -222,7 +220,7 @@ private fun NumberedListTitle(
                 modifier = Modifier
                     .padding(bottom = listItemTitleBottomPadding)
                     .semantics { contentDescription = title.text }
-                    .testTag(TAG_TITLE_REGULAR),
+                    .testTag(TAG_TITLE_REGULAR)
             )
         }
     }
@@ -242,22 +240,22 @@ private fun NumberedListItem(
     index: String,
     listItem: ListItem,
     itemContentDescription: String,
-    minIndexWidth: Dp,
+    minIndexWidth: Dp
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
                 start = listItemLeftPadding,
-                top = spacingSingle,
+                top = spacingSingle
             )
-            .semantics(true) { },
+            .semantics(true) { }
     ) {
         IndexText(
             index,
             modifier = Modifier
                 .semantics { invisibleToUser() }
-                .defaultMinSize(minWidth = minIndexWidth),
+                .defaultMinSize(minWidth = minIndexWidth)
         )
         ListText(listItem, itemContentDescription)
     }
@@ -277,7 +275,7 @@ private fun IndexText(index: String, modifier: Modifier = Modifier) {
         color = MaterialTheme.colorScheme.onBackground,
         style = Typography.bodyLarge,
         modifier = modifier,
-        textAlign = TextAlign.Right,
+        textAlign = TextAlign.Right
     )
 }
 
@@ -291,10 +289,7 @@ private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
  * @param itemContentDescription The content description for the entire numbered list item
  */
 @Composable
-private fun ListText(
-    listItem: ListItem,
-    itemContentDescription: String,
-) {
+private fun ListText(listItem: ListItem, itemContentDescription: String) {
     val listContent = listItem.createDisplayText(LocalContext.current)
     val modifier = Modifier
         .semantics {
@@ -306,7 +301,7 @@ private fun ListText(
             text = listContent.text,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = modifier,
+            modifier = modifier
         )
     } else {
         Text(
@@ -314,7 +309,7 @@ private fun ListText(
             inlineContent = listContent.inlineTextContent,
             color = MaterialTheme.colorScheme.onBackground,
             style = Typography.bodyLarge,
-            modifier = modifier,
+            modifier = modifier
         )
     }
 }
@@ -328,30 +323,32 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
     override val values: Sequence<ListWrapper> = sequenceOf(
         ListWrapper(
             listItems = persistentListOf(
-                ListItem("Single line"),
+                ListItem("Single line")
             ),
-            title = ListTitle("One item GDS heading", TitleType.Heading),
+            title = ListTitle("One item GDS heading", TitleType.Heading)
+        ),
+        ListWrapper(
+            listItems = persistentListOf(
+                ListItem(FIRST_LINE),
+                ListItem(SECOND_LINE)
+            ),
+            title = ListTitle("Multiple items plain text title", TitleType.Text)
         ),
         ListWrapper(
             listItems = persistentListOf(
                 ListItem(FIRST_LINE),
                 ListItem(SECOND_LINE),
-            ),
-            title = ListTitle("Multiple items plain text title", TitleType.Text),
+                ListItem(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+                )
+            )
         ),
         ListWrapper(
             listItems = persistentListOf(
                 ListItem(FIRST_LINE),
-                ListItem(SECOND_LINE),
-                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
+                ListItem(SECOND_LINE)
             ),
-        ),
-        ListWrapper(
-            listItems = persistentListOf(
-                ListItem(FIRST_LINE),
-                ListItem(SECOND_LINE),
-            ),
-            title = ListTitle("Multiple items bold title", TitleType.BoldText),
+            title = ListTitle("Multiple items bold title", TitleType.BoldText)
         ),
         ListWrapper(
             listItems = persistentListOf(
@@ -364,9 +361,9 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem(LINE7),
                 ListItem(LINE8),
                 ListItem(LINE9),
-                ListItem("Line ten"),
+                ListItem("Line ten")
             ),
-            title = ListTitle("Double digit index", TitleType.Heading),
+            title = ListTitle("Double digit index", TitleType.Heading)
         ),
         ListWrapper(
             listItems = persistentListOf(
@@ -378,9 +375,9 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem(LINE6),
                 ListItem(LINE7),
                 ListItem(LINE8),
-                ListItem(LINE9),
+                ListItem(LINE9)
             ),
-            title = ListTitle("Single digit index", TitleType.Heading),
+            title = ListTitle("Single digit index", TitleType.Heading)
         ),
         ListWrapper(
             listItems = persistentListOf(
@@ -405,9 +402,9 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem("Line nineteen"),
                 ListItem("Line twenty"),
                 ListItem("Line twenty one"),
-                ListItem("Line twenty two"),
+                ListItem("Line twenty two")
             ),
-            title = ListTitle("20+ digit index", TitleType.Heading),
+            title = ListTitle("20+ digit index", TitleType.Heading)
         ),
         ListWrapper(
             listItems = persistentListOf(
@@ -420,23 +417,23 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
                 ListItem("Llinell saith"),
                 ListItem("Llinell wyth"),
                 ListItem("Llinell naw"),
-                ListItem("Llinell deg"),
+                ListItem("Llinell deg")
             ),
-            title = ListTitle("Welsh example", TitleType.Heading),
+            title = ListTitle("Welsh example", TitleType.Heading)
         ),
         ListWrapper(
             listItems = persistentListOf(
                 ListItem(LINE1),
                 ListItem(
-                    spannableText = R.string.bulleted_list_link_example,
+                    spannableText = R.string.bulleted_list_link_example
                 ),
                 ListItem(
                     spannableText = R.string.bulleted_list_link_example,
-                    icon = R.drawable.ic_external_site,
-                ),
+                    icon = R.drawable.ic_external_site
+                )
             ),
-            title = ListTitle("Linked text", TitleType.Heading),
-        ),
+            title = ListTitle("Linked text", TitleType.Heading)
+        )
     )
 }
 
@@ -444,26 +441,26 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
 @PreviewLightDark
 @Preview(
     name = "small font",
-    fontScale = 0.5f,
+    fontScale = 0.5f
 )
 @Preview(
     name = "normal font",
-    fontScale = 1f,
+    fontScale = 1f
 )
 @Preview(
     name = "large font",
-    fontScale = 1.5f,
+    fontScale = 1.5f
 )
 @Preview(showBackground = true)
 @Composable
 internal fun GdsNumberedListPreview(
     @PreviewParameter(NumberedListProvider::class)
-    numberedListWrapper: ListWrapper,
+    numberedListWrapper: ListWrapper
 ) {
     GdsTheme {
         GdsNumberedList(
             numberedListItems = numberedListWrapper.listItems,
-            title = numberedListWrapper.title,
+            title = numberedListWrapper.title
         )
     }
 }

@@ -34,10 +34,10 @@ class RowTest {
                 title = "Title",
                 leadingImage = Image(
                     drawable = R.drawable.placeholder_leading_image,
-                    contentDescription = "Test content description",
+                    contentDescription = "Test content description"
                 ),
                 subtitle = "Subtitle",
-                onClick = {},
+                onClick = {}
             )
         }
         with(composeTestRule) {
@@ -52,11 +52,11 @@ class RowTest {
                 title = "Title",
                 leadingImage = Image(
                     drawable = R.drawable.placeholder_leading_image,
-                    contentDescription = "Test content description",
+                    contentDescription = "Test content description"
                 ),
                 trailingIcon = RowTrailingIcon.OpenInNew(),
                 subtitle = "Subtitle",
-                onClick = {},
+                onClick = {}
             )
         }
         with(composeTestRule) {
@@ -73,7 +73,7 @@ class RowTest {
                 title = "Title",
                 subtitle = "Subtitle",
                 clickEnabled = true,
-                onClick = onClick,
+                onClick = onClick
             )
         }
 
@@ -93,7 +93,7 @@ class RowTest {
                 title = "Title",
                 subtitle = "Subtitle",
                 clickEnabled = false,
-                onClick = onClick,
+                onClick = onClick
             )
         }
 
@@ -117,7 +117,7 @@ class RowTest {
         composeTestRule.setContent {
             CompositionLocalProvider(
                 LocalResources provides resources,
-                LocalDensity provides density,
+                LocalDensity provides density
             ) {
                 val scalingFactor = getDisplayScalingFactor()
                 assertEquals(2f, scalingFactor)
@@ -138,7 +138,7 @@ class RowTest {
         composeTestRule.setContent {
             CompositionLocalProvider(
                 LocalResources provides resources,
-                LocalDensity provides density,
+                LocalDensity provides density
             ) {
                 val scalingFactor = getDisplayScalingFactor()
                 assertEquals(1f, scalingFactor)

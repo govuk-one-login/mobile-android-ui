@@ -7,15 +7,14 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 
 object Matchers {
-    fun SemanticsNodeInteraction.assertListSemanticsCleared(): SemanticsNodeInteraction =
-        this
-            .assert(
-                SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo),
-            )
-            .assert(
-                SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
-                    val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
-                    collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
-                },
-            )
+    fun SemanticsNodeInteraction.assertListSemanticsCleared(): SemanticsNodeInteraction = this
+        .assert(
+            SemanticsMatcher.keyIsDefined(SemanticsProperties.CollectionInfo)
+        )
+        .assert(
+            SemanticsMatcher("CollectionInfo has rowCount=0 and columnCount=0") { node ->
+                val collectionInfo = node.config.getOrNull(SemanticsProperties.CollectionInfo)
+                collectionInfo?.rowCount == 0 && collectionInfo.columnCount == 0
+            }
+        )
 }

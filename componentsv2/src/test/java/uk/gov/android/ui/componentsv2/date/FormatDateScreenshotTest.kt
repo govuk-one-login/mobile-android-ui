@@ -4,16 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import java.time.LocalDate
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
-import java.time.LocalDate
 
 @RunWith(Parameterized::class)
-internal class FormatDateScreenshotTest(
-    locale: String,
-) : BaseScreenshotTest(locale = locale) {
+internal class FormatDateScreenshotTest(locale: String) : BaseScreenshotTest(locale = locale) {
 
     private val dates = (1..12).map { LocalDate.of(2026, it, it) }
 
@@ -34,7 +32,7 @@ internal class FormatDateScreenshotTest(
         @Parameterized.Parameters(name = "{index}DateFormatting")
         fun locales(): List<String> = listOf(
             "en", // English
-            "cy", // Welsh
+            "cy" // Welsh
         )
     }
 }

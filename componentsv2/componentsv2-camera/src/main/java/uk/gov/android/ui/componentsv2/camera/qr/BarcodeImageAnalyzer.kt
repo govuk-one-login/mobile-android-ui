@@ -31,7 +31,7 @@ import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 class BarcodeImageAnalyzer(
     options: BarcodeScannerOptions,
     converter: ImageProxyConverter = ImageProxyConverter { null },
-    callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },
+    callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> }
 ) : ImageAnalysis.Analyzer,
     ImageProxyConverter by converter,
     BarcodeScanResult.Callback by callback {

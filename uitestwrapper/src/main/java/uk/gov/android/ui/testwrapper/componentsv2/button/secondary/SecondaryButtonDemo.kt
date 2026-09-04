@@ -20,16 +20,14 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Suppress("LongMethod")
 @Composable
-fun SecondaryButtonDemo(
-    modifier: Modifier = Modifier,
-) {
+fun SecondaryButtonDemo(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(smallPadding)
             .fillMaxHeight(),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.Start
     ) {
         // Enabled Secondary button with preset icon
         GdsButton(
@@ -40,7 +38,7 @@ fun SecondaryButtonDemo(
             enabled = true,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
-            textAlign = TextAlign.Left,
+            textAlign = TextAlign.Left
         )
 
         // Disabled Secondary button with preset icon
@@ -52,7 +50,7 @@ fun SecondaryButtonDemo(
             enabled = false,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
-            textAlign = TextAlign.Left,
+            textAlign = TextAlign.Left
         )
 
         // Enabled Secondary button with error icon
@@ -60,14 +58,14 @@ fun SecondaryButtonDemo(
             text = stringResource(R.string.secondary_button),
             icon = ButtonIcon(
                 icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                contentDescription = stringResource(R.string.secondary_button),
+                contentDescription = stringResource(R.string.secondary_button)
             ),
             buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = true,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
-            textAlign = TextAlign.Left,
+            textAlign = TextAlign.Left
         )
 
         // Disabled Secondary button with error icon
@@ -75,14 +73,14 @@ fun SecondaryButtonDemo(
             text = stringResource(R.string.secondary_button),
             icon = ButtonIcon(
                 icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                contentDescription = stringResource(R.string.secondary_button),
+                contentDescription = stringResource(R.string.secondary_button)
             ),
             buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = false,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
-            textAlign = TextAlign.Left,
+            textAlign = TextAlign.Left
         )
     }
 }

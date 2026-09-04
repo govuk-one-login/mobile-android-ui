@@ -13,10 +13,9 @@ import androidx.compose.ui.semantics.semantics
  * elements being "in list" as well as the number of items.
  * For this to work, the rowCount and columnCount need to be set to 0.
  */
-internal fun Modifier.clearListSemanticsForTalkBack(): Modifier =
-    this.semantics {
-        collectionInfo = CollectionInfo(
-            rowCount = 0,
-            columnCount = 0,
-        )
-    }
+internal fun Modifier.clearListSemanticsForTalkBack(): Modifier = this.semantics {
+    collectionInfo = CollectionInfo(
+        rowCount = 0,
+        columnCount = 0
+    )
+}

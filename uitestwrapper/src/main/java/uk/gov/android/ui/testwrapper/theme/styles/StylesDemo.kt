@@ -16,13 +16,13 @@ fun StylesDemo(modifier: Modifier = Modifier) {
     val styles = TypographyPreviewParams.types.plus(ExtraTypographyPreviewParams.types)
 
     Column(
-        modifier = modifier.verticalScroll(rememberScrollState()),
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         styles.forEach { (name, style) ->
             Text(
                 text = name,
                 style = style,
-                modifier = Modifier.padding(largePadding),
+                modifier = Modifier.padding(largePadding)
             )
         }
     }

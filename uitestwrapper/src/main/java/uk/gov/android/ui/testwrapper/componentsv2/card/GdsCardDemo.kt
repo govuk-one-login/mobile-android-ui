@@ -16,7 +16,7 @@ fun GdsCardDemo() {
             contentDescription = "Tile image",
             body = "Instance of GdsCard with button",
             displayPrimary = true,
-            buttonText = "Continue",
+            buttonText = "Continue"
         )
     }
 }

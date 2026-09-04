@@ -10,7 +10,7 @@ fun GdsHeadingDemo() {
     DemoTemplate {
         GdsHeading(
             text = "GdsHeading with body style",
-            style = GdsHeadingStyle.Body,
+            style = GdsHeadingStyle.Body
         )
     }
 }

@@ -40,7 +40,7 @@ sealed class GdsHeadingStyle(val style: TextStyle) {
 enum class GdsHeadingAlignment {
     CenterAligned,
     LeftAligned,
-    RightAligned,
+    RightAligned
 }
 
 /**
@@ -63,7 +63,7 @@ fun GdsHeading(
     style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     textColour: Color = MaterialTheme.colorScheme.onBackground,
-    textFontWeight: FontWeight? = null,
+    textFontWeight: FontWeight? = null
 ) {
     val typography = when (style) {
         GdsHeadingStyle.LargeTitle -> Typography.displaySmall
@@ -96,14 +96,13 @@ fun GdsHeading(
                 contentDescription = customContentDescription ?: text
                 heading()
             },
-        textAlign = alignment,
+        textAlign = alignment
     )
 }
 
 internal sealed class GdsHeadingColour(val colors: ColorPair) {
     data object Default : GdsHeadingColour(Text.primary)
-    data class Custom(val customColorPair: ColorPair) :
-        GdsHeadingColour(customColorPair)
+    data class Custom(val customColorPair: ColorPair) : GdsHeadingColour(customColorPair)
 }
 
 internal data class HeadingParameters(
@@ -112,7 +111,7 @@ internal data class HeadingParameters(
     val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
     val fontWeight: FontWeight? = null,
     val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
-    val textColour: GdsHeadingColour = GdsHeadingColour.Default,
+    val textColour: GdsHeadingColour = GdsHeadingColour.Default
 )
 
 internal class HeadingParameterPreviewProvider : PreviewParameterProvider<HeadingParameters> {
@@ -125,27 +124,27 @@ internal class HeadingParameterPreviewProvider : PreviewParameterProvider<Headin
         HeadingParameters(
             text = "Custom Style - Label Large",
             style = GdsHeadingStyle.Custom(
-                Typography.labelLarge,
-            ),
+                Typography.labelLarge
+            )
         ),
         HeadingParameters(
             text = "Title1 - Left Aligned",
             style = GdsHeadingStyle.Title1,
-            textAlign = GdsHeadingAlignment.LeftAligned,
+            textAlign = GdsHeadingAlignment.LeftAligned
         ),
         HeadingParameters(
             text = "Title1 - Custom Color",
             style = GdsHeadingStyle.Title1,
             textColour = GdsHeadingColour.Custom(
-                customColorPair = ColorPair(Color.Green, Color.Red),
-            ),
+                customColorPair = ColorPair(Color.Green, Color.Red)
+            )
         ),
         HeadingParameters("Long Large Title - Lorem ipsum dolor sit amet, consectetur adipiscin"),
         HeadingParameters(
             text = "Title with custom content description",
             style = GdsHeadingStyle.LargeTitle,
-            customContentDescription = "Custom content description",
-        ),
+            customContentDescription = "Custom content description"
+        )
     )
 }
 
@@ -157,7 +156,7 @@ internal fun PreviewTitle() {
     val parameters = HeadingParameterPreviewProvider().values.toList()
     GdsTheme {
         Column(
-            Modifier.background(MaterialTheme.colorScheme.background),
+            Modifier.background(MaterialTheme.colorScheme.background)
         ) {
             parameters.forEach {
                 GdsHeading(
@@ -166,7 +165,7 @@ internal fun PreviewTitle() {
                     style = it.style,
                     textFontWeight = it.fontWeight,
                     textAlign = it.textAlign,
-                    textColour = it.textColour.colors.toMappedColors(),
+                    textColour = it.textColour.colors.toMappedColors()
                 )
             }
         }

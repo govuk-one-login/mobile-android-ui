@@ -40,9 +40,7 @@ import uk.gov.android.ui.uitestwrapper.R as TestWrapperR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GdsTopAppBarDemo(
-    modifier: Modifier = Modifier,
-) {
+fun GdsTopAppBarDemo(modifier: Modifier = Modifier) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
@@ -57,7 +55,7 @@ fun GdsTopAppBarDemo(
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
-                modifier = Modifier.padding(horizontal = spacingDouble),
+                modifier = Modifier.padding(horizontal = spacingDouble)
             )
         },
         topBar = {
@@ -71,10 +69,10 @@ fun GdsTopAppBarDemo(
                 scrollBehavior = scrollBehavior,
                 alignment = alignment,
                 itemTitle1 = itemTitle1,
-                itemTitle2 = itemTitle2,
+                itemTitle2 = itemTitle2
             )
         },
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { paddingValues ->
         GdsTopAppBarDemoContent(
             paddingValues = paddingValues,
@@ -84,7 +82,7 @@ fun GdsTopAppBarDemo(
             updateNavIconButton = updateNavIconButton,
             showNavIconButton = showNavIconButton,
             updateActionIconButton = updateActionIconButton,
-            showActionIconButton = showActionIconButton,
+            showActionIconButton = showActionIconButton
         )
     }
 }
@@ -102,24 +100,24 @@ private fun GdsTopAppBarConfiguration(
     alignment: TopAppBarAlignment,
     itemTitle1: String,
     itemTitle2: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     GdsTopAppBar(
         modifier = modifier,
         title = stringResource(R.string.title),
         navigationButton =
-        if (showNavIconButton) {
-            GdsIconButtonDefaults.defaultCloseContent()
-        } else {
-            null
-        },
+            if (showNavIconButton) {
+                GdsIconButtonDefaults.defaultCloseContent()
+            } else {
+                null
+            },
         onClick = {
             scope.launch {
                 statusOverlayState.showSnackbar("Dismiss button pressed")
             }
         },
         actions =
-        generateActions(showActionIconButton, updateMenuExpanded, isMenuExpanded),
+            generateActions(showActionIconButton, updateMenuExpanded, isMenuExpanded),
         scrollBehaviour = scrollBehavior,
         alignment = alignment,
         menu = {
@@ -129,9 +127,9 @@ private fun GdsTopAppBarConfiguration(
                 scope = scope,
                 statusOverlayState = statusOverlayState,
                 itemTitle2 = itemTitle2,
-                updateMenuExpanded = updateMenuExpanded,
+                updateMenuExpanded = updateMenuExpanded
             )
-        },
+        }
     )
 }
 
@@ -139,7 +137,7 @@ private fun GdsTopAppBarConfiguration(
 private fun generateActions(
     showActionIconButton: Boolean,
     updateMenuExpanded: (Boolean) -> Unit,
-    isMenuExpanded: Boolean,
+    isMenuExpanded: Boolean
 ): PersistentList<TopBarActionButton>? = if (showActionIconButton) {
     persistentListOf(
         TopBarActionButton(
@@ -147,8 +145,8 @@ private fun generateActions(
             onClick = {
                 updateMenuExpanded(!isMenuExpanded)
                 println("Click action button")
-            },
-        ),
+            }
+        )
     )
 } else {
     null
@@ -161,22 +159,22 @@ private fun GdsTopAppBarDemoMenu(
     scope: CoroutineScope,
     statusOverlayState: SnackbarHostState,
     itemTitle2: String,
-    updateMenuExpanded: (Boolean) -> Unit,
+    updateMenuExpanded: (Boolean) -> Unit
 ) {
     GdsMenu(
         expanded = isMenuExpanded,
         content =
-        persistentListOf(
-            GdsMenuContent(itemTitle1) {
-                scope.launch {
-                    statusOverlayState.showSnackbar("Selected: $itemTitle1")
-                }
-            },
-            GdsMenuContent(itemTitle2) {},
-        ),
+            persistentListOf(
+                GdsMenuContent(itemTitle1) {
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Selected: $itemTitle1")
+                    }
+                },
+                GdsMenuContent(itemTitle2) {}
+            ),
         onDismissRequest = {
             updateMenuExpanded(!isMenuExpanded)
-        },
+        }
     )
 }
 
@@ -193,13 +191,13 @@ private fun GdsTopAppBarDemoContent(
     updateActionIconButton: (Boolean) -> Unit,
     showActionIconButton: Boolean,
     modifier: Modifier = Modifier,
-    textIterationCount: Int = APP_BAR_DEMO_TEXT_COUNT,
+    textIterationCount: Int = APP_BAR_DEMO_TEXT_COUNT
 ) {
     Column(
         modifier
             .padding(paddingValues)
             .fillMaxWidth()
-            .verticalScroll(scrollState),
+            .verticalScroll(scrollState)
     ) {
         FormattedButton(titleRes = TestWrapperR.string.toggle_title) {
             if (alignment == TopAppBarAlignment.Start) {
@@ -217,20 +215,17 @@ private fun GdsTopAppBarDemoContent(
         repeat(textIterationCount) {
             Text(
                 text = "Test",
-                modifier = Modifier.padding(horizontal = smallPadding),
+                modifier = Modifier.padding(horizontal = smallPadding)
             )
         }
     }
 }
 
 @Composable
-fun FormattedButton(
-    titleRes: Int,
-    onClick: () -> Unit,
-) {
+fun FormattedButton(titleRes: Int, onClick: () -> Unit) {
     GdsButton(
         text = stringResource(titleRes),
         buttonType = ButtonTypeV2.Secondary(),
-        onClick = onClick,
+        onClick = onClick
     )
 }

@@ -29,7 +29,7 @@ object ModifierExtensions {
     fun Modifier.elevatedCardModifier(shadow: Dp?) = fillMaxWidth()
         .shadow(
             elevation = shadow ?: cardShadow,
-            shape = RoundedCornerShape(tileCornerRadius),
+            shape = RoundedCornerShape(tileCornerRadius)
         )
 
     fun Modifier.customTilePadding(apply: Boolean) = if (apply) {
@@ -58,34 +58,31 @@ object ModifierExtensions {
  * @param shape - [Shape] used to clip the border drawing
  * @param strokeWidth - [Dp] width of the border stroke
  */
-internal fun Modifier.customBottomBorder(
-    color: Color,
-    shape: Shape,
-    strokeWidth: Dp,
-) = this.drawWithContent {
-    drawContent()
-    val strokeWidthPx = strokeWidth.toPx()
+internal fun Modifier.customBottomBorder(color: Color, shape: Shape, strokeWidth: Dp) =
+    this.drawWithContent {
+        drawContent()
+        val strokeWidthPx = strokeWidth.toPx()
 
-    val outline = shape.createOutline(
-        size = size,
-        layoutDirection = layoutDirection,
-        density = this,
-    )
-
-    clipPath(path = outline.toPath()) {
-        drawRect(
-            color = color,
-            topLeft = Offset(
-                x = 0f,
-                y = size.height - strokeWidthPx,
-            ),
-            size = Size(
-                width = size.width,
-                height = strokeWidthPx,
-            ),
+        val outline = shape.createOutline(
+            size = size,
+            layoutDirection = layoutDirection,
+            density = this
         )
+
+        clipPath(path = outline.toPath()) {
+            drawRect(
+                color = color,
+                topLeft = Offset(
+                    x = 0f,
+                    y = size.height - strokeWidthPx
+                ),
+                size = Size(
+                    width = size.width,
+                    height = strokeWidthPx
+                )
+            )
+        }
     }
-}
 
 private fun Outline.toPath(): Path = when (this) {
     is Outline.Rectangle -> Path().apply { addRect(rect) }

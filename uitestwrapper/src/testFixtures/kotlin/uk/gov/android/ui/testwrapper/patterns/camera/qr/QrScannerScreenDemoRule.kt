@@ -16,7 +16,7 @@ import uk.gov.android.ui.componentsv2.rules.ComposeContentTestRuleExtensions.onN
  */
 class QrScannerScreenDemoRule(
     composeTestRule: ComposeContentTestRule,
-    private val cameraViewfinderTag: String = "cameraViewfinder",
+    private val cameraViewfinderTag: String = "cameraViewfinder"
 ) : ComposeContentTestRule by composeTestRule,
     Renderer<Modifier> {
     override fun render(input: Modifier) {
@@ -25,22 +25,18 @@ class QrScannerScreenDemoRule(
         }
     }
 
-    fun assertPermissionButtonDoesNotExist() =
-        onAllNodesWithRole(Role.Button)
-            .assertCountEquals(0)
+    fun assertPermissionButtonDoesNotExist() = onAllNodesWithRole(Role.Button)
+        .assertCountEquals(0)
 
-    fun assertPermissionButtonExists(containedText: String) =
-        onNodeWithRole(Role.Button)
-            .assertExists()
-            .assertIsDisplayed()
-            .assertTextContains(containedText)
+    fun assertPermissionButtonExists(containedText: String) = onNodeWithRole(Role.Button)
+        .assertExists()
+        .assertIsDisplayed()
+        .assertTextContains(containedText)
 
-    fun assertCameraIsRendered() =
-        onNodeWithTag(cameraViewfinderTag)
-            .assertExists()
-            .assertIsDisplayed()
+    fun assertCameraIsRendered() = onNodeWithTag(cameraViewfinderTag)
+        .assertExists()
+        .assertIsDisplayed()
 
-    fun assertCameraIsNotRendered() =
-        onNodeWithTag(cameraViewfinderTag)
-            .assertDoesNotExist()
+    fun assertCameraIsNotRendered() = onNodeWithTag(cameraViewfinderTag)
+        .assertDoesNotExist()
 }

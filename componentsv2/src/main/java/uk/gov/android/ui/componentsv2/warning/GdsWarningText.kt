@@ -24,22 +24,19 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
 @Composable
-fun GdsWarningText(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
+fun GdsWarningText(text: String, modifier: Modifier = Modifier) {
     val warningText = stringResource(id = R.string.warning)
 
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .semantics(mergeDescendants = true) { },
+            .semantics(mergeDescendants = true) { }
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_error_filled),
             contentDescription = "$warningText\n",
             tint = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.alignByBaseline(),
+            modifier = Modifier.alignByBaseline()
         )
         Spacer(Modifier.size(spacingSingleAndAHalf))
         Text(
@@ -47,7 +44,7 @@ fun GdsWarningText(
             color = MaterialTheme.colorScheme.onBackground,
             style = ExtraTypography.bodyMediumBold,
             modifier = Modifier
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
         )
     }
 }
@@ -58,8 +55,8 @@ internal class WarningPreviewProvider : PreviewParameterProvider<String> {
         listOf(
             "lorem ipsum dolor sit amet consectetur.",
             "Purus aliquam mattis vitae enim mauris.",
-            "lorem ipsum dolor sit amet consectetur.",
-        ).joinToString(" "),
+            "lorem ipsum dolor sit amet consectetur."
+        ).joinToString(" ")
 
     )
 }
@@ -68,14 +65,14 @@ internal class WarningPreviewProvider : PreviewParameterProvider<String> {
 @Composable
 internal fun WarningPreview(
     @PreviewParameter(WarningPreviewProvider::class)
-    text: String,
+    text: String
 ) {
     GdsTheme {
         Column(
-            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
+            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background)
         ) {
             GdsWarningText(
-                text = text,
+                text = text
             )
         }
     }

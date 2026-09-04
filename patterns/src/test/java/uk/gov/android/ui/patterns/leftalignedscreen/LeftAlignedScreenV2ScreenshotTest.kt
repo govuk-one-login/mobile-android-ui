@@ -9,7 +9,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class LeftAlignedScreenV2ScreenshotTest(
-    private val parameters: Pair<LeftAlignedScreenContentV2, NightMode>,
+    private val parameters: Pair<LeftAlignedScreenContentV2, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

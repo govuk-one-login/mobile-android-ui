@@ -24,7 +24,7 @@ class GdsMenuTest {
         },
         GdsMenuContent(TITLE_ITEM_TWO) {
             menuTapped = TITLE_ITEM_TWO
-        },
+        }
     )
 
     @Test

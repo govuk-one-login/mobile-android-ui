@@ -37,7 +37,7 @@ object CameraUseCaseProviders {
         analyzer: ImageAnalysis.Analyzer,
         backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
         executor: Executor,
-        outputImageFormat: Int = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
+        outputImageFormat: Int = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     ): ImageAnalysis = ImageAnalysis
         .Builder()
         .setOutputImageFormat(outputImageFormat)

@@ -13,34 +13,31 @@ class AppNavHostTest {
     @get:Rule
     val appHostRule =
         AppNavHostRule(
-            composeTestRule = createComposeRule(),
+            composeTestRule = createComposeRule()
         )
 
     @Test
-    fun defaultSetup() =
-        runTest {
-            appHostRule.run {
-                render(TabDestination.Components)
-                hasCurrentBackStackRoute<TabDestination.Components>()
-            }
+    fun defaultSetup() = runTest {
+        appHostRule.run {
+            render(TabDestination.Components)
+            hasCurrentBackStackRoute<TabDestination.Components>()
         }
+    }
 
     @Test
-    fun startDestinationIsConfigurable() =
-        runTest {
-            appHostRule.run {
-                render(TabDestination.Patterns)
-                hasCurrentBackStackRoute<TabDestination.Patterns>()
-            }
+    fun startDestinationIsConfigurable() = runTest {
+        appHostRule.run {
+            render(TabDestination.Patterns)
+            hasCurrentBackStackRoute<TabDestination.Patterns>()
         }
+    }
 
     @Test
-    fun navigatesViaSerializableObjects() =
-        runTest {
-            appHostRule.run {
-                render(TabDestination.Components)
-                tapMenuItem("Camera")
-                hasCurrentBackStackRoute<ComponentsDestination.DetailedItem>()
-            }
+    fun navigatesViaSerializableObjects() = runTest {
+        appHostRule.run {
+            render(TabDestination.Components)
+            tapMenuItem("Camera")
+            hasCurrentBackStackRoute<ComponentsDestination.DetailedItem>()
         }
+    }
 }

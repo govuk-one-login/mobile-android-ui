@@ -23,14 +23,12 @@ import uk.gov.android.ui.theme.smallPadding
 private const val BUTTON_LOADING_DURATION = 2000L // Milliseconds
 
 @Composable
-fun PrimaryButtonDemo(
-    modifier: Modifier = Modifier,
-) {
+fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(smallPadding),
-        verticalArrangement = Arrangement.spacedBy(smallPadding),
+        verticalArrangement = Arrangement.spacedBy(smallPadding)
     ) {
         var isIconButtonLoading by remember { mutableStateOf(false) }
         var isPrimaryButtonLoading by remember { mutableStateOf(false) }
@@ -57,7 +55,7 @@ fun PrimaryButtonDemo(
             onClick = { isIconButtonLoading = true },
             enabled = true,
             loading = isIconButtonLoading,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
         )
 
         // Disabled Primary button with Icon
@@ -67,7 +65,7 @@ fun PrimaryButtonDemo(
             buttonType = ButtonTypeV2.Primary(),
             onClick = { },
             enabled = false,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
         )
 
         // Primary Button
@@ -77,7 +75,7 @@ fun PrimaryButtonDemo(
             onClick = { isPrimaryButtonLoading = true },
             enabled = true,
             loading = isPrimaryButtonLoading,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

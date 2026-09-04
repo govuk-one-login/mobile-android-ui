@@ -42,90 +42,87 @@ import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.xsmallPadding
 
 enum class TitleType {
-    BoldText, Heading, Text
+    BoldText,
+    Heading,
+    Text
 }
 
-data class ListTitle(
-    val text: String,
-    val titleType: TitleType,
-)
+data class ListTitle(val text: String, val titleType: TitleType)
 
 data class ListItem(
     val text: String = "",
     @StringRes val spannableText: Int = 0,
     @DrawableRes val icon: Int = 0,
     val iconContentDescription: String = "",
-    val onLinkTapped: (String) -> Unit = {},
+    val onLinkTapped: (String) -> Unit = {}
 )
 
 data class ListContent(
     val text: String = "",
     val annotatedString: AnnotatedString = AnnotatedString(""),
     val inlineTextContent: ImmutableMap<String, InlineTextContent> = persistentMapOf(),
-    val iconContentDescription: String = "",
+    val iconContentDescription: String = ""
 )
 
 internal data class ListWrapper(
     val items: ImmutableList<String> = persistentListOf(),
     val title: ListTitle? = null,
-    val listItems: ImmutableList<ListItem> = persistentListOf(),
+    val listItems: ImmutableList<ListItem> = persistentListOf()
 )
 
 @SuppressLint("ComposeUnstableReceiver")
 @Composable
 fun ListItem.createDisplayText(
     context: Context,
-    boldTextFontFamily: FontFamily? = null,
-): ListContent {
-    return when {
-        this.text.isNotEmpty() -> {
-            ListContent(text = this.text)
-        }
+    boldTextFontFamily: FontFamily? = null
+): ListContent = when {
+    this.text.isNotEmpty() -> {
+        ListContent(text = this.text)
+    }
 
-        this.icon == NO_ICON_REFERENCE -> {
-            val spanned = SpannedString(context.getText(this.spannableText))
-            val annotatedString = spanned.toAnnotatedString(
-                this.onLinkTapped,
-                fontFamily = boldTextFontFamily,
-            )
-            ListContent(annotatedString = annotatedString)
-        }
+    this.icon == NO_ICON_REFERENCE -> {
+        val spanned = SpannedString(context.getText(this.spannableText))
+        val annotatedString = spanned.toAnnotatedString(
+            this.onLinkTapped,
+            fontFamily = boldTextFontFamily
+        )
+        ListContent(annotatedString = annotatedString)
+    }
 
-        else -> {
-            val spanned = SpannedString(context.getText(this.spannableText))
-            val annotatedString = spanned.toAnnotatedString(
-                this.onLinkTapped,
-                isIcon = true,
-                fontFamily = boldTextFontFamily,
+    else -> {
+        val spanned = SpannedString(context.getText(this.spannableText))
+        val annotatedString = spanned.toAnnotatedString(
+            this.onLinkTapped,
+            isIcon = true,
+            fontFamily = boldTextFontFamily
+        )
+        val inlineIconContent = persistentMapOf(
+            Pair(
+                ICON_ID,
+                InlineTextContent(
+                    Placeholder(
+                        width = iconPlaceholderWidth,
+                        height = iconPlaceholdHeight,
+                        placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom
+                    )
+                ) {
+                    GdsIcon(
+                        image = ImageVector.vectorResource(this.icon),
+                        contentDescription = null,
+                        color = Links.default.toMappedColors(),
+                        backgroundColor = MaterialTheme.colorScheme.background,
+                        modifier = Modifier
+                            .padding(start = xsmallPadding)
+                            .testTag(ICON_TAG)
+                    )
+                }
             )
-            val inlineIconContent = persistentMapOf(
-                Pair(
-                    ICON_ID,
-                    InlineTextContent(
-                        Placeholder(
-                            width = iconPlaceholderWidth,
-                            height = iconPlaceholdHeight,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
-                        ),
-                    ) {
-                        GdsIcon(
-                            image = ImageVector.vectorResource(this.icon),
-                            contentDescription = null,
-                            color = Links.default.toMappedColors(),
-                            backgroundColor = MaterialTheme.colorScheme.background,
-                            modifier = Modifier
-                                .padding(start = xsmallPadding)
-                                .testTag(ICON_TAG),
-                        )
-                    },
-                ),
-            )
-            ListContent(
-                annotatedString = annotatedString,
-                inlineTextContent = inlineIconContent,
-                iconContentDescription = this.iconContentDescription,
-            )
-        }
+        )
+        ListContent(
+            annotatedString = annotatedString,
+            inlineTextContent = inlineIconContent,
+            iconContentDescription = this.iconContentDescription
+        )
     }
 }
 
@@ -135,7 +132,7 @@ fun ListItem.createDisplayText(
 fun Spanned.toAnnotatedString(
     linkTapListener: (String) -> Unit = {},
     isIcon: Boolean = false,
-    fontFamily: FontFamily? = null,
+    fontFamily: FontFamily? = null
 ): AnnotatedString = buildAnnotatedString {
     append(this@toAnnotatedString.toString())
 
@@ -150,26 +147,26 @@ fun Spanned.toAnnotatedString(
                             SpanStyle(fontFamily = fontFamily, fontWeight = FontWeight.Bold)
                         } ?: run {
                             SpanStyle(
-                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily,
+                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily
                             )
                         },
                         start,
-                        end,
+                        end
                     )
 
                     Typeface.ITALIC -> addStyle(
                         SpanStyle(fontStyle = FontStyle.Italic),
                         start,
-                        end,
+                        end
                     )
 
                     Typeface.BOLD_ITALIC -> addStyle(
                         SpanStyle(
                             fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic,
+                            fontStyle = FontStyle.Italic
                         ),
                         start,
-                        end,
+                        end
                     )
                 }
             }
@@ -178,7 +175,7 @@ fun Spanned.toAnnotatedString(
                 addStyle(
                     SpanStyle(textDecoration = TextDecoration.Underline),
                     start,
-                    end,
+                    end
                 )
             }
 
@@ -187,9 +184,9 @@ fun Spanned.toAnnotatedString(
                 val clickable = LinkAnnotation.Clickable(
                     "URL",
                     styles = TextLinkStyles(
-                        style = SpanStyle(color = Links.default.toMappedColors()),
+                        style = SpanStyle(color = Links.default.toMappedColors())
                     ),
-                    linkInteractionListener = { linkTapListener(url) },
+                    linkInteractionListener = { linkTapListener(url) }
                 )
                 addLink(clickable, start, end)
                 if (isIcon) {
@@ -200,26 +197,22 @@ fun Spanned.toAnnotatedString(
     }
 }
 
-fun ListItem.toContentDescription(context: Context): String {
-    return this.text.ifEmpty {
-        context.getText(this.spannableText).toString()
-    }
+fun ListItem.toContentDescription(context: Context): String = this.text.ifEmpty {
+    context.getText(this.spannableText).toString()
 }
 
 @Suppress("MagicNumber")
-fun Int.convertToWord(context: Context): String {
-    return when (this) {
-        1 -> context.getString(R.string.number1)
-        2 -> context.getString(R.string.number2)
-        3 -> context.getString(R.string.number3)
-        4 -> context.getString(R.string.number4)
-        5 -> context.getString(R.string.number5)
-        6 -> context.getString(R.string.number6)
-        7 -> context.getString(R.string.number7)
-        8 -> context.getString(R.string.number8)
-        9 -> context.getString(R.string.number9)
-        else -> this.toString()
-    }
+fun Int.convertToWord(context: Context): String = when (this) {
+    1 -> context.getString(R.string.number1)
+    2 -> context.getString(R.string.number2)
+    3 -> context.getString(R.string.number3)
+    4 -> context.getString(R.string.number4)
+    5 -> context.getString(R.string.number5)
+    6 -> context.getString(R.string.number6)
+    7 -> context.getString(R.string.number7)
+    8 -> context.getString(R.string.number8)
+    9 -> context.getString(R.string.number9)
+    else -> this.toString()
 }
 
 const val ICON_ID = "iconId"

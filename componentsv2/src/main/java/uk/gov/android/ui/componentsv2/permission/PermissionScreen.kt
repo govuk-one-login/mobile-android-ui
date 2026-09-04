@@ -11,14 +11,14 @@ import com.google.accompanist.permissions.shouldShowRationale
 fun PermissionScreen(
     permissionState: PermissionState,
     logic: PermissionLogic,
-    hasPreviouslyDeniedPermission: Boolean = false,
+    hasPreviouslyDeniedPermission: Boolean = false
 ) = PermissionScreen(
     hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
     onGrantPermission = logic.onGrantPermission,
     onPermissionPermanentlyDenied = logic.onPermissionPermanentlyDenied,
     onRequirePermission = logic.onRequirePermission,
     onShowRationale = logic.onShowRationale,
-    permissionState = permissionState,
+    permissionState = permissionState
 )
 
 /**
@@ -36,25 +36,28 @@ fun PermissionScreen(
     hasPreviouslyDeniedPermission: Boolean = false,
     onGrantPermission: @Composable () -> Unit = {},
     onPermissionPermanentlyDenied: @Composable (
-        permissionState: PermissionState,
+        permissionState: PermissionState
     ) -> Unit = { _ -> },
     onRequirePermission: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit,
+        launchPermission: () -> Unit
     ) -> Unit = { _, _ -> },
     onShowRationale: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit,
-    ) -> Unit = { _, _ -> },
+        launchPermission: () -> Unit
+    ) -> Unit = { _, _ -> }
 ) {
     when {
         permissionState.status.isGranted -> onGrantPermission()
+
         permissionState.status.shouldShowRationale ->
             onShowRationale(permissionState) {
                 permissionState.launchPermissionRequest()
             }
+
         permissionState.isPermanentlyDenied(hasPreviouslyDeniedPermission) ->
             onPermissionPermanentlyDenied(permissionState)
+
         else -> {
             onRequirePermission(permissionState) {
                 permissionState.launchPermissionRequest()
@@ -64,8 +67,7 @@ fun PermissionScreen(
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
-private fun PermissionState.isPermanentlyDenied(
-    hasPreviouslyDeniedPermission: Boolean,
-): Boolean = !status.isGranted &&
-    !status.shouldShowRationale &&
-    hasPreviouslyDeniedPermission
+private fun PermissionState.isPermanentlyDenied(hasPreviouslyDeniedPermission: Boolean): Boolean =
+    !status.isGranted &&
+        !status.shouldShowRationale &&
+        hasPreviouslyDeniedPermission

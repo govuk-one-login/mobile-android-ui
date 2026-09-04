@@ -21,26 +21,24 @@ class CameraContentTest {
 
     @get:Rule
     val permissionsRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.CAMERA,
+        Manifest.permission.CAMERA
     )
 
     @Test
     fun configuresFullSurfaceAnalysis() = runTest {
         performJourney(
-            converter = ImageProxyConverter.simple(),
+            converter = ImageProxyConverter.simple()
         )
     }
 
     @Test
     fun configuresCroppedSurfaceAnalysis() = runTest {
         performJourney(
-            converter = CentrallyCroppedImageProxyConverter(),
+            converter = CentrallyCroppedImageProxyConverter()
         )
     }
 
-    private fun performJourney(
-        converter: ImageProxyConverter,
-    ) = runTest {
+    private fun performJourney(converter: ImageProxyConverter) = runTest {
         val testTag = "cameraViewfinder"
         val state = StateRestorationTester(composeTestRule)
 
@@ -50,15 +48,15 @@ class CameraContentTest {
             model.update(
                 barcodeAnalysis(
                     context = ApplicationProvider.getApplicationContext(),
-                    converter = converter,
-                ),
+                    converter = converter
+                )
             )
 
             CameraContentWithViewModel(
                 viewModel = model,
                 modifier = Modifier
                     .fillMaxSize()
-                    .testTag(testTag),
+                    .testTag(testTag)
             )
         }
 

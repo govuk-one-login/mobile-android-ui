@@ -21,29 +21,29 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 fun DetailItemContent(
     items: ImmutableList<DetailItem>,
     onItemClick: (DetailItem) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Card(modifier = modifier) {
         LazyColumn(
             modifier = Modifier.fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.background),
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             items.forEach { detailItem ->
                 item {
                     ListItem(
                         modifier =
-                        Modifier
-                            .clickable {
-                                onItemClick(detailItem)
-                            },
+                            Modifier
+                                .clickable {
+                                    onItemClick(detailItem)
+                                },
                         headlineContent = {
                             GdsHeading(
                                 text = detailItem.name,
                                 textAlign = GdsHeadingAlignment.LeftAligned,
                                 style = GdsHeadingStyle.Body,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth()
                             )
-                        },
+                        }
                     )
                     HorizontalDivider(color = Color.Black)
                 }

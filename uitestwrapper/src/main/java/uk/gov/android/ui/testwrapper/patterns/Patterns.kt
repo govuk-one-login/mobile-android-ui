@@ -27,26 +27,23 @@ import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @Composable
-fun Patterns(
-    modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun Patterns(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
     ) {
         @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(PatternsDestination.entries()) { destination ->
             GdsHeading(
                 text = destination.label,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {
-                        onNavigate(destination)
-                    })
-                    .padding(smallPadding),
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onNavigate(destination)
+                        })
+                        .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3,
+                style = GdsHeadingStyle.Title3
             )
             HorizontalDivider(color = Color.Black)
         }
@@ -55,9 +52,7 @@ fun Patterns(
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
-fun PatternDetail(
-    detailItem: DetailItem,
-) {
+fun PatternDetail(detailItem: DetailItem) {
     when (detailItem.label) {
         LOADING_SCREEN -> LoadingScreen()
         LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()

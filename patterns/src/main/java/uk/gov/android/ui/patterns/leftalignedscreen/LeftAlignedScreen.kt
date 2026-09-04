@@ -75,7 +75,7 @@ fun LeftAlignedScreen(
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     arrangement: Arrangement.Vertical = LeftAlignedScreenDefaults.ItemArrangement,
-    forceScroll: Boolean = false,
+    forceScroll: Boolean = false
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
@@ -85,7 +85,7 @@ fun LeftAlignedScreen(
         modifier
             .padding(top = spacingDouble)
             .background(MaterialTheme.colorScheme.background),
-        verticalArrangement = arrangement,
+        verticalArrangement = arrangement
     ) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         If the height is over 1/3 of the total screen, the BottomContent is moved
@@ -97,7 +97,7 @@ fun LeftAlignedScreen(
                     modifier = Modifier.fillMaxWidth(),
                     supportingText = supportingText,
                     primaryButton = primaryButton,
-                    secondaryButton = secondaryButton,
+                    secondaryButton = secondaryButton
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -119,12 +119,12 @@ fun LeftAlignedScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 supportingText = supportingText,
                                 primaryButton = primaryButton,
-                                secondaryButton = secondaryButton,
+                                secondaryButton = secondaryButton
                             )
                         }
                     },
                     arrangement = arrangement,
-                    forceScroll = forceScroll,
+                    forceScroll = forceScroll
                 )
             }.map {
                 // Check the height of the Bottom Content and how much it should take to display the
@@ -134,8 +134,8 @@ fun LeftAlignedScreen(
                 it.measure(
                     // Calculate the main content display widow/ section
                     constraints.copy(
-                        maxHeight = constraints.maxHeight - appliedBottomContentHeight,
-                    ),
+                        maxHeight = constraints.maxHeight - appliedBottomContentHeight
+                    )
                 )
             }
 
@@ -176,9 +176,9 @@ fun LeftAlignedScreen(
     message = "Use LeftAlignedScreenV2 with added forceScroll parameter instead. Aim to be " +
         "removed by 04/05/2026",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenV2",
+        "uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenV2"
     ),
-    level = DeprecationLevel.WARNING,
+    level = DeprecationLevel.WARNING
 )
 fun LeftAlignedScreenV2(
     modifier: Modifier = Modifier,
@@ -186,7 +186,7 @@ fun LeftAlignedScreenV2(
     body: ImmutableList<LeftAlignedScreenBodyV2>? = null,
     supportingText: String? = null,
     primaryButton: LeftAlignedScreenButton? = null,
-    secondaryButton: LeftAlignedScreenButton? = null,
+    secondaryButton: LeftAlignedScreenButton? = null
 ) {
     LeftAlignedScreen(
         modifier = modifier,
@@ -195,21 +195,21 @@ fun LeftAlignedScreenV2(
                 GdsHeading(
                     text = it,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    textAlign = GdsHeadingAlignment.LeftAligned,
+                    textAlign = GdsHeadingAlignment.LeftAligned
                 )
             }
         },
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,
-                body = body,
+                body = body
             )
         },
         supportingText = supportingText?.let { text ->
             { horizontalPadding ->
                 GdsSupportingText(
                     text = text,
-                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding)
                 )
             }
         },
@@ -220,7 +220,7 @@ fun LeftAlignedScreenV2(
                     onClick = it.onClick,
                     buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
         },
@@ -231,10 +231,10 @@ fun LeftAlignedScreenV2(
                     onClick = it.onClick,
                     buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
-        },
+        }
     )
 }
 
@@ -259,7 +259,7 @@ fun LeftAlignedScreenV2(
     supportingText: String? = null,
     primaryButton: LeftAlignedScreenButton? = null,
     secondaryButton: LeftAlignedScreenButton? = null,
-    forceScroll: Boolean = false,
+    forceScroll: Boolean = false
 ) {
     LeftAlignedScreen(
         modifier = modifier,
@@ -268,21 +268,21 @@ fun LeftAlignedScreenV2(
                 GdsHeading(
                     text = it,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    textAlign = GdsHeadingAlignment.LeftAligned,
+                    textAlign = GdsHeadingAlignment.LeftAligned
                 )
             }
         },
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,
-                body = body,
+                body = body
             )
         },
         supportingText = supportingText?.let { text ->
             { horizontalPadding ->
                 GdsSupportingText(
                     text = text,
-                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding)
                 )
             }
         },
@@ -293,7 +293,7 @@ fun LeftAlignedScreenV2(
                     onClick = it.onClick,
                     buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
         },
@@ -304,11 +304,11 @@ fun LeftAlignedScreenV2(
                     onClick = it.onClick,
                     buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = it.enabled,
+                    enabled = it.enabled
                 )
             }
         },
-        forceScroll = forceScroll,
+        forceScroll = forceScroll
     )
 }
 
@@ -319,7 +319,7 @@ private fun MainContent(
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
     @SuppressLint("ComposableLambdaParameterNaming")
-    bottomContent: @Composable (() -> Unit)? = null,
+    bottomContent: @Composable (() -> Unit)? = null
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     val columnModifier = if (forceScroll) {
@@ -334,7 +334,7 @@ private fun MainContent(
         modifier = columnModifier
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
-        state = scrollState,
+        state = scrollState
     ) {
         item { title?.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
 
@@ -353,23 +353,24 @@ private fun BottomContent(
     modifier: Modifier = Modifier,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
-    secondaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null
 ) {
     Column(
-        modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding),
+        modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding)
     ) {
         val supportingTextPadding =
             if (primaryButton == null || secondaryButton == null) {
                 LeftAlignedScreenDefaults.HorizontalPadding
-            } else
+            } else {
                 LeftAlignedScreenDefaults.NoPadding
+            }
 
         supportingText?.let {
             Row(
                 modifier = Modifier.padding(
                     top = spacingDouble,
-                    bottom = supportingTextPadding,
-                ),
+                    bottom = supportingTextPadding
+                )
             ) {
                 it.invoke(LeftAlignedScreenDefaults.HorizontalPadding)
             }
@@ -410,7 +411,7 @@ internal object LeftAlignedScreenTestTag {
 @Preview(fontScale = 3f)
 internal fun PreviewLeftAlignedScreenV2(
     @PreviewParameter(LeftAlignedScreenContentProviderV2::class)
-    content: LeftAlignedScreenContentV2,
+    content: LeftAlignedScreenContentV2
 ) {
     GdsTheme {
         LeftAlignedScreenFromContentParamsV2(content)
@@ -422,7 +423,7 @@ internal fun PreviewLeftAlignedScreenV2(
 @Preview(showBackground = true, fontScale = 3f)
 internal fun PreviewLeftAlignedScreenV2Accessibility(
     @PreviewParameter(LeftAlignedScreenContentAccessibilityProviderV2::class)
-    content: LeftAlignedScreenContentV2,
+    content: LeftAlignedScreenContentV2
 ) {
     GdsTheme {
         LeftAlignedScreenFromContentParamsV2(content)

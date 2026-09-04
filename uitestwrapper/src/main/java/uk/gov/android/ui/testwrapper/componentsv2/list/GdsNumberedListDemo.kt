@@ -21,20 +21,18 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GdsNumberedListDemo(
-    modifier: Modifier = Modifier,
-) {
+fun GdsNumberedListDemo(modifier: Modifier = Modifier) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val title =
         ListTitle(
             text = "Numbered list",
-            titleType = TitleType.Heading,
+            titleType = TitleType.Heading
         )
     val numberedListItems =
         persistentListOf(
             ListItem(
-                text = "Line three bullet list content",
+                text = "Line three bullet list content"
             ),
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
@@ -43,7 +41,7 @@ fun GdsNumberedListDemo(
                     scope.launch {
                         statusOverlayState.showSnackbar("Link with icon clicked")
                     }
-                },
+                }
             ),
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
@@ -51,29 +49,29 @@ fun GdsNumberedListDemo(
                     scope.launch {
                         statusOverlayState.showSnackbar("Link clicked")
                     }
-                },
+                }
             ),
             ListItem(
                 text =
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
-                    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
-                    "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex " +
-                    "ea commodo consequat",
-            ),
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+                        "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
+                        "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex " +
+                        "ea commodo consequat"
+            )
         )
     Scaffold(
         modifier = modifier,
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
-                modifier = Modifier.padding(horizontal = spacingDouble),
+                modifier = Modifier.padding(horizontal = spacingDouble)
             )
-        },
+        }
     ) {
         GdsNumberedList(
             numberedListItems = numberedListItems,
             title = title,
-            modifier = Modifier.padding(smallPadding),
+            modifier = Modifier.padding(smallPadding)
         )
     }
 }

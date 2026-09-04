@@ -28,7 +28,7 @@ fun interface ImageProxyConverter {
             proxy.image?.let { image ->
                 InputImage.fromMediaImage(
                     image,
-                    proxy.imageInfo.rotationDegrees,
+                    proxy.imageInfo.rotationDegrees
                 )
             }
         }

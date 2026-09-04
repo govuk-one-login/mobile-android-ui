@@ -46,8 +46,8 @@ class CentreAlignedScreenTest {
                 title = titleText,
                 primaryButton = CentreAlignedScreenButton(
                     text = buttonText,
-                    onClick = { didClick = true },
-                ),
+                    onClick = { didClick = true }
+                )
             )
         }
 
@@ -71,7 +71,7 @@ class CentreAlignedScreenTest {
 
         composeTestRule.setContent {
             CentreAlignedScreen(
-                title = { GdsHeading(text = title) },
+                title = { GdsHeading(text = title) }
             )
         }
 
@@ -89,8 +89,8 @@ class CentreAlignedScreenTest {
                 primaryButton = CentreAlignedScreenButton(
                     text = buttonText,
                     onClick = { },
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             )
         }
 
@@ -107,8 +107,8 @@ class CentreAlignedScreenTest {
                 secondaryButton = CentreAlignedScreenButton(
                     text = buttonText,
                     onClick = { },
-                    showIcon = true,
-                ),
+                    showIcon = true
+                )
             )
         }
 

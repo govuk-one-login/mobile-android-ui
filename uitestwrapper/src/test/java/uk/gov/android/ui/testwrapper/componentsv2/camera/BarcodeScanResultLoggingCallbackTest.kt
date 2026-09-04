@@ -1,5 +1,8 @@
 package uk.gov.android.ui.testwrapper.componentsv2.camera
 
+import java.io.File
+import java.io.FileOutputStream
+import java.io.PrintStream
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -14,9 +17,6 @@ import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeSourceStub.Compa
 import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeSourceStub.Companion.unknown
 import uk.gov.android.ui.componentsv2.camera.analyzer.qr.BarcodeSourceStub.Companion.urlQrCode
 import uk.gov.android.ui.componentsv2.camera.qr.BarcodeScanResult
-import java.io.File
-import java.io.FileOutputStream
-import java.io.PrintStream
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [ShadowLog::class])
@@ -44,82 +44,73 @@ class BarcodeScanResultLoggingCallbackTest {
     }
 
     @Test
-    fun emptyScans() =
+    fun emptyScans() = performLoggingFlow(
+        result = BarcodeScanResult.EmptyScan,
+        expectedMessage = "Barcode data not found"
+    )
+
+    @Test
+    fun singleUrlScans() = "https://this.is.a.unit.test".run {
         performLoggingFlow(
-            result = BarcodeScanResult.EmptyScan,
-            expectedMessage = "Barcode data not found",
+            result = BarcodeScanResult.Single(urlQrCode(this)),
+            expectedMessage = this
         )
+    }
 
     @Test
-    fun singleUrlScans() =
-        "https://this.is.a.unit.test".run {
-            performLoggingFlow(
-                result = BarcodeScanResult.Single(urlQrCode(this)),
-                expectedMessage = this,
-            )
-        }
+    fun singleUnknownScans() = performLoggingFlow(
+        result = BarcodeScanResult.Single(unknown()),
+        expectedMessage = "No URL found from single result!"
+    )
 
     @Test
-    fun singleUnknownScans() =
+    fun exceptions() = "This is a unit test!".run {
         performLoggingFlow(
-            result = BarcodeScanResult.Single(unknown()),
-            expectedMessage = "No URL found from single result!",
+            result = BarcodeScanResult.Failure(Exception(this)),
+            expectedMessage = this
         )
+    }
 
     @Test
-    fun exceptions() =
-        "This is a unit test!".run {
-            performLoggingFlow(
-                result = BarcodeScanResult.Failure(Exception(this)),
-                expectedMessage = this,
-            )
-        }
-
-    @Test
-    fun successScansPrintTheFirstUrl() =
-        performLoggingFlow(
-            result =
+    fun successScansPrintTheFirstUrl() = performLoggingFlow(
+        result =
             BarcodeScanResult.Success(
                 listOf(
                     "https://this.is.a.unit.test",
-                    "https://this.is.another.test",
-                ).asUrlBarcodes(),
+                    "https://this.is.another.test"
+                ).asUrlBarcodes()
             ),
-            expectedMessage = "https://this.is.a.unit.test",
-        ).also {
-            assert(
-                loggingFile.readLines().none {
-                    it.contains("https://this.is.another.test")
-                },
-            )
-        }
+        expectedMessage = "https://this.is.a.unit.test"
+    ).also {
+        assert(
+            loggingFile.readLines().none {
+                it.contains("https://this.is.another.test")
+            }
+        )
+    }
 
     @Test
-    fun successfulScansWithoutUrls() =
-        performLoggingFlow(
-            result =
+    fun successfulScansWithoutUrls() = performLoggingFlow(
+        result =
             BarcodeScanResult.Success(
                 listOf(
                     unknown(),
-                    unknown(),
-                ),
+                    unknown()
+                )
             ),
-            expectedMessage = "No URL found!",
-        )
+        expectedMessage = "No URL found!"
+    )
 
-    private fun performLoggingFlow(
-        result: BarcodeScanResult,
-        expectedMessage: String,
-    ) = runTest {
+    private fun performLoggingFlow(result: BarcodeScanResult, expectedMessage: String) = runTest {
         barcodeScanResultLoggingCallback.onResult(result) {}
 
         val loggingOutput = loggingFile.readLines()
         assert(
             loggingOutput.any {
                 it.contains(
-                    "I/BarcodeScanResultLoggingCallback: Barcode scanning result: $expectedMessage",
+                    "I/BarcodeScanResultLoggingCallback: Barcode scanning result: $expectedMessage"
                 )
-            },
+            }
         ) {
             "Couldn't find the \"$expectedMessage\" in: $loggingOutput"
         }

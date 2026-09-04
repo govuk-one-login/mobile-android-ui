@@ -49,7 +49,7 @@ object ModifierExtensions {
                         scrollState.canScrollForward -> {
                         coroutineScope.launch {
                             scrollState.animateScrollBy(
-                                SCROLL_MULTIPLIER * scrollState.viewportHeight(),
+                                SCROLL_MULTIPLIER * scrollState.viewportHeight()
                             )
                         }
                         true
@@ -59,7 +59,7 @@ object ModifierExtensions {
                         scrollState.canScrollBackward -> {
                         coroutineScope.launch {
                             scrollState.animateScrollBy(
-                                -SCROLL_MULTIPLIER * scrollState.viewportHeight(),
+                                -SCROLL_MULTIPLIER * scrollState.viewportHeight()
                             )
                         }
                         true
@@ -81,11 +81,10 @@ object ModifierExtensions {
     @Deprecated(
         message = "Replace with keyboardScroll. Due to be removed 13th July 2026.",
         replaceWith = ReplaceWith("keyboardScroll(scrollState)"),
-        level = DeprecationLevel.WARNING,
+        level = DeprecationLevel.WARNING
     )
     @Composable
-    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier =
-        keyboardScroll(scrollState)
+    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier = keyboardScroll(scrollState)
 
     private fun ScrollableState.viewportHeight(): Float = when (this) {
         is LazyListState -> layoutInfo.viewportSize.height.toFloat()

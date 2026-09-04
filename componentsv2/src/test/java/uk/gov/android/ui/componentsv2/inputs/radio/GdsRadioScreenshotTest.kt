@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsRadioScreenshotTest(
-    private val parameters: Pair<GdsRadiosPreviewData, NightMode>,
+    private val parameters: Pair<GdsRadiosPreviewData, NightMode>
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

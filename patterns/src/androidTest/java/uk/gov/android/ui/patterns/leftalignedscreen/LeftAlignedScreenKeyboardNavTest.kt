@@ -112,7 +112,7 @@ class LeftAlignedScreenKeyboardNavTest {
                                 textAlign = GdsHeadingAlignment.LeftAligned,
                                 modifier = Modifier
                                     .padding(horizontal = horizontalPadding)
-                                    .testTag(titleTag),
+                                    .testTag(titleTag)
                             )
                         },
                         body = { horizontalPadding ->
@@ -128,7 +128,7 @@ class LeftAlignedScreenKeyboardNavTest {
                                     } else {
                                         Modifier.padding(horizontal = horizontalPadding)
                                     }.testTag(firstParaTag),
-                                    color = MaterialTheme.colorScheme.onBackground,
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                             }
                             item {
@@ -136,14 +136,14 @@ class LeftAlignedScreenKeyboardNavTest {
                                     painter = painterResource(R.drawable.preview__gdsvectorimage),
                                     contentDescription = "contentDescription",
                                     modifier = Modifier.fillMaxWidth(),
-                                    contentScale = ContentScale.FillWidth,
+                                    contentScale = ContentScale.FillWidth
                                 )
                             }
                             item {
                                 Text(
                                     text = "You cannot use your passport if it has expired.",
                                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                                    color = MaterialTheme.colorScheme.onBackground,
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                             }
                             item {
@@ -156,23 +156,23 @@ class LeftAlignedScreenKeyboardNavTest {
                                         .testTag(firstButtonTag),
                                     contentModifier = Modifier,
                                     textAlign = TextAlign.Left,
-                                    contentPosition = Arrangement.Start,
+                                    contentPosition = Arrangement.Start
                                 )
                             }
                             item {
                                 GdsRadios(
                                     title =
-                                    GdsRadiosTitle(
-                                        "Do you have a passport with a biometric chip?",
-                                        GdsHeadingStyle.Title1,
-                                    ),
+                                        GdsRadiosTitle(
+                                            "Do you have a passport with a biometric chip?",
+                                            GdsHeadingStyle.Title1
+                                        ),
                                     items =
-                                    listOf("Yes", "No, use a different type of photo ID")
-                                        .toPersistentList(),
+                                        listOf("Yes", "No, use a different type of photo ID")
+                                            .toPersistentList(),
                                     selectedItem = selectedItem,
                                     onItemSelected = {
                                         selectedItem = it
-                                    },
+                                    }
                                 )
                             }
                         },
@@ -181,18 +181,18 @@ class LeftAlignedScreenKeyboardNavTest {
                                 text = "Continue",
                                 buttonType = ButtonTypeV2.Primary(),
                                 onClick =
-                                dropUnlessResumed {
-                                },
+                                    dropUnlessResumed {
+                                    },
                                 enabled = selectedItem != null,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth()
                             )
                         },
                         modifier = Modifier
                             .padding(bottom = 60.dp)
                             .testTag(contentTag),
-                        forceScroll = true,
+                        forceScroll = true
                     )
-                },
+                }
             )
         }
     }

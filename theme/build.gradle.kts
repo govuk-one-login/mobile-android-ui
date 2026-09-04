@@ -11,7 +11,7 @@ android {
         release {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }
@@ -31,12 +31,12 @@ dependencies {
 mavenPublishingConfig {
     mavenConfigBlock {
         name.set(
-            "Mobile Android Component Library",
+            "Mobile Android Component Library"
         )
         description.set(
             """
             Make services look and feel like GOV.UK using styles.
-            """.trimIndent(),
+            """.trimIndent()
         )
     }
 }

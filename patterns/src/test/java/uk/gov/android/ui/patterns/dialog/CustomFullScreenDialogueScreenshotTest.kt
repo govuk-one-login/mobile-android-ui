@@ -15,25 +15,24 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
 @RunWith(Parameterized::class)
-class CustomFullScreenDialogueScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+class CustomFullScreenDialogueScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
     @OptIn(ExperimentalMaterial3Api::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             FullScreenDialogue(
                 topAppBar = {
                     GdsTopAppBar(
-                        title = parameters.first,
+                        title = parameters.first
                     )
                 },
                 content = {
                     Box(
-                        modifier = Modifier.padding(spacingDouble),
+                        modifier = Modifier.padding(spacingDouble)
                     ) {
                         Text("Content")
                     }
-                },
+                }
             )
         }
     }

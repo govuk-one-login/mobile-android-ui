@@ -27,8 +27,8 @@ class GdsDialogueTest {
         DialogueButtonParameters(
             buttonType = ButtonTypeV2.Primary(),
             text = resources.getString(R.string.dialogue_provider_button_yes),
-            onClick = { onDismissButtonTapped++ },
-        ),
+            onClick = { onDismissButtonTapped++ }
+        )
     )
 
     @get:Rule
@@ -39,13 +39,13 @@ class GdsDialogueTest {
         setupDialog(oneButtonSetup)
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.dialogue_provider_title1),
+                resources.getString(R.string.dialogue_provider_title1)
             ).apply {
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(R.string.dialogue_example_content),
+                resources.getString(R.string.dialogue_example_content)
             ).apply {
                 assertIsDisplayed()
             }
@@ -57,7 +57,7 @@ class GdsDialogueTest {
         setupDialog(oneButtonSetup)
         composeTestRule.onNodeWithText(
             resources.getString(R.string.dialogue_provider_button_yes),
-            useUnmergedTree = true,
+            useUnmergedTree = true
         ).performClick()
         assertEquals(1, onDismissButtonTapped)
     }
@@ -72,41 +72,39 @@ class GdsDialogueTest {
                     buttonParameters = persistentListOf(
                         DialogueButtonPreviewParameters(
                             buttonType = ButtonTypeV2.Secondary(),
-                            text = R.string.dialogue_provider_button_confirm,
+                            text = R.string.dialogue_provider_button_confirm
                         ),
                         DialogueButtonPreviewParameters(
                             buttonType = ButtonTypeV2.Secondary(),
-                            text = R.string.dialogue_provider_button_dismiss,
-                        ),
-                    ),
-                ),
+                            text = R.string.dialogue_provider_button_dismiss
+                        )
+                    )
+                )
             )
         }
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.dialogue_provider_title2),
+                resources.getString(R.string.dialogue_provider_title2)
             ).apply {
                 assertIsDisplayed()
             }
 
             onNodeWithText(
-                resources.getString(R.string.dialogue_example_content),
+                resources.getString(R.string.dialogue_example_content)
             ).apply {
                 assertIsDisplayed()
             }
         }
     }
 
-    private fun setupDialog(
-        buttonList: ImmutableList<DialogueButtonParameters>,
-    ) {
+    private fun setupDialog(buttonList: ImmutableList<DialogueButtonParameters>) {
         composeTestRule.setContent {
             GdsTheme {
                 GdsDialogue(
                     headingText = resources.getString(R.string.dialogue_provider_title1),
                     contentText = resources.getString(R.string.dialogue_example_content),
                     onDismissRequest = { onDismissButtonTapped++ },
-                    buttonParameters = buttonList,
+                    buttonParameters = buttonList
                 )
             }
         }

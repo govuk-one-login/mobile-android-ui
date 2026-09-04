@@ -53,19 +53,19 @@ object BarcodeUseCaseProviders {
         backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
         converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
             relativeScanningWidth = IMAGE_WIDTH_CROP_MULTIPLIER,
-            relativeScanningHeight = IMAGE_WIDTH_CROP_MULTIPLIER,
+            relativeScanningHeight = IMAGE_WIDTH_CROP_MULTIPLIER
         ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
-        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },
+        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> }
     ): ImageAnalysis = CameraUseCaseProviders.imageAnalysis(
         analyzer = BarcodeImageAnalyzer(
             options = options,
             callback = callback,
-            converter = converter,
+            converter = converter
         ),
         backpressureStrategy = backpressureStrategy,
         executor = ContextCompat.getMainExecutor(context),
-        outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
+        outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     )
 
     const val MAX_ZOOM_RATIO = 10f
@@ -78,9 +78,7 @@ object BarcodeUseCaseProviders {
      * [androidx.camera.core.CameraControl.setZoomRatio] to suggested values.
      */
     @JvmStatic
-    fun provideZoomOptions(
-        camera: () -> Camera? = { null },
-    ): ZoomSuggestionOptions =
+    fun provideZoomOptions(camera: () -> Camera? = { null }): ZoomSuggestionOptions =
         ZoomSuggestionOptions
             .Builder { zoomRatio ->
                 camera()?.cameraControl?.setZoomRatio(zoomRatio)
@@ -92,13 +90,12 @@ object BarcodeUseCaseProviders {
      * @return An instance of [BarcodeScannerOptions] tailored to [Barcode.FORMAT_QR_CODE].
      */
     @JvmStatic
-    fun provideQrScanningOptions(
-        provideZoomOptions: ZoomSuggestionOptions,
-    ): BarcodeScannerOptions = BarcodeScannerOptions
-        .Builder()
-        .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
-        .setZoomSuggestionOptions(provideZoomOptions)
-        .build()
+    fun provideQrScanningOptions(provideZoomOptions: ZoomSuggestionOptions): BarcodeScannerOptions =
+        BarcodeScannerOptions
+            .Builder()
+            .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+            .setZoomSuggestionOptions(provideZoomOptions)
+            .build()
 
     fun Camera.provideMaxZoomRatio(): Float = cameraInfo
         .zoomState

@@ -24,7 +24,7 @@ fun GdsVectorImage(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
-    scale: ContentScale = ContentScale.Fit,
+    scale: ContentScale = ContentScale.Fit
 ) {
     Image(
         imageVector = image,
@@ -32,7 +32,7 @@ fun GdsVectorImage(
         contentDescription = contentDescription,
         contentScale = scale,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
     )
 }
 
@@ -43,7 +43,7 @@ internal data class VectorImagePreviewParameters(
     @StringRes
     val contentDescription: Int,
     val scale: ContentScale = ContentScale.Fit,
-    val modifier: Modifier = Modifier,
+    val modifier: Modifier = Modifier
 )
 
 private fun Color.toTint(): ColorFilter? = if (this != Color.Unspecified) {
@@ -57,12 +57,12 @@ internal class VectorImageProvider : PreviewParameterProvider<VectorImagePreview
         VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
             image = R.drawable.ic_vector_image,
-            color = Color.Black,
+            color = Color.Black
         ),
         VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
-            image = R.drawable.ic_vector_image,
-        ),
+            image = R.drawable.ic_vector_image
+        )
     )
 }
 
@@ -70,7 +70,7 @@ internal class VectorImageProvider : PreviewParameterProvider<VectorImagePreview
 @PreviewLightDark
 internal fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
-    parameters: VectorImagePreviewParameters,
+    parameters: VectorImagePreviewParameters
 ) {
     GdsTheme {
         GdsVectorImage(
@@ -78,7 +78,7 @@ internal fun VectorImagePreview(
             modifier = parameters.modifier,
             color = parameters.color,
             contentDescription = stringResource(parameters.contentDescription),
-            scale = parameters.scale,
+            scale = parameters.scale
         )
     }
 }
