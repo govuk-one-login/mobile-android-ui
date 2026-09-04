@@ -46,6 +46,7 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_B
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -247,7 +248,10 @@ private fun BottomContent(
                 vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
             ),
     ) {
-        supportingText?.invoke()
+        if (supportingText != null) {
+            Spacer(modifier = Modifier.height(listItemTopPadding))
+            supportingText.invoke()
+        }
 
         primaryButton?.invoke()
 
