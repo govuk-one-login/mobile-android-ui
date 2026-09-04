@@ -21,7 +21,7 @@ class MutableCameraHolderTest {
     fun initialState() {
         assertThat(
             state,
-            hasNoCamera(),
+            hasNoCamera()
         )
     }
 
@@ -35,7 +35,7 @@ class MutableCameraHolderTest {
 
         assertThat(
             state,
-            hasCamera(helper.camera),
+            hasCamera(helper.camera)
         )
     }
 
@@ -49,7 +49,7 @@ class MutableCameraHolderTest {
 
         assertThat(
             state,
-            hasCurrentCamera(helper.camera),
+            hasCurrentCamera(helper.camera)
         )
     }
 }

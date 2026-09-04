@@ -20,7 +20,7 @@ class MutableImageAnalyzerTest {
     fun initialState() {
         assertThat(
             state,
-            hasNoImageAnalysis(),
+            hasNoImageAnalysis()
         )
     }
 
@@ -34,7 +34,7 @@ class MutableImageAnalyzerTest {
 
         assertThat(
             state,
-            hasImageAnalysis(helper.imageAnalysis),
+            hasImageAnalysis(helper.imageAnalysis)
         )
     }
 }

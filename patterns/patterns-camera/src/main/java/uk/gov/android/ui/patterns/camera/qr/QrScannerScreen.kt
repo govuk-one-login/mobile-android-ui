@@ -65,7 +65,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Deprecated(
     message = "To be replaced by variant without the colors " +
         "parameter - will aim to be removed on 19th of May",
-    level = DeprecationLevel.WARNING,
+    level = DeprecationLevel.WARNING
 )
 @Composable
 fun QrScannerScreen(
@@ -87,9 +87,9 @@ fun QrScannerScreen(
             textColor = borderColor,
             modifier = Modifier
                 .fillMaxSize()
-                .zIndex(2f),
+                .zIndex(2f)
         )
-    },
+    }
 ) {
     Box(modifier = modifier) {
         instructionContent()
@@ -105,10 +105,10 @@ fun QrScannerScreen(
                 .qrScannerOverlay(
                     canvasWidthMultiplier = scanningWidthMultiplier,
                     overlayTint = backgroundTint,
-                    qrBorderColor = borderColor,
+                    qrBorderColor = borderColor
                 ),
             coroutineScope = coroutineScope,
-            cameraUpdater = onUpdateViewModelCamera,
+            cameraUpdater = onUpdateViewModelCamera
         )
     }
 }
@@ -146,7 +146,7 @@ fun QrScannerScreen(
     modifier: Modifier = Modifier,
     instructionsText: String = stringResource(R.string.position_qr_in_frame_below),
     instructionTextContentDesc: String = stringResource(
-        R.string.position_qr_in_frame_below_content_desc,
+        R.string.position_qr_in_frame_below_content_desc
     ),
     analysisUseCase: ImageAnalysis? = null,
     imageCaptureUseCase: ImageCapture? = null,
@@ -161,14 +161,14 @@ fun QrScannerScreen(
             textBackground = backgroundTextColor,
             modifier = Modifier
                 .fillMaxSize()
-                .zIndex(2f),
+                .zIndex(2f)
         )
-    },
+    }
 ) {
     val density = LocalDensity.current
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         instructionContent()
 
@@ -183,10 +183,10 @@ fun QrScannerScreen(
                 .qrScannerOverlay(
                     overlayTint = backgroundTint,
                     qrBorderColor = borderColor,
-                    density = density,
+                    density = density
                 ),
             coroutineScope = coroutineScope,
-            cameraUpdater = onUpdateViewModelCamera,
+            cameraUpdater = onUpdateViewModelCamera
         )
     }
 }
@@ -196,11 +196,11 @@ fun QrOverlayText(
     instructionText: String,
     instructionTextContentDesc: String,
     textColor: Color,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.TopCenter,
+        contentAlignment = Alignment.TopCenter
     ) {
         Text(
             text = instructionText,
@@ -211,7 +211,7 @@ fun QrOverlayText(
                 .padding(all = smallPadding)
                 .semantics {
                     this.contentDescription = instructionTextContentDesc
-                },
+                }
         )
     }
 }
@@ -222,11 +222,11 @@ fun QrOverlayText(
     instructionTextContentDesc: String,
     textColor: Color,
     textBackground: Color,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.TopCenter,
+        contentAlignment = Alignment.TopCenter
     ) {
         Text(
             text = instructionText,
@@ -239,7 +239,7 @@ fun QrOverlayText(
                 .padding(horizontal = smallPadding, vertical = mediumPadding)
                 .semantics {
                     this.contentDescription = instructionTextContentDesc
-                },
+                }
         )
     }
 }

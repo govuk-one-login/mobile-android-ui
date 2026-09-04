@@ -35,25 +35,25 @@ fun QrScannerViewModelScreen(
             textColor = colors.border.toMappedColors(),
             modifier = Modifier
                 .fillMaxSize()
-                .zIndex(2f),
+                .zIndex(2f)
         )
-    },
+    }
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
     val surfaceRequest: SurfaceRequest? by
         viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
     val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle(
-        lifecycleOwner = lifecycleOwner,
+        lifecycleOwner = lifecycleOwner
     )
     val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
         initialValue = null,
-        lifecycleOwner = lifecycleOwner,
+        lifecycleOwner = lifecycleOwner
     )
     val imageCaptureUseCase: ImageCapture? by
         viewModel.imageCapture.collectAsStateWithLifecycle(
             initialValue = null,
-            lifecycleOwner = lifecycleOwner,
+            lifecycleOwner = lifecycleOwner
         )
 
     QrScannerScreen(
@@ -66,6 +66,6 @@ fun QrScannerViewModelScreen(
         onUpdateViewModelCamera = viewModel::update,
         modifier = modifier,
         colors = colors,
-        instructionContent = instructionContent,
+        instructionContent = instructionContent
     )
 }

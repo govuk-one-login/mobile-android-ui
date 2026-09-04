@@ -26,13 +26,13 @@ class BarcodeScanResultTest {
         assertTrue(emptyResults.isEmpty())
         assertEquals(
             0,
-            emptyResults.size,
+            emptyResults.size
         )
 
         assertFalse(results.isEmpty())
         assertEquals(
             2,
-            results.size,
+            results.size
         )
     }
 
@@ -42,7 +42,7 @@ class BarcodeScanResultTest {
 
         assertEquals(
             BarcodeScanResult.EmptyScan,
-            result,
+            result
         )
     }
 
@@ -52,7 +52,7 @@ class BarcodeScanResultTest {
 
         assertEquals(
             testUrlOne,
-            result.barcode.url?.url,
+            result.barcode.url?.url
         )
     }
 
@@ -75,14 +75,14 @@ class BarcodeScanResultTest {
         val urlBarcode = BarcodeSourceStub.urlQrCode(url = testUrlOne)
         val mixedResults = listOf(
             BarcodeSourceStub.unknown(),
-            urlBarcode,
+            urlBarcode
         ).let(BarcodeScanResult::Success)
 
         val filteredResults = mixedResults.filterByType(Barcode.TYPE_URL)
 
         assertEquals(
             1,
-            filteredResults.size,
+            filteredResults.size
         )
         assertTrue(urlBarcode in filteredResults)
     }
@@ -93,7 +93,7 @@ class BarcodeScanResultTest {
 
         assertEquals(
             1,
-            filteredResults.size,
+            filteredResults.size
         )
     }
 
@@ -103,7 +103,7 @@ class BarcodeScanResultTest {
 
         assertEquals(
             urlStrings,
-            urls,
+            urls
         )
     }
 }

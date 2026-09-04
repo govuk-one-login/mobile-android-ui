@@ -20,7 +20,7 @@ class MutableImageCapturerTest {
     fun initialState() {
         assertThat(
             state,
-            hasNoImageCapture(),
+            hasNoImageCapture()
         )
     }
 
@@ -34,7 +34,7 @@ class MutableImageCapturerTest {
 
         assertThat(
             state,
-            hasImageCapture(helper.imageCapture),
+            hasImageCapture(helper.imageCapture)
         )
     }
 }

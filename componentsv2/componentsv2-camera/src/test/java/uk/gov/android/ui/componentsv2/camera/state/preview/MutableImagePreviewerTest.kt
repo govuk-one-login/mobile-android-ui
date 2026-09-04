@@ -20,7 +20,7 @@ class MutableImagePreviewerTest {
     fun initialState() {
         assertThat(
             state,
-            hasPreview(),
+            hasPreview()
         )
     }
 
@@ -31,14 +31,14 @@ class MutableImagePreviewerTest {
         }
         assertNotEquals(
             helper.preview,
-            state.preview.value,
+            state.preview.value
         )
 
         state.update(helper.preview)
 
         assertThat(
             state,
-            hasPreview(helper.preview),
+            hasPreview(helper.preview)
         )
     }
 }

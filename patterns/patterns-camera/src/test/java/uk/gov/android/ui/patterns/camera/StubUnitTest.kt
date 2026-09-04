@@ -16,7 +16,7 @@ class StubUnitTest {
     fun addition() {
         Assert.assertEquals(
             2,
-            1 + 1,
+            1 + 1
         )
     }
 }

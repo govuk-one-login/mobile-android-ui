@@ -23,7 +23,7 @@ class QrScannerScreenTest {
 
     @get:Rule
     val permissionsRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.CAMERA,
+        Manifest.permission.CAMERA
     )
 
     private val resources = ApplicationProvider.getApplicationContext<Context>().resources
@@ -39,12 +39,12 @@ class QrScannerScreenTest {
 
         composeTestRule
             .onNodeWithText(
-                resources.getString(R.string.qr_scan_screen_title),
+                resources.getString(R.string.qr_scan_screen_title)
             ).assertExists()
             .assertIsDisplayed()
         composeTestRule
             .onNodeWithContentDescription(
-                resources.getString(R.string.qr_scan_screen_title_content_desc),
+                resources.getString(R.string.qr_scan_screen_title_content_desc)
             )
             .assertExists()
             .assertIsDisplayed()

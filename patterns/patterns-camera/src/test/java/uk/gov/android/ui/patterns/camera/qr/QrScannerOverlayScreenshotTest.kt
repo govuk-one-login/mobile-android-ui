@@ -20,15 +20,13 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.toMappedColors
 
 @RunWith(Parameterized::class)
-class QrScannerOverlayScreenshotTest(
-    private val nightMode: NightMode,
-) {
+class QrScannerOverlayScreenshotTest(private val nightMode: NightMode) {
 
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6.copy(
-            nightMode = nightMode,
-        ),
+            nightMode = nightMode
+        )
     )
 
     @Test
@@ -41,8 +39,8 @@ class QrScannerOverlayScreenshotTest(
                         .qrScannerOverlay(
                             overlayTint = Backgrounds.qrScanner.toMappedColors(),
                             qrBorderColor = Borders.qrScanner.toMappedColors(),
-                            density = LocalDensity.current,
-                        ),
+                            density = LocalDensity.current
+                        )
                 )
             }
         }
