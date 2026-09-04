@@ -97,8 +97,9 @@ fun RowListDemo(modifier: Modifier = Modifier) {
             trailingIcon = RowTrailingIcon.OpenInNew(),
             trailingText = "1000000",
             subtitle =
-                "Enabled button, with leading image content description, leading image does scale with " +
-                    "font size, with trailing icon content description for open_in_new icon",
+                "Enabled button, with leading image content description, " +
+                    "leading image does scale with font size, with trailing " +
+                    "icon content description for open_in_new icon",
             onClick = { onClick("Row 6 clicked") },
         ),
         RowData(
@@ -109,9 +110,10 @@ fun RowListDemo(modifier: Modifier = Modifier) {
             ),
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
             subtitle =
-                "Enabled button, with leading image content description, leading image doesn't scale with " +
-                    "font size, with trailing icon content description for open_in_new icon. \n Click to toggle " +
-                    "Row 8 button state.",
+                "Enabled button, with leading image content description, " +
+                    "leading image doesn't scale with font size, with " +
+                    "trailing icon content description for open_in_new " +
+                    "icon. \n Click to toggle Row 8 button state.",
             clickEnabled = true,
             onClick = {
                 toggleableRowEnabled = !toggleableRowEnabled
@@ -129,9 +131,10 @@ fun RowListDemo(modifier: Modifier = Modifier) {
             scaleLeadingImageWithFontSize = true,
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Bottom),
             subtitle =
-                "Toggleable $toggleableRowButtonStateText button, no leading image content description, " +
-                    "leading image does scale with font size, with trailing icon content description " +
-                    "for open_in_new icon",
+                "Toggleable $toggleableRowButtonStateText button, " +
+                    "no leading image content description, leading " +
+                    "image does scale with font size, with trailing " +
+                    "icon content description for open_in_new icon",
             clickEnabled = toggleableRowEnabled,
             onClick = { onClick("Row 8 clicked") },
         ),
