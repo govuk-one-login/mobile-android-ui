@@ -32,7 +32,8 @@ internal class LeftAlignedScreenContentProviderV2 :
     private val textLong = LoremIpsum(25).values.first()
     private val textExtraLong = LoremIpsum(100).values.first()
     private val supportingText =
-        "Check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover"
+        "Check if your passport has a biometric chip, look for the " +
+            "rectangular biometric chip symbol on the front cover"
     private val warning = "You cannot use your passport if it has expired"
     private val selectionItems = persistentListOf("Yes", "No")
     private val imageDescription = "Image description"

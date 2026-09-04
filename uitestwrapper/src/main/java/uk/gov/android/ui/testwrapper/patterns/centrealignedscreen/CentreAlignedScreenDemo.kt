@@ -23,7 +23,8 @@ fun CentreAlignedScreenDemo() {
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text.",
+                "Centre aligned screen allows you to display " +
+                    "information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(
@@ -59,7 +60,8 @@ fun CentreAlignedScrollableScreenDemo() {
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text.",
+                "Centre aligned screen allows you to display " +
+                    "information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(

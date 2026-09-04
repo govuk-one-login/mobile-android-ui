@@ -243,7 +243,8 @@ private val bodyContent = persistentListOf(
     "Short",
     "OK",
     "A medium length string here",
-    "This is an even longer string that should definitely wrap across multiple lines on most screens",
+    "This is an even longer string that should definitely wrap " +
+        "across multiple lines on most screens",
     "Hello",
     "Something went wrong, please try again later",
     "Hi",
@@ -255,7 +256,8 @@ private val bodyContent = persistentListOf(
     "A",
     "Your session has expired. Please sign in again to continue",
     "Not found",
-    "This service is temporarily unavailable due to scheduled maintenance. We apologise for any inconvenience",
+    "This service is temporarily unavailable due to scheduled " +
+        "maintenance. We apologise for any inconvenience",
     "Retry",
     "An unknown error occurred while processing your request",
     "No connection",

@@ -64,7 +64,8 @@ import uk.gov.android.ui.theme.spacingSingle
  */
 @Suppress("UnusedParameter")
 @Deprecated(
-    "Use V2 GdsNumberedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026",
+    "Use V2 GdsNumberedList with no accessibilityIndex parameter instead" +
+        " - aim to be removed by 09/03/2026",
 )
 @Composable
 fun GdsNumberedList(
