@@ -29,8 +29,8 @@ class SwatchTest {
             Swatch(
                 data = SwatchColor(
                     Color.White,
-                    "White"
-                )
+                    "White",
+                ),
             )
         }
 

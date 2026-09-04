@@ -15,7 +15,7 @@ internal class GdsNumberedListScreenshotTest(private val parameters: Pair<ListWr
             numberedListItems = parameters.listItems,
             title = parameters.title?.let {
                 ListTitle(it.text, it.titleType)
-            }
+            },
         )
     }
 

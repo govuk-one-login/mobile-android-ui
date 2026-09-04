@@ -19,32 +19,32 @@ fun CentreAlignedScreenDemo() {
         title = "Centre Aligned Screen",
         image = CentreAlignedScreenImage(
             componentsR.drawable.ic_vector_image,
-            "Description"
+            "Description",
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text."
+                "Centre aligned screen allows you to display information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(
                     text = "Bullet list",
-                    titleType = TitleType.Text
+                    titleType = TitleType.Text,
                 ),
                 items = persistentListOf(
                     "This is a bullet point",
-                    "This is another bullet point"
-                )
-            )
+                    "This is another bullet point",
+                ),
+            ),
         ),
         supportingText = "This is supporting text",
         primaryButton = CentreAlignedScreenButton(
             text = "Primary Button",
-            onClick = {}
+            onClick = {},
         ),
         secondaryButton = CentreAlignedScreenButton(
             text = "Secondary Button",
-            onClick = {}
-        )
+            onClick = {},
+        ),
     )
 }
 
@@ -55,29 +55,29 @@ fun CentreAlignedScrollableScreenDemo() {
         title = "Centre Aligned Screen",
         image = CentreAlignedScreenImage(
             componentsR.drawable.ic_vector_image,
-            "Description"
+            "Description",
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text."
+                "Centre aligned screen allows you to display information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(
                     text = "Bullet list",
-                    titleType = TitleType.Text
+                    titleType = TitleType.Text,
                 ),
-                items = listItems()
-            )
+                items = listItems(),
+            ),
         ),
         supportingText = "This is supporting text",
         primaryButton = CentreAlignedScreenButton(
             text = "Primary Button",
-            onClick = {}
+            onClick = {},
         ),
         secondaryButton = CentreAlignedScreenButton(
             text = "Secondary Button",
-            onClick = {}
-        )
+            onClick = {},
+        ),
     )
 }
 
@@ -105,5 +105,5 @@ private fun listItems(): PersistentList<String> = persistentListOf(
     "Item twenty one",
     "Item twenty two",
     "Item twenty three",
-    "Item twenty four"
+    "Item twenty four",
 )

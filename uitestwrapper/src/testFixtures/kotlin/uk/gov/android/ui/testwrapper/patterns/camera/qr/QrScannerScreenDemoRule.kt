@@ -16,7 +16,7 @@ import uk.gov.android.ui.componentsv2.rules.ComposeContentTestRuleExtensions.onN
  */
 class QrScannerScreenDemoRule(
     composeTestRule: ComposeContentTestRule,
-    private val cameraViewfinderTag: String = "cameraViewfinder"
+    private val cameraViewfinderTag: String = "cameraViewfinder",
 ) : ComposeContentTestRule by composeTestRule,
     Renderer<Modifier> {
     override fun render(input: Modifier) {

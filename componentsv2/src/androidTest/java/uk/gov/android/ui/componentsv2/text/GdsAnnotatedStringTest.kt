@@ -36,17 +36,17 @@ class GdsAnnotatedStringTest {
                 iconId = stringResource(parameters.iconId),
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
-                isIconTrailing = parameters.isIconTrailing
+                isIconTrailing = parameters.isIconTrailing,
             )
         }
         composeTestRule.apply {
             onNodeWithText(
                 resources.getString(R.string.annotated_string),
-                substring = true
+                substring = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc)
+                resources.getString(R.string.icon_content_desc),
             ).assertIsDisplayed()
         }
     }
@@ -62,24 +62,24 @@ class GdsAnnotatedStringTest {
                 iconId = stringResource(parameters.iconId),
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
-                isIconTrailing = parameters.isIconTrailing
+                isIconTrailing = parameters.isIconTrailing,
             )
         }
         composeTestRule.apply {
             onNodeWithText(
                 resources.getString(R.string.annotated_string),
-                substring = true
+                substring = true,
             )
                 .assertTextEquals("Annotated string Icon Description")
 
             val icon = onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc)
+                resources.getString(R.string.icon_content_desc),
             ).fetchSemanticsNode()
 
             assertTrue(
                 SemanticsMatcher
                     .expectValue(SemanticsProperties.InvisibleToUser, Unit)
-                    .matches(icon)
+                    .matches(icon),
             )
         }
     }
@@ -95,24 +95,24 @@ class GdsAnnotatedStringTest {
                 iconId = stringResource(parameters.iconId),
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
-                isIconTrailing = false
+                isIconTrailing = false,
             )
         }
         composeTestRule.apply {
             onNodeWithText(
                 resources.getString(R.string.annotated_string),
-                substring = true
+                substring = true,
             )
                 .assertTextEquals("Icon Description Annotated string")
 
             val icon = onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc)
+                resources.getString(R.string.icon_content_desc),
             ).fetchSemanticsNode()
 
             assertTrue(
                 SemanticsMatcher
                     .expectValue(SemanticsProperties.InvisibleToUser, Unit)
-                    .matches(icon)
+                    .matches(icon),
             )
         }
     }
@@ -125,11 +125,11 @@ class GdsAnnotatedStringTest {
         composeTestRule.apply {
             onNodeWithText(
                 resources.getString(R.string.annotated_string),
-                substring = true
+                substring = true,
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc)
+                resources.getString(R.string.icon_content_desc),
             ).assertIsDisplayed()
         }
     }

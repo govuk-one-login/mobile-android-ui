@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
  * [ImageCapturer.Complete] implementation that defers to the internal [state].
  */
 class MutableImageCapturer(
-    private val state: MutableStateFlow<ImageCapture?> = MutableStateFlow(null)
+    private val state: MutableStateFlow<ImageCapture?> = MutableStateFlow(null),
 ) : ImageCapturer.Complete {
     override val imageCapture: StateFlow<ImageCapture?> = state
     override fun update(imageCapture: ImageCapture?) {

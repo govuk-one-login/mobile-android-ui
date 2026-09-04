@@ -52,8 +52,8 @@ class LeftAlignedScreenV2Test {
                 primaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
-                    enabled = true
-                )
+                    enabled = true,
+                ),
             )
         }
 
@@ -77,8 +77,8 @@ class LeftAlignedScreenV2Test {
                 primaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
-                    enabled = false
-                )
+                    enabled = false,
+                ),
             )
         }
 
@@ -96,7 +96,7 @@ class LeftAlignedScreenV2Test {
     fun titleHasContentDescriptionAndHeadingRole() {
         composeTestRule.setContent {
             LeftAlignedScreenV2(
-                title = titleText
+                title = titleText,
             )
         }
 
@@ -114,9 +114,9 @@ class LeftAlignedScreenV2Test {
                 title = titleText,
                 body = persistentListOf(
                     LeftAlignedScreenBodyV2.BulletList(
-                        items = longListItems()
-                    )
-                )
+                        items = longListItems(),
+                    ),
+                ),
             )
         }
 
@@ -134,10 +134,10 @@ class LeftAlignedScreenV2Test {
                 title = titleText,
                 body = persistentListOf(
                     LeftAlignedScreenBodyV2.BulletList(
-                        items = longListItems()
-                    )
+                        items = longListItems(),
+                    ),
                 ),
-                forceScroll = true
+                forceScroll = true,
             )
         }
 
@@ -156,8 +156,8 @@ class LeftAlignedScreenV2Test {
                 secondaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
-                    enabled = true
-                )
+                    enabled = true,
+                ),
             )
         }
 
@@ -180,10 +180,10 @@ class LeftAlignedScreenV2Test {
                 secondaryButton = LeftAlignedScreenButton(
                     buttonText,
                     onClick = { didClick = true },
-                    enabled = true
+                    enabled = true,
                 ),
                 forceScroll = false,
-                supportingText = extraText
+                supportingText = extraText,
             )
         }
 
@@ -225,6 +225,6 @@ class LeftAlignedScreenV2Test {
         ListItem(text = "Item twenty one"),
         ListItem(text = "Item twenty two"),
         ListItem(text = "Item twenty three"),
-        ListItem(text = "Item twenty four")
+        ListItem(text = "Item twenty four"),
     )
 }

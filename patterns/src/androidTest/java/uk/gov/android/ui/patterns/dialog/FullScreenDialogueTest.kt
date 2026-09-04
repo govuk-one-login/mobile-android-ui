@@ -45,7 +45,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
         composeTestRule.setContent {
             FullScreenDialogue(
                 onDismissRequest = { },
-                title = titleText
+                title = titleText,
             ) {
                 Text(contentText)
             }
@@ -60,7 +60,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
         composeTestRule.setContent {
             FullScreenDialogue(
                 onDismissRequest = { },
-                title = titleText
+                title = titleText,
             ) {
                 LazyColumn {
                     item {
@@ -78,11 +78,11 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
     fun verifyUIGdsCardDisplayed() {
         composeTestRule.setContent {
             FullScreenDialogue(
-                onDismissRequest = { }
+                onDismissRequest = { },
             ) {
                 GdsCard(
                     titleText,
-                    {}
+                    {},
                 )
             }
         }
@@ -100,7 +100,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
                 title = titleText,
                 onDismissRequest = {
                     didClose = true
-                }
+                },
             ) {
                 Text(contentText)
             }
@@ -123,7 +123,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
                 onDismissRequest = {},
                 onBack = {
                     backPress = true
-                }
+                },
             ) {
                 Text(contentText)
             }
@@ -140,7 +140,7 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
         composeTestRule.setContent {
             FullScreenDialogue(
                 title = titleText,
-                onDismissRequest = {}
+                onDismissRequest = {},
             ) {
                 Text(contentText)
             }
@@ -161,9 +161,9 @@ class FullScreenDialogueTest : FragmentActivityTestCase() {
             FullScreenDialogue(
                 topAppBar = {
                     TopAppBar(
-                        title = { Text(titleText) }
+                        title = { Text(titleText) },
                     )
-                }
+                },
             ) {
                 Text(contentText)
             }

@@ -35,7 +35,7 @@ class GdsBulletedListTest {
         Assert.assertEquals(
             "The expected size of the provider has changed!",
             expectedParameterSize,
-            contentList.size
+            contentList.size,
         )
     }
 
@@ -44,7 +44,7 @@ class GdsBulletedListTest {
         composeTestRule.setContent {
             GdsBulletedList(
                 bulletListItems = sampleContent.items,
-                title = sampleContent.title
+                title = sampleContent.title,
             )
         }
 
@@ -58,7 +58,7 @@ class GdsBulletedListTest {
         composeTestRule.setContent {
             GdsBulletedList(
                 bulletListItems = sampleContent.listItems,
-                title = sampleContent.title
+                title = sampleContent.title,
             )
         }
 
@@ -71,18 +71,18 @@ class GdsBulletedListTest {
     fun testStyledElementsAreDisplayed() {
         val title = ListTitle(
             text = "Multi style list text",
-            titleType = TitleType.Heading
+            titleType = TitleType.Heading,
         )
         val lineOneText = resources.getText(R.string.numbered_list_bold_style_example).toString()
         val lineTwoText = resources.getText(R.string.numbered_list_multi_style_example).toString()
         val bulletedListItems = persistentListOf(
             ListItem(spannableText = R.string.numbered_list_bold_style_example),
-            ListItem(spannableText = R.string.numbered_list_multi_style_example)
+            ListItem(spannableText = R.string.numbered_list_multi_style_example),
         )
         composeTestRule.setContent {
             GdsBulletedList(
                 bulletListItems = bulletedListItems,
-                title = title
+                title = title,
             )
         }
 
@@ -100,7 +100,7 @@ class GdsBulletedListTest {
     fun testLinkElementsAreDisplayed() {
         val title = ListTitle(
             text = "Link list text",
-            titleType = TitleType.Heading
+            titleType = TitleType.Heading,
         )
         val lineOneText = resources.getText(R.string.bulleted_list_link_example).toString()
         var linkTapCounter = 0
@@ -109,13 +109,13 @@ class GdsBulletedListTest {
                 spannableText = R.string.bulleted_list_link_example,
                 onLinkTapped = {
                     linkTapCounter++
-                }
-            )
+                },
+            ),
         )
         composeTestRule.setContent {
             GdsBulletedList(
                 bulletListItems = bulletedListItems,
-                title = title
+                title = title,
             )
         }
 
@@ -135,19 +135,19 @@ class GdsBulletedListTest {
     fun testLinkIconElementsAreDisplayed() {
         val title = ListTitle(
             text = "Link list text",
-            titleType = TitleType.Heading
+            titleType = TitleType.Heading,
         )
         val bulletedListItems = persistentListOf(
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
-                icon = R.drawable.ic_external_site
-            )
+                icon = R.drawable.ic_external_site,
+            ),
         )
         composeTestRule.setContent {
             GdsTheme {
                 GdsBulletedList(
                     bulletListItems = bulletedListItems,
-                    title = title
+                    title = title,
                 )
             }
         }
@@ -161,20 +161,20 @@ class GdsBulletedListTest {
     fun testLinkIconContentDescription() {
         val title = ListTitle(
             text = "Link list text",
-            titleType = TitleType.Heading
+            titleType = TitleType.Heading,
         )
         val bulletedListItems = persistentListOf(
             ListItem(
                 spannableText = R.string.bulleted_list_link_example,
                 icon = R.drawable.ic_external_site,
-                iconContentDescription = ICON_CONTENT_DESC
-            )
+                iconContentDescription = ICON_CONTENT_DESC,
+            ),
         )
         composeTestRule.setContent {
             GdsTheme {
                 GdsBulletedList(
                     bulletListItems = bulletedListItems,
-                    title = title
+                    title = title,
                 )
             }
         }
@@ -183,7 +183,7 @@ class GdsBulletedListTest {
 
         composeTestRule.onNodeWithContentDescription(
             EXPECTED_BULLET_CONTENT_DESC,
-            ignoreCase = true
+            ignoreCase = true,
         ).assertExists()
 
         composeTestRule.onNodeWithTag(ICON_TAG, useUnmergedTree = true).assertExists()

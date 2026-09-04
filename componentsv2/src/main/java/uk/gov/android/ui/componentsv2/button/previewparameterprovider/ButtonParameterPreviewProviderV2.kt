@@ -19,74 +19,74 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
         ButtonParametersV2(
             text = "Primary button",
             buttonType = ButtonTypePreview.Primary,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ),
         ButtonParametersV2(
             text = "Secondary button",
-            buttonType = ButtonTypePreview.Secondary
+            buttonType = ButtonTypePreview.Secondary,
         ),
         ButtonParametersV2(
             text = "Tertiary button",
-            buttonType = ButtonTypePreview.Tertiary
+            buttonType = ButtonTypePreview.Tertiary,
         ),
         ButtonParametersV2(
             text = "Quaternary button",
-            buttonType = ButtonTypePreview.Quaternary
+            buttonType = ButtonTypePreview.Quaternary,
         ),
         ButtonParametersV2(
             text = "Admin button",
-            buttonType = ButtonTypePreview.Admin
+            buttonType = ButtonTypePreview.Admin,
         ),
         ButtonParametersV2(
             text = "Error button",
-            buttonType = ButtonTypePreview.Error
+            buttonType = ButtonTypePreview.Error,
         ),
         ButtonParametersV2(
             text = "Primary button (icon)",
             icon = ButtonIconPreview.Trailing,
-            buttonType = ButtonTypePreview.Primary
+            buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParametersV2(
             text = "Primary button (leading icon)",
             icon = ButtonIconPreview.Leading,
-            buttonType = ButtonTypePreview.Primary
+            buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParametersV2(
             text = "Primary button (disabled)",
             buttonType = ButtonTypePreview.Primary,
-            enabled = false
+            enabled = false,
         ),
         ButtonParametersV2(
             text = "Primary button (loading)",
             buttonType = ButtonTypePreview.Primary,
             enabled = false,
             loading = true,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ),
         ButtonParametersV2(
             text = "Primary button (rounded)",
             buttonType = ButtonTypePreview.Primary,
             shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ),
         ButtonParametersV2(
             text = "Secondary button (icon)",
             icon = ButtonIconPreview.Trailing,
-            buttonType = ButtonTypePreview.Secondary
+            buttonType = ButtonTypePreview.Secondary,
         ),
         ButtonParametersV2(
             text = "Custom button",
-            buttonType = ButtonTypePreview.Custom
+            buttonType = ButtonTypePreview.Custom,
         ),
         ButtonParametersV2(
             text = "Primary button (disabled, icon)",
             icon = ButtonIconPreview.Trailing,
             buttonType = ButtonTypePreview.Primary,
-            enabled = false
+            enabled = false,
         ),
         ButtonParametersV2(
             text = "Secondary button (destructive)",
-            buttonType = ButtonTypePreview.ErrorSecondary
+            buttonType = ButtonTypePreview.ErrorSecondary,
         ),
         ButtonParametersV2(
             text = "Secondary button (full width, icon)",
@@ -96,8 +96,8 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             textAlign = TextAlign.Start,
             contentModifier = Modifier.fillMaxWidth()
                 .padding(horizontal = smallPadding),
-            contentPosition = Arrangement.Start
-        )
+            contentPosition = Arrangement.Start,
+        ),
     )
 
     override val values: Sequence<ButtonParametersV2> = parameters.asSequence()

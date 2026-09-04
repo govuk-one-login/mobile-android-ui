@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
  * [SurfaceRequester.Complete] implementation that defers to the internal [state].
  */
 class MutableSurfaceRequester(
-    private val state: MutableStateFlow<SurfaceRequest?> = MutableStateFlow(null)
+    private val state: MutableStateFlow<SurfaceRequest?> = MutableStateFlow(null),
 ) : SurfaceRequester.Complete {
     override val surfaceRequest: StateFlow<SurfaceRequest?> = state
     override fun update(surfaceRequest: SurfaceRequest?) {

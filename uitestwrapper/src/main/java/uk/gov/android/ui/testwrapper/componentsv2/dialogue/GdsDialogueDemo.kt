@@ -36,9 +36,9 @@ fun GdsDialogueDemo(modifier: Modifier = Modifier) {
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
-                modifier = Modifier.padding(horizontal = spacingDouble)
+                modifier = Modifier.padding(horizontal = spacingDouble),
             )
-        }
+        },
     ) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             GdsButton(
@@ -46,7 +46,7 @@ fun GdsDialogueDemo(modifier: Modifier = Modifier) {
                 buttonType = ButtonTypeV2.Primary(),
                 onClick = {
                     displayDialogue = !displayDialogue
-                }
+                },
             )
             if (displayDialogue) {
                 GdsDialogue(
@@ -62,7 +62,7 @@ fun GdsDialogueDemo(modifier: Modifier = Modifier) {
                                     scope.launch {
                                         statusOverlayState.showSnackbar("Dismiss button tapped")
                                     }
-                                }
+                                },
                             ),
                             DialogueButtonParameters(
                                 buttonType = ButtonTypeV2.Primary(),
@@ -71,12 +71,12 @@ fun GdsDialogueDemo(modifier: Modifier = Modifier) {
                                     displayDialogue = !displayDialogue
                                     scope.launch {
                                         statusOverlayState.showSnackbar(
-                                            "Something else button tapped"
+                                            "Something else button tapped",
                                         )
                                     }
-                                }
-                            )
-                        )
+                                },
+                            ),
+                        ),
                 ) {
                     displayDialogue = !displayDialogue
                 }

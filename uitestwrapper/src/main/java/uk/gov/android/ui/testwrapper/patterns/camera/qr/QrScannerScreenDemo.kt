@@ -48,11 +48,11 @@ fun QrScannerScreenDemo(
     converter: ImageProxyConverter =
         CentrallyCroppedImageProxyConverter(
             relativeScanningWidth = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
-            relativeScanningHeight = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
+            relativeScanningHeight = ModifierExtensions.CANVAS_WIDTH_MULTIPLIER,
         ),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
-    onNavigate: (Any) -> Unit = {}
+    onNavigate: (Any) -> Unit = {},
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
 
@@ -61,12 +61,12 @@ fun QrScannerScreenDemo(
         context = context,
         getCurrentCamera = viewModel::getCurrentCamera,
         converter = converter,
-        onNavigate = onNavigate
+        onNavigate = onNavigate,
     ).let(viewModel::update)
 
     val (
         hasPreviouslyDeniedPermission,
-        onUpdatePreviouslyDeniedPermission
+        onUpdatePreviouslyDeniedPermission,
     ) = remember { mutableStateOf(false) }
 
     val permissionState =
@@ -78,7 +78,7 @@ fun QrScannerScreenDemo(
         viewModel = viewModel,
         lifecycleOwner = lifecycleOwner,
         coroutineScope = coroutineScope,
-        context = context
+        context = context,
     )
 
     Column(
@@ -86,12 +86,12 @@ fun QrScannerScreenDemo(
             .padding(spacingDouble)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         PermissionScreen(
             permissionState = permissionState,
             hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
-            logic = permissionLogic
+            logic = permissionLogic,
         )
     }
 }
@@ -102,22 +102,22 @@ private fun qrScannerDemoPermissionLogic(
     viewModel: CameraContentViewModel,
     lifecycleOwner: LifecycleOwner,
     coroutineScope: CoroutineScope,
-    context: Context
+    context: Context,
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
             viewModel.surfaceRequest.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
         val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle(
-            lifecycleOwner = lifecycleOwner
+            lifecycleOwner = lifecycleOwner,
         )
         val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
             initialValue = null,
-            lifecycleOwner = lifecycleOwner
+            lifecycleOwner = lifecycleOwner,
         )
         val imageCaptureUseCase: ImageCapture? by
             viewModel.imageCapture.collectAsStateWithLifecycle(
                 initialValue = null,
-                lifecycleOwner = lifecycleOwner
+                lifecycleOwner = lifecycleOwner,
             )
 
         QrScannerScreen(
@@ -127,7 +127,7 @@ private fun qrScannerDemoPermissionLogic(
             analysisUseCase = analysisUseCase,
             imageCaptureUseCase = imageCaptureUseCase,
             coroutineScope = coroutineScope,
-            onUpdateViewModelCamera = viewModel::update
+            onUpdateViewModelCamera = viewModel::update,
         )
     },
     onPermissionPermanentlyDenied = { state ->
@@ -135,12 +135,12 @@ private fun qrScannerDemoPermissionLogic(
     },
     onShowRationale = { _, launchPermission ->
         CameraContentDemoButtons.CameraPermissionRationaleButton(
-            launchPermission = launchPermission
+            launchPermission = launchPermission,
         )
     },
     onRequirePermission = { _, launchPermission ->
         CameraContentDemoButtons.CameraRequirePermissionButton(launchPermission = launchPermission)
-    }
+    },
 )
 
 private fun qrScannerDemoCallback(onNavigate: (Any) -> Unit = {}): BarcodeScanResult.Callback =
@@ -166,13 +166,13 @@ private fun qrScannerDemoAnalysis(
     context: Context,
     getCurrentCamera: () -> Camera?,
     onNavigate: (Any) -> Unit,
-    converter: ImageProxyConverter
+    converter: ImageProxyConverter,
 ) = BarcodeUseCaseProviders.barcodeAnalysis(
     context = context,
     options =
         BarcodeUseCaseProviders.provideQrScanningOptions(
-            BarcodeUseCaseProviders.provideZoomOptions(getCurrentCamera)
+            BarcodeUseCaseProviders.provideZoomOptions(getCurrentCamera),
         ),
     callback = qrScannerDemoCallback(onNavigate),
-    converter = converter
+    converter = converter,
 )

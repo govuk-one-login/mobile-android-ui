@@ -48,11 +48,11 @@ fun CameraContentDemo(
     colorScheme: CustomColorsScheme = GdsLocalColorScheme.current,
     context: Context = LocalContext.current,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>()
+    viewModel: CameraContentViewModel = viewModel<CameraContentViewModel>(),
 ) {
     val (
         hasPreviouslyDeniedPermission,
-        onUpdatePreviouslyDeniedPermission
+        onUpdatePreviouslyDeniedPermission,
     ) = remember { mutableStateOf(false) }
 
     val permissionState =
@@ -65,10 +65,10 @@ fun CameraContentDemo(
         context = context,
         options =
             provideQrScanningOptions(
-                provideZoomOptions(viewModel::getCurrentCamera)
+                provideZoomOptions(viewModel::getCurrentCamera),
             ),
         callback = barcodeScanResultLoggingCallback,
-        converter = ImageProxyConverter.simple()
+        converter = ImageProxyConverter.simple(),
     ).let(viewModel::update)
 
     val permissionLogic = generatePermissionLogic(coroutineScope, viewModel, context)
@@ -80,12 +80,12 @@ fun CameraContentDemo(
                 .padding(spacingDouble)
                 .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         PermissionScreen(
             permissionState = permissionState,
             hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
-            logic = permissionLogic
+            logic = permissionLogic,
         )
     }
 }
@@ -94,18 +94,18 @@ fun CameraContentDemo(
 private fun generatePermissionLogic(
     coroutineScope: CoroutineScope,
     viewModel: CameraContentViewModel,
-    context: Context
+    context: Context,
 ): PermissionLogic = PermissionLogic(
     onGrantPermission = {
         val surfaceRequest: SurfaceRequest? by
             viewModel.surfaceRequest.collectAsStateWithLifecycle()
         val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle()
         val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
-            initialValue = null
+            initialValue = null,
         )
         val imageCaptureUseCase: ImageCapture? by
             viewModel.imageCapture.collectAsStateWithLifecycle(
-                initialValue = null
+                initialValue = null,
             )
 
         CameraContent(
@@ -118,7 +118,7 @@ private fun generatePermissionLogic(
                     .fillMaxSize()
                     .testTag("cameraViewfinder"),
             surfaceRequest = surfaceRequest,
-            cameraUpdater = viewModel::update
+            cameraUpdater = viewModel::update,
         )
     },
     onPermissionPermanentlyDenied = { state ->
@@ -129,5 +129,5 @@ private fun generatePermissionLogic(
     },
     onRequirePermission = { _, launchPermission ->
         CameraRequirePermissionButton(launchPermission = launchPermission)
-    }
+    },
 )

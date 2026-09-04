@@ -15,7 +15,7 @@ fun GdsAnnotatedStringDemo() {
             text = "Annotated String",
             fontWeight = FontWeight.Bold,
             icon = ImageVector.vectorResource(R.drawable.ic_external_site),
-            iconContentDescription = "External site link"
+            iconContentDescription = "External site link",
         )
     }
 }

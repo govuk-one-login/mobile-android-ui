@@ -30,7 +30,7 @@ fun GdsBulletedListDemo(modifier: Modifier = Modifier) {
     val title =
         ListTitle(
             text = "Bulleted list",
-            titleType = TitleType.BoldText
+            titleType = TitleType.BoldText,
         )
     val bulletedListItems = generateItems(scope, statusOverlayState)
     Scaffold(
@@ -38,14 +38,14 @@ fun GdsBulletedListDemo(modifier: Modifier = Modifier) {
         snackbarHost = {
             GdsStatusOverlay(
                 hostState = statusOverlayState,
-                modifier = Modifier.padding(horizontal = spacingDouble)
+                modifier = Modifier.padding(horizontal = spacingDouble),
             )
-        }
+        },
     ) {
         GdsBulletedList(
             bulletListItems = bulletedListItems,
             title = title,
-            modifier = Modifier.padding(smallPadding)
+            modifier = Modifier.padding(smallPadding),
         )
     }
 }
@@ -53,7 +53,7 @@ fun GdsBulletedListDemo(modifier: Modifier = Modifier) {
 @Composable
 private fun generateItems(
     scope: CoroutineScope,
-    statusOverlayState: SnackbarHostState
+    statusOverlayState: SnackbarHostState,
 ): PersistentList<ListItem> = persistentListOf(
     ListItem(
         spannableText = R.string.bulleted_list_link_example,
@@ -63,7 +63,7 @@ private fun generateItems(
             scope.launch {
                 statusOverlayState.showSnackbar("First item. Link with icon clicked")
             }
-        }
+        },
     ),
     ListItem(
         spannableText = R.string.bulleted_list_link_example,
@@ -73,7 +73,7 @@ private fun generateItems(
             scope.launch {
                 statusOverlayState.showSnackbar("Second item. Link with icon clicked")
             }
-        }
+        },
     ),
     ListItem(
         spannableText = R.string.bulleted_list_link_example,
@@ -81,15 +81,15 @@ private fun generateItems(
             scope.launch {
                 statusOverlayState.showSnackbar("Link clicked")
             }
-        }
+        },
     ),
     ListItem(
-        text = "Line three bullet list content"
+        text = "Line three bullet list content",
     ),
     ListItem(
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
             "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
             "minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip " +
-            "ex ea commodo consequat"
-    )
+            "ex ea commodo consequat",
+    ),
 )

@@ -29,11 +29,11 @@ class GdsIconTest {
                 color = parameters.color,
                 backgroundColor = parameters.backgroundColor,
                 contentDescription = stringResource(parameters.contentDescription),
-                size = parameters.size
+                size = parameters.size,
             )
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.icon_content_desc)
+            resources.getString(R.string.icon_content_desc),
         ).assertIsDisplayed()
     }
 
@@ -43,7 +43,7 @@ class GdsIconTest {
             IconPreview(parameters)
         }
         composeTestRule.onNodeWithContentDescription(
-            resources.getString(R.string.icon_content_desc)
+            resources.getString(R.string.icon_content_desc),
         ).assertIsDisplayed()
     }
 }

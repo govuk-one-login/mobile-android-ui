@@ -16,7 +16,7 @@ class FullScreenDialogueTopAppBarScreenshotTest(private val parameters: Pair<Str
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             GdsTopAppBar(
-                title = parameters.first
+                title = parameters.first,
             )
         }
     }

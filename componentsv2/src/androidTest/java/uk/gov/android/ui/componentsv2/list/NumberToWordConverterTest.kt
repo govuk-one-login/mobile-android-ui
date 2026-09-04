@@ -30,7 +30,7 @@ class NumberToWordConverterTest(private val number: Int, private val expectedWor
             arrayOf(7, "seven"),
             arrayOf(8, "eight"),
             arrayOf(9, "nine"),
-            arrayOf(10, "10")
+            arrayOf(10, "10"),
         )
     }
 }

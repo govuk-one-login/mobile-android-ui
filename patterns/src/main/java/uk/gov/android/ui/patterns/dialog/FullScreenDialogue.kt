@@ -56,7 +56,7 @@ fun FullScreenDialogue(
     modifier: Modifier = Modifier,
     title: String? = null,
     onBack: (() -> Unit)? = null,
-    content: @Composable (ScrollState) -> Unit
+    content: @Composable (ScrollState) -> Unit,
 ) {
     FullScreenDialogue(
         modifier = modifier,
@@ -65,11 +65,11 @@ fun FullScreenDialogue(
                 title = title,
                 navigationButton = GdsIconButtonDefaults.defaultCloseContent(),
                 onClick = onDismissRequest,
-                scrollBehaviour = scrollBehaviour
+                scrollBehaviour = scrollBehaviour,
             )
         },
         onBack = onBack,
-        content = content
+        content = content,
     )
 }
 
@@ -99,18 +99,18 @@ fun FullScreenDialogue(
     message = "Please replace with the alternative FullScreenDialogue function that contains the " +
         "topAppBar param.",
     replaceWith = ReplaceWith("uk.gov.android.ui.patterns.dialog.FullScreenDialogue.kt"),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 fun FullScreenDialogue(
     onDismissRequest: () -> Unit,
     topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
-    content: @Composable (ScrollState) -> Unit
+    content: @Composable (ScrollState) -> Unit,
 ) {
     Dialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
-        onDismissRequest = onDismissRequest
+        onDismissRequest = onDismissRequest,
     ) {
         BoxWithConstraints {
             val scrollState = rememberScrollState()
@@ -118,13 +118,13 @@ fun FullScreenDialogue(
 
             Scaffold(
                 topBar = { topAppBar(scrollBehavior) },
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             ) { innerPadding ->
                 Column(
                     modifier = modifier.height(this.maxHeight)
                         .padding(innerPadding)
                         .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     content(scrollState)
                 }
@@ -164,24 +164,24 @@ fun FullScreenDialogue(
     topAppBar: @Composable (TopAppBarScrollBehavior?) -> Unit,
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
-    content: @Composable (ScrollState) -> Unit
+    content: @Composable (ScrollState) -> Unit,
 ) {
     Surface(
-        color = MaterialTheme.colorScheme.background
+        color = MaterialTheme.colorScheme.background,
     ) {
         BoxWithConstraints {
             val scrollState = rememberScrollState()
             val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
             Scaffold(
                 topBar = { topAppBar(scrollBehavior) },
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             ) { innerPadding ->
                 Column(
                     modifier = modifier
                         .height(this.maxHeight)
                         .padding(innerPadding)
                         .fillMaxWidth(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     content(scrollState)
                 }
@@ -196,7 +196,7 @@ fun FullScreenDialogue(
 internal data class FullScreenDialoguePreviewParameters(
     val onDismissRequest: () -> Unit = { },
     val title: String? = "Title",
-    val content: @Composable () -> Unit = { }
+    val content: @Composable () -> Unit = { },
 )
 
 internal class FullScreenDialoguePreviewProvider :
@@ -206,7 +206,7 @@ internal class FullScreenDialoguePreviewProvider :
             FullScreenDialoguePreviewParameters(),
             FullScreenDialoguePreviewParameters(title = null) {
                 Text("Content")
-            }
+            },
         )
 }
 
@@ -214,13 +214,13 @@ internal class FullScreenDialoguePreviewProvider :
 @Composable
 internal fun ModalDialogPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
-    parameters: FullScreenDialoguePreviewParameters
+    parameters: FullScreenDialoguePreviewParameters,
 ) {
     GdsTheme {
         FullScreenDialogue(
             onDismissRequest = { },
             title = parameters.title,
-            content = { parameters.content }
+            content = { parameters.content },
         )
     }
 }
@@ -230,14 +230,14 @@ internal fun ModalDialogPreview(
 @Composable
 internal fun ModalDialogWithCustomisedTopAppBarPreview(
     @PreviewParameter(FullScreenDialoguePreviewProvider::class)
-    parameters: FullScreenDialoguePreviewParameters
+    parameters: FullScreenDialoguePreviewParameters,
 ) {
     GdsTheme {
         FullScreenDialogue(
             topAppBar = {
                 GdsTopAppBar()
             },
-            content = { parameters.content }
+            content = { parameters.content },
         )
     }
 }

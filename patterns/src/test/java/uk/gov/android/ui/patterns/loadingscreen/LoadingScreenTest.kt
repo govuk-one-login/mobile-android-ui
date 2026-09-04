@@ -22,7 +22,7 @@ class LoadingScreenTest {
         val content = contentList[0]
         composeTestRule.setContent {
             LoadingScreen(
-                text = content
+                text = content,
             )
         }
         verifyText(content)

@@ -15,7 +15,7 @@ class FullScreenDialogueScreenshotTest(private val parameters: Pair<String, Nigh
         GdsTheme {
             FullScreenDialogue(
                 title = parameters.first,
-                onDismissRequest = { }
+                onDismissRequest = { },
             ) {
                 Text("Content")
             }

@@ -34,7 +34,7 @@ object ModifierExtensions {
         borderLength: Float,
         color: Color,
         canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER,
-        borderOffset: Float = BORDER_OFFSET
+        borderOffset: Float = BORDER_OFFSET,
     ) {
         val canvasWidth = size.width
         val canvasHeight = size.height
@@ -84,7 +84,7 @@ object ModifierExtensions {
         borderLength: Float,
         color: Color,
         borderHeight: Float,
-        borderOffset: Float = BORDER_OFFSET
+        borderOffset: Float = BORDER_OFFSET,
     ) {
         val canvasWidth = size.width
         val canvasHeight = size.height
@@ -124,13 +124,13 @@ object ModifierExtensions {
         start: Offset,
         end: Offset,
         color: Color,
-        strokeWidth: Dp = QR_BORDER_OVERLAY_STROKE_WIDTH.dp
+        strokeWidth: Dp = QR_BORDER_OVERLAY_STROKE_WIDTH.dp,
     ) {
         drawLine(
             start = start,
             end = end,
             strokeWidth = strokeWidth.toPx(),
-            color = color
+            color = color,
         )
     }
 
@@ -144,7 +144,7 @@ object ModifierExtensions {
         overlayTint: Color,
         qrBorderColor: Color,
         canvasWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
-        canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER
+        canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER,
     ) = this.then(
         Modifier
             .drawWithContent {
@@ -155,7 +155,7 @@ object ModifierExtensions {
                 val rectangleSize = Size(width, width)
                 val rectangleOffset = Offset(
                     (canvasWidth - width) / 2,
-                    canvasHeight * canvasHeightMultiplier
+                    canvasHeight * canvasHeightMultiplier,
                 )
 
                 drawContent()
@@ -166,15 +166,15 @@ object ModifierExtensions {
                     topLeft = rectangleOffset,
                     size = rectangleSize,
                     color = Color.Transparent,
-                    blendMode = BlendMode.SrcIn
+                    blendMode = BlendMode.SrcIn,
                 )
 
                 drawQrOverlayBorder(
                     width = width,
                     borderLength = borderLength,
-                    color = qrBorderColor
+                    color = qrBorderColor,
                 )
-            }
+            },
     )
 
     /**
@@ -187,7 +187,7 @@ object ModifierExtensions {
         overlayTint: Color,
         qrBorderColor: Color,
         density: Density,
-        canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER
+        canvasHeightMultiplier: Float = CANVAS_HEIGHT_MULTIPLIER,
     ) = this.then(
         Modifier
             .drawWithContent {
@@ -206,7 +206,7 @@ object ModifierExtensions {
                 // Calculate offset, which should be width of the entire screen/ canvas minus the padding (16.dp)
                 val rectangleOffset = Offset(
                     width - (width - padding),
-                    (canvasHeight - width) / CENTER_OFFSET_DIVIDER
+                    (canvasHeight - width) / CENTER_OFFSET_DIVIDER,
                 )
 
                 drawContent()
@@ -217,7 +217,7 @@ object ModifierExtensions {
                     topLeft = rectangleOffset,
                     size = rectangleSize,
                     color = Color.Transparent,
-                    blendMode = BlendMode.SrcIn
+                    blendMode = BlendMode.SrcIn,
                 )
 
                 // Draws the border around the focus rectangle
@@ -225,8 +225,8 @@ object ModifierExtensions {
                     width = canvasWidth - totalVerticalPadding,
                     borderLength = borderLength,
                     borderHeight = width,
-                    color = qrBorderColor
+                    color = qrBorderColor,
                 )
-            }
+            },
     )
 }

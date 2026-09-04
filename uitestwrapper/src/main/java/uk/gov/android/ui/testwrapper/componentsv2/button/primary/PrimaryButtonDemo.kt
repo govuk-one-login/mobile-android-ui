@@ -28,7 +28,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(smallPadding),
-        verticalArrangement = Arrangement.spacedBy(smallPadding)
+        verticalArrangement = Arrangement.spacedBy(smallPadding),
     ) {
         var isIconButtonLoading by remember { mutableStateOf(false) }
         var isPrimaryButtonLoading by remember { mutableStateOf(false) }
@@ -55,7 +55,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
             onClick = { isIconButtonLoading = true },
             enabled = true,
             loading = isIconButtonLoading,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         // Disabled Primary button with Icon
@@ -65,7 +65,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
             buttonType = ButtonTypeV2.Primary(),
             onClick = { },
             enabled = false,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         // Primary Button
@@ -75,7 +75,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
             onClick = { isPrimaryButtonLoading = true },
             enabled = true,
             loading = isPrimaryButtonLoading,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

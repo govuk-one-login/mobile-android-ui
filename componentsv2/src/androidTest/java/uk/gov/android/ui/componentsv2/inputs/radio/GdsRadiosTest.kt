@@ -25,7 +25,7 @@ class GdsRadiosTest {
             GdsRadios(
                 items = items,
                 selectedItem = null,
-                onItemSelected = onItemSelected
+                onItemSelected = onItemSelected,
             )
         }
 
@@ -42,7 +42,7 @@ class GdsRadiosTest {
             GdsRadios(
                 items = items,
                 selectedItem = 0,
-                onItemSelected = { itemSelected -> selectedItem = itemSelected }
+                onItemSelected = { itemSelected -> selectedItem = itemSelected },
             )
         }
 

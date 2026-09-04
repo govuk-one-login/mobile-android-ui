@@ -29,7 +29,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 @Composable
 fun Patterns(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(PatternsDestination.entries()) { destination ->
@@ -43,7 +43,7 @@ fun Patterns(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
                         })
                         .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3
+                style = GdsHeadingStyle.Title3,
             )
             HorizontalDivider(color = Color.Black)
         }

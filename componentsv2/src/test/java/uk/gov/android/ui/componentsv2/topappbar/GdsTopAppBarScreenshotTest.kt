@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 class GdsTopAppBarScreenshotTest(
-    private val parameters: Pair<GdsTopAppBarPreviewParams, NightMode>
+    private val parameters: Pair<GdsTopAppBarPreviewParams, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {

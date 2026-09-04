@@ -35,7 +35,7 @@ class CameraContentViewModelTest {
 
         assertThat(
             model,
-            isInInitialState()
+            isInInitialState(),
         )
     }
 
@@ -50,7 +50,7 @@ class CameraContentViewModelTest {
 
         assertEquals(
             "Cannot update viewmodel state with an instance of VideoCapture",
-            exception.message
+            exception.message,
         )
     }
 
@@ -61,7 +61,7 @@ class CameraContentViewModelTest {
         model.addAll(
             helper.preview,
             helper.imageAnalysis,
-            helper.imageCapture
+            helper.imageCapture,
         )
         model.update(helper.camera)
         model.onSurfaceRequested(helper.surfaceRequest)
@@ -73,15 +73,15 @@ class CameraContentViewModelTest {
                 hasImageAnalysis(),
                 hasImageCapture(),
                 hasCamera(),
-                hasSurfaceRequest()
-            )
+                hasSurfaceRequest(),
+            ),
         )
 
         model.resetState()
 
         assertThat(
             model,
-            isInInitialState()
+            isInInitialState(),
         )
     }
 }

@@ -31,14 +31,14 @@ fun ErrorScreenDemo() {
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding)
+                modifier = Modifier.errorScreenDemo(padding),
             )
         },
         title = { padding ->
             GdsHeading(
                 text = "Error Screen",
                 modifier = Modifier.padding(padding),
-                textAlign = GdsHeadingAlignment.CenterAligned
+                textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
         body = { padding ->
@@ -47,14 +47,14 @@ fun ErrorScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.errorScreenDemo(padding),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
             item {
                 GdsHeading(
                     text = "Error Screen",
                     modifier = Modifier.errorScreenDemo(padding),
-                    textAlign = GdsHeadingAlignment.CenterAligned
+                    textAlign = GdsHeadingAlignment.CenterAligned,
                 )
             }
             item {
@@ -62,7 +62,7 @@ fun ErrorScreenDemo() {
                     text = "Content Button",
                     buttonType = ButtonTypeV2.Primary(),
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         },
@@ -72,9 +72,9 @@ fun ErrorScreenDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Primary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
-        }
+        },
     )
 }
 
@@ -86,14 +86,14 @@ fun ErrorScrollableScreenDemo() {
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding)
+                modifier = Modifier.errorScreenDemo(padding),
             )
         },
         title = { padding ->
             GdsHeading(
                 text = "Error Screen",
                 modifier = Modifier.errorScreenDemo(padding),
-                textAlign = GdsHeadingAlignment.CenterAligned
+                textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
         body = { padding ->
@@ -102,7 +102,7 @@ fun ErrorScrollableScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.errorScreenDemo(padding),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -112,9 +112,9 @@ fun ErrorScrollableScreenDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Primary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
-        }
+        },
     )
 }
 
@@ -127,14 +127,14 @@ fun ErrorBottomContentLargeScreenDemo() {
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding)
+                modifier = Modifier.errorScreenDemo(padding),
             )
         },
         title = { padding ->
             GdsHeading(
                 text = "Error Screen",
                 modifier = Modifier.errorScreenDemo(padding),
-                textAlign = GdsHeadingAlignment.CenterAligned
+                textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
         body = { padding ->
@@ -143,7 +143,7 @@ fun ErrorBottomContentLargeScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.errorScreenDemo(padding),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -153,7 +153,7 @@ fun ErrorBottomContentLargeScreenDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Primary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         },
         secondaryButton = {
@@ -162,7 +162,7 @@ fun ErrorBottomContentLargeScreenDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Secondary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         },
         tertiaryButton = {
@@ -171,7 +171,7 @@ fun ErrorBottomContentLargeScreenDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Tertiary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         },
         supportingText = {
@@ -179,9 +179,9 @@ fun ErrorBottomContentLargeScreenDemo() {
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
             )
-        }
+        },
     )
 }
 
@@ -193,14 +193,14 @@ fun ErrorScreenSupportingTextDemo() {
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding)
+                modifier = Modifier.errorScreenDemo(padding),
             )
         },
         title = { padding ->
             GdsHeading(
                 text = "Error Screen",
                 modifier = Modifier.padding(padding),
-                textAlign = GdsHeadingAlignment.CenterAligned
+                textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
         body = { padding ->
@@ -209,7 +209,7 @@ fun ErrorScreenSupportingTextDemo() {
                     text = "Body text",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.errorScreenDemo(padding),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -219,7 +219,7 @@ fun ErrorScreenSupportingTextDemo() {
                 text = text,
                 buttonType = ButtonTypeV2.Primary(),
                 onClick = {},
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         },
         supportingText = {
@@ -227,9 +227,9 @@ fun ErrorScreenSupportingTextDemo() {
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
             )
-        }
+        },
     )
 }
 
@@ -261,5 +261,5 @@ private val bodyContent = persistentListOf(
     "No connection",
     "We were unable to complete your request because the server did not respond in time. " +
         "Please check your network settings and try again",
-    "Access denied"
+    "Access denied",
 )

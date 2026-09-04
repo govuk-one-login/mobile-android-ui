@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsBulletedListV2ScreenshotTest(
-    private val parameters: Pair<ListWrapper, NightMode>
+    private val parameters: Pair<ListWrapper, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first

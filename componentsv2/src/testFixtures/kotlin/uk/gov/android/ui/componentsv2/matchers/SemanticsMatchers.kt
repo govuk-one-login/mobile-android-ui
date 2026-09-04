@@ -7,6 +7,6 @@ import androidx.compose.ui.test.SemanticsMatcher
 object SemanticsMatchers {
     fun hasRole(expected: Role) = SemanticsMatcher.expectValue(
         SemanticsProperties.Role,
-        expected
+        expected,
     )
 }

@@ -31,24 +31,24 @@ class GdsButtonSizeConsistencyTest {
                         text = "Primary",
                         buttonType = ButtonTypeV2.Primary(),
                         onClick = {},
-                        modifier = Modifier.testTag("primary")
+                        modifier = Modifier.testTag("primary"),
                     )
                     GdsButton(
                         text = "Primary Loading",
                         buttonType = ButtonTypeV2.Primary(),
                         onClick = {},
                         loading = true,
-                        modifier = Modifier.testTag("primaryLoading")
+                        modifier = Modifier.testTag("primaryLoading"),
                     )
                     GdsButton(
                         text = "Icon Primary",
                         icon = ButtonIcon(
                             icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                            contentDescription = "icon"
+                            contentDescription = "icon",
                         ),
                         buttonType = ButtonTypeV2.Primary(),
                         onClick = {},
-                        modifier = Modifier.testTag("iconPrimary")
+                        modifier = Modifier.testTag("iconPrimary"),
                     )
                 }
             }
@@ -65,12 +65,12 @@ class GdsButtonSizeConsistencyTest {
         assertEquals(
             "Primary and Loading Primary buttons should have the same height",
             primaryHeight,
-            loadingHeight
+            loadingHeight,
         )
         assertEquals(
             "Primary and Icon Primary buttons should have the same height",
             primaryHeight,
-            iconPrimaryHeight
+            iconPrimaryHeight,
         )
     }
 }

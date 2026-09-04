@@ -28,7 +28,7 @@ class AppNavHostRule(composeTestRule: ComposeContentTestRule) :
             navController.navigatorProvider.addNavigator(ComposeNavigator())
             AppNavHost(
                 navController = navController,
-                startDestination = input
+                startDestination = input,
             )
         }
     }

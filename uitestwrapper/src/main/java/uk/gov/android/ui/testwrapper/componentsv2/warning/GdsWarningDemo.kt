@@ -8,7 +8,7 @@ import uk.gov.android.ui.testwrapper.DemoTemplate
 fun GdsWarningDemo() {
     DemoTemplate {
         GdsWarningText(
-            text = "Instance of GdsWarningText"
+            text = "Instance of GdsWarningText",
         )
     }
 }

@@ -50,7 +50,7 @@ internal data class LeftAlignedScreenContentV2(
     val supportingText: String? = null,
     val primaryButton: String? = null,
     val primaryButtonIsEnabled: Boolean = true,
-    val secondaryButton: String? = null
+    val secondaryButton: String? = null,
 )
 
 sealed class LeftAlignedScreenBodyV2 {
@@ -59,7 +59,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val onClick: () -> Unit,
         val showIcon: Boolean = false,
         val enabled: Boolean = true,
-        val modifier: Modifier = Modifier
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
     data class AnnotatedText(val text: AnnotatedString, val modifier: Modifier = Modifier) :
@@ -72,7 +72,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val text: String,
         val modifier: Modifier = Modifier,
         val style: GdsHeadingStyle = GdsHeadingStyle.LargeTitle,
-        val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned
+        val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     ) : LeftAlignedScreenBodyV2()
 
     data class Warning(val text: String, val modifier: Modifier = Modifier) :
@@ -88,7 +88,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val image: Int,
         val contentDescription: String,
         val modifier: Modifier = Modifier,
-        val contentScale: ContentScale = ContentScale.FillWidth
+        val contentScale: ContentScale = ContentScale.FillWidth,
     ) : LeftAlignedScreenBodyV2()
 
     data class Selection(
@@ -96,13 +96,13 @@ sealed class LeftAlignedScreenBodyV2 {
         val selectedItem: Int?,
         val onItemSelected: (Int) -> Unit,
         val modifier: Modifier = Modifier,
-        val title: GdsRadiosTitle? = null
+        val title: GdsRadiosTitle? = null,
     ) : LeftAlignedScreenBodyV2()
 
     data class Divider(
         val thickness: Dp = dividerThickness,
         val color: Color? = null,
-        val modifier: Modifier = Modifier
+        val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
     data class RowList(val rowData: ImmutableList<RowData>) : LeftAlignedScreenBodyV2()
@@ -112,7 +112,7 @@ data class LeftAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,
     val modifier: Modifier = Modifier.fillMaxWidth(),
-    val enabled: Boolean = true
+    val enabled: Boolean = true,
 )
 
 @Composable
@@ -122,20 +122,20 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
             GdsHeading(
                 text = content.title,
                 modifier = Modifier.padding(horizontal = horizontalPadding),
-                textAlign = GdsHeadingAlignment.LeftAligned
+                textAlign = GdsHeadingAlignment.LeftAligned,
             )
         },
         body = { horizontalItemPadding ->
             toBodyContentV2(
                 horizontalItemPadding = horizontalItemPadding,
-                body = content.body
+                body = content.body,
             )
         },
         supportingText = content.supportingText?.let { text ->
             { horizontalPadding ->
                 GdsSupportingText(
                     text = text,
-                    modifier = Modifier.padding(horizontal = horizontalPadding)
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                 )
             }
         },
@@ -147,7 +147,7 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
                     buttonType = ButtonTypeV2.Primary(),
                     modifier = Modifier
                         .fillMaxWidth(),
-                    enabled = content.primaryButtonIsEnabled
+                    enabled = content.primaryButtonIsEnabled,
                 )
             }
         },
@@ -158,10 +158,10 @@ internal fun LeftAlignedScreenFromContentParamsV2(content: LeftAlignedScreenCont
                     onClick = {},
                     buttonType = ButtonTypeV2.Secondary(),
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
                 )
             }
-        }
+        },
     )
 }
 
@@ -184,7 +184,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(itemPadding),
-                        title = it.title
+                        title = it.title,
                     )
                 }
             }
@@ -194,7 +194,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                     GdsNumberedList(
                         title = it.title,
                         numberedListItems = it.list,
-                        modifier = Modifier.padding(itemPadding)
+                        modifier = Modifier.padding(itemPadding),
                     )
                 }
             }
@@ -205,7 +205,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         painter = painterResource(it.image),
                         contentDescription = it.contentDescription,
                         contentScale = it.contentScale,
-                        modifier = it.modifier
+                        modifier = it.modifier,
                     )
                 }
             }
@@ -216,7 +216,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         text = it.text,
                         modifier = it.modifier.padding(itemPadding),
                         color = colorScheme.onBackground,
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                 }
             }
@@ -231,7 +231,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         text = it.text,
                         modifier = it.modifier.padding(itemPadding),
                         style = it.style,
-                        textAlign = it.textAlign
+                        textAlign = it.textAlign,
                     )
                 }
             }
@@ -240,7 +240,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                 item {
                     GdsWarningText(
                         text = it.text,
-                        modifier = it.modifier.padding(itemPadding)
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }
@@ -263,7 +263,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         textAlign = TextAlign.Start,
                         contentPosition = Arrangement.Start,
                         modifier = it.modifier.padding(horizontal = horizontalItemPadding),
-                        contentModifier = Modifier.fillMaxWidth()
+                        contentModifier = Modifier.fillMaxWidth(),
                     )
                 }
             }
@@ -275,7 +275,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                         selectedItem = it.selectedItem,
                         onItemSelected = it.onItemSelected,
                         modifier = it.modifier.padding(horizontal = horizontalItemPadding),
-                        title = it.title
+                        title = it.title,
                     )
                 }
             }
@@ -287,7 +287,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                     HorizontalDivider(
                         thickness = it.thickness,
                         color = it.color ?: colorScheme.surface,
-                        modifier = it.modifier.padding(itemPadding)
+                        modifier = it.modifier.padding(itemPadding),
                     )
                 }
             }
@@ -296,7 +296,7 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
                 item {
                     RowList(
                         rows = it.rowData,
-                        horizontalPadding = itemPadding
+                        horizontalPadding = itemPadding,
                     )
                 }
             }
@@ -306,14 +306,14 @@ fun LazyListScope.toBodyContentV2(body: List<LeftAlignedScreenBodyV2>?, horizont
 
 private fun LazyListScope.toAnnotatedText(
     it: LeftAlignedScreenBodyV2.AnnotatedText,
-    itemPadding: PaddingValues
+    itemPadding: PaddingValues,
 ) {
     item {
         Text(
             text = it.text,
             modifier = it.modifier.padding(itemPadding),
             color = colorScheme.onBackground,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge,
         )
     }
 }
@@ -326,7 +326,7 @@ private fun LazyListScope.toAnnotatedText(
  */
 @Deprecated(
     "Use uk.gov.android.ui.patterns.utils.scroll.bringIntoView",
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun Modifier.bringIntoView(scrollState: LazyListState): Modifier = this.bringIntoViewV2(scrollState)

@@ -31,7 +31,7 @@ class GdsButtonSizeTest(private val params: TestParams) {
                 loading = params.loading,
                 enabled = params.enabled,
                 onClick = {},
-                modifier = Modifier.testTag(TEST_TAG)
+                modifier = Modifier.testTag(TEST_TAG),
             )
         }
 
@@ -46,7 +46,7 @@ class GdsButtonSizeTest(private val params: TestParams) {
         val buttonType: ButtonTypeV2,
         val icon: Boolean = false,
         val loading: Boolean = false,
-        val enabled: Boolean = true
+        val enabled: Boolean = true,
     ) {
         override fun toString(): String = name
     }
@@ -63,34 +63,34 @@ class GdsButtonSizeTest(private val params: TestParams) {
             TestParams(
                 name = "primary with icon",
                 buttonType = ButtonTypeV2.Primary(),
-                icon = true
+                icon = true,
             ),
             TestParams(
                 name = "primary loading",
                 buttonType = ButtonTypeV2.Primary(),
-                loading = true
+                loading = true,
             ),
             TestParams(
                 name = "primary disabled",
                 buttonType = ButtonTypeV2.Primary(),
-                enabled = false
+                enabled = false,
             ),
             TestParams(name = "secondary", buttonType = ButtonTypeV2.Secondary()),
             TestParams(
                 name = "secondary with icon",
                 buttonType = ButtonTypeV2.Secondary(),
-                icon = true
+                icon = true,
             ),
             TestParams(
                 name = "secondary loading",
                 buttonType = ButtonTypeV2.Secondary(),
-                loading = true
+                loading = true,
             ),
             TestParams(
                 name = "secondary disabled",
                 buttonType = ButtonTypeV2.Secondary(),
-                enabled = false
-            )
+                enabled = false,
+            ),
         )
     }
 }

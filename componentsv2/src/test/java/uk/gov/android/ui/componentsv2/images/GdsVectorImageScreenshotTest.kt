@@ -11,7 +11,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsVectorImageScreenshotTest(
-    private val parameters: Pair<VectorImagePreviewParameters, NightMode>
+    private val parameters: Pair<VectorImagePreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -21,7 +21,7 @@ internal class GdsVectorImageScreenshotTest(
             modifier = parameters.modifier,
             color = parameters.color,
             contentDescription = stringResource(parameters.contentDescription),
-            scale = parameters.scale
+            scale = parameters.scale,
         )
     }
 

@@ -25,7 +25,7 @@ class GdsHeadingTest {
             setContent {
                 GdsTheme {
                     GdsHeading(
-                        text = "Default Heading"
+                        text = "Default Heading",
                     )
                 }
             }
@@ -42,7 +42,7 @@ class GdsHeadingTest {
                 GdsTheme {
                     GdsHeading(
                         text = "Title1 Heading",
-                        style = GdsHeadingStyle.Title1
+                        style = GdsHeadingStyle.Title1,
                     )
                 }
             }
@@ -59,7 +59,7 @@ class GdsHeadingTest {
                 GdsTheme {
                     GdsHeading(
                         text = "Title2 Heading",
-                        style = GdsHeadingStyle.Title2
+                        style = GdsHeadingStyle.Title2,
                     )
                 }
             }
@@ -76,7 +76,7 @@ class GdsHeadingTest {
                 GdsTheme {
                     GdsHeading(
                         text = "Title3 Heading",
-                        style = GdsHeadingStyle.Title2
+                        style = GdsHeadingStyle.Title2,
                     )
                 }
             }
@@ -93,7 +93,7 @@ class GdsHeadingTest {
                 GdsTheme {
                     GdsHeading(
                         text = "Custom Heading",
-                        style = GdsHeadingStyle.Title2
+                        style = GdsHeadingStyle.Title2,
                     )
                 }
             }
@@ -110,7 +110,7 @@ class GdsHeadingTest {
                 GdsTheme {
                     GdsHeading(
                         text = "Custom Heading",
-                        customContentDescription = "Custom content description"
+                        customContentDescription = "Custom content description",
                     )
                 }
             }
@@ -131,7 +131,7 @@ class GdsHeadingTest {
             setContent {
                 GdsTheme {
                     GdsHeading(
-                        text = "Custom Heading"
+                        text = "Custom Heading",
                     )
                 }
             }

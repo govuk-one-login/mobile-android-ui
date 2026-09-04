@@ -11,7 +11,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsIconScreenshotTest(
-    private val parameters: Pair<IconPreviewParameters, NightMode>
+    private val parameters: Pair<IconPreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -22,7 +22,7 @@ internal class GdsIconScreenshotTest(
             color = parameters.color,
             backgroundColor = parameters.backgroundColor,
             contentDescription = stringResource(parameters.contentDescription),
-            size = parameters.size
+            size = parameters.size,
         )
     }
 

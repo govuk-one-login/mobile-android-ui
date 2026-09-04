@@ -23,16 +23,16 @@ class CustomFullScreenDialogueScreenshotTest(private val parameters: Pair<String
             FullScreenDialogue(
                 topAppBar = {
                     GdsTopAppBar(
-                        title = parameters.first
+                        title = parameters.first,
                     )
                 },
                 content = {
                     Box(
-                        modifier = Modifier.padding(spacingDouble)
+                        modifier = Modifier.padding(spacingDouble),
                     ) {
                         Text("Content")
                     }
-                }
+                },
             )
         }
     }

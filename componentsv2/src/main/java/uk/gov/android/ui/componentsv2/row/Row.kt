@@ -78,7 +78,7 @@ fun Row(
     showDivider: Boolean = true,
     horizontalPadding: PaddingValues = PaddingValues(horizontal = smallPadding),
     clickEnabled: Boolean = true,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     var imageScalingFactor = 1f
     leadingImage?.let {
@@ -96,7 +96,7 @@ fun Row(
                 .background(GdsLocalColorScheme.current.rowBackground)
                 .clickable(
                     role = Role.Button,
-                    onClick = onClick
+                    onClick = onClick,
                 )
         } else {
             modifier
@@ -107,7 +107,7 @@ fun Row(
             Arrangement.SpaceBetween
         } else {
             Arrangement.Center
-        }
+        },
     ) {
         if (showDivider) {
             Spacer(modifier = Modifier.size(0.dp))
@@ -117,10 +117,10 @@ fun Row(
                 .padding(
                     start = horizontalPadding.calculateStartPadding(LayoutDirection.Ltr),
                     end = horizontalPadding.calculateEndPadding(LayoutDirection.Ltr) +
-                        xsmallPadding
+                        xsmallPadding,
                 )
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             leadingImage?.let {
                 val image = ImageVector.vectorResource(it.drawable)
@@ -131,10 +131,10 @@ fun Row(
                     modifier = Modifier
                         .size(
                             height = image.defaultHeight * imageScalingFactor,
-                            width = image.defaultWidth * imageScalingFactor
+                            width = image.defaultWidth * imageScalingFactor,
                         )
                         .padding(end = smallPadding, top = xsmallPadding, bottom = xsmallPadding)
-                        .align(alignment = Alignment.CenterVertically)
+                        .align(alignment = Alignment.CenterVertically),
                 )
             }
             Column(
@@ -142,18 +142,18 @@ fun Row(
                     .padding(top = smallPadding, bottom = smallPadding)
                     .weight(1f)
                     .align(alignment = Alignment.CenterVertically),
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(
                     text = title,
                     color = MaterialTheme.colorScheme.onBackground,
-                    style = Typography.bodyLarge
+                    style = Typography.bodyLarge,
                 )
                 subtitle?.let {
                     Text(
                         text = subtitle,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = Typography.labelMedium
+                        style = Typography.labelMedium,
                     )
                 }
             }
@@ -165,7 +165,7 @@ fun Row(
                     maxLines = 1,
                     modifier = Modifier
                         .align(alignment = Alignment.CenterVertically)
-                        .padding(start = smallPadding)
+                        .padding(start = smallPadding),
                 )
             }
             trailingIcon?.let { icon ->
@@ -179,9 +179,9 @@ fun Row(
                                 .padding(
                                     start = smallPadding,
                                     top = smallPadding,
-                                    bottom = smallPadding
+                                    bottom = smallPadding,
                                 ),
-                            tint = MaterialTheme.colorScheme.onBackground
+                            tint = MaterialTheme.colorScheme.onBackground,
                         )
                     }
 
@@ -193,9 +193,9 @@ fun Row(
                             .padding(
                                 start = smallPadding,
                                 top = smallPadding,
-                                bottom = smallPadding
+                                bottom = smallPadding,
                             ),
-                        tint = MaterialTheme.colorScheme.onBackground
+                        tint = MaterialTheme.colorScheme.onBackground,
                     )
                 }
             }
@@ -203,7 +203,7 @@ fun Row(
         if (showDivider) {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Dividers.row.toMappedColors()
+                color = Dividers.row.toMappedColors(),
             )
         }
     }
@@ -232,7 +232,7 @@ internal data class RowPreviewParameters(
     val trailingText: String? = null,
     val trailingIcon: RowTrailingIcon? = null,
     val clickEnabled: Boolean = true,
-    val showDivider: Boolean = true
+    val showDivider: Boolean = true,
 ) {
     fun toRowData(): RowData = RowData(
         title = title,
@@ -242,7 +242,7 @@ internal data class RowPreviewParameters(
         trailingText = trailingText,
         trailingIcon = trailingIcon,
         clickEnabled = clickEnabled,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -254,29 +254,29 @@ internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPrevie
             subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = null,
             trailingIcon = RowTrailingIcon.OpenInNew(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 2",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
-                ""
+                "",
             ),
             subtitle = null,
             trailingText = null,
             trailingIcon = RowTrailingIcon.NavigateNext(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 3",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
-                ""
+                "",
             ),
             subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = null,
             trailingIcon = RowTrailingIcon.NavigateNext(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 4",
@@ -284,7 +284,7 @@ internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPrevie
             subtitle = null,
             trailingText = null,
             trailingIcon = RowTrailingIcon.NavigateNext(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 5",
@@ -292,7 +292,7 @@ internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPrevie
             subtitle = null,
             trailingText = null,
             trailingIcon = RowTrailingIcon.OpenInNew(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 6",
@@ -300,7 +300,7 @@ internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPrevie
             subtitle = null,
             trailingText = null,
             trailingIcon = null,
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 7",
@@ -308,43 +308,43 @@ internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPrevie
             subtitle = null,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.NavigateNext(),
-            showDivider = true
+            showDivider = true,
         ),
         RowPreviewParameters(
             title = "Title 8 - $LONG_STRING",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
-                ""
+                "",
             ),
             scaleLeadingImageWithFontSize = true,
             subtitle = LONG_STRING,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Top),
-            showDivider = false
+            showDivider = false,
         ),
         RowPreviewParameters(
             title = "Title 9 - $LONG_STRING",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image,
-                ""
+                "",
             ),
             scaleLeadingImageWithFontSize = true,
             subtitle = LONG_STRING,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(Alignment.Bottom),
-            showDivider = false
+            showDivider = false,
         ),
         RowPreviewParameters(
             title = "Title 10 - Portrait image",
             leadingImage = Image(
                 R.drawable.placeholder_leading_image_portrait,
-                ""
+                "",
             ),
             subtitle = null,
             trailingText = "100+",
             trailingIcon = null,
-            showDivider = true
-        )
+            showDivider = true,
+        ),
     )
 }
 
@@ -357,7 +357,7 @@ private const val SUBTITLE_PLACEHOLDER = "Supporting line text lorem ipsum " +
 @PreviewLightDark
 internal fun RowPreview(
     @PreviewParameter(RowPreviewParametersProvider::class)
-    parameters: RowPreviewParameters
+    parameters: RowPreviewParameters,
 ) {
     GdsTheme {
         Row(
@@ -368,7 +368,7 @@ internal fun RowPreview(
             trailingText = parameters.trailingText,
             trailingIcon = parameters.trailingIcon,
             showDivider = parameters.showDivider,
-            onClick = {}
+            onClick = {},
         )
     }
 }
@@ -381,13 +381,13 @@ internal fun RowPreviewFontScale() {
             title = "Title - Varying font scale",
             leadingImage = Image(
                 drawable = R.drawable.placeholder_leading_image,
-                contentDescription = ""
+                contentDescription = "",
             ),
             subtitle = SUBTITLE_PLACEHOLDER,
             trailingText = "100+",
             trailingIcon = RowTrailingIcon.OpenInNew(),
             scaleLeadingImageWithFontSize = true,
-            onClick = {}
+            onClick = {},
         )
     }
 }

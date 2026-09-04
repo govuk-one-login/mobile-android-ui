@@ -15,7 +15,7 @@ internal class GdsBulletedListScreenshotTest(private val parameters: Pair<ListWr
             bulletListItems = parameters.items,
             title = parameters.title?.let {
                 ListTitle(it.text, it.titleType)
-            }
+            },
         )
     }
 

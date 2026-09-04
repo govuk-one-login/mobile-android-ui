@@ -14,7 +14,7 @@ import uk.gov.android.ui.componentsv2.R
 class ButtonIcon(
     val icon: ImageVector,
     val contentDescription: String,
-    val position: ButtonIconPosition = ButtonIconPosition.Trailing
+    val position: ButtonIconPosition = ButtonIconPosition.Trailing,
 ) {
     companion object {
         /**
@@ -24,7 +24,7 @@ class ButtonIcon(
         fun opensInWebBrowser(): ButtonIcon = ButtonIcon(
             icon = ImageVector.vectorResource(R.drawable.ic_external_site),
             contentDescription = stringResource(R.string.opens_in_external_browser),
-            position = ButtonIconPosition.Trailing
+            position = ButtonIconPosition.Trailing,
         )
     }
 }
@@ -41,14 +41,16 @@ enum class ButtonIconPosition {
     /**
      * Icon is prepended at the start of the button text
      */
-    Trailing;
+    Trailing,
+
+    ;
 
     internal fun isTrailing(): Boolean = this == Trailing
 }
 
 internal enum class ButtonIconPreview {
     Trailing,
-    Leading
+    Leading,
 }
 
 @Composable
@@ -58,6 +60,6 @@ internal fun ButtonIconPreview.toButtonIcon() = when (this) {
     ButtonIconPreview.Leading -> ButtonIcon(
         icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
         contentDescription = stringResource(R.string.icon_content_desc),
-        position = ButtonIconPosition.Leading
+        position = ButtonIconPosition.Leading,
     )
 }

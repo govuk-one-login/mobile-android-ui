@@ -33,7 +33,7 @@ class GdsButtonV2Test {
     fun testPrimary() {
         setupContent(parameters[0])
         composeTestRule.onNodeWithText(
-            parameters[0].text
+            parameters[0].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -46,7 +46,7 @@ class GdsButtonV2Test {
     fun testSecondary() {
         setupContent(parameters[1])
         composeTestRule.onNodeWithText(
-            parameters[1].text
+            parameters[1].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -59,7 +59,7 @@ class GdsButtonV2Test {
     fun testTertiary() {
         setupContent(parameters[2])
         composeTestRule.onNodeWithText(
-            parameters[2].text
+            parameters[2].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -72,7 +72,7 @@ class GdsButtonV2Test {
     fun testQuaternary() {
         setupContent(parameters[3])
         composeTestRule.onNodeWithText(
-            parameters[3].text
+            parameters[3].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -85,7 +85,7 @@ class GdsButtonV2Test {
     fun testAdmin() {
         setupContent(parameters[4])
         composeTestRule.onNodeWithText(
-            parameters[4].text
+            parameters[4].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -98,7 +98,7 @@ class GdsButtonV2Test {
     fun testError() {
         setupContent(parameters[5])
         composeTestRule.onNodeWithText(
-            parameters[5].text
+            parameters[5].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -113,14 +113,14 @@ class GdsButtonV2Test {
         composeTestRule.apply {
             onNodeWithText(
                 parameters[6].text,
-                substring = true
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.opens_in_external_browser)
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -133,14 +133,14 @@ class GdsButtonV2Test {
         composeTestRule.apply {
             onNodeWithText(
                 parameters[11].text,
-                substring = true
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.opens_in_external_browser)
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -153,7 +153,7 @@ class GdsButtonV2Test {
         composeTestRule.apply {
             onNodeWithText(
                 parameters[12].text,
-                substring = true
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
@@ -168,7 +168,7 @@ class GdsButtonV2Test {
         setupContent(parameters[9])
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.loading_content_desc)
+                resources.getString(R.string.loading_content_desc),
             ).assertIsDisplayed()
         }
     }
@@ -177,7 +177,7 @@ class GdsButtonV2Test {
     fun testErrorSecondary() {
         setupContent(parameters[14])
         composeTestRule.onNodeWithText(
-            parameters[14].text
+            parameters[14].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -192,7 +192,7 @@ class GdsButtonV2Test {
             ButtonPreviewV2(parameters[0])
         }
         composeTestRule.onNodeWithText(
-            parameters[0].text
+            parameters[0].text,
         ).assertIsDisplayed()
     }
 
@@ -203,7 +203,7 @@ class GdsButtonV2Test {
                 icon = parameters.icon?.toButtonIcon(),
                 buttonType = parameters.buttonType.toButtonTypeV2(),
                 onClick = { onClick++ },
-                loading = parameters.loading
+                loading = parameters.loading,
             )
         }
     }

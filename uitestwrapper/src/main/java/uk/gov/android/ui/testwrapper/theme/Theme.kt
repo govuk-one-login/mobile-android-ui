@@ -20,7 +20,7 @@ import uk.gov.android.ui.theme.smallPadding
 @Composable
 fun Theme(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         @Suppress("MemberExtensionConflict") // Member and extension are both from Compose
         items(ThemeDestination.entries()) { destination ->
@@ -34,7 +34,7 @@ fun Theme(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
                         })
                         .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                style = GdsHeadingStyle.Title3
+                style = GdsHeadingStyle.Title3,
             )
             HorizontalDivider(color = Color.Black)
         }

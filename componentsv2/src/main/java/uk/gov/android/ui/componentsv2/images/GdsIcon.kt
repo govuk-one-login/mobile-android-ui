@@ -31,7 +31,7 @@ fun GdsIcon(
     modifier: Modifier = Modifier,
     color: Color = GdsLocalColorScheme.current.iconDefault,
     backgroundColor: Color = Color.Unspecified,
-    size: Dp? = null
+    size: Dp? = null,
 ) {
     val setColor = color.ifSpecified(default = MaterialTheme.colorScheme.onBackground)
     val setBackgroundColor =
@@ -40,7 +40,7 @@ fun GdsIcon(
         Modifier
             .background(setBackgroundColor)
             .layoutId(image.toString())
-            .testTag(image.toString())
+            .testTag(image.toString()),
     )
     Icon(
         imageVector = image,
@@ -52,7 +52,7 @@ fun GdsIcon(
                 .then(iconModifier)
         } else {
             iconModifier
-        }
+        },
     )
 }
 
@@ -64,7 +64,7 @@ internal data class IconPreviewParameters(
     @StringRes
     val contentDescription: Int,
     val modifier: Modifier = Modifier,
-    val size: Dp? = null
+    val size: Dp? = null,
 )
 
 @Composable
@@ -78,14 +78,14 @@ internal class IconPreviewParametersProvider : PreviewParameterProvider<IconPrev
     override val values: Sequence<IconPreviewParameters> = sequenceOf(
         IconPreviewParameters(
             image = R.drawable.ic_external_site,
-            contentDescription = R.string.icon_content_desc
+            contentDescription = R.string.icon_content_desc,
         ),
         IconPreviewParameters(
             image = R.drawable.ic_external_site,
             contentDescription = R.string.icon_content_desc,
             color = Color.Blue,
-            backgroundColor = Color.Yellow
-        )
+            backgroundColor = Color.Yellow,
+        ),
     )
 }
 
@@ -93,13 +93,13 @@ internal class IconPreviewParametersProvider : PreviewParameterProvider<IconPrev
 @PreviewLightDark
 internal fun IconPreview(
     @PreviewParameter(IconPreviewParametersProvider::class)
-    parameters: IconPreviewParameters
+    parameters: IconPreviewParameters,
 ) {
     GdsTheme {
         Column(
             Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
         ) {
             GdsIcon(
                 image = ImageVector.vectorResource(parameters.image),
@@ -107,7 +107,7 @@ internal fun IconPreview(
                 color = parameters.color,
                 backgroundColor = parameters.backgroundColor,
                 contentDescription = stringResource(parameters.contentDescription),
-                size = parameters.size
+                size = parameters.size,
             )
         }
     }

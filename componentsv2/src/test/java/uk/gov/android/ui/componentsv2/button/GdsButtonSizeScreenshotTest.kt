@@ -31,7 +31,7 @@ internal class GdsButtonSizeScreenshotTest : BaseScreenshotTest() {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         Column(
-            modifier = Modifier.fillMaxWidth().background(Color.White)
+            modifier = Modifier.fillMaxWidth().background(Color.White),
         ) {
             val buttons = ButtonParameterPreviewProviderV2().values
             Row {
@@ -40,7 +40,7 @@ internal class GdsButtonSizeScreenshotTest : BaseScreenshotTest() {
             Row {
                 MeasuringColumn(
                     numBoxes = buttons.count(),
-                    boxHeight = totalButtonHeight
+                    boxHeight = totalButtonHeight,
                 )
 
                 Column {
@@ -55,7 +55,7 @@ internal class GdsButtonSizeScreenshotTest : BaseScreenshotTest() {
                             contentModifier = parameters.contentModifier,
                             textAlign = parameters.textAlign,
                             enabled = parameters.enabled,
-                            loading = parameters.loading
+                            loading = parameters.loading,
                         )
                     }
                 }
@@ -79,5 +79,5 @@ fun MeasuringColumn(numBoxes: Int, boxHeight: Dp, modifier: Modifier = Modifier)
 fun MeasuringBox(index: Int, boxHeight: Dp, modifier: Modifier = Modifier) = Box(
     modifier = modifier
         .size(boxHeight)
-        .background(if (index % 2 == 0) Color.Cyan else Color.Magenta)
+        .background(if (index % 2 == 0) Color.Cyan else Color.Magenta),
 )

@@ -11,9 +11,9 @@ fun ThemeListDetail(items: ImmutableList<DetailItem>, modifier: Modifier = Modif
         items = items,
         detail = { detailItem ->
             ThemeDetail(
-                detailItem
+                detailItem,
             )
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }

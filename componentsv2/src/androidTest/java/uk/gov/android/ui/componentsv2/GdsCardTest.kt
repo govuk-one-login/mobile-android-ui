@@ -42,30 +42,30 @@ class GdsCardTest {
         setupContent(parameters[0])
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.vector_image_content_description)
+                resources.getString(R.string.vector_image_content_description),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.body)
+                resources.getString(R.string.body),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.primary_button)
+                resources.getString(R.string.primary_button),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_icon_button)
+                resources.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)
@@ -78,16 +78,16 @@ class GdsCardTest {
         setupContent(parameters[1])
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.vector_image_content_description)
+                resources.getString(R.string.vector_image_content_description),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.secondary_button),
-                substring = true
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
@@ -95,7 +95,7 @@ class GdsCardTest {
 
             // The same icon description is used for the AnnotatedString used for Secondary Button
             onAllNodesWithContentDescription(
-                resources.getString(R.string.opens_in_external_browser)
+                resources.getString(R.string.opens_in_external_browser),
             ).assertCountEquals(1)
 
             assertEquals(1, onClick)
@@ -107,26 +107,26 @@ class GdsCardTest {
         setupContent(parameters[2])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.body)
+                resources.getString(R.string.body),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.primary_button)
+                resources.getString(R.string.primary_button),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_icon_button)
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
@@ -139,22 +139,22 @@ class GdsCardTest {
         setupContent(parameters[3])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.primary_button)
+                resources.getString(R.string.primary_button),
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_icon_button)
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(1, onClick)
@@ -167,15 +167,15 @@ class GdsCardTest {
         setupContent(parameters[4])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_icon_button)
+                resources.getString(R.string.close_icon_button),
             ).assertIsNotDisplayed()
 
             assertEquals(0, onClick)
@@ -188,31 +188,31 @@ class GdsCardTest {
         setupContent(parameters[5])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.body)
+                resources.getString(R.string.body),
             ).assertIsDisplayed()
 
             onNodeWithText(
                 resources.getString(R.string.secondary_button),
-                substring = true
+                substring = true,
             ).apply {
                 assertIsDisplayed()
                 performClick()
             }
 
             onNodeWithText(
-                resources.getString(R.string.opens_in_external_browser)
+                resources.getString(R.string.opens_in_external_browser),
             ).assertDoesNotExist()
 
             onNodeWithContentDescription(
-                resources.getString(R.string.close_icon_button)
+                resources.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             assertEquals(1, onClick)
@@ -227,23 +227,23 @@ class GdsCardTest {
         }
         composeTestRule.apply {
             onNodeWithContentDescription(
-                resources.getString(R.string.vector_image_content_description)
+                resources.getString(R.string.vector_image_content_description),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.caption)
+                resources.getString(R.string.caption),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.title)
+                resources.getString(R.string.title),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.body)
+                resources.getString(R.string.body),
             ).assertIsDisplayed()
 
             onNodeWithText(
-                resources.getString(R.string.primary_button)
+                resources.getString(R.string.primary_button),
             ).assertIsDisplayed()
         }
     }
@@ -267,7 +267,7 @@ class GdsCardTest {
                     stringResource(it)
                 },
                 dismiss = { dismissIconButton = !dismissIconButton },
-                shadow = parameters.shadow
+                shadow = parameters.shadow,
             )
         }
     }

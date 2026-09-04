@@ -18,7 +18,7 @@ class GdsHeadingTest {
         val title = "Title"
         composeTestRule.setContent {
             GdsHeading(
-                text = title
+                text = title,
             )
         }
 

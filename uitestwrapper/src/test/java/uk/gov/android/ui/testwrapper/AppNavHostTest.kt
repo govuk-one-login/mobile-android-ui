@@ -13,7 +13,7 @@ class AppNavHostTest {
     @get:Rule
     val appHostRule =
         AppNavHostRule(
-            composeTestRule = createComposeRule()
+            composeTestRule = createComposeRule(),
         )
 
     @Test

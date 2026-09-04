@@ -10,13 +10,13 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class RowListScreenshotTest(
-    private val parameters: Pair<ImmutableList<RowData>, NightMode>
+    private val parameters: Pair<ImmutableList<RowData>, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         RowList(
-            rows = parameters
+            rows = parameters,
         )
     }
 

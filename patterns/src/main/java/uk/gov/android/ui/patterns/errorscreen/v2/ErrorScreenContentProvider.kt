@@ -20,14 +20,14 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
                 Content 0 - Basic Error Screen with only an icon and title
             """.trimIndent(),
             title = errorTitle,
-            icon = ErrorScreenIcon.ErrorIcon
+            icon = ErrorScreenIcon.ErrorIcon,
         ),
         ErrorScreenContent(
             configurationDescription = """
                 Content 1 - Basic Warning Screen with only an icon and title
             """.trimIndent(),
             title = warningTitle,
-            icon = ErrorScreenIcon.WarningIcon
+            icon = ErrorScreenIcon.WarningIcon,
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -44,16 +44,16 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
                     items = persistentListOf(
                         ListItem("Here we can list things we want the user to know"),
                         ListItem("we can use this as a way to step them through an action"),
-                        ListItem("or give details of a process")
-                    )
+                        ListItem("or give details of a process"),
+                    ),
                 ),
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
                     leftAligned = true,
-                    showIcon = true
-                )
-            )
+                    showIcon = true,
+                ),
+            ),
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -70,14 +70,14 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true
-                )
+                    showIcon = true,
+                ),
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = false
-            )
+                showIcon = false,
+            ),
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -93,24 +93,24 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
                 ErrorScreenBodyContent.Text("Body multiple paragraph - ${loremIpsum(3)}"),
                 ErrorScreenBodyContent.Text(
                     "Body multiple paragraph - ${loremIpsum(7)}",
-                    true
+                    true,
                 ),
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true
-                )
+                    showIcon = true,
+                ),
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = false
+                showIcon = false,
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = false
-            )
+                showIcon = false,
+            ),
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -124,24 +124,24 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
                 ErrorScreenBodyContent.Button(
                     text = bodyButtonText,
                     onClick = {},
-                    showIcon = true
-                )
+                    showIcon = true,
+                ),
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = true
+                showIcon = true,
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true
+                showIcon = true,
             ),
             tertiaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true
-            )
+                showIcon = true,
+            ),
         ),
         ErrorScreenContent(
             configurationDescription = """
@@ -150,20 +150,20 @@ internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreen
             title = warningTitle,
             icon = ErrorScreenIcon.WarningIcon,
             body = persistentListOf(
-                ErrorScreenBodyContent.Text(bodyContentSingleLine)
+                ErrorScreenBodyContent.Text(bodyContentSingleLine),
             ),
             primaryButton = ErrorScreenButton(
                 text = primaryButtonText,
                 onClick = {},
-                showIcon = true
+                showIcon = true,
             ),
             secondaryButton = ErrorScreenButton(
                 text = secondaryButtonText,
                 onClick = {},
-                showIcon = true
+                showIcon = true,
             ),
-            supportingText = "Supporting text"
-        )
+            supportingText = "Supporting text",
+        ),
     )
 
     private fun loremIpsum(words: Int): String = LoremIpsum(words).values.joinToString(" ")

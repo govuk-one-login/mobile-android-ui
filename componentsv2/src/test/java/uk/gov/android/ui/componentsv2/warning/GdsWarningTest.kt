@@ -37,7 +37,7 @@ class GdsWarningTest {
             warningNode
                 .fetchSemanticsNode()
                 .config
-                .isMergingSemanticsOfDescendants
+                .isMergingSemanticsOfDescendants,
         )
         warningNode
             .onChildren()
@@ -63,7 +63,7 @@ class GdsWarningTest {
             warningNode
                 .fetchSemanticsNode()
                 .config
-                .isMergingSemanticsOfDescendants
+                .isMergingSemanticsOfDescendants,
         )
         warningNode
             .onChildren()

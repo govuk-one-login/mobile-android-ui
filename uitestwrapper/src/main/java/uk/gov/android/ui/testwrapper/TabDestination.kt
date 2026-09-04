@@ -12,17 +12,17 @@ import uk.gov.android.ui.testwrapper.theme.Theme
 sealed class TabDestination(val label: String) {
     @Serializable
     data object Components : TabDestination(
-        label = "Components (v2)"
+        label = "Components (v2)",
     )
 
     @Serializable
     data object Patterns : TabDestination(
-        label = "Patterns"
+        label = "Patterns",
     )
 
     @Serializable
     data object Theme : TabDestination(
-        label = "Theme"
+        label = "Theme",
     )
 
     companion object {
@@ -30,12 +30,12 @@ sealed class TabDestination(val label: String) {
         fun entries() = listOf(
             TabDestination.Components,
             TabDestination.Patterns,
-            TabDestination.Theme
+            TabDestination.Theme,
         ).sortedBy(TabDestination::label)
 
         fun NavGraphBuilder.applyTabDestinations(
             modifier: Modifier = Modifier,
-            onNavigate: (Any) -> Unit = {}
+            onNavigate: (Any) -> Unit = {},
         ) {
             composable<TabDestination.Components> {
                 Components(modifier, onNavigate)

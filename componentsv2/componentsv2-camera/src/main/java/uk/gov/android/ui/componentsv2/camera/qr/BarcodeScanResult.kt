@@ -45,7 +45,7 @@ sealed class BarcodeScanResult {
          * @return A new [Success] instance with the sub-list matching the provided [predicate].
          */
         fun filterToSuccess(predicate: (Barcode) -> Boolean): Success = Success(
-            barcodes.filter(predicate)
+            barcodes.filter(predicate),
         )
 
         /**
@@ -86,7 +86,7 @@ sealed class BarcodeScanResult {
          * property.
          */
         fun mapToUrlStrings(): List<String?> = filterByType(
-            Barcode.TYPE_URL
+            Barcode.TYPE_URL,
         ).map { it.url?.url }
     }
 

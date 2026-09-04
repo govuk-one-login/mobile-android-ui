@@ -17,6 +17,6 @@ object CameraContentViewModelAssertions {
         hasNoImageAnalysis(),
         hasNoImageCapture(),
         hasNoSurfaceRequest(),
-        hasPreview()
+        hasPreview(),
     )
 }

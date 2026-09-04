@@ -30,18 +30,18 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 fun GdsMenu(
     expanded: Boolean,
     content: ImmutableList<GdsMenuContent>,
-    onDismissRequest: () -> Unit = {}
+    onDismissRequest: () -> Unit = {},
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
     val colour = getRippleColour(focusStateEnabled)
     CompositionLocalProvider(
-        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour)
+        LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
     ) {
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
             modifier = Modifier
-                .background(color = GdsLocalColorScheme.current.menuItem)
+                .background(color = GdsLocalColorScheme.current.menuItem),
         ) {
             content.forEach { item ->
                 var isItemFocused by remember { mutableStateOf(false) }
@@ -50,13 +50,13 @@ fun GdsMenu(
                         Text(
                             text = item.title,
                             style = MaterialTheme.typography.bodyMedium.copy(
-                                fontWeight = FontWeight.Normal
-                            )
+                                fontWeight = FontWeight.Normal,
+                            ),
                         )
                     },
                     onClick = item.onClick,
                     colors = MenuDefaults.itemColors(
-                        textColor = getTextColour(isItemFocused)
+                        textColor = getTextColour(isItemFocused),
                     ),
                     modifier = Modifier
                         .background(color = getBackgroundColour(isItemFocused))
@@ -64,7 +64,7 @@ fun GdsMenu(
                         .onFocusChanged { focusState ->
                             focusStateEnabled = focusState.isFocused
                             isItemFocused = focusState.isFocused
-                        }
+                        },
                 )
             }
         }

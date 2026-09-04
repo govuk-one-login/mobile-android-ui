@@ -53,19 +53,19 @@ object BarcodeUseCaseProviders {
         backpressureStrategy: Int = ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST,
         converter: ImageProxyConverter = CentrallyCroppedImageProxyConverter(
             relativeScanningWidth = IMAGE_WIDTH_CROP_MULTIPLIER,
-            relativeScanningHeight = IMAGE_WIDTH_CROP_MULTIPLIER
+            relativeScanningHeight = IMAGE_WIDTH_CROP_MULTIPLIER,
         ),
         options: BarcodeScannerOptions = provideQrScanningOptions(provideZoomOptions()),
-        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> }
+        callback: BarcodeScanResult.Callback = BarcodeScanResult.Callback { _, _ -> },
     ): ImageAnalysis = CameraUseCaseProviders.imageAnalysis(
         analyzer = BarcodeImageAnalyzer(
             options = options,
             callback = callback,
-            converter = converter
+            converter = converter,
         ),
         backpressureStrategy = backpressureStrategy,
         executor = ContextCompat.getMainExecutor(context),
-        outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
+        outputImageFormat = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888,
     )
 
     const val MAX_ZOOM_RATIO = 10f

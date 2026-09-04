@@ -31,10 +31,10 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
             screenHeight = 4500,
             screenWidth = 4000,
             nightMode = nightMode,
-            orientation = ScreenOrientation.LANDSCAPE
+            orientation = ScreenOrientation.LANDSCAPE,
         ),
         renderingMode = SHRINK,
-        showSystemUi = false
+        showSystemUi = false,
     )
 
     @Test
@@ -52,9 +52,9 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
 
         @JvmStatic
         fun <T : Any> applyNightMode(
-            result: MutableList<Pair<T, NightMode>>
+            result: MutableList<Pair<T, NightMode>>,
         ): (
-            T
+            T,
         ) -> Unit = { parameters ->
             result.add(parameters to NOTNIGHT)
             result.add(parameters to NIGHT)

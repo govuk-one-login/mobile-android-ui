@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
  * [ImageAnalyzer.Complete] implementation that defers to the internal [state].
  */
 class MutableImageAnalyzer(
-    private val state: MutableStateFlow<ImageAnalysis?> = MutableStateFlow(null)
+    private val state: MutableStateFlow<ImageAnalysis?> = MutableStateFlow(null),
 ) : ImageAnalyzer.Complete {
     override val imageAnalysis: StateFlow<ImageAnalysis?> = state
     override fun update(imageAnalysis: ImageAnalysis?) {

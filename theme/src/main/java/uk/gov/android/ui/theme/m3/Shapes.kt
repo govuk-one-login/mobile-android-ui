@@ -28,7 +28,7 @@ val Shapes = Shapes(
     small = RoundedCornerShape(4.dp),
     medium = RoundedCornerShape(4.dp),
     large = RoundedCornerShape(0.dp),
-    extraLarge = RoundedCornerShape(0.dp)
+    extraLarge = RoundedCornerShape(0.dp),
 )
 
 internal val shapeDisplayMap = mapOf(
@@ -38,7 +38,7 @@ internal val shapeDisplayMap = mapOf(
     "medium" to Shapes.medium,
     "large" to Shapes.large,
     "extraLarge" to Shapes.extraLarge,
-    "full" to CircleShape
+    "full" to CircleShape,
 )
 
 @Preview
@@ -53,13 +53,13 @@ internal fun ShapesPreview() {
                         .size(100.dp)
                         .clip(shape)
                         .background(
-                            color = MaterialTheme.colorScheme.primary
-                        )
+                            color = MaterialTheme.colorScheme.primary,
+                        ),
                 ) {
                     Text(
                         text = label,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
                     )
                 }
             }

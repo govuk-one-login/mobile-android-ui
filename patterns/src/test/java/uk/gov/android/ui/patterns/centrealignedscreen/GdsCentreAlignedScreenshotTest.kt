@@ -9,7 +9,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class GdsCentreAlignedScreenshotTest(
-    private val parameters: Pair<CentreAlignedScreenContent, NightMode>
+    private val parameters: Pair<CentreAlignedScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit =
@@ -22,7 +22,7 @@ internal class GdsCentreAlignedScreenshotTest(
                     body = parameters.body,
                     supportingText = parameters.supportingText,
                     primaryButton = parameters.primaryButton,
-                    secondaryButton = parameters.secondaryButton
+                    secondaryButton = parameters.secondaryButton,
                 )
             }
         }

@@ -11,9 +11,9 @@ fun PatternListDetail(items: ImmutableList<DetailItem>, modifier: Modifier = Mod
         items = items,
         detail = { detailItem ->
             PatternDetail(
-                detailItem
+                detailItem,
             )
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }

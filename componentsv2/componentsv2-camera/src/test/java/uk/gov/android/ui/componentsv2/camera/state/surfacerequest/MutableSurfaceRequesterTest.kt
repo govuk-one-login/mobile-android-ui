@@ -20,7 +20,7 @@ class MutableSurfaceRequesterTest {
     fun initialState() {
         assertThat(
             state,
-            hasNoSurfaceRequest()
+            hasNoSurfaceRequest(),
         )
     }
 
@@ -34,7 +34,7 @@ class MutableSurfaceRequesterTest {
 
         assertThat(
             state,
-            hasSurfaceRequest(helper.surfaceRequest)
+            hasSurfaceRequest(helper.surfaceRequest),
         )
     }
 }

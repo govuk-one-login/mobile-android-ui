@@ -53,7 +53,7 @@ fun GdsDialogue(
     contentText: String?,
     buttonParameters: ImmutableList<DialogueButtonParameters>,
     modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     Column(modifier = modifier) {
         Dialog(onDismissRequest = { onDismissRequest() }) {
@@ -62,8 +62,8 @@ fun GdsDialogue(
                 shape = RectangleShape,
                 colors =
                     CardDefaults.cardColors(
-                        containerColor = Backgrounds.dialogue.toMappedColors()
-                    )
+                        containerColor = Backgrounds.dialogue.toMappedColors(),
+                    ),
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     headingText?.let {
@@ -76,11 +76,11 @@ fun GdsDialogue(
                                     .padding(
                                         start = mediumPadding,
                                         end = mediumPadding,
-                                        top = mediumPadding
+                                        top = mediumPadding,
                                     )
                                     .background(
-                                        color = Backgrounds.dialogue.toMappedColors()
-                                    )
+                                        color = Backgrounds.dialogue.toMappedColors(),
+                                    ),
                         )
                     }
                     contentText?.let {
@@ -92,8 +92,8 @@ fun GdsDialogue(
                                 Modifier.padding(
                                     start = mediumPadding,
                                     end = mediumPadding,
-                                    top = smallPadding
-                                )
+                                    top = smallPadding,
+                                ),
                         )
                     }
                     ButtonRow(buttonParameters)
@@ -120,15 +120,15 @@ private fun ButtonRow(buttonParameters: ImmutableList<DialogueButtonParameters>)
             .padding(mediumPadding),
         horizontalArrangement = Arrangement.spacedBy(
             smallPadding,
-            Alignment.End
+            Alignment.End,
         ),
-        verticalArrangement = Arrangement.spacedBy(xsmallPadding)
+        verticalArrangement = Arrangement.spacedBy(xsmallPadding),
     ) {
         buttonParameters.forEach { param ->
             GdsButton(
                 text = param.text,
                 buttonType = param.buttonType,
-                onClick = param.onClick
+                onClick = param.onClick,
             )
         }
     }
@@ -137,13 +137,13 @@ private fun ButtonRow(buttonParameters: ImmutableList<DialogueButtonParameters>)
 data class DialogueButtonParameters(
     val text: String,
     val buttonType: ButtonTypeV2,
-    val onClick: () -> Unit = {}
+    val onClick: () -> Unit = {},
 )
 
 data class DialogueButtonPreviewParameters(
     val text: Int,
     val buttonType: ButtonTypeV2,
-    val onClick: () -> Unit = {}
+    val onClick: () -> Unit = {},
 )
 
 internal data class DialoguePreviewParameters(
@@ -151,7 +151,7 @@ internal data class DialoguePreviewParameters(
     val contentText: Int,
     val buttonParameters: ImmutableList<DialogueButtonPreviewParameters>,
     val modifier: Modifier = Modifier,
-    val onDismissRequest: () -> Unit = {}
+    val onDismissRequest: () -> Unit = {},
 )
 
 internal class DialogProvider : PreviewParameterProvider<DialoguePreviewParameters> {
@@ -162,14 +162,14 @@ internal class DialogProvider : PreviewParameterProvider<DialoguePreviewParamete
             buttonParameters = persistentListOf(
                 DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = R.string.dialogue_provider_button_no
+                    text = R.string.dialogue_provider_button_no,
                 ),
                 DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Primary(),
-                    text = R.string.dialogue_provider_button_yes
-                )
+                    text = R.string.dialogue_provider_button_yes,
+                ),
 
-            )
+            ),
         ),
         DialoguePreviewParameters(
             headingText = R.string.dialogue_provider_title2,
@@ -177,15 +177,15 @@ internal class DialogProvider : PreviewParameterProvider<DialoguePreviewParamete
             buttonParameters = persistentListOf(
                 DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = R.string.dialogue_provider_button_dismiss
+                    text = R.string.dialogue_provider_button_dismiss,
                 ),
                 DialogueButtonPreviewParameters(
                     buttonType = ButtonTypeV2.Secondary(),
-                    text = R.string.dialogue_provider_button_confirm
-                )
+                    text = R.string.dialogue_provider_button_confirm,
+                ),
 
-            )
-        )
+            ),
+        ),
     )
 }
 
@@ -195,7 +195,7 @@ internal class DialogProvider : PreviewParameterProvider<DialoguePreviewParamete
 @Preview
 internal fun GdsDialoguePreview(
     @PreviewParameter(DialogProvider::class)
-    dialoguePreviewParameters: DialoguePreviewParameters
+    dialoguePreviewParameters: DialoguePreviewParameters,
 ) {
     dialoguePreviewParameters.apply {
         GdsTheme {
@@ -206,9 +206,9 @@ internal fun GdsDialoguePreview(
                     DialogueButtonParameters(
                         text = stringResource(it.text),
                         buttonType = it.buttonType,
-                        onClick = it.onClick
+                        onClick = it.onClick,
                     )
-                }.toImmutableList()
+                }.toImmutableList(),
             ) {}
         }
     }

@@ -104,7 +104,7 @@ class KeyboardScrollTest {
                 numItems = numItems,
                 modifier = Modifier
                     .focusRequester(focusRequester)
-                    .keyboardScroll(scrollState)
+                    .keyboardScroll(scrollState),
             )
         }
     }
@@ -116,7 +116,7 @@ class KeyboardScrollTest {
                 listState = listState,
                 modifier = Modifier
                     .focusRequester(focusRequester)
-                    .keyboardScroll(listState)
+                    .keyboardScroll(listState),
             )
         }
     }
@@ -152,17 +152,17 @@ class KeyboardScrollTest {
 private fun TestColumn(
     scrollState: androidx.compose.foundation.ScrollState,
     modifier: Modifier = Modifier,
-    numItems: Int = NUM_ITEMS
+    numItems: Int = NUM_ITEMS,
 ) = Column(
     modifier = modifier
         .height(containerHeight)
         .verticalScroll(scrollState)
-        .testTag(KeyboardScrollTest.TEST_TAG)
+        .testTag(KeyboardScrollTest.TEST_TAG),
 ) {
     repeat(numItems) { index ->
         BasicText(
             text = "Item $index",
-            modifier = Modifier.fillMaxWidth().height(itemHeight)
+            modifier = Modifier.fillMaxWidth().height(itemHeight),
         )
     }
 }
@@ -171,17 +171,17 @@ private fun TestColumn(
 private fun TestLazyColumn(
     listState: LazyListState,
     modifier: Modifier = Modifier,
-    numItems: Int = NUM_ITEMS
+    numItems: Int = NUM_ITEMS,
 ) = LazyColumn(
     state = listState,
     modifier = modifier
         .height(containerHeight)
-        .testTag(KeyboardScrollTest.TEST_TAG)
+        .testTag(KeyboardScrollTest.TEST_TAG),
 ) {
     items(numItems) { index ->
         BasicText(
             text = "Item $index",
-            modifier = Modifier.fillMaxWidth().height(itemHeight)
+            modifier = Modifier.fillMaxWidth().height(itemHeight),
         )
     }
 }

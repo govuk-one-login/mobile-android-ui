@@ -95,39 +95,39 @@ fun GdsCard(
     secondaryIcon: ImageVector? = ImageVector.vectorResource(R.drawable.ic_external_site),
     secondaryIconContentDescription: String? = stringResource(R.string.opens_in_external_browser),
     shadow: Dp = cardShadow,
-    dismiss: (() -> Unit) = {}
+    dismiss: (() -> Unit) = {},
 ) {
     val cardContentDescription = stringResource(R.string.card_content_description, title)
     Card(
         colors = CardDefaults.cardColors(
             containerColor = GdsLocalColorScheme.current.cardBackground,
-            contentColor = MaterialTheme.colorScheme.onBackground
+            contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         shape = RoundedCornerShape(tileCornerRadius),
         modifier = modifier
             .elevatedCardModifier(shadow)
             .focusGroup()
-            .semantics(true) { this.contentDescription = cardContentDescription }
+            .semantics(true) { this.contentDescription = cardContentDescription },
     ) {
         // Allows for the children to be rendered appropriately when using cards in a scrollable layout
         Box(Modifier.wrapContentHeight()) {
             Column {
                 TileImage(
                     image = image,
-                    contentDescription = contentDescription
+                    contentDescription = contentDescription,
                 )
                 Box(Modifier.wrapContentHeight()) {
                     Column {
                         Column(
                             modifier = Modifier
-                                .padding(horizontal = smallPadding)
+                                .padding(horizontal = smallPadding),
                         ) {
                             Content(
                                 caption = caption,
                                 title = title,
                                 titleFont = titleStyle,
                                 body = body,
-                                displayDismiss = image == null && showDismissIcon
+                                displayDismiss = image == null && showDismissIcon,
                             )
                             Buttons(
                                 displayDivider = displayDivider,
@@ -137,10 +137,10 @@ fun GdsCard(
                                 secondaryIcon = secondaryIcon?.let {
                                     ButtonIcon(
                                         icon = secondaryIcon,
-                                        secondaryIconContentDescription ?: ""
+                                        secondaryIconContentDescription ?: "",
                                     )
                                 },
-                                onClick = onClick
+                                onClick = onClick,
                             )
                         }
                     }
@@ -150,7 +150,7 @@ fun GdsCard(
                             dismiss,
                             Modifier
                                 .align(alignment = Alignment.TopEnd)
-                                .zIndex(1f)
+                                .zIndex(1f),
                         )
                     }
                 }
@@ -160,7 +160,7 @@ fun GdsCard(
                     dismiss,
                     Modifier
                         .align(alignment = Alignment.TopEnd)
-                        .zIndex(1f)
+                        .zIndex(1f),
                 )
             }
         }
@@ -173,7 +173,7 @@ private fun Content(
     title: String,
     titleFont: TextStyle,
     body: String?,
-    displayDismiss: Boolean
+    displayDismiss: Boolean,
 ) {
     caption?.let {
         Text(
@@ -181,7 +181,7 @@ private fun Content(
             style = Typography.bodySmall,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = xsmallPadding)
+                .padding(top = xsmallPadding),
         )
     }
     Text(
@@ -189,13 +189,13 @@ private fun Content(
         style = titleFont,
         modifier = Modifier
             .customTilePadding(body != null)
-            .customTitlePadding(displayDismiss)
+            .customTitlePadding(displayDismiss),
     )
     body?.let {
         Text(
             text = body,
             style = Typography.bodyLarge,
-            modifier = Modifier.padding(vertical = xsmallPadding)
+            modifier = Modifier.padding(vertical = xsmallPadding),
         )
     }
 }
@@ -208,7 +208,7 @@ private fun TileImage(image: Painter? = null, contentDescription: String? = null
             painter = image,
             contentDescription = contentDescription ?: defaultContentDescription,
             contentScale = ContentScale.FillWidth,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -220,12 +220,12 @@ private fun DismissButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
         onClick = onClick,
         modifier = Modifier
             .semantics(true) {}
-            .then(modifier)
+            .then(modifier),
     ) {
         Icon(
             imageVector = Icons.Default.Close,
             contentDescription = description,
-            tint = GdsLocalColorScheme.current.topBarIcon
+            tint = GdsLocalColorScheme.current.topBarIcon,
         )
     }
 }
@@ -237,12 +237,12 @@ private fun Buttons(
     displayPrimary: Boolean,
     secondaryIcon: ButtonIcon?,
     displaySecondary: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     if (displayDivider) {
         HorizontalDivider(
             thickness = dividerThickness,
-            color = GdsLocalColorScheme.current.dividerCard
+            color = GdsLocalColorScheme.current.dividerCard,
         )
     }
     text?.let {
@@ -254,10 +254,10 @@ private fun Buttons(
                     .fillMaxWidth()
                     .padding(
                         top = xsmallPadding,
-                        bottom = smallPadding
+                        bottom = smallPadding,
                     ),
                 contentModifier = Modifier.fillMaxWidth(),
-                onClick = onClick
+                onClick = onClick,
             )
         } else {
             if (displaySecondary) {
@@ -270,7 +270,7 @@ private fun Buttons(
                     contentPosition = Arrangement.Start,
                     contentModifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 0.dp)
+                        .padding(top = 0.dp),
                 )
             }
         }
@@ -298,7 +298,7 @@ internal data class GdsCardPreviewParameters(
     val secondaryIcon: Int? = R.drawable.ic_external_site,
     @StringRes
     val secondaryIconContentDescription: Int? = R.string.opens_in_external_browser,
-    val shadow: Dp = cardShadow
+    val shadow: Dp = cardShadow,
 )
 
 internal class GdsCardPreviewParametersProvider :
@@ -311,7 +311,7 @@ internal class GdsCardPreviewParametersProvider :
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
-            buttonText = R.string.primary_button
+            buttonText = R.string.primary_button,
         ),
         GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
@@ -319,24 +319,24 @@ internal class GdsCardPreviewParametersProvider :
             displayDivider = true,
             displayPrimary = false,
             buttonText = R.string.secondary_button,
-            displaySecondary = true
+            displaySecondary = true,
         ),
         GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
-            buttonText = R.string.primary_button
+            buttonText = R.string.primary_button,
         ),
         GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             displayPrimary = true,
-            buttonText = R.string.primary_button
+            buttonText = R.string.primary_button,
         ),
         GdsCardPreviewParameters(
             caption = R.string.caption,
-            title = R.string.title
+            title = R.string.title,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
@@ -346,7 +346,7 @@ internal class GdsCardPreviewParametersProvider :
             displayPrimary = false,
             displaySecondary = true,
             secondaryIcon = null,
-            buttonText = R.string.secondary_button
+            buttonText = R.string.secondary_button,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
@@ -356,7 +356,7 @@ internal class GdsCardPreviewParametersProvider :
             body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
-            shadow = 12.dp
+            shadow = 12.dp,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
@@ -365,7 +365,7 @@ internal class GdsCardPreviewParametersProvider :
             body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
-            shadow = 0.dp
+            shadow = 0.dp,
         ),
         GdsCardPreviewParameters(
             showDismissIcon = true,
@@ -379,15 +379,15 @@ internal class GdsCardPreviewParametersProvider :
             displaySecondary = true,
             secondaryIcon = R.drawable.arrow_forward,
             secondaryIconContentDescription = R.string.icon_content_desc,
-            shadow = 0.dp
+            shadow = 0.dp,
         ),
         GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             buttonText = R.string.secondary_button,
             displayPrimary = false,
-            displaySecondary = true
-        )
+            displaySecondary = true,
+        ),
     )
 }
 
@@ -395,7 +395,7 @@ internal class GdsCardPreviewParametersProvider :
 @Preview
 internal fun GdsCardUpdatedPreview(
     @PreviewParameter(GdsCardPreviewParametersProvider::class)
-    parameters: GdsCardPreviewParameters
+    parameters: GdsCardPreviewParameters,
 ) {
     GdsTheme {
         GdsCard(
@@ -415,7 +415,7 @@ internal fun GdsCardUpdatedPreview(
             secondaryIconContentDescription = parameters.secondaryIconContentDescription?.let {
                 stringResource(it)
             },
-            shadow = parameters.shadow
+            shadow = parameters.shadow,
         )
     }
 }

@@ -32,7 +32,7 @@ internal class FormatDateScreenshotTest(locale: String) : BaseScreenshotTest(loc
         @Parameterized.Parameters(name = "{index}DateFormatting")
         fun locales(): List<String> = listOf(
             "en", // English
-            "cy" // Welsh
+            "cy", // Welsh
         )
     }
 }

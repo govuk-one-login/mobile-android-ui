@@ -30,7 +30,7 @@ fun GdsRadiosDemo(modifier: Modifier = Modifier, onSelected: (String) -> Unit = 
                 onSelected(radioItems[selectedIndex])
             },
             title = GdsRadiosTitle("GdsRadios example", GdsHeadingStyle.Body),
-            modifier = modifier.padding(smallPadding)
+            modifier = modifier.padding(smallPadding),
         )
     }
 }

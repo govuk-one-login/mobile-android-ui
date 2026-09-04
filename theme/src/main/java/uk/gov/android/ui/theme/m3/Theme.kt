@@ -52,17 +52,17 @@ fun GdsTheme(
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
     enableActivityEdgeToEdge: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
 
     CompositionLocalProvider(
-        GdsLocalColorScheme provides customColors()
+        GdsLocalColorScheme provides customColors(),
     ) {
         MaterialTheme(
             colorScheme = colors,
             shapes = shapes,
-            typography = typography
+            typography = typography,
         ) {
             val view = LocalView.current
 
@@ -92,8 +92,8 @@ data class CustomColorsScheme(
     @Deprecated(
         message = "The previously named List Component has been renamed to Row to avoid confusion.",
         replaceWith = ReplaceWith(
-            "uk.gov.android.ui.theme.m3.GdsLocalColorScheme.current.rowBackground"
-        )
+            "uk.gov.android.ui.theme.m3.GdsLocalColorScheme.current.rowBackground",
+        ),
     )
     val listBackground: Color = rowBackground,
     val topBarBackground: Color = Color.Unspecified,
@@ -141,7 +141,7 @@ data class CustomColorsScheme(
     val qrScannerOverlayBackground: Color = Color.Unspecified,
     val qrScannerOverlayBorder: Color = Color.Unspecified,
     val destructiveNativeButtonText: Color = Color.Unspecified,
-    val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified
+    val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -205,7 +205,7 @@ private fun customColors(): CustomColorsScheme = CustomColorsScheme(
     qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
     destructiveNativeButtonText = Buttons.destructiveNativeButtonText.toMappedColors(),
     destructiveNativeButtonTextHighlighted =
-        Buttons.destructiveNativeButtonTextHighlighted.toMappedColors()
+        Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
 )
 
 internal const val SWATCH_SIZE = 200
@@ -217,12 +217,12 @@ internal const val PALETTE_HEIGHT_V2 = 1700
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH_V2,
-    heightDp = PALETTE_HEIGHT_V2
+    heightDp = PALETTE_HEIGHT_V2,
 )
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = PALETTE_WIDTH_V2,
-    heightDp = PALETTE_HEIGHT_V2
+    heightDp = PALETTE_HEIGHT_V2,
 )
 @Composable
 @Suppress("LongMethod")
@@ -232,37 +232,37 @@ fun ThemeV2Material3Preview() {
             // Used existing mappings
             val backgroundColors = listOf(
                 SwatchColor(background, "Background - Background Android Screen"),
-                SwatchColor(onBackground, "On Background - Text Primary")
+                SwatchColor(onBackground, "On Background - Text Primary"),
             )
 
             val usedStandardMaterialColors = listOf(
                 SwatchColor(primary, "Primary - Button Primary"),
                 SwatchColor(secondary, "Secondary - Button Secondary"),
-                SwatchColor(error, "Error - Button Destructive")
+                SwatchColor(error, "Error - Button Destructive"),
             )
             val usedOnStandardMaterialColors = listOf(
                 SwatchColor(onPrimary, "On Primary - Button Primary text"),
                 SwatchColor(onSecondary, "On Secondary NOT USED"),
-                SwatchColor(onError, "On Error - Button Destructive Text")
+                SwatchColor(onError, "On Error - Button Destructive Text"),
             )
 
             val usedContainerMaterialColors = listOf(
                 SwatchColor(
                     onErrorContainer,
                     "On Error Container - Destructive Native Button Text",
-                    Color.White
-                )
+                    Color.White,
+                ),
             )
 
             val usedAdditionalMaterialColors = listOf(
                 SwatchColor(surface, "Surface - Same as Background"),
-                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)")
+                SwatchColor(scrim, "Scrim - Used within Dialog (30% opacity)"),
             )
 
             // Unused Material3 colours
             val usedOnAdditionalMaterialColors = listOf(
                 SwatchColor(onSurface, "On Surface - Same as onBackground"),
-                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text")
+                SwatchColor(onSurfaceVariant, "On Surface Variant - Secondary Text"),
             )
 
             val unusedStandardMaterialColors = listOf(
@@ -270,77 +270,77 @@ fun ThemeV2Material3Preview() {
                 SwatchColor(
                     onTertiary,
                     "On Tertiary NOT USED",
-                    Color.Black
-                )
+                    Color.Black,
+                ),
             )
 
             val unusedStandardContainerMaterialColors = listOf(
                 SwatchColor(
                     primaryContainer,
                     "Primary Container NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     secondaryContainer,
                     "Secondary Container NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     tertiaryContainer,
                     "Tertiary Container NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     errorContainer,
                     "Error Container NOT USED",
-                    Color.Black
-                )
+                    Color.Black,
+                ),
             )
 
             val unusedOnStandardContainerMaterialColors = listOf(
                 SwatchColor(
                     onPrimaryContainer,
                     "On Primary Container NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     onSecondaryContainer,
                     "On Secondary Container - NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     onTertiaryContainer,
                     "On Tertiary Container NOT USED",
-                    Color.Black
-                )
+                    Color.Black,
+                ),
             )
 
             val unusedContainerMaterialColors = listOf(
                 SwatchColor(
                     surfaceContainerLowest,
                     "Surface Container Lowest NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerLow,
                     "Surface Container Low NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainer,
                     "Surface Container - NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerHigh,
                     "Surface Container High NOT USED",
-                    Color.Black
+                    Color.Black,
                 ),
                 SwatchColor(
                     surfaceContainerHighest,
                     "Surface Container Highest NOT USED",
-                    Color.Black
-                )
+                    Color.Black,
+                ),
             )
 
             val unusedAdditionalMaterialColors = listOf(
@@ -349,7 +349,7 @@ fun ThemeV2Material3Preview() {
                 SwatchColor(inverseSurface, "Inverse Surface NOT USED", Color.Black),
                 SwatchColor(inverseOnSurface, "Inverse On Surface NOT USED", Color.Black),
                 SwatchColor(surfaceDim, "Surface Dim NOT USED", Color.Black),
-                SwatchColor(surfaceBright, "Surface Bright NOt USED", Color.Black)
+                SwatchColor(surfaceBright, "Surface Bright NOt USED", Color.Black),
             )
 
             Column {
@@ -358,7 +358,7 @@ fun ThemeV2Material3Preview() {
                     textAlign = TextAlign.Center,
                     style = Typography.displayMedium,
                     color = Color.White,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Row { backgroundColors.forEach { Swatch(data = it) } }
@@ -376,7 +376,7 @@ fun ThemeV2Material3Preview() {
                     textAlign = TextAlign.Center,
                     style = Typography.displayMedium,
                     color = Color.White,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(PALETTE_PADDING.dp))
                 Row { unusedStandardMaterialColors.forEach { Swatch(data = it) } }
@@ -393,12 +393,12 @@ fun ThemeV2Material3Preview() {
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = PALETTE_WIDTH_V2,
-    heightDp = PALETTE_HEIGHT_V2
+    heightDp = PALETTE_HEIGHT_V2,
 )
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = PALETTE_WIDTH_V2,
-    heightDp = PALETTE_HEIGHT_V2
+    heightDp = PALETTE_HEIGHT_V2,
 )
 @Composable
 @Suppress("LongMethod", "CyclomaticComplexMethod")
@@ -412,7 +412,7 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(rowBackground, "Backgrounds - Row"),
                 SwatchColor(topBarBackground, "Backgrounds - Top Bar"),
                 SwatchColor(topBarScrolledBackground, "Backgrounds - Top Bar Scrolled"),
-                SwatchColor(navigationBarBackground, "Backgrounds - Navigation Bar")
+                SwatchColor(navigationBarBackground, "Backgrounds - Navigation Bar"),
             )
         }
 
@@ -423,14 +423,14 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(menuItemBackground, "Backgrounds - Menu Item"),
                 SwatchColor(
                     menuItemHighlightedBackground,
-                    "Backgrounds - Menu Item Highlighted/ Tapped"
-                )
+                    "Backgrounds - Menu Item Highlighted/ Tapped",
+                ),
             )
         }
 
         val contentCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
-                SwatchColor(statusOverlayContent, "Text - Status Overlay Content")
+                SwatchColor(statusOverlayContent, "Text - Status Overlay Content"),
             )
         }
 
@@ -440,7 +440,7 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(focusStateContent, "Buttons - Focus State Text/ Content"),
                 SwatchColor(disabledButton, "Buttons - Disabled Button"),
                 SwatchColor(disabledButtonContent, "Buttons - Disabled Text/ Content"),
-                SwatchColor(nativeButtonText, "Buttons - Native Text/ Content")
+                SwatchColor(nativeButtonText, "Buttons - Native Text/ Content"),
             )
         }
 
@@ -449,7 +449,7 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(buttonShadow, "Buttons Shadow - Default"),
                 SwatchColor(disabledButtonShadow, "Buttons Shadow - Disabled"),
                 SwatchColor(focusStateShadow, "Buttons - Focus State Shadow"),
-                SwatchColor(destructiveButtonShadow, "Buttons - Destructive Button Shadow")
+                SwatchColor(destructiveButtonShadow, "Buttons - Destructive Button Shadow"),
             )
         }
 
@@ -460,7 +460,7 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(destructiveIcon, "Icons - Destructive"),
                 SwatchColor(spinnerIcon, "Icons - Spinner"),
                 SwatchColor(errorIcon, "Icons - Error"),
-                SwatchColor(linkDefault, "Links - Default")
+                SwatchColor(linkDefault, "Links - Default"),
             )
         }
 
@@ -470,12 +470,12 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(topBarIcon, "Navigation Elements - Top Bar Icon"),
                 SwatchColor(
                     navigationBarContent,
-                    "Navigation Elements - Navigation Bar Icon and Label"
+                    "Navigation Elements - Navigation Bar Icon and Label",
                 ),
                 SwatchColor(
                     navigationBarSelectedState,
-                    "Navigation Elements - Navigation Bar Selected State"
-                )
+                    "Navigation Elements - Navigation Bar Selected State",
+                ),
             )
         }
 
@@ -488,15 +488,15 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(unselectedBackgroundSwitch, "Switch - Unselected Background"),
                 SwatchColor(
                     unselectedBorderAndHandleSwitch,
-                    "Switch - Unselected Border and Handle"
-                )
+                    "Switch - Unselected Border and Handle",
+                ),
             )
         }
 
         val dividersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(dividerDefault, "Divider - Default"),
-                SwatchColor(dividerCard, "Divider - Card")
+                SwatchColor(dividerCard, "Divider - Card"),
             )
         }
 
@@ -506,13 +506,13 @@ fun ThemeV2CustomPreview() {
                 textAlign = TextAlign.Center,
                 style = Typography.displayMedium,
                 color = Color.White,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Background Common Colours",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { backgroundCustomColors.forEach { Swatch(data = it) } }
             Row { backgroundCustomColorsPt2.forEach { Swatch(data = it) } }
@@ -520,49 +520,49 @@ fun ThemeV2CustomPreview() {
             Text(
                 "Text Content Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { contentCustomColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Buttons Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { buttonsColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Buttons Shadow Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { buttonsShadowColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Icons and Links Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { iconsAndLinksColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Navigation Elements Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { navigationElementsColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Radio and Switch Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { selectionAndSwitchColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
             Text(
                 "Divider Colors",
                 style = Typography.headlineSmall,
-                color = Color.White
+                color = Color.White,
             )
             Row { dividersCustomColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))

@@ -21,13 +21,13 @@ import uk.gov.android.ui.theme.xsmallPadding
 
 @RunWith(Parameterized::class)
 internal class GdsButtonV2ScreenshotTest(
-    private val parameters: Pair<ButtonParametersV2, NightMode>
+    private val parameters: Pair<ButtonParametersV2, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         Surface(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             // Display buttons in a full width container with visible background to help distinguish
             // full width from non-full width variants and light mode from dark mode variants
@@ -36,7 +36,7 @@ internal class GdsButtonV2ScreenshotTest(
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.background)
                     .padding(xsmallPadding),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 GdsButton(
                     modifier = parameters.modifier,
@@ -48,7 +48,7 @@ internal class GdsButtonV2ScreenshotTest(
                     contentModifier = parameters.contentModifier,
                     textAlign = parameters.textAlign,
                     enabled = parameters.enabled,
-                    loading = parameters.loading
+                    loading = parameters.loading,
                 )
             }
         }

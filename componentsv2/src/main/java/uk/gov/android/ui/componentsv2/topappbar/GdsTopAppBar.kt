@@ -60,7 +60,7 @@ fun GdsTopAppBar(
     alignment: TopAppBarAlignment = TopAppBarAlignment.Start,
     scrollBehaviour: TopAppBarScrollBehavior? = null,
     topAppBarColors: TopAppBarColors = GdsTopAppBarDefaults.colors(),
-    menu: (@Composable () -> Unit)? = null
+    menu: (@Composable () -> Unit)? = null,
 ) {
     when (alignment) {
         TopAppBarAlignment.Start -> {
@@ -72,7 +72,7 @@ fun GdsTopAppBar(
                 actions,
                 scrollBehaviour,
                 modifier,
-                menu
+                menu,
             )
         }
 
@@ -85,7 +85,7 @@ fun GdsTopAppBar(
                         Text(
                             text = title,
                             style = Typography.headlineMedium,
-                            modifier = Modifier.semantics { heading() }
+                            modifier = Modifier.semantics { heading() },
                         )
                     }
                 },
@@ -95,8 +95,8 @@ fun GdsTopAppBar(
                             onClick = onClick,
                             content = navigationButton,
                             color = GdsIconButtonDefaults.colors().copy(
-                                contentColor = topAppBarColors.navigationIconContentColor
-                            )
+                                contentColor = topAppBarColors.navigationIconContentColor,
+                            ),
                         )
                     }
                 },
@@ -105,7 +105,7 @@ fun GdsTopAppBar(
                 },
                 colors = topAppBarColors,
                 scrollBehavior = scrollBehaviour,
-                modifier = modifier
+                modifier = modifier,
             )
         }
     }
@@ -116,15 +116,15 @@ fun GdsTopAppBar(
 private fun ActionsAndMenu(
     actions: ImmutableList<TopBarActionButton>?,
     topAppBarColors: TopAppBarColors,
-    menu: @Composable (() -> Unit)?
+    menu: @Composable (() -> Unit)?,
 ) {
     actions?.forEach { action ->
         GdsIconButton(
             onClick = action.onClick,
             content = action.content,
             color = GdsIconButtonDefaults.colors().copy(
-                contentColor = topAppBarColors.actionIconContentColor
-            )
+                contentColor = topAppBarColors.actionIconContentColor,
+            ),
         )
     }
     menu?.let {
@@ -142,7 +142,7 @@ private fun StartAlignedTopAppBar(
     actions: ImmutableList<TopBarActionButton>?,
     scrollBehaviour: TopAppBarScrollBehavior?,
     modifier: Modifier = Modifier,
-    menu: (@Composable () -> Unit)?
+    menu: (@Composable () -> Unit)?,
 ) {
     TopAppBar(
         title = {
@@ -152,7 +152,7 @@ private fun StartAlignedTopAppBar(
                 Text(
                     text = title,
                     style = Typography.headlineMedium,
-                    modifier = Modifier.semantics { heading() }
+                    modifier = Modifier.semantics { heading() },
                 )
             }
         },
@@ -162,8 +162,8 @@ private fun StartAlignedTopAppBar(
                     onClick = onClick,
                     content = navigationButton,
                     color = GdsIconButtonDefaults.colors().copy(
-                        contentColor = topAppBarColors.navigationIconContentColor
-                    )
+                        contentColor = topAppBarColors.navigationIconContentColor,
+                    ),
                 )
             }
         },
@@ -172,7 +172,7 @@ private fun StartAlignedTopAppBar(
         },
         colors = topAppBarColors,
         scrollBehavior = scrollBehaviour,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -185,7 +185,7 @@ data class TopBarActionButton(val content: IconButtonContent, val onClick: () ->
 
 enum class TopAppBarAlignment {
     Start,
-    Centre
+    Centre,
 }
 
 /**
@@ -200,7 +200,7 @@ object GdsTopAppBarDefaults {
         navigationIconContentColor = GdsLocalColorScheme.current.topBarIcon,
         actionIconContentColor = GdsLocalColorScheme.current.topBarIcon,
         scrolledContainerColor = GdsLocalColorScheme.current
-            .topBarScrolledBackground
+            .topBarScrolledBackground,
     )
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -217,7 +217,7 @@ data class GdsTopAppBarPreviewParams(
     val titleColor: Color? = null,
     val navigationIconColor: Color? = null,
     val actionsIconColor: Color? = null,
-    val bottomDivider: Boolean = false
+    val bottomDivider: Boolean = false,
 )
 
 /**
@@ -234,86 +234,29 @@ internal class GdsTopAppBarPreviewProvider : PreviewParameterProvider<GdsTopAppB
             actions = persistentListOf(
                 ActionsPreviewParams(
                     Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
-            )
-        ),
-        GdsTopAppBarPreviewParams(
-            title = R.string.top_app_bar_title,
-            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
-            navigationContentDescription = R.string.back_icon_button,
-            actions = persistentListOf(
-                ActionsPreviewParams(
-                    Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
-            )
-        ),
-        GdsTopAppBarPreviewParams(
-            title = R.string.top_app_bar_title,
-            navigationIcon = Icons.Default.Close,
-            navigationContentDescription = R.string.close_icon_button
-        ),
-        GdsTopAppBarPreviewParams(
-            navigationIcon = Icons.Default.Close,
-            navigationContentDescription = R.string.close_icon_button
-        ),
-        GdsTopAppBarPreviewParams(
-            title = R.string.top_app_bar_title,
-            navigationIcon = Icons.Default.Close,
-            navigationContentDescription = R.string.close_icon_button,
-            actions = persistentListOf(
-                ActionsPreviewParams(
-                    Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
-            ),
-            titleColor = Color.Red,
-            navigationIconColor = Color.Blue,
-            actionsIconColor = Color.Magenta
-        ),
-        GdsTopAppBarPreviewParams(
-            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
-            navigationContentDescription = R.string.back_icon_button,
-            actions = persistentListOf(
-                ActionsPreviewParams(
-                    Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
-            )
-        ),
-        GdsTopAppBarPreviewParams(
-            title = R.string.top_app_bar_title,
-            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
-            navigationContentDescription = R.string.back_icon_button,
-            actions = persistentListOf(
-                ActionsPreviewParams(
-                    Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
-            ),
-            alignment = TopAppBarAlignment.Centre
-        ),
-        GdsTopAppBarPreviewParams(
-            title = R.string.top_app_bar_title,
-            navigationIcon = Icons.Default.Close,
-            navigationContentDescription = R.string.close_icon_button,
-            alignment = TopAppBarAlignment.Centre
-        ),
-        GdsTopAppBarPreviewParams(
-            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
-            navigationContentDescription = R.string.back_icon_button,
-            actions = persistentListOf(
-                ActionsPreviewParams(
-                    Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
+                    R.string.more_vert_icon_button,
                 ),
+            ),
+        ),
+        GdsTopAppBarPreviewParams(
+            title = R.string.top_app_bar_title,
+            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            navigationContentDescription = R.string.back_icon_button,
+            actions = persistentListOf(
                 ActionsPreviewParams(
                     Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
+                    R.string.more_vert_icon_button,
+                ),
             ),
-            alignment = TopAppBarAlignment.Centre
+        ),
+        GdsTopAppBarPreviewParams(
+            title = R.string.top_app_bar_title,
+            navigationIcon = Icons.Default.Close,
+            navigationContentDescription = R.string.close_icon_button,
+        ),
+        GdsTopAppBarPreviewParams(
+            navigationIcon = Icons.Default.Close,
+            navigationContentDescription = R.string.close_icon_button,
         ),
         GdsTopAppBarPreviewParams(
             title = R.string.top_app_bar_title,
@@ -322,13 +265,70 @@ internal class GdsTopAppBarPreviewProvider : PreviewParameterProvider<GdsTopAppB
             actions = persistentListOf(
                 ActionsPreviewParams(
                     Icons.Default.MoreVert,
-                    R.string.more_vert_icon_button
-                )
+                    R.string.more_vert_icon_button,
+                ),
             ),
             titleColor = Color.Red,
             navigationIconColor = Color.Blue,
             actionsIconColor = Color.Magenta,
-            alignment = TopAppBarAlignment.Centre
+        ),
+        GdsTopAppBarPreviewParams(
+            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            navigationContentDescription = R.string.back_icon_button,
+            actions = persistentListOf(
+                ActionsPreviewParams(
+                    Icons.Default.MoreVert,
+                    R.string.more_vert_icon_button,
+                ),
+            ),
+        ),
+        GdsTopAppBarPreviewParams(
+            title = R.string.top_app_bar_title,
+            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            navigationContentDescription = R.string.back_icon_button,
+            actions = persistentListOf(
+                ActionsPreviewParams(
+                    Icons.Default.MoreVert,
+                    R.string.more_vert_icon_button,
+                ),
+            ),
+            alignment = TopAppBarAlignment.Centre,
+        ),
+        GdsTopAppBarPreviewParams(
+            title = R.string.top_app_bar_title,
+            navigationIcon = Icons.Default.Close,
+            navigationContentDescription = R.string.close_icon_button,
+            alignment = TopAppBarAlignment.Centre,
+        ),
+        GdsTopAppBarPreviewParams(
+            navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            navigationContentDescription = R.string.back_icon_button,
+            actions = persistentListOf(
+                ActionsPreviewParams(
+                    Icons.Default.MoreVert,
+                    R.string.more_vert_icon_button,
+                ),
+                ActionsPreviewParams(
+                    Icons.Default.MoreVert,
+                    R.string.more_vert_icon_button,
+                ),
+            ),
+            alignment = TopAppBarAlignment.Centre,
+        ),
+        GdsTopAppBarPreviewParams(
+            title = R.string.top_app_bar_title,
+            navigationIcon = Icons.Default.Close,
+            navigationContentDescription = R.string.close_icon_button,
+            actions = persistentListOf(
+                ActionsPreviewParams(
+                    Icons.Default.MoreVert,
+                    R.string.more_vert_icon_button,
+                ),
+            ),
+            titleColor = Color.Red,
+            navigationIconColor = Color.Blue,
+            actionsIconColor = Color.Magenta,
+            alignment = TopAppBarAlignment.Centre,
         ),
         GdsTopAppBarPreviewParams(
             title = R.string.top_app_bar_title,
@@ -336,11 +336,11 @@ internal class GdsTopAppBarPreviewProvider : PreviewParameterProvider<GdsTopAppB
             actions = persistentListOf(
                 ActionsPreviewParams(
                     Icons.Outlined.Info,
-                    R.string.info_icon_button
-                )
+                    R.string.info_icon_button,
+                ),
             ),
-            alignment = TopAppBarAlignment.Centre
-        )
+            alignment = TopAppBarAlignment.Centre,
+        ),
     )
 }
 
@@ -349,7 +349,7 @@ internal class GdsTopAppBarPreviewProvider : PreviewParameterProvider<GdsTopAppB
 @Composable
 internal fun GdsTopAppBarPreview(
     @PreviewParameter(GdsTopAppBarPreviewProvider::class)
-    params: GdsTopAppBarPreviewParams
+    params: GdsTopAppBarPreviewParams,
 ) {
     GdsTheme {
         val actions: List<TopBarActionButton>? = params.actions?.map { action ->
@@ -357,9 +357,9 @@ internal fun GdsTopAppBarPreview(
             TopBarActionButton(
                 content = IconButtonContent(
                     action.icon,
-                    contentDesc
+                    contentDesc,
                 ),
-                {}
+                {},
             )
         }
         GdsTopAppBar(
@@ -368,7 +368,7 @@ internal fun GdsTopAppBarPreview(
             navigationButton = params.navigationIcon?.let {
                 IconButtonContent(
                     icon = params.navigationIcon,
-                    contentDescription = stringResource(params.navigationContentDescription)
+                    contentDescription = stringResource(params.navigationContentDescription),
                 )
             },
             actions = actions?.toImmutableList(),
@@ -377,9 +377,9 @@ internal fun GdsTopAppBarPreview(
                 navigationIconContentColor =
                     params.navigationIconColor ?: GdsLocalColorScheme.current.topBarIcon,
                 actionIconContentColor =
-                    params.actionsIconColor ?: GdsLocalColorScheme.current.topBarIcon
+                    params.actionsIconColor ?: GdsLocalColorScheme.current.topBarIcon,
             ),
-            alignment = params.alignment
+            alignment = params.alignment,
         )
     }
 }

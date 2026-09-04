@@ -46,7 +46,7 @@ object CameraContentStateAssertions {
     fun hasImageAnalysis(matcher: Matcher<ImageAnalysis>): Matcher<in ImageAnalyzer.State> =
         HasImageAnalysis(matcher)
     fun hasNoImageAnalysis() = hasImageAnalysis(
-        nullValue(ImageAnalysis::class.java)
+        nullValue(ImageAnalysis::class.java),
     )
 
     fun hasImageCapture() = hasImageCapture(any(ImageCapture::class.java))
@@ -54,7 +54,7 @@ object CameraContentStateAssertions {
     fun hasImageCapture(matcher: Matcher<ImageCapture>): Matcher<in ImageCapturer.State> =
         HasImageCapture(matcher)
     fun hasNoImageCapture() = hasImageCapture(
-        nullValue(ImageCapture::class.java)
+        nullValue(ImageCapture::class.java),
     )
 
     fun hasSurfaceRequest() = hasSurfaceRequest(any(SurfaceRequest::class.java))
@@ -62,6 +62,6 @@ object CameraContentStateAssertions {
     fun hasSurfaceRequest(matcher: Matcher<SurfaceRequest>): Matcher<in SurfaceRequester.State> =
         HasSurfaceRequest(matcher)
     fun hasNoSurfaceRequest() = hasSurfaceRequest(
-        nullValue(SurfaceRequest::class.java)
+        nullValue(SurfaceRequest::class.java),
     )
 }

@@ -6,8 +6,8 @@ object ListExtensions {
     fun <T : Any> Iterable<T>.toNightModePairs(): List<Pair<T, NightMode>> = cartesianProduct(
         listOf(
             NightMode.NOTNIGHT,
-            NightMode.NIGHT
-        )
+            NightMode.NIGHT,
+        ),
     )
 
     /**

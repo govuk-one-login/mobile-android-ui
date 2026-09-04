@@ -46,28 +46,28 @@ class BarcodeScanResultLoggingCallbackTest {
     @Test
     fun emptyScans() = performLoggingFlow(
         result = BarcodeScanResult.EmptyScan,
-        expectedMessage = "Barcode data not found"
+        expectedMessage = "Barcode data not found",
     )
 
     @Test
     fun singleUrlScans() = "https://this.is.a.unit.test".run {
         performLoggingFlow(
             result = BarcodeScanResult.Single(urlQrCode(this)),
-            expectedMessage = this
+            expectedMessage = this,
         )
     }
 
     @Test
     fun singleUnknownScans() = performLoggingFlow(
         result = BarcodeScanResult.Single(unknown()),
-        expectedMessage = "No URL found from single result!"
+        expectedMessage = "No URL found from single result!",
     )
 
     @Test
     fun exceptions() = "This is a unit test!".run {
         performLoggingFlow(
             result = BarcodeScanResult.Failure(Exception(this)),
-            expectedMessage = this
+            expectedMessage = this,
         )
     }
 
@@ -77,15 +77,15 @@ class BarcodeScanResultLoggingCallbackTest {
             BarcodeScanResult.Success(
                 listOf(
                     "https://this.is.a.unit.test",
-                    "https://this.is.another.test"
-                ).asUrlBarcodes()
+                    "https://this.is.another.test",
+                ).asUrlBarcodes(),
             ),
-        expectedMessage = "https://this.is.a.unit.test"
+        expectedMessage = "https://this.is.a.unit.test",
     ).also {
         assert(
             loggingFile.readLines().none {
                 it.contains("https://this.is.another.test")
-            }
+            },
         )
     }
 
@@ -95,10 +95,10 @@ class BarcodeScanResultLoggingCallbackTest {
             BarcodeScanResult.Success(
                 listOf(
                     unknown(),
-                    unknown()
-                )
+                    unknown(),
+                ),
             ),
-        expectedMessage = "No URL found!"
+        expectedMessage = "No URL found!",
     )
 
     private fun performLoggingFlow(result: BarcodeScanResult, expectedMessage: String) = runTest {
@@ -108,9 +108,9 @@ class BarcodeScanResultLoggingCallbackTest {
         assert(
             loggingOutput.any {
                 it.contains(
-                    "I/BarcodeScanResultLoggingCallback: Barcode scanning result: $expectedMessage"
+                    "I/BarcodeScanResultLoggingCallback: Barcode scanning result: $expectedMessage",
                 )
-            }
+            },
         ) {
             "Couldn't find the \"$expectedMessage\" in: $loggingOutput"
         }

@@ -38,7 +38,7 @@ import uk.gov.android.ui.theme.xsmallPadding
     message = "Use GdsAnnotatedString with textStyle parameter instead" +
         "- will aim to be removed on 1st of July",
     replaceWith = ReplaceWith("uk.gov.android.ui.componentsv2.text - GdsAnnotatedString"),
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 @Composable
 fun GdsAnnotatedString(
@@ -52,7 +52,7 @@ fun GdsAnnotatedString(
     iconColor: Color? = null,
     iconBackgroundColor: Color = MaterialTheme.colorScheme.background,
     isIconTrailing: Boolean = true,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
 ) = GdsAnnotatedString(
     text = text,
     fontWeight = fontWeight,
@@ -65,7 +65,7 @@ fun GdsAnnotatedString(
     iconColor = iconColor,
     iconBackgroundColor = iconBackgroundColor,
     isIconTrailing = isIconTrailing,
-    textAlign = textAlign
+    textAlign = textAlign,
 )
 
 @Composable
@@ -81,7 +81,7 @@ fun GdsAnnotatedString(
     iconColor: Color? = null,
     iconBackgroundColor: Color = MaterialTheme.colorScheme.background,
     isIconTrailing: Boolean = true,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
 ) {
     val annotatedString: AnnotatedString = buildAnnotatedString {
         if (isIconTrailing) {
@@ -99,8 +99,8 @@ fun GdsAnnotatedString(
                 Placeholder(
                     width = 1.5.em,
                     height = 1.em,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter
-                )
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+                ),
             ) {
                 GdsIcon(
                     image = icon,
@@ -111,10 +111,10 @@ fun GdsAnnotatedString(
                         Modifier.padding(start = xsmallPadding)
                     } else {
                         Modifier
-                    }.semantics { invisibleToUser() }
+                    }.semantics { invisibleToUser() },
                 )
-            }
-        )
+            },
+        ),
     )
     Text(
         modifier = modifier.padding(top = buttonShadowSize),
@@ -123,7 +123,7 @@ fun GdsAnnotatedString(
         fontWeight = fontWeight,
         style = textStyle,
         textAlign = textAlign,
-        color = color
+        color = color,
     )
 }
 
@@ -135,7 +135,7 @@ internal data class AnnotatedStringPreviewParameters(
     val iconContentDescription: Int,
     val iconColor: Color = Color.Unspecified,
     val iconBackgroundColor: Color = Color.Unspecified,
-    val isIconTrailing: Boolean = true
+    val isIconTrailing: Boolean = true,
 )
 
 internal class AnnotatedStringPreviewParametersProvider :
@@ -146,7 +146,7 @@ internal class AnnotatedStringPreviewParametersProvider :
             fontWeight = FontWeight.Bold,
             icon = R.drawable.ic_external_site,
             iconContentDescription = R.string.icon_content_desc,
-            isIconTrailing = true
+            isIconTrailing = true,
         ),
         AnnotatedStringPreviewParameters(
             text = R.string.annotated_string,
@@ -154,8 +154,8 @@ internal class AnnotatedStringPreviewParametersProvider :
             icon = R.drawable.ic_external_site,
             iconContentDescription = R.string.icon_content_desc,
             isIconTrailing = false,
-            iconColor = Color.Green
-        )
+            iconColor = Color.Green,
+        ),
     )
 }
 
@@ -163,11 +163,11 @@ internal class AnnotatedStringPreviewParametersProvider :
 @PreviewLightDark
 internal fun AnnotatedStringPreview(
     @PreviewParameter(AnnotatedStringPreviewParametersProvider::class)
-    parameters: AnnotatedStringPreviewParameters
+    parameters: AnnotatedStringPreviewParameters,
 ) {
     GdsTheme {
         Column(
-            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background)
+            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
         ) {
             GdsAnnotatedString(
                 text = stringResource(parameters.text),
@@ -178,7 +178,7 @@ internal fun AnnotatedStringPreview(
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
                 isIconTrailing = parameters.isIconTrailing,
-                textStyle = Typography.labelLarge
+                textStyle = Typography.labelLarge,
             )
         }
     }

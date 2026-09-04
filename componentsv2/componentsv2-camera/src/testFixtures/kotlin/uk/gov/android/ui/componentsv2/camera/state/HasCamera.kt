@@ -8,7 +8,7 @@ import uk.gov.android.ui.componentsv2.camera.state.camera.CameraHolder
 
 internal class HasCamera(
     private val matcher: Matcher<Camera>,
-    private val getCamera: CameraHolder.State?.() -> Camera?
+    private val getCamera: CameraHolder.State?.() -> Camera?,
 ) : TypeSafeMatcher<CameraHolder.State>() {
 
     override fun matchesSafely(item: CameraHolder.State?): Boolean =
@@ -20,7 +20,7 @@ internal class HasCamera(
 
     override fun describeMismatchSafely(
         item: CameraHolder.State?,
-        mismatchDescription: Description?
+        mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(getCamera(item), mismatchDescription)
     }
@@ -28,12 +28,12 @@ internal class HasCamera(
     companion object {
         fun viaFlow(matcher: Matcher<Camera>) = HasCamera(
             matcher = matcher,
-            getCamera = { this?.camera?.value }
+            getCamera = { this?.camera?.value },
         )
 
         fun viaFunction(matcher: Matcher<Camera>) = HasCamera(
             matcher = matcher,
-            getCamera = { this?.getCurrentCamera() }
+            getCamera = { this?.getCurrentCamera() },
         )
     }
 }

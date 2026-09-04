@@ -32,14 +32,14 @@ import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 class CentrallyCroppedImageProxyConverter(
     private val expectedFormat: Int = ImageFormat.YUV_420_888,
     private val relativeScanningWidth: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
-    private val relativeScanningHeight: Float = IMAGE_WIDTH_CROP_MULTIPLIER
+    private val relativeScanningHeight: Float = IMAGE_WIDTH_CROP_MULTIPLIER,
 ) : ImageProxyConverter {
     @OptIn(ExperimentalGetImage::class)
     override fun convert(proxy: ImageProxy): InputImage? = proxy.image?.let { image ->
         if (proxy.format == expectedFormat) {
             val (size, imageArray) = image.toCentralScanningArea(
                 relativeScanningWidth = relativeScanningWidth,
-                relativeScanningHeight = relativeScanningHeight
+                relativeScanningHeight = relativeScanningHeight,
             )
 
             InputImage.fromByteArray(
@@ -47,7 +47,7 @@ class CentrallyCroppedImageProxyConverter(
                 size.width.toInt(),
                 size.height.toInt(),
                 proxy.imageInfo.rotationDegrees,
-                ImageFormat.NV21
+                ImageFormat.NV21,
             )
         } else {
             null
@@ -60,7 +60,7 @@ class CentrallyCroppedImageProxyConverter(
      */
     fun Image.toCentralScanningArea(
         relativeScanningWidth: Float,
-        relativeScanningHeight: Float
+        relativeScanningHeight: Float,
     ): Pair<Size, ByteArray> {
         val centerX = width / 2
         val centerY = height / 2
@@ -73,7 +73,7 @@ class CentrallyCroppedImageProxyConverter(
             scanningAreaStartWidth.toInt(),
             scanningAreaStartHeight.toInt(),
             (scanningAreaStartWidth + scanningAreaWidth).toInt(),
-            (scanningAreaStartHeight + scanningAreaHeight).toInt()
+            (scanningAreaStartHeight + scanningAreaHeight).toInt(),
         )
 
         val nv21 = yuv420888ToNv21(this)
@@ -81,7 +81,7 @@ class CentrallyCroppedImageProxyConverter(
 
         return Size(
             scanningAreaWidth,
-            scanningAreaHeight
+            scanningAreaHeight,
         ) to croppedNv21
     }
 
@@ -158,7 +158,7 @@ class CentrallyCroppedImageProxyConverter(
     private fun cropNV21(img: ByteArray, imgWidth: Int, cropRect: Rect): ByteArray {
         // 1.5 mean 1.0 for Y and 0.25 each for U and V
         val croppedImgSize = floor(
-            cropRect.width() * cropRect.height() * NV21_CROP_RECT_MULTIPLIER
+            cropRect.width() * cropRect.height() * NV21_CROP_RECT_MULTIPLIER,
         ).toInt()
         val croppedImg = ByteArray(croppedImgSize)
 

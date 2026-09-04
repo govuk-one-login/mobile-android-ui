@@ -20,13 +20,13 @@ sealed class PatternsDestination(val label: String) {
     @Serializable
     data class Placeholder(val text: String) :
         PatternsDestination(
-            label = text
+            label = text,
         )
 
     @Serializable
     data class DetailedItem(val text: String, val items: List<DetailItem>) :
         PatternsDestination(
-            label = text
+            label = text,
         ) {
 
         companion object {
@@ -36,7 +36,7 @@ sealed class PatternsDestination(val label: String) {
              */
             val typeMap =
                 mapOf(
-                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>()
+                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>(),
                 )
         }
     }
@@ -47,14 +47,14 @@ sealed class PatternsDestination(val label: String) {
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
                     label = arguments.label,
-                    modifier = modifier.padding(smallPadding)
+                    modifier = modifier.padding(smallPadding),
                 )
             }
             composable<DetailedItem>(typeMap = DetailedItem.typeMap) { navBackStackEntry ->
                 val arguments: DetailedItem = navBackStackEntry.toRoute()
                 PatternListDetail(
                     items = arguments.items.toPersistentList(),
-                    modifier = modifier
+                    modifier = modifier,
                 )
             }
         }
@@ -67,13 +67,13 @@ sealed class PatternsDestination(val label: String) {
                     listOf(
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN,
-                            name = "Left Aligned Screen"
+                            name = "Left Aligned Screen",
                         ),
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN_NO_TITLE,
-                            name = "Left Aligned Screen No Title"
-                        )
-                    )
+                            name = "Left Aligned Screen No Title",
+                        ),
+                    ),
             ),
             DetailedItem(
                 text = "Centre Aligned Screen",
@@ -81,13 +81,13 @@ sealed class PatternsDestination(val label: String) {
                     listOf(
                         DetailItem(
                             label = CENTRED_ALIGNED_SCREEN,
-                            name = "Centred Aligned Screen"
+                            name = "Centred Aligned Screen",
                         ),
                         DetailItem(
                             label = CENTRED_ALIGNED_SCROLLABLE_SCREEN,
-                            name = "Centred Aligned Scrollable Screen"
-                        )
-                    )
+                            name = "Centred Aligned Scrollable Screen",
+                        ),
+                    ),
             ),
             DetailedItem(
                 text = "Error Screen",
@@ -95,29 +95,29 @@ sealed class PatternsDestination(val label: String) {
                     listOf(
                         DetailItem(
                             label = ERROR_SCREEN,
-                            name = "Error Screen"
+                            name = "Error Screen",
                         ),
                         DetailItem(
                             label = ERROR_SCROLLABLE_SCREEN,
-                            name = "Error Scrollable Screen"
+                            name = "Error Scrollable Screen",
                         ),
                         DetailItem(
                             label = ERROR_BOTTOM_CONTENT_LARGE_SCREEN,
-                            name = "Error Bottom Content Larger Than 1/3 Screen"
+                            name = "Error Bottom Content Larger Than 1/3 Screen",
                         ),
                         DetailItem(
                             label = ERROR_SCREEN_SUPPORTING_TEXT,
-                            name = "Error Screen supporting text"
-                        )
-                    )
+                            name = "Error Screen supporting text",
+                        ),
+                    ),
             ),
             DetailedItem(
                 text = "Loading Screen",
                 items =
                     listOf(
-                        DetailItem(label = LOADING_SCREEN, name = "Loading Screen")
-                    )
-            )
+                        DetailItem(label = LOADING_SCREEN, name = "Loading Screen"),
+                    ),
+            ),
             // Add new demo items here
         ).sortedBy(PatternsDestination::label)
     }

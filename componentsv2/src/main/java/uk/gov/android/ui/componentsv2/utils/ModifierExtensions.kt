@@ -29,7 +29,7 @@ object ModifierExtensions {
     fun Modifier.elevatedCardModifier(shadow: Dp?) = fillMaxWidth()
         .shadow(
             elevation = shadow ?: cardShadow,
-            shape = RoundedCornerShape(tileCornerRadius)
+            shape = RoundedCornerShape(tileCornerRadius),
         )
 
     fun Modifier.customTilePadding(apply: Boolean) = if (apply) {
@@ -66,7 +66,7 @@ internal fun Modifier.customBottomBorder(color: Color, shape: Shape, strokeWidth
         val outline = shape.createOutline(
             size = size,
             layoutDirection = layoutDirection,
-            density = this
+            density = this,
         )
 
         clipPath(path = outline.toPath()) {
@@ -74,12 +74,12 @@ internal fun Modifier.customBottomBorder(color: Color, shape: Shape, strokeWidth
                 color = color,
                 topLeft = Offset(
                     x = 0f,
-                    y = size.height - strokeWidthPx
+                    y = size.height - strokeWidthPx,
                 ),
                 size = Size(
                     width = size.width,
-                    height = strokeWidthPx
-                )
+                    height = strokeWidthPx,
+                ),
             )
         }
     }

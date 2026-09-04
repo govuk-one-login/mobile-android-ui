@@ -26,7 +26,7 @@ sealed class ComponentsDestination(open val label: String) {
     @Serializable
     data class DetailedItem(val text: String, val items: List<DetailItem>) :
         ComponentsDestination(
-            label = text
+            label = text,
         ) {
 
         companion object {
@@ -36,7 +36,7 @@ sealed class ComponentsDestination(open val label: String) {
              */
             val typeMap =
                 mapOf(
-                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>()
+                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>(),
                 )
         }
     }
@@ -47,13 +47,13 @@ sealed class ComponentsDestination(open val label: String) {
     companion object {
         fun NavGraphBuilder.applyComponentDestinations(
             modifier: Modifier = Modifier,
-            onNavigate: (Any) -> Unit = {}
+            onNavigate: (Any) -> Unit = {},
         ) {
             composable<Placeholder> { navBackStackEntry ->
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
                     label = arguments.label,
-                    modifier = modifier.padding(smallPadding)
+                    modifier = modifier.padding(smallPadding),
                 )
             }
             composable<QrScannerResult> { navBackStackEntry ->
@@ -62,10 +62,10 @@ sealed class ComponentsDestination(open val label: String) {
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = modifier.fillMaxSize()
+                    modifier = modifier.fillMaxSize(),
                 ) {
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(spacingDouble)
+                        verticalArrangement = Arrangement.spacedBy(spacingDouble),
                     ) {
                         Text("URL obtained from barcode:")
                         Text(arguments.url)
@@ -77,7 +77,7 @@ sealed class ComponentsDestination(open val label: String) {
                 ComponentListDetail(
                     items = arguments.items.toPersistentList(),
                     modifier = modifier,
-                    onNavigate = onNavigate
+                    onNavigate = onNavigate,
                 )
             }
         }
@@ -92,55 +92,55 @@ sealed class ComponentsDestination(open val label: String) {
                         DetailItem(label = CAMERA_CONTENT, name = "Camera Content: Demo"),
                         DetailItem(
                             label = QR_CODE_CENTRALISED_SCANNING,
-                            name = QR_CODE_CENTRALISED_SCANNING
+                            name = QR_CODE_CENTRALISED_SCANNING,
                         ),
-                        DetailItem(label = QR_CODE_SCANNING, name = QR_CODE_SCANNING)
-                    )
+                        DetailItem(label = QR_CODE_SCANNING, name = QR_CODE_SCANNING),
+                    ),
             ),
             DetailedItem(
                 text = "Dialogue",
                 items =
                     listOf(
-                        DetailItem(label = DIALOGUE, name = "Dialogue")
-                    )
+                        DetailItem(label = DIALOGUE, name = "Dialogue"),
+                    ),
             ),
             DetailedItem(
                 text = "Inputs",
                 items =
                     listOf(
-                        DetailItem(label = RADIO, name = "Radio")
-                    )
+                        DetailItem(label = RADIO, name = "Radio"),
+                    ),
             ),
             DetailedItem(
                 text = "List",
                 items =
                     listOf(
                         DetailItem(label = NUMBERED_LIST, name = "Numbered List"),
-                        DetailItem(label = BULLETED_LIST, name = "Bulleted List")
-                    )
+                        DetailItem(label = BULLETED_LIST, name = "Bulleted List"),
+                    ),
             ),
             DetailedItem(
                 text = "Button",
                 items =
                     listOf(
                         DetailItem(label = PRIMARY_BUTTON, name = "Primary Button"),
-                        DetailItem(label = SECONDARY_BUTTON, name = "Secondary Button")
+                        DetailItem(label = SECONDARY_BUTTON, name = "Secondary Button"),
 
-                    )
+                    ),
             ),
             DetailedItem(
                 text = "Card",
                 items =
                     listOf(
-                        DetailItem(label = CARD, name = "Card with button and image")
-                    )
+                        DetailItem(label = CARD, name = "Card with button and image"),
+                    ),
             ),
             DetailedItem(
                 text = "Heading",
                 items =
                     listOf(
-                        DetailItem(label = HEADING, name = "Heading with body style")
-                    )
+                        DetailItem(label = HEADING, name = "Heading with body style"),
+                    ),
             ),
             Placeholder(text = "Images"),
             Placeholder(text = "Menu"),
@@ -149,37 +149,37 @@ sealed class ComponentsDestination(open val label: String) {
                 text = "Text",
                 items =
                     listOf(
-                        DetailItem(label = ANNOTATED_STRING, name = "GdsAnnotatedString")
-                    )
+                        DetailItem(label = ANNOTATED_STRING, name = "GdsAnnotatedString"),
+                    ),
             ),
             DetailedItem(
                 text = "Warning",
                 items =
                     listOf(
-                        DetailItem(label = WARNING, name = "Warning")
-                    )
+                        DetailItem(label = WARNING, name = "Warning"),
+                    ),
             ),
             DetailedItem(
                 text = "Status",
                 items =
                     listOf(
-                        DetailItem(label = STATUS_OVERLAY, name = "Status Overlay")
-                    )
+                        DetailItem(label = STATUS_OVERLAY, name = "Status Overlay"),
+                    ),
             ),
             DetailedItem(
                 text = "Top App Bar",
                 items =
                     listOf(
-                        DetailItem(label = TOP_APP_BAR, name = "Top App Bar")
-                    )
+                        DetailItem(label = TOP_APP_BAR, name = "Top App Bar"),
+                    ),
             ),
             DetailedItem(
                 text = "Row List",
                 items =
                     listOf(
-                        DetailItem(label = ROW_LIST, name = "Row List")
-                    )
-            )
+                        DetailItem(label = ROW_LIST, name = "Row List"),
+                    ),
+            ),
         ).sortedBy(ComponentsDestination::label)
     }
 }

@@ -16,6 +16,6 @@ import androidx.compose.ui.semantics.semantics
 internal fun Modifier.clearListSemanticsForTalkBack(): Modifier = this.semantics {
     collectionInfo = CollectionInfo(
         rowCount = 0,
-        columnCount = 0
+        columnCount = 0,
     )
 }

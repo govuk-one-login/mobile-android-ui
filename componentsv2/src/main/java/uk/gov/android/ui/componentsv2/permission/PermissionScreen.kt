@@ -11,14 +11,14 @@ import com.google.accompanist.permissions.shouldShowRationale
 fun PermissionScreen(
     permissionState: PermissionState,
     logic: PermissionLogic,
-    hasPreviouslyDeniedPermission: Boolean = false
+    hasPreviouslyDeniedPermission: Boolean = false,
 ) = PermissionScreen(
     hasPreviouslyDeniedPermission = hasPreviouslyDeniedPermission,
     onGrantPermission = logic.onGrantPermission,
     onPermissionPermanentlyDenied = logic.onPermissionPermanentlyDenied,
     onRequirePermission = logic.onRequirePermission,
     onShowRationale = logic.onShowRationale,
-    permissionState = permissionState
+    permissionState = permissionState,
 )
 
 /**
@@ -36,16 +36,16 @@ fun PermissionScreen(
     hasPreviouslyDeniedPermission: Boolean = false,
     onGrantPermission: @Composable () -> Unit = {},
     onPermissionPermanentlyDenied: @Composable (
-        permissionState: PermissionState
+        permissionState: PermissionState,
     ) -> Unit = { _ -> },
     onRequirePermission: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit
+        launchPermission: () -> Unit,
     ) -> Unit = { _, _ -> },
     onShowRationale: @Composable (
         permissionState: PermissionState,
-        launchPermission: () -> Unit
-    ) -> Unit = { _, _ -> }
+        launchPermission: () -> Unit,
+    ) -> Unit = { _, _ -> },
 ) {
     when {
         permissionState.status.isGranted -> onGrantPermission()

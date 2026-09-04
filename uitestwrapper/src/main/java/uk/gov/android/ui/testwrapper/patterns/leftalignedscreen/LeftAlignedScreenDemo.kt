@@ -28,18 +28,18 @@ fun LeftAlignedScreenDemo() {
                 selectedItem = selectedIndex,
                 onItemSelected = { selectedItem ->
                     selectedIndex = selectedItem
-                }
+                },
             ),
             LeftAlignedScreenBodyV2.SecondaryButton(text = "Another button", onClick = {}),
             LeftAlignedScreenBodyV2.NumberedList(
                 title = ListTitle(text = "Numbered list", titleType = TitleType.Text),
-                list = listItems()
+                list = listItems(),
             ),
-            LeftAlignedScreenBodyV2.SecondaryButton(text = "Yet another button", onClick = {})
+            LeftAlignedScreenBodyV2.SecondaryButton(text = "Yet another button", onClick = {}),
         ),
         primaryButton = LeftAlignedScreenButton(text = "Allow", onClick = {}),
         secondaryButton = LeftAlignedScreenButton(text = "Cancel", onClick = {}),
-        forceScroll = true
+        forceScroll = true,
     )
 }
 
@@ -54,17 +54,17 @@ fun LeftAlignedScreenNoTitleDemo() {
                 selectedItem = selectedIndex,
                 onItemSelected = { selectedItem ->
                     selectedIndex = selectedItem
-                }
+                },
             ),
             LeftAlignedScreenBodyV2.SecondaryButton(text = "Another button", onClick = {}),
             LeftAlignedScreenBodyV2.BulletList(
                 title = ListTitle(text = "Numbered list", titleType = TitleType.Text),
-                items = listItems()
+                items = listItems(),
             ),
-            LeftAlignedScreenBodyV2.SecondaryButton(text = "Yet another button", onClick = {})
+            LeftAlignedScreenBodyV2.SecondaryButton(text = "Yet another button", onClick = {}),
         ),
         primaryButton = LeftAlignedScreenButton(text = "Allow", onClick = {}),
-        secondaryButton = LeftAlignedScreenButton(text = "Cancel", onClick = {})
+        secondaryButton = LeftAlignedScreenButton(text = "Cancel", onClick = {}),
     )
 }
 
@@ -92,5 +92,5 @@ private fun listItems(): PersistentList<ListItem> = persistentListOf(
     ListItem(text = "Item twenty one"),
     ListItem(text = "Item twenty two"),
     ListItem(text = "Item twenty three"),
-    ListItem(text = "Item twenty four")
+    ListItem(text = "Item twenty four"),
 )

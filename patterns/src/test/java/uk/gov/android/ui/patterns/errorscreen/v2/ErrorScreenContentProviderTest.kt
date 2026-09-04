@@ -47,7 +47,7 @@ class ErrorScreenContentProviderTest {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = horizontalPadding),
-                            color = colorScheme.onBackground
+                            color = colorScheme.onBackground,
                         )
                     },
                     title = { horizontalPadding ->
@@ -55,9 +55,9 @@ class ErrorScreenContentProviderTest {
                             text = content.title,
                             modifier = Modifier
                                 .padding(horizontal = horizontalPadding),
-                            textAlign = GdsHeadingAlignment.CenterAligned
+                            textAlign = GdsHeadingAlignment.CenterAligned,
                         )
-                    }
+                    },
                 )
             }
         }

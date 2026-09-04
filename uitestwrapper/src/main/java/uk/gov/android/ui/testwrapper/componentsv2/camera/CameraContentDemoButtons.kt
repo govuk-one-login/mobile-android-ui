@@ -21,36 +21,36 @@ object CameraContentDemoButtons {
     @Composable
     fun CameraRequirePermissionButton(
         modifier: Modifier = Modifier,
-        launchPermission: () -> Unit = {}
+        launchPermission: () -> Unit = {},
     ) {
         GdsButton(
             modifier = modifier.testTag("permissionRequiredButton"),
             text =
                 stringResource(
-                    R.string.dialogue_demo_camera_permission_required
+                    R.string.dialogue_demo_camera_permission_required,
                 ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
                 launchPermission()
-            }
+            },
         )
     }
 
     @Composable
     fun CameraPermissionRationaleButton(
         modifier: Modifier = Modifier,
-        launchPermission: () -> Unit = {}
+        launchPermission: () -> Unit = {},
     ) {
         GdsButton(
             modifier = modifier.testTag("permissionRationaleButton"),
             text =
                 stringResource(
-                    R.string.dialogue_demo_camera_permission_rationale
+                    R.string.dialogue_demo_camera_permission_rationale,
                 ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
                 launchPermission()
-            }
+            },
         )
     }
 
@@ -59,19 +59,19 @@ object CameraContentDemoButtons {
     fun PermanentCameraDenial(
         permissionState: PermissionState,
         context: Context,
-        modifier: Modifier = Modifier
+        modifier: Modifier = Modifier,
     ) {
         Column(modifier = modifier) {
             Text(
                 text =
                     "${permissionState.permission} is permanently denied.\n\n" +
                         "Please update your app settings.",
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             val openSettingsText =
                 stringResource(
-                    R.string.dialogue_demo_camera_open_permissions
+                    R.string.dialogue_demo_camera_open_permissions,
                 )
             GdsButton(
                 modifier = Modifier.testTag("permissionRationaleButton"),
@@ -84,12 +84,12 @@ object CameraContentDemoButtons {
                             Uri.fromParts(
                                 "package",
                                 context.packageName,
-                                null
-                            )
+                                null,
+                            ),
                         )
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
-                }
+                },
             )
         }
     }

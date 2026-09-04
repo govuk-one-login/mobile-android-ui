@@ -39,8 +39,8 @@ class EdgeToEdgeWrapperScreenTest {
                     title = titleText,
                     primaryButton = CentreAlignedScreenButton(
                         text = buttonText,
-                        onClick = { }
-                    )
+                        onClick = { },
+                    ),
                 )
             }
         }

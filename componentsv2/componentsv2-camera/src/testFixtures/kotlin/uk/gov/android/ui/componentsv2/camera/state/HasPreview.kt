@@ -17,7 +17,7 @@ internal class HasPreview(private val matcher: Matcher<Preview>) :
 
     override fun describeMismatchSafely(
         item: ImagePreviewer.State?,
-        mismatchDescription: Description?
+        mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.preview?.value, mismatchDescription)
     }

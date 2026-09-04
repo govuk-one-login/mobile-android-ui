@@ -17,7 +17,7 @@ internal class HasSurfaceRequest(private val matcher: Matcher<SurfaceRequest>) :
 
     override fun describeMismatchSafely(
         item: SurfaceRequester.State?,
-        mismatchDescription: Description?
+        mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.surfaceRequest?.value, mismatchDescription)
     }

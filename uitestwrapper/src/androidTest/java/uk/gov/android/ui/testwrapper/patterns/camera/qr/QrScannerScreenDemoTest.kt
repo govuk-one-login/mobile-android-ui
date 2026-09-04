@@ -15,7 +15,7 @@ class QrScannerScreenDemoTest {
     @get:Rule
     val permissionsRule: GrantPermissionRule =
         GrantPermissionRule.grant(
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
         )
 
     @Test

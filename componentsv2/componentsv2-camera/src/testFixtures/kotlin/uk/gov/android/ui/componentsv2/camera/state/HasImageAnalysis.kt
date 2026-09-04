@@ -17,7 +17,7 @@ internal class HasImageAnalysis(private val matcher: Matcher<ImageAnalysis>) :
 
     override fun describeMismatchSafely(
         item: ImageAnalyzer.State?,
-        mismatchDescription: Description?
+        mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.imageAnalysis?.value, mismatchDescription)
     }

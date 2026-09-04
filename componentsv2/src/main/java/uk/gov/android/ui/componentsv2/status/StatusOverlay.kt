@@ -17,7 +17,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 fun GdsStatusOverlay(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
     SnackbarHost(
         modifier = modifier,
-        hostState = hostState
+        hostState = hostState,
     ) { snackbarData: SnackbarData ->
         GdsSnackBar(snackbarData.visuals.message)
     }
@@ -27,12 +27,12 @@ fun GdsStatusOverlay(hostState: SnackbarHostState, modifier: Modifier = Modifier
 @Composable
 fun GdsSnackBar(message: String) {
     Snackbar(
-        containerColor = GdsLocalColorScheme.current.statusOverlayBackground
+        containerColor = GdsLocalColorScheme.current.statusOverlayBackground,
     ) {
         Text(
             text = message,
             style = ExtraTypography.bodySmallBold,
-            color = GdsLocalColorScheme.current.statusOverlayContent
+            color = GdsLocalColorScheme.current.statusOverlayContent,
         )
     }
 }

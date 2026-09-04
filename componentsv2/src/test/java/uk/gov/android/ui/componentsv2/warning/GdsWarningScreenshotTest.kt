@@ -19,10 +19,10 @@ internal class GdsWarningScreenshotTest(private val parameters: Pair<String, Nig
         val parameters = parameters.first
         Column(
             modifier = Modifier
-                .background(color = Backgrounds.screen.toMappedColors())
+                .background(color = Backgrounds.screen.toMappedColors()),
         ) {
             GdsWarningText(
-                text = parameters
+                text = parameters,
             )
         }
     }

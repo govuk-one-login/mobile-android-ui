@@ -19,13 +19,13 @@ sealed class ThemeDestination(val label: String) {
     @Serializable
     data class Placeholder(val text: String) :
         ThemeDestination(
-            label = text
+            label = text,
         )
 
     @Serializable
     data class DetailedItem(val text: String, val items: List<DetailItem>) :
         ThemeDestination(
-            label = text
+            label = text,
         ) {
 
         companion object {
@@ -35,7 +35,7 @@ sealed class ThemeDestination(val label: String) {
              */
             val typeMap =
                 mapOf(
-                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>()
+                    typeOf<List<DetailItem>>() to navTypeOf<ArrayList<DetailItem>>(),
                 )
         }
     }
@@ -46,14 +46,14 @@ sealed class ThemeDestination(val label: String) {
                 val arguments: Placeholder = navBackStackEntry.toRoute()
                 Placeholder(
                     label = arguments.label,
-                    modifier = modifier.padding(smallPadding)
+                    modifier = modifier.padding(smallPadding),
                 )
             }
             composable<DetailedItem>(typeMap = DetailedItem.typeMap) { navBackStackEntry ->
                 val arguments: DetailedItem = navBackStackEntry.toRoute()
                 ThemeListDetail(
                     items = arguments.items.toPersistentList(),
-                    modifier = modifier
+                    modifier = modifier,
                 )
             }
         }
@@ -63,9 +63,9 @@ sealed class ThemeDestination(val label: String) {
                 text = "Styles",
                 items =
                     listOf(
-                        DetailItem(label = STYLES_SCREEN, name = "Current Styles")
-                    )
-            )
+                        DetailItem(label = STYLES_SCREEN, name = "Current Styles"),
+                    ),
+            ),
             // Add new demo items here
         ).sortedBy(ThemeDestination::label)
     }

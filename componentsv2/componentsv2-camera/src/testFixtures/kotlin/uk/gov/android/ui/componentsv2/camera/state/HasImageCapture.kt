@@ -17,7 +17,7 @@ internal class HasImageCapture(private val matcher: Matcher<ImageCapture>) :
 
     override fun describeMismatchSafely(
         item: ImageCapturer.State?,
-        mismatchDescription: Description?
+        mismatchDescription: Description?,
     ) {
         matcher.describeMismatch(item?.imageCapture?.value, mismatchDescription)
     }

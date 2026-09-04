@@ -22,7 +22,7 @@ class CompleteCameraContentState(
     imageAnalyzer: ImageAnalyzer.Complete = MutableImageAnalyzer(),
     imageCapturer: ImageCapturer.Complete = MutableImageCapturer(),
     imagePreviewer: ImagePreviewer.Complete = MutableImagePreviewer(),
-    surfaceRequester: SurfaceRequester.Complete = MutableSurfaceRequester()
+    surfaceRequester: SurfaceRequester.Complete = MutableSurfaceRequester(),
 ) : CameraHolder.Complete by cameraHolder,
     ImageAnalyzer.Complete by imageAnalyzer,
     ImageCapturer.Complete by imageCapturer,

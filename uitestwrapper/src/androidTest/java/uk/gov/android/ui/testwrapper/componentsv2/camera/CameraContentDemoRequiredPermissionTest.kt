@@ -23,7 +23,7 @@ class CameraContentDemoRequiredPermissionTest {
         screenRule.apply {
             render(Modifier)
             assertPermissionButtonExists(
-                resources.getString(R.string.dialogue_demo_camera_permission_required)
+                resources.getString(R.string.dialogue_demo_camera_permission_required),
             )
             assertCameraIsNotRendered()
         }

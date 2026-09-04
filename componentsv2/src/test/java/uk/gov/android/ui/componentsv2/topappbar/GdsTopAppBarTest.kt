@@ -56,37 +56,37 @@ class GdsTopAppBarTest {
                     TopBarActionButton(
                         content = IconButtonContent(
                             Icons.Default.MoreVert,
-                            moreVertContentDesc
-                        )
+                            moreVertContentDesc,
+                        ),
                     ) { onFirstActionClick = !onFirstActionClick },
                     TopBarActionButton(
                         content = IconButtonContent(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            backContentDesc
-                        )
-                    ) { onSecondActionClick = !onSecondActionClick }
-                )
+                            backContentDesc,
+                        ),
+                    ) { onSecondActionClick = !onSecondActionClick },
+                ),
             )
         }
 
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(R.string.close_icon_button)
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().performClick()
 
             onNodeWithText(
-                context.getString(R.string.top_app_bar_title)
+                context.getString(R.string.top_app_bar_title),
             ).assertIsDisplayed()
 
             composeTestRule.apply {
                 onNodeWithContentDescription(
-                    context.getString(R.string.more_vert_icon_button)
+                    context.getString(R.string.more_vert_icon_button),
                 ).assertIsDisplayed().performClick()
             }
 
             composeTestRule.apply {
                 onNodeWithContentDescription(
-                    context.getString(R.string.back_icon_button)
+                    context.getString(R.string.back_icon_button),
                 ).assertIsDisplayed().performClick()
             }
 
@@ -104,16 +104,16 @@ class GdsTopAppBarTest {
 
         composeTestRule.apply {
             onNodeWithContentDescription(
-                context.getString(R.string.close_icon_button)
+                context.getString(R.string.close_icon_button),
             ).assertIsDisplayed().assertHasClickAction()
 
             onNodeWithText(
-                context.getString(R.string.top_app_bar_title)
+                context.getString(R.string.top_app_bar_title),
             ).assertIsDisplayed()
 
             composeTestRule.apply {
                 onNodeWithContentDescription(
-                    context.getString(R.string.more_vert_icon_button)
+                    context.getString(R.string.more_vert_icon_button),
                 ).assertIsDisplayed().assertHasClickAction()
             }
         }

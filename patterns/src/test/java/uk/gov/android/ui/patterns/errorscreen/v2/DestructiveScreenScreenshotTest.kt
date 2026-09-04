@@ -20,7 +20,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class DestructiveScreenScreenshotTest(
-    private val parameters: Pair<ErrorScreenContent, NightMode>
+    private val parameters: Pair<ErrorScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -34,7 +34,7 @@ internal class DestructiveScreenScreenshotTest(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = horizontalPadding),
-                        color = colorScheme.onBackground
+                        color = colorScheme.onBackground,
                     )
                 },
                 title = { horizontalPadding ->
@@ -42,7 +42,7 @@ internal class DestructiveScreenScreenshotTest(
                         text = parameters.title,
                         modifier = Modifier
                             .padding(horizontal = horizontalPadding),
-                        textAlign = GdsHeadingAlignment.CenterAligned
+                        textAlign = GdsHeadingAlignment.CenterAligned,
                     )
                 },
                 body = { horizontalPadding ->
@@ -68,7 +68,7 @@ internal class DestructiveScreenScreenshotTest(
                         {
                             SupportingTextBody(text)
                         }
-                    }
+                    },
             )
         }
     }

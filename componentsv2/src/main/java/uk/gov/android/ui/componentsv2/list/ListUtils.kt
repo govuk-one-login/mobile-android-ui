@@ -44,7 +44,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 enum class TitleType {
     BoldText,
     Heading,
-    Text
+    Text,
 }
 
 data class ListTitle(val text: String, val titleType: TitleType)
@@ -54,27 +54,27 @@ data class ListItem(
     @StringRes val spannableText: Int = 0,
     @DrawableRes val icon: Int = 0,
     val iconContentDescription: String = "",
-    val onLinkTapped: (String) -> Unit = {}
+    val onLinkTapped: (String) -> Unit = {},
 )
 
 data class ListContent(
     val text: String = "",
     val annotatedString: AnnotatedString = AnnotatedString(""),
     val inlineTextContent: ImmutableMap<String, InlineTextContent> = persistentMapOf(),
-    val iconContentDescription: String = ""
+    val iconContentDescription: String = "",
 )
 
 internal data class ListWrapper(
     val items: ImmutableList<String> = persistentListOf(),
     val title: ListTitle? = null,
-    val listItems: ImmutableList<ListItem> = persistentListOf()
+    val listItems: ImmutableList<ListItem> = persistentListOf(),
 )
 
 @SuppressLint("ComposeUnstableReceiver")
 @Composable
 fun ListItem.createDisplayText(
     context: Context,
-    boldTextFontFamily: FontFamily? = null
+    boldTextFontFamily: FontFamily? = null,
 ): ListContent = when {
     this.text.isNotEmpty() -> {
         ListContent(text = this.text)
@@ -84,7 +84,7 @@ fun ListItem.createDisplayText(
         val spanned = SpannedString(context.getText(this.spannableText))
         val annotatedString = spanned.toAnnotatedString(
             this.onLinkTapped,
-            fontFamily = boldTextFontFamily
+            fontFamily = boldTextFontFamily,
         )
         ListContent(annotatedString = annotatedString)
     }
@@ -94,7 +94,7 @@ fun ListItem.createDisplayText(
         val annotatedString = spanned.toAnnotatedString(
             this.onLinkTapped,
             isIcon = true,
-            fontFamily = boldTextFontFamily
+            fontFamily = boldTextFontFamily,
         )
         val inlineIconContent = persistentMapOf(
             Pair(
@@ -103,8 +103,8 @@ fun ListItem.createDisplayText(
                     Placeholder(
                         width = iconPlaceholderWidth,
                         height = iconPlaceholdHeight,
-                        placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom
-                    )
+                        placeholderVerticalAlign = PlaceholderVerticalAlign.TextBottom,
+                    ),
                 ) {
                     GdsIcon(
                         image = ImageVector.vectorResource(this.icon),
@@ -113,15 +113,15 @@ fun ListItem.createDisplayText(
                         backgroundColor = MaterialTheme.colorScheme.background,
                         modifier = Modifier
                             .padding(start = xsmallPadding)
-                            .testTag(ICON_TAG)
+                            .testTag(ICON_TAG),
                     )
-                }
-            )
+                },
+            ),
         )
         ListContent(
             annotatedString = annotatedString,
             inlineTextContent = inlineIconContent,
-            iconContentDescription = this.iconContentDescription
+            iconContentDescription = this.iconContentDescription,
         )
     }
 }
@@ -132,7 +132,7 @@ fun ListItem.createDisplayText(
 fun Spanned.toAnnotatedString(
     linkTapListener: (String) -> Unit = {},
     isIcon: Boolean = false,
-    fontFamily: FontFamily? = null
+    fontFamily: FontFamily? = null,
 ): AnnotatedString = buildAnnotatedString {
     append(this@toAnnotatedString.toString())
 
@@ -147,26 +147,26 @@ fun Spanned.toAnnotatedString(
                             SpanStyle(fontFamily = fontFamily, fontWeight = FontWeight.Bold)
                         } ?: run {
                             SpanStyle(
-                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily
+                                fontFamily = ExtraTypography.bodyLargeBold.fontFamily,
                             )
                         },
                         start,
-                        end
+                        end,
                     )
 
                     Typeface.ITALIC -> addStyle(
                         SpanStyle(fontStyle = FontStyle.Italic),
                         start,
-                        end
+                        end,
                     )
 
                     Typeface.BOLD_ITALIC -> addStyle(
                         SpanStyle(
                             fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic
+                            fontStyle = FontStyle.Italic,
                         ),
                         start,
-                        end
+                        end,
                     )
                 }
             }
@@ -175,7 +175,7 @@ fun Spanned.toAnnotatedString(
                 addStyle(
                     SpanStyle(textDecoration = TextDecoration.Underline),
                     start,
-                    end
+                    end,
                 )
             }
 
@@ -184,9 +184,9 @@ fun Spanned.toAnnotatedString(
                 val clickable = LinkAnnotation.Clickable(
                     "URL",
                     styles = TextLinkStyles(
-                        style = SpanStyle(color = Links.default.toMappedColors())
+                        style = SpanStyle(color = Links.default.toMappedColors()),
                     ),
-                    linkInteractionListener = { linkTapListener(url) }
+                    linkInteractionListener = { linkTapListener(url) },
                 )
                 addLink(clickable, start, end)
                 if (isIcon) {

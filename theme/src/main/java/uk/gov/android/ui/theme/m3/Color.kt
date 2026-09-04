@@ -105,7 +105,7 @@ object Borders {
 @Deprecated(
     message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
         " - will aim to be removed by 19th of May",
-    level = DeprecationLevel.WARNING
+    level = DeprecationLevel.WARNING,
 )
 object QrScannerOverlayDefaults {
     var background: ColorPair = Backgrounds.qrScanner
@@ -118,7 +118,7 @@ object QrScannerOverlayDefaults {
 fun Switch.defaultColors(): SwitchColors = SwitchDefaults.colors().copy(
     uncheckedTrackColor = GdsLocalColorScheme.current.unselectedBackgroundSwitch,
     uncheckedThumbColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
-    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch
+    uncheckedBorderColor = GdsLocalColorScheme.current.unselectedBorderAndHandleSwitch,
 )
 
 /**

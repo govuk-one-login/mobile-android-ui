@@ -75,9 +75,9 @@ class LeftAlignedScreenV2Test {
                     supportingText = content.supportingText,
                     primaryButton = LeftAlignedScreenButton(
                         text = content.primaryButton!!,
-                        onClick = {}
+                        onClick = {},
                     ),
-                    forceScroll = true
+                    forceScroll = true,
                 )
             }
         }
@@ -140,7 +140,7 @@ class LeftAlignedScreenV2Test {
     fun `lazy column has semantic collection info with rows and columns set to zero`() {
         composeTestRule.setContent {
             LeftAlignedScreen(
-                title = { }
+                title = { },
             )
         }
 

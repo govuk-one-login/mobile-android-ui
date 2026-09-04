@@ -56,13 +56,13 @@ sealed class ButtonTypeV2(open val textStyle: TextStyle = ExtraTypography.bodyLa
         val contentColor: Color,
         val containerColor: Color,
         override val textStyle: TextStyle = Typography.bodyLarge.copy(
-            fontWeight = FontWeight.Light
-        )
+            fontWeight = FontWeight.Light,
+        ),
     ) : ButtonTypeV2(textStyle = textStyle)
 
     @Deprecated(
         message = "Use the GdsButton.icon parameter instead. " +
-            "This API is due to be removed on 30th October 2026 (DCMAW-22263)"
+            "This API is due to be removed on 30th October 2026 (DCMAW-22263)",
     )
     @Suppress("TooGenericExceptionThrown")
     data class Icon(
@@ -72,8 +72,8 @@ sealed class ButtonTypeV2(open val textStyle: TextStyle = ExtraTypography.bodyLa
         val isIconTrailing: Boolean = true,
         val shadowColor: Color = Color.Transparent,
         override val textStyle: TextStyle = Typography.labelLarge.copy(
-            fontWeight = FontWeight.Light
-        )
+            fontWeight = FontWeight.Light,
+        ),
     ) : ButtonTypeV2(textStyle = textStyle) {
         init {
             if (icon != null && contentDescription == null) {
@@ -89,7 +89,7 @@ fun ButtonTypeV2.buttonColors() = when (this) {
 
     is ButtonTypeV2.Custom -> GdsButtonDefaults.customColors(
         containerColor = containerColor,
-        contentColor = contentColor
+        contentColor = contentColor,
     )
 
     is ButtonTypeV2.Destructive -> GdsButtonDefaults.defaultErrorColors()
@@ -124,7 +124,7 @@ object GdsButtonDefaults {
         draggedAlpha = RippleDefaults.RippleAlpha.draggedAlpha,
         focusedAlpha = RippleDefaults.RippleAlpha.focusedAlpha,
         hoveredAlpha = RippleDefaults.RippleAlpha.hoveredAlpha,
-        pressedAlpha = RIPPLE_ALPHA
+        pressedAlpha = RIPPLE_ALPHA,
     )
 
     @Composable
@@ -132,7 +132,7 @@ object GdsButtonDefaults {
         containerColor = colorScheme.primary,
         contentColor = colorScheme.onPrimary,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -140,7 +140,7 @@ object GdsButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = colorScheme.secondary,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -148,7 +148,7 @@ object GdsButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = colorScheme.secondary,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -156,7 +156,7 @@ object GdsButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = colorScheme.secondary,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -164,7 +164,7 @@ object GdsButtonDefaults {
         containerColor = adminButton,
         contentColor = Color.White,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -172,7 +172,7 @@ object GdsButtonDefaults {
         containerColor = colorScheme.error,
         contentColor = colorScheme.onError,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -180,7 +180,7 @@ object GdsButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = GdsLocalColorScheme.current.destructiveNativeButtonText,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -188,7 +188,7 @@ object GdsButtonDefaults {
         contentColor = contentColor,
         containerColor = containerColor,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @Composable
@@ -196,12 +196,12 @@ object GdsButtonDefaults {
         containerColor = GdsLocalColorScheme.current.focusState,
         contentColor = GdsLocalColorScheme.current.focusStateContent,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
-        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
     @OptIn(ExperimentalMaterial3Api::class)
     fun gdsRippleConfig(colour: Color): RippleConfiguration = RippleConfiguration(
         color = colour,
-        rippleAlpha = rippleAlpha
+        rippleAlpha = rippleAlpha,
     )
 }

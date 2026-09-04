@@ -53,12 +53,12 @@ import uk.gov.android.ui.theme.textSizeSubheadline
  */
 private val DefaultTextStyle = TextStyle.Default.copy(
     platformStyle = PlatformTextStyle(
-        includeFontPadding = false
+        includeFontPadding = false,
     ),
     lineHeightStyle = LineHeightStyle(
         alignment = LineHeightStyle.Alignment.Center,
-        trim = LineHeightStyle.Trim.None
-    )
+        trim = LineHeightStyle.Trim.None,
+    ),
 )
 
 /**
@@ -86,74 +86,74 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH1,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH1
+        lineHeight = lineHeightH1,
     ),
     headlineLarge = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH2,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH2
+        lineHeight = lineHeightH2,
     ),
     headlineMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH3,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH3
+        lineHeight = lineHeightH3,
     ),
     headlineSmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeH4,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH4
+        lineHeight = lineHeightH4,
     ),
     bodyLarge = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeBody,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB1
+        lineHeight = lineHeightB1,
     ),
     bodyMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeCallout,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB2
+        lineHeight = lineHeightB2,
     ),
     bodySmall = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeSubheadline,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB3
+        lineHeight = lineHeightB3,
     ),
     labelMedium = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_light))),
         fontSize = textSizeFootnote,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB4
+        lineHeight = lineHeightB4,
     ),
     labelSmall = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_light))),
         fontSize = textSizeCaption,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB5
+        lineHeight = lineHeightB5,
     ),
     labelLarge = DefaultTextStyle.copy(
         fontFamily = FontFamily(
             Font(
                 resId = R.font.gds_transport_light,
-                weight = FontWeight.Light
+                weight = FontWeight.Light,
             ),
             Font(
                 resId = R.font.gds_transport_light,
-                weight = FontWeight.Normal
+                weight = FontWeight.Normal,
             ),
             Font(
                 resId = R.font.gds_transport_bold,
-                weight = FontWeight.Bold
-            )
+                weight = FontWeight.Bold,
+            ),
         ),
         fontSize = buttonTextSize,
-        lineHeight = lineHeightB1
-    )
+        lineHeight = lineHeightB1,
+    ),
 )
 
 /**
@@ -174,68 +174,68 @@ val ExtraTypography = GdsTypography(
         fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
         fontSize = textSizeH4,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightH4
+        lineHeight = lineHeightH4,
     ),
     bodyLargeMono = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.roboto_mono_variable_font_wght)),
         fontSize = textSizeBody,
         fontWeight = FontWeight.Bold,
-        lineHeight = lineHeightB1
+        lineHeight = lineHeightB1,
     ),
     displaySmallReg = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeH1,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH1
+        lineHeight = lineHeightH1,
     ),
     headlineLargeReg = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeH2,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH2
+        lineHeight = lineHeightH2,
     ),
     headlineMediumReg = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeH3,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH3
+        lineHeight = lineHeightH3,
     ),
     headlineSmallReg = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_light)),
         fontSize = textSizeH4,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightH4
+        lineHeight = lineHeightH4,
     ),
     bodyMediumBold = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeCallout,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB2
+        lineHeight = lineHeightB2,
     ),
     bodySmallBold = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeSubheadline,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB3
+        lineHeight = lineHeightB3,
     ),
     labelMediumBold = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_bold))),
         fontSize = textSizeFootnote,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB4
+        lineHeight = lineHeightB4,
     ),
     labelSmallBold = DefaultTextStyle.copy(
         fontFamily = FontFamily((Font(R.font.gds_transport_bold))),
         fontSize = textSizeCaption,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB5
+        lineHeight = lineHeightB5,
     ),
     bodyLargeBold = DefaultTextStyle.copy(
         fontFamily = FontFamily(Font(R.font.gds_transport_bold)),
         fontSize = textSizeBody,
         fontWeight = FontWeight.Normal,
-        lineHeight = lineHeightB1
-    )
+        lineHeight = lineHeightB1,
+    ),
 )
 
 object TypographyPreviewParams {
@@ -254,7 +254,7 @@ object TypographyPreviewParams {
         "Subheadline" to Typography.bodySmall,
         "Button text" to Typography.labelLarge,
         "Footnote" to Typography.labelMedium,
-        "Caption" to Typography.labelSmall
+        "Caption" to Typography.labelSmall,
     )
 }
 
@@ -268,7 +268,7 @@ object ExtraTypographyPreviewParams {
         "Callout Bold" to ExtraTypography.bodyMediumBold,
         "Subheadline Bold" to ExtraTypography.bodySmallBold,
         "Footnote Bold" to ExtraTypography.labelMediumBold,
-        "Caption Bold" to ExtraTypography.labelSmallBold
+        "Caption Bold" to ExtraTypography.labelSmallBold,
     )
 }
 
@@ -285,16 +285,16 @@ internal fun TypographyPreview() {
                         .padding(4.dp)
                         .background(MaterialTheme.colorScheme.background),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         style = type.second,
                         text = type.first,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                     Text(
                         text = "  - ${type.second.fontSize.value.toInt()}sp",
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
@@ -316,16 +316,16 @@ internal fun ExtraTypographyPreview() {
                         .padding(4.dp)
                         .background(MaterialTheme.colorScheme.background),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         style = type.second,
                         text = type.first,
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                     Text(
                         text = "  - ${type.second.fontSize.value.toInt()}sp",
-                        color = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
                 HorizontalDivider(modifier = Modifier.fillMaxWidth())
@@ -351,5 +351,5 @@ data class GdsTypography(
     val bodySmallBold: TextStyle,
     val labelMediumBold: TextStyle,
     val labelSmallBold: TextStyle,
-    val bodyLargeBold: TextStyle
+    val bodyLargeBold: TextStyle,
 )

@@ -55,12 +55,12 @@ fun GdsRadios(
     selectedItem: Int?,
     onItemSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    title: GdsRadiosTitle? = null
+    title: GdsRadiosTitle? = null,
 ) {
     Column(
         modifier
             .background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
     ) {
         title?.let {
             GdsHeading(
@@ -68,7 +68,7 @@ fun GdsRadios(
                 style = it.style,
                 textFontWeight = it.fontWeight,
                 textAlign = GdsHeadingAlignment.LeftAligned,
-                modifier = Modifier.padding(bottom = spacingDouble)
+                modifier = Modifier.padding(bottom = spacingDouble),
             )
         }
 
@@ -81,7 +81,7 @@ fun GdsRadios(
                     onItemSelected(index)
                 },
                 index = index,
-                totalOptions = items.size
+                totalOptions = items.size,
             )
         }
     }
@@ -96,20 +96,20 @@ fun GdsRadioOptionItem(
     onOptionSelected: () -> Unit,
     index: Int,
     totalOptions: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
         option = radioOption,
         totalOptions = totalOptions,
-        isSelected = isSelected
+        isSelected = isSelected,
     )
 
     val unselectedString = getRadioOptionAccessibilityText(
         index = index,
         option = radioOption,
         totalOptions = totalOptions,
-        isSelected = false
+        isSelected = false,
     )
 
     Row(
@@ -120,21 +120,21 @@ fun GdsRadioOptionItem(
             }
             .semantics(mergeDescendants = true) {}
             .clickable(onClick = onOptionSelected),
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.Start,
     ) {
         CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
             RadioButton(
                 selected = isSelected,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = GdsLocalColorScheme.current.selectedRadioButton,
-                    unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton
+                    unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton,
                 ),
                 onClick = onOptionSelected,
                 modifier = Modifier.padding(
                     top = spacingDouble,
                     end = spacingDouble,
-                    bottom = spacingDouble
-                )
+                    bottom = spacingDouble,
+                ),
             )
         }
         Text(
@@ -143,7 +143,7 @@ fun GdsRadioOptionItem(
             style = Typography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = spacingSingle)
+                .padding(end = spacingSingle),
         )
     }
 }
@@ -153,7 +153,7 @@ private fun getRadioOptionAccessibilityText(
     index: Int,
     option: String,
     totalOptions: Int,
-    isSelected: Boolean
+    isSelected: Boolean,
 ): String {
     val pluralsResId =
         if (isSelected) R.plurals.radio_button_selected else R.plurals.radio_button_unselected
@@ -163,7 +163,7 @@ private fun getRadioOptionAccessibilityText(
             count = 1,
             option,
             totalOptions,
-            totalOptions
+            totalOptions,
         )
     } else {
         pluralStringResource(
@@ -171,7 +171,7 @@ private fun getRadioOptionAccessibilityText(
             count = index + 1,
             option,
             index + 1,
-            totalOptions
+            totalOptions,
         )
     }
 }
@@ -179,13 +179,13 @@ private fun getRadioOptionAccessibilityText(
 internal data class GdsRadiosPreviewData(
     val items: ImmutableList<String>,
     val title: GdsRadiosTitle? = null,
-    val selectedIndex: Int? = null
+    val selectedIndex: Int? = null,
 )
 
 data class GdsRadiosContent(
     val items: ImmutableList<String>,
     val title: GdsRadiosTitle? = null,
-    val selectedIndex: Int? = null
+    val selectedIndex: Int? = null,
 )
 
 @Composable
@@ -196,7 +196,7 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
         items = content.items,
         selectedItem = selectedIndex.intValue,
         onItemSelected = { selectedIndex.intValue = it },
-        title = content.title
+        title = content.title,
     )
 }
 
@@ -204,44 +204,44 @@ internal class GdsRadiosProvider : PreviewParameterProvider<GdsRadiosPreviewData
     override val values: Sequence<GdsRadiosPreviewData> = sequenceOf(
         GdsRadiosPreviewData(
             items = persistentListOf(OPTION1),
-            title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body)
+            title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
         ),
         GdsRadiosPreviewData(
             items = persistentListOf(OPTION1, OPTION2),
             title = GdsRadiosTitle("Example Heading", GdsHeadingStyle.Title3),
-            selectedIndex = 1
+            selectedIndex = 1,
         ),
         GdsRadiosPreviewData(
             items = persistentListOf(OPTION1, OPTION2),
             title = GdsRadiosTitle("Example Bold Title", GdsHeadingStyle.Body, FontWeight.Bold),
-            selectedIndex = 0
+            selectedIndex = 0,
         ),
         GdsRadiosPreviewData(
             items = persistentListOf(OPTION1, OPTION2, "option three"),
-            selectedIndex = 2
+            selectedIndex = 2,
         ),
         GdsRadiosPreviewData(
             items = persistentListOf(OPTION1, OPTION2, LONG_OPTION),
             title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
-            selectedIndex = 1
+            selectedIndex = 1,
         ),
         GdsRadiosPreviewData(
             items = persistentListOf(
                 "option one: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option two: Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "option three:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                "option four:Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             ),
             title = GdsRadiosTitle(EXAMPLE_TITLE, GdsHeadingStyle.Body),
-            selectedIndex = 3
-        )
+            selectedIndex = 3,
+        ),
     )
 }
 
 @PreviewLightDark
 @Composable
 internal fun GdsRadiosPreview(
-    @PreviewParameter(GdsRadiosProvider::class) radioSelectionItems: GdsRadiosPreviewData
+    @PreviewParameter(GdsRadiosProvider::class) radioSelectionItems: GdsRadiosPreviewData,
 ) {
     GdsTheme {
         GdsRadios(
@@ -249,7 +249,7 @@ internal fun GdsRadiosPreview(
             selectedItem = radioSelectionItems.selectedIndex,
             onItemSelected = {},
             title = radioSelectionItems.title,
-            modifier = Modifier.padding(horizontal = spacingDouble)
+            modifier = Modifier.padding(horizontal = spacingDouble),
         )
     }
 }
