@@ -1,5 +1,7 @@
 package uk.gov.android.ui.patterns.testutils
 
+// Uppercase function names are intentional to provide a readable BDD-style test DSL
+@Suppress("FunctionName")
 object BDD {
     fun Given(step: String, block: () -> Unit = {}) {
         println("Step: Given $step")

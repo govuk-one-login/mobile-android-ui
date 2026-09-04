@@ -190,7 +190,11 @@ private fun Content(
                 icon = icon.icon,
                 iconContentDescription = icon.contentDescription,
                 isIconTrailing = icon.position.isTrailing(),
-                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
+                color = if (enabled) {
+                    buttonColors.contentColor
+                } else {
+                    buttonColors.disabledContentColor
+                },
                 iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
                 textStyle = buttonType.textStyle,
@@ -203,7 +207,11 @@ private fun Content(
                 iconContentDescription = buttonType.icon?.let { buttonType.contentDescription }
                     ?: stringResource(R.string.opens_in_external_browser),
                 isIconTrailing = buttonType.isIconTrailing,
-                color = if (enabled) buttonColors.contentColor else buttonColors.disabledContentColor,
+                color = if (enabled) {
+                    buttonColors.contentColor
+                } else {
+                    buttonColors.disabledContentColor
+                },
                 iconBackgroundColor = Color.Transparent,
                 textAlign = textAlign,
                 textStyle = buttonType.textStyle,
@@ -304,7 +312,8 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
         buttonType is ButtonTypeV2.Secondary ->
             GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 
-        buttonType is ButtonTypeV2.Destructive -> GdsLocalColorScheme.current.destructiveButtonHighlighted
+        buttonType is ButtonTypeV2.Destructive ->
+        GdsLocalColorScheme.current.destructiveButtonHighlighted
         buttonType is ButtonTypeV2.SecondaryDestructive ->
             GdsLocalColorScheme.current.destructiveNativeButtonTextHighlighted
         buttonType is ButtonTypeV2.Icon -> GdsLocalColorScheme.current.primaryButtonHighlighted
