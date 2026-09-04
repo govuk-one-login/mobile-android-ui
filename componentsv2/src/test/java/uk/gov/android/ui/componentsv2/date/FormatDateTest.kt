@@ -1,9 +1,9 @@
 package uk.gov.android.ui.componentsv2.date
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import java.time.LocalDate
 import java.util.Locale
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class FormatDateTest {
 

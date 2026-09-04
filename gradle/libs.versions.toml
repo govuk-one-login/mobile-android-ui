@@ -22,7 +22,6 @@ junit-bom = "6.0.1"
 kotlin = "2.4.0" # https://kotlinlang.org/docs/releases.html#release-details
 kotlinx-collections-immutable="0.5.0"
 kotlinx-serialization-json = "1.11.0" # https://github.com/Kotlin/kotlinx.serialization/releases
-ktlint-cli = "0.49.1"
 ktlint-gradle = "12.2.0" # https://github.com/JLLeitschuh/ktlint-gradle/releases
 mockito = "5.23.0"
 mockito-kotlin = "5.4.0" # https://github.com/mockito/mockito-kotlin/releases

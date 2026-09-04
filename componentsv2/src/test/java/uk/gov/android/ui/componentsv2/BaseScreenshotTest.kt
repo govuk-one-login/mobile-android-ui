@@ -22,10 +22,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  *
  * @sample IconScreenshotTest
  */
-abstract class BaseScreenshotTest(
-    nightMode: NightMode = NOTNIGHT,
-    locale: String? = null,
-) {
+abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT, locale: String? = null) {
 
     @get:Rule
     val paparazzi = Paparazzi(
@@ -51,7 +48,9 @@ abstract class BaseScreenshotTest(
     companion object {
 
         @JvmStatic
-        fun <T : Any> applyNightMode(result: MutableList<Pair<T, NightMode>>): (
+        fun <T : Any> applyNightMode(
+            result: MutableList<Pair<T, NightMode>>,
+        ): (
             T,
         ) -> Unit = { parameters ->
             result.add(parameters to NOTNIGHT)

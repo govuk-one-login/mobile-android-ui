@@ -7,6 +7,7 @@ val barcodeScanResultLoggingCallback =
     BarcodeScanResult.Callback { result, toggleScanner ->
         when (result) {
             BarcodeScanResult.EmptyScan -> "Barcode data not found"
+
             is BarcodeScanResult.Success ->
                 result.mapToUrlStrings().firstOrNull() ?: "No URL found!"
 

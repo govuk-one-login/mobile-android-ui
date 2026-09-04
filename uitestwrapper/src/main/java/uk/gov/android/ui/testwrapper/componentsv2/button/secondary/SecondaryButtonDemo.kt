@@ -20,9 +20,7 @@ import uk.gov.android.ui.theme.smallPadding
 
 @Suppress("LongMethod")
 @Composable
-fun SecondaryButtonDemo(
-    modifier: Modifier = Modifier,
-) {
+fun SecondaryButtonDemo(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()

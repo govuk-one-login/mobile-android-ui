@@ -72,28 +72,22 @@ fun GdsMenu(
 }
 
 @Composable
-private fun getRippleColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusButtonHighlighted
-    } else {
-        GdsLocalColorScheme.current.menuItemHighlighted
-    }
+private fun getRippleColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusButtonHighlighted
+} else {
+    GdsLocalColorScheme.current.menuItemHighlighted
 }
 
 @Composable
-private fun getBackgroundColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusState
-    } else {
-        GdsLocalColorScheme.current.menuItem
-    }
+private fun getBackgroundColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusState
+} else {
+    GdsLocalColorScheme.current.menuItem
 }
 
 @Composable
-private fun getTextColour(isInFocus: Boolean): Color {
-    return if (isInFocus) {
-        GdsLocalColorScheme.current.focusStateContent
-    } else {
-        MaterialTheme.colorScheme.onBackground
-    }
+private fun getTextColour(isInFocus: Boolean): Color = if (isInFocus) {
+    GdsLocalColorScheme.current.focusStateContent
+} else {
+    MaterialTheme.colorScheme.onBackground
 }

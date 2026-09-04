@@ -361,8 +361,9 @@ private fun BottomContent(
         val supportingTextPadding =
             if (primaryButton == null || secondaryButton == null) {
                 LeftAlignedScreenDefaults.HorizontalPadding
-            } else
+            } else {
                 LeftAlignedScreenDefaults.NoPadding
+            }
 
         supportingText?.let {
             Row(

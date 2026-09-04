@@ -19,14 +19,13 @@ class CameraContentDemoRequiredPermissionTest {
     private val resources = InstrumentationRegistry.getInstrumentation().targetContext.resources
 
     @Test
-    fun permissionRequestButtonExists() =
-        runTest {
-            screenRule.apply {
-                render(Modifier)
-                assertPermissionButtonExists(
-                    resources.getString(R.string.dialogue_demo_camera_permission_required),
-                )
-                assertCameraIsNotRendered()
-            }
+    fun permissionRequestButtonExists() = runTest {
+        screenRule.apply {
+            render(Modifier)
+            assertPermissionButtonExists(
+                resources.getString(R.string.dialogue_demo_camera_permission_required),
+            )
+            assertCameraIsNotRendered()
         }
+    }
 }

@@ -18,10 +18,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-fun GdsRadiosDemo(
-    modifier: Modifier = Modifier,
-    onSelected: (String) -> Unit = {},
-) {
+fun GdsRadiosDemo(modifier: Modifier = Modifier, onSelected: (String) -> Unit = {}) {
     GdsTheme {
         var selectedIndex by remember { mutableIntStateOf(0) }
         val radioItems = persistentListOf(OPTION1, OPTION2, LONG_OPTION)

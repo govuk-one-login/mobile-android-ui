@@ -1,10 +1,10 @@
 package uk.gov.android.ui.componentsv2.date
 
 import androidx.compose.runtime.Composable
-import uk.gov.android.ui.componentsv2.utils.primaryLocale
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import uk.gov.android.ui.componentsv2.utils.primaryLocale
 
 /**
  * Format a date according to the GOV.UK style guide.
@@ -25,5 +25,4 @@ fun LocalDate.formatFullDate(locale: Locale): String {
  * Uses the [Locale] that is currently active for formatting.
  */
 @Composable
-fun LocalDate.formatFullDate(): String =
-    formatFullDate(primaryLocale())
+fun LocalDate.formatFullDate(): String = formatFullDate(primaryLocale())

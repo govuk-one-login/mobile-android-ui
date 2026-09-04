@@ -21,9 +21,7 @@ import uk.gov.android.ui.theme.spacingDouble
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GdsNumberedListDemo(
-    modifier: Modifier = Modifier,
-) {
+fun GdsNumberedListDemo(modifier: Modifier = Modifier) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val title =
@@ -55,10 +53,10 @@ fun GdsNumberedListDemo(
             ),
             ListItem(
                 text =
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
-                    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
-                    "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex " +
-                    "ea commodo consequat",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+                        "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " +
+                        "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex " +
+                        "ea commodo consequat",
             ),
         )
     Scaffold(

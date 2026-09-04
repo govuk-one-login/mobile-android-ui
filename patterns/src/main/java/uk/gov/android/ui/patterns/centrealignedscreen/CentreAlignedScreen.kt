@@ -226,7 +226,11 @@ fun CentreAlignedScreen(
         },
         primaryButton = primaryButton?.let {
             {
-                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+                val icon = if (it.showIcon) {
+                    ButtonIcon.opensInWebBrowser()
+                } else {
+                    null
+                }
 
                 GdsButton(
                     text = it.text,
@@ -240,7 +244,11 @@ fun CentreAlignedScreen(
         },
         secondaryButton = secondaryButton?.let {
             {
-                val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+                val icon = if (it.showIcon) {
+                    ButtonIcon.opensInWebBrowser()
+                } else {
+                    null
+                }
 
                 GdsButton(
                     text = it.text,

@@ -23,9 +23,7 @@ import uk.gov.android.ui.theme.smallPadding
 private const val BUTTON_LOADING_DURATION = 2000L // Milliseconds
 
 @Composable
-fun PrimaryButtonDemo(
-    modifier: Modifier = Modifier,
-) {
+fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()

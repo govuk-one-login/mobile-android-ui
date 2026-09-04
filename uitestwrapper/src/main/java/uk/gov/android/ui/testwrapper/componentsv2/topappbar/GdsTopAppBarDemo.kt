@@ -40,9 +40,7 @@ import uk.gov.android.ui.uitestwrapper.R as TestWrapperR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GdsTopAppBarDemo(
-    modifier: Modifier = Modifier,
-) {
+fun GdsTopAppBarDemo(modifier: Modifier = Modifier) {
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
@@ -108,18 +106,18 @@ private fun GdsTopAppBarConfiguration(
         modifier = modifier,
         title = stringResource(R.string.title),
         navigationButton =
-        if (showNavIconButton) {
-            GdsIconButtonDefaults.defaultCloseContent()
-        } else {
-            null
-        },
+            if (showNavIconButton) {
+                GdsIconButtonDefaults.defaultCloseContent()
+            } else {
+                null
+            },
         onClick = {
             scope.launch {
                 statusOverlayState.showSnackbar("Dismiss button pressed")
             }
         },
         actions =
-        generateActions(showActionIconButton, updateMenuExpanded, isMenuExpanded),
+            generateActions(showActionIconButton, updateMenuExpanded, isMenuExpanded),
         scrollBehaviour = scrollBehavior,
         alignment = alignment,
         menu = {
@@ -166,14 +164,14 @@ private fun GdsTopAppBarDemoMenu(
     GdsMenu(
         expanded = isMenuExpanded,
         content =
-        persistentListOf(
-            GdsMenuContent(itemTitle1) {
-                scope.launch {
-                    statusOverlayState.showSnackbar("Selected: $itemTitle1")
-                }
-            },
-            GdsMenuContent(itemTitle2) {},
-        ),
+            persistentListOf(
+                GdsMenuContent(itemTitle1) {
+                    scope.launch {
+                        statusOverlayState.showSnackbar("Selected: $itemTitle1")
+                    }
+                },
+                GdsMenuContent(itemTitle2) {},
+            ),
         onDismissRequest = {
             updateMenuExpanded(!isMenuExpanded)
         },
@@ -224,10 +222,7 @@ private fun GdsTopAppBarDemoContent(
 }
 
 @Composable
-fun FormattedButton(
-    titleRes: Int,
-    onClick: () -> Unit,
-) {
+fun FormattedButton(titleRes: Int, onClick: () -> Unit) {
     GdsButton(
         text = stringResource(titleRes),
         buttonType = ButtonTypeV2.Secondary(),

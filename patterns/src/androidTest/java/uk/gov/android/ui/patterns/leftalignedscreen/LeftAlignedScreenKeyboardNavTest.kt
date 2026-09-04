@@ -162,13 +162,13 @@ class LeftAlignedScreenKeyboardNavTest {
                             item {
                                 GdsRadios(
                                     title =
-                                    GdsRadiosTitle(
-                                        "Do you have a passport with a biometric chip?",
-                                        GdsHeadingStyle.Title1,
-                                    ),
+                                        GdsRadiosTitle(
+                                            "Do you have a passport with a biometric chip?",
+                                            GdsHeadingStyle.Title1,
+                                        ),
                                     items =
-                                    listOf("Yes", "No, use a different type of photo ID")
-                                        .toPersistentList(),
+                                        listOf("Yes", "No, use a different type of photo ID")
+                                            .toPersistentList(),
                                     selectedItem = selectedItem,
                                     onItemSelected = {
                                         selectedItem = it
@@ -181,8 +181,8 @@ class LeftAlignedScreenKeyboardNavTest {
                                 text = "Continue",
                                 buttonType = ButtonTypeV2.Primary(),
                                 onClick =
-                                dropUnlessResumed {
-                                },
+                                    dropUnlessResumed {
+                                    },
                                 enabled = selectedItem != null,
                                 modifier = Modifier.fillMaxWidth(),
                             )

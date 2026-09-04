@@ -68,7 +68,7 @@ internal class DestructiveScreenScreenshotTest(
                         {
                             SupportingTextBody(text)
                         }
-                    }
+                    },
             )
         }
     }
