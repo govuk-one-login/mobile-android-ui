@@ -15,9 +15,8 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingDouble
 
 @RunWith(Parameterized::class)
-class CustomFullScreenDialogueScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+class CustomFullScreenDialogueScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
     @OptIn(ExperimentalMaterial3Api::class)
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {

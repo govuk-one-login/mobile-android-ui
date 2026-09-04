@@ -134,30 +134,33 @@ private fun qrScannerDemoPermissionLogic(
         CameraContentDemoButtons.PermanentCameraDenial(state, context)
     },
     onShowRationale = { _, launchPermission ->
-        CameraContentDemoButtons.CameraPermissionRationaleButton(launchPermission = launchPermission)
+        CameraContentDemoButtons.CameraPermissionRationaleButton(
+            launchPermission = launchPermission,
+        )
     },
     onRequirePermission = { _, launchPermission ->
         CameraContentDemoButtons.CameraRequirePermissionButton(launchPermission = launchPermission)
     },
 )
 
-private fun qrScannerDemoCallback(
-    onNavigate: (Any) -> Unit = {},
-): BarcodeScanResult.Callback = BarcodeScanResult.Callback { result, toggleScanner ->
-    val logTag = "QrScannerScreenDemo"
-    if (Log.isLoggable(logTag, Log.INFO)) {
-        Log.i(logTag, "Obtained BarcodeScanResult: $result")
-    }
-    when (result) {
-        is BarcodeScanResult.Success -> result.firstOrNull()?.url?.url
-        is BarcodeScanResult.Single -> result.barcode.url?.url
-        else -> {
-            null
+private fun qrScannerDemoCallback(onNavigate: (Any) -> Unit = {}): BarcodeScanResult.Callback =
+    BarcodeScanResult.Callback { result, toggleScanner ->
+        val logTag = "QrScannerScreenDemo"
+        if (Log.isLoggable(logTag, Log.INFO)) {
+            Log.i(logTag, "Obtained BarcodeScanResult: $result")
         }
-    }?.let { url ->
-        onNavigate(QrScannerResult(url))
-    } ?: toggleScanner()
-}
+        when (result) {
+            is BarcodeScanResult.Success -> result.firstOrNull()?.url?.url
+
+            is BarcodeScanResult.Single -> result.barcode.url?.url
+
+            else -> {
+                null
+            }
+        }?.let { url ->
+            onNavigate(QrScannerResult(url))
+        } ?: toggleScanner()
+    }
 
 private fun qrScannerDemoAnalysis(
     context: Context,
@@ -167,9 +170,9 @@ private fun qrScannerDemoAnalysis(
 ) = BarcodeUseCaseProviders.barcodeAnalysis(
     context = context,
     options =
-    BarcodeUseCaseProviders.provideQrScanningOptions(
-        BarcodeUseCaseProviders.provideZoomOptions(getCurrentCamera),
-    ),
+        BarcodeUseCaseProviders.provideQrScanningOptions(
+            BarcodeUseCaseProviders.provideZoomOptions(getCurrentCamera),
+        ),
     callback = qrScannerDemoCallback(onNavigate),
     converter = converter,
 )

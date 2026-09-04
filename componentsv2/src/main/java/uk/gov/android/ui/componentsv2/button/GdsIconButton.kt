@@ -111,10 +111,7 @@ private fun getRippleColour(isInFocus: Boolean) = if (isInFocus) {
     GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 }
 
-data class IconButtonContent(
-    val icon: ImageVector,
-    val contentDescription: String,
-)
+data class IconButtonContent(val icon: ImageVector, val contentDescription: String)
 
 object GdsIconButtonDefaults {
     val buttonSize = closeButtonSize

@@ -96,9 +96,7 @@ class KeyboardScrollTest {
         composeTestRule.onNodeWithText(FIRST_ITEM).assertIsDisplayed()
     }
 
-    private fun setUpColumn(
-        numItems: Int = NUM_ITEMS,
-    ) {
+    private fun setUpColumn(numItems: Int = NUM_ITEMS) {
         setContent {
             val scrollState = rememberScrollState()
             TestColumn(
@@ -135,13 +133,11 @@ class KeyboardScrollTest {
         }
     }
 
-    private fun ComposeTestRule.pressDirectionUp() =
-        onNodeWithTag(TEST_TAG)
-            .performKeyInput { pressKey(Key.DirectionUp) }
+    private fun ComposeTestRule.pressDirectionUp() = onNodeWithTag(TEST_TAG)
+        .performKeyInput { pressKey(Key.DirectionUp) }
 
-    private fun ComposeTestRule.pressDirectionDown() =
-        onNodeWithTag(TEST_TAG)
-            .performKeyInput { pressKey(Key.DirectionDown) }
+    private fun ComposeTestRule.pressDirectionDown() = onNodeWithTag(TEST_TAG)
+        .performKeyInput { pressKey(Key.DirectionDown) }
 
     companion object {
         const val TEST_TAG = "keyboardScrollTest"
@@ -157,37 +153,35 @@ private fun TestColumn(
     scrollState: androidx.compose.foundation.ScrollState,
     modifier: Modifier = Modifier,
     numItems: Int = NUM_ITEMS,
-) =
-    Column(
-        modifier = modifier
-            .height(containerHeight)
-            .verticalScroll(scrollState)
-            .testTag(KeyboardScrollTest.TEST_TAG),
-    ) {
-        repeat(numItems) { index ->
-            BasicText(
-                text = "Item $index",
-                modifier = Modifier.fillMaxWidth().height(itemHeight),
-            )
-        }
+) = Column(
+    modifier = modifier
+        .height(containerHeight)
+        .verticalScroll(scrollState)
+        .testTag(KeyboardScrollTest.TEST_TAG),
+) {
+    repeat(numItems) { index ->
+        BasicText(
+            text = "Item $index",
+            modifier = Modifier.fillMaxWidth().height(itemHeight),
+        )
     }
+}
 
 @Composable
 private fun TestLazyColumn(
     listState: LazyListState,
     modifier: Modifier = Modifier,
     numItems: Int = NUM_ITEMS,
-) =
-    LazyColumn(
-        state = listState,
-        modifier = modifier
-            .height(containerHeight)
-            .testTag(KeyboardScrollTest.TEST_TAG),
-    ) {
-        items(numItems) { index ->
-            BasicText(
-                text = "Item $index",
-                modifier = Modifier.fillMaxWidth().height(itemHeight),
-            )
-        }
+) = LazyColumn(
+    state = listState,
+    modifier = modifier
+        .height(containerHeight)
+        .testTag(KeyboardScrollTest.TEST_TAG),
+) {
+    items(numItems) { index ->
+        BasicText(
+            text = "Item $index",
+            modifier = Modifier.fillMaxWidth().height(itemHeight),
+        )
     }
+}

@@ -38,9 +38,7 @@ class CameraContentTest {
         )
     }
 
-    private fun performJourney(
-        converter: ImageProxyConverter,
-    ) = runTest {
+    private fun performJourney(converter: ImageProxyConverter) = runTest {
         val testTag = "cameraViewfinder"
         val state = StateRestorationTester(composeTestRule)
 

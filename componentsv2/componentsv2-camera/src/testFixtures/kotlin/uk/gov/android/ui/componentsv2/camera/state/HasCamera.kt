@@ -11,9 +11,8 @@ internal class HasCamera(
     private val getCamera: CameraHolder.State?.() -> Camera?,
 ) : TypeSafeMatcher<CameraHolder.State>() {
 
-    override fun matchesSafely(
-        item: CameraHolder.State?,
-    ): Boolean = matcher.matches(getCamera(item))
+    override fun matchesSafely(item: CameraHolder.State?): Boolean =
+        matcher.matches(getCamera(item))
 
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)
@@ -27,16 +26,12 @@ internal class HasCamera(
     }
 
     companion object {
-        fun viaFlow(
-            matcher: Matcher<Camera>,
-        ) = HasCamera(
+        fun viaFlow(matcher: Matcher<Camera>) = HasCamera(
             matcher = matcher,
             getCamera = { this?.camera?.value },
         )
 
-        fun viaFunction(
-            matcher: Matcher<Camera>,
-        ) = HasCamera(
+        fun viaFunction(matcher: Matcher<Camera>) = HasCamera(
             matcher = matcher,
             getCamera = { this?.getCurrentCamera() },
         )

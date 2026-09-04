@@ -24,10 +24,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.spacingSingleAndAHalf
 
 @Composable
-fun GdsWarningText(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
+fun GdsWarningText(text: String, modifier: Modifier = Modifier) {
     val warningText = stringResource(id = R.string.warning)
 
     Row(

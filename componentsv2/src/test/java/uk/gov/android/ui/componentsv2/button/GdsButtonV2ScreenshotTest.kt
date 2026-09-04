@@ -27,7 +27,7 @@ internal class GdsButtonV2ScreenshotTest(
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         Surface(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             // Display buttons in a full width container with visible background to help distinguish
             // full width from non-full width variants and light mode from dark mode variants

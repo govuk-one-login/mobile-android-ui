@@ -19,12 +19,11 @@ class CameraContentDemoTest {
         )
 
     @Test
-    fun cameraViewfinderExists() =
-        runTest {
-            screenRule.apply {
-                render(Modifier)
-                assertPermissionButtonDoesNotExist()
-                assertCameraIsRendered()
-            }
+    fun cameraViewfinderExists() = runTest {
+        screenRule.apply {
+            render(Modifier)
+            assertPermissionButtonDoesNotExist()
+            assertCameraIsRendered()
         }
+    }
 }

@@ -11,6 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R as componentsv2R
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.Image
@@ -23,7 +24,6 @@ import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
-import uk.gov.android.ui.componentsv2.R as componentsv2R
 
 internal class LeftAlignedScreenContentProviderV2 :
     PreviewParameterProvider<LeftAlignedScreenContentV2> {

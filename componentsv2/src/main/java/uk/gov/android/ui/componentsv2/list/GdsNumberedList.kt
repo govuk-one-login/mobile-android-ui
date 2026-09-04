@@ -63,7 +63,9 @@ import uk.gov.android.ui.theme.spacingSingle
  *
  */
 @Suppress("UnusedParameter")
-@Deprecated("Use V2 GdsNumberedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026")
+@Deprecated(
+    "Use V2 GdsNumberedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026",
+)
 @Composable
 fun GdsNumberedList(
     numberedListItems: ImmutableList<ListItem>,
@@ -125,9 +127,7 @@ fun GdsNumberedList(
  *  @param numberedListItems The list of items to be displayed
  */
 @Composable
-private fun GdsNumberedListLayout(
-    numberedListItems: ImmutableList<ListItem>,
-) {
+private fun GdsNumberedListLayout(numberedListItems: ImmutableList<ListItem>) {
     val context = LocalContext.current
     SubcomposeLayout { constraints ->
         val looseConstraints = constraints.copy(maxHeight = Constraints.Infinity)
@@ -181,9 +181,7 @@ private fun GdsNumberedListLayout(
  * @param title The contents of the title
  */
 @Composable
-private fun NumberedListTitle(
-    title: ListTitle,
-) {
+private fun NumberedListTitle(title: ListTitle) {
     when (title.titleType) {
         TitleType.BoldText -> {
             Text(
@@ -291,10 +289,7 @@ private fun Int.pxToDp() = with(LocalDensity.current) { this@pxToDp.toDp() }
  * @param itemContentDescription The content description for the entire numbered list item
  */
 @Composable
-private fun ListText(
-    listItem: ListItem,
-    itemContentDescription: String,
-) {
+private fun ListText(listItem: ListItem, itemContentDescription: String) {
     val listContent = listItem.createDisplayText(LocalContext.current)
     val modifier = Modifier
         .semantics {
@@ -343,7 +338,9 @@ internal class NumberedListProvider : PreviewParameterProvider<ListWrapper> {
             listItems = persistentListOf(
                 ListItem(FIRST_LINE),
                 ListItem(SECOND_LINE),
-                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
+                ListItem(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                ),
             ),
         ),
         ListWrapper(

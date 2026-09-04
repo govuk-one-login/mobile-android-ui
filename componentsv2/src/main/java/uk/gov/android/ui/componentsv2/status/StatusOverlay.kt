@@ -14,10 +14,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
-fun GdsStatusOverlay(
-    hostState: SnackbarHostState,
-    modifier: Modifier = Modifier,
-) {
+fun GdsStatusOverlay(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
     SnackbarHost(
         modifier = modifier,
         hostState = hostState,
@@ -28,9 +25,7 @@ fun GdsStatusOverlay(
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-fun GdsSnackBar(
-    message: String,
-) {
+fun GdsSnackBar(message: String) {
     Snackbar(
         containerColor = GdsLocalColorScheme.current.statusOverlayBackground,
     ) {

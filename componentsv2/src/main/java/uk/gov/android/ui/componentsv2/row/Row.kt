@@ -98,10 +98,11 @@ fun Row(
                     role = Role.Button,
                     onClick = onClick,
                 )
-        } else
+        } else {
             modifier
                 .background(GdsLocalColorScheme.current.rowBackground)
-                .semantics(mergeDescendants = true) {},
+                .semantics(mergeDescendants = true) {}
+        },
         verticalArrangement = if (showDivider) {
             Arrangement.SpaceBetween
         } else {
@@ -245,8 +246,7 @@ internal data class RowPreviewParameters(
     )
 }
 
-internal class RowPreviewParametersProvider :
-    PreviewParameterProvider<RowPreviewParameters> {
+internal class RowPreviewParametersProvider : PreviewParameterProvider<RowPreviewParameters> {
     override val values: Sequence<RowPreviewParameters> = sequenceOf(
         RowPreviewParameters(
             title = "Title 1",

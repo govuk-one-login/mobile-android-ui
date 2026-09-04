@@ -84,8 +84,7 @@ object ModifierExtensions {
         level = DeprecationLevel.WARNING,
     )
     @Composable
-    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier =
-        keyboardScroll(scrollState)
+    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier = keyboardScroll(scrollState)
 
     private fun ScrollableState.viewportHeight(): Float = when (this) {
         is LazyListState -> layoutInfo.viewportSize.height.toFloat()

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import kotlin.reflect.typeOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.ComponentListDetail
@@ -19,19 +20,14 @@ import uk.gov.android.ui.testwrapper.navigation.navTypeOf
 import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerResult
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.spacingDouble
-import kotlin.reflect.typeOf
 
 @Serializable
-sealed class ComponentsDestination(
-    open val label: String,
-) {
+sealed class ComponentsDestination(open val label: String) {
     @Serializable
-    data class DetailedItem(
-        val text: String,
-        val items: List<DetailItem>,
-    ) : ComponentsDestination(
-        label = text,
-    ) {
+    data class DetailedItem(val text: String, val items: List<DetailItem>) :
+        ComponentsDestination(
+            label = text,
+        ) {
 
         companion object {
             /**
@@ -46,9 +42,7 @@ sealed class ComponentsDestination(
     }
 
     @Serializable
-    data class Placeholder(
-        val text: String,
-    ) : ComponentsDestination(label = text)
+    data class Placeholder(val text: String) : ComponentsDestination(label = text)
 
     companion object {
         fun NavGraphBuilder.applyComponentDestinations(
@@ -90,11 +84,10 @@ sealed class ComponentsDestination(
 
         @Suppress("LongMethod")
         @JvmStatic
-        fun entries() =
-            listOf(
-                DetailedItem(
-                    text = "Camera",
-                    items =
+        fun entries() = listOf(
+            DetailedItem(
+                text = "Camera",
+                items =
                     listOf(
                         DetailItem(label = CAMERA_CONTENT, name = "Camera Content: Demo"),
                         DetailItem(
@@ -103,90 +96,90 @@ sealed class ComponentsDestination(
                         ),
                         DetailItem(label = QR_CODE_SCANNING, name = QR_CODE_SCANNING),
                     ),
-                ),
-                DetailedItem(
-                    text = "Dialogue",
-                    items =
+            ),
+            DetailedItem(
+                text = "Dialogue",
+                items =
                     listOf(
                         DetailItem(label = DIALOGUE, name = "Dialogue"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Inputs",
-                    items =
+            ),
+            DetailedItem(
+                text = "Inputs",
+                items =
                     listOf(
                         DetailItem(label = RADIO, name = "Radio"),
                     ),
-                ),
-                DetailedItem(
-                    text = "List",
-                    items =
+            ),
+            DetailedItem(
+                text = "List",
+                items =
                     listOf(
                         DetailItem(label = NUMBERED_LIST, name = "Numbered List"),
                         DetailItem(label = BULLETED_LIST, name = "Bulleted List"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Button",
-                    items =
+            ),
+            DetailedItem(
+                text = "Button",
+                items =
                     listOf(
                         DetailItem(label = PRIMARY_BUTTON, name = "Primary Button"),
                         DetailItem(label = SECONDARY_BUTTON, name = "Secondary Button"),
 
                     ),
-                ),
-                DetailedItem(
-                    text = "Card",
-                    items =
+            ),
+            DetailedItem(
+                text = "Card",
+                items =
                     listOf(
                         DetailItem(label = CARD, name = "Card with button and image"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Heading",
-                    items =
+            ),
+            DetailedItem(
+                text = "Heading",
+                items =
                     listOf(
                         DetailItem(label = HEADING, name = "Heading with body style"),
                     ),
-                ),
-                Placeholder(text = "Images"),
-                Placeholder(text = "Menu"),
-                Placeholder(text = "Supporting Text"),
-                DetailedItem(
-                    text = "Text",
-                    items =
+            ),
+            Placeholder(text = "Images"),
+            Placeholder(text = "Menu"),
+            Placeholder(text = "Supporting Text"),
+            DetailedItem(
+                text = "Text",
+                items =
                     listOf(
                         DetailItem(label = ANNOTATED_STRING, name = "GdsAnnotatedString"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Warning",
-                    items =
+            ),
+            DetailedItem(
+                text = "Warning",
+                items =
                     listOf(
                         DetailItem(label = WARNING, name = "Warning"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Status",
-                    items =
+            ),
+            DetailedItem(
+                text = "Status",
+                items =
                     listOf(
                         DetailItem(label = STATUS_OVERLAY, name = "Status Overlay"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Top App Bar",
-                    items =
+            ),
+            DetailedItem(
+                text = "Top App Bar",
+                items =
                     listOf(
                         DetailItem(label = TOP_APP_BAR, name = "Top App Bar"),
                     ),
-                ),
-                DetailedItem(
-                    text = "Row List",
-                    items =
+            ),
+            DetailedItem(
+                text = "Row List",
+                items =
                     listOf(
                         DetailItem(label = ROW_LIST, name = "Row List"),
                     ),
-                ),
-            ).sortedBy(ComponentsDestination::label)
+            ),
+        ).sortedBy(ComponentsDestination::label)
     }
 }

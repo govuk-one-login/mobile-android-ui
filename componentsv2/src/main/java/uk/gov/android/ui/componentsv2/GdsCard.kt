@@ -137,7 +137,7 @@ fun GdsCard(
                                 secondaryIcon = secondaryIcon?.let {
                                     ButtonIcon(
                                         icon = secondaryIcon,
-                                        secondaryIconContentDescription ?: ""
+                                        secondaryIconContentDescription ?: "",
                                     )
                                 },
                                 onClick = onClick,
@@ -201,10 +201,7 @@ private fun Content(
 }
 
 @Composable
-private fun TileImage(
-    image: Painter? = null,
-    contentDescription: String? = null,
-) {
+private fun TileImage(image: Painter? = null, contentDescription: String? = null) {
     val defaultContentDescription = stringResource(R.string.vector_image_content_description)
     image?.let {
         Image(
@@ -217,10 +214,7 @@ private fun TileImage(
 }
 
 @Composable
-private fun DismissButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+private fun DismissButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     val description = stringResource(R.string.close_icon_button)
     IconButton(
         onClick = onClick,

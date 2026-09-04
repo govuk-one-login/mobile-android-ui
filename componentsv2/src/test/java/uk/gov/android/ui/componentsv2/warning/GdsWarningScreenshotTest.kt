@@ -12,9 +12,8 @@ import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.toMappedColors
 
 @RunWith(Parameterized::class)
-internal class GdsWarningScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+internal class GdsWarningScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
