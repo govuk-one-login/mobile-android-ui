@@ -25,22 +25,18 @@ class QrScannerScreenDemoRule(
         }
     }
 
-    fun assertPermissionButtonDoesNotExist() =
-        onAllNodesWithRole(Role.Button)
-            .assertCountEquals(0)
+    fun assertPermissionButtonDoesNotExist() = onAllNodesWithRole(Role.Button)
+        .assertCountEquals(0)
 
-    fun assertPermissionButtonExists(containedText: String) =
-        onNodeWithRole(Role.Button)
-            .assertExists()
-            .assertIsDisplayed()
-            .assertTextContains(containedText)
+    fun assertPermissionButtonExists(containedText: String) = onNodeWithRole(Role.Button)
+        .assertExists()
+        .assertIsDisplayed()
+        .assertTextContains(containedText)
 
-    fun assertCameraIsRendered() =
-        onNodeWithTag(cameraViewfinderTag)
-            .assertExists()
-            .assertIsDisplayed()
+    fun assertCameraIsRendered() = onNodeWithTag(cameraViewfinderTag)
+        .assertExists()
+        .assertIsDisplayed()
 
-    fun assertCameraIsNotRendered() =
-        onNodeWithTag(cameraViewfinderTag)
-            .assertDoesNotExist()
+    fun assertCameraIsNotRendered() = onNodeWithTag(cameraViewfinderTag)
+        .assertDoesNotExist()
 }

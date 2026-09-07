@@ -153,62 +153,60 @@ val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
  */
 @Suppress("ForbiddenComment")
 @Composable
-private fun customColors(): CustomColorsScheme {
-    return CustomColorsScheme(
-        cardBackground = Backgrounds.card.toMappedColors(),
-        listBackground = Backgrounds.row.toMappedColors(),
-        rowBackground = Backgrounds.row.toMappedColors(),
-        topBarBackground = Backgrounds.topBar.toMappedColors(),
-        topBarScrolledBackground = Backgrounds.topBarScrolled.toMappedColors(),
-        statusOverlayBackground = Backgrounds.statusOverlay.toMappedColors(),
-        statusOverlayContent = Text.statusOverlay.toMappedColors(),
-        dialogBackground = Backgrounds.dialogue.toMappedColors(),
-        menuItemBackground = Backgrounds.menuItem.toMappedColors(),
-        menuItemHighlightedBackground = Backgrounds.menuItemHighlighted.toMappedColors(),
-        topBarTitle = NavigationElements.topBarTitle.toMappedColors(),
-        topBarIcon = NavigationElements.topBarIcon.toMappedColors(),
-        navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
-        navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
-        navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
-        // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
-        selectedRadioButton = Radios.selectedRadioButton.toMappedColors(),
-        unselectedRadioButton = Radios.unselectedRadioButton.toMappedColors(),
-        primaryButtonHighlighted = Buttons.primaryHighlighted.toMappedColors(),
-        secondaryTextAndSymbolButtonHighlighted =
+private fun customColors(): CustomColorsScheme = CustomColorsScheme(
+    cardBackground = Backgrounds.card.toMappedColors(),
+    listBackground = Backgrounds.row.toMappedColors(),
+    rowBackground = Backgrounds.row.toMappedColors(),
+    topBarBackground = Backgrounds.topBar.toMappedColors(),
+    topBarScrolledBackground = Backgrounds.topBarScrolled.toMappedColors(),
+    statusOverlayBackground = Backgrounds.statusOverlay.toMappedColors(),
+    statusOverlayContent = Text.statusOverlay.toMappedColors(),
+    dialogBackground = Backgrounds.dialogue.toMappedColors(),
+    menuItemBackground = Backgrounds.menuItem.toMappedColors(),
+    menuItemHighlightedBackground = Backgrounds.menuItemHighlighted.toMappedColors(),
+    topBarTitle = NavigationElements.topBarTitle.toMappedColors(),
+    topBarIcon = NavigationElements.topBarIcon.toMappedColors(),
+    navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
+    navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
+    navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
+    // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
+    selectedRadioButton = Radios.selectedRadioButton.toMappedColors(),
+    unselectedRadioButton = Radios.unselectedRadioButton.toMappedColors(),
+    primaryButtonHighlighted = Buttons.primaryHighlighted.toMappedColors(),
+    secondaryTextAndSymbolButtonHighlighted =
         Buttons.secondaryTextAndSymbolHighlighted.toMappedColors(),
-        buttonShadow = Buttons.shadow.toMappedColors(),
-        disabledButton = Buttons.disabled.toMappedColors(),
-        disabledButtonContent = Buttons.disabledTextAndSymbol.toMappedColors(),
-        disabledButtonShadow = Buttons.disabledShadow.toMappedColors(),
-        unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),
-        unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
-        selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
-        selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
-        dividerDefault = Dividers.default.toMappedColors(),
-        dividerCard = Dividers.card.toMappedColors(),
-        focusState = Buttons.focusState.toMappedColors(),
-        focusStateContent = Buttons.focusStateTextAndSymbol.toMappedColors(),
-        focusButtonHighlighted = Buttons.focusStateHighlighted.toMappedColors(),
-        focusStateShadow = Buttons.focusStateShadow.toMappedColors(),
-        destructiveButtonHighlighted = Buttons.destructiveHighlighted.toMappedColors(),
-        destructiveButtonShadow = Buttons.destructiveShadow.toMappedColors(),
-        nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
-        iconDefault = Icons.default.toMappedColors(),
-        successIcon = Icons.success.toMappedColors(),
-        destructiveIcon = Icons.destructive.toMappedColors(),
-        spinnerIcon = Icons.spinner.toMappedColors(),
-        errorIcon = Icons.error.toMappedColors(),
-        linkDefault = Links.default.toMappedColors(),
-        menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
-        menuItem = Menu.menuItem.toMappedColors(),
-        qrScannerOverlay = QrScannerOverlayDefaults,
-        qrScannerOverlayBackground = QrScannerOverlayDefaults.background.toMappedColors(),
-        qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
-        destructiveNativeButtonText = Buttons.destructiveNativeButtonText.toMappedColors(),
-        destructiveNativeButtonTextHighlighted =
+    buttonShadow = Buttons.shadow.toMappedColors(),
+    disabledButton = Buttons.disabled.toMappedColors(),
+    disabledButtonContent = Buttons.disabledTextAndSymbol.toMappedColors(),
+    disabledButtonShadow = Buttons.disabledShadow.toMappedColors(),
+    unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),
+    unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
+    selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
+    selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
+    dividerDefault = Dividers.default.toMappedColors(),
+    dividerCard = Dividers.card.toMappedColors(),
+    focusState = Buttons.focusState.toMappedColors(),
+    focusStateContent = Buttons.focusStateTextAndSymbol.toMappedColors(),
+    focusButtonHighlighted = Buttons.focusStateHighlighted.toMappedColors(),
+    focusStateShadow = Buttons.focusStateShadow.toMappedColors(),
+    destructiveButtonHighlighted = Buttons.destructiveHighlighted.toMappedColors(),
+    destructiveButtonShadow = Buttons.destructiveShadow.toMappedColors(),
+    nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
+    iconDefault = Icons.default.toMappedColors(),
+    successIcon = Icons.success.toMappedColors(),
+    destructiveIcon = Icons.destructive.toMappedColors(),
+    spinnerIcon = Icons.spinner.toMappedColors(),
+    errorIcon = Icons.error.toMappedColors(),
+    linkDefault = Links.default.toMappedColors(),
+    menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
+    menuItem = Menu.menuItem.toMappedColors(),
+    qrScannerOverlay = QrScannerOverlayDefaults,
+    qrScannerOverlayBackground = QrScannerOverlayDefaults.background.toMappedColors(),
+    qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
+    destructiveNativeButtonText = Buttons.destructiveNativeButtonText.toMappedColors(),
+    destructiveNativeButtonTextHighlighted =
         Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
-    )
-}
+)
 
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
@@ -423,7 +421,10 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(statusOverlayBackground, "Backgrounds - Status Overlay"),
                 SwatchColor(dialogBackground, "Backgrounds - Dialog"),
                 SwatchColor(menuItemBackground, "Backgrounds - Menu Item"),
-                SwatchColor(menuItemHighlightedBackground, "Backgrounds - Menu Item Highlighted/ Tapped"),
+                SwatchColor(
+                    menuItemHighlightedBackground,
+                    "Backgrounds - Menu Item Highlighted/ Tapped",
+                ),
             )
         }
 
@@ -467,8 +468,14 @@ fun ThemeV2CustomPreview() {
             listOf(
                 SwatchColor(topBarTitle, "Navigation Elements - Top Bar Title"),
                 SwatchColor(topBarIcon, "Navigation Elements - Top Bar Icon"),
-                SwatchColor(navigationBarContent, "Navigation Elements - Navigation Bar Icon and Label"),
-                SwatchColor(navigationBarSelectedState, "Navigation Elements - Navigation Bar Selected State"),
+                SwatchColor(
+                    navigationBarContent,
+                    "Navigation Elements - Navigation Bar Icon and Label",
+                ),
+                SwatchColor(
+                    navigationBarSelectedState,
+                    "Navigation Elements - Navigation Bar Selected State",
+                ),
             )
         }
 
@@ -479,7 +486,10 @@ fun ThemeV2CustomPreview() {
                 SwatchColor(selectedBackgroundSwitch, "Switch - Selected Background"),
                 SwatchColor(selectedHandleSwitch, "Switch - Selected Handle"),
                 SwatchColor(unselectedBackgroundSwitch, "Switch - Unselected Background"),
-                SwatchColor(unselectedBorderAndHandleSwitch, "Switch - Unselected Border and Handle"),
+                SwatchColor(
+                    unselectedBorderAndHandleSwitch,
+                    "Switch - Unselected Border and Handle",
+                ),
             )
         }
 

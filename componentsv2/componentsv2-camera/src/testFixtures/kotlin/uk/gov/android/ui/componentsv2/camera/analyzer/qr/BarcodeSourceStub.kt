@@ -102,10 +102,7 @@ data class BarcodeSourceStub(
         ).let(::Barcode)
 
         @JvmStatic
-        fun urlQrCode(
-            url: String,
-            title: String = "Barcode Test URL",
-        ): Barcode = BarcodeSourceStub(
+        fun urlQrCode(url: String, title: String = "Barcode Test URL"): Barcode = BarcodeSourceStub(
             format = Barcode.FORMAT_QR_CODE,
             valueType = Barcode.TYPE_URL,
             urlBookmark = Barcode.UrlBookmark(
@@ -114,10 +111,9 @@ data class BarcodeSourceStub(
             ),
         ).let(::Barcode)
 
-        fun List<String>.asUrlBarcodes(
-            title: String = "Barcode Test URL",
-        ): List<Barcode> = map { url ->
-            urlQrCode(url = url, title = title)
-        }
+        fun List<String>.asUrlBarcodes(title: String = "Barcode Test URL"): List<Barcode> =
+            map { url ->
+                urlQrCode(url = url, title = title)
+            }
     }
 }

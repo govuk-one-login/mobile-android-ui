@@ -34,18 +34,12 @@ internal data class CentreAlignedScreenContent(
 )
 
 sealed class CentreAlignedScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : CentreAlignedScreenBodyContent()
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<String>,
-    ) : CentreAlignedScreenBodyContent()
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : CentreAlignedScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        CentreAlignedScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<String>) :
+        CentreAlignedScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        CentreAlignedScreenBodyContent()
     data class Button(
         val text: String,
         val onClick: () -> Unit,
@@ -54,10 +48,7 @@ sealed class CentreAlignedScreenBodyContent {
     ) : CentreAlignedScreenBodyContent()
 }
 
-data class CentreAlignedScreenImage(
-    @DrawableRes val image: Int,
-    val description: String,
-)
+data class CentreAlignedScreenImage(@DrawableRes val image: Int, val description: String)
 
 data class CentreAlignedScreenButton(
     val text: String,
@@ -132,7 +123,11 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
         .fillMaxWidth()
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
-    val icon = if (button.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
+    } else {
+        null
+    }
 
     GdsButton(
         text = button.text,

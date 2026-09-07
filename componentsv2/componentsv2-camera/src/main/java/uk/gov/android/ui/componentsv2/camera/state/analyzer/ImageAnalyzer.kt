@@ -14,7 +14,9 @@ sealed interface ImageAnalyzer {
      * @see State
      * @see Updater
      */
-    interface Complete : State, Updater
+    interface Complete :
+        State,
+        Updater
 
     /**
      * Interface for exposing an [ImageAnalysis] [StateFlow]. Commonly paired with the [Updater]

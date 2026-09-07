@@ -104,7 +104,10 @@ fun GdsBulletedList(
  * ```
  */
 @Suppress("UnusedParameter")
-@Deprecated("Use V2 GdsBulletedList with no accessibilityIndex parameter instead - aim to be removed by 09/03/2026")
+@Deprecated(
+    "Use V2 GdsBulletedList with no accessibilityIndex parameter instead" +
+        " - aim to be removed by 09/03/2026",
+)
 @Composable
 @JvmName("GdsBulletedListV2")
 fun GdsBulletedList(
@@ -211,10 +214,7 @@ fun GdsBulletedList(
  * @param modifier Set the content description and traversal index
  */
 @Composable
-private fun BulletedListTitle(
-    title: ListTitle,
-    modifier: Modifier = Modifier,
-) {
+private fun BulletedListTitle(title: ListTitle, modifier: Modifier = Modifier) {
     val titleContentDescription: String
 
     val textStyle = when (title.titleType) {
@@ -322,10 +322,7 @@ private fun BulletListItem(
 @SuppressLint("ComposeModifierMissing")
 @Suppress("LongMethod")
 @Composable
-fun BulletedLine(
-    listContent: ListContent,
-    bulletContentDescription: String,
-) {
+fun BulletedLine(listContent: ListContent, bulletContentDescription: String) {
     val bullet = ImageVector.vectorResource(R.drawable.ic_dot)
     val painter = rememberVectorPainter(image = bullet)
     // The line number of a single or multi line text element of the bulleted list that the bullet
@@ -407,10 +404,7 @@ fun BulletedLine(
  * @param contentDescription The content description for the entire bulleted list item
  */
 @Composable
-private fun ListTextIcon(
-    listItem: ListItem,
-    contentDescription: String,
-) {
+private fun ListTextIcon(listItem: ListItem, contentDescription: String) {
     val bulletListContent = listItem.createDisplayText(LocalContext.current)
     BulletedLine(
         listContent = bulletListContent,
@@ -439,7 +433,9 @@ internal class BulletedListProvider : PreviewParameterProvider<ListWrapper> {
             listItems = persistentListOf(
                 ListItem(LINE1),
                 ListItem(LINE2),
-                ListItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"),
+                ListItem(
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                ),
             ),
             title = ListTitle("Example Title", TitleType.Text),
         ),

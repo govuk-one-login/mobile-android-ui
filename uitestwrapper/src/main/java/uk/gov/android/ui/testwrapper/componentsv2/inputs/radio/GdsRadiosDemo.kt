@@ -19,10 +19,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-fun GdsRadiosDemo(
-    modifier: Modifier = Modifier,
-    onSelected: (String) -> Unit = {},
-) {
+fun GdsRadiosDemo(modifier: Modifier = Modifier, onSelected: (String) -> Unit = {}) {
     GdsTheme {
         Column(modifier = modifier) {
             var selectedIndex by rememberSaveable { mutableStateOf<Int?>(null) }

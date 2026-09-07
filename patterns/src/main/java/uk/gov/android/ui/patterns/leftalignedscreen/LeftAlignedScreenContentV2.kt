@@ -41,8 +41,8 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
+import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContentV2(
     val title: String,
@@ -62,15 +62,11 @@ sealed class LeftAlignedScreenBodyV2 {
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
-    data class AnnotatedText(
-        val text: AnnotatedString,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class AnnotatedText(val text: AnnotatedString, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
-    data class Text(
-        val text: String,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class Text(val text: String, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
     data class Title(
         val text: String,
@@ -79,20 +75,14 @@ sealed class LeftAlignedScreenBodyV2 {
         val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     ) : LeftAlignedScreenBodyV2()
 
-    data class Warning(
-        val text: String,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class Warning(val text: String, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
-    data class BulletList(
-        val items: ImmutableList<ListItem>,
-        val title: ListTitle? = null,
-    ) : LeftAlignedScreenBodyV2()
+    data class BulletList(val items: ImmutableList<ListItem>, val title: ListTitle? = null) :
+        LeftAlignedScreenBodyV2()
 
-    data class NumberedList(
-        val list: ImmutableList<ListItem>,
-        val title: ListTitle? = null,
-    ) : LeftAlignedScreenBodyV2()
+    data class NumberedList(val list: ImmutableList<ListItem>, val title: ListTitle? = null) :
+        LeftAlignedScreenBodyV2()
 
     data class Image(
         val image: Int,
@@ -115,9 +105,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
-    data class RowList(
-        val rowData: ImmutableList<RowData>,
-    ) : LeftAlignedScreenBodyV2()
+    data class RowList(val rowData: ImmutableList<RowData>) : LeftAlignedScreenBodyV2()
 }
 
 data class LeftAlignedScreenButton(
@@ -264,7 +252,11 @@ fun LazyListScope.toBodyContentV2(
             // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
             is LeftAlignedScreenBodyV2.SecondaryButton -> {
                 item {
-                    val icon = if (it.showIcon) { ButtonIcon.opensInWebBrowser() } else { null }
+                    val icon = if (it.showIcon) {
+                        ButtonIcon.opensInWebBrowser()
+                    } else {
+                        null
+                    }
 
                     GdsButton(
                         text = it.text,
