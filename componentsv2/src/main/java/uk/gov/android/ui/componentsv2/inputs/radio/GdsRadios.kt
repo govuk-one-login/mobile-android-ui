@@ -139,14 +139,16 @@ internal fun GdsRadioOptionItem(
     )
 
     // Added onKeyEvent listener to ensure test Focus Movement can be tested
-    //This was necessary because the default selectable behavior was not reliably triggering
+    // This was necessary because the default selectable behavior was not reliably triggering
     // when testing remotely
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .onKeyEvent {
-                if (it.type == KeyEventType.KeyUp && (it.key == Key.Spacebar || it.key == Key.Enter)) {
+                if (it.type == KeyEventType.KeyUp &&
+                    (it.key == Key.Spacebar || it.key == Key.Enter)
+                ) {
                     onOptionSelected()
                     true
                 } else {
@@ -197,7 +199,6 @@ internal fun GdsRadioOptionItem(
     }
 }
 
-
 @Composable
 private fun RadioFocusIndicator(
     showFocus: Boolean,
@@ -225,6 +226,7 @@ private fun RadioFocusIndicator(
         }
     }
 }
+
 @Composable
 private fun getRadioButtonColors(isFocused: Boolean) = if (isFocused) {
     RadioButtonDefaults.colors(
@@ -266,7 +268,6 @@ private fun getRadioOptionAccessibilityText(
     }
 }
 
-
 @Composable
 internal fun GdsRadiosSample(content: GdsRadiosContent) {
     var selectedIndex by rememberSaveable { mutableIntStateOf(content.selectedIndex ?: 0) }
@@ -278,9 +279,6 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
         title = content.title,
     )
 }
-
-
-
 
 @PreviewLightDark
 @Composable
@@ -303,7 +301,8 @@ internal fun GdsRadioOptionItemPreview(
 @PreviewLightDark
 @Composable
 internal fun GdsRadiosPreview(
-    @PreviewParameter(GdsRadiosPreviewDataProvider::class) radioSelectionItems: GdsRadiosPreviewData,
+    @PreviewParameter(GdsRadiosPreviewDataProvider::class) radioSelectionItems:
+    GdsRadiosPreviewData,
 ) {
     GdsTheme {
         GdsRadios(
@@ -315,4 +314,3 @@ internal fun GdsRadiosPreview(
         )
     }
 }
-

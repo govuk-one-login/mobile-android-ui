@@ -76,8 +76,6 @@ class GdsRadiosTest {
             )
         }
 
-       
-        
         composeTestRule.onNode(
             hasContentDescription("Option 1", substring = true),
         ).apply {
@@ -111,13 +109,14 @@ class GdsRadiosTest {
             assertIsFocused()
         }
 
-
         composeTestRule.onNode(hasContentDescription("Option 1", substring = true))
             .performKeyInput {
-            pressKey(Key.DirectionDown)
-        }
+                pressKey(Key.DirectionDown)
+            }
 
-        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).assertIsFocused()
+        composeTestRule.onNode(
+            hasContentDescription("Option 2", substring = true),
+        ).assertIsFocused()
     }
 
     @Test
@@ -136,7 +135,6 @@ class GdsRadiosTest {
             assert(isSelected())
             assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.RadioButton))
         }
-
 
         composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).apply {
             assert(isNotSelected())

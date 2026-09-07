@@ -46,7 +46,8 @@ internal class GdsRadiosPreviewDataProvider : PreviewParameterProvider<GdsRadios
     )
 }
 
-internal class GdsRadioOptionItemProvider : PreviewParameterProvider<GdsRadioOptionItemPreviewData> {
+internal class GdsRadioOptionItemProvider :
+    PreviewParameterProvider<GdsRadioOptionItemPreviewData> {
     override val values: Sequence<GdsRadioOptionItemPreviewData> = sequenceOf(
         GdsRadioOptionItemPreviewData(
             text = OPTION1,
@@ -61,11 +62,10 @@ internal class GdsRadioOptionItemProvider : PreviewParameterProvider<GdsRadioOpt
     )
 }
 
-
 const val OPTION1 = "option one"
 const val OPTION2 = "option two"
 const val LONG_OPTION = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed " +
-        "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
-        "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
-        "aliquip ex ea commodo consequat"
+    "do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim " +
+    "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut " +
+    "aliquip ex ea commodo consequat"
 private const val EXAMPLE_TITLE = "Example Title"
