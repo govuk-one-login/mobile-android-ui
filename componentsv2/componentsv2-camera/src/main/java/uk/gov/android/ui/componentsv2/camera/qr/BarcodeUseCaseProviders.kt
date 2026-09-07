@@ -78,9 +78,7 @@ object BarcodeUseCaseProviders {
      * [androidx.camera.core.CameraControl.setZoomRatio] to suggested values.
      */
     @JvmStatic
-    fun provideZoomOptions(
-        camera: () -> Camera? = { null },
-    ): ZoomSuggestionOptions =
+    fun provideZoomOptions(camera: () -> Camera? = { null }): ZoomSuggestionOptions =
         ZoomSuggestionOptions
             .Builder { zoomRatio ->
                 camera()?.cameraControl?.setZoomRatio(zoomRatio)

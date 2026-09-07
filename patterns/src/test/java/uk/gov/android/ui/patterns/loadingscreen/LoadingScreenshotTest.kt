@@ -10,9 +10,8 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @OptIn(UnstableDesignSystemAPI::class)
 @RunWith(Parameterized::class)
-class LoadingScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+class LoadingScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {

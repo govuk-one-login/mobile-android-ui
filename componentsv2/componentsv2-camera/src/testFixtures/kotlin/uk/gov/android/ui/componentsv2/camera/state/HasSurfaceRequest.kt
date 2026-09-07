@@ -6,12 +6,10 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import uk.gov.android.ui.componentsv2.camera.state.surfacerequest.SurfaceRequester
 
-internal class HasSurfaceRequest(
-    private val matcher: Matcher<SurfaceRequest>,
-) : TypeSafeMatcher<SurfaceRequester.State>() {
-    override fun matchesSafely(
-        item: SurfaceRequester.State?,
-    ): Boolean = matcher.matches(item?.surfaceRequest?.value)
+internal class HasSurfaceRequest(private val matcher: Matcher<SurfaceRequest>) :
+    TypeSafeMatcher<SurfaceRequester.State>() {
+    override fun matchesSafely(item: SurfaceRequester.State?): Boolean =
+        matcher.matches(item?.surfaceRequest?.value)
 
     override fun describeTo(description: Description?) {
         matcher.describeTo(description)

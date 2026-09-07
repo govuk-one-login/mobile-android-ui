@@ -64,9 +64,9 @@ fun CameraContentDemo(
     barcodeAnalysis(
         context = context,
         options =
-        provideQrScanningOptions(
-            provideZoomOptions(viewModel::getCurrentCamera),
-        ),
+            provideQrScanningOptions(
+                provideZoomOptions(viewModel::getCurrentCamera),
+            ),
         callback = barcodeScanResultLoggingCallback,
         converter = ImageProxyConverter.simple(),
     ).let(viewModel::update)
@@ -75,10 +75,10 @@ fun CameraContentDemo(
 
     Column(
         modifier =
-        modifier
-            .background(colorScheme.dialogBackground)
-            .padding(spacingDouble)
-            .fillMaxSize(),
+            modifier
+                .background(colorScheme.dialogBackground)
+                .padding(spacingDouble)
+                .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -114,9 +114,9 @@ private fun generatePermissionLogic(
             analysisUseCase = analysisUseCase,
             imageCaptureUseCase = imageCaptureUseCase,
             modifier =
-            Modifier
-                .fillMaxSize()
-                .testTag("cameraViewfinder"),
+                Modifier
+                    .fillMaxSize()
+                    .testTag("cameraViewfinder"),
             surfaceRequest = surfaceRequest,
             cameraUpdater = viewModel::update,
         )

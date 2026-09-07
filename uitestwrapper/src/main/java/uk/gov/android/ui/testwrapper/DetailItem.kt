@@ -6,7 +6,4 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @Parcelize
-class DetailItem(
-    val label: String,
-    val name: String,
-) : Parcelable
+class DetailItem(val label: String, val name: String) : Parcelable

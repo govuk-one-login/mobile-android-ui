@@ -9,9 +9,7 @@ import uk.gov.android.ui.testwrapper.patterns.Patterns
 import uk.gov.android.ui.testwrapper.theme.Theme
 
 @Serializable
-sealed class TabDestination(
-    val label: String,
-) {
+sealed class TabDestination(val label: String) {
     @Serializable
     data object Components : TabDestination(
         label = "Components (v2)",
@@ -29,12 +27,11 @@ sealed class TabDestination(
 
     companion object {
         @JvmStatic
-        fun entries() =
-            listOf(
-                TabDestination.Components,
-                TabDestination.Patterns,
-                TabDestination.Theme,
-            ).sortedBy(TabDestination::label)
+        fun entries() = listOf(
+            TabDestination.Components,
+            TabDestination.Patterns,
+            TabDestination.Theme,
+        ).sortedBy(TabDestination::label)
 
         fun NavGraphBuilder.applyTabDestinations(
             modifier: Modifier = Modifier,

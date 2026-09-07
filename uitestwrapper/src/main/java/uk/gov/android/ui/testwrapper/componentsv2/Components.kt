@@ -35,10 +35,7 @@ import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-fun Components(
-    modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun Components(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -47,12 +44,12 @@ fun Components(
             GdsHeading(
                 text = destination.label,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {
-                        onNavigate(destination)
-                    })
-                    .padding(smallPadding),
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onNavigate(destination)
+                        })
+                        .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
                 style = GdsHeadingStyle.Title3,
             )
@@ -64,38 +61,50 @@ fun Components(
 // Add new demo composables here
 @Composable
 @Suppress("CyclomaticComplexMethod")
-fun ComponentDetail(
-    detailItem: DetailItem,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun ComponentDetail(detailItem: DetailItem, onNavigate: (Any) -> Unit = {}) {
     when (detailItem.label) {
         BULLETED_LIST -> GdsBulletedListDemo()
+
         NUMBERED_LIST -> GdsNumberedListDemo()
+
         RADIO -> GdsRadiosDemo()
+
         PRIMARY_BUTTON -> PrimaryButtonDemo()
+
         SECONDARY_BUTTON -> SecondaryButtonDemo()
+
         TOP_APP_BAR -> GdsTopAppBarDemo()
+
         DIALOGUE -> GdsDialogueDemo()
+
         STATUS_OVERLAY -> StatusOverlayDemo()
+
         CAMERA_CONTENT -> CameraContentDemo()
+
         QR_CODE_CENTRALISED_SCANNING ->
             QrScannerScreenDemo(
                 converter =
-                CentrallyCroppedImageProxyConverter(
-                    relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
-                    relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
-                ),
+                    CentrallyCroppedImageProxyConverter(
+                        relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+                        relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
+                    ),
                 onNavigate = onNavigate,
             )
+
         QR_CODE_SCANNING ->
             QrScannerScreenDemo(
                 converter = ImageProxyConverter.simple(),
                 onNavigate = onNavigate,
             )
+
         ROW_LIST -> RowListDemo()
+
         CARD -> GdsCardDemo()
+
         WARNING -> GdsWarningDemo()
+
         HEADING -> GdsHeadingDemo()
+
         ANNOTATED_STRING -> GdsAnnotatedStringDemo()
     }
 }

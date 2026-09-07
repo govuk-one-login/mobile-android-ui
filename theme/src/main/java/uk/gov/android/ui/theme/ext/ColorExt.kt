@@ -17,10 +17,8 @@ fun Color.toHex(): Int = (MASK and this.toArgb())
 
 fun Color.toHexWithAlpha(): Long = (MASK_ALPHA and this.toArgb().toLong())
 
-fun Color.toHexString(): String =
-    String.format(Locale.ENGLISH, "#%06X", toHex())
+fun Color.toHexString(): String = String.format(Locale.ENGLISH, "#%06X", toHex())
 
-fun Color.toHexStringWithAlpha(): String =
-    String.format(Locale.ENGLISH, "#%08X", toHexWithAlpha())
+fun Color.toHexStringWithAlpha(): String = String.format(Locale.ENGLISH, "#%08X", toHexWithAlpha())
 
 fun Color.fallbackTo(color: Color) = if (this != Color.Unspecified) this else color

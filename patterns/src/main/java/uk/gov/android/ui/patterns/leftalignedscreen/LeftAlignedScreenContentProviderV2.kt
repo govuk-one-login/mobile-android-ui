@@ -11,6 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R as componentsv2R
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.Image
@@ -23,7 +24,6 @@ import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
-import uk.gov.android.ui.componentsv2.R as componentsv2R
 
 internal class LeftAlignedScreenContentProviderV2 :
     PreviewParameterProvider<LeftAlignedScreenContentV2> {
@@ -32,7 +32,8 @@ internal class LeftAlignedScreenContentProviderV2 :
     private val textLong = LoremIpsum(25).values.first()
     private val textExtraLong = LoremIpsum(100).values.first()
     private val supportingText =
-        "Check if your passport has a biometric chip, look for the rectangular biometric chip symbol on the front cover"
+        "Check if your passport has a biometric chip, look for the " +
+            "rectangular biometric chip symbol on the front cover"
     private val warning = "You cannot use your passport if it has expired"
     private val selectionItems = persistentListOf("Yes", "No")
     private val imageDescription = "Image description"

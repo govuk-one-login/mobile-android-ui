@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.update
 /**
  * [CameraHolder.Complete] implementation that defers to the internal [state].
  */
-class MutableCameraHolder(
-    private val state: MutableStateFlow<Camera?> = MutableStateFlow(null),
-) : CameraHolder.Complete {
+class MutableCameraHolder(private val state: MutableStateFlow<Camera?> = MutableStateFlow(null)) :
+    CameraHolder.Complete {
     /**
      * [kotlinx.coroutines.flow.StateFlow] for the internal [state] property.
      *

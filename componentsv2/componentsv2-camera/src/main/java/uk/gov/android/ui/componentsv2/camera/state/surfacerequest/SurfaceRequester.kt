@@ -15,7 +15,9 @@ sealed interface SurfaceRequester {
      * @see State
      * @see Updater
      */
-    interface Complete : State, Updater
+    interface Complete :
+        State,
+        Updater
 
     /**
      * Interface for exposing a [SurfaceRequest] [StateFlow]. Commonly paired with the [Updater]

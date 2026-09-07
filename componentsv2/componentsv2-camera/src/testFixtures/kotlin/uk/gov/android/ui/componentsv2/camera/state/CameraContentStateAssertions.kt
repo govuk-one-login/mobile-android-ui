@@ -24,61 +24,43 @@ import uk.gov.android.ui.componentsv2.camera.state.surfacerequest.SurfaceRequest
 @Suppress("TooManyFunctions")
 object CameraContentStateAssertions {
     fun hasCamera() = hasCamera(any(Camera::class.java))
-    fun hasCamera(
-        expected: Camera,
-    ) = hasCamera(equalTo(expected))
-    fun hasCamera(
-        matcher: Matcher<Camera>,
-    ): Matcher<in CameraHolder.State> = HasCamera.viaFunction(matcher)
+    fun hasCamera(expected: Camera) = hasCamera(equalTo(expected))
+    fun hasCamera(matcher: Matcher<Camera>): Matcher<in CameraHolder.State> =
+        HasCamera.viaFunction(matcher)
     fun hasNoCamera() = hasCamera(nullValue(Camera::class.java))
 
     fun hasCurrentCamera() = hasCurrentCamera(any(Camera::class.java))
-    fun hasCurrentCamera(
-        expected: Camera,
-    ) = hasCurrentCamera(equalTo(expected))
-    fun hasCurrentCamera(
-        matcher: Matcher<Camera>,
-    ): Matcher<in CameraHolder.State> = HasCamera.viaFlow(matcher)
+    fun hasCurrentCamera(expected: Camera) = hasCurrentCamera(equalTo(expected))
+    fun hasCurrentCamera(matcher: Matcher<Camera>): Matcher<in CameraHolder.State> =
+        HasCamera.viaFlow(matcher)
     fun hasNullCurrentCamera() = hasCurrentCamera(nullValue(Camera::class.java))
 
     fun hasPreview() = hasPreview(any(Preview::class.java))
-    fun hasPreview(
-        expected: Preview,
-    ) = hasPreview(equalTo(expected))
+    fun hasPreview(expected: Preview) = hasPreview(equalTo(expected))
 
-    fun hasPreview(
-        matcher: Matcher<Preview>,
-    ): Matcher<in ImagePreviewer.State> = HasPreview(matcher)
+    fun hasPreview(matcher: Matcher<Preview>): Matcher<in ImagePreviewer.State> =
+        HasPreview(matcher)
 
     fun hasImageAnalysis() = hasImageAnalysis(any(ImageAnalysis::class.java))
-    fun hasImageAnalysis(
-        expected: ImageAnalysis,
-    ) = hasImageAnalysis(equalTo(expected))
-    fun hasImageAnalysis(
-        matcher: Matcher<ImageAnalysis>,
-    ): Matcher<in ImageAnalyzer.State> = HasImageAnalysis(matcher)
+    fun hasImageAnalysis(expected: ImageAnalysis) = hasImageAnalysis(equalTo(expected))
+    fun hasImageAnalysis(matcher: Matcher<ImageAnalysis>): Matcher<in ImageAnalyzer.State> =
+        HasImageAnalysis(matcher)
     fun hasNoImageAnalysis() = hasImageAnalysis(
         nullValue(ImageAnalysis::class.java),
     )
 
     fun hasImageCapture() = hasImageCapture(any(ImageCapture::class.java))
-    fun hasImageCapture(
-        expected: ImageCapture,
-    ) = hasImageCapture(equalTo(expected))
-    fun hasImageCapture(
-        matcher: Matcher<ImageCapture>,
-    ): Matcher<in ImageCapturer.State> = HasImageCapture(matcher)
+    fun hasImageCapture(expected: ImageCapture) = hasImageCapture(equalTo(expected))
+    fun hasImageCapture(matcher: Matcher<ImageCapture>): Matcher<in ImageCapturer.State> =
+        HasImageCapture(matcher)
     fun hasNoImageCapture() = hasImageCapture(
         nullValue(ImageCapture::class.java),
     )
 
     fun hasSurfaceRequest() = hasSurfaceRequest(any(SurfaceRequest::class.java))
-    fun hasSurfaceRequest(
-        expected: SurfaceRequest,
-    ) = hasSurfaceRequest(equalTo(expected))
-    fun hasSurfaceRequest(
-        matcher: Matcher<SurfaceRequest>,
-    ): Matcher<in SurfaceRequester.State> = HasSurfaceRequest(matcher)
+    fun hasSurfaceRequest(expected: SurfaceRequest) = hasSurfaceRequest(equalTo(expected))
+    fun hasSurfaceRequest(matcher: Matcher<SurfaceRequest>): Matcher<in SurfaceRequester.State> =
+        HasSurfaceRequest(matcher)
     fun hasNoSurfaceRequest() = hasSurfaceRequest(
         nullValue(SurfaceRequest::class.java),
     )

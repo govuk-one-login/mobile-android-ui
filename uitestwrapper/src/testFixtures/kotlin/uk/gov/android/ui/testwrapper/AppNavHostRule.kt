@@ -11,15 +11,16 @@ import androidx.navigation.toRoute
 import org.junit.Assert.assertNotNull
 import uk.gov.android.ui.componentsv2.Renderer
 
-class AppNavHostRule(
-    composeTestRule: ComposeContentTestRule,
-) : ComposeContentTestRule by composeTestRule,
+class AppNavHostRule(composeTestRule: ComposeContentTestRule) :
+    ComposeContentTestRule by composeTestRule,
     Renderer<Any> {
     lateinit var navController: TestNavHostController
 
-    inline fun <reified T : Any> currentBackStackRoute() = navController.currentBackStackEntry?.toRoute<T>()
+    inline fun <reified T : Any> currentBackStackRoute() =
+        navController.currentBackStackEntry?.toRoute<T>()
 
-    inline fun <reified T : Any> hasCurrentBackStackRoute() = assertNotNull(currentBackStackRoute<T>())
+    inline fun <reified T : Any> hasCurrentBackStackRoute() =
+        assertNotNull(currentBackStackRoute<T>())
 
     override fun render(input: Any) {
         setContent {

@@ -7,9 +7,8 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-class StatusOverlayScreenshotTest(
-    parameters: Pair<Int, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+class StatusOverlayScreenshotTest(parameters: Pair<Int, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         PreviewStatusOverlay()

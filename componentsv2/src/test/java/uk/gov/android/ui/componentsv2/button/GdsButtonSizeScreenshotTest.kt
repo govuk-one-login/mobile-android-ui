@@ -68,23 +68,16 @@ internal class GdsButtonSizeScreenshotTest : BaseScreenshotTest() {
  * Column of alternating coloured boxes that should align with the height of the buttons
  */
 @Composable
-fun MeasuringColumn(
-    numBoxes: Int,
-    boxHeight: Dp,
-    modifier: Modifier = Modifier,
-) = Column(modifier) {
-    (1..numBoxes).forEach { i ->
-        MeasuringBox(i, boxHeight)
+fun MeasuringColumn(numBoxes: Int, boxHeight: Dp, modifier: Modifier = Modifier) =
+    Column(modifier) {
+        (1..numBoxes).forEach { i ->
+            MeasuringBox(i, boxHeight)
+        }
     }
-}
 
 @Composable
-fun MeasuringBox(
-    index: Int,
-    boxHeight: Dp,
-    modifier: Modifier = Modifier,
-) = Box(
+fun MeasuringBox(index: Int, boxHeight: Dp, modifier: Modifier = Modifier) = Box(
     modifier = modifier
         .size(boxHeight)
-        .background(if (index % 2 == 0) Color.Cyan else Color.Magenta)
+        .background(if (index % 2 == 0) Color.Cyan else Color.Magenta),
 )

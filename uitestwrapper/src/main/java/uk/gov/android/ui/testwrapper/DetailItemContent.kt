@@ -32,10 +32,10 @@ fun DetailItemContent(
                 item {
                     ListItem(
                         modifier =
-                        Modifier
-                            .clickable {
-                                onItemClick(detailItem)
-                            },
+                            Modifier
+                                .clickable {
+                                    onItemClick(detailItem)
+                                },
                         headlineContent = {
                             GdsHeading(
                                 text = detailItem.name,

@@ -20,9 +20,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.toMappedColors
 
 @RunWith(Parameterized::class)
-class QrScannerOverlayScreenshotTest(
-    private val nightMode: NightMode,
-) {
+class QrScannerOverlayScreenshotTest(private val nightMode: NightMode) {
 
     @get:Rule
     val paparazzi = Paparazzi(

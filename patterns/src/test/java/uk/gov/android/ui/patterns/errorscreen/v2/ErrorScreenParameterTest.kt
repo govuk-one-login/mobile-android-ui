@@ -114,7 +114,9 @@ class ErrorScreenParameterTest {
 
         Then("the default modifier should be applied") {
             onNodeWithText(mandatoryTitle).assertIsNotDisplayed()
-            onNodeWithContentDescription(getString(mandatoryIcon.description)).assertIsNotDisplayed()
+            onNodeWithContentDescription(
+                getString(mandatoryIcon.description),
+            ).assertIsNotDisplayed()
         }
     }
 

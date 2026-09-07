@@ -13,14 +13,14 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R as componentsR
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
-import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreen
-import uk.gov.android.ui.componentsv2.R as componentsR
 import uk.gov.android.ui.patterns.R as patternsR
+import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreen
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
@@ -181,7 +181,7 @@ fun ErrorBottomContentLargeScreenDemo() {
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
-        }
+        },
     )
 }
 
@@ -229,7 +229,7 @@ fun ErrorScreenSupportingTextDemo() {
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
-        }
+        },
     )
 }
 
@@ -243,7 +243,8 @@ private val bodyContent = persistentListOf(
     "Short",
     "OK",
     "A medium length string here",
-    "This is an even longer string that should definitely wrap across multiple lines on most screens",
+    "This is an even longer string that should definitely wrap " +
+        "across multiple lines on most screens",
     "Hello",
     "Something went wrong, please try again later",
     "Hi",
@@ -255,7 +256,8 @@ private val bodyContent = persistentListOf(
     "A",
     "Your session has expired. Please sign in again to continue",
     "Not found",
-    "This service is temporarily unavailable due to scheduled maintenance. We apologise for any inconvenience",
+    "This service is temporarily unavailable due to scheduled " +
+        "maintenance. We apologise for any inconvenience",
     "Retry",
     "An unknown error occurred while processing your request",
     "No connection",
