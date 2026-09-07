@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,14 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -116,7 +120,8 @@ internal fun GdsRadioOptionItem(
     modifier: Modifier = Modifier,
     isFocusedForPreview: Boolean = false,
 ) {
-    var isFocused by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
     val showFocus = isFocused || isFocusedForPreview
 
     val selectedString = getRadioOptionAccessibilityText(
@@ -133,8 +138,6 @@ internal fun GdsRadioOptionItem(
         isSelected = false,
     )
 
-    val interactionSource = remember { MutableInteractionSource() }
-
     // Added onKeyEvent listener to ensure test Focus Movement can be tested
     //This was necessary because the default selectable behavior was not reliably triggering
     // when testing remotely
@@ -142,8 +145,14 @@ internal fun GdsRadioOptionItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .onFocusChanged { isFocused = it.isFocused }
-            .focusable()
+            .onKeyEvent {
+                if (it.type == KeyEventType.KeyUp && (it.key == Key.Spacebar || it.key == Key.Enter)) {
+                    onOptionSelected()
+                    true
+                } else {
+                    false
+                }
+            }
             .selectable(
                 selected = isSelected,
                 onClick = onOptionSelected,
@@ -151,16 +160,39 @@ internal fun GdsRadioOptionItem(
                 indication = null,
                 role = Role.RadioButton,
             )
+            .focusable()
             .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
             },
         horizontalArrangement = Arrangement.Start,
     ) {
         RadioFocusIndicator(
-            text = text,
-            isSelected = isSelected,
             showFocus = showFocus,
             interactionSource = interactionSource,
+        ) {
+            RadioButton(
+                selected = isSelected,
+                colors = getRadioButtonColors(showFocus),
+                // onClick is null so the RadioButton is not an independent focus target.
+                // The parent Row's clickable modifier handles all interaction (touch, keyboard
+                // Space/Enter) and is the single focus stop for the whole row.
+
+                // Add clearAndSetSemantics to internal children of the RadioButton to ensure
+                // TalkBack announcements are in line with the previous implementation,
+                // treating the row as the single semantic node.
+                onClick = null,
+                interactionSource = interactionSource,
+                modifier = Modifier.clearAndSetSemantics {},
+            )
+        }
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = Typography.bodyLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = spacingSingle)
+                .clearAndSetSemantics {},
         )
     }
 }
@@ -168,10 +200,9 @@ internal fun GdsRadioOptionItem(
 
 @Composable
 private fun RadioFocusIndicator(
-    text: String,
-    isSelected: Boolean,
     showFocus: Boolean,
     interactionSource: MutableInteractionSource,
+    radioButton: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
         Box(
@@ -190,31 +221,9 @@ private fun RadioFocusIndicator(
                 )
                 .padding(4.dp),
         ) {
-            RadioButton(
-                selected = isSelected,
-                colors = getRadioButtonColors(showFocus),
-                // onClick is null so the RadioButton is not an independent focus target.
-                // The parent Row's clickable modifier handles all interaction (touch, keyboard
-                // Space/Enter) and is the single focus stop for the whole row.
-
-                // Add clearAndSetSemantics to internal children of the RadioButton to ensure
-                // TalkBack announcements are in line with the previous implementation,
-                // treating the row as the single semantic node.
-                onClick = null,
-                interactionSource = interactionSource,
-                modifier = Modifier.clearAndSetSemantics {},
-            )
+            radioButton()
         }
     }
-    Text(
-        text = text,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = Typography.bodyLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(end = spacingSingle)
-            .clearAndSetSemantics {},
-    )
 }
 @Composable
 private fun getRadioButtonColors(isFocused: Boolean) = if (isFocused) {
