@@ -236,6 +236,39 @@ private fun getContentPadding(
         )
     }
 
+@Composable
+@Deprecated(
+    message = "Will be removed on 8th November 2026 (DCMAW-23114).",
+    level = DeprecationLevel.HIDDEN,
+)
+fun GdsButton(
+    text: String,
+    buttonType: ButtonTypeV2,
+    onClick: () -> Unit,
+    @SuppressLint("ModifierParameter")
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
+    loading: Boolean = false,
+    textAlign: TextAlign = TextAlign.Center,
+    shape: Shape = GdsButtonDefaults.defaultShape,
+) {
+    GdsButton(
+        text = text,
+        buttonType = buttonType,
+        onClick = onClick,
+        modifier = modifier,
+        contentModifier = contentModifier,
+        contentPosition = contentPosition,
+        enabled = enabled,
+        loading = loading,
+        textAlign = textAlign,
+        shape = shape,
+        icon = null,
+    )
+}
+
 internal enum class ButtonTypePreview {
     Primary,
     Secondary,
