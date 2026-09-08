@@ -97,4 +97,7 @@
     <string name="dialogue_provider_button_no" translatable="false">No</string>
     <string name="dialogue_provider_button_confirm" translatable="false">Confirming action</string>
     <string name="dialogue_provider_button_dismiss" translatable="false">Dismiss action</string>
+
+    <!-- Progress indicator -->
+    <string name="progress_indicator_text">Loading</string>
 </resources>
