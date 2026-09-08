@@ -4,9 +4,9 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,12 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -39,6 +41,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.requestFocus
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -120,7 +123,7 @@ internal fun GdsRadioOptionItem(
     isFocusedForPreview: Boolean = false,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
+    var isFocused by remember { mutableStateOf(false) }
     val showFocus = isFocused || isFocusedForPreview
 
     val selectedString = getRadioOptionAccessibilityText(
@@ -144,6 +147,7 @@ internal fun GdsRadioOptionItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .onFocusChanged { isFocused = it.isFocused }
             .onKeyEvent {
                 if (it.type == KeyEventType.KeyUp &&
                     (it.key == Key.Spacebar || it.key == Key.Enter)
@@ -161,8 +165,13 @@ internal fun GdsRadioOptionItem(
                 indication = null,
                 role = Role.RadioButton,
             )
+            .focusable()
             .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
+                requestFocus {
+                    isFocused = true
+                    true
+                }
             },
         horizontalArrangement = Arrangement.Start,
     ) {
