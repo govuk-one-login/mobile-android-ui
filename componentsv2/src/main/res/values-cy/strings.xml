@@ -84,4 +84,7 @@
 
     <!-- Buttons -->
     <string name ="loading_content_desc">Llwytho</string>
+
+    <!-- Progress indicator -->
+    <string name="progress_indicator_text">Llwytho</string>
 </resources>
