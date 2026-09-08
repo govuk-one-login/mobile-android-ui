@@ -148,6 +148,7 @@ internal fun GdsRadioOptionItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .onFocusChanged { isFocused = it.isFocused }
+            .focusable()
             .onKeyEvent {
                 if (it.type == KeyEventType.KeyUp &&
                     (it.key == Key.Spacebar || it.key == Key.Enter)
@@ -165,7 +166,6 @@ internal fun GdsRadioOptionItem(
                 indication = null,
                 role = Role.RadioButton,
             )
-            .focusable()
             .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
                 requestFocus {
