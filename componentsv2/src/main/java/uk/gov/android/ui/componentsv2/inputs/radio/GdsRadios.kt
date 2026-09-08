@@ -4,7 +4,6 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -162,7 +161,6 @@ internal fun GdsRadioOptionItem(
                 indication = null,
                 role = Role.RadioButton,
             )
-            .focusable()
             .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
             },
