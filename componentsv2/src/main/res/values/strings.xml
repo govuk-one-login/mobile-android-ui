@@ -99,5 +99,7 @@
     <string name="dialogue_provider_button_dismiss" translatable="false">Dismiss action</string>
 
     <!-- Progress indicator -->
-    <string name="progress_indicator_text">Loading</string>
+    <string name="progress_indicator_loading_short">Loading</string>
+    <string name="progress_indicator_loading_long">Still loading</string>
+    <string name="progress_indicator_loading_longer">Still loading, keep waiting</string>
 </resources>
