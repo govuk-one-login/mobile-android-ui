@@ -86,5 +86,7 @@
     <string name ="loading_content_desc">Llwytho</string>
 
     <!-- Progress indicator -->
-    <string name="progress_indicator_text">Llwytho</string>
+    <string name="progress_indicator_loading_short">Llwytho</string>
+    <string name="progress_indicator_loading_long">Dal i lwytho</string>
+    <string name="progress_indicator_loading_longer">Dal i lwytho, daliwch ati i aros</string>
 </resources>
