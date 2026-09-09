@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
@@ -30,7 +32,8 @@ import uk.gov.android.ui.theme.swatch.Swatch
 import uk.gov.android.ui.theme.swatch.SwatchColor
 
 /**
- * @param darkTheme
+ * @param colorScheme The Material 3 colour scheme
+ * @param extendedColorScheme The GDS extended colour scheme
  * @param shapes
  * @param typography
  * @param enableActivityEdgeToEdge
@@ -48,19 +51,20 @@ import uk.gov.android.ui.theme.swatch.SwatchColor
 @Suppress("DEPRECATED")
 @Composable
 fun GdsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    colorScheme: ColorScheme = GdsThemeDefaults.colorScheme(),
+    extendedColorScheme: CustomColorsScheme = GdsThemeDefaults.extendedColorScheme(),
     shapes: Shapes = Shapes,
     typography: Typography = Typography,
     enableActivityEdgeToEdge: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colors = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2
+    val darkTheme = isSystemInDarkTheme()
 
     CompositionLocalProvider(
-        GdsLocalColorScheme provides customColors(),
+        GdsLocalColorScheme provides extendedColorScheme,
     ) {
         MaterialTheme(
-            colorScheme = colors,
+            colorScheme = colorScheme,
             shapes = shapes,
             typography = typography,
         ) {
@@ -86,7 +90,29 @@ fun GdsTheme(
     }
 }
 
-data class CustomColorsScheme(
+@Deprecated(
+    message = "Use GdsTheme with colorScheme and extendedColorScheme parameters",
+    level = DeprecationLevel.HIDDEN,
+)
+@Composable
+fun GdsTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    shapes: Shapes = Shapes,
+    typography: Typography = Typography,
+    enableActivityEdgeToEdge: Boolean = true,
+    content: @Composable () -> Unit,
+) = GdsTheme(
+    colorScheme = if (darkTheme) DarkColorPaletteV2 else LightColorPaletteV2,
+    extendedColorScheme = GdsThemeDefaults.extendedColorScheme(),
+    shapes = shapes,
+    typography = typography,
+    enableActivityEdgeToEdge = enableActivityEdgeToEdge,
+    content = content,
+)
+
+@Suppress("LongParameterList")
+@Immutable
+class CustomColorsScheme(
     val cardBackground: Color = Color.Unspecified,
     val rowBackground: Color = Color.Unspecified,
     @Deprecated(
@@ -147,66 +173,130 @@ data class CustomColorsScheme(
 @SuppressLint("CompositionLocalNaming")
 val GdsLocalColorScheme = staticCompositionLocalOf { CustomColorsScheme() }
 
+object GdsThemeDefaults {
+    @Composable
+    fun colorScheme() = if (isSystemInDarkTheme()) {
+        DarkColorPaletteV2
+    } else {
+        LightColorPaletteV2
+    }
+
+    @Suppress("LongParameterList")
+    @Composable
+    fun extendedColorScheme(
+        cardBackground: Color = Backgrounds.card.toMappedColors(),
+        listBackground: Color = Backgrounds.row.toMappedColors(),
+        rowBackground: Color = Backgrounds.row.toMappedColors(),
+        topBarBackground: Color = Backgrounds.topBar.toMappedColors(),
+        topBarScrolledBackground: Color = Backgrounds.topBarScrolled.toMappedColors(),
+        statusOverlayBackground: Color = Backgrounds.statusOverlay.toMappedColors(),
+        statusOverlayContent: Color = Text.statusOverlay.toMappedColors(),
+        dialogBackground: Color = Backgrounds.dialogue.toMappedColors(),
+        menuItemBackground: Color = Backgrounds.menuItem.toMappedColors(),
+        menuItemHighlightedBackground: Color = Backgrounds.menuItemHighlighted.toMappedColors(),
+        topBarTitle: Color = NavigationElements.topBarTitle.toMappedColors(),
+        topBarIcon: Color = NavigationElements.topBarIcon.toMappedColors(),
+        navigationBarBackground: Color = Backgrounds.navigationBar.toMappedColors(),
+        navigationBarSelectedState: Color =
+            NavigationElements.navigationBarSelectedState.toMappedColors(),
+        navigationBarContent: Color = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
+        unselectedRadioButton: Color = Radios.unselectedRadioButton.toMappedColors(),
+        primaryButtonHighlighted: Color = Buttons.primaryHighlighted.toMappedColors(),
+        secondaryTextAndSymbolButtonHighlighted: Color =
+            Buttons.secondaryTextAndSymbolHighlighted.toMappedColors(),
+        buttonShadow: Color = Buttons.shadow.toMappedColors(),
+        disabledButton: Color = Buttons.disabled.toMappedColors(),
+        disabledButtonContent: Color = Buttons.disabledTextAndSymbol.toMappedColors(),
+        disabledButtonShadow: Color = Buttons.disabledShadow.toMappedColors(),
+        unselectedBackgroundSwitch: Color = Switch.unselectedBackground.toMappedColors(),
+        unselectedBorderAndHandleSwitch: Color = Switch.unselectedBorderAndHandle.toMappedColors(),
+        selectedBackgroundSwitch: Color = Switch.selectedBackground.toMappedColors(),
+        selectedHandleSwitch: Color = Switch.selectedHandle.toMappedColors(),
+        dividerDefault: Color = Dividers.default.toMappedColors(),
+        dividerCard: Color = Dividers.card.toMappedColors(),
+        focusState: Color = Buttons.focusState.toMappedColors(),
+        focusStateContent: Color = Buttons.focusStateTextAndSymbol.toMappedColors(),
+        focusButtonHighlighted: Color = Buttons.focusStateHighlighted.toMappedColors(),
+        focusStateShadow: Color = Buttons.focusStateShadow.toMappedColors(),
+        destructiveButtonHighlighted: Color = Buttons.destructiveHighlighted.toMappedColors(),
+        destructiveButtonShadow: Color = Buttons.destructiveShadow.toMappedColors(),
+        nativeButtonText: Color = Buttons.nativeButtonText.toMappedColors(),
+        iconDefault: Color = Icons.default.toMappedColors(),
+        successIcon: Color = Icons.success.toMappedColors(),
+        destructiveIcon: Color = Icons.destructive.toMappedColors(),
+        spinnerIcon: Color = Icons.spinner.toMappedColors(),
+        errorIcon: Color = Icons.error.toMappedColors(),
+        linkDefault: Color = Links.default.toMappedColors(),
+        menuItemHighlighted: Color = Menu.menuItemHighlighted.toMappedColors(),
+        menuItem: Color = Menu.menuItem.toMappedColors(),
+        qrScannerOverlay: QrScannerOverlayDefaults = QrScannerOverlayDefaults,
+        qrScannerOverlayBackground: Color = QrScannerOverlayDefaults.background.toMappedColors(),
+        qrScannerOverlayBorder: Color = QrScannerOverlayDefaults.border.toMappedColors(),
+        destructiveNativeButtonText: Color = Buttons.destructiveNativeButtonText.toMappedColors(),
+        destructiveNativeButtonTextHighlighted: Color =
+            Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
+    ): CustomColorsScheme = CustomColorsScheme(
+        cardBackground = cardBackground,
+        listBackground = listBackground,
+        rowBackground = rowBackground,
+        topBarBackground = topBarBackground,
+        topBarScrolledBackground = topBarScrolledBackground,
+        statusOverlayBackground = statusOverlayBackground,
+        statusOverlayContent = statusOverlayContent,
+        dialogBackground = dialogBackground,
+        menuItemBackground = menuItemBackground,
+        menuItemHighlightedBackground = menuItemHighlightedBackground,
+        topBarTitle = topBarTitle,
+        topBarIcon = topBarIcon,
+        navigationBarBackground = navigationBarBackground,
+        navigationBarSelectedState = navigationBarSelectedState,
+        navigationBarContent = navigationBarContent,
+        // TODO Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
+        selectedRadioButton = Radios.selectedRadioButton.toMappedColors(),
+        unselectedRadioButton = unselectedRadioButton,
+        primaryButtonHighlighted = primaryButtonHighlighted,
+        secondaryTextAndSymbolButtonHighlighted = secondaryTextAndSymbolButtonHighlighted,
+        buttonShadow = buttonShadow,
+        disabledButton = disabledButton,
+        disabledButtonContent = disabledButtonContent,
+        disabledButtonShadow = disabledButtonShadow,
+        unselectedBackgroundSwitch = unselectedBackgroundSwitch,
+        unselectedBorderAndHandleSwitch = unselectedBorderAndHandleSwitch,
+        selectedBackgroundSwitch = selectedBackgroundSwitch,
+        selectedHandleSwitch = selectedHandleSwitch,
+        dividerDefault = dividerDefault,
+        dividerCard = dividerCard,
+        focusState = focusState,
+        focusStateContent = focusStateContent,
+        focusButtonHighlighted = focusButtonHighlighted,
+        focusStateShadow = focusStateShadow,
+        destructiveButtonHighlighted = destructiveButtonHighlighted,
+        destructiveButtonShadow = destructiveButtonShadow,
+        nativeButtonText = nativeButtonText,
+        iconDefault = iconDefault,
+        successIcon = successIcon,
+        destructiveIcon = destructiveIcon,
+        spinnerIcon = spinnerIcon,
+        errorIcon = errorIcon,
+        linkDefault = linkDefault,
+        menuItemHighlighted = menuItemHighlighted,
+        menuItem = menuItem,
+        qrScannerOverlay = qrScannerOverlay,
+        qrScannerOverlayBackground = qrScannerOverlayBackground,
+        qrScannerOverlayBorder = qrScannerOverlayBorder,
+        destructiveNativeButtonText = destructiveNativeButtonText,
+        destructiveNativeButtonTextHighlighted = destructiveNativeButtonTextHighlighted,
+    )
+}
+
 /**
  * This provides a Custom Color Scheme specific GDS adhering to the Design System.
  * These colours are only the ones that could not be mapped to the Material3 ones.
  */
 @Suppress("ForbiddenComment")
 @Composable
-private fun customColors(): CustomColorsScheme = CustomColorsScheme(
-    cardBackground = Backgrounds.card.toMappedColors(),
-    listBackground = Backgrounds.row.toMappedColors(),
-    rowBackground = Backgrounds.row.toMappedColors(),
-    topBarBackground = Backgrounds.topBar.toMappedColors(),
-    topBarScrolledBackground = Backgrounds.topBarScrolled.toMappedColors(),
-    statusOverlayBackground = Backgrounds.statusOverlay.toMappedColors(),
-    statusOverlayContent = Text.statusOverlay.toMappedColors(),
-    dialogBackground = Backgrounds.dialogue.toMappedColors(),
-    menuItemBackground = Backgrounds.menuItem.toMappedColors(),
-    menuItemHighlightedBackground = Backgrounds.menuItemHighlighted.toMappedColors(),
-    topBarTitle = NavigationElements.topBarTitle.toMappedColors(),
-    topBarIcon = NavigationElements.topBarIcon.toMappedColors(),
-    navigationBarBackground = Backgrounds.navigationBar.toMappedColors(),
-    navigationBarSelectedState = NavigationElements.navigationBarSelectedState.toMappedColors(),
-    navigationBarContent = NavigationElements.navigationBarIconAndLabel.toMappedColors(),
-    // TODO: Once deprecated code is removed, please update these - this is kept only to avoid a breaking change
-    selectedRadioButton = Radios.selectedRadioButton.toMappedColors(),
-    unselectedRadioButton = Radios.unselectedRadioButton.toMappedColors(),
-    primaryButtonHighlighted = Buttons.primaryHighlighted.toMappedColors(),
-    secondaryTextAndSymbolButtonHighlighted =
-        Buttons.secondaryTextAndSymbolHighlighted.toMappedColors(),
-    buttonShadow = Buttons.shadow.toMappedColors(),
-    disabledButton = Buttons.disabled.toMappedColors(),
-    disabledButtonContent = Buttons.disabledTextAndSymbol.toMappedColors(),
-    disabledButtonShadow = Buttons.disabledShadow.toMappedColors(),
-    unselectedBackgroundSwitch = Switch.unselectedBackground.toMappedColors(),
-    unselectedBorderAndHandleSwitch = Switch.unselectedBorderAndHandle.toMappedColors(),
-    selectedBackgroundSwitch = Switch.selectedBackground.toMappedColors(),
-    selectedHandleSwitch = Switch.selectedHandle.toMappedColors(),
-    dividerDefault = Dividers.default.toMappedColors(),
-    dividerCard = Dividers.card.toMappedColors(),
-    focusState = Buttons.focusState.toMappedColors(),
-    focusStateContent = Buttons.focusStateTextAndSymbol.toMappedColors(),
-    focusButtonHighlighted = Buttons.focusStateHighlighted.toMappedColors(),
-    focusStateShadow = Buttons.focusStateShadow.toMappedColors(),
-    destructiveButtonHighlighted = Buttons.destructiveHighlighted.toMappedColors(),
-    destructiveButtonShadow = Buttons.destructiveShadow.toMappedColors(),
-    nativeButtonText = Buttons.nativeButtonText.toMappedColors(),
-    iconDefault = Icons.default.toMappedColors(),
-    successIcon = Icons.success.toMappedColors(),
-    destructiveIcon = Icons.destructive.toMappedColors(),
-    spinnerIcon = Icons.spinner.toMappedColors(),
-    errorIcon = Icons.error.toMappedColors(),
-    linkDefault = Links.default.toMappedColors(),
-    menuItemHighlighted = Menu.menuItemHighlighted.toMappedColors(),
-    menuItem = Menu.menuItem.toMappedColors(),
-    qrScannerOverlay = QrScannerOverlayDefaults,
-    qrScannerOverlayBackground = QrScannerOverlayDefaults.background.toMappedColors(),
-    qrScannerOverlayBorder = QrScannerOverlayDefaults.border.toMappedColors(),
-    destructiveNativeButtonText = Buttons.destructiveNativeButtonText.toMappedColors(),
-    destructiveNativeButtonTextHighlighted =
-        Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
-)
+@Deprecated("Use ThemeDefaults.extendedColors")
+private fun customColors(): CustomColorsScheme = GdsThemeDefaults.extendedColorScheme()
 
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
