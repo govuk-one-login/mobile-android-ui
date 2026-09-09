@@ -22,13 +22,24 @@ import uk.gov.android.ui.theme.m3.GdsTheme
  *
  * @sample IconScreenshotTest
  */
-abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT, locale: String? = null) {
+abstract class BaseScreenshotTest(
+    nightMode: NightMode = NOTNIGHT,
+    locale: String? = null,
+    fontScale: Float = FONT_SCALE_M,
+) {
+
+    constructor(config: Config) : this(
+        nightMode = config.nightMode,
+        locale = config.locale,
+        fontScale = config.fontScale,
+    )
 
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6.copy(
             nightMode = nightMode,
             locale = locale,
+            fontScale = fontScale,
         ),
         renderingMode = SHRINK,
         showSystemUi = false,
@@ -46,6 +57,11 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT, locale: Strin
     protected abstract val generateComposeLayout: @Composable () -> Unit
 
     companion object {
+        const val LOCALE_EN = "en"
+        const val LOCALE_CY = "cy"
+
+        const val FONT_SCALE_M = 1f
+        const val FONT_SCALE_L = 2f
 
         @JvmStatic
         fun <T : Any> applyNightMode(
@@ -56,5 +72,29 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT, locale: Strin
             result.add(parameters to NOTNIGHT)
             result.add(parameters to NIGHT)
         }
+
+        val defaultConfig = Config("default", NOTNIGHT, LOCALE_EN, FONT_SCALE_M)
+        val darkConfig = defaultConfig.copy(name = "dark", nightMode = NIGHT)
+        val welshConfig = defaultConfig.copy(name = "welsh", locale = LOCALE_CY)
+        val largeFontConfig = defaultConfig.copy(name = "large_font", fontScale = FONT_SCALE_L)
+
+        /**
+         * All combinations of parameters for the screenshot test
+         */
+        val allConfigs: Iterable<Config> = arrayListOf(
+            defaultConfig,
+            darkConfig,
+            welshConfig,
+            largeFontConfig,
+        )
+    }
+
+    data class Config(
+        val name: String,
+        val nightMode: NightMode,
+        val locale: String,
+        val fontScale: Float,
+    ) {
+        override fun toString(): String = name
     }
 }
