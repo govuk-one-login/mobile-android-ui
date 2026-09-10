@@ -33,6 +33,10 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  */
 @UnstableDesignSystemAPI
 @Composable
+@Deprecated(
+    message = "Migrate to v2. Will be removed on 10th November 2026 (DCMAW-XXXXX).",
+    level = DeprecationLevel.WARNING,
+)
 fun LoadingScreen(modifier: Modifier = Modifier, text: String = stringResource(R.string.loading)) {
     Column(
         modifier = modifier
