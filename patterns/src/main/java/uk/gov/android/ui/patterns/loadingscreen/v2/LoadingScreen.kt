@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import uk.gov.android.ui.componentsv2.progress.GdsProgressIndicator
 import uk.gov.android.ui.componentsv2.progress.GdsProgressIndicatorDefaults
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -62,6 +63,13 @@ internal fun LoadingScreenCustomSample() {
 @Composable
 @PreviewLightDark
 @ContentPreviews
-internal fun LoadingScreenPreview() = GdsTheme {
-    LoadingScreenDefaultSample()
+internal fun LoadingScreenPreview(
+    @PreviewParameter(LoadingScreenPreviewParameterProvider::class)
+    label: String,
+) = GdsTheme {
+    LoadingScreen {
+        GdsProgressIndicator(
+            labels = GdsProgressIndicatorDefaults.labels(short = label),
+        )
+    }
 }
