@@ -70,6 +70,18 @@ internal fun GdsProgressIndicatorPreview() = GdsTheme {
 
 @Preview
 @Composable
+internal fun GdsProgressIndicatorCustomLabelsPreview() = GdsTheme {
+    Surface {
+        GdsProgressIndicator(
+            labels = GdsProgressIndicatorDefaults.labels(
+                short = "Custom loading message that is quite long and wraps onto multiple lines",
+            ),
+        )
+    }
+}
+
+@Preview
+@Composable
 internal fun GdsProgressIndicatorCustomThemePreview() {
     val govUkBlue = Color(color = 0xFF1D70B8)
     GdsTheme(
