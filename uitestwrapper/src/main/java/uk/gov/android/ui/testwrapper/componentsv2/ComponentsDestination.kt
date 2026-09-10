@@ -180,6 +180,21 @@ sealed class ComponentsDestination(open val label: String) {
                         DetailItem(label = ROW_LIST, name = "Row List"),
                     ),
             ),
+            DetailedItem(
+                text = "Progress indicator",
+                items =
+                    listOf(
+                        DetailItem(label = PROGRESS_INDICATOR_DEFAULT, name = "Progress indicator"),
+                        DetailItem(
+                            label = PROGRESS_INDICATOR_CUSTOM_LABELS,
+                            name = "Progress indicator with custom labels",
+                        ),
+                        DetailItem(
+                            label = PROGRESS_INDICATOR_CUSTOM_THEME,
+                            name = "Progress indicator with custom theme",
+                        ),
+                    ),
+            ),
         ).sortedBy(ComponentsDestination::label)
     }
 }
