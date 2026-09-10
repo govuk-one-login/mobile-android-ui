@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.progress
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
@@ -41,7 +42,7 @@ fun GdsProgressIndicator(
     }
 
     Column(
-        modifier = modifier.padding(horizontal = spacingDouble),
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacingDouble),
     ) {
