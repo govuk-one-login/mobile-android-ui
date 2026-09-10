@@ -6,21 +6,21 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.progress.GdsProgressIndicator
 import uk.gov.android.ui.componentsv2.progress.GdsProgressIndicatorDefaults
-import uk.gov.android.ui.componentsv2.progress.ProgressLabels
 import uk.gov.android.ui.patterns.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @OptIn(UnstableDesignSystemAPI::class)
 @RunWith(Parameterized::class)
-class LoadingScreenshotTest(nightMode: NightMode) : BaseScreenshotTest(nightMode) {
+class LoadingScreenScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         GdsTheme {
             LoadingScreen {
                 GdsProgressIndicator(
                     labels = GdsProgressIndicatorDefaults.labels(
-                        short = "Custom long loading message that will wrap onto multiple lines",
+                        short = parameters.first,
                     ),
                 )
             }
@@ -30,6 +30,10 @@ class LoadingScreenshotTest(nightMode: NightMode) : BaseScreenshotTest(nightMode
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} Loading")
-        fun values(): List<NightMode> = listOf(NightMode.NIGHT, NightMode.NOTNIGHT)
+        fun values(): List<Pair<String, NightMode>> {
+            val result: MutableList<Pair<String, NightMode>> = mutableListOf()
+            LoadingScreenPreviewParameterProvider().values.forEach(applyNightMode(result))
+            return result
+        }
     }
 }
