@@ -3,7 +3,6 @@ package uk.gov.android.ui.componentsv2.progress
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -15,8 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
-import uk.gov.android.ui.theme.m3.DarkColorPaletteV2
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.GdsThemeDefaults
@@ -69,21 +66,24 @@ internal fun GdsProgressIndicatorPreview() = GdsTheme {
 
 @Preview
 @Composable
-internal fun GdsProgressIndicatorCustomThemePreview() = GdsTheme(
-    colorScheme = GdsThemeDefaults.colorScheme().copy(
-        surface = Color(0xFF1D70B8),
-        onSurface = Color.White
-    ) ,
-    extendedColorScheme = GdsThemeDefaults.extendedColorScheme(
-        spinnerIcon = Color.White
-    )
-) {
-    Surface {
-        val state = remember {
-            GdsProgressIndicatorState(
-                initialWaitedFor = ProgressWaitLength.Short,
-            )
+internal fun GdsProgressIndicatorCustomThemePreview() {
+    val govUkBlue = Color(color = 0xFF1D70B8)
+    GdsTheme(
+        colorScheme = GdsThemeDefaults.colorScheme().copy(
+            surface = govUkBlue,
+            onSurface = Color.White,
+        ),
+        extendedColorScheme = GdsThemeDefaults.extendedColorScheme(
+            spinnerIcon = Color.White,
+        ),
+    ) {
+        Surface {
+            val state = remember {
+                GdsProgressIndicatorState(
+                    initialWaitedFor = ProgressWaitLength.Short,
+                )
+            }
+            GdsProgressIndicator(state = state)
         }
-        GdsProgressIndicator(state = state)
     }
 }
