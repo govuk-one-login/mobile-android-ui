@@ -184,6 +184,7 @@ private fun MainContent(
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
             Alignment.CenterVertically,
@@ -202,6 +203,7 @@ private fun MainContent(
                     .semantics(mergeDescendants = true) {
                         heading()
                     },
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 icon?.invoke(HorizontalPadding)
 
@@ -233,6 +235,7 @@ private fun BottomContent(
     supportingText: (@Composable () -> Unit)? = null,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
             Alignment.CenterVertically,
