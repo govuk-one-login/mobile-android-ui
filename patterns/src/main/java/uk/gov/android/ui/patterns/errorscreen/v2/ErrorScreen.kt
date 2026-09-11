@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme.colorScheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -38,8 +36,6 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults
-import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenDefaults.NoPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
@@ -346,7 +342,6 @@ internal fun ErrorScreenPreviewComposable(
                 image = ImageVector.vectorResource(content.icon.icon),
                 contentDescription = stringResource(content.icon.description),
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(horizontal = horizontalPadding),
                 color = colorScheme.onBackground,
             )
