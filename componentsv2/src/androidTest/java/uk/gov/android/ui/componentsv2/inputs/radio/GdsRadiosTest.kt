@@ -108,7 +108,6 @@ class GdsRadiosTest {
             composeTestRule.waitForIdle()
             assertIsFocused()
         }
-
         composeTestRule.onNode(hasContentDescription("Option 1", substring = true))
             .performKeyInput {
                 pressKey(Key.DirectionDown)

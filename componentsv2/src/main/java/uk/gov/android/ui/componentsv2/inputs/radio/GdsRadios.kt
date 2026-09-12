@@ -4,9 +4,10 @@ package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,26 +23,18 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.key.type
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.requestFocus
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -120,11 +113,9 @@ internal fun GdsRadioOptionItem(
     index: Int,
     totalOptions: Int,
     modifier: Modifier = Modifier,
-    isFocusedForPreview: Boolean = false,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    var isFocused by remember { mutableStateOf(false) }
-    val showFocus = isFocused || isFocusedForPreview
+    val isFocused by interactionSource.collectIsFocusedAsState()
 
     val selectedString = getRadioOptionAccessibilityText(
         index = index,
@@ -140,25 +131,9 @@ internal fun GdsRadioOptionItem(
         isSelected = false,
     )
 
-    // Added onKeyEvent listener to ensure test Focus Movement can be tested
-    // This was necessary because the default selectable behavior was not reliably triggering
-    // when testing remotely
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .onFocusChanged { isFocused = it.isFocused }
-            .focusable()
-            .onKeyEvent {
-                if (it.type == KeyEventType.KeyUp &&
-                    (it.key == Key.Spacebar || it.key == Key.Enter)
-                ) {
-                    onOptionSelected()
-                    true
-                } else {
-                    false
-                }
-            }
             .selectable(
                 selected = isSelected,
                 onClick = onOptionSelected,
@@ -168,30 +143,22 @@ internal fun GdsRadioOptionItem(
             )
             .semantics(mergeDescendants = true) {
                 contentDescription = if (isSelected) selectedString else unselectedString
-                requestFocus {
-                    isFocused = true
-                    true
-                }
             },
         horizontalArrangement = Arrangement.Start,
     ) {
         RadioFocusIndicator(
-            showFocus = showFocus,
+            showFocus = isFocused,
             interactionSource = interactionSource,
         ) {
             RadioButton(
                 selected = isSelected,
-                colors = getRadioButtonColors(showFocus),
+                colors = getRadioButtonColors(isFocused),
                 // onClick is null so the RadioButton is not an independent focus target.
                 // The parent Row's clickable modifier handles all interaction (touch, keyboard
                 // Space/Enter) and is the single focus stop for the whole row.
 
-                // Add clearAndSetSemantics to internal children of the RadioButton to ensure
-                // TalkBack announcements are in line with the previous implementation,
-                // treating the row as the single semantic node.
                 onClick = null,
                 interactionSource = interactionSource,
-                modifier = Modifier.clearAndSetSemantics {},
             )
         }
         Text(
@@ -200,8 +167,7 @@ internal fun GdsRadioOptionItem(
             style = Typography.bodyLarge,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = spacingSingle)
-                .clearAndSetSemantics {},
+                .padding(end = spacingSingle),
         )
     }
 }
@@ -292,6 +258,12 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
 internal fun GdsRadioOptionItemPreview(
     @PreviewParameter(GdsRadioOptionItemProvider::class) data: GdsRadioOptionItemPreviewData,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    if (data.isFocused) {
+        LaunchedEffect(Unit) {
+            interactionSource.emit(FocusInteraction.Focus())
+        }
+    }
     GdsTheme {
         GdsRadioOptionItem(
             text = data.text,
@@ -300,7 +272,7 @@ internal fun GdsRadioOptionItemPreview(
             onOptionSelected = {},
             index = 0,
             totalOptions = 1,
-            isFocusedForPreview = data.isFocused,
+            interactionSource = interactionSource,
         )
     }
 }
