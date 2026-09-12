@@ -1,8 +1,20 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertIsFocused
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.isNotSelected
+import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performKeyInput
+import androidx.compose.ui.test.pressKey
+import androidx.compose.ui.test.requestFocus
 import junit.framework.TestCase.assertEquals
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -29,7 +41,7 @@ class GdsRadiosTest {
             )
         }
 
-        composeTestRule.onNodeWithText("Option 2", useUnmergedTree = true).performClick()
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).performClick()
         verify(onItemSelected).invoke(1)
     }
 
@@ -46,7 +58,86 @@ class GdsRadiosTest {
             )
         }
 
-        composeTestRule.onNodeWithText("Option 2", useUnmergedTree = true).performClick()
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).performClick()
         assertEquals(1, selectedItem)
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun testKeyboardSelectionWithSpace() {
+        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
+        val onItemSelected = mock<(Int) -> Unit>()
+
+        composeTestRule.setContent {
+            GdsRadios(
+                items = items,
+                selectedItem = null,
+                onItemSelected = onItemSelected,
+            )
+        }
+
+        composeTestRule.onNode(
+            hasContentDescription("Option 1", substring = true),
+        ).apply {
+            requestFocus()
+            composeTestRule.waitForIdle()
+            performKeyInput {
+                pressKey(Key.Spacebar)
+            }
+        }
+
+        verify(onItemSelected).invoke(0)
+    }
+
+    @OptIn(ExperimentalTestApi::class)
+    @Test
+    fun testKeyboardFocusMovement() {
+        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
+
+        composeTestRule.setContent {
+            GdsRadios(
+                items = items,
+                selectedItem = null,
+                onItemSelected = {},
+            )
+        }
+
+        // Focus the first option using requestFocus
+        composeTestRule.onNode(hasContentDescription("Option 1", substring = true)).apply {
+            requestFocus()
+            composeTestRule.waitForIdle()
+            assertIsFocused()
+        }
+        composeTestRule.onNode(hasContentDescription("Option 1", substring = true))
+            .performKeyInput {
+                pressKey(Key.DirectionDown)
+            }
+
+        composeTestRule.onNode(
+            hasContentDescription("Option 2", substring = true),
+        ).assertIsFocused()
+    }
+
+    @Test
+    fun testSemantics() {
+        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
+
+        composeTestRule.setContent {
+            GdsRadios(
+                items = items,
+                selectedItem = 0,
+                onItemSelected = {},
+            )
+        }
+
+        composeTestRule.onNode(hasContentDescription("Option 1", substring = true)).apply {
+            assert(isSelected())
+            assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.RadioButton))
+        }
+
+        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).apply {
+            assert(isNotSelected())
+            assert(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.RadioButton))
+        }
     }
 }
