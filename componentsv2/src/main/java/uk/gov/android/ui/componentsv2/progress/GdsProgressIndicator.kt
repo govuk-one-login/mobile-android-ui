@@ -29,6 +29,9 @@ import uk.gov.android.ui.theme.spacingDouble
  * A progress indicator with a label that changes over time to communicate ongoing background
  * processing.
  *
+ * @sample GdsProgressIndicatorPreview
+ * @sample GdsProgressIndicatorCustomLabelsPreview
+ *
  * @param modifier Compose [Modifier] to apply to the component
  * @param labels the labels shown for each phase
  * @param state the state of the indicator determining the label that is shown
