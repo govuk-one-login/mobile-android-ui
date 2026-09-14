@@ -1,10 +1,16 @@
 package uk.gov.android.ui.patterns.loadingscreen.v2
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -35,7 +41,9 @@ fun LoadingScreen(
     modifier = modifier.fillMaxSize(),
 ) {
     Box(
-        modifier = Modifier.padding(spacingDouble),
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(spacingDouble),
         contentAlignment = Alignment.Center,
     ) {
         progressIndicator()
