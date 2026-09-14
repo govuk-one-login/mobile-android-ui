@@ -1,6 +1,5 @@
 package uk.gov.android.ui.testwrapper.componentsv2.progress
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
