@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.progress
 
+import androidx.compose.foundation.MutatorMutex
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -21,7 +22,9 @@ class GdsProgressIndicatorState(initialWaitedFor: ProgressWaitLength = ProgressW
     var waitedFor: ProgressWaitLength by mutableStateOf(initialWaitedFor)
         private set
 
-    suspend fun runAnimation() {
+    private val mutatorMutex = MutatorMutex()
+
+    suspend fun runAnimation() = mutatorMutex.mutate {
         if (waitedFor == ProgressWaitLength.Short) {
             delay(GdsProgressIndicatorDefaults.ShortDuration)
             waitedFor = ProgressWaitLength.Long

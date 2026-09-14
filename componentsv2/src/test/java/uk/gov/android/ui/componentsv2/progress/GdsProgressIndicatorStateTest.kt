@@ -9,6 +9,7 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -117,4 +118,21 @@ class GdsProgressIndicatorStateTest {
 
             assertEquals(ProgressWaitLength.Longer, state.waitedFor)
         }
+
+    @Test
+    fun `when animation started multiple times, it runs animation only once`() = runTest {
+        val state = GdsProgressIndicatorState()
+
+        val firstAnimation = backgroundScope.launch { state.runAnimation() }
+        val secondAnimation = backgroundScope.launch { state.runAnimation() }
+        runCurrent()
+
+        assertTrue(firstAnimation.isCancelled)
+        assertTrue(secondAnimation.isActive)
+
+        advanceTimeBy(fiveSeconds)
+        runCurrent()
+
+        assertEquals(ProgressWaitLength.Long, state.waitedFor)
+    }
 }
