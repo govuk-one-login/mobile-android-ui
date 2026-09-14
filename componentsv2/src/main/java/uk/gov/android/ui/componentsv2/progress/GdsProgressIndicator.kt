@@ -3,6 +3,7 @@ package uk.gov.android.ui.componentsv2.progress
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.GdsThemeDefaults
@@ -55,8 +57,10 @@ fun GdsProgressIndicator(
         verticalArrangement = Arrangement.spacedBy(spacingDouble),
     ) {
         CircularProgressIndicator(
-            // The text label makes the default progress semantics redundant
-            modifier = Modifier.clearAndSetSemantics {},
+            modifier = Modifier
+                // The text label makes the default progress semantics redundant
+                .clearAndSetSemantics {}
+                .size(36.dp),
             color = GdsLocalColorScheme.current.spinnerIcon,
         )
         Text(
