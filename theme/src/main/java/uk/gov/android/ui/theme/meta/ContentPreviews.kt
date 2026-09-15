@@ -7,6 +7,6 @@ import androidx.compose.ui.tooling.preview.Preview
  * - Welsh language
  * - Large font scale
  */
-@Preview(locale = "cy") // Welsh
-@Preview(fontScale = 2.0f)
+@Preview(name = "Welsh", locale = "cy")
+@Preview(name = "Large font", fontScale = 2.0f)
 annotation class ContentPreviews
