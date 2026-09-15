@@ -2,7 +2,6 @@ package uk.gov.android.ui.patterns.errorscreen.v2
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -34,7 +33,6 @@ internal class DestructiveScreenScreenshotTest(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = horizontalPadding),
-                        color = colorScheme.onBackground,
                     )
                 },
                 title = { horizontalPadding ->
