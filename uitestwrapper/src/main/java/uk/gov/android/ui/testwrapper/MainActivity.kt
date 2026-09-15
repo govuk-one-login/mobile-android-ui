@@ -30,10 +30,9 @@ class MainActivity : ComponentActivity() {
             var selectedDestination by rememberSaveable { mutableIntStateOf(0) }
 
             GdsTheme {
-                Scaffold { contentPadding ->
+                Scaffold(topBar = {
                     PrimaryTabRow(
                         selectedTabIndex = selectedDestination,
-                        modifier = Modifier.padding(contentPadding),
                     ) {
                         TabDestination.entries().forEachIndexed { index, destination ->
                             Tab(
@@ -52,7 +51,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
-                    AppNavHost(navController, startDestination)
+                }) { contentPadding ->
+                    AppNavHost(
+                        navController,
+                        startDestination,
+                        modifier = Modifier.padding(contentPadding),
+                    )
                 }
             }
         }
