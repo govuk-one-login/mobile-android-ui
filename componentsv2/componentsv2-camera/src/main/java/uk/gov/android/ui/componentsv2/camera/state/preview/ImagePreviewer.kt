@@ -14,7 +14,9 @@ sealed interface ImagePreviewer {
      * @see State
      * @see Updater
      */
-    interface Complete : State, Updater
+    interface Complete :
+        State,
+        Updater
 
     /**
      * Interface for exposing a [Preview] [StateFlow]. Commonly paired with the [Updater]

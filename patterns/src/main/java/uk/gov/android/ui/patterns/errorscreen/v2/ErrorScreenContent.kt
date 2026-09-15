@@ -7,21 +7,19 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
-import uk.gov.android.ui.componentsv2.button.buttonColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
@@ -36,26 +34,21 @@ internal data class ErrorScreenContent(
     val title: String,
     val icon: ErrorScreenIcon = ErrorScreenIcon.ErrorIcon,
     val body: ImmutableList<ErrorScreenBodyContent>? = null,
+    val supportingText: String? = null,
     val primaryButton: ErrorScreenButton? = null,
     val secondaryButton: ErrorScreenButton? = null,
     val tertiaryButton: ErrorScreenButton? = null,
 )
 
 sealed class ErrorScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : ErrorScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        ErrorScreenBodyContent()
 
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
     data class Button(
         val text: String,
@@ -73,10 +66,7 @@ data class ErrorScreenButton(
     val enabled: Boolean = true,
 )
 
-enum class ErrorScreenIcon(
-    @DrawableRes val icon: Int,
-    @StringRes val description: Int,
-) {
+enum class ErrorScreenIcon(@DrawableRes val icon: Int, @StringRes val description: Int) {
     ErrorIcon(
         icon = R.drawable.ic_warning_error,
         description = R.string.error_icon_description,
@@ -98,14 +88,14 @@ internal fun LazyListScope.toBodyContent(
             is ErrorScreenBodyContent.Text -> {
                 item {
                     val textStyle = if (item.useBoldStyle) {
-                        Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        ExtraTypography.bodyLargeBold
                     } else {
                         Typography.bodyLarge
                     }
                     Text(
                         text = item.bodyText,
                         style = textStyle,
-                        color = colorScheme.onBackground,
+                        color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -148,20 +138,23 @@ internal fun LazyListScope.toBodyContent(
 // Helper for primary button with icon
 @Composable
 internal fun PrimaryButton(button: ErrorScreenButton) {
-    val buttonType = if (button.showIcon) {
-        ButtonTypeV2.Icon(
-            buttonColors = ButtonTypeV2.Primary().buttonColors(),
-            textStyle = ExtraTypography.bodyLargeBold,
-            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
-            contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
+    val icon = if (button.showIcon) {
+        ButtonIcon(
+            icon = ImageVector.vectorResource(
+                uk.gov.android.ui.componentsv2.R.drawable.ic_external_site,
+            ),
+            contentDescription = stringResource(
+                uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser,
+            ),
         )
     } else {
-        ButtonTypeV2.Primary()
+        null
     }
 
     GdsButton(
         text = button.text,
-        buttonType = buttonType,
+        icon = icon,
+        buttonType = ButtonTypeV2.Primary(),
         onClick = button.onClick,
         modifier = Modifier.fillMaxWidth(),
         enabled = button.enabled,
@@ -171,22 +164,16 @@ internal fun PrimaryButton(button: ErrorScreenButton) {
 // Helper for secondary button with icon
 @Composable
 internal fun SecondaryButton(button: ErrorScreenButton) {
-    val buttonType = if (button.showIcon) {
-        ButtonTypeV2.Icon(
-            buttonColors = customColors(
-                contentColor = colorScheme.primary,
-                containerColor = colorScheme.background,
-            ),
-            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
-            contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
-        )
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
     } else {
-        ButtonTypeV2.Secondary()
+        null
     }
 
     GdsButton(
         text = button.text,
-        buttonType = buttonType,
+        icon = icon,
+        buttonType = ButtonTypeV2.Secondary(),
         onClick = button.onClick,
         modifier = Modifier.fillMaxWidth(),
         enabled = button.enabled,
@@ -200,26 +187,31 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
         .fillMaxWidth()
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
-    val buttonType = if (button.showIcon) {
-        ButtonTypeV2.Icon(
-            buttonColors = customColors(
-                contentColor = colorScheme.primary,
-                containerColor = colorScheme.background,
-            ),
-            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
-            contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
-        )
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
     } else {
-        ButtonTypeV2.Secondary()
+        null
     }
 
     GdsButton(
         text = button.text,
-        buttonType = buttonType,
+        icon = icon,
+        buttonType = ButtonTypeV2.Secondary(),
         onClick = button.onClick,
         modifier = buttonModifier,
         contentModifier = Modifier
             .fillMaxWidth(),
         contentPosition = contentPosition,
+    )
+}
+
+// Helper for supporting text
+@Composable
+internal fun SupportingTextBody(text: String) {
+    Text(
+        text = text,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onBackground,
     )
 }

@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import kotlin.reflect.typeOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.serialization.Serializable
 import uk.gov.android.ui.testwrapper.DetailItem
@@ -12,26 +13,21 @@ import uk.gov.android.ui.testwrapper.PatternListDetail
 import uk.gov.android.ui.testwrapper.Placeholder
 import uk.gov.android.ui.testwrapper.navigation.navTypeOf
 import uk.gov.android.ui.theme.smallPadding
-import kotlin.reflect.typeOf
 
 @Serializable
-sealed class PatternsDestination(
-    val label: String,
-) {
+@Suppress("LongMethod")
+sealed class PatternsDestination(val label: String) {
     @Serializable
-    data class Placeholder(
-        val text: String,
-    ) : PatternsDestination(
-        label = text,
-    )
+    data class Placeholder(val text: String) :
+        PatternsDestination(
+            label = text,
+        )
 
     @Serializable
-    data class DetailedItem(
-        val text: String,
-        val items: List<DetailItem>,
-    ) : PatternsDestination(
-        label = text,
-    ) {
+    data class DetailedItem(val text: String, val items: List<DetailItem>) :
+        PatternsDestination(
+            label = text,
+        ) {
 
         companion object {
             /**
@@ -63,12 +59,11 @@ sealed class PatternsDestination(
             }
         }
 
-        fun entries() =
-            listOf(
-                Placeholder(text = "Dialog"),
-                DetailedItem(
-                    text = "Left Aligned Screen",
-                    items =
+        fun entries() = listOf(
+            Placeholder(text = "Dialog"),
+            DetailedItem(
+                text = "Left Aligned Screen",
+                items =
                     listOf(
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN,
@@ -79,10 +74,10 @@ sealed class PatternsDestination(
                             name = "Left Aligned Screen No Title",
                         ),
                     ),
-                ),
-                DetailedItem(
-                    text = "Centre Aligned Screen",
-                    items =
+            ),
+            DetailedItem(
+                text = "Centre Aligned Screen",
+                items =
                     listOf(
                         DetailItem(
                             label = CENTRED_ALIGNED_SCREEN,
@@ -93,10 +88,10 @@ sealed class PatternsDestination(
                             name = "Centred Aligned Scrollable Screen",
                         ),
                     ),
-                ),
-                DetailedItem(
-                    text = "Error Screen",
-                    items =
+            ),
+            DetailedItem(
+                text = "Error Screen",
+                items =
                     listOf(
                         DetailItem(
                             label = ERROR_SCREEN,
@@ -110,16 +105,20 @@ sealed class PatternsDestination(
                             label = ERROR_BOTTOM_CONTENT_LARGE_SCREEN,
                             name = "Error Bottom Content Larger Than 1/3 Screen",
                         ),
+                        DetailItem(
+                            label = ERROR_SCREEN_SUPPORTING_TEXT,
+                            name = "Error Screen supporting text",
+                        ),
                     ),
-                ),
-                DetailedItem(
-                    text = "Loading Screen",
-                    items =
+            ),
+            DetailedItem(
+                text = "Loading Screen",
+                items =
                     listOf(
                         DetailItem(label = LOADING_SCREEN, name = "Loading Screen"),
                     ),
-                ),
-                // Add new demo items here
-            ).sortedBy(PatternsDestination::label)
+            ),
+            // Add new demo items here
+        ).sortedBy(PatternsDestination::label)
     }
 }

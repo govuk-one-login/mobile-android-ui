@@ -5,8 +5,7 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.list.ListItem
 
-internal class ErrorScreenContentProvider :
-    PreviewParameterProvider<ErrorScreenContent> {
+internal class ErrorScreenContentProvider : PreviewParameterProvider<ErrorScreenContent> {
     private val errorTitle = "This is an Error View title"
     private val warningTitle = "This is a Warning View title"
     private val bodyContentSingleLine = "Body single line (regular)"
@@ -143,6 +142,27 @@ internal class ErrorScreenContentProvider :
                 onClick = {},
                 showIcon = true,
             ),
+        ),
+        ErrorScreenContent(
+            configurationDescription = """
+                Content 6 - Basic Error Screen with supporting text
+            """.trimIndent(),
+            title = warningTitle,
+            icon = ErrorScreenIcon.WarningIcon,
+            body = persistentListOf(
+                ErrorScreenBodyContent.Text(bodyContentSingleLine),
+            ),
+            primaryButton = ErrorScreenButton(
+                text = primaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            secondaryButton = ErrorScreenButton(
+                text = secondaryButtonText,
+                onClick = {},
+                showIcon = true,
+            ),
+            supportingText = "Supporting text",
         ),
     )
 

@@ -49,12 +49,15 @@ fun PermissionScreen(
 ) {
     when {
         permissionState.status.isGranted -> onGrantPermission()
+
         permissionState.status.shouldShowRationale ->
             onShowRationale(permissionState) {
                 permissionState.launchPermissionRequest()
             }
+
         permissionState.isPermanentlyDenied(hasPreviouslyDeniedPermission) ->
             onPermissionPermanentlyDenied(permissionState)
+
         else -> {
             onRequirePermission(permissionState) {
                 permissionState.launchPermissionRequest()
@@ -64,8 +67,7 @@ fun PermissionScreen(
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
-private fun PermissionState.isPermanentlyDenied(
-    hasPreviouslyDeniedPermission: Boolean,
-): Boolean = !status.isGranted &&
-    !status.shouldShowRationale &&
-    hasPreviouslyDeniedPermission
+private fun PermissionState.isPermanentlyDenied(hasPreviouslyDeniedPermission: Boolean): Boolean =
+    !status.isGranted &&
+        !status.shouldShowRationale &&
+        hasPreviouslyDeniedPermission

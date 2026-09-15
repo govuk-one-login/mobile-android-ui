@@ -68,9 +68,7 @@ internal data class IconPreviewParameters(
 )
 
 @Composable
-private fun Color.ifSpecified(
-    default: Color,
-): Color = if (this != Color.Unspecified) {
+private fun Color.ifSpecified(default: Color): Color = if (this != Color.Unspecified) {
     this
 } else {
     default

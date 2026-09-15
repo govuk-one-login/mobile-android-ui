@@ -14,7 +14,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(RobolectricTestRunner::class)
@@ -43,13 +42,11 @@ class GdsButtonSizeConsistencyTest {
                     )
                     GdsButton(
                         text = "Icon Primary",
-                        buttonType = ButtonTypeV2.Icon(
-                            buttonColors = GdsButtonDefaults.defaultPrimaryColors(),
+                        icon = ButtonIcon(
                             icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
-                            textStyle = ExtraTypography.bodyLargeBold,
                             contentDescription = "icon",
-                            shadowColor = GdsButtonDefaults.defaultPrimaryColors().containerColor,
                         ),
+                        buttonType = ButtonTypeV2.Primary(),
                         onClick = {},
                         modifier = Modifier.testTag("iconPrimary"),
                     )
