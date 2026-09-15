@@ -32,7 +32,6 @@ internal class DestructiveScreenScreenshotTest(
                         image = ImageVector.vectorResource(parameters.icon.icon),
                         contentDescription = stringResource(parameters.icon.description),
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(horizontal = horizontalPadding),
                         color = colorScheme.onBackground,
                     )
