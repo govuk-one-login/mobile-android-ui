@@ -23,7 +23,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -48,6 +47,7 @@ import uk.gov.android.ui.componentsv2.inputs.radio.previewparameterprovider.GdsR
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadioOptionItemPreviewData
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadiosContent
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadiosPreviewData
+import uk.gov.android.ui.componentsv2.utils.PreviewInteractionSource
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -263,11 +263,9 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
 internal fun GdsRadioOptionItemPreview(
     @PreviewParameter(GdsRadioOptionItemProvider::class) data: GdsRadioOptionItemPreviewData,
 ) {
-    val interactionSource = remember { data.mutableInteractionSource }
-
-    LaunchedEffect(Unit) {
-        interactionSource.emit(FocusInteraction.Focus())
-    }
+    val interactionSource = PreviewInteractionSource(
+        if (data.isFocused) FocusInteraction.Focus() else null,
+    )
 
     GdsTheme {
         Surface {
