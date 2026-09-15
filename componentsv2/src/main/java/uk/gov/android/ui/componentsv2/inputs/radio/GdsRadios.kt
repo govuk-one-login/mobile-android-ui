@@ -130,7 +130,11 @@ fun GdsRadioOptionItem(
                     unselectedColor = GdsLocalColorScheme.current.unselectedRadioButton,
                 ),
                 onClick = onOptionSelected,
-                modifier = Modifier.padding(top = spacingDouble, end = spacingDouble, bottom = spacingDouble),
+                modifier = Modifier.padding(
+                    top = spacingDouble,
+                    end = spacingDouble,
+                    bottom = spacingDouble,
+                ),
             )
         }
         Text(

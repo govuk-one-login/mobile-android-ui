@@ -61,9 +61,9 @@ fun GdsDialogue(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RectangleShape,
                 colors =
-                CardDefaults.cardColors(
-                    containerColor = Backgrounds.dialogue.toMappedColors(),
-                ),
+                    CardDefaults.cardColors(
+                        containerColor = Backgrounds.dialogue.toMappedColors(),
+                    ),
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     headingText?.let {
@@ -72,15 +72,15 @@ fun GdsDialogue(
                             style = GdsHeadingStyle.Title2,
                             textAlign = GdsHeadingAlignment.LeftAligned,
                             modifier =
-                            Modifier
-                                .padding(
-                                    start = mediumPadding,
-                                    end = mediumPadding,
-                                    top = mediumPadding,
-                                )
-                                .background(
-                                    color = Backgrounds.dialogue.toMappedColors(),
-                                ),
+                                Modifier
+                                    .padding(
+                                        start = mediumPadding,
+                                        end = mediumPadding,
+                                        top = mediumPadding,
+                                    )
+                                    .background(
+                                        color = Backgrounds.dialogue.toMappedColors(),
+                                    ),
                         )
                     }
                     contentText?.let {
@@ -89,11 +89,11 @@ fun GdsDialogue(
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier =
-                            Modifier.padding(
-                                start = mediumPadding,
-                                end = mediumPadding,
-                                top = smallPadding,
-                            ),
+                                Modifier.padding(
+                                    start = mediumPadding,
+                                    end = mediumPadding,
+                                    top = smallPadding,
+                                ),
                         )
                     }
                     ButtonRow(buttonParameters)

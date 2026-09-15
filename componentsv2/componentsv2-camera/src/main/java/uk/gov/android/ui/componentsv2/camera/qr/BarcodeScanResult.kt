@@ -17,9 +17,9 @@ sealed class BarcodeScanResult {
      * Implements [Iterable], allowing basic streaming functionality in the underlying [barcodes]
      * property.
      */
-    data class Success(
-        val barcodes: List<Barcode>,
-    ) : BarcodeScanResult(), Iterable<Barcode> by barcodes {
+    data class Success(val barcodes: List<Barcode>) :
+        BarcodeScanResult(),
+        Iterable<Barcode> by barcodes {
         val size = barcodes.size
 
         /**
@@ -27,9 +27,8 @@ sealed class BarcodeScanResult {
          *
          * @return A [Single] instance when the [predicate] returns true. Otherwise, an [EmptyScan].
          */
-        fun firstBarcodeOrEmpty(
-            predicate: (Barcode) -> Boolean,
-        ): BarcodeScanResult = barcodes.firstOrNull(predicate)?.let(::Single) ?: EmptyScan
+        fun firstBarcodeOrEmpty(predicate: (Barcode) -> Boolean): BarcodeScanResult =
+            barcodes.firstOrNull(predicate)?.let(::Single) ?: EmptyScan
 
         /**
          * Filtration function based on the [Barcode.UrlBookmark.getUrl] values within the
@@ -37,9 +36,8 @@ sealed class BarcodeScanResult {
          *
          * @return A [Single] instance when the [predicate] returns true. Otherwise, an [EmptyScan].
          */
-        fun firstUrlOrEmpty(
-            predicate: (String?) -> Boolean,
-        ): BarcodeScanResult = firstBarcodeOrEmpty { predicate(it.url?.url) }
+        fun firstUrlOrEmpty(predicate: (String?) -> Boolean): BarcodeScanResult =
+            firstBarcodeOrEmpty { predicate(it.url?.url) }
 
         /**
          * Filtration mechanism that maintains the same data-type (`Success`).
@@ -95,9 +93,7 @@ sealed class BarcodeScanResult {
     /**
      * The [BarcodeScanResult] state when a failure occurred.
      */
-    data class Failure(
-        val throwable: Throwable,
-    ) : BarcodeScanResult() {
+    data class Failure(val throwable: Throwable) : BarcodeScanResult() {
         val message: String? = throwable.message
     }
 

@@ -7,9 +7,8 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.theme.utils.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-internal class GdsThemeCustomScreenshotTest(
-    private val parameters: Pair<Unit, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+internal class GdsThemeCustomScreenshotTest(private val parameters: Pair<Unit, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         ThemeV2CustomPreview()
     }

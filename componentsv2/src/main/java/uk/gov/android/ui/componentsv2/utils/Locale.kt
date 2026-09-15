@@ -8,5 +8,4 @@ import java.util.Locale
  * Get the [Locale] that is currently active.
  */
 @Composable
-fun primaryLocale(): Locale =
-    LocalResources.current.configuration.locale
+fun primaryLocale(): Locale = LocalResources.current.configuration.locale

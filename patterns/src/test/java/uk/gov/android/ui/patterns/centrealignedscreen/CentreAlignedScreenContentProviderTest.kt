@@ -85,7 +85,8 @@ class CentreAlignedScreenContentProviderTest {
         }
     }
 
-    private fun SemanticsNodeInteractionCollection.assertAreDisplayed(): SemanticsNodeInteractionCollection {
+    private fun SemanticsNodeInteractionCollection.assertAreDisplayed():
+        SemanticsNodeInteractionCollection {
         fetchSemanticsNodes().forEachIndexed { index, _ ->
             get(index).performScrollTo().assertIsDisplayed()
         }
