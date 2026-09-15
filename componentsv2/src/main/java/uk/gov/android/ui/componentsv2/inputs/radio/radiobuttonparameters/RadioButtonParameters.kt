@@ -19,5 +19,5 @@ data class GdsRadiosContent(
 internal data class GdsRadioOptionItemPreviewData(
     val text: String,
     val isSelected: Boolean,
-    val mutableInteractionSource: MutableInteractionSource,
+    val isFocused: Boolean,
 )

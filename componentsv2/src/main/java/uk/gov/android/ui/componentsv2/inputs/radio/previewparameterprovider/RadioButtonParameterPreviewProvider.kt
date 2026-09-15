@@ -1,6 +1,5 @@
 package uk.gov.android.ui.componentsv2.inputs.radio.previewparameterprovider
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.collections.immutable.persistentListOf
@@ -53,12 +52,22 @@ internal class GdsRadioOptionItemProvider :
         GdsRadioOptionItemPreviewData(
             text = OPTION1,
             isSelected = false,
-            mutableInteractionSource = MutableInteractionSource(),
+            isFocused = false,
         ),
         GdsRadioOptionItemPreviewData(
             text = OPTION1,
             isSelected = true,
-            mutableInteractionSource = MutableInteractionSource(),
+            isFocused = false,
+        ),
+        GdsRadioOptionItemPreviewData(
+            text = OPTION1,
+            isSelected = false,
+            isFocused = true,
+        ),
+        GdsRadioOptionItemPreviewData(
+            text = OPTION1,
+            isSelected = true,
+            isFocused = true,
         ),
     )
 }
