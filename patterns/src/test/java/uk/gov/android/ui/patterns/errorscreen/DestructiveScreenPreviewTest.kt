@@ -56,7 +56,7 @@ class DestructiveScreenPreviewTest {
                 primaryButton = primaryButton,
                 secondaryButton = secondaryButton,
                 tertiaryButton = tertiaryButton,
-                supportingText = "Supporting text"
+                supportingText = "Supporting text",
             )
         }
 

@@ -61,13 +61,13 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             buttonType = ButtonTypePreview.Primary,
             enabled = false,
             loading = true,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ),
         ButtonParametersV2(
             text = "Primary button (rounded)",
             buttonType = ButtonTypePreview.Primary,
             shape = GdsButtonDefaults.customRoundedShape(BUTTON_RADIUS),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ),
         ButtonParametersV2(
             text = "Secondary button (icon)",

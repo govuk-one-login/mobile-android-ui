@@ -13,18 +13,12 @@ object CameraContentViewModelHelper {
         private val exception = IllegalAccessException(
             "This is a dummy camera and shouldn't be interacted with!",
         )
-        override fun getCameraControl(): CameraControl {
-            throw exception
-        }
+        override fun getCameraControl(): CameraControl = throw exception
 
-        override fun getCameraInfo(): CameraInfo {
-            throw exception
-        }
+        override fun getCameraInfo(): CameraInfo = throw exception
 
         @SuppressLint("RestrictedApi")
-        override fun getExtendedConfig(): CameraConfig {
-            throw exception
-        }
+        override fun getExtendedConfig(): CameraConfig = throw exception
     }
     fun TestScope.monitor(model: CameraContentViewModel) {
         listOf(

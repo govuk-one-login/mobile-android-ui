@@ -33,10 +33,7 @@ import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
  */
 @UnstableDesignSystemAPI
 @Composable
-fun LoadingScreen(
-    modifier: Modifier = Modifier,
-    text: String = stringResource(R.string.loading),
-) {
+fun LoadingScreen(modifier: Modifier = Modifier, text: String = stringResource(R.string.loading)) {
     Column(
         modifier = modifier
             .fillMaxSize()

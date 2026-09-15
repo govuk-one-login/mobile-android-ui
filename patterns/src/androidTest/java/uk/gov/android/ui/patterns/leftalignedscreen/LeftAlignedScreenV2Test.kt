@@ -201,32 +201,30 @@ class LeftAlignedScreenV2Test {
         assertTrue(didClick)
     }
 
-    private fun longListItems(): PersistentList<ListItem> {
-        return persistentListOf(
-            ListItem(text = "Item one"),
-            ListItem(text = "Item two"),
-            ListItem(text = "Item three"),
-            ListItem(text = "Item four"),
-            ListItem(text = "Item five"),
-            ListItem(text = "Item six"),
-            ListItem(text = "Item seven"),
-            ListItem(text = "Item eight"),
-            ListItem(text = "Item nine"),
-            ListItem(text = "Item ten"),
-            ListItem(text = "Item eleven"),
-            ListItem(text = "Item twelve"),
-            ListItem(text = "Item thirteen"),
-            ListItem(text = "Item fourteen"),
-            ListItem(text = "Item fifteen"),
-            ListItem(text = "Item sixteen"),
-            ListItem(text = "Item seventeen"),
-            ListItem(text = "Item eighteen"),
-            ListItem(text = "Item nineteen"),
-            ListItem(text = "Item twenty"),
-            ListItem(text = "Item twenty one"),
-            ListItem(text = "Item twenty two"),
-            ListItem(text = "Item twenty three"),
-            ListItem(text = "Item twenty four"),
-        )
-    }
+    private fun longListItems(): PersistentList<ListItem> = persistentListOf(
+        ListItem(text = "Item one"),
+        ListItem(text = "Item two"),
+        ListItem(text = "Item three"),
+        ListItem(text = "Item four"),
+        ListItem(text = "Item five"),
+        ListItem(text = "Item six"),
+        ListItem(text = "Item seven"),
+        ListItem(text = "Item eight"),
+        ListItem(text = "Item nine"),
+        ListItem(text = "Item ten"),
+        ListItem(text = "Item eleven"),
+        ListItem(text = "Item twelve"),
+        ListItem(text = "Item thirteen"),
+        ListItem(text = "Item fourteen"),
+        ListItem(text = "Item fifteen"),
+        ListItem(text = "Item sixteen"),
+        ListItem(text = "Item seventeen"),
+        ListItem(text = "Item eighteen"),
+        ListItem(text = "Item nineteen"),
+        ListItem(text = "Item twenty"),
+        ListItem(text = "Item twenty one"),
+        ListItem(text = "Item twenty two"),
+        ListItem(text = "Item twenty three"),
+        ListItem(text = "Item twenty four"),
+    )
 }

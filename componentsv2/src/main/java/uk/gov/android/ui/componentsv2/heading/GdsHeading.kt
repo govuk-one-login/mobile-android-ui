@@ -102,8 +102,7 @@ fun GdsHeading(
 
 internal sealed class GdsHeadingColour(val colors: ColorPair) {
     data object Default : GdsHeadingColour(Text.primary)
-    data class Custom(val customColorPair: ColorPair) :
-        GdsHeadingColour(customColorPair)
+    data class Custom(val customColorPair: ColorPair) : GdsHeadingColour(customColorPair)
 }
 
 internal data class HeadingParameters(

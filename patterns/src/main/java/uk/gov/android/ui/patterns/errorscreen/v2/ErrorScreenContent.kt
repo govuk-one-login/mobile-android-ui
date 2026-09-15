@@ -41,20 +41,14 @@ internal data class ErrorScreenContent(
 )
 
 sealed class ErrorScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : ErrorScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        ErrorScreenBodyContent()
 
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : ErrorScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        ErrorScreenBodyContent()
 
     data class Button(
         val text: String,
@@ -72,10 +66,7 @@ data class ErrorScreenButton(
     val enabled: Boolean = true,
 )
 
-enum class ErrorScreenIcon(
-    @DrawableRes val icon: Int,
-    @StringRes val description: Int,
-) {
+enum class ErrorScreenIcon(@DrawableRes val icon: Int, @StringRes val description: Int) {
     ErrorIcon(
         icon = R.drawable.ic_warning_error,
         description = R.string.error_icon_description,
@@ -149,8 +140,12 @@ internal fun LazyListScope.toBodyContent(
 internal fun PrimaryButton(button: ErrorScreenButton) {
     val icon = if (button.showIcon) {
         ButtonIcon(
-            icon = ImageVector.vectorResource(uk.gov.android.ui.componentsv2.R.drawable.ic_external_site),
-            contentDescription = stringResource(uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser),
+            icon = ImageVector.vectorResource(
+                uk.gov.android.ui.componentsv2.R.drawable.ic_external_site,
+            ),
+            contentDescription = stringResource(
+                uk.gov.android.ui.componentsv2.R.string.opens_in_external_browser,
+            ),
         )
     } else {
         null
@@ -212,9 +207,7 @@ internal fun SecondaryButtonBody(button: ErrorScreenBodyContent.Button) {
 
 // Helper for supporting text
 @Composable
-internal fun SupportingTextBody(
-    text: String
-) {
+internal fun SupportingTextBody(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Center,

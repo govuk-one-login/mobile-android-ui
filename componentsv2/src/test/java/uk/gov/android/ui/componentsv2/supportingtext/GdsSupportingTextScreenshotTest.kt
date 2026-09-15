@@ -8,9 +8,8 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
-internal class GdsSupportingTextScreenshotTest(
-    private val parameters: Pair<String, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+internal class GdsSupportingTextScreenshotTest(private val parameters: Pair<String, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first

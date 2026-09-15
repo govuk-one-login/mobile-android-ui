@@ -17,9 +17,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-class GdsButtonSizeTest(
-    private val params: TestParams,
-) {
+class GdsButtonSizeTest(private val params: TestParams) {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -62,13 +60,37 @@ class GdsButtonSizeTest(
         @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
         fun parameters(): List<TestParams> = listOf(
             TestParams(name = "primary", buttonType = ButtonTypeV2.Primary()),
-            TestParams(name = "primary with icon", buttonType = ButtonTypeV2.Primary(), icon = true),
-            TestParams(name = "primary loading", buttonType = ButtonTypeV2.Primary(), loading = true),
-            TestParams(name = "primary disabled", buttonType = ButtonTypeV2.Primary(), enabled = false),
+            TestParams(
+                name = "primary with icon",
+                buttonType = ButtonTypeV2.Primary(),
+                icon = true,
+            ),
+            TestParams(
+                name = "primary loading",
+                buttonType = ButtonTypeV2.Primary(),
+                loading = true,
+            ),
+            TestParams(
+                name = "primary disabled",
+                buttonType = ButtonTypeV2.Primary(),
+                enabled = false,
+            ),
             TestParams(name = "secondary", buttonType = ButtonTypeV2.Secondary()),
-            TestParams(name = "secondary with icon", buttonType = ButtonTypeV2.Secondary(), icon = true),
-            TestParams(name = "secondary loading", buttonType = ButtonTypeV2.Secondary(), loading = true),
-            TestParams(name = "secondary disabled", buttonType = ButtonTypeV2.Secondary(), enabled = false),
+            TestParams(
+                name = "secondary with icon",
+                buttonType = ButtonTypeV2.Secondary(),
+                icon = true,
+            ),
+            TestParams(
+                name = "secondary loading",
+                buttonType = ButtonTypeV2.Secondary(),
+                loading = true,
+            ),
+            TestParams(
+                name = "secondary disabled",
+                buttonType = ButtonTypeV2.Secondary(),
+                enabled = false,
+            ),
         )
     }
 }

@@ -67,7 +67,7 @@ class DestructiveScreenScrollingTest {
                     },
                     supportingText = {
                         GdsSupportingText(text = "Supporting text")
-                    }
+                    },
                 )
             }
         }

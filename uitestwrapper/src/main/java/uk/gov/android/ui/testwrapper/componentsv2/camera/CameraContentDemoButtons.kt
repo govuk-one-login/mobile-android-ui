@@ -26,9 +26,9 @@ object CameraContentDemoButtons {
         GdsButton(
             modifier = modifier.testTag("permissionRequiredButton"),
             text =
-            stringResource(
-                R.string.dialogue_demo_camera_permission_required,
-            ),
+                stringResource(
+                    R.string.dialogue_demo_camera_permission_required,
+                ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
                 launchPermission()
@@ -44,9 +44,9 @@ object CameraContentDemoButtons {
         GdsButton(
             modifier = modifier.testTag("permissionRationaleButton"),
             text =
-            stringResource(
-                R.string.dialogue_demo_camera_permission_rationale,
-            ),
+                stringResource(
+                    R.string.dialogue_demo_camera_permission_rationale,
+                ),
             buttonType = ButtonTypeV2.Primary(),
             onClick = {
                 launchPermission()
@@ -64,8 +64,8 @@ object CameraContentDemoButtons {
         Column(modifier = modifier) {
             Text(
                 text =
-                "${permissionState.permission} is permanently denied.\n\n" +
-                    "Please update your app settings.",
+                    "${permissionState.permission} is permanently denied.\n\n" +
+                        "Please update your app settings.",
                 textAlign = TextAlign.Center,
             )
 

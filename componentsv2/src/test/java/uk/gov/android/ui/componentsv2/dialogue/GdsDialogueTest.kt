@@ -97,9 +97,7 @@ class GdsDialogueTest {
         }
     }
 
-    private fun setupDialog(
-        buttonList: ImmutableList<DialogueButtonParameters>,
-    ) {
+    private fun setupDialog(buttonList: ImmutableList<DialogueButtonParameters>) {
         composeTestRule.setContent {
             GdsTheme {
                 GdsDialogue(

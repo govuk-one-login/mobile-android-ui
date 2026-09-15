@@ -41,21 +41,25 @@ enum class ButtonIconPosition {
     /**
      * Icon is prepended at the start of the button text
      */
-    Trailing;
+    Trailing,
+
+    ;
 
     internal fun isTrailing(): Boolean = this == Trailing
 }
 
 internal enum class ButtonIconPreview {
-    Trailing, Leading
+    Trailing,
+    Leading,
 }
 
 @Composable
-internal fun ButtonIconPreview.toButtonIcon() = when(this) {
+internal fun ButtonIconPreview.toButtonIcon() = when (this) {
     ButtonIconPreview.Trailing -> ButtonIcon.opensInWebBrowser()
+
     ButtonIconPreview.Leading -> ButtonIcon(
         icon = ImageVector.vectorResource(R.drawable.ic_error_filled),
         contentDescription = stringResource(R.string.icon_content_desc),
-        position = ButtonIconPosition.Leading
+        position = ButtonIconPosition.Leading,
     )
 }
