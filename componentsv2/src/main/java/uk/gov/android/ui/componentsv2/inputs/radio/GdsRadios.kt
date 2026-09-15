@@ -256,12 +256,12 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
 internal fun GdsRadioOptionItemPreview(
     @PreviewParameter(GdsRadioOptionItemProvider::class) data: GdsRadioOptionItemPreviewData,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    if (data.isFocused) {
-        LaunchedEffect(Unit) {
-            interactionSource.emit(FocusInteraction.Focus())
-        }
+    val interactionSource = remember { data.mutableInteractionSource }
+
+    LaunchedEffect(Unit) {
+        interactionSource.emit(FocusInteraction.Focus())
     }
+
     GdsTheme {
         GdsRadioOptionItem(
             text = data.text,

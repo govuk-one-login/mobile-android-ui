@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
 
@@ -18,5 +19,5 @@ data class GdsRadiosContent(
 internal data class GdsRadioOptionItemPreviewData(
     val text: String,
     val isSelected: Boolean,
-    val isFocused: Boolean = false,
+    val mutableInteractionSource: MutableInteractionSource,
 )
