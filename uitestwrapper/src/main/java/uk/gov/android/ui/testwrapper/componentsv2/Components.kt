@@ -26,6 +26,9 @@ import uk.gov.android.ui.testwrapper.componentsv2.heading.GdsHeadingDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorCustomLabelsDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorCustomThemeDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorDemo
 import uk.gov.android.ui.testwrapper.componentsv2.row.RowListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.text.GdsAnnotatedStringDemo
@@ -106,6 +109,12 @@ fun ComponentDetail(detailItem: DetailItem, onNavigate: (Any) -> Unit = {}) {
         HEADING -> GdsHeadingDemo()
 
         ANNOTATED_STRING -> GdsAnnotatedStringDemo()
+
+        PROGRESS_INDICATOR_DEFAULT -> GdsProgressIndicatorDemo()
+
+        PROGRESS_INDICATOR_CUSTOM_LABELS -> GdsProgressIndicatorCustomLabelsDemo()
+
+        PROGRESS_INDICATOR_CUSTOM_THEME -> GdsProgressIndicatorCustomThemeDemo()
     }
 }
 
@@ -127,3 +136,7 @@ const val CARD = "card"
 const val WARNING = "warning"
 const val HEADING = "heading"
 const val ANNOTATED_STRING = "annotatedString"
+
+const val PROGRESS_INDICATOR_DEFAULT = "Progress indicator - defaults"
+const val PROGRESS_INDICATOR_CUSTOM_LABELS = "Progress indicator - custom labels"
+const val PROGRESS_INDICATOR_CUSTOM_THEME = "Progress indicator - custom theme"
