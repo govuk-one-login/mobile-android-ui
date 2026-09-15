@@ -19,6 +19,7 @@ import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -269,15 +270,17 @@ internal fun GdsRadioOptionItemPreview(
     }
 
     GdsTheme {
-        GdsRadioOptionItem(
-            text = data.text,
-            radioOption = data.text,
-            isSelected = data.isSelected,
-            onOptionSelected = {},
-            index = 0,
-            totalOptions = 1,
-            interactionSource = interactionSource,
-        )
+        Surface {
+            GdsRadioOptionItem(
+                text = data.text,
+                radioOption = data.text,
+                isSelected = data.isSelected,
+                onOptionSelected = {},
+                index = 0,
+                totalOptions = 1,
+                interactionSource = interactionSource,
+            )
+        }
     }
 }
 
@@ -288,12 +291,14 @@ internal fun GdsRadiosPreview(
     GdsRadiosPreviewData,
 ) {
     GdsTheme {
-        GdsRadios(
-            items = radioSelectionItems.items,
-            selectedItem = radioSelectionItems.selectedIndex,
-            onItemSelected = {},
-            title = radioSelectionItems.title,
-            modifier = Modifier.padding(horizontal = spacingDouble),
-        )
+        Surface {
+            GdsRadios(
+                items = radioSelectionItems.items,
+                selectedItem = radioSelectionItems.selectedIndex,
+                onItemSelected = {},
+                title = radioSelectionItems.title,
+                modifier = Modifier.padding(horizontal = spacingDouble),
+            )
+        }
     }
 }
