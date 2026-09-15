@@ -1,5 +1,3 @@
-
-
 package uk.gov.android.ui.componentsv2.inputs.radio
 
 import androidx.compose.foundation.LocalIndication

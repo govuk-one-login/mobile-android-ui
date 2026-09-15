@@ -1,6 +1,9 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
+import androidx.compose.ui.input.InputMode
+import androidx.compose.ui.input.InputModeManager
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -67,8 +70,10 @@ class GdsRadiosTest {
     fun testKeyboardSelectionWithSpace() {
         val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
         val onItemSelected = mock<(Int) -> Unit>()
+        lateinit var inputModeManager: InputModeManager
 
         composeTestRule.setContent {
+            inputModeManager = LocalInputModeManager.current
             GdsRadios(
                 items = items,
                 selectedItem = null,
@@ -76,17 +81,22 @@ class GdsRadiosTest {
             )
         }
 
-        composeTestRule.onNode(
-            hasContentDescription("Option 1", substring = true),
-        ).apply {
-            requestFocus()
-            composeTestRule.waitForIdle()
-            performKeyInput {
-                pressKey(Key.Spacebar)
-            }
+        composeTestRule.runOnIdle {
+            inputModeManager.requestInputMode(InputMode.Keyboard)
         }
 
-        verify(onItemSelected).invoke(0)
+        composeTestRule.onNode(
+            hasContentDescription("Option 1", substring = true),
+        )
+            .requestFocus()
+            .performKeyInput {
+                keyDown(Key.Spacebar)
+                keyUp(Key.Spacebar)
+            }
+
+        composeTestRule.runOnIdle {
+            verify(onItemSelected).invoke(0)
+        }
     }
 
     @OptIn(ExperimentalTestApi::class)
