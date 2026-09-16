@@ -202,11 +202,10 @@ private fun Content(
 
 @Composable
 private fun TileImage(image: Painter? = null, contentDescription: String? = null) {
-    val defaultContentDescription = stringResource(R.string.vector_image_content_description)
     image?.let {
         Image(
             painter = image,
-            contentDescription = contentDescription ?: defaultContentDescription,
+            contentDescription = contentDescription,
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -315,6 +314,7 @@ internal class GdsCardPreviewParametersProvider :
         ),
         GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
+            contentDescription = R.string.vector_image_content_description,
             title = R.string.title,
             displayDivider = true,
             displayPrimary = false,
