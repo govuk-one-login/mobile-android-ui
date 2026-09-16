@@ -91,7 +91,8 @@ fun GdsTheme(
 }
 
 @Deprecated(
-    message = "Use GdsTheme with colorScheme and extendedColorScheme parameters",
+    message = "Use GdsTheme with colorScheme and extendedColorScheme parameters. " +
+        "To be removed on 16th November 2026 (DCMAW-23507)",
     level = DeprecationLevel.HIDDEN,
 )
 @Composable
@@ -293,9 +294,11 @@ object GdsThemeDefaults {
  * This provides a Custom Color Scheme specific GDS adhering to the Design System.
  * These colours are only the ones that could not be mapped to the Material3 ones.
  */
-@Suppress("ForbiddenComment")
 @Composable
-@Deprecated("Use ThemeDefaults.extendedColors")
+@Deprecated(
+    "Use ThemeDefaults.extendedColors. " +
+        "To be removed on 16th November 2026 (DCMAW-23507)",
+)
 private fun customColors(): CustomColorsScheme = GdsThemeDefaults.extendedColorScheme()
 
 internal const val SWATCH_SIZE = 200
