@@ -11,13 +11,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R as componentsR
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.R as patternsR
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreen
@@ -27,42 +27,44 @@ import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreen
 @Suppress("MagicNumber")
 fun ErrorScreenDemo() {
     ErrorScreen(
-        icon = { padding ->
+        icon = { horizontalPadding ->
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
             )
         },
-        title = { padding ->
+        title = { horizontalPadding ->
             GdsHeading(
                 text = "Error Screen",
-                modifier = Modifier.padding(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
-        body = { padding ->
+        body = { horizontalPadding ->
             items(bodyContent.slice(IntRange(0, 3)).size) { index ->
                 Text(
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.errorScreenDemo(padding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
             item {
                 GdsHeading(
                     text = "Error Screen",
-                    modifier = Modifier.errorScreenDemo(padding),
+                    style = GdsHeadingStyle.Body,
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                     textAlign = GdsHeadingAlignment.CenterAligned,
                 )
             }
             item {
                 GdsButton(
                     text = "Content Button",
-                    buttonType = ButtonTypeV2.Primary(),
+                    buttonType = ButtonTypeV2.Secondary(),
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(horizontal = horizontalPadding),
                 )
             }
         },
@@ -82,26 +84,26 @@ fun ErrorScreenDemo() {
 @Composable
 fun ErrorScrollableScreenDemo() {
     ErrorScreen(
-        icon = { padding ->
+        icon = { horizontalPadding ->
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
             )
         },
-        title = { padding ->
+        title = { horizontalPadding ->
             GdsHeading(
                 text = "Error Screen",
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
-        body = { padding ->
+        body = { horizontalPadding ->
             items(bodyContent.size) { index ->
                 Text(
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.errorScreenDemo(padding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
@@ -123,26 +125,26 @@ fun ErrorScrollableScreenDemo() {
 @Suppress("LongMethod")
 fun ErrorBottomContentLargeScreenDemo() {
     ErrorScreen(
-        icon = { padding ->
+        icon = { horizontalPadding ->
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
             )
         },
-        title = { padding ->
+        title = { horizontalPadding ->
             GdsHeading(
                 text = "Error Screen",
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
-        body = { padding ->
+        body = { horizontalPadding ->
             items(bodyContent.size) { index ->
                 Text(
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.errorScreenDemo(padding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
@@ -178,7 +180,6 @@ fun ErrorBottomContentLargeScreenDemo() {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
@@ -189,26 +190,26 @@ fun ErrorBottomContentLargeScreenDemo() {
 @Composable
 fun ErrorScreenSupportingTextDemo() {
     ErrorScreen(
-        icon = { padding ->
+        icon = { horizontalPadding ->
             GdsIcon(
                 image = ImageVector.vectorResource(patternsR.drawable.ic_warning_error),
                 contentDescription = stringResource(patternsR.string.error_icon_description),
-                modifier = Modifier.errorScreenDemo(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
             )
         },
-        title = { padding ->
+        title = { horizontalPadding ->
             GdsHeading(
                 text = "Error Screen",
-                modifier = Modifier.padding(padding),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 textAlign = GdsHeadingAlignment.CenterAligned,
             )
         },
-        body = { padding ->
+        body = { horizontalPadding ->
             item {
                 Text(
                     text = "Body text",
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.errorScreenDemo(padding),
+                    modifier = Modifier.padding(horizontal = horizontalPadding),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
@@ -226,16 +227,11 @@ fun ErrorScreenSupportingTextDemo() {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
     )
 }
-
-private fun Modifier.errorScreenDemo(paddingValues: Dp) = this
-    .padding(paddingValues)
-    .fillMaxWidth()
 
 private val bodyContent = persistentListOf(
     "Item 1",
