@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
@@ -18,10 +19,10 @@ import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +47,7 @@ import uk.gov.android.ui.componentsv2.inputs.radio.previewparameterprovider.GdsR
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadioOptionItemPreviewData
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadiosContent
 import uk.gov.android.ui.componentsv2.inputs.radio.radiobuttonparameters.GdsRadiosPreviewData
+import uk.gov.android.ui.componentsv2.utils.PreviewInteractionSource
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -132,6 +134,7 @@ internal fun GdsRadioOptionItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
+            .offset(x = -GdsRadiosDefaults.focusIndicatorWidth)
             .selectable(
                 selected = isSelected,
                 onClick = onOptionSelected,
@@ -170,6 +173,10 @@ internal fun GdsRadioOptionItem(
     }
 }
 
+object GdsRadiosDefaults {
+    internal val focusIndicatorWidth = 4.dp
+}
+
 @Composable
 private fun RadioFocusIndicator(
     showFocus: Boolean,
@@ -191,7 +198,7 @@ private fun RadioFocusIndicator(
                         Modifier
                     },
                 )
-                .padding(4.dp),
+                .padding(GdsRadiosDefaults.focusIndicatorWidth),
         ) {
             radioButton()
         }
@@ -256,22 +263,22 @@ internal fun GdsRadiosSample(content: GdsRadiosContent) {
 internal fun GdsRadioOptionItemPreview(
     @PreviewParameter(GdsRadioOptionItemProvider::class) data: GdsRadioOptionItemPreviewData,
 ) {
-    val interactionSource = remember { data.mutableInteractionSource }
-
-    LaunchedEffect(Unit) {
-        interactionSource.emit(FocusInteraction.Focus())
-    }
+    val interactionSource = PreviewInteractionSource(
+        if (data.isFocused) FocusInteraction.Focus() else null,
+    )
 
     GdsTheme {
-        GdsRadioOptionItem(
-            text = data.text,
-            radioOption = data.text,
-            isSelected = data.isSelected,
-            onOptionSelected = {},
-            index = 0,
-            totalOptions = 1,
-            interactionSource = interactionSource,
-        )
+        Surface {
+            GdsRadioOptionItem(
+                text = data.text,
+                radioOption = data.text,
+                isSelected = data.isSelected,
+                onOptionSelected = {},
+                index = 0,
+                totalOptions = 1,
+                interactionSource = interactionSource,
+            )
+        }
     }
 }
 
@@ -282,12 +289,14 @@ internal fun GdsRadiosPreview(
     GdsRadiosPreviewData,
 ) {
     GdsTheme {
-        GdsRadios(
-            items = radioSelectionItems.items,
-            selectedItem = radioSelectionItems.selectedIndex,
-            onItemSelected = {},
-            title = radioSelectionItems.title,
-            modifier = Modifier.padding(horizontal = spacingDouble),
-        )
+        Surface {
+            GdsRadios(
+                items = radioSelectionItems.items,
+                selectedItem = radioSelectionItems.selectedIndex,
+                onItemSelected = {},
+                title = radioSelectionItems.title,
+                modifier = Modifier.padding(horizontal = spacingDouble),
+            )
+        }
     }
 }
