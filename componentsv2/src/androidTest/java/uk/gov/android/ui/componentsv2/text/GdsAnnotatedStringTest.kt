@@ -16,11 +16,12 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreviewDataProvider
 
 class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = AnnotatedStringPreviewParametersProvider().values.toList()[0]
+    private val parameters = GdsAnnotatedStringPreviewDataProvider().values.toList()[0]
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -37,6 +38,8 @@ class GdsAnnotatedStringTest {
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
                 isIconTrailing = parameters.isIconTrailing,
+                color = parameters.color,
+                textStyle = parameters.textStyle,
             )
         }
         composeTestRule.apply {
@@ -63,6 +66,9 @@ class GdsAnnotatedStringTest {
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
                 isIconTrailing = parameters.isIconTrailing,
+                textStyle = parameters.textStyle,
+                color = parameters.color,
+
             )
         }
         composeTestRule.apply {
@@ -96,6 +102,8 @@ class GdsAnnotatedStringTest {
                 iconColor = parameters.iconColor,
                 iconBackgroundColor = parameters.iconBackgroundColor,
                 isIconTrailing = false,
+                textStyle = parameters.textStyle,
+                color = parameters.color,
             )
         }
         composeTestRule.apply {

@@ -25,48 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.componentsv2.text.annotatedstringparameters.GdsAnnotatedStringPreviewData
+import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreviewDataProvider
 import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.xsmallPadding
-
-@Deprecated(
-    message = "Use GdsAnnotatedString with textStyle parameter instead" +
-        "- will aim to be removed on 1st of July",
-    replaceWith = ReplaceWith("uk.gov.android.ui.componentsv2.text - GdsAnnotatedString"),
-    level = DeprecationLevel.WARNING,
-)
-@Composable
-fun GdsAnnotatedString(
-    text: String,
-    fontWeight: FontWeight,
-    icon: ImageVector,
-    iconContentDescription: String,
-    modifier: Modifier = Modifier,
-    iconId: String = stringResource(R.string.in_line_icon_id),
-    color: Color = MaterialTheme.colorScheme.onBackground,
-    iconColor: Color? = null,
-    iconBackgroundColor: Color = MaterialTheme.colorScheme.background,
-    isIconTrailing: Boolean = true,
-    textAlign: TextAlign = TextAlign.Center,
-) = GdsAnnotatedString(
-    text = text,
-    fontWeight = fontWeight,
-    icon = icon,
-    iconContentDescription = iconContentDescription,
-    textStyle = Typography.labelLarge,
-    modifier = modifier,
-    iconId = iconId,
-    color = color,
-    iconColor = iconColor,
-    iconBackgroundColor = iconBackgroundColor,
-    isIconTrailing = isIconTrailing,
-    textAlign = textAlign,
-)
 
 @Composable
 fun GdsAnnotatedString(
@@ -127,43 +93,11 @@ fun GdsAnnotatedString(
     )
 }
 
-internal data class AnnotatedStringPreviewParameters(
-    val text: Int,
-    val fontWeight: FontWeight,
-    val icon: Int,
-    val iconId: Int = R.string.in_line_icon_id,
-    val iconContentDescription: Int,
-    val iconColor: Color = Color.Unspecified,
-    val iconBackgroundColor: Color = Color.Unspecified,
-    val isIconTrailing: Boolean = true,
-)
-
-internal class AnnotatedStringPreviewParametersProvider :
-    PreviewParameterProvider<AnnotatedStringPreviewParameters> {
-    override val values: Sequence<AnnotatedStringPreviewParameters> = sequenceOf(
-        AnnotatedStringPreviewParameters(
-            text = R.string.annotated_string,
-            fontWeight = FontWeight.Bold,
-            icon = R.drawable.ic_external_site,
-            iconContentDescription = R.string.icon_content_desc,
-            isIconTrailing = true,
-        ),
-        AnnotatedStringPreviewParameters(
-            text = R.string.annotated_string,
-            fontWeight = FontWeight.Bold,
-            icon = R.drawable.ic_external_site,
-            iconContentDescription = R.string.icon_content_desc,
-            isIconTrailing = false,
-            iconColor = Color.Green,
-        ),
-    )
-}
-
 @Composable
 @PreviewLightDark
 internal fun AnnotatedStringPreview(
-    @PreviewParameter(AnnotatedStringPreviewParametersProvider::class)
-    parameters: AnnotatedStringPreviewParameters,
+    @PreviewParameter(GdsAnnotatedStringPreviewDataProvider::class)
+    parameters: GdsAnnotatedStringPreviewData,
 ) {
     GdsTheme {
         Column(
@@ -175,10 +109,27 @@ internal fun AnnotatedStringPreview(
                 icon = ImageVector.vectorResource(parameters.icon),
                 iconContentDescription = stringResource(parameters.iconContentDescription),
                 iconId = stringResource(parameters.iconId),
-                iconColor = parameters.iconColor,
-                iconBackgroundColor = parameters.iconBackgroundColor,
+                iconColor = if (parameters.iconColor !=
+                    Color.Unspecified
+                ) {
+                    parameters.iconColor
+                } else {
+                    null
+                },
+                iconBackgroundColor = if (parameters.nightMode) {
+                    Color.White
+                } else {
+                    parameters.iconBackgroundColor
+                },
                 isIconTrailing = parameters.isIconTrailing,
-                textStyle = Typography.labelLarge,
+                textStyle = parameters.textStyle,
+                color = if (parameters.color !=
+                    Color.Unspecified
+                ) {
+                    parameters.color
+                } else {
+                    MaterialTheme.colorScheme.onBackground
+                },
             )
         }
     }
