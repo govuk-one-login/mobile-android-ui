@@ -26,10 +26,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
-import uk.gov.android.ui.componentsv2.text.annotatedstringparameters.GdsAnnotatedStringPreviewData
-import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreview
-import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreviewDataProvider
-import uk.gov.android.ui.componentsv2.text.previewparameterprovider.toData
 import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.xsmallPadding

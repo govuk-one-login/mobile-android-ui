@@ -16,7 +16,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreviewDataProvider
 
 class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
