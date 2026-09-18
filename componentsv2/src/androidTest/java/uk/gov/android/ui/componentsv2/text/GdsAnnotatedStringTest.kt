@@ -123,7 +123,7 @@ class GdsAnnotatedStringTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            AnnotatedStringPreview(parameters)
+            GdsAnnotatedStringPreview(parameters)
         }
         composeTestRule.apply {
             onNodeWithText(text, substring = true).assertIsDisplayed()
