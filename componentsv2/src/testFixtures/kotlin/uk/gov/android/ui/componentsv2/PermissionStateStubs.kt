@@ -6,22 +6,17 @@ import com.google.accompanist.permissions.PermissionStatus
 
 @OptIn(ExperimentalPermissionsApi::class)
 object PermissionStateStubs {
-    fun granted(
-        permission: String,
-        onPermissionLaunch: () -> Unit = {},
-    ) = object : PermissionState {
-        override val permission: String
-            get() = permission
-        override val status: PermissionStatus
-            get() = PermissionStatus.Granted
+    fun granted(permission: String, onPermissionLaunch: () -> Unit = {}) =
+        object : PermissionState {
+            override val permission: String
+                get() = permission
+            override val status: PermissionStatus
+                get() = PermissionStatus.Granted
 
-        override fun launchPermissionRequest() = onPermissionLaunch()
-    }
+            override fun launchPermissionRequest() = onPermissionLaunch()
+        }
 
-    fun denied(
-        permission: String,
-        onPermissionLaunch: () -> Unit = {},
-    ) = object : PermissionState {
+    fun denied(permission: String, onPermissionLaunch: () -> Unit = {}) = object : PermissionState {
         override val permission: String
             get() = permission
         override val status: PermissionStatus
@@ -30,15 +25,13 @@ object PermissionStateStubs {
         override fun launchPermissionRequest() = onPermissionLaunch()
     }
 
-    fun rationale(
-        permission: String,
-        onPermissionLaunch: () -> Unit = {},
-    ) = object : PermissionState {
-        override val permission: String
-            get() = permission
-        override val status: PermissionStatus
-            get() = PermissionStatus.Denied(true)
+    fun rationale(permission: String, onPermissionLaunch: () -> Unit = {}) =
+        object : PermissionState {
+            override val permission: String
+                get() = permission
+            override val status: PermissionStatus
+                get() = PermissionStatus.Denied(true)
 
-        override fun launchPermissionRequest() = onPermissionLaunch()
-    }
+            override fun launchPermissionRequest() = onPermissionLaunch()
+        }
 }

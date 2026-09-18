@@ -15,6 +15,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.patterns.BaseScreenshotTest
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
@@ -31,7 +32,6 @@ internal class DestructiveScreenScreenshotTest(
                         image = ImageVector.vectorResource(parameters.icon.icon),
                         contentDescription = stringResource(parameters.icon.description),
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(horizontal = horizontalPadding),
                         color = colorScheme.onBackground,
                     )
@@ -62,6 +62,12 @@ internal class DestructiveScreenScreenshotTest(
                         SecondaryButton(it)
                     }
                 },
+                supportingText =
+                    parameters.supportingText?.let { text ->
+                        {
+                            SupportingTextBody(text)
+                        }
+                    },
             )
         }
     }

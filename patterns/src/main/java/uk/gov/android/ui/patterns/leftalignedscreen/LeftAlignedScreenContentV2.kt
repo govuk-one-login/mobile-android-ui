@@ -24,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
@@ -40,8 +41,8 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.theme.dividerThickness
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
+import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContentV2(
     val title: String,
@@ -61,15 +62,11 @@ sealed class LeftAlignedScreenBodyV2 {
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
-    data class AnnotatedText(
-        val text: AnnotatedString,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class AnnotatedText(val text: AnnotatedString, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
-    data class Text(
-        val text: String,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class Text(val text: String, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
     data class Title(
         val text: String,
@@ -78,20 +75,14 @@ sealed class LeftAlignedScreenBodyV2 {
         val textAlign: GdsHeadingAlignment = GdsHeadingAlignment.CenterAligned,
     ) : LeftAlignedScreenBodyV2()
 
-    data class Warning(
-        val text: String,
-        val modifier: Modifier = Modifier,
-    ) : LeftAlignedScreenBodyV2()
+    data class Warning(val text: String, val modifier: Modifier = Modifier) :
+        LeftAlignedScreenBodyV2()
 
-    data class BulletList(
-        val items: ImmutableList<ListItem>,
-        val title: ListTitle? = null,
-    ) : LeftAlignedScreenBodyV2()
+    data class BulletList(val items: ImmutableList<ListItem>, val title: ListTitle? = null) :
+        LeftAlignedScreenBodyV2()
 
-    data class NumberedList(
-        val list: ImmutableList<ListItem>,
-        val title: ListTitle? = null,
-    ) : LeftAlignedScreenBodyV2()
+    data class NumberedList(val list: ImmutableList<ListItem>, val title: ListTitle? = null) :
+        LeftAlignedScreenBodyV2()
 
     data class Image(
         val image: Int,
@@ -114,9 +105,7 @@ sealed class LeftAlignedScreenBodyV2 {
         val modifier: Modifier = Modifier,
     ) : LeftAlignedScreenBodyV2()
 
-    data class RowList(
-        val rowData: ImmutableList<RowData>,
-    ) : LeftAlignedScreenBodyV2()
+    data class RowList(val rowData: ImmutableList<RowData>) : LeftAlignedScreenBodyV2()
 }
 
 data class LeftAlignedScreenButton(
@@ -263,23 +252,16 @@ fun LazyListScope.toBodyContentV2(
             // (https://github.com/govuk-one-login/mobile-android-ui/pull/293)
             is LeftAlignedScreenBodyV2.SecondaryButton -> {
                 item {
-                    val buttonType = if (it.showIcon) {
-                        val contentColor = colorScheme.secondary
-                        ButtonTypeV2.Icon(
-                            buttonColors = customColors(
-                                contentColor = contentColor,
-                                containerColor = colorScheme.background,
-                            ),
-                            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
-                            contentDescription = stringResource(R.string.opens_in_external_browser),
-                        )
+                    val icon = if (it.showIcon) {
+                        ButtonIcon.opensInWebBrowser()
                     } else {
-                        ButtonTypeV2.Secondary()
+                        null
                     }
 
                     GdsButton(
                         text = it.text,
-                        buttonType = buttonType,
+                        icon = icon,
+                        buttonType = ButtonTypeV2.Secondary(),
                         onClick = it.onClick,
                         textAlign = TextAlign.Start,
                         contentPosition = Arrangement.Start,

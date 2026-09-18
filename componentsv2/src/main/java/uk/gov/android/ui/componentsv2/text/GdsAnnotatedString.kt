@@ -138,7 +138,8 @@ internal data class AnnotatedStringPreviewParameters(
     val isIconTrailing: Boolean = true,
 )
 
-internal class AnnotatedStringPreviewParametersProvider : PreviewParameterProvider<AnnotatedStringPreviewParameters> {
+internal class AnnotatedStringPreviewParametersProvider :
+    PreviewParameterProvider<AnnotatedStringPreviewParameters> {
     override val values: Sequence<AnnotatedStringPreviewParameters> = sequenceOf(
         AnnotatedStringPreviewParameters(
             text = R.string.annotated_string,

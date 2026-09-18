@@ -8,10 +8,10 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import androidx.compose.ui.geometry.Size
 import com.google.mlkit.vision.common.InputImage
-import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 import kotlin.experimental.inv
 import kotlin.math.ceil
 import kotlin.math.floor
+import uk.gov.android.ui.componentsv2.camera.ImageProxyConverter
 
 /**
  * [ImageProxyConverter] implementation that crops the input from a provided [ImageProxy].

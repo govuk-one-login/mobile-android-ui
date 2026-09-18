@@ -181,13 +181,11 @@ private fun StartAlignedTopAppBar(
  * @param content - Icon as [ImageVector] and it's contentDescription
  * @param onClick - action when the Icon Button is tapped
  */
-data class TopBarActionButton(
-    val content: IconButtonContent,
-    val onClick: () -> Unit,
-)
+data class TopBarActionButton(val content: IconButtonContent, val onClick: () -> Unit)
 
 enum class TopAppBarAlignment {
-    Start, Centre
+    Start,
+    Centre,
 }
 
 /**
@@ -225,10 +223,7 @@ data class GdsTopAppBarPreviewParams(
 /**
  * This is used only for previews, **DO NOT USE FOR PRODUCTION CODE**
  */
-data class ActionsPreviewParams(
-    val icon: ImageVector,
-    @StringRes val contentDesc: Int,
-)
+data class ActionsPreviewParams(val icon: ImageVector, @StringRes val contentDesc: Int)
 
 internal class GdsTopAppBarPreviewProvider : PreviewParameterProvider<GdsTopAppBarPreviewParams> {
     override val values: Sequence<GdsTopAppBarPreviewParams> = sequenceOf(
@@ -380,9 +375,9 @@ internal fun GdsTopAppBarPreview(
             topAppBarColors = GdsTopAppBarDefaults.colors().copy(
                 titleContentColor = params.titleColor ?: MaterialTheme.colorScheme.onBackground,
                 navigationIconContentColor =
-                params.navigationIconColor ?: GdsLocalColorScheme.current.topBarIcon,
+                    params.navigationIconColor ?: GdsLocalColorScheme.current.topBarIcon,
                 actionIconContentColor =
-                params.actionsIconColor ?: GdsLocalColorScheme.current.topBarIcon,
+                    params.actionsIconColor ?: GdsLocalColorScheme.current.topBarIcon,
             ),
             alignment = params.alignment,
         )

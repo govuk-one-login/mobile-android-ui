@@ -10,21 +10,17 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.componentsv2.list.ListTitle
+import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -38,18 +34,12 @@ internal data class CentreAlignedScreenContent(
 )
 
 sealed class CentreAlignedScreenBodyContent {
-    data class Text(
-        val bodyText: String,
-        val useBoldStyle: Boolean = false,
-    ) : CentreAlignedScreenBodyContent()
-    data class BulletList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<String>,
-    ) : CentreAlignedScreenBodyContent()
-    data class NumberedList(
-        val title: ListTitle? = null,
-        val items: ImmutableList<ListItem>,
-    ) : CentreAlignedScreenBodyContent()
+    data class Text(val bodyText: String, val useBoldStyle: Boolean = false) :
+        CentreAlignedScreenBodyContent()
+    data class BulletList(val title: ListTitle? = null, val items: ImmutableList<String>) :
+        CentreAlignedScreenBodyContent()
+    data class NumberedList(val title: ListTitle? = null, val items: ImmutableList<ListItem>) :
+        CentreAlignedScreenBodyContent()
     data class Button(
         val text: String,
         val onClick: () -> Unit,
@@ -58,10 +48,7 @@ sealed class CentreAlignedScreenBodyContent {
     ) : CentreAlignedScreenBodyContent()
 }
 
-data class CentreAlignedScreenImage(
-    @DrawableRes val image: Int,
-    val description: String,
-)
+data class CentreAlignedScreenImage(@DrawableRes val image: Int, val description: String)
 
 data class CentreAlignedScreenButton(
     val text: String,
@@ -81,7 +68,7 @@ internal fun LazyListScope.toBodyContent(
             is CentreAlignedScreenBodyContent.Text -> {
                 item {
                     val textStyle = if (item.useBoldStyle) {
-                        Typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        ExtraTypography.bodyLargeBold
                     } else {
                         Typography.bodyLarge
                     }
@@ -136,23 +123,16 @@ private fun SecondaryButton(button: CentreAlignedScreenBodyContent.Button) {
         .fillMaxWidth()
         .padding(horizontal = spacingDouble)
     val contentPosition = if (button.leftAligned) Arrangement.Start else Arrangement.Center
-    val buttonType = if (button.showIcon) {
-        ButtonTypeV2.Icon(
-            buttonColors = customColors(
-                contentColor = colorScheme.primary,
-                containerColor = colorScheme.background,
-            ),
-            icon = ImageVector.vectorResource(R.drawable.ic_external_site),
-            contentDescription = stringResource(R.string.opens_in_external_browser),
-            textStyle = Typography.bodyLarge,
-        )
+    val icon = if (button.showIcon) {
+        ButtonIcon.opensInWebBrowser()
     } else {
-        ButtonTypeV2.Secondary()
+        null
     }
 
     GdsButton(
         text = button.text,
-        buttonType = buttonType,
+        icon = icon,
+        buttonType = ButtonTypeV2.Secondary(),
         onClick = button.onClick,
         modifier = buttonModifier,
         contentModifier = Modifier.fillMaxWidth(),

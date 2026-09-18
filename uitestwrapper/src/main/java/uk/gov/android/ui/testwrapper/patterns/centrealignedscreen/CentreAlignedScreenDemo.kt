@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import uk.gov.android.ui.componentsv2.R as componentsR
 import uk.gov.android.ui.componentsv2.list.ListTitle
 import uk.gov.android.ui.componentsv2.list.TitleType
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreen
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenBodyContent
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenButton
 import uk.gov.android.ui.patterns.centrealignedscreen.CentreAlignedScreenImage
-import uk.gov.android.ui.componentsv2.R as componentsR
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
@@ -23,7 +23,8 @@ fun CentreAlignedScreenDemo() {
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text.",
+                "Centre aligned screen allows you to display " +
+                    "information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(
@@ -59,7 +60,8 @@ fun CentreAlignedScrollableScreenDemo() {
         ),
         body = persistentListOf(
             CentreAlignedScreenBodyContent.Text(
-                "Centre aligned screen allows you to display information with a centered image and text.",
+                "Centre aligned screen allows you to display " +
+                    "information with a centered image and text.",
             ),
             CentreAlignedScreenBodyContent.BulletList(
                 title = ListTitle(
@@ -81,31 +83,29 @@ fun CentreAlignedScrollableScreenDemo() {
     )
 }
 
-private fun listItems(): PersistentList<String> {
-    return persistentListOf(
-        "Item one",
-        "Item two",
-        "Item three",
-        "Item four",
-        "Item five",
-        "Item six",
-        "Item seven",
-        "Item eight",
-        "Item nine",
-        "Item ten",
-        "Item eleven",
-        "Item twelve",
-        "Item thirteen",
-        "Item fourteen",
-        "Item fifteen",
-        "Item sixteen",
-        "Item seventeen",
-        "Item eighteen",
-        "Item nineteen",
-        "Item twenty",
-        "Item twenty one",
-        "Item twenty two",
-        "Item twenty three",
-        "Item twenty four",
-    )
-}
+private fun listItems(): PersistentList<String> = persistentListOf(
+    "Item one",
+    "Item two",
+    "Item three",
+    "Item four",
+    "Item five",
+    "Item six",
+    "Item seven",
+    "Item eight",
+    "Item nine",
+    "Item ten",
+    "Item eleven",
+    "Item twelve",
+    "Item thirteen",
+    "Item fourteen",
+    "Item fifteen",
+    "Item sixteen",
+    "Item seventeen",
+    "Item eighteen",
+    "Item nineteen",
+    "Item twenty",
+    "Item twenty one",
+    "Item twenty two",
+    "Item twenty three",
+    "Item twenty four",
+)
