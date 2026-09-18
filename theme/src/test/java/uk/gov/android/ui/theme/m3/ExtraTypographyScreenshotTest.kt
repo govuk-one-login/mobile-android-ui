@@ -7,9 +7,8 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.theme.utils.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-internal class ExtraTypographyScreenshotTest(
-    private val parameters: Pair<Int, NightMode>,
-) : BaseScreenshotTest(parameters.second) {
+internal class ExtraTypographyScreenshotTest(private val parameters: Pair<Int, NightMode>) :
+    BaseScreenshotTest(parameters.second) {
     override val generateComposeLayout: @Composable () -> Unit = {
         ExtraTypographyPreview()
     }

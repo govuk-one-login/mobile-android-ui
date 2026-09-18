@@ -5,6 +5,8 @@ plugins {
     id("kotlin-parcelize")
 }
 
+apply(from = rootProject.file("gradle/snapshot-test-filter.gradle.kts"))
+
 android {
     namespace("componentsv2", project)
 }

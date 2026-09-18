@@ -1,7 +1,6 @@
 package uk.gov.android.ui.componentsv2.button
 
 import android.content.Context
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -34,7 +33,7 @@ class GdsButtonV2Test {
     fun testPrimary() {
         setupContent(parameters[0])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.primary_button),
+            parameters[0].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -47,7 +46,7 @@ class GdsButtonV2Test {
     fun testSecondary() {
         setupContent(parameters[1])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.secondary_button),
+            parameters[1].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -60,7 +59,7 @@ class GdsButtonV2Test {
     fun testTertiary() {
         setupContent(parameters[2])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.tertiary_button),
+            parameters[2].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -73,7 +72,7 @@ class GdsButtonV2Test {
     fun testQuaternary() {
         setupContent(parameters[3])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.quaternary_button),
+            parameters[3].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -86,7 +85,7 @@ class GdsButtonV2Test {
     fun testAdmin() {
         setupContent(parameters[4])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.admin_button),
+            parameters[4].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -99,7 +98,7 @@ class GdsButtonV2Test {
     fun testError() {
         setupContent(parameters[5])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.error_button),
+            parameters[5].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -113,7 +112,7 @@ class GdsButtonV2Test {
         setupContent(parameters[6])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.text_button),
+                parameters[6].text,
                 substring = true,
             ).apply {
                 assertIsDisplayed()
@@ -121,7 +120,7 @@ class GdsButtonV2Test {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -133,7 +132,7 @@ class GdsButtonV2Test {
         setupContent(parameters[11])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.text_button),
+                parameters[11].text,
                 substring = true,
             ).apply {
                 assertIsDisplayed()
@@ -141,7 +140,7 @@ class GdsButtonV2Test {
             }
 
             onNodeWithContentDescription(
-                resources.getString(R.string.icon_content_desc),
+                resources.getString(R.string.opens_in_external_browser),
             ).assertIsDisplayed()
         }
 
@@ -153,7 +152,7 @@ class GdsButtonV2Test {
         setupContent(parameters[12])
         composeTestRule.apply {
             onNodeWithText(
-                resources.getString(R.string.text_button),
+                parameters[12].text,
                 substring = true,
             ).apply {
                 assertIsDisplayed()
@@ -178,7 +177,7 @@ class GdsButtonV2Test {
     fun testErrorSecondary() {
         setupContent(parameters[14])
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.secondary_destructive_button),
+            parameters[14].text,
         ).apply {
             assertIsDisplayed()
             performClick()
@@ -193,14 +192,15 @@ class GdsButtonV2Test {
             ButtonPreviewV2(parameters[0])
         }
         composeTestRule.onNodeWithText(
-            resources.getString(R.string.primary_button),
+            parameters[0].text,
         ).assertIsDisplayed()
     }
 
     private fun setupContent(parameters: ButtonParametersV2) {
         composeTestRule.setContent {
             GdsButton(
-                text = stringResource(parameters.text),
+                text = parameters.text,
+                icon = parameters.icon?.toButtonIcon(),
                 buttonType = parameters.buttonType.toButtonTypeV2(),
                 onClick = { onClick++ },
                 loading = parameters.loading,

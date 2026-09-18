@@ -14,7 +14,9 @@ sealed interface ImageCapturer {
      * @see State
      * @see Updater
      */
-    interface Complete : State, Updater
+    interface Complete :
+        State,
+        Updater
 
     /**
      * Interface for exposing an [ImageCapture] [StateFlow]. Commonly paired with the [Updater]

@@ -19,6 +19,7 @@ import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedS
 import uk.gov.android.ui.testwrapper.patterns.centrealignedscreen.CentreAlignedScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorBottomContentLargeScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenDemo
+import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenSupportingTextDemo
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
@@ -26,10 +27,7 @@ import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
 @Composable
-fun Patterns(
-    modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun Patterns(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -38,12 +36,12 @@ fun Patterns(
             GdsHeading(
                 text = destination.label,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {
-                        onNavigate(destination)
-                    })
-                    .padding(smallPadding),
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onNavigate(destination)
+                        })
+                        .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
                 style = GdsHeadingStyle.Title3,
             )
@@ -54,9 +52,7 @@ fun Patterns(
 
 @OptIn(UnstableDesignSystemAPI::class)
 @Composable
-fun PatternDetail(
-    detailItem: DetailItem,
-) {
+fun PatternDetail(detailItem: DetailItem) {
     when (detailItem.label) {
         LOADING_SCREEN -> LoadingScreen()
         LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()
@@ -66,6 +62,7 @@ fun PatternDetail(
         ERROR_SCREEN -> ErrorScreenDemo()
         ERROR_SCROLLABLE_SCREEN -> ErrorScrollableScreenDemo()
         ERROR_BOTTOM_CONTENT_LARGE_SCREEN -> ErrorBottomContentLargeScreenDemo()
+        ERROR_SCREEN_SUPPORTING_TEXT -> ErrorScreenSupportingTextDemo()
     }
 }
 
@@ -76,4 +73,5 @@ const val CENTRED_ALIGNED_SCREEN = "centreAlignedScreen"
 const val CENTRED_ALIGNED_SCROLLABLE_SCREEN = "centreAlignedScrollableScreen"
 const val ERROR_SCREEN = "errorScreen"
 const val ERROR_SCROLLABLE_SCREEN = "errorScrollableScreen"
+const val ERROR_SCREEN_SUPPORTING_TEXT = "errorScreenSupportingText"
 const val ERROR_BOTTOM_CONTENT_LARGE_SCREEN = "errorBottomContentLargeScreen"

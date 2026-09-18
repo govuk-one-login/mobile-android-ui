@@ -1,10 +1,9 @@
 package uk.gov.android.ui.componentsv2.inputs.radio
 
 enum class TitleType {
-    BoldText, Heading, Text
+    BoldText,
+    Heading,
+    Text,
 }
 
-data class RadioSelectionTitle(
-    val text: String,
-    val titleType: TitleType,
-)
+data class RadioSelectionTitle(val text: String, val titleType: TitleType)

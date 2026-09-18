@@ -35,13 +35,16 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.images.GdsIcon
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.HorizontalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenDefaults.VerticalPadding
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.errorscreen.v2.ErrorScreenTitleTestTag.ERROR_SCREEN_TITLE_TEST_TAG
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
+import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -51,7 +54,7 @@ private const val DENSITY_PREVIEW_INDEX = 5
 /**
  * Renders a centre-aligned error screen with a structured layout.
  *
- * This screen is designed for displaying an warning/error icon, title, body content,
+ * This screen is designed for displaying a warning/error icon, title, body content,
  * and bottom content with primary/secondary buttons in a visually consistent manner.
  *
  * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
@@ -66,6 +69,7 @@ private const val DENSITY_PREVIEW_INDEX = 5
  * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @sample LazyListScope.toBodyContent
  * @param body list of items representing the main content (optional).
+ * @param supportingText additional text displayed below in the bottom content. This deviates from the error screen design library pattern but is only used in the ID Check V1 app. Use of [GdsSupportingText] composable is recommended (optional).
  * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
  * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
  * @param tertiaryButton tertiary action button. Use of [GdsButton] composable is recommended (optional).
@@ -79,6 +83,7 @@ fun ErrorScreen(
     title: @Composable (horizontalPadding: Dp) -> Unit,
     modifier: Modifier = Modifier,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable () -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
@@ -99,13 +104,14 @@ fun ErrorScreen(
         If the height is over 1/3 of the total screen, the BottomContent is moved
         into the MainContent which is scrollable */
         SubcomposeLayout { constraints ->
-            // Draw the BottomContent to enable checking it's height
+            // Draw the BottomContent to enable checking its height
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
                     verticalPaddingRequired = verticalPaddingRequired,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
                     tertiaryButton = tertiaryButton,
+                    supportingText = supportingText,
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -130,6 +136,7 @@ fun ErrorScreen(
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,
                                 tertiaryButton = tertiaryButton,
+                                supportingText = supportingText,
                             )
                         }
                     },
@@ -177,6 +184,7 @@ private fun MainContent(
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     LazyColumn(
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
             Alignment.CenterVertically,
@@ -195,6 +203,7 @@ private fun MainContent(
                     .semantics(mergeDescendants = true) {
                         heading()
                     },
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 icon?.invoke(HorizontalPadding)
 
@@ -223,8 +232,10 @@ private fun BottomContent(
     primaryButton: @Composable (() -> Unit)?,
     secondaryButton: @Composable (() -> Unit)?,
     tertiaryButton: @Composable (() -> Unit)?,
+    supportingText: (@Composable () -> Unit)? = null,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(
             VerticalPadding,
             Alignment.CenterVertically,
@@ -236,12 +247,43 @@ private fun BottomContent(
                 vertical = if (verticalPaddingRequired) VerticalPadding else 0.dp,
             ),
     ) {
+        if (supportingText != null) {
+            Spacer(modifier = Modifier.height(listItemTopPadding))
+            supportingText.invoke()
+        }
+
         primaryButton?.invoke()
 
         secondaryButton?.invoke()
 
         tertiaryButton?.invoke()
     }
+}
+
+@Composable
+@Deprecated(
+    message = "Will be removed on 8th November 2026 (DCMAW-23100).",
+    level = DeprecationLevel.WARNING,
+)
+fun ErrorScreen(
+    icon: @Composable ((horizontalPadding: Dp) -> Unit),
+    title: @Composable (horizontalPadding: Dp) -> Unit,
+    modifier: Modifier = Modifier,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    primaryButton: (@Composable () -> Unit)? = null,
+    secondaryButton: (@Composable () -> Unit)? = null,
+    tertiaryButton: (@Composable () -> Unit)? = null,
+) {
+    ErrorScreen(
+        icon = icon,
+        title = title,
+        modifier = modifier,
+        body = body,
+        supportingText = null,
+        primaryButton = primaryButton,
+        secondaryButton = secondaryButton,
+        tertiaryButton = tertiaryButton,
+    )
 }
 
 object ErrorScreenDefaults {
@@ -303,7 +345,6 @@ internal fun ErrorScreenPreviewComposable(
                 image = ImageVector.vectorResource(content.icon.icon),
                 contentDescription = stringResource(content.icon.description),
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(horizontal = horizontalPadding),
                 color = colorScheme.onBackground,
             )
@@ -320,16 +361,22 @@ internal fun ErrorScreenPreviewComposable(
             toBodyContent(content.body, horizontalPadding)
         },
         primaryButton =
-        content.primaryButton?.let {
-            { PrimaryButton(it) }
-        },
+            content.primaryButton?.let {
+                { PrimaryButton(it) }
+            },
         secondaryButton =
-        content.secondaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.secondaryButton?.let {
+                { SecondaryButton(it) }
+            },
         tertiaryButton =
-        content.tertiaryButton?.let {
-            { SecondaryButton(it) }
-        },
+            content.tertiaryButton?.let {
+                { SecondaryButton(it) }
+            },
+        supportingText =
+            content.supportingText?.let {
+                {
+                    SupportingTextBody(it)
+                }
+            },
     )
 }

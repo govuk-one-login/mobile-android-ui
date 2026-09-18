@@ -26,6 +26,9 @@ import uk.gov.android.ui.testwrapper.componentsv2.heading.GdsHeadingDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsBulletedListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.list.GdsNumberedListDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorCustomLabelsDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorCustomThemeDemo
+import uk.gov.android.ui.testwrapper.componentsv2.progress.GdsProgressIndicatorDemo
 import uk.gov.android.ui.testwrapper.componentsv2.row.RowListDemo
 import uk.gov.android.ui.testwrapper.componentsv2.status.StatusOverlayDemo
 import uk.gov.android.ui.testwrapper.componentsv2.text.GdsAnnotatedStringDemo
@@ -35,10 +38,7 @@ import uk.gov.android.ui.testwrapper.patterns.camera.qr.QrScannerScreenDemo
 import uk.gov.android.ui.theme.smallPadding
 
 @Composable
-fun Components(
-    modifier: Modifier = Modifier,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun Components(modifier: Modifier = Modifier, onNavigate: (Any) -> Unit = {}) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -47,12 +47,12 @@ fun Components(
             GdsHeading(
                 text = destination.label,
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .clickable(onClick = {
-                        onNavigate(destination)
-                    })
-                    .padding(smallPadding),
+                    Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = {
+                            onNavigate(destination)
+                        })
+                        .padding(smallPadding),
                 textAlign = GdsHeadingAlignment.LeftAligned,
                 style = GdsHeadingStyle.Title3,
             )
@@ -64,39 +64,57 @@ fun Components(
 // Add new demo composables here
 @Composable
 @Suppress("CyclomaticComplexMethod")
-fun ComponentDetail(
-    detailItem: DetailItem,
-    onNavigate: (Any) -> Unit = {},
-) {
+fun ComponentDetail(detailItem: DetailItem, onNavigate: (Any) -> Unit = {}) {
     when (detailItem.label) {
         BULLETED_LIST -> GdsBulletedListDemo()
+
         NUMBERED_LIST -> GdsNumberedListDemo()
+
         RADIO -> GdsRadiosDemo()
+
         PRIMARY_BUTTON -> PrimaryButtonDemo()
+
         SECONDARY_BUTTON -> SecondaryButtonDemo()
+
         TOP_APP_BAR -> GdsTopAppBarDemo()
+
         DIALOGUE -> GdsDialogueDemo()
+
         STATUS_OVERLAY -> StatusOverlayDemo()
+
         CAMERA_CONTENT -> CameraContentDemo()
+
         QR_CODE_CENTRALISED_SCANNING ->
             QrScannerScreenDemo(
                 converter =
-                CentrallyCroppedImageProxyConverter(
-                    relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
-                    relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
-                ),
+                    CentrallyCroppedImageProxyConverter(
+                        relativeScanningWidth = CANVAS_WIDTH_MULTIPLIER,
+                        relativeScanningHeight = CANVAS_WIDTH_MULTIPLIER,
+                    ),
                 onNavigate = onNavigate,
             )
+
         QR_CODE_SCANNING ->
             QrScannerScreenDemo(
                 converter = ImageProxyConverter.simple(),
                 onNavigate = onNavigate,
             )
+
         ROW_LIST -> RowListDemo()
+
         CARD -> GdsCardDemo()
+
         WARNING -> GdsWarningDemo()
+
         HEADING -> GdsHeadingDemo()
+
         ANNOTATED_STRING -> GdsAnnotatedStringDemo()
+
+        PROGRESS_INDICATOR_DEFAULT -> GdsProgressIndicatorDemo()
+
+        PROGRESS_INDICATOR_CUSTOM_LABELS -> GdsProgressIndicatorCustomLabelsDemo()
+
+        PROGRESS_INDICATOR_CUSTOM_THEME -> GdsProgressIndicatorCustomThemeDemo()
     }
 }
 
@@ -118,3 +136,7 @@ const val CARD = "card"
 const val WARNING = "warning"
 const val HEADING = "heading"
 const val ANNOTATED_STRING = "annotatedString"
+
+const val PROGRESS_INDICATOR_DEFAULT = "Progress indicator - defaults"
+const val PROGRESS_INDICATOR_CUSTOM_LABELS = "Progress indicator - custom labels"
+const val PROGRESS_INDICATOR_CUSTOM_THEME = "Progress indicator - custom theme"

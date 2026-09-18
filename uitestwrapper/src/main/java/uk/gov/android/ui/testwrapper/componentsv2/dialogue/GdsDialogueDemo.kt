@@ -27,9 +27,7 @@ import uk.gov.android.ui.uitestwrapper.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GdsDialogueDemo(
-    modifier: Modifier = Modifier,
-) {
+fun GdsDialogueDemo(modifier: Modifier = Modifier) {
     var displayDialogue by remember { mutableStateOf(false) }
     val statusOverlayState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -55,28 +53,30 @@ fun GdsDialogueDemo(
                     headingText = stringResource(R.string.dialogue_demo_title),
                     contentText = stringResource(R.string.dialogue_demo_content),
                     buttonParameters =
-                    persistentListOf(
-                        DialogueButtonParameters(
-                            buttonType = ButtonTypeV2.Secondary(),
-                            text = stringResource(R.string.dialogue_demo_button_dismiss),
-                            onClick = {
-                                displayDialogue = !displayDialogue
-                                scope.launch {
-                                    statusOverlayState.showSnackbar("Dismiss button tapped")
-                                }
-                            },
+                        persistentListOf(
+                            DialogueButtonParameters(
+                                buttonType = ButtonTypeV2.Secondary(),
+                                text = stringResource(R.string.dialogue_demo_button_dismiss),
+                                onClick = {
+                                    displayDialogue = !displayDialogue
+                                    scope.launch {
+                                        statusOverlayState.showSnackbar("Dismiss button tapped")
+                                    }
+                                },
+                            ),
+                            DialogueButtonParameters(
+                                buttonType = ButtonTypeV2.Primary(),
+                                text = stringResource(R.string.dialogue_demo_button_else),
+                                onClick = {
+                                    displayDialogue = !displayDialogue
+                                    scope.launch {
+                                        statusOverlayState.showSnackbar(
+                                            "Something else button tapped",
+                                        )
+                                    }
+                                },
+                            ),
                         ),
-                        DialogueButtonParameters(
-                            buttonType = ButtonTypeV2.Primary(),
-                            text = stringResource(R.string.dialogue_demo_button_else),
-                            onClick = {
-                                displayDialogue = !displayDialogue
-                                scope.launch {
-                                    statusOverlayState.showSnackbar("Something else button tapped")
-                                }
-                            },
-                        ),
-                    ),
                 ) {
                     displayDialogue = !displayDialogue
                 }
