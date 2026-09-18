@@ -21,6 +21,7 @@ class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
     private val parameters = GdsAnnotatedStringPreviewDataProvider().values.toList()[0]
+    private val text get() = "Trailing icon"
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -28,8 +29,9 @@ class GdsAnnotatedStringTest {
     @Test
     fun testStringIconTrailing() {
         composeTestRule.setContent {
+            val parameters = parameters.toData()
             GdsAnnotatedString(
-                text = stringResource(parameters.text),
+                text = text,
                 fontWeight = parameters.fontWeight,
                 icon = ImageVector.vectorResource(parameters.icon),
                 iconContentDescription = stringResource(parameters.iconContentDescription),
@@ -42,10 +44,8 @@ class GdsAnnotatedStringTest {
             )
         }
         composeTestRule.apply {
-            onNodeWithText(
-                resources.getString(R.string.annotated_string),
-                substring = true,
-            ).assertIsDisplayed()
+            onNodeWithText(text, substring = true)
+                .assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(R.string.icon_content_desc),
@@ -56,8 +56,9 @@ class GdsAnnotatedStringTest {
     @Test
     fun testStringIconContentDescriptionTrailing() {
         composeTestRule.setContent {
+            val parameters = parameters.toData()
             GdsAnnotatedString(
-                text = stringResource(parameters.text),
+                text = text,
                 fontWeight = parameters.fontWeight,
                 icon = ImageVector.vectorResource(parameters.icon),
                 iconContentDescription = stringResource(parameters.iconContentDescription),
@@ -71,11 +72,8 @@ class GdsAnnotatedStringTest {
             )
         }
         composeTestRule.apply {
-            onNodeWithText(
-                resources.getString(R.string.annotated_string),
-                substring = true,
-            )
-                .assertTextEquals("Annotated string Icon Description")
+            onNodeWithText(text, substring = true)
+                .assertTextEquals("$text Icon Description")
 
             val icon = onNodeWithContentDescription(
                 resources.getString(R.string.icon_content_desc),
@@ -92,8 +90,9 @@ class GdsAnnotatedStringTest {
     @Test
     fun testStringIconContentDescription() {
         composeTestRule.setContent {
+            val parameters = parameters.toData()
             GdsAnnotatedString(
-                text = stringResource(parameters.text),
+                text = text,
                 fontWeight = parameters.fontWeight,
                 icon = ImageVector.vectorResource(parameters.icon),
                 iconContentDescription = stringResource(parameters.iconContentDescription),
@@ -106,11 +105,8 @@ class GdsAnnotatedStringTest {
             )
         }
         composeTestRule.apply {
-            onNodeWithText(
-                resources.getString(R.string.annotated_string),
-                substring = true,
-            )
-                .assertTextEquals("Icon Description Annotated string")
+            onNodeWithText(text, substring = true)
+                .assertTextEquals("Icon Description $text")
 
             val icon = onNodeWithContentDescription(
                 resources.getString(R.string.icon_content_desc),
@@ -130,10 +126,7 @@ class GdsAnnotatedStringTest {
             AnnotatedStringPreview(parameters)
         }
         composeTestRule.apply {
-            onNodeWithText(
-                resources.getString(R.string.annotated_string),
-                substring = true,
-            ).assertIsDisplayed()
+            onNodeWithText(text, substring = true).assertIsDisplayed()
 
             onNodeWithContentDescription(
                 resources.getString(R.string.icon_content_desc),
