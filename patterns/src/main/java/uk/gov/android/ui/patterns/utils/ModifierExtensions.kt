@@ -20,6 +20,7 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 object ModifierExtensions {
@@ -44,25 +45,15 @@ object ModifierExtensions {
         return this
             .semantics { hasKeyboardScroll = true }
             .onKeyEvent {
-                when {
-                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown &&
+                when (it.type) {
+                    KeyEventType.KeyDown if it.key == Key.DirectionDown &&
                         scrollState.canScrollForward -> {
-                        coroutineScope.launch {
-                            scrollState.animateScrollBy(
-                                SCROLL_MULTIPLIER * scrollState.viewportHeight(),
-                            )
-                        }
-                        true
+                        scrollState.keyboardScrollBy(coroutineScope, SCROLL_MULTIPLIER)
                     }
 
-                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionUp &&
+                    KeyEventType.KeyDown if it.key == Key.DirectionUp &&
                         scrollState.canScrollBackward -> {
-                        coroutineScope.launch {
-                            scrollState.animateScrollBy(
-                                -SCROLL_MULTIPLIER * scrollState.viewportHeight(),
-                            )
-                        }
-                        true
+                        scrollState.keyboardScrollBy(coroutineScope, -SCROLL_MULTIPLIER)
                     }
 
                     else -> false
@@ -72,19 +63,15 @@ object ModifierExtensions {
             .focusable(interactionSource = interactionSource)
     }
 
-    /**
-     * Adds a downwards and upwards scroll when a keyboard down or up arrow is pressed.
-     *
-     * @param scrollState [ScrollState] represents the list state
-     * @return augmented [Modifier]
-     */
-    @Deprecated(
-        message = "Replace with keyboardScroll. Due to be removed 13th July 2026.",
-        replaceWith = ReplaceWith("keyboardScroll(scrollState)"),
-        level = DeprecationLevel.WARNING,
-    )
-    @Composable
-    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier = keyboardScroll(scrollState)
+    private fun ScrollableState.keyboardScrollBy(
+        coroutineScope: CoroutineScope,
+        multiplier: Float,
+    ): Boolean {
+        coroutineScope.launch {
+            animateScrollBy(multiplier * viewportHeight())
+        }
+        return true
+    }
 
     private fun ScrollableState.viewportHeight(): Float = when (this) {
         is LazyListState -> layoutInfo.viewportSize.height.toFloat()
