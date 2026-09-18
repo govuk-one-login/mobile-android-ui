@@ -1,12 +1,10 @@
 package uk.gov.android.ui.componentsv2.text
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,8 +26,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
-import uk.gov.android.ui.componentsv2.text.annotatedstringparameters.GdsAnnotatedStringPreviewData
-import uk.gov.android.ui.componentsv2.text.previewparameterprovider.GdsAnnotatedStringPreviewDataProvider
 import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.xsmallPadding
@@ -95,42 +91,23 @@ fun GdsAnnotatedString(
 
 @Composable
 @PreviewLightDark
-internal fun AnnotatedStringPreview(
+internal fun GdsAnnotatedStringPreview(
     @PreviewParameter(GdsAnnotatedStringPreviewDataProvider::class)
-    parameters: GdsAnnotatedStringPreviewData,
-) {
-    GdsTheme {
-        Column(
-            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
-        ) {
-            GdsAnnotatedString(
-                text = stringResource(parameters.text),
-                fontWeight = parameters.fontWeight,
-                icon = ImageVector.vectorResource(parameters.icon),
-                iconContentDescription = stringResource(parameters.iconContentDescription),
-                iconId = stringResource(parameters.iconId),
-                iconColor = if (parameters.iconColor !=
-                    Color.Unspecified
-                ) {
-                    parameters.iconColor
-                } else {
-                    null
-                },
-                iconBackgroundColor = if (parameters.nightMode) {
-                    Color.White
-                } else {
-                    parameters.iconBackgroundColor
-                },
-                isIconTrailing = parameters.isIconTrailing,
-                textStyle = parameters.textStyle,
-                color = if (parameters.color !=
-                    Color.Unspecified
-                ) {
-                    parameters.color
-                } else {
-                    MaterialTheme.colorScheme.onBackground
-                },
-            )
-        }
+    preview: GdsAnnotatedStringPreview,
+) = GdsTheme {
+    Surface {
+        val parameters = preview.toData()
+        GdsAnnotatedString(
+            text = parameters.text,
+            fontWeight = parameters.fontWeight,
+            icon = ImageVector.vectorResource(parameters.icon),
+            iconContentDescription = stringResource(parameters.iconContentDescription),
+            iconId = stringResource(parameters.iconId),
+            iconColor = parameters.iconColor,
+            iconBackgroundColor = parameters.iconBackgroundColor,
+            isIconTrailing = parameters.isIconTrailing,
+            textStyle = parameters.textStyle,
+            color = parameters.color,
+        )
     }
 }
