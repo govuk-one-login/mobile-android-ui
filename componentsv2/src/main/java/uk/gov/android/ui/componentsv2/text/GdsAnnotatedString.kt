@@ -1,12 +1,10 @@
 package uk.gov.android.ui.componentsv2.text
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,48 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.em
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.images.GdsIcon
 import uk.gov.android.ui.theme.buttonShadowSize
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.xsmallPadding
-
-@Deprecated(
-    message = "Use GdsAnnotatedString with textStyle parameter instead" +
-        "- will aim to be removed on 1st of July",
-    replaceWith = ReplaceWith("uk.gov.android.ui.componentsv2.text - GdsAnnotatedString"),
-    level = DeprecationLevel.WARNING,
-)
-@Composable
-fun GdsAnnotatedString(
-    text: String,
-    fontWeight: FontWeight,
-    icon: ImageVector,
-    iconContentDescription: String,
-    modifier: Modifier = Modifier,
-    iconId: String = stringResource(R.string.in_line_icon_id),
-    color: Color = MaterialTheme.colorScheme.onBackground,
-    iconColor: Color? = null,
-    iconBackgroundColor: Color = MaterialTheme.colorScheme.background,
-    isIconTrailing: Boolean = true,
-    textAlign: TextAlign = TextAlign.Center,
-) = GdsAnnotatedString(
-    text = text,
-    fontWeight = fontWeight,
-    icon = icon,
-    iconContentDescription = iconContentDescription,
-    textStyle = Typography.labelLarge,
-    modifier = modifier,
-    iconId = iconId,
-    color = color,
-    iconColor = iconColor,
-    iconBackgroundColor = iconBackgroundColor,
-    isIconTrailing = isIconTrailing,
-    textAlign = textAlign,
-)
 
 @Composable
 fun GdsAnnotatedString(
@@ -127,59 +89,25 @@ fun GdsAnnotatedString(
     )
 }
 
-internal data class AnnotatedStringPreviewParameters(
-    val text: Int,
-    val fontWeight: FontWeight,
-    val icon: Int,
-    val iconId: Int = R.string.in_line_icon_id,
-    val iconContentDescription: Int,
-    val iconColor: Color = Color.Unspecified,
-    val iconBackgroundColor: Color = Color.Unspecified,
-    val isIconTrailing: Boolean = true,
-)
-
-internal class AnnotatedStringPreviewParametersProvider :
-    PreviewParameterProvider<AnnotatedStringPreviewParameters> {
-    override val values: Sequence<AnnotatedStringPreviewParameters> = sequenceOf(
-        AnnotatedStringPreviewParameters(
-            text = R.string.annotated_string,
-            fontWeight = FontWeight.Bold,
-            icon = R.drawable.ic_external_site,
-            iconContentDescription = R.string.icon_content_desc,
-            isIconTrailing = true,
-        ),
-        AnnotatedStringPreviewParameters(
-            text = R.string.annotated_string,
-            fontWeight = FontWeight.Bold,
-            icon = R.drawable.ic_external_site,
-            iconContentDescription = R.string.icon_content_desc,
-            isIconTrailing = false,
-            iconColor = Color.Green,
-        ),
-    )
-}
-
 @Composable
 @PreviewLightDark
-internal fun AnnotatedStringPreview(
-    @PreviewParameter(AnnotatedStringPreviewParametersProvider::class)
-    parameters: AnnotatedStringPreviewParameters,
-) {
-    GdsTheme {
-        Column(
-            Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background),
-        ) {
-            GdsAnnotatedString(
-                text = stringResource(parameters.text),
-                fontWeight = parameters.fontWeight,
-                icon = ImageVector.vectorResource(parameters.icon),
-                iconContentDescription = stringResource(parameters.iconContentDescription),
-                iconId = stringResource(parameters.iconId),
-                iconColor = parameters.iconColor,
-                iconBackgroundColor = parameters.iconBackgroundColor,
-                isIconTrailing = parameters.isIconTrailing,
-                textStyle = Typography.labelLarge,
-            )
-        }
+internal fun GdsAnnotatedStringPreview(
+    @PreviewParameter(GdsAnnotatedStringPreviewDataProvider::class)
+    preview: GdsAnnotatedStringPreview,
+) = GdsTheme {
+    Surface {
+        val parameters = preview.toData()
+        GdsAnnotatedString(
+            text = parameters.text,
+            fontWeight = parameters.fontWeight,
+            icon = ImageVector.vectorResource(parameters.icon),
+            iconContentDescription = stringResource(parameters.iconContentDescription),
+            iconId = stringResource(parameters.iconId),
+            iconColor = parameters.iconColor,
+            iconBackgroundColor = parameters.iconBackgroundColor,
+            isIconTrailing = parameters.isIconTrailing,
+            textStyle = parameters.textStyle,
+            color = parameters.color,
+        )
     }
 }
