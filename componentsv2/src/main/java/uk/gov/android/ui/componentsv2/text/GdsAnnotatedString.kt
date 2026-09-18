@@ -91,7 +91,7 @@ fun GdsAnnotatedString(
 
 @Composable
 @PreviewLightDark
-internal fun AnnotatedStringPreview(
+internal fun GdsAnnotatedStringPreview(
     @PreviewParameter(GdsAnnotatedStringPreviewDataProvider::class)
     preview: GdsAnnotatedStringPreview,
 ) = GdsTheme {
