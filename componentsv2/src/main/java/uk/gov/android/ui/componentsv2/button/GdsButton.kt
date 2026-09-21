@@ -100,9 +100,9 @@ fun GdsButton(
             } else if (!checkIfDisabled) {
                 GdsLocalColorScheme.current.disabledButtonContent
             } else {
-                colorScheme.secondary
+                buttonType.borderColor ?: colorScheme.secondary
             }
-            Modifier.border(width = 1.dp, color = borderColor, shape = shape)
+            Modifier.border(width = buttonType.borderWidth, color = borderColor, shape = shape)
         } else {
             Modifier
         }

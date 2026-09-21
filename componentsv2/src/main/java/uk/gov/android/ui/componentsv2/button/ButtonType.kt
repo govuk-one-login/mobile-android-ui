@@ -52,8 +52,13 @@ sealed class ButtonTypeV2(open val textStyle: TextStyle = ExtraTypography.bodyLa
     data class SecondaryDestructive(override val textStyle: TextStyle = Typography.bodyLarge) :
         ButtonTypeV2(textStyle = textStyle)
 
-    data class SecondaryOutlined(override val textStyle: TextStyle = Typography.bodyLarge) :
-        ButtonTypeV2(textStyle = textStyle)
+    data class SecondaryOutlined(
+        override val textStyle: TextStyle = Typography.bodyLarge,
+        val borderWidth: Dp = 1.dp,
+        val borderColor: Color? = null,
+        val contentColor: Color? = null,
+        val containerColor: Color? = null,
+    ) : ButtonTypeV2(textStyle = textStyle)
 
     data class Custom(
         val contentColor: Color,
@@ -99,7 +104,10 @@ fun ButtonTypeV2.buttonColors() = when (this) {
 
     is ButtonTypeV2.SecondaryDestructive -> GdsButtonDefaults.defaultSecondaryDestructiveColors()
 
-    is ButtonTypeV2.SecondaryOutlined -> GdsButtonDefaults.defaultSecondaryOutlinedColors()
+    is ButtonTypeV2.SecondaryOutlined -> GdsButtonDefaults.defaultSecondaryOutlinedColors(
+        contentColor = contentColor,
+        containerColor = containerColor,
+    )
 
     is ButtonTypeV2.Icon -> buttonColors
 
@@ -189,9 +197,12 @@ object GdsButtonDefaults {
     )
 
     @Composable
-    fun defaultSecondaryOutlinedColors() = ButtonDefaults.buttonColors(
-        containerColor = GdsLocalColorScheme.current.secondaryOutlinedBackground,
-        contentColor = colorScheme.secondary,
+    fun defaultSecondaryOutlinedColors(
+        contentColor: Color? = null,
+        containerColor: Color? = null,
+    ) = ButtonDefaults.buttonColors(
+        containerColor = containerColor ?: GdsLocalColorScheme.current.secondaryOutlinedBackground,
+        contentColor = contentColor ?: colorScheme.secondary,
         disabledContainerColor = GdsLocalColorScheme.current.secondaryOutlinedBackground,
         disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
