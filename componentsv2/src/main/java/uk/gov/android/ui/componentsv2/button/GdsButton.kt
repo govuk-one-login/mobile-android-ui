@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.button
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -92,9 +94,22 @@ fun GdsButton(
     CompositionLocalProvider(
         LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
     ) {
+        val borderModifier = if (buttonType is ButtonTypeV2.SecondaryOutlined) {
+            val borderColor = if (focusStateEnabled) {
+                GdsLocalColorScheme.current.focusStateContent
+            } else if (!checkIfDisabled) {
+                GdsLocalColorScheme.current.disabledButtonContent
+            } else {
+                colorScheme.secondary
+            }
+            Modifier.border(width = 1.dp, color = borderColor, shape = shape)
+        } else {
+            Modifier
+        }
         Button(
             colors = colors,
             modifier = modifier
+                .then(borderModifier)
                 .customBottomBorder(shadowColor, shape, GdsButtonDefaults.borderStrokeWidthDefault)
                 .minimumInteractiveComponentSize()
                 .semantics(mergeDescendants = true) {
@@ -137,6 +152,7 @@ private fun setShadowColors(
     isInFocus: Boolean,
 ): Color = when {
     buttonType is ButtonTypeV2.Secondary -> Color.Transparent
+    buttonType is ButtonTypeV2.SecondaryOutlined -> Color.Transparent
     !isEnabled -> GdsLocalColorScheme.current.disabledButtonShadow
     isInFocus -> GdsLocalColorScheme.current.focusStateShadow
     buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.buttonShadow
@@ -276,6 +292,7 @@ fun GdsButton(
 internal enum class ButtonTypePreview {
     Primary,
     Secondary,
+    SecondaryOutlined,
     Tertiary,
     Quaternary,
     Admin,
@@ -289,6 +306,8 @@ internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Primary -> ButtonTypeV2.Primary()
 
     ButtonTypePreview.Secondary -> ButtonTypeV2.Secondary()
+
+    ButtonTypePreview.SecondaryOutlined -> ButtonTypeV2.SecondaryOutlined()
 
     ButtonTypePreview.Tertiary -> ButtonTypeV2.Tertiary()
 
@@ -347,6 +366,9 @@ private fun getRippleColour(buttonType: ButtonTypeV2, isInFocus: Boolean): Color
     buttonType is ButtonTypeV2.Primary -> GdsLocalColorScheme.current.primaryButtonHighlighted
 
     buttonType is ButtonTypeV2.Secondary ->
+        GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
+
+    buttonType is ButtonTypeV2.SecondaryOutlined ->
         GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted
 
     buttonType is ButtonTypeV2.Destructive ->

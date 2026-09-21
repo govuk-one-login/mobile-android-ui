@@ -169,6 +169,7 @@ class CustomColorsScheme(
     val qrScannerOverlayBorder: Color = Color.Unspecified,
     val destructiveNativeButtonText: Color = Color.Unspecified,
     val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
+    val secondaryOutlinedBackground: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -236,6 +237,7 @@ object GdsThemeDefaults {
         destructiveNativeButtonText: Color = Buttons.destructiveNativeButtonText.toMappedColors(),
         destructiveNativeButtonTextHighlighted: Color =
             Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
+        secondaryOutlinedBackground: Color = Buttons.secondaryOutlined.toMappedColors(),
     ): CustomColorsScheme = CustomColorsScheme(
         cardBackground = cardBackground,
         listBackground = listBackground,
@@ -287,6 +289,7 @@ object GdsThemeDefaults {
         qrScannerOverlayBorder = qrScannerOverlayBorder,
         destructiveNativeButtonText = destructiveNativeButtonText,
         destructiveNativeButtonTextHighlighted = destructiveNativeButtonTextHighlighted,
+        secondaryOutlinedBackground = secondaryOutlinedBackground,
     )
 }
 
