@@ -72,20 +72,6 @@ object ModifierExtensions {
             .focusable(interactionSource = interactionSource)
     }
 
-    /**
-     * Adds a downwards and upwards scroll when a keyboard down or up arrow is pressed.
-     *
-     * @param scrollState [ScrollState] represents the list state
-     * @return augmented [Modifier]
-     */
-    @Deprecated(
-        message = "Replace with keyboardScroll. Due to be removed 13th July 2026.",
-        replaceWith = ReplaceWith("keyboardScroll(scrollState)"),
-        level = DeprecationLevel.WARNING,
-    )
-    @Composable
-    fun Modifier.bringIntoView(scrollState: ScrollableState): Modifier = keyboardScroll(scrollState)
-
     private fun ScrollableState.viewportHeight(): Float = when (this) {
         is LazyListState -> layoutInfo.viewportSize.height.toFloat()
         is ScrollState -> viewportSize.toFloat()
