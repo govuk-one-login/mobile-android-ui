@@ -68,7 +68,8 @@ fun SecondaryOutlinedButton(
 
     val buttonText = stringResource(text)
     val opensInBrowserSuffix = stringResource(R.string.opens_in_external_browser)
-    val accessibilityText = if (opensInBrowser) "$buttonText - $opensInBrowserSuffix" else buttonText
+    val accessibilityText =
+        if (opensInBrowser) "$buttonText - $opensInBrowserSuffix" else buttonText
 
     val buttonType = ButtonTypeV2.Custom(
         contentColor = contentColour,
@@ -79,7 +80,8 @@ fun SecondaryOutlinedButton(
         ButtonIcon(
             icon = it,
             contentDescription = iconContentDescription ?: "",
-            position = if (isIconTrailing) ButtonIconPosition.Trailing else ButtonIconPosition.Leading,
+            position =
+                if (isIconTrailing) ButtonIconPosition.Trailing else ButtonIconPosition.Leading,
         )
     }
 
