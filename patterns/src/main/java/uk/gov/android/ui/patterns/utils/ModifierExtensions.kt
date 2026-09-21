@@ -20,7 +20,6 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 object ModifierExtensions {
@@ -45,15 +44,25 @@ object ModifierExtensions {
         return this
             .semantics { hasKeyboardScroll = true }
             .onKeyEvent {
-                when (it.type) {
-                    KeyEventType.KeyDown if it.key == Key.DirectionDown &&
+                when {
+                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown &&
                         scrollState.canScrollForward -> {
-                        scrollState.keyboardScrollBy(coroutineScope, SCROLL_MULTIPLIER)
+                        coroutineScope.launch {
+                            scrollState.animateScrollBy(
+                                SCROLL_MULTIPLIER * scrollState.viewportHeight(),
+                            )
+                        }
+                        true
                     }
 
-                    KeyEventType.KeyDown if it.key == Key.DirectionUp &&
+                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionUp &&
                         scrollState.canScrollBackward -> {
-                        scrollState.keyboardScrollBy(coroutineScope, -SCROLL_MULTIPLIER)
+                        coroutineScope.launch {
+                            scrollState.animateScrollBy(
+                                -SCROLL_MULTIPLIER * scrollState.viewportHeight(),
+                            )
+                        }
+                        true
                     }
 
                     else -> false
@@ -61,16 +70,6 @@ object ModifierExtensions {
             }
             .focusRequester(focusRequester)
             .focusable(interactionSource = interactionSource)
-    }
-
-    private fun ScrollableState.keyboardScrollBy(
-        coroutineScope: CoroutineScope,
-        multiplier: Float,
-    ): Boolean {
-        coroutineScope.launch {
-            animateScrollBy(multiplier * viewportHeight())
-        }
-        return true
     }
 
     private fun ScrollableState.viewportHeight(): Float = when (this) {
