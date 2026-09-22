@@ -1,7 +1,6 @@
 package uk.gov.android.ui.patterns.errorscreen.v2
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +43,6 @@ import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
 import uk.gov.android.ui.theme.listItemTopPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
-import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
@@ -87,14 +85,13 @@ fun ErrorScreen(
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     tertiaryButton: (@Composable () -> Unit)? = null,
-) {
+) = Surface(modifier = modifier) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.background(colorScheme.background),
     ) {
         val verticalPaddingRequired = primaryButton != null ||
             secondaryButton != null ||
@@ -346,7 +343,6 @@ internal fun ErrorScreenPreviewComposable(
                 contentDescription = stringResource(content.icon.description),
                 modifier = Modifier
                     .padding(horizontal = horizontalPadding),
-                color = colorScheme.onBackground,
             )
         },
         title = { horizontalPadding ->
