@@ -53,7 +53,7 @@ sealed class ButtonTypeV2(open val textStyle: TextStyle = ExtraTypography.bodyLa
         ButtonTypeV2(textStyle = textStyle)
 
     /**
-     * TODO: The disabled state colours for SecondaryOutlined need to be updated before use.
+     * The disabled state colours for SecondaryOutlined need to be updated before use.
      * Update the disabled colours when this button type is needed in a disabled state.
      */
     data class SecondaryOutlined(
