@@ -21,7 +21,7 @@ fun SecondaryOutlinedButtonDemo(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(smallPadding),
+            .padding(vertical = smallPadding),
         verticalArrangement = Arrangement.spacedBy(smallPadding),
     ) {
         GdsButton(

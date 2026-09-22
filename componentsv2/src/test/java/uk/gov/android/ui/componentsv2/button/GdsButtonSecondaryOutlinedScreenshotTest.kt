@@ -64,39 +64,33 @@ internal class GdsButtonSecondaryOutlinedScreenshotTest(
             ButtonParametersV2(
                 text = "Secondary outlined button",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
-                modifier = Modifier.fillMaxWidth(),
             ),
             ButtonParametersV2(
                 text = "Secondary outlined button (icon)",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
                 icon = ButtonIconPreview.Trailing,
-                modifier = Modifier.fillMaxWidth(),
             ),
             ButtonParametersV2(
                 text = "Secondary outlined button (leading icon)",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
                 icon = ButtonIconPreview.Leading,
-                modifier = Modifier.fillMaxWidth(),
             ),
             ButtonParametersV2(
                 text = "Secondary outlined button (disabled)",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
                 enabled = false,
-                modifier = Modifier.fillMaxWidth(),
             ),
             ButtonParametersV2(
                 text = "Secondary outlined button (disabled, icon)",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
                 icon = ButtonIconPreview.Trailing,
                 enabled = false,
-                modifier = Modifier.fillMaxWidth(),
             ),
             ButtonParametersV2(
                 text = "Secondary outlined button (loading)",
                 buttonType = ButtonTypePreview.SecondaryOutlined,
                 loading = true,
                 enabled = false,
-                modifier = Modifier.fillMaxWidth(),
             ),
         )
     }
