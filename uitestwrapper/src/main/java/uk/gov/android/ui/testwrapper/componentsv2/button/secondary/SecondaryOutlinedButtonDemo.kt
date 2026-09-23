@@ -3,6 +3,7 @@ package uk.gov.android.ui.testwrapper.componentsv2.button.secondary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,12 +29,14 @@ fun SecondaryOutlinedButtonDemo(modifier: Modifier = Modifier) {
             text = stringResource(R.string.secondary_button),
             buttonType = ButtonTypeV2.SecondaryOutlined(),
             onClick = {},
+            modifier = Modifier.fillMaxWidth(),
         )
         GdsButton(
             text = stringResource(R.string.secondary_button),
             buttonType = ButtonTypeV2.SecondaryOutlined(),
             onClick = {},
             icon = ButtonIcon.opensInWebBrowser(),
+            modifier = Modifier.fillMaxWidth(),
         )
         GdsButton(
             text = stringResource(R.string.secondary_button),
@@ -44,12 +47,14 @@ fun SecondaryOutlinedButtonDemo(modifier: Modifier = Modifier) {
                 contentDescription = stringResource(R.string.opens_in_external_browser),
                 position = ButtonIconPosition.Leading,
             ),
+            modifier = Modifier.fillMaxWidth(),
         )
         GdsButton(
             text = stringResource(R.string.secondary_button),
             buttonType = ButtonTypeV2.SecondaryOutlined(),
             onClick = {},
             enabled = false,
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
