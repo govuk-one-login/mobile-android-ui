@@ -52,6 +52,18 @@ sealed class ButtonTypeV2(open val textStyle: TextStyle = ExtraTypography.bodyLa
     data class SecondaryDestructive(override val textStyle: TextStyle = Typography.bodyLarge) :
         ButtonTypeV2(textStyle = textStyle)
 
+    /**
+     * The disabled state colours for SecondaryOutlined need to be updated before use.
+     * Update the disabled colours when this button type is needed in a disabled state.
+     */
+    data class SecondaryOutlined(
+        override val textStyle: TextStyle = Typography.bodyLarge,
+        val borderWidth: Dp = 1.dp,
+        val borderColor: Color? = null,
+        val contentColor: Color? = null,
+        val containerColor: Color? = null,
+    ) : ButtonTypeV2(textStyle = textStyle)
+
     data class Custom(
         val contentColor: Color,
         val containerColor: Color,
@@ -95,6 +107,11 @@ fun ButtonTypeV2.buttonColors() = when (this) {
     is ButtonTypeV2.Destructive -> GdsButtonDefaults.defaultErrorColors()
 
     is ButtonTypeV2.SecondaryDestructive -> GdsButtonDefaults.defaultSecondaryDestructiveColors()
+
+    is ButtonTypeV2.SecondaryOutlined -> GdsButtonDefaults.defaultSecondaryOutlinedColors(
+        contentColor = contentColor,
+        containerColor = containerColor,
+    )
 
     is ButtonTypeV2.Icon -> buttonColors
 
@@ -180,6 +197,17 @@ object GdsButtonDefaults {
         containerColor = Color.Transparent,
         contentColor = GdsLocalColorScheme.current.destructiveNativeButtonText,
         disabledContainerColor = GdsLocalColorScheme.current.disabledButton,
+        disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
+    )
+
+    @Composable
+    fun defaultSecondaryOutlinedColors(
+        contentColor: Color? = null,
+        containerColor: Color? = null,
+    ) = ButtonDefaults.buttonColors(
+        containerColor = containerColor ?: GdsLocalColorScheme.current.secondaryOutlinedBackground,
+        contentColor = contentColor ?: colorScheme.secondary,
+        disabledContainerColor = GdsLocalColorScheme.current.secondaryOutlinedBackground,
         disabledContentColor = GdsLocalColorScheme.current.disabledButtonContent,
     )
 
