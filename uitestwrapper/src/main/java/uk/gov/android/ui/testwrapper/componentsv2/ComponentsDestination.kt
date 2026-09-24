@@ -125,6 +125,10 @@ sealed class ComponentsDestination(open val label: String) {
                     listOf(
                         DetailItem(label = PRIMARY_BUTTON, name = "Primary Button"),
                         DetailItem(label = SECONDARY_BUTTON, name = "Secondary Button"),
+                        DetailItem(
+                            label = SECONDARY_OUTLINED_BUTTON,
+                            name = "Secondary Outlined Button",
+                        ),
 
                     ),
             ),
