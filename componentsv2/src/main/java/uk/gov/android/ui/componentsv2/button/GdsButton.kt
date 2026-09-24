@@ -3,6 +3,7 @@ package uk.gov.android.ui.componentsv2.button
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,6 +69,7 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param textAlign - default: Centre - controls the text alignment
  * @param shape - default: Rectangle - controls the button shape
  * @param icon - default: None (null) - the icon to display alongside the text
+ * @param interactionSource - default: remember { MutableInteractionSource() } - allows controlling interaction states for testing
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,12 +86,22 @@ fun GdsButton(
     textAlign: TextAlign = TextAlign.Center,
     shape: Shape = GdsButtonDefaults.defaultShape,
     icon: ButtonIcon? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     var focusStateEnabled by remember { mutableStateOf(false) }
+
+    LaunchedEffect(interactionSource) {
+        interactionSource.interactions.collect { interaction ->
+            when (interaction) {
+                is FocusInteraction.Focus -> focusStateEnabled = true
+                is FocusInteraction.Unfocus -> focusStateEnabled = false
+            }
+        }
+    }
+
     val colors = setFocusStateColors(focusStateEnabled, buttonType)
     val checkIfDisabled = !(!enabled || loading)
     val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled)
-    val interactionSource = remember { MutableInteractionSource() }
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
     val colour = getRippleColour(buttonType, focusStateEnabled)
     CompositionLocalProvider(
@@ -117,7 +130,9 @@ fun GdsButton(
                         contentDescription = loadingContentDescription
                     }
                 }
-                .onFocusChanged { focusStateEnabled = it.isFocused },
+                .onFocusChanged {
+                    focusStateEnabled = it.isFocused
+                },
             onClick = onClick,
             shape = shape,
             enabled = checkIfDisabled,
