@@ -74,7 +74,6 @@ fun GdsButton(
     text: String,
     buttonType: ButtonTypeV2,
     onClick: () -> Unit,
-    @SuppressLint("ModifierParameter")
     modifier: Modifier = Modifier,
     contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
@@ -258,7 +257,8 @@ private fun getContentPadding(contentPosition: Arrangement.Horizontal) =
 
 @Composable
 @Deprecated(
-    message = "Will be removed on 8th November 2026 (DCMAW-23114).",
+    message = "Use GdsButton with icon and interactionSource parameters instead. " +
+            "Will be removed on 8th November 2026 (DCMAW-23114).",
     level = DeprecationLevel.HIDDEN,
 )
 fun GdsButton(
@@ -286,6 +286,40 @@ fun GdsButton(
         textAlign = textAlign,
         shape = shape,
         icon = null,
+    )
+}
+
+@Composable
+@Deprecated(
+    message = "Use GdsButton with interactionSource parameter instead. " +
+            "Will be removed on 8th November 2026 (DCMAW-23114).",
+    level = DeprecationLevel.HIDDEN,
+)
+fun GdsButton(
+    text: String,
+    buttonType: ButtonTypeV2,
+    onClick: () -> Unit,
+    icon: ButtonIcon?,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
+    loading: Boolean = false,
+    textAlign: TextAlign = TextAlign.Center,
+    shape: Shape = GdsButtonDefaults.defaultShape,
+) {
+    GdsButton(
+        text = text,
+        buttonType = buttonType,
+        onClick = onClick,
+        modifier = modifier,
+        contentModifier = contentModifier,
+        contentPosition = contentPosition,
+        enabled = enabled,
+        loading = loading,
+        textAlign = textAlign,
+        shape = shape,
+        icon = icon,
     )
 }
 
