@@ -103,16 +103,6 @@ object Borders {
     val qrScanner = ColorPair(Color(0xFFFFFFFF))
 }
 
-@Deprecated(
-    message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
-        " - will aim to be removed by 19th of May",
-    level = DeprecationLevel.WARNING,
-)
-object QrScannerOverlayDefaults {
-    var background: ColorPair = Backgrounds.qrScanner
-    var border: ColorPair = Borders.qrScanner
-}
-
 @Suppress("ForbiddenComment")
 // TODO: Once we have the GdsSwitch/Toggle we should replace this with that version e.g. GdsSwitch.defaultColors()
 @Composable
