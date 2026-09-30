@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,13 +24,10 @@ import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -67,6 +65,7 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param textAlign - default: Centre - controls the text alignment
  * @param shape - default: Rectangle - controls the button shape
  * @param icon - default: None (null) - the icon to display alongside the text
+ * @param interactionSource - default: remember { MutableInteractionSource() } - allows controlling interaction states for testing
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,7 +73,6 @@ fun GdsButton(
     text: String,
     buttonType: ButtonTypeV2,
     onClick: () -> Unit,
-    @SuppressLint("ModifierParameter")
     modifier: Modifier = Modifier,
     contentModifier: Modifier = Modifier,
     contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
@@ -83,19 +81,20 @@ fun GdsButton(
     textAlign: TextAlign = TextAlign.Center,
     shape: Shape = GdsButtonDefaults.defaultShape,
     icon: ButtonIcon? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    var focusStateEnabled by remember { mutableStateOf(false) }
-    val colors = setFocusStateColors(focusStateEnabled, buttonType)
+    val isFocused by interactionSource.collectIsFocusedAsState()
+
+    val colors = setFocusStateColors(isFocused, buttonType)
     val checkIfDisabled = !(!enabled || loading)
-    val shadowColor = setShadowColors(buttonType, checkIfDisabled, focusStateEnabled)
-    val interactionSource = remember { MutableInteractionSource() }
+    val shadowColor = setShadowColors(buttonType, checkIfDisabled, isFocused)
     val loadingContentDescription = stringResource(R.string.loading_content_desc)
-    val colour = getRippleColour(buttonType, focusStateEnabled)
+    val colour = getRippleColour(buttonType, isFocused)
     CompositionLocalProvider(
         LocalRippleConfiguration provides GdsButtonDefaults.gdsRippleConfig(colour),
     ) {
         val borderModifier = if (buttonType is ButtonTypeV2.SecondaryOutlined) {
-            val borderColor = if (focusStateEnabled) {
+            val borderColor = if (isFocused) {
                 GdsLocalColorScheme.current.focusStateContent
             } else if (!checkIfDisabled) {
                 GdsLocalColorScheme.current.disabledButtonContent
@@ -116,8 +115,7 @@ fun GdsButton(
                     if (loading) {
                         contentDescription = loadingContentDescription
                     }
-                }
-                .onFocusChanged { focusStateEnabled = it.isFocused },
+                },
             onClick = onClick,
             shape = shape,
             enabled = checkIfDisabled,
@@ -258,7 +256,8 @@ private fun getContentPadding(contentPosition: Arrangement.Horizontal) =
 
 @Composable
 @Deprecated(
-    message = "Will be removed on 8th November 2026 (DCMAW-23114).",
+    message = "Use GdsButton with icon and interactionSource parameters instead. " +
+        "Will be removed on 8th November 2026 (DCMAW-23114).",
     level = DeprecationLevel.HIDDEN,
 )
 fun GdsButton(
@@ -286,6 +285,40 @@ fun GdsButton(
         textAlign = textAlign,
         shape = shape,
         icon = null,
+    )
+}
+
+@Composable
+@Deprecated(
+    message = "Use GdsButton with interactionSource parameter instead. " +
+        "Will be removed on 8th November 2026 (DCMAW-23114).",
+    level = DeprecationLevel.HIDDEN,
+)
+fun GdsButton(
+    text: String,
+    buttonType: ButtonTypeV2,
+    onClick: () -> Unit,
+    icon: ButtonIcon?,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
+    loading: Boolean = false,
+    textAlign: TextAlign = TextAlign.Center,
+    shape: Shape = GdsButtonDefaults.defaultShape,
+) {
+    GdsButton(
+        text = text,
+        buttonType = buttonType,
+        onClick = onClick,
+        modifier = modifier,
+        contentModifier = contentModifier,
+        contentPosition = contentPosition,
+        enabled = enabled,
+        loading = loading,
+        textAlign = textAlign,
+        shape = shape,
+        icon = icon,
     )
 }
 
