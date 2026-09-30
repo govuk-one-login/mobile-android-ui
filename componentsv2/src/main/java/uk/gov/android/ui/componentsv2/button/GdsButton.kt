@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -258,7 +257,7 @@ private fun getContentPadding(contentPosition: Arrangement.Horizontal) =
 @Composable
 @Deprecated(
     message = "Use GdsButton with icon and interactionSource parameters instead. " +
-            "Will be removed on 8th November 2026 (DCMAW-23114).",
+        "Will be removed on 8th November 2026 (DCMAW-23114).",
     level = DeprecationLevel.HIDDEN,
 )
 fun GdsButton(
@@ -292,7 +291,7 @@ fun GdsButton(
 @Composable
 @Deprecated(
     message = "Use GdsButton with interactionSource parameter instead. " +
-            "Will be removed on 8th November 2026 (DCMAW-23114).",
+        "Will be removed on 8th November 2026 (DCMAW-23114).",
     level = DeprecationLevel.HIDDEN,
 )
 fun GdsButton(
