@@ -14,5 +14,8 @@
     <issue id="UsingMaterialAndMaterial3Libraries" severity="ignore" />
     <issue id="GradleDependency" severity="ignore" />
     <issue id="ComposableLambdaParameterNaming" severity="ignore" />
+
+    <!-- Let components have their own string keys with the same values as other components -->
+    <issue id="DuplicateStrings" severity="ignore" />
 </lint>
 

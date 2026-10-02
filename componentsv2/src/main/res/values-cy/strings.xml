@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingQuantity">
+    <string name="loading">Llwytho</string>
+
     <!-- BulletedList -->
     <string name="more_vert_icon_button">Mwy</string>
     <string name="close_icon_button">Cau</string>
@@ -83,5 +85,10 @@
     <string name="card_content_description">Cerdyn %s</string>
 
     <!-- Buttons -->
-    <string name ="loading_content_desc">Llwytho</string>
+    <string name ="loading_content_desc">@string/loading</string>
+
+    <!-- Progress indicator -->
+    <string name="progress_indicator_loading_short">@string/loading</string>
+    <string name="progress_indicator_loading_long">Dal i lwytho</string>
+    <string name="progress_indicator_loading_longer">Dal i lwytho, daliwch ati i aros</string>
 </resources>

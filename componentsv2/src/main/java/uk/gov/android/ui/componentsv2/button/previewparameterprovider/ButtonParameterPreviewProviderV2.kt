@@ -98,6 +98,11 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
                 .padding(horizontal = smallPadding),
             contentPosition = Arrangement.Start,
         ),
+        ButtonParametersV2(
+            text = "Secondary outlined button",
+            buttonType = ButtonTypePreview.SecondaryOutlined,
+            modifier = Modifier.fillMaxWidth(),
+        ),
     )
 
     override val values: Sequence<ButtonParametersV2> = parameters.asSequence()

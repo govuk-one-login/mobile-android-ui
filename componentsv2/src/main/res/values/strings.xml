@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="loading">Loading</string>
+
     <!-- Content Tile -->
     <string name="caption" translatable="false">Caption (optional)</string>
     <string name="title" translatable="false">Title (required)</string>
@@ -29,7 +31,7 @@
     <string name="secondary_destructive_button" translatable="false">Secondary Destructive Button</string>
     <string name="disabled_button" translatable="false">Disabled Button</string>
     <string name="loading_button" translatable="false">Loading Button</string>
-    <string name ="loading_content_desc">Loading</string>
+    <string name="loading_content_desc">@string/loading</string>
     <string name="more_vert_icon_button">More</string>
     <string name="close_icon_button">Close</string>
     <string name="back_icon_button">Back</string>
@@ -97,4 +99,9 @@
     <string name="dialogue_provider_button_no" translatable="false">No</string>
     <string name="dialogue_provider_button_confirm" translatable="false">Confirming action</string>
     <string name="dialogue_provider_button_dismiss" translatable="false">Dismiss action</string>
+
+    <!-- Progress indicator -->
+    <string name="progress_indicator_loading_short">@string/loading</string>
+    <string name="progress_indicator_loading_long">Still loading</string>
+    <string name="progress_indicator_loading_longer">Still loading, keep waiting</string>
 </resources>

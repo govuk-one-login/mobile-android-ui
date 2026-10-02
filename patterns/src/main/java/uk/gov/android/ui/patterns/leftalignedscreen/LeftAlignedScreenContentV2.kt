@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -14,20 +13,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.ImmutableList
-import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
-import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults.customColors
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
@@ -41,7 +35,6 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.patterns.utils.ModifierExtensions.bringIntoView as bringIntoViewV2
 import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContentV2(
@@ -320,16 +313,3 @@ private fun LazyListScope.toAnnotatedText(
         )
     }
 }
-
-/**
- * Adds a downwards and upwards scroll when a keyboard down or up arrow is pressed
- *
- * @param scrollState [LazyListState] represents the list state
- * @return augmented [Modifier]
- */
-@Deprecated(
-    "Use uk.gov.android.ui.patterns.utils.scroll.bringIntoView",
-    level = DeprecationLevel.WARNING,
-)
-@Composable
-fun Modifier.bringIntoView(scrollState: LazyListState): Modifier = this.bringIntoViewV2(scrollState)

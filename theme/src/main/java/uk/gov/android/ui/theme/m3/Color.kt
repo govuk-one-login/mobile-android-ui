@@ -34,6 +34,7 @@ object Buttons {
     val focusStateHighlighted = ColorPair(Color(0xFFBFA600))
     val secondaryTextAndSymbol = ColorPair(Color(0xFF00703C), Color(0xFF03CD6E))
     val secondaryTextAndSymbolHighlighted = ColorPair(Color(0xFF00542D), Color(0xFF02A458))
+    val secondaryOutlined = ColorPair(Color(0xFFFFFFFF), Color(0xFF0B0C0C))
     val disabled = ColorPair(Color(0xFFB1B4B6))
     val disabledTextAndSymbol = ColorPair(Color(0xFF262626))
     val destructive = ColorPair(Color(0xFFD4351C))
@@ -100,16 +101,6 @@ object Menu {
 
 object Borders {
     val qrScanner = ColorPair(Color(0xFFFFFFFF))
-}
-
-@Deprecated(
-    message = "To replaced by individual colors: Borders.qrScanner and Backgrounds.qrScanner" +
-        " - will aim to be removed by 19th of May",
-    level = DeprecationLevel.WARNING,
-)
-object QrScannerOverlayDefaults {
-    var background: ColorPair = Backgrounds.qrScanner
-    var border: ColorPair = Borders.qrScanner
 }
 
 @Suppress("ForbiddenComment")

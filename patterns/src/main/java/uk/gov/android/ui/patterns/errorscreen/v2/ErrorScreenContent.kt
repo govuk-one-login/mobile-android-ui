@@ -95,11 +95,8 @@ internal fun LazyListScope.toBodyContent(
                     Text(
                         text = item.bodyText,
                         style = textStyle,
-                        color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(itemPadding),
+                        modifier = Modifier.padding(itemPadding),
                     )
                 }
             }
@@ -212,6 +209,5 @@ internal fun SupportingTextBody(text: String) {
         text = text,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.onBackground,
     )
 }
