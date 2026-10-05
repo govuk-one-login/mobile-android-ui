@@ -50,6 +50,8 @@
 
     <!-- Custom Icon Content Description -->
     <string name="opens_in_external_browser">opens in web browser</string>
+    <string name="opens_in_settings">opens in settings</string>
+    <string name="opens_in_play_store">opens in Play Store</string>
 
     <!-- RadioSelection -->
     <plurals name="radio_button_unselected" translatable="true">
