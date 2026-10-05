@@ -356,39 +356,26 @@ private fun BottomContent(
     Column(
         modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding),
     ) {
-        val supportingTextPadding =
-            if (primaryButton == null || secondaryButton == null) {
-                LeftAlignedScreenDefaults.HorizontalPadding
+        supportingText?.let { text ->
+            val bottomPadding = if (primaryButton == null || secondaryButton == null) {
+                spacingDouble
             } else {
-                LeftAlignedScreenDefaults.NoPadding
+                0.dp
             }
-
-        supportingText?.let {
-            Row(
-                modifier = Modifier.padding(
-                    top = spacingDouble,
-                    bottom = supportingTextPadding,
-                ),
-            ) {
-                it.invoke(LeftAlignedScreenDefaults.HorizontalPadding)
-            }
-        }
-        primaryButton?.let {
-            val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
             Spacer(modifier = Modifier.height(spacingDouble))
-
-            primaryButton()
-
+            text(LeftAlignedScreenDefaults.HorizontalPadding)
             Spacer(modifier = Modifier.height(bottomPadding))
         }
-
-        secondaryButton?.let {
+        primaryButton?.let { button ->
+            val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
+            Spacer(modifier = Modifier.height(spacingDouble))
+            button()
+            Spacer(modifier = Modifier.height(bottomPadding))
+        }
+        secondaryButton?.let { button ->
             val topPadding = if (primaryButton == null) 0.dp else spacingDouble
-
             Spacer(modifier = Modifier.height(topPadding))
-
-            secondaryButton()
-
+            button()
             Spacer(modifier = Modifier.height(spacingDouble))
         }
     }
