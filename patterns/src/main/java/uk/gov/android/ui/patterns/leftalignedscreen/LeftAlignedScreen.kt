@@ -3,10 +3,8 @@ package uk.gov.android.ui.patterns.leftalignedscreen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -92,9 +90,12 @@ fun LeftAlignedScreen(
             val bottomPlaceables = subcompose("bottom") {
                 BottomContent(
                     modifier = Modifier.fillMaxWidth(),
-                    supportingText = supportingText,
-                    primaryButton = primaryButton,
-                    secondaryButton = secondaryButton,
+                    parameters = BottomContentParameters(
+                        supportingText = supportingText,
+                        primaryButton = primaryButton,
+                        secondaryButton = secondaryButton,
+                    ),
+                    isSticky = true,
                 )
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
@@ -114,9 +115,12 @@ fun LeftAlignedScreen(
                         if (bottomContentOverThreshold) {
                             BottomContent(
                                 modifier = Modifier.fillMaxWidth(),
-                                supportingText = supportingText,
-                                primaryButton = primaryButton,
-                                secondaryButton = secondaryButton,
+                                parameters = BottomContentParameters(
+                                    supportingText = supportingText,
+                                    primaryButton = primaryButton,
+                                    secondaryButton = secondaryButton,
+                                ),
+                                isSticky = false,
                             )
                         }
                     },
@@ -338,41 +342,6 @@ private fun MainContent(
             body(LeftAlignedScreenDefaults.HorizontalPadding)
         }
         bottomContent?.let { bottom -> item { bottom() } }
-    }
-}
-
-@Composable
-private fun BottomContent(
-    modifier: Modifier = Modifier,
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    primaryButton: (@Composable () -> Unit)? = null,
-    secondaryButton: (@Composable () -> Unit)? = null,
-) {
-    Column(
-        modifier.padding(horizontal = LeftAlignedScreenDefaults.HorizontalPadding),
-    ) {
-        supportingText?.let { text ->
-            val bottomPadding = if (primaryButton == null || secondaryButton == null) {
-                spacingDouble
-            } else {
-                0.dp
-            }
-            Spacer(modifier = Modifier.height(spacingDouble))
-            text(LeftAlignedScreenDefaults.HorizontalPadding)
-            Spacer(modifier = Modifier.height(bottomPadding))
-        }
-        primaryButton?.let { button ->
-            val bottomPadding = if (secondaryButton == null) spacingDouble else 0.dp
-            Spacer(modifier = Modifier.height(spacingDouble))
-            button()
-            Spacer(modifier = Modifier.height(bottomPadding))
-        }
-        secondaryButton?.let { button ->
-            val topPadding = if (primaryButton == null) 0.dp else spacingDouble
-            Spacer(modifier = Modifier.height(topPadding))
-            button()
-            Spacer(modifier = Modifier.height(spacingDouble))
-        }
     }
 }
 
