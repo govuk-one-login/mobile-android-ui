@@ -3,7 +3,6 @@ package uk.gov.android.ui.patterns.leftalignedscreen
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -107,8 +106,8 @@ fun LeftAlignedScreen(
             // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContent(
-                    title = title,
-                    body = body,
+                    titleContent = title,
+                    bodyContent = body,
                     bottomContent = {
                         // Based on the height calculated above, display the BottomContent as part
                         // of the MainContent
@@ -313,36 +312,32 @@ fun LeftAlignedScreenV2(
 @Composable
 private fun MainContent(
     forceScroll: Boolean,
-    title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    titleContent: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     arrangement: Arrangement.Vertical = Arrangement.spacedBy(spacingDouble),
-    @SuppressLint("ComposableLambdaParameterNaming")
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
-    val columnModifier = if (forceScroll) {
-        Modifier
-            .fillMaxSize()
-            .keyboardScroll(scrollState)
-    } else {
-        Modifier.fillMaxSize()
-    }
     LazyColumn(
         verticalArrangement = arrangement,
-        modifier = columnModifier
+        modifier = Modifier
+            .fillMaxSize()
+            .also { mod ->
+                if (forceScroll) {
+                    mod.keyboardScroll(scrollState)
+                }
+            }
             .testTag(BODY_LAZY_COLUMN_TEST_TAG)
             .clearListSemanticsForTalkBack(),
         state = scrollState,
     ) {
-        item { title?.invoke(LeftAlignedScreenDefaults.HorizontalPadding) }
-
-        body?.let {
-            it(LeftAlignedScreenDefaults.HorizontalPadding)
+        titleContent?.let { title ->
+            item { title(LeftAlignedScreenDefaults.HorizontalPadding) }
         }
-
-        bottomContent?.let {
-            item { it.invoke() }
+        bodyContent?.let { body ->
+            body(LeftAlignedScreenDefaults.HorizontalPadding)
         }
+        bottomContent?.let { bottom -> item { bottom() } }
     }
 }
 
