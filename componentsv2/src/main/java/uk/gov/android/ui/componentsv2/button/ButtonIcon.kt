@@ -120,7 +120,6 @@ internal fun ButtonIconPreview(
     }
 }
 
-
 internal class ButtonIconPreviewDataProvider : PreviewParameterProvider<ButtonIconPreview> {
     override val values: Sequence<ButtonIconPreview> = ButtonIconPreview.entries.asSequence()
 }

@@ -36,6 +36,8 @@
     <string name="close_icon_button">Close</string>
     <string name="back_icon_button">Back</string>
     <string name="info_icon_button">Information</string>
+    <string name="go_to_play_store" translatable="false">Go to Play Store</string>
+    <string name="go_to_settings" translatable="false">Go to Settings</string>
 
     <!-- BulletedList -->
     <string name="bullet" translatable="true">bullet %s</string>
