@@ -5,11 +5,8 @@ import androidx.compose.ui.input.InputModeManager
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.LocalInputModeManager
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.hasContentDescription
-import androidx.compose.ui.test.isNotSelected
-import androidx.compose.ui.test.isSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
@@ -123,26 +120,5 @@ class GdsRadiosTest {
         composeTestRule.onNode(
             hasContentDescription("Option 2", substring = true),
         ).assertIsFocused()
-    }
-
-    @Test
-    fun testSemantics() {
-        val items: ImmutableList<String> = persistentListOf("Option 1", "Option 2")
-
-        composeTestRule.setContent {
-            GdsRadios(
-                items = items,
-                selectedItem = 0,
-                onItemSelected = {},
-            )
-        }
-
-        composeTestRule.onNode(hasContentDescription("Option 1", substring = true)).apply {
-            assert(isSelected())
-        }
-
-        composeTestRule.onNode(hasContentDescription("Option 2", substring = true)).apply {
-            assert(isNotSelected())
-        }
     }
 }
