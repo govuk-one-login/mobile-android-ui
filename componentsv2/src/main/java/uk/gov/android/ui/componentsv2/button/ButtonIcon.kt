@@ -1,10 +1,15 @@
 package uk.gov.android.ui.componentsv2.button
 
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.theme.m3.GdsTheme
 
 /**
  * @param icon The icon to display
@@ -97,6 +102,27 @@ internal enum class ButtonIconPreview {
     Leading,
     Settings,
     PlayStore,
+}
+
+@Composable
+@PreviewLightDark
+internal fun ButtonIconPreview(
+    @PreviewParameter(ButtonIconPreviewDataProvider::class)
+    preview: ButtonIconPreview,
+) = GdsTheme {
+    Surface {
+        GdsButton(
+            text = preview.name,
+            buttonType = ButtonTypeV2.Primary(),
+            onClick = {},
+            icon = preview.toButtonIcon(),
+        )
+    }
+}
+
+
+internal class ButtonIconPreviewDataProvider : PreviewParameterProvider<ButtonIconPreview> {
+    override val values: Sequence<ButtonIconPreview> = ButtonIconPreview.entries.asSequence()
 }
 
 @Composable
