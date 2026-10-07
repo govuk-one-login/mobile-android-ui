@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
+import uk.gov.android.ui.componentsv2.button.ExternalDestination
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.smallPadding
 
@@ -32,7 +33,7 @@ fun SecondaryButtonDemo(modifier: Modifier = Modifier) {
         // Enabled Secondary button with preset icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            icon = ButtonIcon.opensInWebBrowser(),
+            icon = ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser),
             buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = true,
@@ -44,7 +45,7 @@ fun SecondaryButtonDemo(modifier: Modifier = Modifier) {
         // Disabled Secondary button with preset icon
         GdsButton(
             text = stringResource(R.string.secondary_button),
-            icon = ButtonIcon.opensInWebBrowser(),
+            icon = ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser),
             buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = false,
@@ -78,6 +79,20 @@ fun SecondaryButtonDemo(modifier: Modifier = Modifier) {
             buttonType = ButtonTypeV2.Secondary(),
             onClick = {},
             enabled = false,
+            contentModifier = Modifier.padding(),
+            contentPosition = Arrangement.Absolute.Center,
+            textAlign = TextAlign.Left,
+        )
+
+        // Enabled Secondary button with custom icon for Settings
+        GdsButton(
+            text = stringResource(R.string.go_to_settings),
+            icon = ButtonIcon.opensExternalDestination(
+                ExternalDestination.Settings,
+            ),
+            buttonType = ButtonTypeV2.Secondary(),
+            onClick = {},
+            enabled = true,
             contentModifier = Modifier.padding(),
             contentPosition = Arrangement.Absolute.Center,
             textAlign = TextAlign.Left,
