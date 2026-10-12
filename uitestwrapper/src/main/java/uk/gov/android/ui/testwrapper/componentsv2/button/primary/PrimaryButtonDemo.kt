@@ -17,6 +17,7 @@ import kotlinx.coroutines.delay
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
+import uk.gov.android.ui.componentsv2.button.ExternalDestination
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.theme.smallPadding
 
@@ -50,7 +51,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
         // Primary Button with Icon
         GdsButton(
             text = stringResource(R.string.primary_button),
-            icon = ButtonIcon.opensInWebBrowser(),
+            icon = ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser),
             buttonType = ButtonTypeV2.Primary(),
             onClick = { isIconButtonLoading = true },
             enabled = true,
@@ -61,7 +62,7 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
         // Disabled Primary button with Icon
         GdsButton(
             text = stringResource(R.string.primary_button),
-            icon = ButtonIcon.opensInWebBrowser(),
+            icon = ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser),
             buttonType = ButtonTypeV2.Primary(),
             onClick = { },
             enabled = false,
@@ -75,6 +76,19 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
             onClick = { isPrimaryButtonLoading = true },
             enabled = true,
             loading = isPrimaryButtonLoading,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        // Primary Button with  Icon PlayStore
+        GdsButton(
+            text = stringResource(R.string.go_to_play_store),
+            icon = ButtonIcon.opensExternalDestination(
+                ExternalDestination.PlayStore,
+            ),
+            buttonType = ButtonTypeV2.Primary(),
+            onClick = { isIconButtonLoading = true },
+            enabled = true,
+            loading = isIconButtonLoading,
             modifier = Modifier.fillMaxWidth(),
         )
     }
