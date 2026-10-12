@@ -21,6 +21,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
@@ -154,6 +155,7 @@ internal class BottomContentParametersProvider :
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewLightDark
 @Composable
 private fun PreviewLightDarkBottomContent() {
@@ -162,6 +164,7 @@ private fun PreviewLightDarkBottomContent() {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @PreviewFontScale
 @Composable
 private fun PreviewFontScaleBottomContent() {
@@ -170,6 +173,7 @@ private fun PreviewFontScaleBottomContent() {
     }
 }
 
+@ExcludeFromJacocoGeneratedReport
 @Preview
 @Composable
 private fun PreviewBottomContent(
