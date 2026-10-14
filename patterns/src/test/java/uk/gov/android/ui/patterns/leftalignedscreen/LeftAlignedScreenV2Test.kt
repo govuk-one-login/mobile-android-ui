@@ -58,7 +58,7 @@ class LeftAlignedScreenV2Test {
         verifyWarning(content)
     }
 
-    private fun setupScreen(content: LeftAlignedScreenContentV2) {
+    private fun setupScreen(content: LeftAlignedScreenContent) {
         composeTestRule.setContent {
             GdsTheme {
                 PreviewLeftAlignedScreenV2(content)
@@ -66,7 +66,7 @@ class LeftAlignedScreenV2Test {
         }
     }
 
-    private fun setupV2Screen(content: LeftAlignedScreenContentV2) {
+    private fun setupV2Screen(content: LeftAlignedScreenContent) {
         composeTestRule.setContent {
             GdsTheme {
                 LeftAlignedScreenV2(
@@ -83,7 +83,7 @@ class LeftAlignedScreenV2Test {
         }
     }
 
-    private fun setupContentParams(content: LeftAlignedScreenContentV2) {
+    private fun setupContentParams(content: LeftAlignedScreenContent) {
         composeTestRule.setContent {
             GdsTheme {
                 LeftAlignedScreenFromContentParamsV2(content)
@@ -91,7 +91,7 @@ class LeftAlignedScreenV2Test {
         }
     }
 
-    private fun setupScreenWithAccessibilityContent(content: LeftAlignedScreenContentV2) {
+    private fun setupScreenWithAccessibilityContent(content: LeftAlignedScreenContent) {
         composeTestRule.setContent {
             GdsTheme {
                 PreviewLeftAlignedScreenV2Accessibility(content)
@@ -99,14 +99,14 @@ class LeftAlignedScreenV2Test {
         }
     }
 
-    private fun verifyTitle(content: LeftAlignedScreenContentV2) {
+    private fun verifyTitle(content: LeftAlignedScreenContent) {
         val title = hasText(content.title)
         composeTestRule
             .onNode(title)
             .assertIsDisplayed()
     }
 
-    private fun verifyNumberedList(content: LeftAlignedScreenContentV2) {
+    private fun verifyNumberedList(content: LeftAlignedScreenContent) {
         content.body?.forEach { body ->
             if (body is LeftAlignedScreenBodyV2.NumberedList) {
                 val text = hasText(body.list[2].text)
@@ -117,7 +117,7 @@ class LeftAlignedScreenV2Test {
         }
     }
 
-    private fun verifyWarning(content: LeftAlignedScreenContentV2) {
+    private fun verifyWarning(content: LeftAlignedScreenContent) {
         content.body?.forEach { body ->
             if (body is LeftAlignedScreenBodyV2.Warning) {
                 val text = hasText(body.text)

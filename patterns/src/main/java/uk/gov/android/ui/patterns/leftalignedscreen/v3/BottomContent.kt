@@ -64,26 +64,6 @@ internal fun BottomContentV2(
     }
 }
 
-/**
- *  A data class containing the composables to be arranged and configured,
- *  as well as other configurable parameters.
- *
- * @param supportingText [Composable] first composable in column (optional).
- * @param primaryButton [Composable] second composable in column (optional).
- * @param secondaryButton [Composable] third composable in column (optional).
- * @param backgroundColor [Color] background colour when sticky (optional).
- * @param horizontalPadding [Dp] defaults to spacingDouble (optional).
- * @param verticalPadding [Dp] defaults to spacingDouble (optional).
- */
-data class BottomContentParameters(
-    val supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    val primaryButton: (@Composable () -> Unit)? = null,
-    val secondaryButton: (@Composable () -> Unit)? = null,
-    val backgroundColor: Color = Color.Unspecified,
-    val horizontalPadding: Dp = spacingDouble,
-    val verticalPadding: Dp = spacingDouble,
-)
-
 @Immutable
 internal class BottomContentParametersProvider :
     PreviewParameterProvider<BottomContentParameters> {
