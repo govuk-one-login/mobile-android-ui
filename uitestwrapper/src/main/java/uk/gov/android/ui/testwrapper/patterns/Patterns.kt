@@ -23,6 +23,7 @@ import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenSupportingText
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenColorDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -57,6 +58,7 @@ fun PatternDetail(detailItem: DetailItem) {
         LOADING_SCREEN -> LoadingScreen()
         LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()
         LEFT_ALIGNED_SCREEN_NO_TITLE -> LeftAlignedScreenNoTitleDemo()
+        LEFT_ALIGNED_SCREEN_COLOR -> LeftAlignedScreenColorDemo()
         CENTRED_ALIGNED_SCREEN -> CentreAlignedScreenDemo()
         CENTRED_ALIGNED_SCROLLABLE_SCREEN -> CentreAlignedScrollableScreenDemo()
         ERROR_SCREEN -> ErrorScreenDemo()
@@ -69,6 +71,7 @@ fun PatternDetail(detailItem: DetailItem) {
 const val LOADING_SCREEN = "loadingScreen"
 const val LEFT_ALIGNED_SCREEN = "leftAlignedScreen"
 const val LEFT_ALIGNED_SCREEN_NO_TITLE = "leftAlignedScreenNoTitle"
+const val LEFT_ALIGNED_SCREEN_COLOR = "leftAlignedScreenColor"
 const val CENTRED_ALIGNED_SCREEN = "centreAlignedScreen"
 const val CENTRED_ALIGNED_SCROLLABLE_SCREEN = "centreAlignedScrollableScreen"
 const val ERROR_SCREEN = "errorScreen"

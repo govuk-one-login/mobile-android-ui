@@ -9,7 +9,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @RunWith(Parameterized::class)
 internal class LeftAlignedScreenV2ScreenshotTest(
-    private val parameters: Pair<LeftAlignedScreenContentV2, NightMode>,
+    private val parameters: Pair<LeftAlignedScreenContent, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -22,8 +22,8 @@ internal class LeftAlignedScreenV2ScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index} GdsContent")
-        fun values(): List<Pair<LeftAlignedScreenContentV2, NightMode>> {
-            val result: MutableList<Pair<LeftAlignedScreenContentV2, NightMode>> = mutableListOf()
+        fun values(): List<Pair<LeftAlignedScreenContent, NightMode>> {
+            val result: MutableList<Pair<LeftAlignedScreenContent, NightMode>> = mutableListOf()
 
             LeftAlignedScreenContentProviderV2().values.forEach(applyNightMode(result))
 
