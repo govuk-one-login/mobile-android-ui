@@ -49,19 +49,20 @@ private const val AS_MUCH_AS_POSSIBLE = 1f
  * Paddings are configurable by using the modifiers for each individual composable block.
  *
  * @param parameters [MainContentParameters] the composables to be arranged and configured.
+ * @param scrollState expose the [LazyListState] to allow for legacy compatibility.
  * @param bottomContent The [Composable] to be used as the last element when it is too large to
  * appear by itself as a sticky footer (optional).
  */
 @Composable
 internal fun ColumnScope.MainContentV2(
     parameters: MainContentParameters,
+    scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
     with(parameters) {
-        val listState: LazyListState = rememberLazyListState()
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(verticalPadding),
-            state = listState,
+            state = scrollState,
             modifier = modifier
                 .weight(AS_MUCH_AS_POSSIBLE)
                 .fillMaxWidth()
@@ -85,7 +86,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
     val onlyBodyContent = MainContentParameters(
         titleContent = null,
         bodyContent = { horizontalPadding ->
-            body().forEach {
+            complexBody().forEach {
                 item {
                     it.GenerateDefault(horizontalPadding)
                 }
@@ -96,7 +97,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
     val allStandardParams = MainContentParameters(
         titleContent = ::Heading,
         bodyContent = { horizontalPadding ->
-            body().forEach {
+            complexBody().forEach {
                 item {
                     it.GenerateDefault(horizontalPadding)
                 }
@@ -118,7 +119,23 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         textAlign = GdsHeadingAlignment.LeftAligned,
     )
 
-    private fun body() = listOf(
+    internal fun simpleBody() = persistentListOf(
+        LeftAlignedScreenBody.Image(
+            R.drawable.preview__gdsvectorimage,
+            IMAGE_DESCRIPTION,
+            Modifier
+                .fillMaxWidth()
+                .background(Color.Gray),
+        ),
+        LeftAlignedScreenBody.Text(
+            BODY_TEXT,
+            modifier = Modifier.padding(
+                top = spacingTriple,
+            ),
+        ),
+    )
+
+    internal fun complexBody() = persistentListOf(
         LeftAlignedScreenBody.Text(
             BODY_TEXT,
             modifier = Modifier.padding(
@@ -153,7 +170,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         ),
         LeftAlignedScreenBody.Image(
             R.drawable.preview__gdsvectorimage,
-            "imageDescription",
+            IMAGE_DESCRIPTION,
             Modifier
                 .fillMaxWidth()
                 .background(Color.Gray),
@@ -173,6 +190,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
 
     companion object {
         const val TITLE_TEXT = "Do you have a UK passport or passport with a biometric chip?"
+        const val IMAGE_DESCRIPTION = "Image description"
         val BODY_TEXT = LoremIpsum(5).values.first()
     }
 }
