@@ -50,6 +50,9 @@ data class MainContentParameters(
 ) {
     companion object {
         @Composable
+        internal fun empty() = MainContentParameters()
+
+        @Composable
         fun generateDefault(
             title: String?,
             body: ImmutableList<LeftAlignedScreenBody>?,

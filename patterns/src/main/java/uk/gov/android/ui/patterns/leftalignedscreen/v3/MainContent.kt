@@ -86,7 +86,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
     val onlyBodyContent = MainContentParameters(
         titleContent = null,
         bodyContent = { horizontalPadding ->
-            complexBody().forEach {
+            simpleBody().forEach {
                 item {
                     it.GenerateDefault(horizontalPadding)
                 }
@@ -95,6 +95,17 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
     )
 
     val allStandardParams = MainContentParameters(
+        titleContent = ::Heading,
+        bodyContent = { horizontalPadding ->
+            simpleBody().forEach {
+                item {
+                    it.GenerateDefault(horizontalPadding)
+                }
+            }
+        },
+    )
+
+    val allComplexParams = MainContentParameters(
         titleContent = ::Heading,
         bodyContent = { horizontalPadding ->
             complexBody().forEach {
@@ -110,6 +121,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
             onlyTitleContent,
             onlyBodyContent,
             allStandardParams,
+            allComplexParams,
         )
 
     @Composable
@@ -215,7 +227,7 @@ private fun PreviewFontScaleMainContent() {
     GdsTheme {
         Surface {
             Column {
-                MainContentV2(MainContentParametersProvider().allStandardParams)
+                MainContentV2(MainContentParametersProvider().allComplexParams)
             }
         }
     }

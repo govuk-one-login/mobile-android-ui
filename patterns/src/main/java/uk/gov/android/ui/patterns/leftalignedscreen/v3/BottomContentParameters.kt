@@ -34,6 +34,9 @@ data class BottomContentParameters(
 ) {
     companion object {
         @Composable
+        internal fun empty() = BottomContentParameters()
+
+        @Composable
         fun generateDefault(
             supportingText: String?,
             primaryButton: LeftAlignedScreenButton?,
