@@ -31,24 +31,20 @@ import uk.gov.android.ui.theme.spacingDouble
  * Paddings are configurable by using the modifiers for each individual composable block.
  *
  * @param parameters [BottomContentParameters] the composables to be arranged and configured.
- * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
  * @param isSticky A [Boolean] flag for if this is used as a sticky footer.
  * Determines the top padding (optional).
  */
 @Composable
-internal fun BottomContentV2(
-    parameters: BottomContentParameters,
-    modifier: Modifier = Modifier,
-    isSticky: Boolean = true,
-) {
+internal fun BottomContentV2(parameters: BottomContentParameters, isSticky: Boolean = true) {
     with(parameters) {
         Surface(
+            modifier = modifier.fillMaxWidth(),
             color = backgroundColor
                 .takeUnless { it == Color.Unspecified }
                 ?: MaterialTheme.colorScheme.surface,
         ) {
             Column(
-                modifier = modifier.padding(
+                modifier = Modifier.padding(
                     start = horizontalPadding,
                     end = horizontalPadding,
                     top = if (isSticky) verticalPadding else 0.dp,

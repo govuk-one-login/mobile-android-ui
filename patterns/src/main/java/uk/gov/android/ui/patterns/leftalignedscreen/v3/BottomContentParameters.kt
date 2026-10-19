@@ -21,6 +21,7 @@ import uk.gov.android.ui.theme.spacingDouble
  * @param backgroundColor [androidx.compose.ui.graphics.Color] background colour when sticky (optional).
  * @param horizontalPadding [androidx.compose.ui.unit.Dp] defaults to spacingDouble (optional).
  * @param verticalPadding [androidx.compose.ui.unit.Dp] defaults to spacingDouble (optional).
+ * @param modifier A [Modifier] to be applied to the root composable of the BottomContent (optional).
  */
 data class BottomContentParameters(
     val supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -29,6 +30,7 @@ data class BottomContentParameters(
     val backgroundColor: Color = Color.Unspecified,
     val horizontalPadding: Dp = spacingDouble,
     val verticalPadding: Dp = spacingDouble,
+    val modifier: Modifier = Modifier,
 ) {
     companion object {
         @Composable
