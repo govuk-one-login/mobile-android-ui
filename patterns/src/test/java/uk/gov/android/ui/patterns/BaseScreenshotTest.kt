@@ -55,5 +55,13 @@ abstract class BaseScreenshotTest(nightMode: NightMode = NOTNIGHT) {
             result.add(parameters to NOTNIGHT)
             result.add(parameters to NIGHT)
         }
+
+        @JvmStatic
+        inline fun <reified T : Any> Sequence<T>.applyNightMode(): List<Pair<T, NightMode>> =
+            flatMap { item -> NightMode.entries.map { mode -> item to mode } }.toList()
+
+        @JvmStatic
+        inline fun <reified T : Any> Iterable<T>.applyNightMode(): List<Pair<T, NightMode>> =
+            flatMap { item -> NightMode.entries.map { mode -> item to mode } }
     }
 }
