@@ -24,6 +24,11 @@ internal data class LeftAlignedScreenContent(
     val secondaryButton: String? = null,
 )
 
+/**
+ * The set of body elements that can appear in [LeftAlignedScreenV3]'s scrollable content when using
+ * the simple-data entry point. Each subtype maps to a GDS component (heading, list, image, warning,
+ * and so on) that the screen renders for you.
+ */
 @Immutable
 sealed class LeftAlignedScreenBody {
     data class SecondaryButton(
@@ -80,6 +85,15 @@ sealed class LeftAlignedScreenBody {
     data class RowList(val rowData: ImmutableList<RowData>) : LeftAlignedScreenBody()
 }
 
+/**
+ * Describes a button in [LeftAlignedScreenV3]'s bottom content for the simple-data entry point.
+ *
+ * @param text the button label.
+ * @param onClick invoked when the button is clicked.
+ * @param modifier [Modifier] applied to the button; defaults to filling the available width
+ * (optional).
+ * @param enabled whether the button is enabled; defaults to true (optional).
+ */
 data class LeftAlignedScreenButton(
     val text: String,
     val onClick: () -> Unit,

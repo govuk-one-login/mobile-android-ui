@@ -43,15 +43,16 @@ import uk.gov.android.ui.theme.spacingTriple
 private const val AS_MUCH_AS_POSSIBLE = 1f
 
 /**
- * MainContent to be used with the LeftAlignedScreen.
+ * The scrollable main content (title and body) of [LeftAlignedScreenV3], laid out in a
+ * [LazyColumn].
  *
- * The padding has been updated to match the Figma designs; a standardised 16.dp between components.
- * Paddings are configurable by using the modifiers for each individual composable block.
+ * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
+ * element through the modifiers on each [MainContentParameters] slot.
  *
- * @param parameters [MainContentParameters] the composables to be arranged and configured.
- * @param scrollState expose the [LazyListState] to allow for legacy compatibility.
- * @param bottomContent The [Composable] to be used as the last element when it is too large to
- * appear by itself as a sticky footer (optional).
+ * @param parameters the title and body content and their layout configuration.
+ * @param scrollState the [LazyListState] for the body, exposed for legacy compatibility (optional).
+ * @param bottomContent appended as the final item when the bottom content is too large to remain a
+ * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
 internal fun ColumnScope.MainContentV2(

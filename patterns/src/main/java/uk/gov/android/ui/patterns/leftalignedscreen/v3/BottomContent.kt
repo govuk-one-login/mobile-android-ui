@@ -25,14 +25,14 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
- * BottomContent to be used with the LeftAlignedScreen.
+ * The bottom content (supporting text and buttons) of [LeftAlignedScreenV3].
  *
- * The padding has been updated to match the Figma designs; a standardised 16.dp between components.
- * Paddings are configurable by using the modifiers for each individual composable block.
+ * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
+ * element through the modifiers on each [BottomContentParameters] slot.
  *
- * @param parameters [BottomContentParameters] the composables to be arranged and configured.
- * @param isSticky A [Boolean] flag for if this is used as a sticky footer.
- * Determines the top padding (optional).
+ * @param parameters the supporting text and button content and their layout configuration.
+ * @param isSticky whether this is rendered as a sticky footer; when true a top padding is added to
+ * separate it from the content above (optional).
  */
 @Composable
 internal fun BottomContentV2(parameters: BottomContentParameters, isSticky: Boolean = true) {

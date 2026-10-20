@@ -12,16 +12,18 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
- *  A data class containing the composables to be arranged and configured,
- *  as well as other configurable parameters.
+ * Holds the bottom content of [LeftAlignedScreenV3] (supporting text and buttons) along with its
+ * layout configuration.
  *
- * @param supportingText [androidx.compose.runtime.Composable] first composable in column (optional).
- * @param primaryButton [androidx.compose.runtime.Composable] second composable in column (optional).
- * @param secondaryButton [androidx.compose.runtime.Composable] third composable in column (optional).
- * @param backgroundColor [androidx.compose.ui.graphics.Color] background colour when sticky (optional).
- * @param horizontalPadding [androidx.compose.ui.unit.Dp] defaults to spacingDouble (optional).
- * @param verticalPadding [androidx.compose.ui.unit.Dp] defaults to spacingDouble (optional).
- * @param modifier A [Modifier] to be applied to the root composable of the BottomContent (optional).
+ * @param supportingText the supporting text slot, shown above the buttons (optional).
+ * @param primaryButton the primary action slot (optional).
+ * @param secondaryButton the secondary action slot (optional).
+ * @param backgroundColor background colour used when the content is a sticky footer (optional).
+ * @param horizontalPadding horizontal padding applied to the content; defaults to [spacingDouble]
+ * (optional).
+ * @param verticalPadding vertical padding applied to the content; defaults to [spacingDouble]
+ * (optional).
+ * @param modifier [Modifier] applied to the root of the bottom content (optional).
  */
 data class BottomContentParameters(
     val supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,

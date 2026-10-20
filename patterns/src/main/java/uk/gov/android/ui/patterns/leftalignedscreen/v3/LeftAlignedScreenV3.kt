@@ -33,26 +33,28 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 private const val ONE_THIRD = 1f / 3f
 
 /**
- * LeftAlignedScreen compatibility method
+ * Slot-based convenience entry point for [LeftAlignedScreenV3] that keeps the defaults from
+ * LeftAlignedScreenV2 for drop-in compatibility.
  *
- * Uses the defaults set by LeftAlignedScreenV2
+ * The main content (title and body) sits in a scrollable container, with the bottom content
+ * (supporting text and buttons) beneath it. The bottom content uses the default
+ * [BottomContentBehaviour.Adaptive] behaviour: it stays pinned to the bottom until it exceeds one
+ * third of the screen height, at which point it moves into the scrollable body.
  *
- * This pattern displays the main content which is placed in a scrollable container.
- * The bottom content (supporting text, primary and secondary button) is fixed.
- * When the bottom content takes up more than 1/3 of the screen, it is moved into the body.
+ * Testing note: the Adaptive behaviour measures the bottom content with a `SubcomposeLayout`. When
+ * the bottom content is over the threshold it is composed twice (once to measure, once as the real
+ * content moved into the body), so each element resolves to two nodes. Use `onAllNodesWithText`
+ * rather than `onNodeWithText` in that case to avoid a "2 nodes found" failure.
  *
- * NOTE FOR TESTING: This function uses SubcomposeLayout to measure the bottom content so we know
- * whether to move it into the scrollable container body. The buttons in the bottom content can be
- * measured twice which results in a call to composeTestRule.onNode failing as 2 nodes are detected.
- * The workaround to this issue is to call composeTestRule.onAllNodes[1].
- *
- * @param title represents the main title. Use of [GdsHeading] is recommended
- * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @param body representing the main content.
- * @param supportingText additional text displayed below in the bottom content. Use of [GdsSupportingText] composable is recommended (optional).
- * @param primaryButton primary action button. Use of [GdsButton] composable is recommended (optional).
- * @param secondaryButton secondary action button. Use of [GdsButton] composable is recommended (optional).
- * @param forceScroll [Boolean].
+ * @param modifier [Modifier] applied to the root of the screen (optional).
+ * @param title the main title slot. Use of [GdsHeading] is recommended (optional).
+ * @param body the main content slot, added as items to the scrollable body (optional).
+ * @param supportingText text shown above the buttons in the bottom content. Use of
+ * [GdsSupportingText] is recommended (optional).
+ * @param primaryButton the primary action slot. Use of [GdsButton] is recommended (optional).
+ * @param secondaryButton the secondary action slot. Use of [GdsButton] is recommended (optional).
+ * @param forceScroll when true, the body responds to keyboard up/down arrows for scrolling
+ * (optional).
  */
 @Composable
 fun LeftAlignedScreenV3(
@@ -88,17 +90,21 @@ fun LeftAlignedScreenV3(
 }
 
 /**
- * LeftAlignedScreen compatibility method
+ * Simple-data convenience entry point for [LeftAlignedScreenV3] that keeps the defaults from
+ * LeftAlignedScreenV2 for drop-in compatibility.
  *
- * Uses the defaults set by LeftAlignedScreenV2
+ * Takes plain data (strings, a body list and button models) and builds the default GDS components
+ * for you, rather than requiring composable slots. The bottom content uses the default
+ * [BottomContentBehaviour.Adaptive] behaviour.
  *
- * @param title represents the main title.
- * @param modifier A [Modifier] to be applied to the root layout of the screen (optional).
- * @param body representing the main content (optional).
- * @param supportingText additional text displayed below in the bottom content (optional).
- * @param primaryButton primary action button (optional).
- * @param secondaryButton secondary action button (optional).
- * @param forceScroll [Boolean].
+ * @param modifier [Modifier] applied to the root of the screen (optional).
+ * @param title the main title text (optional).
+ * @param body the list of [LeftAlignedScreenBody] items shown in the scrollable content (optional).
+ * @param supportingText text shown above the buttons in the bottom content (optional).
+ * @param primaryButton the primary action, rendered as a primary [GdsButton] (optional).
+ * @param secondaryButton the secondary action, rendered as a secondary [GdsButton] (optional).
+ * @param forceScroll when true, the body responds to keyboard up/down arrows for scrolling
+ * (optional).
  */
 @Composable
 fun LeftAlignedScreenV3(
@@ -132,17 +138,20 @@ fun LeftAlignedScreenV3(
 }
 
 /**
- * Left Aligned Screen Helper Method
+ * Primary entry point for [LeftAlignedScreenV3], configured through parameter objects.
  *
- * Uses the slot based method to create the composable.
+ * This is the most flexible form: the main and bottom content are supplied as
+ * [MainContentParameters] and [BottomContentParameters], and both the bottom content behaviour and
+ * background colour can be set explicitly. The convenience overloads above delegate to this.
  *
- * @param modifier A [Modifier] to be applied to the root composable of the screen (optional).
- * @param mainContentParameters [MainContentParameters] the composables to be arranged and configured.
- * @param bottomContentParameters [BottomContentParameters] the composables to be arranged and configured.
- * @param bottomContentBehaviour for determining the behaviour of the [BottomContent] composable,
- * defaults to Adaptive, which matches the legacy behaviour (optional).
- * @param backgroundColor [Color] of the background defaults to Unspecified, leaving the
- * background color to be set from the theme (optional).
+ * @param modifier [Modifier] applied to the root of the screen (optional).
+ * @param mainContentParameters the title and body content and their layout configuration (optional).
+ * @param bottomContentParameters the supporting text and button content and their configuration
+ * (optional).
+ * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
+ * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
+ * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
+ * to the theme surface colour (optional).
  */
 @Composable
 fun LeftAlignedScreenV3(

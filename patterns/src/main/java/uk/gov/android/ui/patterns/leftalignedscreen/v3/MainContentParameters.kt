@@ -32,14 +32,14 @@ import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
- *  A data class containing the composables to be arranged and configured,
- *  as well as other configurable parameters.
+ * Holds the main (scrollable) content of [LeftAlignedScreenV3] along with its layout configuration.
  *
- * @param titleContent [Composable] first composable in column (optional).
- * @param bodyContent [LazyListScope] the rest of the composables (optional).
- * @param horizontalPadding [Dp] defaults to spacingDouble (optional).
- * @param verticalPadding [Dp] defaults to spacingDouble (optional).
- * @param modifier A [Modifier] to be applied to the root composable of the MainContent (optional).
+ * @param titleContent the title slot, rendered as the first item in the column (optional).
+ * @param bodyContent the body slot, contributing items to the scrollable list (optional).
+ * @param horizontalPadding horizontal padding applied to the content; defaults to [spacingDouble]
+ * (optional).
+ * @param verticalPadding vertical spacing between items; defaults to [spacingDouble] (optional).
+ * @param modifier [Modifier] applied to the root of the main content (optional).
  */
 data class MainContentParameters(
     val titleContent: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
