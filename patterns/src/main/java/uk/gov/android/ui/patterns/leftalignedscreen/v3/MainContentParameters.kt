@@ -141,6 +141,7 @@ data class MainContentParameters(
                     icon = icon,
                     buttonType = ButtonTypeV2.Secondary(),
                     onClick = onClick,
+                    enabled = enabled,
                     textAlign = TextAlign.Start,
                     contentPosition = Arrangement.Start,
                     modifier = modifier.padding(horizontal = horizontalItemPadding),
