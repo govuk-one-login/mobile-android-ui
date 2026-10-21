@@ -293,34 +293,7 @@ internal fun PreviewLeftAlignedScreenFixedV3(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    GdsTheme {
-        LeftAlignedScreenV3(
-            bottomContentParameters = BottomContentParameters.generateDefault(
-                supportingText = content.supportingText,
-                primaryButton = content.primaryButton?.let { button ->
-                    LeftAlignedScreenButton(
-                        text = button,
-                        onClick = {},
-                    )
-                },
-                secondaryButton = content.secondaryButton?.let { button ->
-                    LeftAlignedScreenButton(
-                        text = button,
-                        onClick = {},
-                    )
-                },
-            ),
-            bottomContentConfig = BottomContentConfig(
-                backgroundColor = Backgrounds.card.toMappedColors(),
-            ),
-            mainContentParameters = MainContentParameters.generateDefault(
-                title = content.title,
-                body = content.body?.toImmutableList(),
-            ),
-            bottomContentBehaviour = BottomContentBehaviour.Fixed,
-            backgroundColor = Backgrounds.screen.toMappedColors(),
-        )
-    }
+    PreviewLeftAlignedScreenV3(content, BottomContentBehaviour.Fixed)
 }
 
 @ExcludeFromJacocoGeneratedReport
@@ -329,6 +302,15 @@ internal fun PreviewLeftAlignedScreenFixedV3(
 internal fun PreviewLeftAlignedScreenAdaptiveV3(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
+) {
+    PreviewLeftAlignedScreenV3(content, BottomContentBehaviour.Adaptive)
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+private fun PreviewLeftAlignedScreenV3(
+    content: LeftAlignedScreenContent,
+    bottomContentBehaviour: BottomContentBehaviour,
 ) {
     GdsTheme {
         LeftAlignedScreenV3(
@@ -354,7 +336,7 @@ internal fun PreviewLeftAlignedScreenAdaptiveV3(
                 title = content.title,
                 body = content.body?.toImmutableList(),
             ),
-            bottomContentBehaviour = BottomContentBehaviour.Adaptive,
+            bottomContentBehaviour = bottomContentBehaviour,
             backgroundColor = Backgrounds.screen.toMappedColors(),
         )
     }
