@@ -169,6 +169,8 @@ fun LeftAlignedScreenV3(
     backgroundColor = backgroundColor,
 )
 
+@SuppressLint("ConfigurationScreenWidthHeight")
+@Suppress("LongMethod")
 @Composable
 private fun LeftAlignedLayout(
     bottomContentParameters: BottomContentParameters,
@@ -177,35 +179,6 @@ private fun LeftAlignedLayout(
     backgroundColor: Color,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState(),
-) = when (bottomContentBehaviour) {
-    BottomContentBehaviour.Adaptive ->
-        LeftAlignedAdaptiveLayout(
-            bottomContentParameters = bottomContentParameters,
-            mainContentParameters = mainContentParameters,
-            modifier = modifier,
-            scrollState = scrollState,
-            backgroundColor = backgroundColor,
-        )
-
-    BottomContentBehaviour.Fixed ->
-        LeftAlignedFixedLayout(
-            bottomContentParameters = bottomContentParameters,
-            mainContentParameters = mainContentParameters,
-            modifier = modifier,
-            scrollState = scrollState,
-            backgroundColor = backgroundColor,
-        )
-}
-
-@SuppressLint("ConfigurationScreenWidthHeight")
-@Suppress("LongMethod")
-@Composable
-private fun LeftAlignedAdaptiveLayout(
-    bottomContentParameters: BottomContentParameters,
-    mainContentParameters: MainContentParameters,
-    backgroundColor: Color,
-    scrollState: LazyListState,
-    modifier: Modifier = Modifier,
 ) = Surface(
     modifier = modifier,
     color = backgroundColor
@@ -218,8 +191,9 @@ private fun LeftAlignedAdaptiveLayout(
 
     Column(modifier = Modifier.fillMaxSize()) {
         /* Measures the height of SupportingTextContainer plus the BottomContent.
-        If the height is over 1/3 of the total screen, the BottomContent is moved
-        into the MainContent which is scrollable */
+        For the Adaptive behaviour, if the height is over 1/3 of the total screen, the
+        BottomContent is moved into the MainContent which is scrollable. For the Fixed behaviour
+        the BottomContent always stays pinned as a sticky footer. */
         SubcomposeLayout { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
@@ -230,9 +204,11 @@ private fun LeftAlignedAdaptiveLayout(
             }.map { it.measure(constraints) }
             val bottomContentHeight = bottomPlaceables.maxOfOrNull { it.height } ?: 0
 
-            // Check if BottomContent exceeds 1/3 of the screen threshold
+            // Check if BottomContent exceeds 1/3 of the screen threshold. For the Fixed behaviour
+            // the bottom content never moves into the scrollable body, so this is always false.
             val bottomContentOverThreshold =
-                with(density) { bottomContentHeight.toDp() } > thresholdHeight
+                bottomContentBehaviour == BottomContentBehaviour.Adaptive &&
+                    with(density) { bottomContentHeight.toDp() } > thresholdHeight
 
             // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
@@ -283,31 +259,6 @@ private fun LeftAlignedAdaptiveLayout(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun LeftAlignedFixedLayout(
-    bottomContentParameters: BottomContentParameters,
-    mainContentParameters: MainContentParameters,
-    backgroundColor: Color,
-    scrollState: LazyListState,
-    modifier: Modifier = Modifier,
-) = Surface(
-    modifier = modifier,
-    color = backgroundColor
-        .takeUnless { it == Color.Unspecified }
-        ?: MaterialTheme.colorScheme.surface,
-) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        MainContentV2(
-            parameters = mainContentParameters,
-            scrollState = scrollState,
-        )
-        BottomContentV2(
-            parameters = bottomContentParameters,
-            isSticky = true,
-        )
     }
 }
 
