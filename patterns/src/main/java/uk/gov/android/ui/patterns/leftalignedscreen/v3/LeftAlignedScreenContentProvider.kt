@@ -5,14 +5,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.R as componentsv2R
-import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.images.Image
 import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadiosTitle
@@ -24,7 +20,6 @@ import uk.gov.android.ui.componentsv2.row.RowTrailingIcon
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.IMAGE_DESCRIPTION
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.TITLE_TEXT
-import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.spacingTriple
 
 internal class LeftAlignedScreenContentProvider :
@@ -33,15 +28,15 @@ internal class LeftAlignedScreenContentProvider :
     internal val textShort = LoremIpsum(5).values.first()
     private val textLong = LoremIpsum(25).values.first()
     private val textExtraLong = LoremIpsum(100).values.first()
-    private val supportingText =
-        "Check if your passport has a biometric chip, look for the " +
-            "rectangular biometric chip symbol on the front cover"
+    private val supportingText = BottomContentParametersProvider.SUPPORTING_TEXT
     private val warning = "You cannot use your passport if it has expired"
     private val selectionItems = persistentListOf("Yes", "No")
-    private val secondaryButtonText = "Secondary Button"
-    private val primaryButtonText = "Primary Button"
+    private val secondaryButtonText = BottomContentParametersProvider.SECONDARY_BUTTON_TEXT
+    private val primaryButtonText = BottomContentParametersProvider.PRIMARY_BUTTON_TEXT
 
     override val values = sequenceOf(
+        // Rich mix of body components (text, annotated text, titles, image, bullet list,
+        // secondary button) with full bottom content.
         LeftAlignedScreenContent(
             title = TITLE_TEXT,
             body = mainContent.complexBody(),
@@ -49,6 +44,7 @@ internal class LeftAlignedScreenContentProvider :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
+        // Warning, divider and numbered list with an in-body secondary button.
         LeftAlignedScreenContent(
             title = TITLE_TEXT,
             body = listOf(
@@ -80,6 +76,7 @@ internal class LeftAlignedScreenContentProvider :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
+        // Image and radio selection within the body.
         LeftAlignedScreenContent(
             title = TITLE_TEXT,
             body = listOf(
@@ -109,119 +106,7 @@ internal class LeftAlignedScreenContentProvider :
             supportingText = supportingText,
             primaryButton = primaryButtonText,
         ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            body = listOf(
-                LeftAlignedScreenBody.Text(
-                    textShort,
-                ),
-                LeftAlignedScreenBody.Text(
-                    textLong,
-                ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(top = spacingTriple),
-                ),
-                LeftAlignedScreenBody.Image(
-                    R.drawable.preview__gdsvectorimage,
-                    IMAGE_DESCRIPTION,
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-                LeftAlignedScreenBody.SecondaryButton(
-                    "Read more about the types of photo ID you can use",
-                    {},
-                ),
-                LeftAlignedScreenBody.Selection(
-                    items = selectionItems,
-                    selectedItem = 1,
-                    onItemSelected = {},
-                ),
-            ),
-            supportingText = supportingText,
-        ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            body = listOf(
-                LeftAlignedScreenBody.Text(
-                    textShort,
-                ),
-                LeftAlignedScreenBody.Text(
-                    textLong,
-                ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(vertical = spacingTriple),
-                ),
-                LeftAlignedScreenBody.Image(
-                    R.drawable.preview__gdsvectorimage,
-                    IMAGE_DESCRIPTION,
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-            ),
-        ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            body = listOf(
-                LeftAlignedScreenBody.Text(
-                    textShort,
-                ),
-                LeftAlignedScreenBody.Text(
-                    textLong,
-                    modifier = Modifier.padding(
-                        bottom = spacingTriple,
-                    ),
-                ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(vertical = spacingTriple),
-                ),
-                LeftAlignedScreenBody.Image(
-                    R.drawable.preview__gdsvectorimage,
-                    IMAGE_DESCRIPTION,
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-            ),
-            primaryButton = primaryButtonText,
-        ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            body = listOf(
-                LeftAlignedScreenBody.Text(
-                    textShort,
-                ),
-                LeftAlignedScreenBody.Text(
-                    textExtraLong,
-                ),
-                LeftAlignedScreenBody.Warning(
-                    warning,
-                    Modifier.padding(vertical = spacingTriple),
-                ),
-                LeftAlignedScreenBody.Image(
-                    R.drawable.preview__gdsvectorimage,
-                    IMAGE_DESCRIPTION,
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Color.Gray),
-                ),
-            ),
-            primaryButton = primaryButtonText,
-        ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            primaryButton = primaryButtonText,
-        ),
-        LeftAlignedScreenContent(
-            title = TITLE_TEXT,
-            supportingText = "Supporting Text - $textExtraLong",
-            primaryButton = primaryButtonText,
-            secondaryButton = secondaryButtonText,
-        ),
+        // Bulleted list with a title and an in-body secondary button.
         LeftAlignedScreenContent(
             title = TITLE_TEXT,
             body = listOf(
@@ -254,6 +139,7 @@ internal class LeftAlignedScreenContentProvider :
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
         ),
+        // Row list within the body.
         LeftAlignedScreenContent(
             title = TITLE_TEXT,
             body = listOf(
@@ -297,6 +183,19 @@ internal class LeftAlignedScreenContentProvider :
             supportingText = supportingText,
             primaryButton = primaryButtonText,
             secondaryButton = secondaryButtonText,
+        ),
+        // Bottom-heavy: no body, long supporting text and both buttons (exercises the adaptive
+        // overflow where bottom content moves into the scrollable area).
+        LeftAlignedScreenContent(
+            title = TITLE_TEXT,
+            supportingText = "Supporting Text - $textExtraLong",
+            primaryButton = primaryButtonText,
+            secondaryButton = secondaryButtonText,
+        ),
+        // Minimal: title and a single primary button.
+        LeftAlignedScreenContent(
+            title = TITLE_TEXT,
+            primaryButton = primaryButtonText,
         ),
     )
 }
