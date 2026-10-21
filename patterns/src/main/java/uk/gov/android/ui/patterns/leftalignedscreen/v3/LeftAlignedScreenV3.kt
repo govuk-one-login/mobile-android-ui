@@ -162,9 +162,9 @@ fun LeftAlignedScreenV3(
 @Composable
 fun LeftAlignedScreenV3(
     modifier: Modifier = Modifier,
-    mainContentParameters: MainContentParameters = MainContentParameters.empty(),
+    mainContentParameters: MainContentParameters = MainContentParameters(),
     mainContentConfig: MainContentConfig = MainContentConfig(),
-    bottomContentParameters: BottomContentParameters = BottomContentParameters.empty(),
+    bottomContentParameters: BottomContentParameters = BottomContentParameters(),
     bottomContentConfig: BottomContentConfig = BottomContentConfig(),
     bottomContentBehaviour: BottomContentBehaviour =
         LeftAlignedScreenV3Defaults.bottomContentBehaviour,
