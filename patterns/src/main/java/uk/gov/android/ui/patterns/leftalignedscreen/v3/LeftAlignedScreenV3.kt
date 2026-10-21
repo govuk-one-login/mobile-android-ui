@@ -81,6 +81,7 @@ fun LeftAlignedScreenV3(
         ),
         backgroundColor = Color.Unspecified,
         bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+        bottomContentConfig = BottomContentConfig(),
         bottomContentParameters = BottomContentParameters(
             supportingText = supportingText,
             primaryButton = primaryButton,
@@ -128,6 +129,7 @@ fun LeftAlignedScreenV3(
         mainContentParameters =
             MainContentParameters.generateDefault(title, body).copy(modifier = columnModifier),
         backgroundColor = Color.Unspecified,
+        bottomContentConfig = BottomContentConfig(),
         bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
         bottomContentParameters = BottomContentParameters.generateDefault(
             supportingText = supportingText,
@@ -146,8 +148,8 @@ fun LeftAlignedScreenV3(
  *
  * @param modifier [Modifier] applied to the root of the screen (optional).
  * @param mainContentParameters the title and body content and their layout configuration (optional).
- * @param bottomContentParameters the supporting text and button content and their configuration
- * (optional).
+ * @param bottomContentParameters the supporting text and button content (optional).
+ * @param bottomContentConfig the layout configuration for the bottom content (optional).
  * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
  * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
  * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
@@ -158,11 +160,13 @@ fun LeftAlignedScreenV3(
     modifier: Modifier = Modifier,
     mainContentParameters: MainContentParameters = MainContentParameters.empty(),
     bottomContentParameters: BottomContentParameters = BottomContentParameters.empty(),
+    bottomContentConfig: BottomContentConfig = BottomContentConfig(),
     bottomContentBehaviour: BottomContentBehaviour =
         LeftAlignedScreenV3Defaults.bottomContentBehaviour,
     backgroundColor: Color = Color.Unspecified,
 ) = LeftAlignedLayout(
     bottomContentParameters = bottomContentParameters,
+    bottomContentConfig = bottomContentConfig,
     mainContentParameters = mainContentParameters,
     modifier = modifier,
     bottomContentBehaviour = bottomContentBehaviour,
@@ -174,6 +178,7 @@ fun LeftAlignedScreenV3(
 @Composable
 private fun LeftAlignedLayout(
     bottomContentParameters: BottomContentParameters,
+    bottomContentConfig: BottomContentConfig,
     bottomContentBehaviour: BottomContentBehaviour,
     mainContentParameters: MainContentParameters,
     backgroundColor: Color,
@@ -199,6 +204,7 @@ private fun LeftAlignedLayout(
             val bottomPlaceables = subcompose("bottom") {
                 BottomContentV2(
                     parameters = bottomContentParameters,
+                    config = bottomContentConfig,
                     isSticky = true,
                 )
             }.map { it.measure(constraints) }
@@ -220,7 +226,9 @@ private fun LeftAlignedLayout(
                     bottomContent = if (bottomContentOverThreshold) {
                         {
                             BottomContentV2(
-                                parameters = bottomContentParameters
+                                parameters = bottomContentParameters,
+                                // Remove custom background colour used for the "Sticky" position
+                                config = bottomContentConfig
                                     .copy(backgroundColor = Color.Unspecified),
                                 isSticky = false,
                             )
@@ -293,7 +301,10 @@ internal fun PreviewLeftAlignedScreenFixedV3(
                         onClick = {},
                     )
                 },
-            ).copy(backgroundColor = Backgrounds.card.toMappedColors()),
+            ),
+            bottomContentConfig = BottomContentConfig(
+                backgroundColor = Backgrounds.card.toMappedColors(),
+            ),
             mainContentParameters = MainContentParameters.generateDefault(
                 title = content.title,
                 body = content.body?.toImmutableList(),
@@ -327,7 +338,10 @@ internal fun PreviewLeftAlignedScreenAdaptiveV3(
                         onClick = {},
                     )
                 },
-            ).copy(backgroundColor = Backgrounds.card.toMappedColors()),
+            ),
+            bottomContentConfig = BottomContentConfig(
+                backgroundColor = Backgrounds.card.toMappedColors(),
+            ),
             mainContentParameters = MainContentParameters.generateDefault(
                 title = content.title,
                 body = content.body?.toImmutableList(),

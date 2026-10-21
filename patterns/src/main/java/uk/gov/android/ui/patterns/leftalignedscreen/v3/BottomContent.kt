@@ -22,7 +22,6 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
-import uk.gov.android.ui.theme.spacingDouble
 
 /**
  * The bottom content (supporting text and buttons) of [LeftAlignedScreenV3].
@@ -30,13 +29,19 @@ import uk.gov.android.ui.theme.spacingDouble
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
  * element through the modifiers on each [BottomContentParameters] slot.
  *
- * @param parameters the supporting text and button content and their layout configuration.
+ * @param parameters the supporting text and button content.
+ * @param config the layout configuration (background colour, padding and modifier) for the bottom
+ * content (optional).
  * @param isSticky whether this is rendered as a sticky footer; when true a top padding is added to
  * separate it from the content above (optional).
  */
 @Composable
-internal fun BottomContentV2(parameters: BottomContentParameters, isSticky: Boolean = true) {
-    with(parameters) {
+internal fun BottomContentV2(
+    parameters: BottomContentParameters,
+    config: BottomContentConfig = BottomContentConfig(),
+    isSticky: Boolean = true,
+) {
+    with(config) {
         Surface(
             modifier = modifier.fillMaxWidth(),
             color = backgroundColor
@@ -50,11 +55,11 @@ internal fun BottomContentV2(parameters: BottomContentParameters, isSticky: Bool
                     top = if (isSticky) verticalPadding else 0.dp,
                     bottom = verticalPadding,
                 ),
-                verticalArrangement = Arrangement.spacedBy(spacingDouble),
+                verticalArrangement = Arrangement.spacedBy(verticalPadding),
             ) {
-                supportingText?.invoke(horizontalPadding)
-                primaryButton?.invoke()
-                secondaryButton?.invoke()
+                parameters.supportingText?.invoke(horizontalPadding)
+                parameters.primaryButton?.invoke()
+                parameters.secondaryButton?.invoke()
             }
         }
     }

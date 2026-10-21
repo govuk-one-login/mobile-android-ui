@@ -20,6 +20,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParameters
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3
@@ -36,7 +37,8 @@ fun LeftAlignedScreenFixedDemo() {
     LeftAlignedScreenV3(
         mainContentParameters = mainContentParameters,
         bottomContentBehaviour = BottomContentBehaviour.Fixed,
-        bottomContentParameters = bottomContentParameters.copy(
+        bottomContentParameters = bottomContentParameters,
+        bottomContentConfig = BottomContentConfig(
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
         backgroundColor = Backgrounds.screen.toMappedColors(),
@@ -49,7 +51,8 @@ fun LeftAlignedScreenAdaptiveDemo() {
     LeftAlignedScreenV3(
         mainContentParameters = mainContentParameters,
         bottomContentBehaviour = BottomContentBehaviour.Adaptive,
-        bottomContentParameters = bottomContentParameters.copy(
+        bottomContentParameters = bottomContentParameters,
+        bottomContentConfig = BottomContentConfig(
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
         backgroundColor = Backgrounds.screen.toMappedColors(),
