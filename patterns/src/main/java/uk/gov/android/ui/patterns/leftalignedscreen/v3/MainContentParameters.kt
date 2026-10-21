@@ -29,24 +29,16 @@ import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
-import uk.gov.android.ui.theme.spacingDouble
 
 /**
  * Holds the main (scrollable) content of [LeftAlignedScreenV3] along with its layout configuration.
  *
  * @param titleContent the title slot, rendered as the first item in the column (optional).
  * @param bodyContent the body slot, contributing items to the scrollable list (optional).
- * @param horizontalPadding horizontal padding applied to the content; defaults to [spacingDouble]
- * (optional).
- * @param verticalPadding vertical spacing between items; defaults to [spacingDouble] (optional).
- * @param modifier [Modifier] applied to the root of the main content (optional).
  */
 data class MainContentParameters(
     val titleContent: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     val bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    val horizontalPadding: Dp = spacingDouble,
-    val verticalPadding: Dp = spacingDouble,
-    val modifier: Modifier = Modifier,
 ) {
     companion object {
         @Composable
@@ -56,8 +48,6 @@ data class MainContentParameters(
         fun generateDefault(
             title: String?,
             body: ImmutableList<LeftAlignedScreenBody>?,
-            horizontalPadding: Dp = spacingDouble,
-            verticalPadding: Dp = spacingDouble,
         ): MainContentParameters = MainContentParameters(
             titleContent = title?.let { text ->
                 { horizontalPadding ->
@@ -75,8 +65,6 @@ data class MainContentParameters(
                     }
                 }
             },
-            horizontalPadding = horizontalPadding,
-            verticalPadding = verticalPadding,
         )
 
         @SuppressLint("ComposeModifierMissing")

@@ -57,10 +57,11 @@ private const val AS_MUCH_AS_POSSIBLE = 1f
 @Composable
 internal fun ColumnScope.MainContentV2(
     parameters: MainContentParameters,
+    config: MainContentConfig = MainContentConfig(),
     scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
-    with(parameters) {
+    with(config) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(verticalPadding),
             state = scrollState,
@@ -71,8 +72,8 @@ internal fun ColumnScope.MainContentV2(
                 .clearListSemanticsForTalkBack(),
             contentPadding = PaddingValues(vertical = verticalPadding),
         ) {
-            titleContent?.let { title -> item { title(horizontalPadding) } }
-            bodyContent?.let { body -> body(horizontalPadding) }
+            parameters.titleContent?.let { title -> item { title(horizontalPadding) } }
+            parameters.bodyContent?.let { body -> body(horizontalPadding) }
             bottomContent?.let { bottom -> item { bottom() } }
         }
     }

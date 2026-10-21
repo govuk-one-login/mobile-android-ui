@@ -77,8 +77,8 @@ fun LeftAlignedScreenV3(
         mainContentParameters = MainContentParameters(
             titleContent = title,
             bodyContent = body,
-            modifier = columnModifier,
         ),
+        mainContentConfig = MainContentConfig(modifier = columnModifier),
         backgroundColor = Color.Unspecified,
         bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
         bottomContentConfig = BottomContentConfig(),
@@ -127,7 +127,8 @@ fun LeftAlignedScreenV3(
     LeftAlignedLayout(
         modifier = modifier,
         mainContentParameters =
-            MainContentParameters.generateDefault(title, body).copy(modifier = columnModifier),
+            MainContentParameters.generateDefault(title, body),
+        mainContentConfig = MainContentConfig(modifier = columnModifier),
         backgroundColor = Color.Unspecified,
         bottomContentConfig = BottomContentConfig(),
         bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
@@ -147,7 +148,8 @@ fun LeftAlignedScreenV3(
  * background colour can be set explicitly. The convenience overloads above delegate to this.
  *
  * @param modifier [Modifier] applied to the root of the screen (optional).
- * @param mainContentParameters the title and body content and their layout configuration (optional).
+ * @param mainContentParameters the title and body content (optional).
+ * @param mainContentConfig the layout configuration for the main content (optional).
  * @param bottomContentParameters the supporting text and button content (optional).
  * @param bottomContentConfig the layout configuration for the bottom content (optional).
  * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
@@ -159,6 +161,7 @@ fun LeftAlignedScreenV3(
 fun LeftAlignedScreenV3(
     modifier: Modifier = Modifier,
     mainContentParameters: MainContentParameters = MainContentParameters.empty(),
+    mainContentConfig: MainContentConfig = MainContentConfig(),
     bottomContentParameters: BottomContentParameters = BottomContentParameters.empty(),
     bottomContentConfig: BottomContentConfig = BottomContentConfig(),
     bottomContentBehaviour: BottomContentBehaviour =
@@ -168,6 +171,7 @@ fun LeftAlignedScreenV3(
     bottomContentParameters = bottomContentParameters,
     bottomContentConfig = bottomContentConfig,
     mainContentParameters = mainContentParameters,
+    mainContentConfig = mainContentConfig,
     modifier = modifier,
     bottomContentBehaviour = bottomContentBehaviour,
     backgroundColor = backgroundColor,
@@ -181,6 +185,7 @@ private fun LeftAlignedLayout(
     bottomContentConfig: BottomContentConfig,
     bottomContentBehaviour: BottomContentBehaviour,
     mainContentParameters: MainContentParameters,
+    mainContentConfig: MainContentConfig,
     backgroundColor: Color,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState(),
@@ -220,6 +225,7 @@ private fun LeftAlignedLayout(
             val mainPlaceables = subcompose("main") {
                 MainContentV2(
                     parameters = mainContentParameters,
+                    config = mainContentConfig,
                     scrollState = scrollState,
                     // Based on the height calculated above, display the BottomContent as part
                     // of the MainContent
