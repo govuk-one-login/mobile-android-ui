@@ -1,5 +1,7 @@
 package uk.gov.android.ui.componentsv2.text
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
@@ -7,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -64,17 +67,25 @@ fun GdsAnnotatedString(
                     placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
                 ),
             ) {
-                GdsIcon(
-                    image = icon,
-                    contentDescription = iconContentDescription,
-                    color = iconColor ?: color,
-                    backgroundColor = iconBackgroundColor,
-                    modifier = if (isIconTrailing) {
-                        Modifier.padding(start = xsmallPadding)
-                    } else {
-                        Modifier
-                    }.semantics { invisibleToUser() },
-                )
+                Box(
+                    contentAlignment = Alignment.TopCenter,
+                    modifier =
+                        Modifier.fillMaxSize().then(
+                            if (isIconTrailing) {
+                                Modifier.padding(start = xsmallPadding)
+                            } else {
+                                Modifier.padding(end = xsmallPadding)
+                            },
+                        ),
+                ) {
+                    GdsIcon(
+                        image = icon,
+                        contentDescription = iconContentDescription,
+                        color = iconColor ?: color,
+                        backgroundColor = iconBackgroundColor,
+                        modifier = Modifier.semantics { invisibleToUser() },
+                    )
+                }
             },
         ),
     )
