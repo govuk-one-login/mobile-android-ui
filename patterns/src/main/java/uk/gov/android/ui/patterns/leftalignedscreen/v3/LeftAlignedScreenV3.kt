@@ -87,6 +87,7 @@ fun LeftAlignedScreenV3(
             primaryButton = primaryButton,
             secondaryButton = secondaryButton,
         ),
+        scrollState = scrollState,
     )
 }
 
@@ -137,6 +138,7 @@ fun LeftAlignedScreenV3(
             primaryButton = primaryButton,
             secondaryButton = secondaryButton,
         ),
+        scrollState = scrollState,
     )
 }
 
