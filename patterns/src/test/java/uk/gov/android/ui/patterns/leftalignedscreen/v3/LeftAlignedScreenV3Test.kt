@@ -4,7 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
@@ -14,17 +16,26 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
+import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParametersProvider.Companion.PRIMARY_BUTTON_TEXT
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParametersProvider.Companion.SECONDARY_BUTTON_TEXT
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParametersProvider.Companion.SUPPORTING_TEXT
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.IMAGE_DESCRIPTION
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.TITLE_TEXT
+import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.hasKeyboardScroll
 
 /**
  * Tests for [LeftAlignedScreenV3].
@@ -188,6 +199,148 @@ class LeftAlignedScreenV3Test {
         }
     }
 
+    // --- Public convenience overloads ---
+    // The behaviour tests above all use the parameter-object overload; these cover the slot-based
+    // and simple-data overloads, the forceScroll branch and the screen-level background fallback.
+
+    @Test
+    fun slotOverload_displaysAllSlots() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    title = { GdsHeading(TITLE_TEXT) },
+                    body = { horizontalPadding ->
+                        item { GdsHeading(BODY_SLOT_TEXT) }
+                    },
+                    supportingText = { GdsSupportingText(SUPPORTING_TEXT) },
+                    primaryButton = {
+                        GdsButton(
+                            text = PRIMARY_BUTTON_TEXT,
+                            buttonType = ButtonTypeV2.Primary(),
+                            onClick = {},
+                        )
+                    },
+                    secondaryButton = {
+                        GdsButton(
+                            text = SECONDARY_BUTTON_TEXT,
+                            buttonType = ButtonTypeV2.Secondary(),
+                            onClick = {},
+                        )
+                    },
+                )
+            }
+
+            onNodeWithText(TITLE_TEXT).assertIsDisplayed()
+            onNodeWithText(BODY_SLOT_TEXT).assertIsDisplayed()
+            // These overloads always use the Adaptive default. On the host's default (small)
+            // screen the bottom content exceeds the 1/3 threshold and is composed twice, so each
+            // bottom element resolves to two nodes; onFirst() selects the visible one.
+            onAllNodesWithText(SUPPORTING_TEXT).onFirst().assertIsDisplayed()
+            onAllNodesWithText(PRIMARY_BUTTON_TEXT).onFirst()
+                .assertIsDisplayed()
+                .assertHasClickAction()
+            onAllNodesWithText(SECONDARY_BUTTON_TEXT).onFirst()
+                .assertIsDisplayed()
+                .assertHasClickAction()
+        }
+    }
+
+    @Test
+    fun slotOverload_forceScroll_enablesKeyboardScrollOnBody() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    title = { GdsHeading(TITLE_TEXT) },
+                    forceScroll = true,
+                )
+            }
+
+            onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+                .assert(hasKeyboardScroll())
+        }
+    }
+
+    @Test
+    fun slotOverload_withoutForceScroll_bodyHasNoKeyboardScroll() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    title = { GdsHeading(TITLE_TEXT) },
+                    forceScroll = false,
+                )
+            }
+
+            onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+                .assert(hasKeyboardScroll().not())
+        }
+    }
+
+    @Test
+    fun simpleDataOverload_displaysContentAndWiresPrimaryButton() {
+        var clicked = false
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    title = TITLE_TEXT,
+                    body = persistentListOf(LeftAlignedScreenBody.Text(BODY_SLOT_TEXT)),
+                    supportingText = SUPPORTING_TEXT,
+                    primaryButton = LeftAlignedScreenButton(
+                        text = PRIMARY_BUTTON_TEXT,
+                        onClick = { clicked = true },
+                    ),
+                    secondaryButton = LeftAlignedScreenButton(
+                        text = SECONDARY_BUTTON_TEXT,
+                        onClick = {},
+                    ),
+                )
+            }
+
+            onNodeWithText(TITLE_TEXT).assertIsDisplayed()
+            onNodeWithText(BODY_SLOT_TEXT).assertIsDisplayed()
+            // Adaptive default -> bottom content may be composed twice on the default screen; take
+            // the first node for the duplicable bottom-content elements.
+            onAllNodesWithText(SUPPORTING_TEXT).onFirst().assertIsDisplayed()
+            onAllNodesWithText(SECONDARY_BUTTON_TEXT).onFirst()
+                .assertIsDisplayed()
+                .assertHasClickAction()
+            onAllNodesWithText(PRIMARY_BUTTON_TEXT).onFirst().performClick()
+        }
+        assertTrue(clicked)
+    }
+
+    @Test
+    fun simpleDataOverload_forceScroll_enablesKeyboardScrollOnBody() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    title = TITLE_TEXT,
+                    forceScroll = true,
+                )
+            }
+
+            onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
+                .assert(hasKeyboardScroll())
+        }
+    }
+
+    @Test
+    fun parameterObjectOverload_customBackgroundColorRenders() {
+        // Covers the screen-level `backgroundColor.takeUnless { it == Color.Unspecified }` branch
+        // in LeftAlignedLayout where a specified colour is used instead of the theme surface.
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    mainContentParameters = mainContent.allStandardParams,
+                    bottomContentParameters = bottomContent.onlyPrimaryButton,
+                    backgroundColor = Color.Red,
+                )
+            }
+
+            onNodeWithText(TITLE_TEXT).assertIsDisplayed()
+            onNodeWithText(PRIMARY_BUTTON_TEXT).assertIsDisplayed()
+        }
+    }
+
     /**
      * Composes [LeftAlignedScreenV3] with the given [behaviour].
      *
@@ -228,6 +381,8 @@ class LeftAlignedScreenV3Test {
 
     private companion object {
         const val SCREEN_WIDTH_DP = 320
+
+        const val BODY_SLOT_TEXT = "Body slot content"
 
         // 300dp threshold - comfortably above a single button, so small bottom content stays sticky.
         const val TALL_SCREEN_HEIGHT_DP = 900
