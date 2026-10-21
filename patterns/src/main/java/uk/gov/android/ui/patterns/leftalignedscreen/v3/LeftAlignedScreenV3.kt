@@ -117,7 +117,7 @@ fun LeftAlignedScreenV3(
     forceScroll: Boolean = false,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
-    val modifier = if (forceScroll) {
+    val columnModifier = if (forceScroll) {
         Modifier.keyboardScroll(scrollState)
     } else {
         Modifier
@@ -126,7 +126,7 @@ fun LeftAlignedScreenV3(
     LeftAlignedLayout(
         modifier = modifier,
         mainContentParameters =
-            MainContentParameters.generateDefault(title, body).copy(modifier = modifier),
+            MainContentParameters.generateDefault(title, body).copy(modifier = columnModifier),
         backgroundColor = Color.Unspecified,
         bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
         bottomContentParameters = BottomContentParameters.generateDefault(
