@@ -3,6 +3,8 @@ package uk.gov.android.ui.patterns.leftalignedscreen.v3
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -20,10 +22,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
+import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
+import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -55,6 +59,13 @@ private const val ONE_THIRD = 1f / 3f
  * @param secondaryButton the secondary action slot. Use of [GdsButton] is recommended (optional).
  * @param forceScroll when true, the body responds to keyboard up/down arrows for scrolling
  * (optional).
+ * @param mainContentConfig the layout configuration for the main content. Note that any [Modifier]
+ * set on it is overridden when [forceScroll] is true (optional).
+ * @param bottomContentConfig the layout configuration for the bottom content (optional).
+ * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
+ * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
+ * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
+ * to the theme surface colour (optional).
  */
 @Composable
 fun LeftAlignedScreenV3(
@@ -65,12 +76,17 @@ fun LeftAlignedScreenV3(
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     forceScroll: Boolean = false,
+    mainContentConfig: MainContentConfig = MainContentConfig(),
+    bottomContentConfig: BottomContentConfig = BottomContentConfig(),
+    bottomContentBehaviour: BottomContentBehaviour =
+        LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+    backgroundColor: Color = Color.Unspecified,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     val columnModifier = if (forceScroll) {
         Modifier.keyboardScroll(scrollState)
     } else {
-        Modifier
+        mainContentConfig.modifier
     }
     LeftAlignedLayout(
         modifier = modifier,
@@ -78,10 +94,10 @@ fun LeftAlignedScreenV3(
             titleContent = title,
             bodyContent = body,
         ),
-        mainContentConfig = MainContentConfig(modifier = columnModifier),
-        backgroundColor = Color.Unspecified,
-        bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
-        bottomContentConfig = BottomContentConfig(),
+        mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
+        backgroundColor = backgroundColor,
+        bottomContentBehaviour = bottomContentBehaviour,
+        bottomContentConfig = bottomContentConfig,
         bottomContentParameters = BottomContentParameters(
             supportingText = supportingText,
             primaryButton = primaryButton,
@@ -107,6 +123,13 @@ fun LeftAlignedScreenV3(
  * @param secondaryButton the secondary action, rendered as a secondary [GdsButton] (optional).
  * @param forceScroll when true, the body responds to keyboard up/down arrows for scrolling
  * (optional).
+ * @param mainContentConfig the layout configuration for the main content. Note that any [Modifier]
+ * set on it is overridden when [forceScroll] is true (optional).
+ * @param bottomContentConfig the layout configuration for the bottom content (optional).
+ * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
+ * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
+ * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
+ * to the theme surface colour (optional).
  */
 @Composable
 fun LeftAlignedScreenV3(
@@ -117,22 +140,27 @@ fun LeftAlignedScreenV3(
     primaryButton: LeftAlignedScreenButton? = null,
     secondaryButton: LeftAlignedScreenButton? = null,
     forceScroll: Boolean = false,
+    mainContentConfig: MainContentConfig = MainContentConfig(),
+    bottomContentConfig: BottomContentConfig = BottomContentConfig(),
+    bottomContentBehaviour: BottomContentBehaviour =
+        LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+    backgroundColor: Color = Color.Unspecified,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
     val columnModifier = if (forceScroll) {
         Modifier.keyboardScroll(scrollState)
     } else {
-        Modifier
+        mainContentConfig.modifier
     }
 
     LeftAlignedLayout(
         modifier = modifier,
         mainContentParameters =
             MainContentParameters.generateDefault(title, body),
-        mainContentConfig = MainContentConfig(modifier = columnModifier),
-        backgroundColor = Color.Unspecified,
-        bottomContentConfig = BottomContentConfig(),
-        bottomContentBehaviour = LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+        mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
+        backgroundColor = backgroundColor,
+        bottomContentConfig = bottomContentConfig,
+        bottomContentBehaviour = bottomContentBehaviour,
         bottomContentParameters = BottomContentParameters.generateDefault(
             supportingText = supportingText,
             primaryButton = primaryButton,
@@ -141,43 +169,6 @@ fun LeftAlignedScreenV3(
         scrollState = scrollState,
     )
 }
-
-/**
- * Primary entry point for [LeftAlignedScreenV3], configured through parameter objects.
- *
- * This is the most flexible form: the main and bottom content are supplied as
- * [MainContentParameters] and [BottomContentParameters], and both the bottom content behaviour and
- * background colour can be set explicitly. The convenience overloads above delegate to this.
- *
- * @param modifier [Modifier] applied to the root of the screen (optional).
- * @param mainContentParameters the title and body content (optional).
- * @param mainContentConfig the layout configuration for the main content (optional).
- * @param bottomContentParameters the supporting text and button content (optional).
- * @param bottomContentConfig the layout configuration for the bottom content (optional).
- * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
- * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
- * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
- * to the theme surface colour (optional).
- */
-@Composable
-fun LeftAlignedScreenV3(
-    modifier: Modifier = Modifier,
-    mainContentParameters: MainContentParameters = MainContentParameters(),
-    mainContentConfig: MainContentConfig = MainContentConfig(),
-    bottomContentParameters: BottomContentParameters = BottomContentParameters(),
-    bottomContentConfig: BottomContentConfig = BottomContentConfig(),
-    bottomContentBehaviour: BottomContentBehaviour =
-        LeftAlignedScreenV3Defaults.bottomContentBehaviour,
-    backgroundColor: Color = Color.Unspecified,
-) = LeftAlignedLayout(
-    bottomContentParameters = bottomContentParameters,
-    bottomContentConfig = bottomContentConfig,
-    mainContentParameters = mainContentParameters,
-    mainContentConfig = mainContentConfig,
-    modifier = modifier,
-    bottomContentBehaviour = bottomContentBehaviour,
-    backgroundColor = backgroundColor,
-)
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
@@ -314,27 +305,50 @@ private fun PreviewLeftAlignedScreenV3(
 ) {
     GdsTheme {
         LeftAlignedScreenV3(
-            bottomContentParameters = BottomContentParameters.generateDefault(
-                supportingText = content.supportingText,
-                primaryButton = content.primaryButton?.let { button ->
-                    LeftAlignedScreenButton(
+            title = content.title?.let { title ->
+                { horizontalPadding ->
+                    GdsHeading(
+                        text = title,
+                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                        textAlign = GdsHeadingAlignment.LeftAligned,
+                    )
+                }
+            },
+            body = { horizontalItemPadding ->
+                content.body?.forEach {
+                    item { it.GenerateDefault(horizontalItemPadding) }
+                }
+            },
+            supportingText = content.supportingText?.let { text ->
+                { horizontalPadding ->
+                    GdsSupportingText(
+                        text = text,
+                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                    )
+                }
+            },
+            primaryButton = content.primaryButton?.let { button ->
+                {
+                    GdsButton(
                         text = button,
                         onClick = {},
+                        buttonType = ButtonTypeV2.Primary(),
+                        modifier = Modifier.fillMaxWidth(),
                     )
-                },
-                secondaryButton = content.secondaryButton?.let { button ->
-                    LeftAlignedScreenButton(
+                }
+            },
+            secondaryButton = content.secondaryButton?.let { button ->
+                {
+                    GdsButton(
                         text = button,
                         onClick = {},
+                        buttonType = ButtonTypeV2.Secondary(),
+                        modifier = Modifier.fillMaxWidth(),
                     )
-                },
-            ),
+                }
+            },
             bottomContentConfig = BottomContentConfig(
                 backgroundColor = Backgrounds.card.toMappedColors(),
-            ),
-            mainContentParameters = MainContentParameters.generateDefault(
-                title = content.title,
-                body = content.body?.toImmutableList(),
             ),
             bottomContentBehaviour = bottomContentBehaviour,
             backgroundColor = Backgrounds.screen.toMappedColors(),

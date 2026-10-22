@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
@@ -21,10 +23,8 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParameters
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
@@ -35,9 +35,12 @@ import uk.gov.android.ui.theme.spacingTriple
 @Composable
 fun LeftAlignedScreenFixedDemo() {
     LeftAlignedScreenV3(
-        mainContentParameters = mainContentParameters,
+        title = titleSlot,
+        body = bodySlot,
+        supportingText = supportingTextSlot,
+        primaryButton = primaryButtonSlot,
+        secondaryButton = secondaryButtonSlot,
         bottomContentBehaviour = BottomContentBehaviour.Fixed,
-        bottomContentParameters = bottomContentParameters,
         bottomContentConfig = BottomContentConfig(
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
@@ -49,9 +52,12 @@ fun LeftAlignedScreenFixedDemo() {
 @Composable
 fun LeftAlignedScreenAdaptiveDemo() {
     LeftAlignedScreenV3(
-        mainContentParameters = mainContentParameters,
+        title = titleSlot,
+        body = bodySlot,
+        supportingText = supportingTextSlot,
+        primaryButton = primaryButtonSlot,
+        secondaryButton = secondaryButtonSlot,
         bottomContentBehaviour = BottomContentBehaviour.Adaptive,
-        bottomContentParameters = bottomContentParameters,
         bottomContentConfig = BottomContentConfig(
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
@@ -59,44 +65,43 @@ fun LeftAlignedScreenAdaptiveDemo() {
     )
 }
 
-private val mainContentParameters = MainContentParameters(
-    titleContent = { horizontalPadding ->
-        GdsHeading(
-            text = "Left Aligned Screen",
-            modifier = Modifier.padding(horizontal = horizontalPadding),
-            textAlign = GdsHeadingAlignment.LeftAligned,
-        )
-    },
-    bodyContent = { horizontalItemPadding ->
-        body.forEach { item { it.GenerateDefault(horizontalItemPadding) } }
-    },
-)
+private val titleSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizontalPadding ->
+    GdsHeading(
+        text = "Left Aligned Screen",
+        modifier = Modifier.padding(horizontal = horizontalPadding),
+        textAlign = GdsHeadingAlignment.LeftAligned,
+    )
+}
 
-private val bottomContentParameters = BottomContentParameters(
-    supportingText = { horizontalPadding ->
-        GdsSupportingText(
-            text = "Check if your passport has a biometric chip, look for the " +
-                "rectangular biometric chip symbol on the front cover",
-            modifier = Modifier.padding(horizontal = horizontalPadding),
-        )
-    },
-    primaryButton = {
-        GdsButton(
-            text = "Primary Button",
-            onClick = {},
-            buttonType = ButtonTypeV2.Primary(),
-            modifier = Modifier.fillMaxWidth(),
-        )
-    },
-    secondaryButton = {
-        GdsButton(
-            text = "Secondary Button",
-            onClick = {},
-            buttonType = ButtonTypeV2.Secondary(),
-            modifier = Modifier.fillMaxWidth(),
-        )
-    },
-)
+private val bodySlot: LazyListScope.(horizontalItemPadding: Dp) -> Unit = { horizontalItemPadding ->
+    body.forEach { item { it.GenerateDefault(horizontalItemPadding) } }
+}
+
+private val supportingTextSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizontalPadding ->
+    GdsSupportingText(
+        text = "Check if your passport has a biometric chip, look for the " +
+            "rectangular biometric chip symbol on the front cover",
+        modifier = Modifier.padding(horizontal = horizontalPadding),
+    )
+}
+
+private val primaryButtonSlot: @Composable () -> Unit = {
+    GdsButton(
+        text = "Primary Button",
+        onClick = {},
+        buttonType = ButtonTypeV2.Primary(),
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
+
+private val secondaryButtonSlot: @Composable () -> Unit = {
+    GdsButton(
+        text = "Secondary Button",
+        onClick = {},
+        buttonType = ButtonTypeV2.Secondary(),
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
 
 private val body = persistentListOf(
     LeftAlignedScreenBody.Title(

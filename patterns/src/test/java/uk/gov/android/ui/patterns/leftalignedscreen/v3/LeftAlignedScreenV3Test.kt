@@ -324,17 +324,16 @@ class LeftAlignedScreenV3Test {
     }
 
     @Test
-    fun parameterObjectOverload_customBackgroundColorRenders() {
+    fun customBackgroundColorRenders() {
         // Covers the screen-level `backgroundColor.takeUnless { it == Color.Unspecified }` branch
         // in LeftAlignedLayout where a specified colour is used instead of the theme surface.
         with(composeTestRule) {
-            setContent {
-                LeftAlignedScreenV3(
-                    mainContentParameters = mainContent.allStandardParams,
-                    bottomContentParameters = bottomContent.onlyPrimaryButton,
-                    backgroundColor = Color.Red,
-                )
-            }
+            setScreen(
+                behaviour = BottomContentBehaviour.Adaptive,
+                mainContentParameters = mainContent.allStandardParams,
+                bottomContentParameters = bottomContent.onlyPrimaryButton,
+                backgroundColor = Color.Red,
+            )
 
             onNodeWithText(TITLE_TEXT).assertIsDisplayed()
             onNodeWithText(PRIMARY_BUTTON_TEXT).assertIsDisplayed()
@@ -353,12 +352,17 @@ class LeftAlignedScreenV3Test {
         mainContentParameters: MainContentParameters,
         bottomContentParameters: BottomContentParameters,
         screenHeightDp: Int? = null,
+        backgroundColor: Color = Color.Unspecified,
     ) = setContent {
         if (screenHeightDp == null) {
             LeftAlignedScreenV3(
-                mainContentParameters = mainContentParameters,
-                bottomContentParameters = bottomContentParameters,
+                title = mainContentParameters.titleContent,
+                body = mainContentParameters.bodyContent,
+                supportingText = bottomContentParameters.supportingText,
+                primaryButton = bottomContentParameters.primaryButton,
+                secondaryButton = bottomContentParameters.secondaryButton,
                 bottomContentBehaviour = behaviour,
+                backgroundColor = backgroundColor,
             )
         } else {
             val configuration = Configuration(LocalConfiguration.current).apply {
@@ -371,9 +375,13 @@ class LeftAlignedScreenV3Test {
                         width = SCREEN_WIDTH_DP.dp,
                         height = screenHeightDp.dp,
                     ),
-                    mainContentParameters = mainContentParameters,
-                    bottomContentParameters = bottomContentParameters,
+                    title = mainContentParameters.titleContent,
+                    body = mainContentParameters.bodyContent,
+                    supportingText = bottomContentParameters.supportingText,
+                    primaryButton = bottomContentParameters.primaryButton,
+                    secondaryButton = bottomContentParameters.secondaryButton,
                     bottomContentBehaviour = behaviour,
+                    backgroundColor = backgroundColor,
                 )
             }
         }
