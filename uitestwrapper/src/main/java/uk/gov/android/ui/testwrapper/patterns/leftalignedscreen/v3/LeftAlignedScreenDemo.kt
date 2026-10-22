@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +22,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
@@ -31,10 +34,12 @@ import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.spacingTriple
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun LeftAlignedScreenFixedDemo() {
     LeftAlignedScreenV3(
+        topAppBar = topAppBarSlot,
         title = titleSlot,
         body = bodySlot,
         supportingText = supportingTextSlot,
@@ -48,10 +53,12 @@ fun LeftAlignedScreenFixedDemo() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun LeftAlignedScreenAdaptiveDemo() {
     LeftAlignedScreenV3(
+        topAppBar = topAppBarSlot,
         title = titleSlot,
         body = bodySlot,
         supportingText = supportingTextSlot,
@@ -64,6 +71,15 @@ fun LeftAlignedScreenAdaptiveDemo() {
         backgroundColor = Backgrounds.screen.toMappedColors(),
     )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+private val topAppBarSlot: @Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit =
+    { scrollBehaviour ->
+        GdsTopAppBar(
+            title = "Left Aligned Screen",
+            scrollBehaviour = scrollBehaviour,
+        )
+    }
 
 private val titleSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizontalPadding ->
     GdsHeading(

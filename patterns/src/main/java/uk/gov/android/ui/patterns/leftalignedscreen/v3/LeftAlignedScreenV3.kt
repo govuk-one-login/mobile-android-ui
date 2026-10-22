@@ -8,11 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -27,6 +30,8 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
+import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBarDefaults
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.theme.m3.Backgrounds
@@ -51,6 +56,10 @@ private const val ONE_THIRD = 1f / 3f
  * rather than `onNodeWithText` in that case to avoid a "2 nodes found" failure.
  *
  * @param modifier [Modifier] applied to the root of the screen (optional).
+ * @param topAppBar the top app bar slot, rendered above the scrollable content. The screen owns a
+ * pinned [TopAppBarScrollBehavior] and passes it to this slot; forward it to
+ * [GdsTopAppBar]'s `scrollBehaviour` so the bar reacts to the body scrolling. Use of [GdsTopAppBar]
+ * is recommended (optional).
  * @param title the main title slot. Use of [GdsHeading] is recommended (optional).
  * @param body the main content slot, added as items to the scrollable body (optional).
  * @param supportingText text shown above the buttons in the bottom content. Use of
@@ -67,9 +76,11 @@ private const val ONE_THIRD = 1f / 3f
  * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
  * to the theme surface colour (optional).
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeftAlignedScreenV3(
     modifier: Modifier = Modifier,
+    topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)? = null,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -90,19 +101,20 @@ fun LeftAlignedScreenV3(
     }
     LeftAlignedLayout(
         modifier = modifier,
+        backgroundColor = backgroundColor,
+        topAppBarContentParameters = TopAppBarContentParameters(topAppBar = topAppBar),
         mainContentParameters = MainContentParameters(
             titleContent = title,
             bodyContent = body,
         ),
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
-        backgroundColor = backgroundColor,
-        bottomContentBehaviour = bottomContentBehaviour,
-        bottomContentConfig = bottomContentConfig,
         bottomContentParameters = BottomContentParameters(
             supportingText = supportingText,
             primaryButton = primaryButton,
             secondaryButton = secondaryButton,
         ),
+        bottomContentConfig = bottomContentConfig,
+        bottomContentBehaviour = bottomContentBehaviour,
         scrollState = scrollState,
     )
 }
@@ -116,6 +128,8 @@ fun LeftAlignedScreenV3(
  * [BottomContentBehaviour.Adaptive] behaviour.
  *
  * @param modifier [Modifier] applied to the root of the screen (optional).
+ * @param topAppBar the top app bar, rendered above the scrollable content as an opinionated
+ * [GdsTopAppBar] built from the [LeftAlignedScreenTopAppBar] data (optional).
  * @param title the main title text (optional).
  * @param body the list of [LeftAlignedScreenBody] items shown in the scrollable content (optional).
  * @param supportingText text shown above the buttons in the bottom content (optional).
@@ -131,9 +145,11 @@ fun LeftAlignedScreenV3(
  * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
  * to the theme surface colour (optional).
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeftAlignedScreenV3(
     modifier: Modifier = Modifier,
+    topAppBar: LeftAlignedScreenTopAppBar? = null,
     title: String? = null,
     body: ImmutableList<LeftAlignedScreenBody>? = null,
     supportingText: String? = null,
@@ -155,31 +171,34 @@ fun LeftAlignedScreenV3(
 
     LeftAlignedLayout(
         modifier = modifier,
+        backgroundColor = backgroundColor,
+        topAppBarContentParameters = TopAppBarContentParameters.generateDefault(topAppBar),
         mainContentParameters =
             MainContentParameters.generateDefault(title, body),
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
-        backgroundColor = backgroundColor,
-        bottomContentConfig = bottomContentConfig,
-        bottomContentBehaviour = bottomContentBehaviour,
         bottomContentParameters = BottomContentParameters.generateDefault(
             supportingText = supportingText,
             primaryButton = primaryButton,
             secondaryButton = secondaryButton,
         ),
+        bottomContentConfig = bottomContentConfig,
+        bottomContentBehaviour = bottomContentBehaviour,
         scrollState = scrollState,
     )
 }
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LeftAlignedLayout(
+    backgroundColor: Color,
+    topAppBarContentParameters: TopAppBarContentParameters,
+    mainContentParameters: MainContentParameters,
+    mainContentConfig: MainContentConfig,
     bottomContentParameters: BottomContentParameters,
     bottomContentConfig: BottomContentConfig,
     bottomContentBehaviour: BottomContentBehaviour,
-    mainContentParameters: MainContentParameters,
-    mainContentConfig: MainContentConfig,
-    backgroundColor: Color,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState(),
 ) = Surface(
@@ -192,12 +211,24 @@ private fun LeftAlignedLayout(
     val thresholdHeight = screenHeight * ONE_THIRD
     val density = LocalDensity.current
 
+    // A single scroll behaviour instance is shared between the top app bar and the scrollable
+    // body: the bar receives it (so it can react to scrolling, e.g. the scrolled container colour)
+    // and the body feeds it scroll deltas through the nested scroll connection attached below.
+    val topAppBarScrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour()
+
     Column(modifier = Modifier.fillMaxSize()) {
+        TopAppBarContentV2(
+            parameters = topAppBarContentParameters,
+            scrollBehaviour = topAppBarScrollBehaviour,
+        )
+
         /* Measures the height of SupportingTextContainer plus the BottomContent.
         For the Adaptive behaviour, if the height is over 1/3 of the total screen, the
         BottomContent is moved into the MainContent which is scrollable. For the Fixed behaviour
         the BottomContent always stays pinned as a sticky footer. */
-        SubcomposeLayout { constraints ->
+        SubcomposeLayout(
+            modifier = Modifier.nestedScroll(topAppBarScrollBehaviour.nestedScrollConnection),
+        ) { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
                 BottomContentV2(
@@ -298,6 +329,7 @@ internal fun PreviewLeftAlignedScreenAdaptiveV3(
 }
 
 @ExcludeFromJacocoGeneratedReport
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PreviewLeftAlignedScreenV3(
     content: LeftAlignedScreenContent,
@@ -305,6 +337,7 @@ private fun PreviewLeftAlignedScreenV3(
 ) {
     GdsTheme {
         LeftAlignedScreenV3(
+            topAppBar = TopAppBarContentParameters.generateDefault(content.topAppBar).topAppBar,
             title = content.title?.let { title ->
                 { horizontalPadding ->
                     GdsHeading(

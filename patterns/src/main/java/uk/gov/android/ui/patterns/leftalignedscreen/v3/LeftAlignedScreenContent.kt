@@ -17,7 +17,8 @@ import uk.gov.android.ui.componentsv2.row.RowData
 import uk.gov.android.ui.theme.dividerThickness
 
 internal data class LeftAlignedScreenContent(
-    val title: String,
+    val topAppBar: LeftAlignedScreenTopAppBar? = null,
+    val title: String? = null,
     val body: List<LeftAlignedScreenBody>? = null,
     val supportingText: String? = null,
     val primaryButton: String? = null,

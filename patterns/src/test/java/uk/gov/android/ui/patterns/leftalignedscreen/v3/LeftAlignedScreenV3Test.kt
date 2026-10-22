@@ -2,6 +2,8 @@ package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -11,6 +13,7 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.getUnclippedBoundsInRoot
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -56,6 +59,7 @@ import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.
  * [Modifier.size]) so the over/under-threshold relationship is independent of the host device's
  * default dimensions.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @RunWith(RobolectricTestRunner::class)
 class LeftAlignedScreenV3Test {
     @get:Rule
@@ -202,6 +206,67 @@ class LeftAlignedScreenV3Test {
     // --- Public convenience overloads ---
     // The behaviour tests above all use the parameter-object overload; these cover the slot-based
     // and simple-data overloads, the forceScroll branch and the screen-level background fallback.
+
+    @Test
+    fun slotOverload_displaysTopAppBarAboveBody() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    topAppBar = { GdsHeading(TOP_APP_BAR_TEXT) },
+                    title = { GdsHeading(TITLE_TEXT) },
+                    body = { item { GdsHeading(BODY_SLOT_TEXT) } },
+                )
+            }
+
+            onNodeWithText(TOP_APP_BAR_TEXT).assertIsDisplayed()
+            onNodeWithText(TITLE_TEXT).assertIsDisplayed()
+
+            // The top app bar slot is rendered above the scrollable body.
+            val topAppBarTop = onNodeWithText(TOP_APP_BAR_TEXT)
+                .getUnclippedBoundsInRoot().top
+            val titleTop = onNodeWithText(TITLE_TEXT)
+                .getUnclippedBoundsInRoot().top
+            assertTrue(topAppBarTop < titleTop)
+        }
+    }
+
+    @Test
+    fun slotOverload_topAppBarSlotReceivesScrollBehaviour() {
+        var providedScrollBehaviour: TopAppBarScrollBehavior? = null
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    topAppBar = { scrollBehaviour ->
+                        providedScrollBehaviour = scrollBehaviour
+                        GdsHeading(TOP_APP_BAR_TEXT)
+                    },
+                    title = { GdsHeading(TITLE_TEXT) },
+                    body = { item { GdsHeading(BODY_SLOT_TEXT) } },
+                )
+            }
+
+            onNodeWithText(TOP_APP_BAR_TEXT).assertIsDisplayed()
+        }
+        // The screen owns a single scroll behaviour and hands it to the slot so the bar can react
+        // to the body scrolling.
+        assertTrue(providedScrollBehaviour != null)
+    }
+
+    @Test
+    fun simpleDataOverload_displaysTopAppBar() {
+        with(composeTestRule) {
+            setContent {
+                LeftAlignedScreenV3(
+                    topAppBar = LeftAlignedScreenTopAppBar(title = TOP_APP_BAR_TEXT),
+                    title = TITLE_TEXT,
+                    body = persistentListOf(LeftAlignedScreenBody.Text(BODY_SLOT_TEXT)),
+                )
+            }
+
+            onNodeWithText(TOP_APP_BAR_TEXT).assertIsDisplayed()
+            onNodeWithText(TITLE_TEXT).assertIsDisplayed()
+        }
+    }
 
     @Test
     fun slotOverload_displaysAllSlots() {
@@ -391,6 +456,8 @@ class LeftAlignedScreenV3Test {
         const val SCREEN_WIDTH_DP = 320
 
         const val BODY_SLOT_TEXT = "Body slot content"
+
+        const val TOP_APP_BAR_TEXT = "Top app bar content"
 
         // 300dp threshold - comfortably above a single button, so small bottom content stays sticky.
         const val TALL_SCREEN_HEIGHT_DP = 900

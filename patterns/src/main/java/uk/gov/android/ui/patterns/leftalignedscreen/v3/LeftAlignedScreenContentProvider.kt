@@ -38,6 +38,7 @@ internal class LeftAlignedScreenContentProvider :
         // Rich mix of body components (text, annotated text, titles, image, bullet list,
         // secondary button) with full bottom content.
         LeftAlignedScreenContent(
+            topAppBar = LeftAlignedScreenTopAppBar(title = "Top app bar"),
             title = TITLE_TEXT,
             body = mainContent.complexBody(),
             supportingText = supportingText,
@@ -46,6 +47,7 @@ internal class LeftAlignedScreenContentProvider :
         ),
         // Warning, divider and numbered list with an in-body secondary button.
         LeftAlignedScreenContent(
+            topAppBar = LeftAlignedScreenTopAppBar(),
             title = TITLE_TEXT,
             body = listOf(
                 LeftAlignedScreenBody.Text(
