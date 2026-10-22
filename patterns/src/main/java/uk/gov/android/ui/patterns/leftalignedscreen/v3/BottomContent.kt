@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -46,7 +45,7 @@ internal fun BottomContentV2(
             modifier = modifier.fillMaxWidth(),
             color = backgroundColor
                 .takeUnless { it == Color.Unspecified }
-                ?: MaterialTheme.colorScheme.surface,
+                ?: Color.Transparent,
         ) {
             Column(
                 modifier = Modifier.padding(
@@ -141,7 +140,9 @@ internal class BottomContentParametersProvider :
 @Composable
 private fun PreviewLightDarkBottomContent() {
     GdsTheme {
-        BottomContentV2(BottomContentParametersProvider().allStandardParams)
+        Surface {
+            BottomContentV2(BottomContentParametersProvider().allStandardParams)
+        }
     }
 }
 
@@ -150,7 +151,9 @@ private fun PreviewLightDarkBottomContent() {
 @Composable
 private fun PreviewFontScaleBottomContent() {
     GdsTheme {
-        BottomContentV2(BottomContentParametersProvider().allStandardParams)
+        Surface {
+            BottomContentV2(BottomContentParametersProvider().allStandardParams)
+        }
     }
 }
 
@@ -161,7 +164,5 @@ private fun PreviewBottomContent(
     @PreviewParameter(BottomContentParametersProvider::class)
     content: BottomContentParameters,
 ) {
-    GdsTheme {
-        BottomContentV2(content)
-    }
+    GdsTheme { Surface { BottomContentV2(content) } }
 }
