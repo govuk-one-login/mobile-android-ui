@@ -68,7 +68,7 @@ fun GdsAnnotatedString(
                 ),
             ) {
                 Box(
-                    contentAlignment = Alignment.TopCenter,
+                    contentAlignment = Alignment.Center,
                     modifier =
                         Modifier.fillMaxSize().then(
                             if (isIconTrailing) {
