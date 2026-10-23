@@ -25,6 +25,7 @@ import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScree
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenAdaptiveDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenFixedDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenForceScrollDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
@@ -59,6 +60,7 @@ fun PatternDetail(detailItem: DetailItem) {
         LOADING_SCREEN -> LoadingScreen()
         LEFT_ALIGNED_SCREEN -> LeftAlignedScreenDemo()
         LEFT_ALIGNED_SCREEN_NO_TITLE -> LeftAlignedScreenNoTitleDemo()
+        LEFT_ALIGNED_SCREEN_FORCED -> LeftAlignedScreenForceScrollDemo()
         LEFT_ALIGNED_SCREEN_FIXED -> LeftAlignedScreenFixedDemo()
         LEFT_ALIGNED_SCREEN_ADAPTIVE -> LeftAlignedScreenAdaptiveDemo()
         CENTRED_ALIGNED_SCREEN -> CentreAlignedScreenDemo()
@@ -73,6 +75,7 @@ fun PatternDetail(detailItem: DetailItem) {
 const val LOADING_SCREEN = "loadingScreen"
 const val LEFT_ALIGNED_SCREEN = "leftAlignedScreen"
 const val LEFT_ALIGNED_SCREEN_NO_TITLE = "leftAlignedScreenNoTitle"
+const val LEFT_ALIGNED_SCREEN_FORCED = "leftAlignedScreenForced"
 const val LEFT_ALIGNED_SCREEN_FIXED = "leftAlignedScreenFixed"
 const val LEFT_ALIGNED_SCREEN_ADAPTIVE = "leftAlignedScreenAdaptive"
 const val CENTRED_ALIGNED_SCREEN = "centreAlignedScreen"

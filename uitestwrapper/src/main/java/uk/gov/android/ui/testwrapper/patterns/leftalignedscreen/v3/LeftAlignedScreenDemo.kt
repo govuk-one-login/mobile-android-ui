@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -27,12 +28,25 @@ import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenButton
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.spacingTriple
+
+@SuppressLint("ComposeModifierMissing")
+@Composable
+fun LeftAlignedScreenForceScrollDemo() {
+    LeftAlignedScreenV3(
+        title = "Left Aligned Screen",
+        body = body,
+        primaryButton = LeftAlignedScreenButton(text = "Allow", onClick = {}),
+        secondaryButton = LeftAlignedScreenButton(text = "Cancel", onClick = {}),
+        forceScroll = true,
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposeModifierMissing")
@@ -50,6 +64,8 @@ fun LeftAlignedScreenFixedDemo() {
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
         backgroundColor = Backgrounds.screen.toMappedColors(),
+        forceScroll = true,
+        modifier = Modifier.safeContentPadding()
     )
 }
 
