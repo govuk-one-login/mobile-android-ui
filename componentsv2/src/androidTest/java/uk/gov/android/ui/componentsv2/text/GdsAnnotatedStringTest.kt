@@ -81,7 +81,7 @@ class GdsAnnotatedStringTest {
 
             assertTrue(
                 SemanticsMatcher
-                    .expectValue(SemanticsProperties.InvisibleToUser, Unit)
+                    .expectValue(SemanticsProperties.HideFromAccessibility, Unit)
                     .matches(icon),
             )
         }
@@ -114,7 +114,7 @@ class GdsAnnotatedStringTest {
 
             assertTrue(
                 SemanticsMatcher
-                    .expectValue(SemanticsProperties.InvisibleToUser, Unit)
+                    .expectValue(SemanticsProperties.HideFromAccessibility, Unit)
                     .matches(icon),
             )
         }
