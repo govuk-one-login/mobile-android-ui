@@ -277,7 +277,9 @@ class LeftAlignedScreenV3Test {
                     body = { horizontalPadding ->
                         item { GdsHeading(BODY_SLOT_TEXT) }
                     },
-                    supportingText = { GdsSupportingText(SUPPORTING_TEXT) },
+                    supportingText = { _, _ ->
+                        GdsSupportingText(SUPPORTING_TEXT)
+                    },
                     primaryButton = {
                         GdsButton(
                             text = PRIMARY_BUTTON_TEXT,
