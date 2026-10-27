@@ -32,7 +32,10 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  * The [BottomContentParameters] overload below is a thin wrapper kept for previews, tests and
  * demos.
  *
- * @param supportingText the supporting text slot, shown above the buttons (optional).
+ * @param supportingText the supporting text slot, shown above the buttons. Receives the
+ * configured horizontal padding and a vertical padding hook; the hook is passed as [NoPadding]
+ * here because the gap below the supporting text is already provided by this `Column`'s
+ * [Arrangement.spacedBy], so a slot only needs it to add its own custom offset (optional).
  * @param primaryButton the primary action slot (optional).
  * @param secondaryButton the secondary action slot (optional).
  * @param config the layout configuration (background colour, padding and modifier) for the bottom
@@ -42,7 +45,7 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  */
 @Composable
 internal fun BottomContentV2(
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)?,
     primaryButton: (@Composable () -> Unit)?,
     secondaryButton: (@Composable () -> Unit)?,
     config: BottomContentConfig = BottomContentConfig(),
@@ -64,13 +67,15 @@ internal fun BottomContentV2(
                 ),
                 verticalArrangement = Arrangement.spacedBy(verticalPadding),
             ) {
-                supportingText?.invoke(horizontalPadding)
+                supportingText?.invoke(horizontalPadding, NoPadding)
                 primaryButton?.invoke()
                 secondaryButton?.invoke()
             }
         }
     }
 }
+
+private val NoPadding: Dp = 0.dp
 
 /**
  * [BottomContentParameters] convenience overload of [BottomContentV2], kept for previews, tests
@@ -138,9 +143,9 @@ internal class BottomContentParametersProvider :
         )
 
     @Composable
-    private fun Text(horizontalPadding: Dp) = GdsSupportingText(
+    private fun Text(horizontalPadding: Dp, verticalPadding: Dp) = GdsSupportingText(
         text = SUPPORTING_TEXT,
-        modifier = Modifier.padding(horizontal = horizontalPadding),
+        modifier = Modifier.padding(horizontal = horizontalPadding, vertical = verticalPadding),
     )
 
     @Composable

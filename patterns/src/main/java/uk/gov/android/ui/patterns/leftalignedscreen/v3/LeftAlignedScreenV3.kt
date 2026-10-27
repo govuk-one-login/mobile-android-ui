@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
@@ -38,6 +39,9 @@ import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.toMappedColors
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
+import uk.gov.android.ui.theme.spacingDouble
+import uk.gov.android.ui.theme.spacingSingle
+import uk.gov.android.ui.theme.spacingTriple
 
 private const val ONE_THIRD = 1f / 3f
 
@@ -62,15 +66,21 @@ private const val ONE_THIRD = 1f / 3f
  * is recommended (optional).
  * @param title the main title slot. Use of [GdsHeading] is recommended (optional).
  * @param body the main content slot, added as items to the scrollable body (optional).
- * @param supportingText text shown above the buttons in the bottom content. Use of
- * [GdsSupportingText] is recommended (optional).
+ * @param supportingText text shown above the buttons in the bottom content. Receives the
+ * configured horizontal padding and a vertical padding hook that can be used, customised with a
+ * different value, or ignored to control the gap above this element independently of
+ * [BottomContentConfig.verticalPadding]. Use of [GdsSupportingText] is recommended (optional).
  * @param primaryButton the primary action slot. Use of [GdsButton] is recommended (optional).
  * @param secondaryButton the secondary action slot. Use of [GdsButton] is recommended (optional).
  * @param forceScroll when true, the body responds to keyboard up/down arrows for scrolling
  * (optional).
- * @param mainContentConfig the layout configuration for the main content. Note that any [Modifier]
- * set on it is overridden when [forceScroll] is true (optional).
- * @param bottomContentConfig the layout configuration for the bottom content (optional).
+ * @param mainContentConfig the layout configuration for the main content, including
+ * [MainContentConfig.verticalPadding] to customise the default 16.dp gap between body elements
+ * (e.g. 8.dp or 24.dp). Note that any [Modifier] set on it is overridden when [forceScroll] is
+ * true (optional).
+ * @param bottomContentConfig the layout configuration for the bottom content, including
+ * [BottomContentConfig.verticalPadding] to customise the default 16.dp gap between footer elements
+ * (optional).
  * @param bottomContentBehaviour whether the bottom content is fixed or adaptive; defaults to
  * [BottomContentBehaviour.Adaptive] to match the legacy behaviour (optional).
  * @param backgroundColor the screen background; defaults to [Color.Unspecified], which falls back
@@ -83,7 +93,7 @@ fun LeftAlignedScreenV3(
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)? = null,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
     forceScroll: Boolean = false,
@@ -199,7 +209,7 @@ private fun LeftAlignedLayout(
     title: (@Composable (horizontalPadding: Dp) -> Unit)?,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     mainContentConfig: MainContentConfig,
-    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)?,
     primaryButton: (@Composable () -> Unit)?,
     secondaryButton: (@Composable () -> Unit)?,
     bottomContentConfig: BottomContentConfig,
@@ -339,11 +349,23 @@ internal fun PreviewLeftAlignedScreenAdaptiveV3(
 }
 
 @ExcludeFromJacocoGeneratedReport
+@Composable
+@Preview
+internal fun PreviewLeftAlignedScreenWithSpacing(
+) {
+    PreviewLeftAlignedScreenCustomVerticalPaddingV3(48.dp)
+}
+
+@ExcludeFromJacocoGeneratedReport
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PreviewLeftAlignedScreenV3(
     content: LeftAlignedScreenContent,
     bottomContentBehaviour: BottomContentBehaviour,
+    mainContentConfig: MainContentConfig = MainContentConfig(),
+    bottomContentConfig: BottomContentConfig = BottomContentConfig(
+        backgroundColor = Backgrounds.card.toMappedColors(),
+    ),
 ) {
     GdsTheme {
         LeftAlignedScreenV3(
@@ -363,10 +385,13 @@ private fun PreviewLeftAlignedScreenV3(
                 }
             },
             supportingText = content.supportingText?.let { text ->
-                { horizontalPadding ->
+                { horizontalPadding, verticalPadding ->
                     GdsSupportingText(
                         text = text,
-                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                        modifier = Modifier.padding(
+                            horizontal = horizontalPadding,
+                            vertical = verticalPadding,
+                        ),
                     )
                 }
             },
@@ -390,11 +415,32 @@ private fun PreviewLeftAlignedScreenV3(
                     )
                 }
             },
-            bottomContentConfig = BottomContentConfig(
-                backgroundColor = Backgrounds.card.toMappedColors(),
-            ),
+            mainContentConfig = mainContentConfig,
+            bottomContentConfig = bottomContentConfig,
             bottomContentBehaviour = bottomContentBehaviour,
             backgroundColor = Backgrounds.screen.toMappedColors(),
         )
     }
+}
+
+@ExcludeFromJacocoGeneratedReport
+@Composable
+@Preview(showBackground = true)
+internal fun PreviewLeftAlignedScreenCustomVerticalPaddingV3(
+    @PreviewParameter(LeftAlignedScreenVerticalPaddingProvider::class)
+    verticalPadding: Dp,
+) {
+    PreviewLeftAlignedScreenV3(
+        content = LeftAlignedScreenContentProvider().values.first(),
+        bottomContentBehaviour = BottomContentBehaviour.Fixed,
+        mainContentConfig = MainContentConfig(verticalPadding = 16.dp),
+        bottomContentConfig = BottomContentConfig(
+            verticalPadding = 16.dp,
+            backgroundColor = Backgrounds.card.toMappedColors(),
+        ),
+    )
+}
+
+internal class LeftAlignedScreenVerticalPaddingProvider : PreviewParameterProvider<Dp> {
+    override val values = sequenceOf(spacingSingle, spacingDouble, spacingTriple)
 }

@@ -12,12 +12,14 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 /**
  * Holds the bottom content of [LeftAlignedScreenV3] (supporting text and buttons).
  *
- * @param supportingText the supporting text slot, shown above the buttons (optional).
+ * @param supportingText the supporting text slot, shown above the buttons. Receives the
+ * configured horizontal padding and a vertical padding hook that an individual slot can apply,
+ * customise with a different value, or ignore entirely (optional).
  * @param primaryButton the primary action slot (optional).
  * @param secondaryButton the secondary action slot (optional).
  */
 data class BottomContentParameters(
-    val supportingText: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
+    val supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)? = null,
     val primaryButton: (@Composable () -> Unit)? = null,
     val secondaryButton: (@Composable () -> Unit)? = null,
 ) {
@@ -29,10 +31,13 @@ data class BottomContentParameters(
             secondaryButton: LeftAlignedScreenButton?,
         ): BottomContentParameters = BottomContentParameters(
             supportingText = supportingText?.let { text ->
-                { horizontalPadding ->
+                { horizontalPadding, verticalPadding ->
                     GdsSupportingText(
                         text = text,
-                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                        modifier = Modifier.padding(
+                            horizontal = horizontalPadding,
+                            vertical = verticalPadding,
+                        ),
                     )
                 }
             },

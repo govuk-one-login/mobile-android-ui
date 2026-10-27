@@ -93,13 +93,14 @@ private val bodySlot: LazyListScope.(horizontalItemPadding: Dp) -> Unit = { hori
     body.forEach { item { it.GenerateDefault(horizontalItemPadding) } }
 }
 
-private val supportingTextSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizontalPadding ->
-    GdsSupportingText(
-        text = "Check if your passport has a biometric chip, look for the " +
-            "rectangular biometric chip symbol on the front cover",
-        modifier = Modifier.padding(horizontal = horizontalPadding),
-    )
-}
+private val supportingTextSlot: @Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit =
+    { horizontalPadding, verticalPadding ->
+        GdsSupportingText(
+            text = "Check if your passport has a biometric chip, look for the " +
+                "rectangular biometric chip symbol on the front cover",
+            modifier = Modifier.padding(horizontal = horizontalPadding, vertical = verticalPadding),
+        )
+    }
 
 private val primaryButtonSlot: @Composable () -> Unit = {
     GdsButton(
