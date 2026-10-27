@@ -25,7 +25,7 @@ class BottomContentTest {
     fun displaySupportText() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(content.onlySupportingText)
+                BottomContentV3(content.onlySupportingText)
             }
 
             onNodeWithText(SUPPORTING_TEXT).assertIsDisplayed()
@@ -38,7 +38,7 @@ class BottomContentTest {
     fun displayPrimaryButton() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(content.onlyPrimaryButton)
+                BottomContentV3(content.onlyPrimaryButton)
             }
 
             onNodeWithText(SUPPORTING_TEXT).assertIsNotDisplayed()
@@ -51,7 +51,7 @@ class BottomContentTest {
     fun displaySecondaryButton() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(content.onlySecondaryButton)
+                BottomContentV3(content.onlySecondaryButton)
             }
 
             onNodeWithText(SUPPORTING_TEXT).assertIsNotDisplayed()
@@ -64,7 +64,7 @@ class BottomContentTest {
     fun displayAllOptions() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(content.allStandardParams)
+                BottomContentV3(content.allStandardParams)
             }
 
             onNodeWithText(SUPPORTING_TEXT).assertIsDisplayed()
@@ -79,7 +79,7 @@ class BottomContentTest {
     fun rendersWithCustomBackgroundColor() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = content.allStandardParams,
                     config = BottomContentConfig(backgroundColor = Color.Red),
                 )
@@ -96,7 +96,7 @@ class BottomContentTest {
     fun rendersWhenNotSticky() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = content.allStandardParams,
                     isSticky = false,
                 )
@@ -114,7 +114,7 @@ class BottomContentTest {
     fun rendersWithCustomConfigPadding() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = content.allStandardParams,
                     config = BottomContentConfig(
                         backgroundColor = Color.Blue,
@@ -137,7 +137,7 @@ class BottomContentTest {
     fun rendersEmptyWhenAllSlotsNull() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(BottomContentParameters())
+                BottomContentV3(BottomContentParameters())
             }
 
             onNodeWithText(SUPPORTING_TEXT).assertIsNotDisplayed()

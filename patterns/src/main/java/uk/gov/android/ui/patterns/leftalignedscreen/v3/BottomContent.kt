@@ -44,7 +44,7 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  * separate it from the content above (optional).
  */
 @Composable
-internal fun BottomContentV2(
+internal fun BottomContentV3(
     supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)?,
     primaryButton: (@Composable () -> Unit)?,
     secondaryButton: (@Composable () -> Unit)?,
@@ -78,7 +78,7 @@ internal fun BottomContentV2(
 private val NoPadding: Dp = 0.dp
 
 /**
- * [BottomContentParameters] convenience overload of [BottomContentV2], kept for previews, tests
+ * [BottomContentParameters] convenience overload of [BottomContentV3], kept for previews, tests
  * and demos. Maps the parameter slots onto the slot-based overload above, which is what
  * production code (`LeftAlignedLayout`) calls directly.
  *
@@ -89,11 +89,11 @@ private val NoPadding: Dp = 0.dp
  * separate it from the content above (optional).
  */
 @Composable
-internal fun BottomContentV2(
+internal fun BottomContentV3(
     parameters: BottomContentParameters,
     config: BottomContentConfig = BottomContentConfig(),
     isSticky: Boolean = true,
-) = BottomContentV2(
+) = BottomContentV3(
     supportingText = parameters.supportingText,
     primaryButton = parameters.primaryButton,
     secondaryButton = parameters.secondaryButton,
@@ -178,7 +178,7 @@ internal class BottomContentParametersProvider :
 private fun PreviewLightDarkBottomContent() {
     GdsTheme {
         Surface {
-            BottomContentV2(BottomContentParametersProvider().allStandardParams)
+            BottomContentV3(BottomContentParametersProvider().allStandardParams)
         }
     }
 }
@@ -189,7 +189,7 @@ private fun PreviewLightDarkBottomContent() {
 private fun PreviewFontScaleBottomContent() {
     GdsTheme {
         Surface {
-            BottomContentV2(BottomContentParametersProvider().allStandardParams)
+            BottomContentV3(BottomContentParametersProvider().allStandardParams)
         }
     }
 }
@@ -201,5 +201,5 @@ private fun PreviewBottomContent(
     @PreviewParameter(BottomContentParametersProvider::class)
     content: BottomContentParameters,
 ) {
-    GdsTheme { Surface { BottomContentV2(content) } }
+    GdsTheme { Surface { BottomContentV3(content) } }
 }

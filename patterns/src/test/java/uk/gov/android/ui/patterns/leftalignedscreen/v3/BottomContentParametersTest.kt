@@ -25,7 +25,7 @@ class BottomContentParametersTest {
     fun displayDefaultSupportText() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = SUPPORTING_TEXT,
                         primaryButton = null,
@@ -44,7 +44,7 @@ class BottomContentParametersTest {
     fun displayDefaultPrimaryButton() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = LeftAlignedScreenButton(
@@ -68,7 +68,7 @@ class BottomContentParametersTest {
     fun displayDefaultSecondaryButton() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = null,
@@ -91,7 +91,7 @@ class BottomContentParametersTest {
     fun displayAllDefaultOptions() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = SUPPORTING_TEXT,
                         primaryButton = LeftAlignedScreenButton(
@@ -122,7 +122,7 @@ class BottomContentParametersTest {
         var clicked = false
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = LeftAlignedScreenButton(
@@ -144,7 +144,7 @@ class BottomContentParametersTest {
         var clicked = false
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = null,
@@ -166,7 +166,7 @@ class BottomContentParametersTest {
     fun disabledPrimaryButtonIsNotEnabled() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = LeftAlignedScreenButton(
@@ -189,7 +189,7 @@ class BottomContentParametersTest {
     fun disabledSecondaryButtonIsNotEnabled() {
         with(composeTestRule) {
             setContent {
-                BottomContentV2(
+                BottomContentV3(
                     parameters = BottomContentParameters.generateDefault(
                         supportingText = null,
                         primaryButton = null,

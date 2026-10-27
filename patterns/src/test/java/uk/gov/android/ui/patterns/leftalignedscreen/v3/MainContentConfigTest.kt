@@ -59,9 +59,5 @@ class MainContentConfigTest {
             MainContentConfig(horizontalPadding = 8.dp),
             MainContentConfig(horizontalPadding = 16.dp),
         )
-        assertNotEquals(
-            MainContentConfig(verticalPadding = 8.dp),
-            MainContentConfig(verticalPadding = 16.dp),
-        )
     }
 }

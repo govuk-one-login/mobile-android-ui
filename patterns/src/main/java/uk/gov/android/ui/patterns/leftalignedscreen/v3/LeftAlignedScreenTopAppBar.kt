@@ -10,7 +10,7 @@ import uk.gov.android.ui.componentsv2.topappbar.TopBarActionButton
  * Describes the top app bar of [LeftAlignedScreenV3] for the simple-data entry point.
  *
  * This is the opinionated counterpart to the slot-based `topAppBar` slot: pass plain data and the
- * screen builds a [GdsTopAppBar] for you in the GDS style (see [TopAppBarContentV2]). For full
+ * screen builds a [GdsTopAppBar] for you in the GDS style (see [TopAppBarContentV3]). For full
  * control over the composable, use the slot-based entry point instead.
  *
  * @param title the bar title (optional).

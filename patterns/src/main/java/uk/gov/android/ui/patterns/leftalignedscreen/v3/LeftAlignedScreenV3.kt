@@ -232,7 +232,7 @@ private fun LeftAlignedLayout(
     val topAppBarScrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBarContentV2(
+        TopAppBarContentV3(
             topAppBar = topAppBar,
             scrollBehaviour = topAppBarScrollBehaviour,
         )
@@ -246,7 +246,7 @@ private fun LeftAlignedLayout(
         ) { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                BottomContentV2(
+                BottomContentV3(
                     supportingText = supportingText,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
@@ -264,7 +264,7 @@ private fun LeftAlignedLayout(
 
             // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
-                MainContentV2(
+                MainContentV3(
                     titleContent = title,
                     bodyContent = body,
                     config = mainContentConfig,
@@ -273,7 +273,7 @@ private fun LeftAlignedLayout(
                     // of the MainContent
                     bottomContent = if (bottomContentOverThreshold) {
                         {
-                            BottomContentV2(
+                            BottomContentV3(
                                 supportingText = supportingText,
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,

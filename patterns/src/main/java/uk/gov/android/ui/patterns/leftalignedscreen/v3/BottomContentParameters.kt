@@ -18,7 +18,7 @@ import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
  * @param primaryButton the primary action slot (optional).
  * @param secondaryButton the secondary action slot (optional).
  */
-data class BottomContentParameters(
+internal data class BottomContentParameters(
     val supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)? = null,
     val primaryButton: (@Composable () -> Unit)? = null,
     val secondaryButton: (@Composable () -> Unit)? = null,

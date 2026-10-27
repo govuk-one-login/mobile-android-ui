@@ -25,7 +25,7 @@ class MainContentTest {
     fun displayOnlyTitle() {
         with(composeTestRule) {
             setContent {
-                Column { MainContentV2(content.onlyTitleContent) }
+                Column { MainContentV3(content.onlyTitleContent) }
             }
 
             onNodeWithText(TITLE_TEXT).assertIsDisplayed()
@@ -37,7 +37,7 @@ class MainContentTest {
     fun displayOnlyBody() {
         with(composeTestRule) {
             setContent {
-                Column { MainContentV2(content.onlyBodyContent) }
+                Column { MainContentV3(content.onlyBodyContent) }
             }
 
             onNodeWithText(TITLE_TEXT).assertIsNotDisplayed()
@@ -49,7 +49,7 @@ class MainContentTest {
     fun displayTitleAndBody() {
         with(composeTestRule) {
             setContent {
-                Column { MainContentV2(content.allStandardParams) }
+                Column { MainContentV3(content.allStandardParams) }
             }
 
             onNodeWithText(TITLE_TEXT).assertIsDisplayed()
@@ -64,7 +64,7 @@ class MainContentTest {
         with(composeTestRule) {
             setContent {
                 Column {
-                    MainContentV2(
+                    MainContentV3(
                         parameters = content.allStandardParams,
                         config = MainContentConfig(
                             horizontalPadding = 24.dp,
@@ -86,7 +86,7 @@ class MainContentTest {
         with(composeTestRule) {
             setContent {
                 Column {
-                    MainContentV2(
+                    MainContentV3(
                         parameters = content.allStandardParams,
                         bottomContent = { Text(BOTTOM_CONTENT_TEXT) },
                     )
@@ -103,7 +103,7 @@ class MainContentTest {
     fun rendersEmptyWhenAllSlotsNull() {
         with(composeTestRule) {
             setContent {
-                Column { MainContentV2(MainContentParameters()) }
+                Column { MainContentV3(MainContentParameters()) }
             }
 
             onNodeWithText(TITLE_TEXT).assertIsNotDisplayed()

@@ -24,7 +24,7 @@ class TopAppBarContentTest {
     fun displayTitle() {
         with(composeTestRule) {
             setContent {
-                TopAppBarContentV2(
+                TopAppBarContentV3(
                     parameters = content.onlyTitle,
                     scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
                 )
@@ -38,7 +38,7 @@ class TopAppBarContentTest {
     fun displayWithoutNavigation() {
         with(composeTestRule) {
             setContent {
-                TopAppBarContentV2(
+                TopAppBarContentV3(
                     parameters = content.noNavigation,
                     scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
                 )
@@ -52,7 +52,7 @@ class TopAppBarContentTest {
     fun displayCentreAligned() {
         with(composeTestRule) {
             setContent {
-                TopAppBarContentV2(
+                TopAppBarContentV3(
                     parameters = content.centreAligned,
                     scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
                 )
@@ -67,7 +67,7 @@ class TopAppBarContentTest {
     fun rendersEmptyWhenSlotNull() {
         with(composeTestRule) {
             setContent {
-                TopAppBarContentV2(
+                TopAppBarContentV3(
                     parameters = TopAppBarContentParameters(),
                     scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
                 )

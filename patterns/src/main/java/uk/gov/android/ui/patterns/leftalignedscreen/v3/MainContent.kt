@@ -41,7 +41,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 import uk.gov.android.ui.theme.spacingTriple
 
-private const val AS_MUCH_AS_POSSIBLE = 1f
+private const val LAYOUT_WEIGHT_MAX = 1f
 
 /**
  * The scrollable main content (title and body) of [LeftAlignedScreenV3], laid out in a
@@ -61,7 +61,7 @@ private const val AS_MUCH_AS_POSSIBLE = 1f
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
-internal fun ColumnScope.MainContentV2(
+internal fun ColumnScope.MainContentV3(
     titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
     bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     config: MainContentConfig = MainContentConfig(),
@@ -73,7 +73,7 @@ internal fun ColumnScope.MainContentV2(
             verticalArrangement = Arrangement.spacedBy(verticalPadding),
             state = scrollState,
             modifier = modifier
-                .weight(AS_MUCH_AS_POSSIBLE)
+                .weight(LAYOUT_WEIGHT_MAX)
                 .fillMaxWidth()
                 .testTag(BODY_LAZY_COLUMN_TEST_TAG)
                 .clearListSemanticsForTalkBack(),
@@ -87,7 +87,7 @@ internal fun ColumnScope.MainContentV2(
 }
 
 /**
- * [MainContentParameters] convenience overload of [MainContentV2], kept for previews, tests and
+ * [MainContentParameters] convenience overload of [MainContentV3], kept for previews, tests and
  * demos. Maps the parameter slots onto the slot-based overload above, which is what production
  * code (`LeftAlignedLayout`) calls directly.
  *
@@ -97,12 +97,12 @@ internal fun ColumnScope.MainContentV2(
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
-internal fun ColumnScope.MainContentV2(
+internal fun ColumnScope.MainContentV3(
     parameters: MainContentParameters,
     config: MainContentConfig = MainContentConfig(),
     scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
-) = MainContentV2(
+) = MainContentV3(
     titleContent = parameters.titleContent,
     bodyContent = parameters.bodyContent,
     config = config,
@@ -247,7 +247,7 @@ private fun PreviewLightDarkMainContent() {
     GdsTheme {
         Surface {
             Column {
-                MainContentV2(MainContentParametersProvider().allStandardParams)
+                MainContentV3(MainContentParametersProvider().allStandardParams)
             }
         }
     }
@@ -260,7 +260,7 @@ private fun PreviewFontScaleMainContent() {
     GdsTheme {
         Surface {
             Column {
-                MainContentV2(MainContentParametersProvider().allComplexParams)
+                MainContentV3(MainContentParametersProvider().allComplexParams)
             }
         }
     }
@@ -273,5 +273,5 @@ private fun PreviewMainContent(
     @PreviewParameter(MainContentParametersProvider::class)
     content: MainContentParameters,
 ) {
-    GdsTheme { Surface { Column { MainContentV2(content) } } }
+    GdsTheme { Surface { Column { MainContentV3(content) } } }
 }
