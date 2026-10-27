@@ -26,9 +26,15 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  * The bottom content (supporting text and buttons) of [LeftAlignedScreenV3].
  *
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
- * element through the modifiers on each [BottomContentParameters] slot.
+ * element through the modifiers on each slot.
  *
- * @param parameters the supporting text and button content.
+ * This is the slot-based implementation used directly by production code (`LeftAlignedLayout`).
+ * The [BottomContentParameters] overload below is a thin wrapper kept for previews, tests and
+ * demos.
+ *
+ * @param supportingText the supporting text slot, shown above the buttons (optional).
+ * @param primaryButton the primary action slot (optional).
+ * @param secondaryButton the secondary action slot (optional).
  * @param config the layout configuration (background colour, padding and modifier) for the bottom
  * content (optional).
  * @param isSticky whether this is rendered as a sticky footer; when true a top padding is added to
@@ -36,7 +42,9 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  */
 @Composable
 internal fun BottomContentV2(
-    parameters: BottomContentParameters,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    primaryButton: (@Composable () -> Unit)?,
+    secondaryButton: (@Composable () -> Unit)?,
     config: BottomContentConfig = BottomContentConfig(),
     isSticky: Boolean = true,
 ) {
@@ -56,13 +64,37 @@ internal fun BottomContentV2(
                 ),
                 verticalArrangement = Arrangement.spacedBy(verticalPadding),
             ) {
-                parameters.supportingText?.invoke(horizontalPadding)
-                parameters.primaryButton?.invoke()
-                parameters.secondaryButton?.invoke()
+                supportingText?.invoke(horizontalPadding)
+                primaryButton?.invoke()
+                secondaryButton?.invoke()
             }
         }
     }
 }
+
+/**
+ * [BottomContentParameters] convenience overload of [BottomContentV2], kept for previews, tests
+ * and demos. Maps the parameter slots onto the slot-based overload above, which is what
+ * production code (`LeftAlignedLayout`) calls directly.
+ *
+ * @param parameters the supporting text and button content.
+ * @param config the layout configuration (background colour, padding and modifier) for the bottom
+ * content (optional).
+ * @param isSticky whether this is rendered as a sticky footer; when true a top padding is added to
+ * separate it from the content above (optional).
+ */
+@Composable
+internal fun BottomContentV2(
+    parameters: BottomContentParameters,
+    config: BottomContentConfig = BottomContentConfig(),
+    isSticky: Boolean = true,
+) = BottomContentV2(
+    supportingText = parameters.supportingText,
+    primaryButton = parameters.primaryButton,
+    secondaryButton = parameters.secondaryButton,
+    config = config,
+    isSticky = isSticky,
+)
 
 @Immutable
 internal class BottomContentParametersProvider :

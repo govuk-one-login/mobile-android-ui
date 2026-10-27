@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Surface
@@ -47,16 +48,22 @@ private const val AS_MUCH_AS_POSSIBLE = 1f
  * [LazyColumn].
  *
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
- * element through the modifiers on each [MainContentParameters] slot.
+ * element through the modifiers on each slot.
  *
- * @param parameters the title and body content and their layout configuration.
+ * This is the slot-based implementation used directly by production code (`LeftAlignedLayout`).
+ * The [MainContentParameters] overload below is a thin wrapper kept for previews, tests and
+ * demos.
+ *
+ * @param titleContent the title slot, rendered as the first item in the column (optional).
+ * @param bodyContent the body slot, contributing items to the scrollable list (optional).
  * @param scrollState the [LazyListState] for the body, exposed for legacy compatibility (optional).
  * @param bottomContent appended as the final item when the bottom content is too large to remain a
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
 internal fun ColumnScope.MainContentV2(
-    parameters: MainContentParameters,
+    titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     config: MainContentConfig = MainContentConfig(),
     scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
@@ -72,12 +79,36 @@ internal fun ColumnScope.MainContentV2(
                 .clearListSemanticsForTalkBack(),
             contentPadding = PaddingValues(vertical = verticalPadding),
         ) {
-            parameters.titleContent?.let { title -> item { title(horizontalPadding) } }
-            parameters.bodyContent?.let { body -> body(horizontalPadding) }
+            titleContent?.let { title -> item { title(horizontalPadding) } }
+            bodyContent?.let { body -> body(horizontalPadding) }
             bottomContent?.let { bottom -> item { bottom() } }
         }
     }
 }
+
+/**
+ * [MainContentParameters] convenience overload of [MainContentV2], kept for previews, tests and
+ * demos. Maps the parameter slots onto the slot-based overload above, which is what production
+ * code (`LeftAlignedLayout`) calls directly.
+ *
+ * @param parameters the title and body content and their layout configuration.
+ * @param scrollState the [LazyListState] for the body, exposed for legacy compatibility (optional).
+ * @param bottomContent appended as the final item when the bottom content is too large to remain a
+ * sticky footer and must scroll with the body instead (optional).
+ */
+@Composable
+internal fun ColumnScope.MainContentV2(
+    parameters: MainContentParameters,
+    config: MainContentConfig = MainContentConfig(),
+    scrollState: LazyListState = rememberLazyListState(),
+    bottomContent: @Composable (() -> Unit)? = null,
+) = MainContentV2(
+    titleContent = parameters.titleContent,
+    bodyContent = parameters.bodyContent,
+    config = config,
+    scrollState = scrollState,
+    bottomContent = bottomContent,
+)
 
 @Immutable
 internal class MainContentParametersProvider : PreviewParameterProvider<MainContentParameters> {

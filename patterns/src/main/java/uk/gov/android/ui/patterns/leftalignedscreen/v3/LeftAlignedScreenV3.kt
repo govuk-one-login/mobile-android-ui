@@ -103,16 +103,12 @@ fun LeftAlignedScreenV3(
         modifier = modifier,
         backgroundColor = backgroundColor,
         topAppBarContentParameters = TopAppBarContentParameters(topAppBar = topAppBar),
-        mainContentParameters = MainContentParameters(
-            titleContent = title,
-            bodyContent = body,
-        ),
+        title = title,
+        body = body,
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
-        bottomContentParameters = BottomContentParameters(
-            supportingText = supportingText,
-            primaryButton = primaryButton,
-            secondaryButton = secondaryButton,
-        ),
+        supportingText = supportingText,
+        primaryButton = primaryButton,
+        secondaryButton = secondaryButton,
         bottomContentConfig = bottomContentConfig,
         bottomContentBehaviour = bottomContentBehaviour,
         scrollState = scrollState,
@@ -169,18 +165,23 @@ fun LeftAlignedScreenV3(
         mainContentConfig.modifier
     }
 
+    val mainContentParameters = MainContentParameters.generateDefault(title, body)
+    val bottomContentParameters = BottomContentParameters.generateDefault(
+        supportingText = supportingText,
+        primaryButton = primaryButton,
+        secondaryButton = secondaryButton,
+    )
+
     LeftAlignedLayout(
         modifier = modifier,
         backgroundColor = backgroundColor,
         topAppBarContentParameters = TopAppBarContentParameters.generateDefault(topAppBar),
-        mainContentParameters =
-            MainContentParameters.generateDefault(title, body),
+        title = mainContentParameters.titleContent,
+        body = mainContentParameters.bodyContent,
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
-        bottomContentParameters = BottomContentParameters.generateDefault(
-            supportingText = supportingText,
-            primaryButton = primaryButton,
-            secondaryButton = secondaryButton,
-        ),
+        supportingText = bottomContentParameters.supportingText,
+        primaryButton = bottomContentParameters.primaryButton,
+        secondaryButton = bottomContentParameters.secondaryButton,
         bottomContentConfig = bottomContentConfig,
         bottomContentBehaviour = bottomContentBehaviour,
         scrollState = scrollState,
@@ -188,15 +189,18 @@ fun LeftAlignedScreenV3(
 }
 
 @SuppressLint("ConfigurationScreenWidthHeight")
-@Suppress("LongMethod")
+@Suppress("LongMethod", "LongParameterList")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LeftAlignedLayout(
     backgroundColor: Color,
     topAppBarContentParameters: TopAppBarContentParameters,
-    mainContentParameters: MainContentParameters,
+    title: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     mainContentConfig: MainContentConfig,
-    bottomContentParameters: BottomContentParameters,
+    supportingText: (@Composable (horizontalPadding: Dp) -> Unit)?,
+    primaryButton: (@Composable () -> Unit)?,
+    secondaryButton: (@Composable () -> Unit)?,
     bottomContentConfig: BottomContentConfig,
     bottomContentBehaviour: BottomContentBehaviour,
     modifier: Modifier = Modifier,
@@ -232,7 +236,9 @@ private fun LeftAlignedLayout(
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
                 BottomContentV2(
-                    parameters = bottomContentParameters,
+                    supportingText = supportingText,
+                    primaryButton = primaryButton,
+                    secondaryButton = secondaryButton,
                     config = bottomContentConfig,
                     isSticky = true,
                 )
@@ -248,7 +254,8 @@ private fun LeftAlignedLayout(
             // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
                 MainContentV2(
-                    parameters = mainContentParameters,
+                    titleContent = title,
+                    bodyContent = body,
                     config = mainContentConfig,
                     scrollState = scrollState,
                     // Based on the height calculated above, display the BottomContent as part
@@ -256,7 +263,9 @@ private fun LeftAlignedLayout(
                     bottomContent = if (bottomContentOverThreshold) {
                         {
                             BottomContentV2(
-                                parameters = bottomContentParameters,
+                                supportingText = supportingText,
+                                primaryButton = primaryButton,
+                                secondaryButton = secondaryButton,
                                 // Remove custom background colour used for the "Sticky" position
                                 config = bottomContentConfig
                                     .copy(backgroundColor = Color.Unspecified),
