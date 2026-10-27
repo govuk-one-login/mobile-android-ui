@@ -100,12 +100,14 @@ class LeftAlignedScreenContentProviderTest {
                         primaryButton = content.primaryButton?.let {
                             LeftAlignedScreenButton(
                                 it,
-                                {})
+                                {},
+                            )
                         },
                         secondaryButton = content.secondaryButton?.let {
                             LeftAlignedScreenButton(
                                 it,
-                                {})
+                                {},
+                            )
                         },
                     )
                 }
