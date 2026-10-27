@@ -22,10 +22,13 @@ import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProv
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.TITLE_TEXT
 import uk.gov.android.ui.theme.spacingTriple
 
+private val NO_OP: () -> Unit = {}
+private val NO_OP_INT: (Int) -> Unit = {}
+
 internal class LeftAlignedScreenContentProvider :
     PreviewParameterProvider<LeftAlignedScreenContent> {
     private val mainContent = MainContentParametersProvider()
-    internal val textShort = LoremIpsum(5).values.first()
+    private val textShort = LoremIpsum(5).values.first()
     private val textLong = LoremIpsum(25).values.first()
     private val textExtraLong = LoremIpsum(100).values.first()
     private val supportingText = BottomContentParametersProvider.SUPPORTING_TEXT
@@ -70,7 +73,7 @@ internal class LeftAlignedScreenContentProvider :
                 ),
                 LeftAlignedScreenBody.SecondaryButton(
                     secondaryButtonText,
-                    {},
+                    NO_OP,
                     showIcon = true,
                 ),
             ),
@@ -101,7 +104,7 @@ internal class LeftAlignedScreenContentProvider :
                 LeftAlignedScreenBody.Selection(
                     items = selectionItems,
                     selectedItem = null,
-                    onItemSelected = {},
+                    onItemSelected = NO_OP_INT,
                     title = GdsRadiosTitle(text = "Title", style = GdsHeadingStyle.Title1),
                 ),
             ),
@@ -133,7 +136,7 @@ internal class LeftAlignedScreenContentProvider :
                 ),
                 LeftAlignedScreenBody.SecondaryButton(
                     secondaryButtonText,
-                    {},
+                    NO_OP,
                     showIcon = true,
                 ),
             ),
@@ -155,12 +158,12 @@ internal class LeftAlignedScreenContentProvider :
                     rowData = persistentListOf(
                         RowData(
                             title = "Basic Row component",
-                            onClick = {},
+                            onClick = NO_OP,
                         ),
                         RowData(
                             title = "Row component with click disabled",
                             clickEnabled = false,
-                            onClick = {},
+                            onClick = NO_OP,
                         ),
                         RowData(
                             title = "Full Row component",
@@ -172,13 +175,13 @@ internal class LeftAlignedScreenContentProvider :
                             scaleLeadingImageWithFontSize = true,
                             trailingText = "100+",
                             trailingIcon = RowTrailingIcon.OpenInNew(),
-                            onClick = {},
+                            onClick = NO_OP,
                         ),
                     ),
                 ),
                 LeftAlignedScreenBody.SecondaryButton(
                     secondaryButtonText,
-                    {},
+                    NO_OP,
                     showIcon = true,
                 ),
             ),
