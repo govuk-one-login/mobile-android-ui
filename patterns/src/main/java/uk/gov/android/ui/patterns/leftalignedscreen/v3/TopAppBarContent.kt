@@ -31,8 +31,8 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TopAppBarContentV3(
-    topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
     scrollBehaviour: TopAppBarScrollBehavior,
+    topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
 ) {
     topAppBar?.invoke(scrollBehaviour)
 }
