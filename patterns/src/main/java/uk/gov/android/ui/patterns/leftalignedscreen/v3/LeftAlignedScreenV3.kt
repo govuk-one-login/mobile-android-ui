@@ -434,7 +434,7 @@ internal fun PreviewLeftAlignedScreenCustomVerticalPaddingV3(
         bottomContentBehaviour = BottomContentBehaviour.Fixed,
         mainContentConfig = MainContentConfig(verticalPadding = 16.dp),
         bottomContentConfig = BottomContentConfig(
-            verticalPadding = 16.dp,
+            verticalPadding = verticalPadding,
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
     )
