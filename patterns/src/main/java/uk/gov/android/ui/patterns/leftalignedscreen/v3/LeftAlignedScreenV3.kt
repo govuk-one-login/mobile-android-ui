@@ -351,8 +351,7 @@ internal fun PreviewLeftAlignedScreenAdaptiveV3(
 @ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview
-internal fun PreviewLeftAlignedScreenWithSpacing(
-) {
+internal fun PreviewLeftAlignedScreenWithSpacing() {
     PreviewLeftAlignedScreenCustomVerticalPaddingV3(48.dp)
 }
 
