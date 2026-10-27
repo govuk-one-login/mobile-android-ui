@@ -17,8 +17,30 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 /**
  * The top app bar of [LeftAlignedScreenV3].
  *
- * Mirrors [MainContentV2] and [BottomContentV2]: it renders the [TopAppBarContentParameters] slot,
- * forwarding the screen-owned [TopAppBarScrollBehavior] so the bar can react to the body scrolling.
+ * Mirrors [MainContentV2] and [BottomContentV2]: it renders the top app bar slot, forwarding the
+ * screen-owned [TopAppBarScrollBehavior] so the bar can react to the body scrolling.
+ *
+ * This is the slot-based implementation used directly by production code (`LeftAlignedLayout`).
+ * The [TopAppBarContentParameters] overload below is a thin wrapper kept for previews, tests and
+ * demos.
+ *
+ * @param topAppBar the top app bar slot. Use of [GdsTopAppBar] is recommended (optional).
+ * @param scrollBehaviour the [TopAppBarScrollBehavior] owned by the screen, forwarded to the slot
+ * (and from there to [GdsTopAppBar]) so the bar reacts to the body scrolling.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun TopAppBarContentV2(
+    topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
+    scrollBehaviour: TopAppBarScrollBehavior,
+) {
+    topAppBar?.invoke(scrollBehaviour)
+}
+
+/**
+ * [TopAppBarContentParameters] convenience overload of [TopAppBarContentV2], kept for previews,
+ * tests and demos. Maps the parameter slot onto the slot-based overload above, which is what
+ * production code (`LeftAlignedLayout`) calls directly.
  *
  * @param parameters the top app bar slot.
  * @param scrollBehaviour the [TopAppBarScrollBehavior] owned by the screen, forwarded to the slot
@@ -29,9 +51,10 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 internal fun TopAppBarContentV2(
     parameters: TopAppBarContentParameters,
     scrollBehaviour: TopAppBarScrollBehavior,
-) {
-    parameters.topAppBar?.invoke(scrollBehaviour)
-}
+) = TopAppBarContentV2(
+    topAppBar = parameters.topAppBar,
+    scrollBehaviour = scrollBehaviour,
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Immutable

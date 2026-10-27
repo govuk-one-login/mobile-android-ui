@@ -249,7 +249,16 @@ fun LeftAlignedScreenV2(
  * @param secondaryButton secondary action button (optional).
  * @param forceScroll A [Boolean] indicating whether the screen should support vertical scrolling
  */
+
+//TODO: Add date + ticket on when deprecation is
 @Composable
+@Deprecated(
+    message = "Use LeftAlignedScreenV3 instead.",
+    replaceWith = ReplaceWith(
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+    ),
+    level = DeprecationLevel.WARNING,
+)
 fun LeftAlignedScreenV2(
     modifier: Modifier = Modifier,
     title: String? = null,

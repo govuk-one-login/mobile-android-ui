@@ -102,7 +102,7 @@ fun LeftAlignedScreenV3(
     LeftAlignedLayout(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        topAppBarContentParameters = TopAppBarContentParameters(topAppBar = topAppBar),
+        topAppBar = topAppBar,
         title = title,
         body = body,
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
@@ -171,11 +171,12 @@ fun LeftAlignedScreenV3(
         primaryButton = primaryButton,
         secondaryButton = secondaryButton,
     )
+    val topAppBarContentParameters = TopAppBarContentParameters.generateDefault(topAppBar)
 
     LeftAlignedLayout(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        topAppBarContentParameters = TopAppBarContentParameters.generateDefault(topAppBar),
+        topAppBar = topAppBarContentParameters.topAppBar,
         title = mainContentParameters.titleContent,
         body = mainContentParameters.bodyContent,
         mainContentConfig = mainContentConfig.copy(modifier = columnModifier),
@@ -194,7 +195,7 @@ fun LeftAlignedScreenV3(
 @Composable
 private fun LeftAlignedLayout(
     backgroundColor: Color,
-    topAppBarContentParameters: TopAppBarContentParameters,
+    topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
     title: (@Composable (horizontalPadding: Dp) -> Unit)?,
     body: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     mainContentConfig: MainContentConfig,
@@ -222,7 +223,7 @@ private fun LeftAlignedLayout(
 
     Column(modifier = Modifier.fillMaxSize()) {
         TopAppBarContentV2(
-            parameters = topAppBarContentParameters,
+            topAppBar = topAppBar,
             scrollBehaviour = topAppBarScrollBehaviour,
         )
 
