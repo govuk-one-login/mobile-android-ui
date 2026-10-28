@@ -63,9 +63,17 @@ private const val FONT_SCALE_DOUBLE = 2f
  * @sample LeftAlignedScreenFromContentParams
  * @param forceScroll [Boolean] determines whether a scroll can be added to a keyboard down arrow event to avoid focus becoming stuck
  */
+// TODO: Add date + ticket on when deprecation is
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
+@Deprecated(
+    message = "Use LeftAlignedScreenV3 instead.",
+    replaceWith = ReplaceWith(
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+    ),
+    level = DeprecationLevel.WARNING,
+)
 fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -169,12 +177,12 @@ fun LeftAlignedScreen(
  * @param primaryButton primary action button (optional).
  * @param secondaryButton secondary action button (optional).
  */
+// TODO: Add date + ticket on when deprecation is
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV2 with added forceScroll parameter instead. Aim to be " +
-        "removed by 04/05/2026",
+    message = "Use LeftAlignedScreenV3 instead.",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenV2",
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
     ),
     level = DeprecationLevel.WARNING,
 )
@@ -249,7 +257,15 @@ fun LeftAlignedScreenV2(
  * @param secondaryButton secondary action button (optional).
  * @param forceScroll A [Boolean] indicating whether the screen should support vertical scrolling
  */
+// TODO: Add date + ticket on when deprecation is
 @Composable
+@Deprecated(
+    message = "Use LeftAlignedScreenV3 instead.",
+    replaceWith = ReplaceWith(
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+    ),
+    level = DeprecationLevel.WARNING,
+)
 fun LeftAlignedScreenV2(
     modifier: Modifier = Modifier,
     title: String? = null,
