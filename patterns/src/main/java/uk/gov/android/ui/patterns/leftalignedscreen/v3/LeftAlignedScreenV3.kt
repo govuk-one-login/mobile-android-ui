@@ -50,7 +50,7 @@ private const val ONE_THIRD = 1f / 3f
  * LeftAlignedScreenV2 for drop-in compatibility.
  *
  * The main content (title and body) sits in a scrollable container, with the bottom content
- * (supporting text and buttons) beneath it. The bottom content uses the default
+ * (supporting text and buttons) beneath it. By default, the bottom content uses the
  * [BottomContentBehaviour.Adaptive] behaviour: it stays pinned to the bottom until it exceeds one
  * third of the screen height, at which point it moves into the scrollable body.
  *
