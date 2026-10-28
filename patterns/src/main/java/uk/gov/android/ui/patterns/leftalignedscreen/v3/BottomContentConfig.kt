@@ -6,7 +6,7 @@ import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
- * Holds the layout configuration for the bottom content of [LeftAlignedScreenV3] (supporting text
+ * Holds the layout configuration for the bottom content of [LeftAlignedScreen] (supporting text
  * and buttons).
  *
  * @param backgroundColor background colour used when the content is a sticky footer (optional).

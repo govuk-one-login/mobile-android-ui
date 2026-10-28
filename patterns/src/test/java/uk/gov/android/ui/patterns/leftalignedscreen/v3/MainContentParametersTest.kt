@@ -35,7 +35,7 @@ class MainContentParametersTest {
         with(composeTestRule) {
             setContent {
                 Column {
-                    MainContentV3(
+                    MainContent(
                         parameters = MainContentParameters.generateDefault(
                             title = TITLE,
                             body = null,
@@ -55,7 +55,7 @@ class MainContentParametersTest {
         with(composeTestRule) {
             setContent {
                 Column {
-                    MainContentV3(
+                    MainContent(
                         parameters = MainContentParameters.generateDefault(
                             title = null,
                             body = content.simpleBody(),
@@ -75,7 +75,7 @@ class MainContentParametersTest {
         with(composeTestRule) {
             setContent {
                 Column {
-                    MainContentV3(
+                    MainContent(
                         parameters = MainContentParameters.generateDefault(
                             title = TITLE,
                             body = content.simpleBody(),
@@ -94,7 +94,7 @@ class MainContentParametersTest {
     private fun renderBody(body: LeftAlignedScreenBody) = with(composeTestRule) {
         setContent {
             Column {
-                MainContentV3(
+                MainContent(
                     parameters = MainContentParameters.generateDefault(
                         title = null,
                         body = persistentListOf(body),

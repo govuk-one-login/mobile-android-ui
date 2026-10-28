@@ -26,7 +26,7 @@ internal data class LeftAlignedScreenContent(
 )
 
 /**
- * The set of body elements that can appear in [LeftAlignedScreenV3]'s scrollable content when using
+ * The set of body elements that can appear in [LeftAlignedScreen]'s scrollable content when using
  * the simple-data entry point. Each subtype maps to a GDS component (heading, list, image, warning,
  * and so on) that the screen renders for you.
  */
@@ -87,7 +87,7 @@ sealed class LeftAlignedScreenBody {
 }
 
 /**
- * Describes a button in [LeftAlignedScreenV3]'s bottom content for the simple-data entry point.
+ * Describes a button in [LeftAlignedScreen]'s bottom content for the simple-data entry point.
  *
  * @param text the button label.
  * @param onClick invoked when the button is clicked.

@@ -46,7 +46,7 @@ import uk.gov.android.ui.theme.spacingTriple
 private const val ONE_THIRD = 1f / 3f
 
 /**
- * Slot-based convenience entry point for [LeftAlignedScreenV3] that keeps the defaults from
+ * Slot-based convenience entry point for [LeftAlignedScreen] that keeps the defaults from
  * LeftAlignedScreenV2 for drop-in compatibility.
  *
  * The main content (title and body) sits in a scrollable container, with the bottom content
@@ -88,7 +88,7 @@ private const val ONE_THIRD = 1f / 3f
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LeftAlignedScreenV3(
+fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)? = null,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -100,7 +100,7 @@ fun LeftAlignedScreenV3(
     mainContentConfig: MainContentConfig = MainContentConfig(),
     bottomContentConfig: BottomContentConfig = BottomContentConfig(),
     bottomContentBehaviour: BottomContentBehaviour =
-        LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+        LeftAlignedScreenDefaults.bottomContentBehaviour,
     backgroundColor: Color = Color.Unspecified,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
@@ -126,7 +126,7 @@ fun LeftAlignedScreenV3(
 }
 
 /**
- * Simple-data convenience entry point for [LeftAlignedScreenV3] that keeps the defaults from
+ * Simple-data convenience entry point for [LeftAlignedScreen] that keeps the defaults from
  * LeftAlignedScreenV2 for drop-in compatibility.
  *
  * Takes plain data (strings, a body list and button models) and builds the default GDS components
@@ -153,7 +153,7 @@ fun LeftAlignedScreenV3(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LeftAlignedScreenV3(
+fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: LeftAlignedScreenTopAppBar? = null,
     title: String? = null,
@@ -165,7 +165,7 @@ fun LeftAlignedScreenV3(
     mainContentConfig: MainContentConfig = MainContentConfig(),
     bottomContentConfig: BottomContentConfig = BottomContentConfig(),
     bottomContentBehaviour: BottomContentBehaviour =
-        LeftAlignedScreenV3Defaults.bottomContentBehaviour,
+        LeftAlignedScreenDefaults.bottomContentBehaviour,
     backgroundColor: Color = Color.Unspecified,
 ) {
     val scrollState: LazyListState = rememberLazyListState()
@@ -232,7 +232,7 @@ private fun LeftAlignedLayout(
     val topAppBarScrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        TopAppBarContentV3(
+        TopAppBarContent(
             topAppBar = topAppBar,
             scrollBehaviour = topAppBarScrollBehaviour,
         )
@@ -246,7 +246,7 @@ private fun LeftAlignedLayout(
         ) { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
-                BottomContentV3(
+                BottomContent(
                     supportingText = supportingText,
                     primaryButton = primaryButton,
                     secondaryButton = secondaryButton,
@@ -264,7 +264,7 @@ private fun LeftAlignedLayout(
 
             // Measure MainContent and add BottomContent to MainContent if above threshold
             val mainPlaceables = subcompose("main") {
-                MainContentV3(
+                MainContent(
                     titleContent = title,
                     bodyContent = body,
                     config = mainContentConfig,
@@ -273,7 +273,7 @@ private fun LeftAlignedLayout(
                     // of the MainContent
                     bottomContent = if (bottomContentOverThreshold) {
                         {
-                            BottomContentV3(
+                            BottomContent(
                                 supportingText = supportingText,
                                 primaryButton = primaryButton,
                                 secondaryButton = secondaryButton,
@@ -320,7 +320,7 @@ private fun LeftAlignedLayout(
     }
 }
 
-object LeftAlignedScreenV3Defaults {
+object LeftAlignedScreenDefaults {
     val bottomContentBehaviour = BottomContentBehaviour.Adaptive
 }
 
@@ -331,34 +331,34 @@ internal object LeftAlignedScreenTestTag {
 @ExcludeFromJacocoGeneratedReport
 @Composable
 @PreviewLightDark
-internal fun PreviewLeftAlignedScreenFixedV3(
+internal fun PreviewLeftAlignedScreenFixed(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    PreviewLeftAlignedScreenV3(content, BottomContentBehaviour.Fixed)
+    PreviewLeftAlignedScreen(content, BottomContentBehaviour.Fixed)
 }
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview
-internal fun PreviewLeftAlignedScreenAdaptiveV3(
+internal fun PreviewLeftAlignedScreenAdaptive(
     @PreviewParameter(LeftAlignedScreenContentProvider::class)
     content: LeftAlignedScreenContent,
 ) {
-    PreviewLeftAlignedScreenV3(content, BottomContentBehaviour.Adaptive)
+    PreviewLeftAlignedScreen(content, BottomContentBehaviour.Adaptive)
 }
 
 @ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview
 internal fun PreviewLeftAlignedScreenWithSpacing() {
-    PreviewLeftAlignedScreenCustomVerticalPaddingV3(48.dp)
+    PreviewLeftAlignedScreenCustomVerticalPadding(48.dp)
 }
 
 @ExcludeFromJacocoGeneratedReport
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PreviewLeftAlignedScreenV3(
+private fun PreviewLeftAlignedScreen(
     content: LeftAlignedScreenContent,
     bottomContentBehaviour: BottomContentBehaviour,
     mainContentConfig: MainContentConfig = MainContentConfig(),
@@ -367,7 +367,7 @@ private fun PreviewLeftAlignedScreenV3(
     ),
 ) {
     GdsTheme {
-        LeftAlignedScreenV3(
+        LeftAlignedScreen(
             topAppBar = TopAppBarContentParameters.generateDefault(content.topAppBar).topAppBar,
             title = content.title?.let { title ->
                 { horizontalPadding ->
@@ -425,11 +425,11 @@ private fun PreviewLeftAlignedScreenV3(
 @ExcludeFromJacocoGeneratedReport
 @Composable
 @Preview(showBackground = true)
-internal fun PreviewLeftAlignedScreenCustomVerticalPaddingV3(
+internal fun PreviewLeftAlignedScreenCustomVerticalPadding(
     @PreviewParameter(LeftAlignedScreenVerticalPaddingProvider::class)
     verticalPadding: Dp,
 ) {
-    PreviewLeftAlignedScreenV3(
+    PreviewLeftAlignedScreen(
         content = LeftAlignedScreenContentProvider().values.first(),
         bottomContentBehaviour = BottomContentBehaviour.Fixed,
         mainContentConfig = MainContentConfig(verticalPadding = 16.dp),

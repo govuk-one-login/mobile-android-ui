@@ -10,7 +10,7 @@ import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 
 /**
- * Holds the bottom content of [LeftAlignedScreenV3] (supporting text and buttons).
+ * Holds the bottom content of [LeftAlignedScreen] (supporting text and buttons).
  *
  * @param supportingText the supporting text slot, shown above the buttons. Receives the
  * configured horizontal padding and a vertical padding hook that an individual slot can apply,

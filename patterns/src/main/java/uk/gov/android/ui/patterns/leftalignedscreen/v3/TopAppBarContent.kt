@@ -15,9 +15,9 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 
 /**
- * The top app bar of [LeftAlignedScreenV3].
+ * The top app bar of [LeftAlignedScreen].
  *
- * Mirrors [MainContentV3] and [BottomContentV3]: it renders the top app bar slot, forwarding the
+ * Mirrors [MainContent] and [BottomContent]: it renders the top app bar slot, forwarding the
  * screen-owned [TopAppBarScrollBehavior] so the bar can react to the body scrolling.
  *
  * This is the slot-based implementation used directly by production code (`LeftAlignedLayout`).
@@ -30,7 +30,7 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TopAppBarContentV3(
+internal fun TopAppBarContent(
     scrollBehaviour: TopAppBarScrollBehavior,
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
 ) {
@@ -38,7 +38,7 @@ internal fun TopAppBarContentV3(
 }
 
 /**
- * [TopAppBarContentParameters] convenience overload of [TopAppBarContentV3], kept for previews,
+ * [TopAppBarContentParameters] convenience overload of [TopAppBarContent], kept for previews,
  * tests and demos. Maps the parameter slot onto the slot-based overload above, which is what
  * production code (`LeftAlignedLayout`) calls directly.
  *
@@ -48,10 +48,10 @@ internal fun TopAppBarContentV3(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TopAppBarContentV3(
+internal fun TopAppBarContent(
     parameters: TopAppBarContentParameters,
     scrollBehaviour: TopAppBarScrollBehavior,
-) = TopAppBarContentV3(
+) = TopAppBarContent(
     topAppBar = parameters.topAppBar,
     scrollBehaviour = scrollBehaviour,
 )
@@ -102,7 +102,7 @@ internal class TopAppBarContentParametersProvider :
 @Composable
 private fun PreviewLightDarkTopAppBarContent() {
     GdsTheme {
-        TopAppBarContentV3(
+        TopAppBarContent(
             parameters = TopAppBarContentParametersProvider().onlyTitle,
             scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
         )
@@ -118,7 +118,7 @@ private fun PreviewTopAppBarContent(
     content: TopAppBarContentParameters,
 ) {
     GdsTheme {
-        TopAppBarContentV3(
+        TopAppBarContent(
             parameters = content,
             scrollBehaviour = GdsTopAppBarDefaults.scrollBehaviour(),
         )

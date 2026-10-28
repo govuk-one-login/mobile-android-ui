@@ -7,10 +7,10 @@ import uk.gov.android.ui.componentsv2.button.GdsIconButtonDefaults
 import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 
 /**
- * Holds the top app bar slot of [LeftAlignedScreenV3].
+ * Holds the top app bar slot of [LeftAlignedScreen].
  *
  * Mirrors [MainContentParameters] and [BottomContentParameters]: the slot is a composable that the
- * screen renders through [TopAppBarContentV3]. The screen owns a [TopAppBarScrollBehavior] and
+ * screen renders through [TopAppBarContent]. The screen owns a [TopAppBarScrollBehavior] and
  * passes it to the slot so the bar can react to the body scrolling; forward it to
  * [GdsTopAppBar]'s `scrollBehaviour`.
  *

@@ -12,7 +12,7 @@ internal class LeftAlignedScreenFixedScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        PreviewLeftAlignedScreenFixedV3(parameters.first)
+        PreviewLeftAlignedScreenFixed(parameters.first)
     }
 
     companion object {

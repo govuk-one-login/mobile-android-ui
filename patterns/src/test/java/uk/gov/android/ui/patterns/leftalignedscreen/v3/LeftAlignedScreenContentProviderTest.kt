@@ -88,7 +88,7 @@ class LeftAlignedScreenContentProviderTest {
             }
             CompositionLocalProvider(LocalConfiguration provides configuration) {
                 GdsTheme {
-                    LeftAlignedScreenV3(
+                    LeftAlignedScreen(
                         modifier = Modifier.size(
                             width = SCREEN_WIDTH_DP.dp,
                             height = SCREEN_HEIGHT_DP.dp,

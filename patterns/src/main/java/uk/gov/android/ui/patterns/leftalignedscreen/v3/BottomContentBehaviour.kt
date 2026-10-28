@@ -2,7 +2,7 @@ package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 /**
  * Controls how the bottom content (supporting text and buttons) is positioned in
- * [LeftAlignedScreenV3].
+ * [LeftAlignedScreen].
  *
  * The screen shows its main content in a scrollable container with the bottom content beneath it.
  * This enum decides whether that bottom content is pinned to the bottom of the screen or allowed to

@@ -41,7 +41,7 @@ import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProv
 import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.hasKeyboardScroll
 
 /**
- * Tests for [LeftAlignedScreenV3].
+ * Tests for [LeftAlignedScreen].
  *
  * [BottomContentBehaviour.Fixed] and [BottomContentBehaviour.Adaptive] now share a single
  * `LeftAlignedLayout`; the only fork is whether the bottom content may move into the scrollable
@@ -61,7 +61,7 @@ import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @RunWith(RobolectricTestRunner::class)
-class LeftAlignedScreenV3Test {
+class LeftAlignedScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -211,7 +211,7 @@ class LeftAlignedScreenV3Test {
     fun slotOverload_displaysTopAppBarAboveBody() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     topAppBar = { GdsHeading(TOP_APP_BAR_TEXT) },
                     title = { GdsHeading(TITLE_TEXT) },
                     body = { item { GdsHeading(BODY_SLOT_TEXT) } },
@@ -235,7 +235,7 @@ class LeftAlignedScreenV3Test {
         var providedScrollBehaviour: TopAppBarScrollBehavior? = null
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     topAppBar = { scrollBehaviour ->
                         providedScrollBehaviour = scrollBehaviour
                         GdsHeading(TOP_APP_BAR_TEXT)
@@ -256,7 +256,7 @@ class LeftAlignedScreenV3Test {
     fun simpleDataOverload_displaysTopAppBar() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     topAppBar = LeftAlignedScreenTopAppBar(title = TOP_APP_BAR_TEXT),
                     title = TITLE_TEXT,
                     body = persistentListOf(LeftAlignedScreenBody.Text(BODY_SLOT_TEXT)),
@@ -272,7 +272,7 @@ class LeftAlignedScreenV3Test {
     fun slotOverload_displaysAllSlots() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     title = { GdsHeading(TITLE_TEXT) },
                     body = { horizontalPadding ->
                         item { GdsHeading(BODY_SLOT_TEXT) }
@@ -316,7 +316,7 @@ class LeftAlignedScreenV3Test {
     fun slotOverload_forceScroll_enablesKeyboardScrollOnBody() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     title = { GdsHeading(TITLE_TEXT) },
                     forceScroll = true,
                 )
@@ -331,7 +331,7 @@ class LeftAlignedScreenV3Test {
     fun slotOverload_withoutForceScroll_bodyHasNoKeyboardScroll() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     title = { GdsHeading(TITLE_TEXT) },
                     forceScroll = false,
                 )
@@ -347,7 +347,7 @@ class LeftAlignedScreenV3Test {
         var clicked = false
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     title = TITLE_TEXT,
                     body = persistentListOf(LeftAlignedScreenBody.Text(BODY_SLOT_TEXT)),
                     supportingText = SUPPORTING_TEXT,
@@ -379,7 +379,7 @@ class LeftAlignedScreenV3Test {
     fun simpleDataOverload_forceScroll_enablesKeyboardScrollOnBody() {
         with(composeTestRule) {
             setContent {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     title = TITLE_TEXT,
                     forceScroll = true,
                 )
@@ -408,7 +408,7 @@ class LeftAlignedScreenV3Test {
     }
 
     /**
-     * Composes [LeftAlignedScreenV3] with the given [behaviour].
+     * Composes [LeftAlignedScreen] with the given [behaviour].
      *
      * When [screenHeightDp] is provided the screen size is pinned (both via [LocalConfiguration]
      * and a matching [Modifier.size]) so threshold-sensitive tests are independent of the host
@@ -422,7 +422,7 @@ class LeftAlignedScreenV3Test {
         backgroundColor: Color = Color.Unspecified,
     ) = setContent {
         if (screenHeightDp == null) {
-            LeftAlignedScreenV3(
+            LeftAlignedScreen(
                 title = mainContentParameters.titleContent,
                 body = mainContentParameters.bodyContent,
                 supportingText = bottomContentParameters.supportingText,
@@ -437,7 +437,7 @@ class LeftAlignedScreenV3Test {
                 this.screenHeightDp = screenHeightDp
             }
             CompositionLocalProvider(LocalConfiguration provides configuration) {
-                LeftAlignedScreenV3(
+                LeftAlignedScreen(
                     modifier = Modifier.size(
                         width = SCREEN_WIDTH_DP.dp,
                         height = screenHeightDp.dp,

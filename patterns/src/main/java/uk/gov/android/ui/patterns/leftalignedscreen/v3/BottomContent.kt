@@ -23,7 +23,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 
 /**
- * The bottom content (supporting text and buttons) of [LeftAlignedScreenV3].
+ * The bottom content (supporting text and buttons) of [LeftAlignedScreen].
  *
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
  * element through the modifiers on each slot.
@@ -44,7 +44,7 @@ import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
  * separate it from the content above (optional).
  */
 @Composable
-internal fun BottomContentV3(
+internal fun BottomContent(
     supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)?,
     primaryButton: (@Composable () -> Unit)?,
     secondaryButton: (@Composable () -> Unit)?,
@@ -78,7 +78,7 @@ internal fun BottomContentV3(
 private val NoPadding: Dp = 0.dp
 
 /**
- * [BottomContentParameters] convenience overload of [BottomContentV3], kept for previews, tests
+ * [BottomContentParameters] convenience overload of [BottomContent], kept for previews, tests
  * and demos. Maps the parameter slots onto the slot-based overload above, which is what
  * production code (`LeftAlignedLayout`) calls directly.
  *
@@ -89,11 +89,11 @@ private val NoPadding: Dp = 0.dp
  * separate it from the content above (optional).
  */
 @Composable
-internal fun BottomContentV3(
+internal fun BottomContent(
     parameters: BottomContentParameters,
     config: BottomContentConfig = BottomContentConfig(),
     isSticky: Boolean = true,
-) = BottomContentV3(
+) = BottomContent(
     supportingText = parameters.supportingText,
     primaryButton = parameters.primaryButton,
     secondaryButton = parameters.secondaryButton,
@@ -178,7 +178,7 @@ internal class BottomContentParametersProvider :
 private fun PreviewLightDarkBottomContent() {
     GdsTheme {
         Surface {
-            BottomContentV3(BottomContentParametersProvider().allStandardParams)
+            BottomContent(BottomContentParametersProvider().allStandardParams)
         }
     }
 }
@@ -189,7 +189,7 @@ private fun PreviewLightDarkBottomContent() {
 private fun PreviewFontScaleBottomContent() {
     GdsTheme {
         Surface {
-            BottomContentV3(BottomContentParametersProvider().allStandardParams)
+            BottomContent(BottomContentParametersProvider().allStandardParams)
         }
     }
 }
@@ -201,5 +201,5 @@ private fun PreviewBottomContent(
     @PreviewParameter(BottomContentParametersProvider::class)
     content: BottomContentParameters,
 ) {
-    GdsTheme { Surface { BottomContentV3(content) } }
+    GdsTheme { Surface { BottomContent(content) } }
 }

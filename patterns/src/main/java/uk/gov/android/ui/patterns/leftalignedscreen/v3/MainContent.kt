@@ -44,7 +44,7 @@ import uk.gov.android.ui.theme.spacingTriple
 private const val LAYOUT_WEIGHT_MAX = 1f
 
 /**
- * The scrollable main content (title and body) of [LeftAlignedScreenV3], laid out in a
+ * The scrollable main content (title and body) of [LeftAlignedScreen], laid out in a
  * [LazyColumn].
  *
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
@@ -61,7 +61,7 @@ private const val LAYOUT_WEIGHT_MAX = 1f
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
-internal fun ColumnScope.MainContentV3(
+internal fun ColumnScope.MainContent(
     titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
     bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
     config: MainContentConfig = MainContentConfig(),
@@ -87,7 +87,7 @@ internal fun ColumnScope.MainContentV3(
 }
 
 /**
- * [MainContentParameters] convenience overload of [MainContentV3], kept for previews, tests and
+ * [MainContentParameters] convenience overload of [MainContent], kept for previews, tests and
  * demos. Maps the parameter slots onto the slot-based overload above, which is what production
  * code (`LeftAlignedLayout`) calls directly.
  *
@@ -97,12 +97,12 @@ internal fun ColumnScope.MainContentV3(
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
-internal fun ColumnScope.MainContentV3(
+internal fun ColumnScope.MainContent(
     parameters: MainContentParameters,
     config: MainContentConfig = MainContentConfig(),
     scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
-) = MainContentV3(
+) = MainContent(
     titleContent = parameters.titleContent,
     bodyContent = parameters.bodyContent,
     config = config,
@@ -247,7 +247,7 @@ private fun PreviewLightDarkMainContent() {
     GdsTheme {
         Surface {
             Column {
-                MainContentV3(MainContentParametersProvider().allStandardParams)
+                MainContent(MainContentParametersProvider().allStandardParams)
             }
         }
     }
@@ -260,7 +260,7 @@ private fun PreviewFontScaleMainContent() {
     GdsTheme {
         Surface {
             Column {
-                MainContentV3(MainContentParametersProvider().allComplexParams)
+                MainContent(MainContentParametersProvider().allComplexParams)
             }
         }
     }
@@ -273,5 +273,5 @@ private fun PreviewMainContent(
     @PreviewParameter(MainContentParametersProvider::class)
     content: MainContentParameters,
 ) {
-    GdsTheme { Surface { Column { MainContentV3(content) } } }
+    GdsTheme { Surface { Column { MainContent(content) } } }
 }

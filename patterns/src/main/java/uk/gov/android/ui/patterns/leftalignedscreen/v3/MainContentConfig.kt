@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
- * Holds the layout configuration for the main (scrollable) content of [LeftAlignedScreenV3] (title
+ * Holds the layout configuration for the main (scrollable) content of [LeftAlignedScreen] (title
  * and body).
  *
  * @param horizontalPadding horizontal padding applied to the content; defaults to [spacingDouble]

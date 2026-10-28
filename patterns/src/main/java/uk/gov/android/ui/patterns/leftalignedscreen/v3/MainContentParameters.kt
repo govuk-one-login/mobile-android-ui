@@ -31,7 +31,7 @@ import uk.gov.android.ui.componentsv2.row.RowList
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 
 /**
- * Holds the main (scrollable) content of [LeftAlignedScreenV3] along with its layout configuration.
+ * Holds the main (scrollable) content of [LeftAlignedScreen] along with its layout configuration.
  *
  * @param titleContent the title slot, rendered as the first item in the column (optional).
  * @param bodyContent the body slot, contributing items to the scrollable list (optional).

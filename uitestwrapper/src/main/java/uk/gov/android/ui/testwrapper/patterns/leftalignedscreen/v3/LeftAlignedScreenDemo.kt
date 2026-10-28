@@ -27,7 +27,7 @@ import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
@@ -38,7 +38,7 @@ import uk.gov.android.ui.theme.spacingTriple
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun LeftAlignedScreenFixedDemo() {
-    LeftAlignedScreenV3(
+    LeftAlignedScreen(
         topAppBar = topAppBarSlot,
         title = titleSlot,
         body = bodySlot,
@@ -57,7 +57,7 @@ fun LeftAlignedScreenFixedDemo() {
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun LeftAlignedScreenAdaptiveDemo() {
-    LeftAlignedScreenV3(
+    LeftAlignedScreen(
         topAppBar = topAppBarSlot,
         title = titleSlot,
         body = bodySlot,
