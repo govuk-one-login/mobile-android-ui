@@ -26,8 +26,8 @@ import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
