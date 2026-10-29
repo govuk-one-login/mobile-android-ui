@@ -122,6 +122,10 @@ private val secondaryButtonSlot: @Composable () -> Unit = {
 }
 
 private val body = persistentListOf(
+    LeftAlignedScreenBody.SecondaryButton(
+        text = "Top Button",
+        onClick = {},
+    ),
     LeftAlignedScreenBody.Title(
         text = "Title2 - Left Aligned",
         style = GdsHeadingStyle.Title2,
