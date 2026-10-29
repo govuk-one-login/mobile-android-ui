@@ -4,13 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -35,7 +32,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
-import uk.gov.android.ui.patterns.utils.clearListSemanticsForTalkBack
+import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
@@ -44,69 +41,61 @@ import uk.gov.android.ui.theme.spacingTriple
 private const val LAYOUT_WEIGHT_MAX = 1f
 
 /**
- * The scrollable main content (title and body) of [LeftAlignedScreen], laid out in a
- * [LazyColumn].
+ * The scrollable main content (title and body) of [LeftAlignedScreen], laid out in a scrollable
+ * [Column].
+ *
+ * Using a regular [Column] with [verticalScroll] (rather than a [LazyColumn]) ensures all items
+ * are always composed and present in the node tree. This is essential for keyboard accessibility:
+ * Tab/Shift+Tab traversal and arrow-key scrolling work natively without any interception hacks,
+ * because every focusable node (including buttons that may be off-screen) is always reachable by
+ * the focus system.
  *
  * Spacing follows the Figma design (a standard 16.dp between components) and can be overridden per
  * element through the modifiers on each slot.
  *
- * This is the slot-based implementation used directly by production code (`LeftAlignedLayout`).
- * The [MainContentParameters] overload below is a thin wrapper kept for previews, tests and
- * demos.
- *
  * @param titleContent the title slot, rendered as the first item in the column (optional).
- * @param bodyContent the body slot, contributing items to the scrollable list (optional).
- * @param scrollState the [LazyListState] for the body, exposed for legacy compatibility (optional).
+ * @param bodyContent the body slot, a [ColumnScope] lambda contributing items (optional).
  * @param bottomContent appended as the final item when the bottom content is too large to remain a
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
 internal fun ColumnScope.MainContent(
     titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
-    bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)?,
+    bodyContent: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)?,
     config: MainContentConfig = MainContentConfig(),
-    scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
+    val scrollState = rememberScrollState()
     with(config) {
-        LazyColumn(
+        Column(
             verticalArrangement = Arrangement.spacedBy(verticalPadding),
-            state = scrollState,
             modifier = modifier
                 .weight(LAYOUT_WEIGHT_MAX)
                 .fillMaxWidth()
                 .testTag(BODY_LAZY_COLUMN_TEST_TAG)
-                .clearListSemanticsForTalkBack(),
-            contentPadding = PaddingValues(vertical = verticalPadding),
+                .keyboardScroll(scrollState)
+                .verticalScroll(scrollState),
         ) {
-            titleContent?.let { title -> item { title(horizontalPadding) } }
-            bodyContent?.let { body -> body(horizontalPadding) }
-            bottomContent?.let { bottom -> item { bottom() } }
+            titleContent?.invoke(horizontalPadding)
+            bodyContent?.invoke(this, horizontalPadding)
+            bottomContent?.invoke()
         }
     }
 }
 
 /**
  * [MainContentParameters] convenience overload of [MainContent], kept for previews, tests and
- * demos. Maps the parameter slots onto the slot-based overload above, which is what production
- * code (`LeftAlignedLayout`) calls directly.
- *
- * @param parameters the title and body content and their layout configuration.
- * @param scrollState the [LazyListState] for the body, exposed for legacy compatibility (optional).
- * @param bottomContent appended as the final item when the bottom content is too large to remain a
- * sticky footer and must scroll with the body instead (optional).
+ * demos.
  */
 @Composable
 internal fun ColumnScope.MainContent(
     parameters: MainContentParameters,
     config: MainContentConfig = MainContentConfig(),
-    scrollState: LazyListState = rememberLazyListState(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) = MainContent(
     titleContent = parameters.titleContent,
     bodyContent = parameters.bodyContent,
     config = config,
-    scrollState = scrollState,
     bottomContent = bottomContent,
 )
 
@@ -120,9 +109,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         titleContent = null,
         bodyContent = { horizontalPadding ->
             simpleBody().forEach {
-                item {
-                    it.GenerateDefault(horizontalPadding)
-                }
+                it.GenerateDefault(horizontalPadding)
             }
         },
     )
@@ -131,9 +118,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         titleContent = ::Heading,
         bodyContent = { horizontalPadding ->
             simpleBody().forEach {
-                item {
-                    it.GenerateDefault(horizontalPadding)
-                }
+                it.GenerateDefault(horizontalPadding)
             }
         },
     )
@@ -142,9 +127,7 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         titleContent = ::Heading,
         bodyContent = { horizontalPadding ->
             complexBody().forEach {
-                item {
-                    it.GenerateDefault(horizontalPadding)
-                }
+                it.GenerateDefault(horizontalPadding)
             }
         },
     )

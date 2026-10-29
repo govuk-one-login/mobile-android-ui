@@ -79,7 +79,7 @@ class MainContentTest {
         }
     }
 
-    // Covers the `bottomContent?.let { item { bottom() } }` branch, which is never exercised
+    // Covers the `bottomContent?.invoke()` branch, which is never exercised
     // elsewhere (the bottomContent parameter is always null in other tests).
     @Test
     fun appendsBottomContentWhenProvided() {
@@ -98,7 +98,7 @@ class MainContentTest {
         }
     }
 
-    // Documents the no-op case: both slots null still renders the LazyColumn without crashing.
+    // Documents the no-op case: both slots null still renders the Column without crashing.
     @Test
     fun rendersEmptyWhenAllSlotsNull() {
         with(composeTestRule) {

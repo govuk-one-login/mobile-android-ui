@@ -205,7 +205,7 @@ class LeftAlignedScreenTest {
 
     // --- Public convenience overloads ---
     // The behaviour tests above all use the parameter-object overload; these cover the slot-based
-    // and simple-data overloads, the forceScroll branch and the screen-level background fallback.
+    // and simple-data overloads and the screen-level background fallback.
 
     @Test
     fun slotOverload_displaysTopAppBarAboveBody() {
@@ -214,7 +214,7 @@ class LeftAlignedScreenTest {
                 LeftAlignedScreen(
                     topAppBar = { GdsHeading(TOP_APP_BAR_TEXT) },
                     title = { GdsHeading(TITLE_TEXT) },
-                    body = { item { GdsHeading(BODY_SLOT_TEXT) } },
+                    body = { GdsHeading(BODY_SLOT_TEXT) },
                 )
             }
 
@@ -241,7 +241,7 @@ class LeftAlignedScreenTest {
                         GdsHeading(TOP_APP_BAR_TEXT)
                     },
                     title = { GdsHeading(TITLE_TEXT) },
-                    body = { item { GdsHeading(BODY_SLOT_TEXT) } },
+                    body = { GdsHeading(BODY_SLOT_TEXT) },
                 )
             }
 
@@ -274,9 +274,7 @@ class LeftAlignedScreenTest {
             setContent {
                 LeftAlignedScreen(
                     title = { GdsHeading(TITLE_TEXT) },
-                    body = { horizontalPadding ->
-                        item { GdsHeading(BODY_SLOT_TEXT) }
-                    },
+                    body = { GdsHeading(BODY_SLOT_TEXT) },
                     supportingText = { _, _ ->
                         GdsSupportingText(SUPPORTING_TEXT)
                     },
@@ -313,32 +311,16 @@ class LeftAlignedScreenTest {
     }
 
     @Test
-    fun slotOverload_forceScroll_enablesKeyboardScrollOnBody() {
+    fun bodyAlwaysHasKeyboardScroll() {
         with(composeTestRule) {
             setContent {
                 LeftAlignedScreen(
                     title = { GdsHeading(TITLE_TEXT) },
-                    forceScroll = true,
                 )
             }
 
             onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
                 .assert(hasKeyboardScroll())
-        }
-    }
-
-    @Test
-    fun slotOverload_withoutForceScroll_bodyHasNoKeyboardScroll() {
-        with(composeTestRule) {
-            setContent {
-                LeftAlignedScreen(
-                    title = { GdsHeading(TITLE_TEXT) },
-                    forceScroll = false,
-                )
-            }
-
-            onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
-                .assert(hasKeyboardScroll().not())
         }
     }
 
@@ -373,21 +355,6 @@ class LeftAlignedScreenTest {
             onAllNodesWithText(PRIMARY_BUTTON_TEXT).onFirst().performClick()
         }
         assertTrue(clicked)
-    }
-
-    @Test
-    fun simpleDataOverload_forceScroll_enablesKeyboardScrollOnBody() {
-        with(composeTestRule) {
-            setContent {
-                LeftAlignedScreen(
-                    title = TITLE_TEXT,
-                    forceScroll = true,
-                )
-            }
-
-            onNodeWithTag(LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG)
-                .assert(hasKeyboardScroll())
-        }
     }
 
     @Test

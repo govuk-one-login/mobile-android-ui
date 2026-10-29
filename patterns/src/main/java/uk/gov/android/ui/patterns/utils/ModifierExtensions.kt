@@ -13,13 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 object ModifierExtensions {
@@ -33,7 +35,7 @@ object ModifierExtensions {
      * If you need to check for the presence of this modifier in tests, use the
      * `hasKeyboardScroll` matcher from the test fixtures.
      *
-     * @param scrollState [ScrollState] represents the list state
+     * @param scrollState [ScrollableState] represents the scroll state
      * @return augmented [Modifier]
      */
     @Composable
@@ -43,33 +45,34 @@ object ModifierExtensions {
         val focusRequester = remember { FocusRequester() }
         return this
             .semantics { hasKeyboardScroll = true }
-            .onKeyEvent {
-                when {
-                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionDown &&
-                        scrollState.canScrollForward -> {
-                        coroutineScope.launch {
-                            scrollState.animateScrollBy(
-                                SCROLL_MULTIPLIER * scrollState.viewportHeight(),
-                            )
-                        }
-                        true
-                    }
-
-                    it.type == KeyEventType.KeyDown && it.key == Key.DirectionUp &&
-                        scrollState.canScrollBackward -> {
-                        coroutineScope.launch {
-                            scrollState.animateScrollBy(
-                                -SCROLL_MULTIPLIER * scrollState.viewportHeight(),
-                            )
-                        }
-                        true
-                    }
-
-                    else -> false
-                }
-            }
+            .onPreviewKeyEvent { scrollOnArrow(it, scrollState, coroutineScope) }
             .focusRequester(focusRequester)
             .focusable(interactionSource = interactionSource)
+    }
+
+    private fun scrollOnArrow(
+        event: KeyEvent,
+        scrollState: ScrollableState,
+        coroutineScope: CoroutineScope,
+    ): Boolean {
+        if (event.type != KeyEventType.KeyDown) return false
+        return when {
+            event.key == Key.DirectionDown && scrollState.canScrollForward -> {
+                coroutineScope.launch {
+                    scrollState.animateScrollBy(SCROLL_MULTIPLIER * scrollState.viewportHeight())
+                }
+                true
+            }
+
+            event.key == Key.DirectionUp && scrollState.canScrollBackward -> {
+                coroutineScope.launch {
+                    scrollState.animateScrollBy(-SCROLL_MULTIPLIER * scrollState.viewportHeight())
+                }
+                true
+            }
+
+            else -> false
+        }
     }
 
     private fun ScrollableState.viewportHeight(): Float = when (this) {
