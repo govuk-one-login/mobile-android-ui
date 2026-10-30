@@ -74,7 +74,8 @@ internal fun ColumnScope.MainContent(
                 .fillMaxWidth()
                 .testTag(BODY_LAZY_COLUMN_TEST_TAG)
                 .keyboardScroll(scrollState)
-                .verticalScroll(scrollState),
+                .verticalScroll(scrollState)
+                .padding(vertical = verticalPadding),
         ) {
             titleContent?.invoke(horizontalPadding)
             bodyContent?.invoke(this, horizontalPadding)

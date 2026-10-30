@@ -116,55 +116,65 @@ class LeftAlignedScreenKeyboardNavTest {
                             )
                         },
                         body = { horizontalPadding ->
-                            Text(
-                                text = "All UK passports have a biometric chip.\n\nIf you " +
-                                    "have a non-UK passport, it must have the biometric " +
-                                    "chip symbol on the cover.",
-                                modifier = if (isLargeFont) {
-                                    Modifier
+                            item {
+                                Text(
+                                    text = "All UK passports have a biometric chip.\n\nIf you " +
+                                        "have a non-UK passport, it must have the biometric " +
+                                        "chip symbol on the cover.",
+                                    modifier = if (isLargeFont) {
+                                        Modifier
+                                            .padding(horizontal = horizontalPadding)
+                                            .sizeIn(minHeight = 720.dp)
+                                    } else {
+                                        Modifier.padding(horizontal = horizontalPadding)
+                                    }.testTag(firstParaTag),
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                )
+                            }
+                            item {
+                                Image(
+                                    painter = painterResource(R.drawable.preview__gdsvectorimage),
+                                    contentDescription = "contentDescription",
+                                    modifier = Modifier.fillMaxWidth(),
+                                    contentScale = ContentScale.FillWidth,
+                                )
+                            }
+                            item {
+                                Text(
+                                    text = "You cannot use your passport if it has expired.",
+                                    modifier = Modifier.padding(horizontal = horizontalPadding),
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                )
+                            }
+                            item {
+                                GdsButton(
+                                    text = "Read more about the types of photo ID you can use",
+                                    buttonType = ButtonTypeV2.Secondary(),
+                                    onClick = dropUnlessResumed { },
+                                    modifier = Modifier
                                         .padding(horizontal = horizontalPadding)
-                                        .sizeIn(minHeight = 720.dp)
-                                } else {
-                                    Modifier.padding(horizontal = horizontalPadding)
-                                }.testTag(firstParaTag),
-                                color = MaterialTheme.colorScheme.onBackground,
-                            )
-                            Image(
-                                painter = painterResource(R.drawable.preview__gdsvectorimage),
-                                contentDescription = "contentDescription",
-                                modifier = Modifier.fillMaxWidth(),
-                                contentScale = ContentScale.FillWidth,
-                            )
-                            Text(
-                                text = "You cannot use your passport if it has expired.",
-                                modifier = Modifier.padding(horizontal = horizontalPadding),
-                                color = MaterialTheme.colorScheme.onBackground,
-                            )
-                            GdsButton(
-                                text = "Read more about the types of photo ID you can use",
-                                buttonType = ButtonTypeV2.Secondary(),
-                                onClick = dropUnlessResumed { },
-                                modifier = Modifier
-                                    .padding(horizontal = horizontalPadding)
-                                    .testTag(firstButtonTag),
-                                contentModifier = Modifier,
-                                textAlign = TextAlign.Left,
-                                contentPosition = Arrangement.Start,
-                            )
-                            GdsRadios(
-                                title =
-                                    GdsRadiosTitle(
-                                        "Do you have a passport with a biometric chip?",
-                                        GdsHeadingStyle.Title1,
-                                    ),
-                                items =
-                                    listOf("Yes", "No, use a different type of photo ID")
-                                        .toPersistentList(),
-                                selectedItem = selectedItem,
-                                onItemSelected = {
-                                    selectedItem = it
-                                },
-                            )
+                                        .testTag(firstButtonTag),
+                                    contentModifier = Modifier,
+                                    textAlign = TextAlign.Left,
+                                    contentPosition = Arrangement.Start,
+                                )
+                            }
+                            item {
+                                GdsRadios(
+                                    title =
+                                        GdsRadiosTitle(
+                                            "Do you have a passport with a biometric chip?",
+                                            GdsHeadingStyle.Title1,
+                                        ),
+                                    items =
+                                        listOf("Yes", "No, use a different type of photo ID")
+                                            .toPersistentList(),
+                                    selectedItem = selectedItem,
+                                    onItemSelected = {
+                                        selectedItem = it
+                                    },
+                                )
+                            }
                         },
                         primaryButton = {
                             GdsButton(
