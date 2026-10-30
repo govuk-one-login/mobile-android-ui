@@ -190,6 +190,7 @@ class LeftAlignedScreenKeyboardNavTest {
                         modifier = Modifier
                             .padding(bottom = 60.dp)
                             .testTag(contentTag),
+                        forceScroll = true,
                     )
                 },
             )

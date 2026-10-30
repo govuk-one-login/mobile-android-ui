@@ -38,7 +38,7 @@ import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParametersPr
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentParametersProvider.Companion.SUPPORTING_TEXT
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.IMAGE_DESCRIPTION
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParametersProvider.Companion.TITLE_TEXT
-import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchers.hasKeyboardScroll
+import uk.gov.android.ui.patterns.utils.matchers.ScrollableWithKeyboardMatchersV3.hasKeyboardScroll
 
 /**
  * Tests for [LeftAlignedScreen].

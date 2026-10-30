@@ -32,7 +32,7 @@ import uk.gov.android.ui.componentsv2.list.ListItem
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
-import uk.gov.android.ui.patterns.utils.ModifierExtensions.keyboardScroll
+import uk.gov.android.ui.patterns.utils.ModifierExtensionsV3.keyboardScroll
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
