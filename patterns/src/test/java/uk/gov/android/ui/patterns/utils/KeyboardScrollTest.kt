@@ -1,5 +1,6 @@
 package uk.gov.android.ui.patterns.utils
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -45,6 +46,8 @@ class KeyboardScrollTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    // focusRequester targets the first child item, not the container. The container is no longer
+    // focusable itself; onPreviewKeyEvent intercepts arrow keys from any focused child.
     private val focusRequester = FocusRequester()
 
     @Test
@@ -102,9 +105,8 @@ class KeyboardScrollTest {
             TestColumn(
                 scrollState = scrollState,
                 numItems = numItems,
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .keyboardScroll(scrollState),
+                modifier = Modifier.keyboardScroll(scrollState),
+                firstItemFocusRequester = focusRequester,
             )
         }
     }
@@ -114,9 +116,8 @@ class KeyboardScrollTest {
             val listState = rememberLazyListState()
             TestLazyColumn(
                 listState = listState,
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .keyboardScroll(listState),
+                modifier = Modifier.keyboardScroll(listState),
+                firstItemFocusRequester = focusRequester,
             )
         }
     }
@@ -152,6 +153,7 @@ class KeyboardScrollTest {
 private fun TestColumn(
     scrollState: androidx.compose.foundation.ScrollState,
     modifier: Modifier = Modifier,
+    firstItemFocusRequester: FocusRequester? = null,
     numItems: Int = NUM_ITEMS,
 ) = Column(
     modifier = modifier
@@ -162,7 +164,18 @@ private fun TestColumn(
     repeat(numItems) { index ->
         BasicText(
             text = "Item $index",
-            modifier = Modifier.fillMaxWidth().height(itemHeight),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(itemHeight)
+                .then(
+                    if (index == 0 && firstItemFocusRequester != null) {
+                        Modifier
+                            .focusRequester(firstItemFocusRequester)
+                            .focusable()
+                    } else {
+                        Modifier
+                    },
+                ),
         )
     }
 }
@@ -171,6 +184,7 @@ private fun TestColumn(
 private fun TestLazyColumn(
     listState: LazyListState,
     modifier: Modifier = Modifier,
+    firstItemFocusRequester: FocusRequester? = null,
     numItems: Int = NUM_ITEMS,
 ) = LazyColumn(
     state = listState,
@@ -181,7 +195,18 @@ private fun TestLazyColumn(
     items(numItems) { index ->
         BasicText(
             text = "Item $index",
-            modifier = Modifier.fillMaxWidth().height(itemHeight),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(itemHeight)
+                .then(
+                    if (index == 0 && firstItemFocusRequester != null) {
+                        Modifier
+                            .focusRequester(firstItemFocusRequester)
+                            .focusable()
+                    } else {
+                        Modifier
+                    },
+                ),
         )
     }
 }
