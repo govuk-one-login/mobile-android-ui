@@ -81,20 +81,24 @@ fun LeftAlignedScreenAdaptiveWithDefaultsDemo() {
         title = "Account Verification",
         supportingText = "By continuing, you agree to our Terms of Service.",
         body = persistentListOf(
-            LeftAlignedScreenBody.Text("We have sent a 6-digit confirmation code to your registered email address."),
-            LeftAlignedScreenBody.Text("Please enter the code to verify your identity and access your dashboard.")
+            LeftAlignedScreenBody.Text(
+                "We have sent a 6-digit confirmation code to your registered email address.",
+            ),
+            LeftAlignedScreenBody.Text(
+                "Please enter the code to verify your identity and access your dashboard.",
+            ),
         ),
         primaryButton = LeftAlignedScreenButton(
             text = "Verify Code",
-            onClick = { /* Handle verify */ }
+            onClick = { /* Handle verify */ },
         ),
         secondaryButton = LeftAlignedScreenButton(
             text = "Resend Code",
-            onClick = { /* Handle resend */ }
+            onClick = { /* Handle resend */ },
         ),
         topAppBar = LeftAlignedScreenTopAppBar(
             title = "Security",
-            onNavigationClick = { /* Handle back navigation */ }
+            onNavigationClick = { /* Handle back navigation */ },
         ),
         backgroundColor = Backgrounds.screen.toMappedColors(),
         bottomContentBehaviour = BottomContentBehaviour.Adaptive,
