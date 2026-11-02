@@ -66,6 +66,13 @@ private const val FONT_SCALE_DOUBLE = 2f
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Suppress("LongMethod")
 @Composable
+@Deprecated(
+    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
+    replaceWith = ReplaceWith(
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
+    ),
+    level = DeprecationLevel.WARNING,
+)
 fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -171,10 +178,9 @@ fun LeftAlignedScreen(
  */
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV2 with added forceScroll parameter instead. Aim to be " +
-        "removed by 04/05/2026",
+    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.LeftAlignedScreenV2",
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
     level = DeprecationLevel.WARNING,
 )
@@ -250,6 +256,13 @@ fun LeftAlignedScreenV2(
  * @param forceScroll A [Boolean] indicating whether the screen should support vertical scrolling
  */
 @Composable
+@Deprecated(
+    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
+    replaceWith = ReplaceWith(
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
+    ),
+    level = DeprecationLevel.WARNING,
+)
 fun LeftAlignedScreenV2(
     modifier: Modifier = Modifier,
     title: String? = null,
