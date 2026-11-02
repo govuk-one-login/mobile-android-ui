@@ -205,7 +205,9 @@ private fun LeftAlignedLayout(
         BottomContent is moved into the MainContent which is scrollable. For the Fixed behaviour
         the BottomContent always stays pinned as a sticky footer. */
         SubcomposeLayout(
-            modifier = Modifier.nestedScroll(topAppBarScrollBehaviour.nestedScrollConnection).focusable(false, interactionSource = null),
+            modifier = Modifier.nestedScroll(
+                topAppBarScrollBehaviour.nestedScrollConnection,
+            ).focusable(false, interactionSource = null),
         ) { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {
