@@ -3,10 +3,10 @@ package uk.gov.android.ui.patterns.leftalignedscreen.v3
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -34,11 +34,13 @@ import uk.gov.android.ui.componentsv2.warning.GdsWarningText
  * Holds the main (scrollable) content of [LeftAlignedScreen] along with its layout configuration.
  *
  * @param titleContent the title slot, rendered as the first item in the column (optional).
- * @param bodyContent the body slot, contributing items to the scrollable list (optional).
+ * @param bodyContent the body slot, a [ColumnScope] lambda contributing composables directly
+ * (optional). Unlike the previous [LazyListScope]-based API, items are placed directly without
+ * `item { }` wrappers.
  */
 data class MainContentParameters(
     val titleContent: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    val bodyContent: (LazyListScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    val bodyContent: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)? = null,
 ) {
     companion object {
         @Composable
@@ -57,9 +59,7 @@ data class MainContentParameters(
             },
             bodyContent = { horizontalPadding ->
                 body?.forEach {
-                    item {
-                        it.GenerateDefault(horizontalPadding)
-                    }
+                    it.GenerateDefault(horizontalPadding)
                 }
             },
         )

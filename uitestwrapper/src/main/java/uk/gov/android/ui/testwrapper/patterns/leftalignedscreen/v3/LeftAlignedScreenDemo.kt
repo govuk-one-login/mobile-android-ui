@@ -2,9 +2,9 @@ package uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -89,9 +89,10 @@ private val titleSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizonta
     )
 }
 
-private val bodySlot: LazyListScope.(horizontalItemPadding: Dp) -> Unit = { horizontalItemPadding ->
-    body.forEach { item { it.GenerateDefault(horizontalItemPadding) } }
-}
+private val bodySlot: @Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit =
+    { horizontalItemPadding ->
+        body.forEach { it.GenerateDefault(horizontalItemPadding) }
+    }
 
 private val supportingTextSlot: @Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit =
     { horizontalPadding, verticalPadding ->
@@ -121,6 +122,10 @@ private val secondaryButtonSlot: @Composable () -> Unit = {
 }
 
 private val body = persistentListOf(
+    LeftAlignedScreenBody.SecondaryButton(
+        text = "Top Button",
+        onClick = {},
+    ),
     LeftAlignedScreenBody.Title(
         text = "Title2 - Left Aligned",
         style = GdsHeadingStyle.Title2,
