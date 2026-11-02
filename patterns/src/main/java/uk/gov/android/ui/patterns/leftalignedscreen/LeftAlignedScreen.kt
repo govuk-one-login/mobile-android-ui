@@ -69,7 +69,7 @@ private const val FONT_SCALE_DOUBLE = 2f
 @Deprecated(
     message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
     level = DeprecationLevel.WARNING,
 )
@@ -180,7 +180,7 @@ fun LeftAlignedScreen(
 @Deprecated(
     message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
     level = DeprecationLevel.WARNING,
 )
@@ -259,7 +259,7 @@ fun LeftAlignedScreenV2(
 @Deprecated(
     message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
     replaceWith = ReplaceWith(
-        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenV3",
+        "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
     level = DeprecationLevel.WARNING,
 )
