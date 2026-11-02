@@ -28,6 +28,8 @@ import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenButton
+import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTopAppBar
 import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
@@ -69,6 +71,36 @@ fun LeftAlignedScreenAdaptiveDemo() {
             backgroundColor = Backgrounds.card.toMappedColors(),
         ),
         backgroundColor = Backgrounds.screen.toMappedColors(),
+    )
+}
+
+@SuppressLint("ComposeModifierMissing")
+@Composable
+fun LeftAlignedScreenAdaptiveWithDefaultsDemo() {
+    LeftAlignedScreen(
+        title = "Account Verification",
+        supportingText = "By continuing, you agree to our Terms of Service.",
+        body = persistentListOf(
+            LeftAlignedScreenBody.Text("We have sent a 6-digit confirmation code to your registered email address."),
+            LeftAlignedScreenBody.Text("Please enter the code to verify your identity and access your dashboard.")
+        ),
+        primaryButton = LeftAlignedScreenButton(
+            text = "Verify Code",
+            onClick = { /* Handle verify */ }
+        ),
+        secondaryButton = LeftAlignedScreenButton(
+            text = "Resend Code",
+            onClick = { /* Handle resend */ }
+        ),
+        topAppBar = LeftAlignedScreenTopAppBar(
+            title = "Security",
+            onNavigationClick = { /* Handle back navigation */ }
+        ),
+        backgroundColor = Backgrounds.screen.toMappedColors(),
+        bottomContentBehaviour = BottomContentBehaviour.Adaptive,
+        bottomContentConfig = BottomContentConfig(
+            backgroundColor = Backgrounds.card.toMappedColors(),
+        ),
     )
 }
 
