@@ -1,6 +1,7 @@
 package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -204,7 +205,7 @@ private fun LeftAlignedLayout(
         BottomContent is moved into the MainContent which is scrollable. For the Fixed behaviour
         the BottomContent always stays pinned as a sticky footer. */
         SubcomposeLayout(
-            modifier = Modifier.nestedScroll(topAppBarScrollBehaviour.nestedScrollConnection),
+            modifier = Modifier.nestedScroll(topAppBarScrollBehaviour.nestedScrollConnection).focusable(false, interactionSource = null),
         ) { constraints ->
             // Measure BottomContent
             val bottomPlaceables = subcompose("bottom") {

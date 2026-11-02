@@ -1,17 +1,12 @@
 package uk.gov.android.ui.patterns.utils
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.animateScrollBy
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.KeyEventType
@@ -41,13 +36,9 @@ object ModifierExtensionsV3 {
     @Composable
     fun Modifier.keyboardScroll(scrollState: ScrollableState): Modifier {
         val coroutineScope = rememberCoroutineScope()
-        val interactionSource = remember { MutableInteractionSource() }
-        val focusRequester = remember { FocusRequester() }
         return this
             .semantics { hasKeyboardScroll = true }
             .onPreviewKeyEvent { scrollOnArrow(it, scrollState, coroutineScope) }
-            .focusRequester(focusRequester)
-            .focusable(interactionSource = interactionSource)
     }
 
     private fun scrollOnArrow(
