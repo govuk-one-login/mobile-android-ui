@@ -77,7 +77,7 @@ private const val ONE_THIRD = 1f / 3f
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LeftAlignedScreen(
+internal fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)? = null,
     title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
@@ -126,7 +126,7 @@ fun LeftAlignedScreen(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LeftAlignedScreen(
+internal fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: LeftAlignedScreenTopAppBar? = null,
     title: String? = null,
