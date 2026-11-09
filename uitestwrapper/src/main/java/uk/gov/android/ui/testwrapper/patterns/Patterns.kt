@@ -23,9 +23,9 @@ import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScreenSupportingText
 import uk.gov.android.ui.testwrapper.patterns.error.v2.ErrorScrollableScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenDemo
 import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.LeftAlignedScreenNoTitleDemo
-import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenAdaptiveDemo
-import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenAdaptiveWithDefaultsDemo
-import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3.LeftAlignedScreenFixedDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v4.LeftAlignedScreenAdaptiveDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v4.LeftAlignedScreenAdaptiveWithDefaultsDemo
+import uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v4.LeftAlignedScreenFixedDemo
 import uk.gov.android.ui.theme.smallPadding
 import uk.gov.android.ui.theme.util.UnstableDesignSystemAPI
 
