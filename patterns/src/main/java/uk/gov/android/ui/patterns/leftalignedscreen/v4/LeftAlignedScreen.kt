@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
 import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBarDefaults
+import uk.gov.android.ui.componentsv2.utils.windowInsetsPadding
 import uk.gov.android.ui.patterns.leftalignedscreen.v4.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.GdsTheme
@@ -63,9 +65,10 @@ private const val ONE_THIRD = 1f / 3f
  *
  * @param modifier [Modifier] applied to the root of the screen (optional).
  * @param topAppBar the top app bar slot. Use of [GdsTopAppBar] is recommended (optional).
- * @param title the main title slot. Use of [GdsHeading] is recommended (optional).
- * @param body the main content slot, a [ColumnScope] lambda. Place composables directly — no
- * `item { }` wrappers needed (optional).
+ * @param title the main title slot. Use of [GdsHeading] is recommended. Apply the provided
+ * horizontal padding using [Modifier.windowInsetsPadding] (optional).
+ * @param body the main content slot, a [ColumnScope] lambda. Apply the provided horizontalPadding
+ * using [Modifier.windowInsetsPadding](optional)
  * @param supportingText text shown above the buttons in the bottom content (optional).
  * @param primaryButton the primary action slot. Use of [GdsButton] is recommended (optional).
  * @param secondaryButton the secondary action slot. Use of [GdsButton] is recommended (optional).
@@ -77,11 +80,11 @@ private const val ONE_THIRD = 1f / 3f
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun LeftAlignedScreen(
+fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)? = null,
-    title: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    body: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    title: (@Composable (horizontalPadding: PaddingValues) -> Unit)? = null,
+    body: (@Composable ColumnScope.(horizontalItemPadding: PaddingValues) -> Unit)? = null,
     supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)? = null,
     primaryButton: (@Composable () -> Unit)? = null,
     secondaryButton: (@Composable () -> Unit)? = null,
@@ -126,7 +129,7 @@ internal fun LeftAlignedScreen(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun LeftAlignedScreen(
+fun LeftAlignedScreen(
     modifier: Modifier = Modifier,
     topAppBar: LeftAlignedScreenTopAppBar? = null,
     title: String? = null,
@@ -170,8 +173,8 @@ internal fun LeftAlignedScreen(
 private fun LeftAlignedLayout(
     backgroundColor: Color,
     topAppBar: (@Composable (scrollBehaviour: TopAppBarScrollBehavior) -> Unit)?,
-    title: (@Composable (horizontalPadding: Dp) -> Unit)?,
-    body: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)?,
+    title: (@Composable (horizontalPadding: PaddingValues) -> Unit)?,
+    body: (@Composable ColumnScope.(horizontalItemPadding: PaddingValues) -> Unit)?,
     mainContentConfig: MainContentConfig,
     supportingText: (@Composable (horizontalPadding: Dp, verticalPadding: Dp) -> Unit)?,
     primaryButton: (@Composable () -> Unit)?,
@@ -337,7 +340,7 @@ private fun PreviewLeftAlignedScreen(
                 { horizontalPadding ->
                     GdsHeading(
                         text = title,
-                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                        modifier = Modifier.windowInsetsPadding(horizontalPadding),
                         textAlign = GdsHeadingAlignment.LeftAligned,
                     )
                 }

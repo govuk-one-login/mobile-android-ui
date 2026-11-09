@@ -4,8 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
@@ -23,12 +29,13 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.utils.coerceAtLeast
+import uk.gov.android.ui.componentsv2.utils.windowInsetsPadding
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.v4.MainContentParameters.Companion.GenerateDefault
@@ -60,27 +67,34 @@ private const val LAYOUT_WEIGHT_MAX = 1f
  */
 @Composable
 internal fun ColumnScope.MainContent(
-    titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
-    bodyContent: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)?,
+    titleContent: (@Composable (horizontalPadding: PaddingValues) -> Unit)?,
+    bodyContent: (@Composable ColumnScope.(horizontalItemPadding: PaddingValues) -> Unit)?,
     config: MainContentConfig = MainContentConfig(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
     val scrollState = rememberScrollState()
-    with(config) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(verticalPadding),
-            modifier = modifier
-                .weight(LAYOUT_WEIGHT_MAX)
-                .fillMaxWidth()
-                .testTag(BODY_LAZY_COLUMN_TEST_TAG)
-                .keyboardScroll(scrollState)
-                .verticalScroll(scrollState)
-                .padding(vertical = verticalPadding),
-        ) {
-            titleContent?.invoke(horizontalPadding)
-            bodyContent?.invoke(this, horizontalPadding)
-            bottomContent?.invoke()
-        }
+    val horizontalPadding =
+        PaddingValues(
+            horizontal = config.horizontalPadding,
+        ).coerceAtLeast(
+            WindowInsets
+                .safeContent
+                .only(WindowInsetsSides.Horizontal)
+                .asPaddingValues(),
+        )
+    Column(
+        verticalArrangement = Arrangement.spacedBy(config.verticalPadding),
+        modifier = config.modifier
+            .weight(LAYOUT_WEIGHT_MAX)
+            .fillMaxWidth()
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG)
+            .keyboardScroll(scrollState)
+            .verticalScroll(scrollState)
+            .padding(vertical = config.verticalPadding),
+    ) {
+        titleContent?.invoke(horizontalPadding)
+        bodyContent?.invoke(this, horizontalPadding)
+        bottomContent?.invoke()
     }
 }
 
@@ -142,9 +156,9 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         )
 
     @Composable
-    private fun Heading(horizontalPadding: Dp) = GdsHeading(
+    private fun Heading(horizontalPadding: PaddingValues) = GdsHeading(
         text = TITLE_TEXT,
-        modifier = Modifier.padding(horizontal = horizontalPadding),
+        modifier = Modifier.windowInsetsPadding(horizontalPadding),
         textAlign = GdsHeadingAlignment.LeftAligned,
     )
 
