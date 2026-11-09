@@ -2,8 +2,10 @@ package uk.gov.android.ui.patterns.leftalignedscreen.v4
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -19,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
+import uk.gov.android.ui.componentsv2.utils.safeComponent
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.meta.ExcludeFromJacocoGeneratedReport
 
@@ -51,26 +54,26 @@ internal fun BottomContent(
     config: BottomContentConfig = BottomContentConfig(),
     isSticky: Boolean = true,
 ) {
-    with(config) {
-        Surface(
-            modifier = modifier.fillMaxWidth(),
-            color = backgroundColor
-                .takeUnless { it == Color.Unspecified }
-                ?: Color.Transparent,
-        ) {
-            Column(
-                modifier = Modifier.padding(
-                    start = horizontalPadding,
-                    end = horizontalPadding,
-                    top = if (isSticky) verticalPadding else 0.dp,
-                    bottom = verticalPadding,
+    Surface(
+        modifier = config.modifier.fillMaxWidth(),
+        color = config.backgroundColor
+            .takeUnless { it == Color.Unspecified }
+            ?: Color.Transparent,
+    ) {
+        Column(
+            modifier = Modifier
+                .windowInsetsPadding(
+                    WindowInsets.safeComponent(minHorizontalPadding = config.horizontalPadding),
+                )
+                .padding(
+                    top = if (isSticky) config.verticalPadding else 0.dp,
+                    bottom = config.verticalPadding,
                 ),
-                verticalArrangement = Arrangement.spacedBy(verticalPadding),
-            ) {
-                supportingText?.invoke(horizontalPadding, NoPadding)
-                primaryButton?.invoke()
-                secondaryButton?.invoke()
-            }
+            verticalArrangement = Arrangement.spacedBy(config.verticalPadding),
+        ) {
+            supportingText?.invoke(config.horizontalPadding, NoPadding)
+            primaryButton?.invoke()
+            secondaryButton?.invoke()
         }
     }
 }

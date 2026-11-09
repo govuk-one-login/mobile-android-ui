@@ -28,6 +28,7 @@ import uk.gov.android.ui.componentsv2.inputs.radio.GdsRadios
 import uk.gov.android.ui.componentsv2.list.GdsBulletedList
 import uk.gov.android.ui.componentsv2.list.GdsNumberedList
 import uk.gov.android.ui.componentsv2.row.RowList
+import uk.gov.android.ui.componentsv2.utils.windowInsetsPadding
 import uk.gov.android.ui.componentsv2.warning.GdsWarningText
 
 /**
@@ -39,8 +40,12 @@ import uk.gov.android.ui.componentsv2.warning.GdsWarningText
  * `item { }` wrappers.
  */
 data class MainContentParameters(
-    val titleContent: (@Composable (horizontalPadding: Dp) -> Unit)? = null,
-    val bodyContent: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)? = null,
+    val titleContent: (@Composable (horizontalPadding: PaddingValues) -> Unit)? = null,
+    val bodyContent: (
+        @Composable ColumnScope.(
+            horizontalItemPadding: PaddingValues,
+        ) -> Unit
+    )? = null,
 ) {
     companion object {
         @Composable
@@ -52,7 +57,7 @@ data class MainContentParameters(
                 { horizontalPadding ->
                     GdsHeading(
                         text = text,
-                        modifier = Modifier.padding(horizontal = horizontalPadding),
+                        modifier = Modifier.windowInsetsPadding(horizontalPadding),
                         textAlign = GdsHeadingAlignment.LeftAligned,
                     )
                 }
@@ -67,114 +72,115 @@ data class MainContentParameters(
         @SuppressLint("ComposeModifierMissing")
         @Suppress("LongMethod")
         @Composable
-        fun LeftAlignedScreenBody.GenerateDefault(horizontalItemPadding: Dp) = when (this) {
-            is LeftAlignedScreenBody.BulletList -> {
-                GdsBulletedList(
-                    bulletListItems = items,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = horizontalItemPadding),
-                    title = title,
-                )
-            }
-
-            is LeftAlignedScreenBody.NumberedList -> {
-                GdsNumberedList(
-                    title = title,
-                    numberedListItems = list,
-                    modifier = Modifier.padding(horizontal = horizontalItemPadding),
-                )
-            }
-
-            is LeftAlignedScreenBody.Image -> {
-                Image(
-                    painter = painterResource(image),
-                    contentDescription = contentDescription,
-                    contentScale = contentScale,
-                    modifier = modifier,
-                )
-            }
-
-            is LeftAlignedScreenBody.Text -> {
-                Text(
-                    text = text,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                    color = colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-
-            is LeftAlignedScreenBody.AnnotatedText -> {
-                Text(
-                    text = text,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                    color = colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-
-            is LeftAlignedScreenBody.Title -> {
-                GdsHeading(
-                    text = text,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                    style = style,
-                    textAlign = textAlign,
-                )
-            }
-
-            is LeftAlignedScreenBody.Warning -> {
-                GdsWarningText(
-                    text = text,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                )
-            }
-
-            is LeftAlignedScreenBody.SecondaryButton -> {
-                val icon = if (showIcon) {
-                    ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser)
-                } else {
-                    null
+        fun LeftAlignedScreenBody.GenerateDefault(horizontalItemPadding: PaddingValues) =
+            when (this) {
+                is LeftAlignedScreenBody.BulletList -> {
+                    GdsBulletedList(
+                        bulletListItems = items,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .windowInsetsPadding(horizontalItemPadding),
+                        title = title,
+                    )
                 }
 
-                GdsButton(
-                    text = text,
-                    icon = icon,
-                    buttonType = ButtonTypeV2.Secondary(),
-                    onClick = onClick,
-                    enabled = enabled,
-                    textAlign = TextAlign.Start,
-                    contentPosition = Arrangement.Start,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                    contentModifier = Modifier.fillMaxWidth(),
-                )
-            }
+                is LeftAlignedScreenBody.NumberedList -> {
+                    GdsNumberedList(
+                        title = title,
+                        numberedListItems = list,
+                        modifier = Modifier.windowInsetsPadding(horizontalItemPadding),
+                    )
+                }
 
-            is LeftAlignedScreenBody.Selection -> {
-                GdsRadios(
-                    items = items,
-                    selectedItem = selectedItem,
-                    onItemSelected = onItemSelected,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                    title = title,
-                )
-            }
+                is LeftAlignedScreenBody.Image -> {
+                    Image(
+                        painter = painterResource(image),
+                        contentDescription = contentDescription,
+                        contentScale = contentScale,
+                        modifier = modifier,
+                    )
+                }
 
-            is LeftAlignedScreenBody.Divider -> {
-                HorizontalDivider(
-                    thickness = thickness,
-                    color = color
-                        .takeUnless { it == Color.Unspecified }
-                        ?: colorScheme.onSurface,
-                    modifier = modifier.padding(horizontal = horizontalItemPadding),
-                )
-            }
+                is LeftAlignedScreenBody.Text -> {
+                    Text(
+                        text = text,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                        color = colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
 
-            is LeftAlignedScreenBody.RowList -> {
-                RowList(
-                    rows = rowData,
-                    horizontalPadding = PaddingValues(horizontal = horizontalItemPadding),
-                )
+                is LeftAlignedScreenBody.AnnotatedText -> {
+                    Text(
+                        text = text,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                        color = colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+
+                is LeftAlignedScreenBody.Title -> {
+                    GdsHeading(
+                        text = text,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                        style = style,
+                        textAlign = textAlign,
+                    )
+                }
+
+                is LeftAlignedScreenBody.Warning -> {
+                    GdsWarningText(
+                        text = text,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                    )
+                }
+
+                is LeftAlignedScreenBody.SecondaryButton -> {
+                    val icon = if (showIcon) {
+                        ButtonIcon.opensExternalDestination(ExternalDestination.WebBrowser)
+                    } else {
+                        null
+                    }
+
+                    GdsButton(
+                        text = text,
+                        icon = icon,
+                        buttonType = ButtonTypeV2.Secondary(),
+                        onClick = onClick,
+                        enabled = enabled,
+                        textAlign = TextAlign.Start,
+                        contentPosition = Arrangement.Start,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                        contentModifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
+                is LeftAlignedScreenBody.Selection -> {
+                    GdsRadios(
+                        items = items,
+                        selectedItem = selectedItem,
+                        onItemSelected = onItemSelected,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                        title = title,
+                    )
+                }
+
+                is LeftAlignedScreenBody.Divider -> {
+                    HorizontalDivider(
+                        thickness = thickness,
+                        color = color
+                            .takeUnless { it == Color.Unspecified }
+                            ?: colorScheme.onSurface,
+                        modifier = modifier.windowInsetsPadding(horizontalItemPadding),
+                    )
+                }
+
+                is LeftAlignedScreenBody.RowList -> {
+                    RowList(
+                        rows = rowData,
+                        horizontalPadding = horizontalItemPadding,
+                    )
+                }
             }
-        }
     }
 }
