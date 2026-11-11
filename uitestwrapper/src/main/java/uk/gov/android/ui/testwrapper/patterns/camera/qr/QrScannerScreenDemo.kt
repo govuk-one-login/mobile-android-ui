@@ -36,6 +36,7 @@ import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemoButton
 import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@Suppress("LongMethod")
 @Composable
 fun QrScannerScreenDemo(
     modifier: Modifier = Modifier,

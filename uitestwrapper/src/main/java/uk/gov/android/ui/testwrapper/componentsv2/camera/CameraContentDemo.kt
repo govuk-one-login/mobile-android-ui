@@ -38,6 +38,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@Suppress("LongMethod")
 @Composable
 fun CameraContentDemo(
     modifier: Modifier = Modifier,
