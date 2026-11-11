@@ -284,7 +284,6 @@ internal enum class ButtonTypePreview {
     Custom,
 }
 
-@Composable
 internal fun ButtonTypePreview.toButtonTypeV2(): ButtonTypeV2 = when (this) {
     ButtonTypePreview.Primary -> ButtonTypeV2.Primary()
 
