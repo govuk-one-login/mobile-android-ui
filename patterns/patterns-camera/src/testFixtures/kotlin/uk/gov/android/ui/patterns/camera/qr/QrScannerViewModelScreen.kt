@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -16,26 +17,29 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.CoroutineScope
 import uk.gov.android.ui.componentsv2.camera.CameraContentViewModel
 import uk.gov.android.ui.patterns.camera.R
-import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULTIPLIER
-import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
-import uk.gov.android.ui.theme.m3.QrScannerOverlayDefaults
+import uk.gov.android.ui.theme.m3.Backgrounds
+import uk.gov.android.ui.theme.m3.Borders
+import uk.gov.android.ui.theme.m3.Text
 import uk.gov.android.ui.theme.m3.toMappedColors
 
 @Composable
 fun QrScannerViewModelScreen(
     viewModel: CameraContentViewModel,
     modifier: Modifier = Modifier,
-    colors: QrScannerOverlayDefaults = GdsLocalColorScheme.current.qrScannerOverlay,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    scanningWidthMultiplier: Float = CANVAS_WIDTH_MULTIPLIER,
+    backgroundTint: Color = Backgrounds.qrScanner.toMappedColors(),
+    borderColor: Color = Borders.qrScanner.toMappedColors(),
+    textColor: Color = Text.qrScanner.toMappedColors(),
+    backgroundTextColor: Color = Backgrounds.qrScannerPrompt.toMappedColors(),
     instructionContent: @Composable () -> Unit = {
         QrOverlayText(
             instructionText = stringResource(R.string.qr_scan_screen_title),
             instructionTextContentDesc = stringResource(R.string.qr_scan_screen_title_content_desc),
-            textColor = colors.border.toMappedColors(),
+            textColor = textColor,
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(2f),
+            textBackground = backgroundTextColor,
         )
     },
 ) {
@@ -57,15 +61,16 @@ fun QrScannerViewModelScreen(
         )
 
     QrScannerScreen(
+        modifier = modifier,
         surfaceRequest = surfaceRequest,
         previewUseCase = previewUseCase,
         analysisUseCase = analysisUseCase,
         imageCaptureUseCase = imageCaptureUseCase,
-        scanningWidthMultiplier = scanningWidthMultiplier,
         coroutineScope = coroutineScope,
         onUpdateViewModelCamera = viewModel::update,
-        modifier = modifier,
-        colors = colors,
+        backgroundTint = backgroundTint,
+        borderColor = borderColor,
+        backgroundTextColor = backgroundTextColor,
         instructionContent = instructionContent,
     )
 }

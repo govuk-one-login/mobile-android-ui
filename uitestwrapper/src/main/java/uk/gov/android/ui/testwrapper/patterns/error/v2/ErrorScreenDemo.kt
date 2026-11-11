@@ -47,7 +47,6 @@ fun ErrorScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
             item {
@@ -104,7 +103,6 @@ fun ErrorScrollableScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -145,7 +143,6 @@ fun ErrorBottomContentLargeScreenDemo() {
                     text = bodyContent[index],
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -180,7 +177,6 @@ fun ErrorBottomContentLargeScreenDemo() {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
             )
         },
     )
@@ -210,7 +206,6 @@ fun ErrorScreenSupportingTextDemo() {
                     text = "Body text",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(horizontal = horizontalPadding),
-                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
         },
@@ -227,7 +222,6 @@ fun ErrorScreenSupportingTextDemo() {
             Text(
                 text = "Supporting text",
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onBackground,
             )
         },
     )

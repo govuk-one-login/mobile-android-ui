@@ -164,11 +164,9 @@ class CustomColorsScheme(
     val linkDefault: Color = Color.Unspecified,
     val menuItem: Color = Color.Unspecified,
     val menuItemHighlighted: Color = Color.Unspecified,
-    val qrScannerOverlay: QrScannerOverlayDefaults = QrScannerOverlayDefaults,
-    val qrScannerOverlayBackground: Color = Color.Unspecified,
-    val qrScannerOverlayBorder: Color = Color.Unspecified,
     val destructiveNativeButtonText: Color = Color.Unspecified,
     val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
+    val secondaryOutlinedBackground: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -230,12 +228,10 @@ object GdsThemeDefaults {
         linkDefault: Color = Links.default.toMappedColors(),
         menuItemHighlighted: Color = Menu.menuItemHighlighted.toMappedColors(),
         menuItem: Color = Menu.menuItem.toMappedColors(),
-        qrScannerOverlay: QrScannerOverlayDefaults = QrScannerOverlayDefaults,
-        qrScannerOverlayBackground: Color = QrScannerOverlayDefaults.background.toMappedColors(),
-        qrScannerOverlayBorder: Color = QrScannerOverlayDefaults.border.toMappedColors(),
         destructiveNativeButtonText: Color = Buttons.destructiveNativeButtonText.toMappedColors(),
         destructiveNativeButtonTextHighlighted: Color =
             Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
+        secondaryOutlinedBackground: Color = Buttons.secondaryOutlined.toMappedColors(),
     ): CustomColorsScheme = CustomColorsScheme(
         cardBackground = cardBackground,
         listBackground = listBackground,
@@ -282,11 +278,9 @@ object GdsThemeDefaults {
         linkDefault = linkDefault,
         menuItemHighlighted = menuItemHighlighted,
         menuItem = menuItem,
-        qrScannerOverlay = qrScannerOverlay,
-        qrScannerOverlayBackground = qrScannerOverlayBackground,
-        qrScannerOverlayBorder = qrScannerOverlayBorder,
         destructiveNativeButtonText = destructiveNativeButtonText,
         destructiveNativeButtonTextHighlighted = destructiveNativeButtonTextHighlighted,
+        secondaryOutlinedBackground = secondaryOutlinedBackground,
     )
 }
 

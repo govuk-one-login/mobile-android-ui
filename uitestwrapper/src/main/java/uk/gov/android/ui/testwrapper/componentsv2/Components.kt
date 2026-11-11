@@ -19,6 +19,7 @@ import uk.gov.android.ui.patterns.camera.qr.ModifierExtensions.CANVAS_WIDTH_MULT
 import uk.gov.android.ui.testwrapper.DetailItem
 import uk.gov.android.ui.testwrapper.componentsv2.button.primary.PrimaryButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryButtonDemo
+import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryOutlinedButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
 import uk.gov.android.ui.testwrapper.componentsv2.card.GdsCardDemo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
@@ -76,6 +77,8 @@ fun ComponentDetail(detailItem: DetailItem, onNavigate: (Any) -> Unit = {}) {
 
         SECONDARY_BUTTON -> SecondaryButtonDemo()
 
+        SECONDARY_OUTLINED_BUTTON -> SecondaryOutlinedButtonDemo()
+
         TOP_APP_BAR -> GdsTopAppBarDemo()
 
         DIALOGUE -> GdsDialogueDemo()
@@ -127,6 +130,7 @@ const val STATUS_OVERLAY = "StatusOverlay"
 
 const val PRIMARY_BUTTON = "primary_button"
 const val SECONDARY_BUTTON = "secondary_button"
+const val SECONDARY_OUTLINED_BUTTON = "secondary_outlined_button"
 
 const val CAMERA_CONTENT = "Camera Content"
 const val QR_CODE_CENTRALISED_SCANNING = "QR Scanning: Centrally cropping"

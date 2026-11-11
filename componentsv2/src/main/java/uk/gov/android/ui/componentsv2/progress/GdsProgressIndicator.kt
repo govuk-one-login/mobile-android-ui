@@ -25,6 +25,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.m3.GdsThemeDefaults
 import uk.gov.android.ui.theme.meta.ContentPreviews
+import uk.gov.android.ui.theme.preview.DefaultPreview
 import uk.gov.android.ui.theme.spacingDouble
 
 /**
@@ -73,27 +74,23 @@ fun GdsProgressIndicator(
 @Composable
 @PreviewLightDark
 @ContentPreviews
-internal fun GdsProgressIndicatorPreview() = GdsTheme {
-    Surface {
-        val state = remember {
-            GdsProgressIndicatorState(
-                initialWaitedFor = ProgressWaitLength.Short,
-            )
-        }
-        GdsProgressIndicator(state = state)
+internal fun GdsProgressIndicatorPreview() = DefaultPreview {
+    val state = remember {
+        GdsProgressIndicatorState(
+            initialWaitedFor = ProgressWaitLength.Short,
+        )
     }
+    GdsProgressIndicator(state = state)
 }
 
 @Preview
 @Composable
-internal fun GdsProgressIndicatorCustomLabelsPreview() = GdsTheme {
-    Surface {
-        GdsProgressIndicator(
-            labels = GdsProgressIndicatorDefaults.labels(
-                short = "Custom loading message that is quite long and wraps onto multiple lines",
-            ),
-        )
-    }
+internal fun GdsProgressIndicatorCustomLabelsPreview() = DefaultPreview {
+    GdsProgressIndicator(
+        labels = GdsProgressIndicatorDefaults.labels(
+            short = "Custom loading message that is quite long and wraps onto multiple lines",
+        ),
+    )
 }
 
 @Preview
