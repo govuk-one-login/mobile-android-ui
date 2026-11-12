@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 
 @Deprecated(
-    message = "Use ScreenPreviews instead. Will be removed on 11th January 2027.",
+    message = "Use ScreenPreviews instead. Will be removed on 12th January 2027 (DCMAW-24694).",
     replaceWith = ReplaceWith("ScreenPreviews"),
 )
 @Suppress("ComposePreviewNaming")
