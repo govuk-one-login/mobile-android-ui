@@ -2,10 +2,6 @@ package uk.gov.android.ui.testwrapper.componentsv2.camera
 
 import android.Manifest
 import android.content.Context
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.core.SurfaceRequest
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,6 +38,7 @@ import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.spacingDouble
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@Suppress("LongMethod")
 @Composable
 fun CameraContentDemo(
     modifier: Modifier = Modifier,
@@ -71,7 +68,40 @@ fun CameraContentDemo(
         converter = ImageProxyConverter.simple(),
     ).let(viewModel::update)
 
-    val permissionLogic = generatePermissionLogic(coroutineScope, viewModel, context)
+    val surfaceRequest by viewModel.surfaceRequest.collectAsStateWithLifecycle()
+    val previewUseCase by viewModel.preview.collectAsStateWithLifecycle()
+    val analysisUseCase by viewModel.imageAnalysis.collectAsStateWithLifecycle(
+        initialValue = null,
+    )
+    val imageCaptureUseCase by viewModel.imageCapture.collectAsStateWithLifecycle(
+        initialValue = null,
+    )
+
+    val permissionLogic = PermissionLogic(
+        onGrantPermission = {
+            CameraContent(
+                coroutineScope = coroutineScope,
+                previewUseCase = previewUseCase,
+                analysisUseCase = analysisUseCase,
+                imageCaptureUseCase = imageCaptureUseCase,
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .testTag("cameraViewfinder"),
+                surfaceRequest = surfaceRequest,
+                cameraUpdater = viewModel::update,
+            )
+        },
+        onPermissionPermanentlyDenied = { state ->
+            PermanentCameraDenial(state, context)
+        },
+        onShowRationale = { _, launchPermission ->
+            CameraPermissionRationaleButton(launchPermission = launchPermission)
+        },
+        onRequirePermission = { _, launchPermission ->
+            CameraRequirePermissionButton(launchPermission = launchPermission)
+        },
+    )
 
     Column(
         modifier =
@@ -89,45 +119,3 @@ fun CameraContentDemo(
         )
     }
 }
-
-@OptIn(ExperimentalPermissionsApi::class)
-private fun generatePermissionLogic(
-    coroutineScope: CoroutineScope,
-    viewModel: CameraContentViewModel,
-    context: Context,
-): PermissionLogic = PermissionLogic(
-    onGrantPermission = {
-        val surfaceRequest: SurfaceRequest? by
-            viewModel.surfaceRequest.collectAsStateWithLifecycle()
-        val previewUseCase: Preview by viewModel.preview.collectAsStateWithLifecycle()
-        val analysisUseCase: ImageAnalysis? by viewModel.imageAnalysis.collectAsStateWithLifecycle(
-            initialValue = null,
-        )
-        val imageCaptureUseCase: ImageCapture? by
-            viewModel.imageCapture.collectAsStateWithLifecycle(
-                initialValue = null,
-            )
-
-        CameraContent(
-            coroutineScope = coroutineScope,
-            previewUseCase = previewUseCase,
-            analysisUseCase = analysisUseCase,
-            imageCaptureUseCase = imageCaptureUseCase,
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .testTag("cameraViewfinder"),
-            surfaceRequest = surfaceRequest,
-            cameraUpdater = viewModel::update,
-        )
-    },
-    onPermissionPermanentlyDenied = { state ->
-        PermanentCameraDenial(state, context)
-    },
-    onShowRationale = { _, launchPermission ->
-        CameraPermissionRationaleButton(launchPermission = launchPermission)
-    },
-    onRequirePermission = { _, launchPermission ->
-        CameraRequirePermissionButton(launchPermission = launchPermission)
-    },
-)
