@@ -75,11 +75,11 @@ sealed class PatternsDestination(val label: String) {
                         ),
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN_FIXED,
-                            name = "Left Aligned Screen V3 Fixed",
+                            name = "Left Aligned Screen V4 Fixed",
                         ),
                         DetailItem(
                             label = LEFT_ALIGNED_SCREEN_ADAPTIVE,
-                            name = "Left Aligned Screen V3 Adaptive",
+                            name = "Left Aligned Screen V4 Adaptive",
                         ),
                     ),
             ),
