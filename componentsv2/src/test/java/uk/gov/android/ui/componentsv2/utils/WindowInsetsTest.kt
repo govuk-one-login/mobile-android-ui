@@ -3,7 +3,6 @@ package uk.gov.android.ui.componentsv2.utils
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -74,24 +73,6 @@ class WindowInsetsTest {
     }
 
     @Test
-    fun `safe component reserves horizontal gestures and ignores vertical gestures`() {
-        val insets =
-            createWindowInsets(
-                gestureLeft = 40,
-                gestureRight = 50,
-                gestureTop = 60,
-                gestureBottom = 70,
-            )
-        composeTestRule.setContent(insets) {
-            Content(modifier = Modifier.safeComponentPadding())
-        }
-
-        val padding = composeTestRule.getContentPadding()
-
-        padding.assertEqualTo(left = 40.dp, right = 50.dp)
-    }
-
-    @Test
     fun `safe component raises horizontal edges up to the minimum padding`() {
         val insets = createWindowInsets(gestureLeft = 4, gestureRight = 40)
         composeTestRule.setContent(insets) {
@@ -101,6 +82,30 @@ class WindowInsetsTest {
         val padding = composeTestRule.getContentPadding()
 
         padding.assertEqualTo(left = 16.dp, right = 40.dp)
+    }
+
+    /**
+     * This isn't a realistic scenario, but it's here for completeness.
+     *
+     * If for whatever reason, safe screen padding isn't applied, safe content padding will ensure
+     * that the content doesn't spill into the safe drawing margins.
+     */
+    @Test
+    fun `component padding without screen padding includes safe content`() {
+        val insets =
+            createWindowInsets(
+                statusBarTop = 20,
+                navigationBarBottom = 30,
+                gestureLeft = 40,
+                gestureRight = 50,
+            )
+        composeTestRule.setContent(insets) {
+            Content(modifier = Modifier.safeComponentPadding())
+        }
+
+        val padding = composeTestRule.getContentPadding()
+
+        padding.assertEqualTo(top = 20.dp, bottom = 30.dp, left = 40.dp, right = 50.dp)
     }
 
     @Test
@@ -122,16 +127,29 @@ class WindowInsetsTest {
         val insets = createWindowInsets(displayCutoutLeft = 30, gestureLeft = 40, gestureRight = 50)
         composeTestRule.setContent(insets) {
             val screenPadding = WindowInsets.safeScreen.asPaddingValues()
-
-            // When using asPaddingValues() to access the WindowInsets, we don't have any info
-            // about which insets have already been consumed. So we need to manually exclude
-            // the safeScreen insets from the safeComponent insets.
-            val componentPadding = WindowInsets.safeComponent()
-                .exclude(WindowInsets.safeScreen).asPaddingValues()
+            val componentPadding = WindowInsets.safeComponentAsPadding()
 
             Box(modifier = Modifier.windowInsetsPadding(screenPadding)) {
                 Content(modifier = Modifier.windowInsetsPadding(componentPadding))
             }
+        }
+
+        val padding = composeTestRule.getContentPadding()
+
+        padding.assertEqualTo(left = 40.dp, right = 50.dp)
+    }
+
+    @Test
+    fun `safe component resolved eagerly reserves horizontal gestures and ignores vertical gestures`() {
+        val insets =
+            createWindowInsets(
+                gestureLeft = 40,
+                gestureRight = 50,
+                gestureTop = 60,
+                gestureBottom = 70,
+            )
+        composeTestRule.setContent(insets) {
+            Content(modifier = Modifier.windowInsetsPadding(WindowInsets.safeComponentAsPadding()))
         }
 
         val padding = composeTestRule.getContentPadding()
