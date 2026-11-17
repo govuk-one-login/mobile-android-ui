@@ -1,6 +1,7 @@
 package uk.gov.android.ui.componentsv2.button.buttonparameters
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
@@ -19,11 +20,15 @@ internal data class ButtonParametersV2(
     val enabled: Boolean = true,
     val loading: Boolean = false,
     val shape: Shape = GdsButtonDefaults.defaultShape,
+    val contentPadding: PaddingValues = GdsButtonDefaults.contentPadding(contentPosition),
 ) {
     override fun toString(): String = buildString {
         append(buttonType.name)
         if (icon != null) append("_Icon")
         if (!enabled) append("_Disabled")
         if (loading) append("_Loading")
+        if (contentPadding != GdsButtonDefaults.contentPadding(contentPosition)) {
+            append("_CustomPadding")
+        }
     }
 }

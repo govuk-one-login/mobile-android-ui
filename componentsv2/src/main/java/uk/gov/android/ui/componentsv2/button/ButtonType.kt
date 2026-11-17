@@ -2,6 +2,8 @@
 
 package uk.gov.android.ui.componentsv2.button
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +25,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import uk.gov.android.ui.theme.buttonContentHorizontal
+import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.Typography
@@ -130,6 +134,21 @@ object GdsButtonDefaults {
     val spinnerDefaultStrokeWidth: Dp = 2.dp
     val defaultShape: Shape = RectangleShape
     fun customRoundedShape(radius: Dp): Shape = RoundedCornerShape(radius)
+
+
+    fun contentPadding(contentPosition: Arrangement.Horizontal) =
+        if (contentPosition == Arrangement.Start) {
+            contentPadding(start = 0.dp)
+        } else {
+            contentPadding()
+        }
+
+    fun contentPadding(
+        start: Dp = buttonContentHorizontal,
+        top: Dp = buttonContentVertical,
+        end: Dp = buttonContentHorizontal,
+        bottom: Dp = buttonContentVertical,
+    ) = PaddingValues(start = start, top = top, end = end, bottom = bottom)
 
     val defaultModifier: Modifier = Modifier
         .fillMaxWidth()

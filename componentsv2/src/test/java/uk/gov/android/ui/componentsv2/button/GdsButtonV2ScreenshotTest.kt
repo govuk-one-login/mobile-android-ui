@@ -49,6 +49,7 @@ internal class GdsButtonV2ScreenshotTest(
                     textAlign = parameters.textAlign,
                     enabled = parameters.enabled,
                     loading = parameters.loading,
+                    contentPadding = parameters.contentPadding,
                 )
             }
         }

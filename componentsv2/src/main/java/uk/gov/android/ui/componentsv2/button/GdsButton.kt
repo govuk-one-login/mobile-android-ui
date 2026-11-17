@@ -45,8 +45,6 @@ import uk.gov.android.ui.componentsv2.button.buttonparameters.ButtonParametersV2
 import uk.gov.android.ui.componentsv2.button.previewparameterprovider.ButtonParameterPreviewProviderV2
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomBorder
-import uk.gov.android.ui.theme.buttonContentHorizontal
-import uk.gov.android.ui.theme.buttonContentVertical
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
 import uk.gov.android.ui.theme.xsmallPadding
@@ -66,6 +64,7 @@ import uk.gov.android.ui.theme.xsmallPadding
  * @param shape - default: Rectangle - controls the button shape
  * @param icon - default: None (null) - the icon to display alongside the text
  * @param interactionSource - default: remember { MutableInteractionSource() } - allows controlling interaction states for testing
+ * @param contentPadding - default: [GdsButtonDefaults.contentPadding] for the given [contentPosition] - padding applied between the button container and its content. Pass `PaddingValues(0.dp)` to remove all padding, or `GdsButtonDefaults.contentPadding(top = 12.dp, end = 4.dp)` to override individual sides while keeping the defaults for the rest
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,6 +81,7 @@ fun GdsButton(
     shape: Shape = GdsButtonDefaults.defaultShape,
     icon: ButtonIcon? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    contentPadding: PaddingValues = GdsButtonDefaults.contentPadding(contentPosition),
 ) {
     val isFocused by interactionSource.collectIsFocusedAsState()
 
@@ -120,9 +120,7 @@ fun GdsButton(
             shape = shape,
             enabled = checkIfDisabled,
             interactionSource = interactionSource,
-            contentPadding = getContentPadding(
-                contentPosition = contentPosition,
-            ),
+            contentPadding = contentPadding,
         ) {
             Content(
                 text = text,
@@ -240,19 +238,43 @@ private fun Content(
     }
 }
 
-private fun getContentPadding(contentPosition: Arrangement.Horizontal) =
-    if (contentPosition == Arrangement.Start) {
-        PaddingValues(
-            end = buttonContentHorizontal,
-            top = buttonContentVertical,
-            bottom = buttonContentVertical,
-        )
-    } else {
-        PaddingValues(
-            horizontal = buttonContentHorizontal,
-            vertical = buttonContentVertical,
-        )
-    }
+@Composable
+@Deprecated(
+    message = "Use GdsButton with contentPadding parameter instead. " +
+        "Will be removed on 12th January 2027.",
+    level = DeprecationLevel.HIDDEN,
+)
+fun GdsButton(
+    text: String,
+    buttonType: ButtonTypeV2,
+    onClick: () -> Unit,
+    @SuppressLint("ModifierParameter")
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
+    loading: Boolean = false,
+    textAlign: TextAlign = TextAlign.Center,
+    shape: Shape = GdsButtonDefaults.defaultShape,
+    icon: ButtonIcon? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    GdsButton(
+        text = text,
+        buttonType = buttonType,
+        onClick = onClick,
+        modifier = modifier,
+        contentModifier = contentModifier,
+        contentPosition = contentPosition,
+        enabled = enabled,
+        loading = loading,
+        textAlign = textAlign,
+        shape = shape,
+        icon = icon,
+        interactionSource = interactionSource,
+        contentPadding = GdsButtonDefaults.contentPadding(contentPosition),
+    )
+}
 
 @Composable
 @Deprecated(
@@ -385,6 +407,7 @@ internal fun ButtonPreviewV2(
                 loading = parameters.loading,
                 onClick = {},
                 shape = parameters.shape,
+                contentPadding = parameters.contentPadding,
             )
         }
     }
