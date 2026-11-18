@@ -29,6 +29,10 @@ fun Modifier.windowInsetsPadding(paddingValues: PaddingValues): Modifier = paddi
  *
  * Includes [WindowInsets.safeDrawing] and the vertical component of [WindowInsets.safeGestures].
  *
+ * Note that, although these insets relate to the whole screen, you may still need to apply
+ * the different sides in different parts of the screen layout. For example, bottom insets might
+ * be applied at the bottom of a body of scrolling content.
+ *
  * Components displayed within [WindowInsets.safeScreen] may apply [Modifier.safeComponentPadding].
  *
  * @see Modifier.safeScreenPadding
