@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -47,6 +48,7 @@ import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.componentsv2.utils.customBottomBorder
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.m3.GdsTheme
+import uk.gov.android.ui.theme.minimumTouchTarget
 import uk.gov.android.ui.theme.xsmallPadding
 
 /**
@@ -111,6 +113,7 @@ fun GdsButton(
                 .then(borderModifier)
                 .customBottomBorder(shadowColor, shape, GdsButtonDefaults.borderStrokeWidthDefault)
                 .minimumInteractiveComponentSize()
+                .heightIn(min = minimumTouchTarget)
                 .semantics(mergeDescendants = true) {
                     if (loading) {
                         contentDescription = loadingContentDescription

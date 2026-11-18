@@ -135,7 +135,6 @@ object GdsButtonDefaults {
     val defaultShape: Shape = RectangleShape
     fun customRoundedShape(radius: Dp): Shape = RoundedCornerShape(radius)
 
-
     fun contentPadding(contentPosition: Arrangement.Horizontal) =
         if (contentPosition == Arrangement.Start) {
             contentPadding(start = 0.dp)
