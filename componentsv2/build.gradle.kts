@@ -30,6 +30,7 @@ dependencies {
 
     testFixturesApi(libs.androidx.ui.test.android)
     testFixturesApi(libs.android.tools.layoutlib.api)
+    testFixturesImplementation(libs.core.ktx)
     testFixturesImplementation(libs.kotlin.stdlib)
     testFixturesImplementation(libs.androidx.ui.test.junit4.android)
 
