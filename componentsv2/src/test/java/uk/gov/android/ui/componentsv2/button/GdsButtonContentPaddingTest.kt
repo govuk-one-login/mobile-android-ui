@@ -101,6 +101,18 @@ class GdsButtonContentPaddingTest {
         }
     }
 
+    @Test
+    fun zeroPaddingStillMeetsMinimumTouchTarget() {
+        val sizes = measure(
+            "none" to ButtonConfig(contentPadding = PaddingValues(0.dp)),
+        )
+
+        val height = sizes.getValue("none").height
+        check(height >= MIN_INTERACTIVE_HEIGHT - TOLERANCE) {
+            "Expected height >= $MIN_INTERACTIVE_HEIGHT but was $height"
+        }
+    }
+
     private data class ButtonConfig(
         val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
         val contentPadding: PaddingValues? = null,
