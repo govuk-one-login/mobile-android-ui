@@ -1,8 +1,9 @@
-package uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v3
+package uk.gov.android.ui.testwrapper.patterns.leftalignedscreen.v4
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,14 +24,15 @@ import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.supportingtext.GdsSupportingText
 import uk.gov.android.ui.componentsv2.topappbar.GdsTopAppBar
+import uk.gov.android.ui.componentsv2.utils.windowInsetsPadding
 import uk.gov.android.ui.patterns.R
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentBehaviour
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.BottomContentConfig
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenBody
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenButton
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreenTopAppBar
-import uk.gov.android.ui.patterns.leftalignedscreen.v3.MainContentParameters.Companion.GenerateDefault
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.BottomContentBehaviour
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.BottomContentConfig
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreen
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreenBody
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreenButton
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreenTopAppBar
+import uk.gov.android.ui.patterns.leftalignedscreen.v4.MainContentParameters.Companion.GenerateDefault
 import uk.gov.android.ui.theme.m3.Backgrounds
 import uk.gov.android.ui.theme.m3.ExtraTypography
 import uk.gov.android.ui.theme.m3.toMappedColors
@@ -117,15 +119,17 @@ private val topAppBarSlot: @Composable (scrollBehaviour: TopAppBarScrollBehavior
         )
     }
 
-private val titleSlot: @Composable (horizontalPadding: Dp) -> Unit = { horizontalPadding ->
+private val titleSlot: @Composable (
+    horizontalPadding: PaddingValues,
+) -> Unit = { horizontalPadding ->
     GdsHeading(
         text = "Left Aligned Screen",
-        modifier = Modifier.padding(horizontal = horizontalPadding),
+        modifier = Modifier.windowInsetsPadding(horizontalPadding),
         textAlign = GdsHeadingAlignment.LeftAligned,
     )
 }
 
-private val bodySlot: @Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit =
+private val bodySlot: @Composable ColumnScope.(horizontalItemPadding: PaddingValues) -> Unit =
     { horizontalItemPadding ->
         body.forEach { it.GenerateDefault(horizontalItemPadding) }
     }
