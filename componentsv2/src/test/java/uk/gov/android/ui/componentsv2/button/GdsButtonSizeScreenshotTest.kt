@@ -56,6 +56,7 @@ internal class GdsButtonSizeScreenshotTest : BaseScreenshotTest() {
                             textAlign = parameters.textAlign,
                             enabled = parameters.enabled,
                             loading = parameters.loading,
+                            contentPadding = parameters.contentPadding,
                         )
                     }
                 }

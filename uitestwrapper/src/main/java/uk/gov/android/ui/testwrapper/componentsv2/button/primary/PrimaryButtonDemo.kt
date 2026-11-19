@@ -2,6 +2,7 @@ package uk.gov.android.ui.testwrapper.componentsv2.button.primary
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,16 +14,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.ExternalDestination
 import uk.gov.android.ui.componentsv2.button.GdsButton
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
 import uk.gov.android.ui.theme.smallPadding
 
 private const val BUTTON_LOADING_DURATION = 2000L // Milliseconds
 
+@Suppress("LongMethod")
 @Composable
 fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
     Column(
@@ -91,5 +95,31 @@ fun PrimaryButtonDemo(modifier: Modifier = Modifier) {
             loading = isIconButtonLoading,
             modifier = Modifier.fillMaxWidth(),
         )
+
+        ContentPaddingExamples()
     }
+}
+
+@Composable
+private fun ContentPaddingExamples() {
+    // Primary Button with no content padding (wraps content tightly)
+    GdsButton(
+        text = "No content padding",
+        buttonType = ButtonTypeV2.Primary(),
+        onClick = {},
+        contentPadding = PaddingValues(0.dp),
+    )
+
+    // Primary Button overriding individual sides: left 10, top 4, right 6, bottom 8 (LTR)
+    GdsButton(
+        text = "Custom content padding",
+        buttonType = ButtonTypeV2.Primary(),
+        onClick = {},
+        contentPadding = GdsButtonDefaults.contentPadding(
+            start = 10.dp,
+            top = 4.dp,
+            end = 6.dp,
+            bottom = 8.dp,
+        ),
+    )
 }

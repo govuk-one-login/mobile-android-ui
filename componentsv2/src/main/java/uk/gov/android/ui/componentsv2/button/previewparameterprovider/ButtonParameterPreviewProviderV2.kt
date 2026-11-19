@@ -1,6 +1,7 @@
 package uk.gov.android.ui.componentsv2.button.previewparameterprovider
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -102,6 +103,21 @@ internal class ButtonParameterPreviewProviderV2 : PreviewParameterProvider<Butto
             text = "Secondary outlined button",
             buttonType = ButtonTypePreview.SecondaryOutlined,
             modifier = Modifier.fillMaxWidth(),
+        ),
+        ButtonParametersV2(
+            text = "Primary button (no padding)",
+            buttonType = ButtonTypePreview.Primary,
+            contentPadding = PaddingValues(0.dp),
+        ),
+        ButtonParametersV2(
+            text = "Primary button (custom padding)",
+            buttonType = ButtonTypePreview.Primary,
+            contentPadding = GdsButtonDefaults.contentPadding(
+                start = 10.dp,
+                top = 4.dp,
+                end = 6.dp,
+                bottom = 8.dp,
+            ),
         ),
     )
 
