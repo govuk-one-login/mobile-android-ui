@@ -56,7 +56,7 @@ jobs:
       - name: Sonar scan
         uses: ./mobile-android-pipelines/actions/sonar-scan
         with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-token: ${{ secrets.SONAR_PROJECT_SCANNING_KEY }}
 
       - name: Bundle reports folder
         uses: ./mobile-android-pipelines/actions/bundle-reports
