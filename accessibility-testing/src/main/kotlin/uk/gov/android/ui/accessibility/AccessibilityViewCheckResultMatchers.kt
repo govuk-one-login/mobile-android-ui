@@ -15,6 +15,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
+@Suppress("TooManyFunctions")
 object AccessibilityViewCheckResultMatchers {
     fun hasAccessibilityHierarchyCheck(expected: KClass<out AccessibilityHierarchyCheck>) =
         hasAccessibilityHierarchyCheck(expected.java)
