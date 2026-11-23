@@ -32,7 +32,7 @@ dependencies {
         libs.androidx.test.ext.junit,
         libs.androidx.compose.ui.junit4,
         libs.androidx.compose.ui.junit4.accessibility,
-    ).forEach(::testFixturesApi)
+    ).forEach(::api)
 }
 
 mavenPublishingConfig {
