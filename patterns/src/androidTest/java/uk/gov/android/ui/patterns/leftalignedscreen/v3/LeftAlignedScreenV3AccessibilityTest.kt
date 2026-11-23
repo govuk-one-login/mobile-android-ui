@@ -1,6 +1,6 @@
 package uk.gov.android.ui.patterns.leftalignedscreen.v3
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -16,7 +16,7 @@ import uk.gov.android.ui.accessibility.AccessibilityHelper.performAccessibilityC
 @RunWith(AndroidJUnit4::class)
 class LeftAlignedScreenV3AccessibilityTest {
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<AppCompatActivity>()
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     private lateinit var title: SemanticsMatcher
     private lateinit var continueButton: SemanticsMatcher
