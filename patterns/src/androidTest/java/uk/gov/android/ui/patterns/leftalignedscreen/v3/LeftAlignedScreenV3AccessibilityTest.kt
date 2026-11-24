@@ -18,20 +18,7 @@ class LeftAlignedScreenV3AccessibilityTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private lateinit var title: SemanticsMatcher
-    private lateinit var continueButton: SemanticsMatcher
-    private lateinit var supportingText: SemanticsMatcher
-
     private val titleText = "Title"
-    private val buttonText = "Continue"
-    private val extraText = "Extra text"
-
-    @Before
-    fun setUp() {
-        title = hasText(titleText)
-        continueButton = hasText(buttonText)
-        supportingText = hasText(extraText)
-    }
 
     @Test
     fun basicStructurePassesAccessibilityChecks() {

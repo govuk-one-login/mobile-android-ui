@@ -6,15 +6,6 @@ plugins {
 
 android {
     namespace("accessibility", project)
-
-    buildTypes {
-        release {
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-        }
-    }
 }
 
 dependencies {
@@ -33,6 +24,10 @@ dependencies {
         libs.androidx.compose.ui.junit4,
         libs.androidx.compose.ui.junit4.accessibility,
     ).forEach(::api)
+
+    listOf(
+        libs.androidx.compose.material3,
+    ).forEach(::implementation)
 }
 
 mavenPublishingConfig {

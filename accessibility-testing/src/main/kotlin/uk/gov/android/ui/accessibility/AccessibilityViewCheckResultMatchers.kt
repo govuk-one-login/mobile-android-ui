@@ -15,6 +15,10 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
+/**
+ * Wrapper object for storing hamcrest [Matcher] functions that assert against
+ * [AccessibilityViewCheckResult] instances.
+ */
 @Suppress("TooManyFunctions")
 object AccessibilityViewCheckResultMatchers {
     fun hasAccessibilityHierarchyCheck(expected: KClass<out AccessibilityHierarchyCheck>) =
