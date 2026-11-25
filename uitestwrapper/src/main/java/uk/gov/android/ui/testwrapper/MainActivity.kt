@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.compose.rememberNavController
+import uk.gov.android.ui.componentsv2.utils.safeScreenPadding
 import uk.gov.android.ui.theme.m3.GdsTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,28 +31,31 @@ class MainActivity : ComponentActivity() {
             var selectedDestination by rememberSaveable { mutableIntStateOf(0) }
 
             GdsTheme {
-                Scaffold(topBar = {
-                    PrimaryTabRow(
-                        selectedTabIndex = selectedDestination,
-                    ) {
-                        TabDestination.entries().forEachIndexed { index, destination ->
-                            Tab(
-                                selected = selectedDestination == index,
-                                onClick = {
-                                    navController.navigate(route = destination)
-                                    selectedDestination = index
-                                },
-                                text = {
-                                    Text(
-                                        text = destination.label,
-                                        maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                },
-                            )
+                Scaffold(
+                    modifier = Modifier.safeScreenPadding(),
+                    topBar = {
+                        PrimaryTabRow(
+                            selectedTabIndex = selectedDestination,
+                        ) {
+                            TabDestination.entries().forEachIndexed { index, destination ->
+                                Tab(
+                                    selected = selectedDestination == index,
+                                    onClick = {
+                                        navController.navigate(route = destination)
+                                        selectedDestination = index
+                                    },
+                                    text = {
+                                        Text(
+                                            text = destination.label,
+                                            maxLines = 2,
+                                            overflow = TextOverflow.Ellipsis,
+                                        )
+                                    },
+                                )
+                            }
                         }
-                    }
-                }) { contentPadding ->
+                    },
+                ) { contentPadding ->
                     AppNavHost(
                         navController,
                         startDestination,
