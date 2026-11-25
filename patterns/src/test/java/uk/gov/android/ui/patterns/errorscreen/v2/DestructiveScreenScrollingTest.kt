@@ -1,8 +1,6 @@
 package uk.gov.android.ui.patterns.errorscreen.v2
 
 import android.annotation.SuppressLint
-import androidx.compose.material.Text
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertIsDisplayed
@@ -48,7 +46,7 @@ class DestructiveScreenScrollingTest {
             mandatoryTitle = "Title"
         }
         val topLine = ErrorScreenBodyContent.Text("Top single line")
-        val paragraph = ErrorScreenBodyContent.Text(loremIpsum(50))
+        val paragraph = ErrorScreenBodyContent.Text(loremIpsum(150))
         val bottomLine = ErrorScreenBodyContent.Text("Bottom single line")
         val body = persistentListOf(topLine, paragraph, paragraph, paragraph, paragraph, bottomLine)
 
