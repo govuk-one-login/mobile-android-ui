@@ -4,8 +4,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Bottom
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
@@ -23,12 +31,15 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import androidx.compose.ui.unit.Dp
 import kotlinx.collections.immutable.persistentListOf
 import uk.gov.android.ui.componentsv2.heading.GdsHeading
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingAlignment
 import uk.gov.android.ui.componentsv2.heading.GdsHeadingStyle
 import uk.gov.android.ui.componentsv2.list.ListItem
+import uk.gov.android.ui.componentsv2.utils.safeComponent
+import uk.gov.android.ui.componentsv2.utils.safeScreen
+import uk.gov.android.ui.componentsv2.utils.safeScreenPadding
+import uk.gov.android.ui.componentsv2.utils.windowInsetsPadding
 import uk.gov.android.ui.patterns.R
 import uk.gov.android.ui.patterns.leftalignedscreen.v4.LeftAlignedScreenTestTag.BODY_LAZY_COLUMN_TEST_TAG
 import uk.gov.android.ui.patterns.leftalignedscreen.v4.MainContentParameters.Companion.GenerateDefault
@@ -55,32 +66,50 @@ private const val LAYOUT_WEIGHT_MAX = 1f
  *
  * @param titleContent the title slot, rendered as the first item in the column (optional).
  * @param bodyContent the body slot, a [ColumnScope] lambda contributing items (optional).
+ * @param reachesScreenBottom whether this scrollable content reaches the bottom edge of the
+ *  screen (so that it can apply window insets accordingly)
  * @param bottomContent appended as the final item when the bottom content is too large to remain a
  * sticky footer and must scroll with the body instead (optional).
  */
 @Composable
 internal fun ColumnScope.MainContent(
-    titleContent: (@Composable (horizontalPadding: Dp) -> Unit)?,
-    bodyContent: (@Composable ColumnScope.(horizontalItemPadding: Dp) -> Unit)?,
+    titleContent: (@Composable (horizontalPadding: PaddingValues) -> Unit)?,
+    bodyContent: (@Composable ColumnScope.(horizontalItemPadding: PaddingValues) -> Unit)?,
+    reachesScreenBottom: Boolean,
     config: MainContentConfig = MainContentConfig(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) {
     val scrollState = rememberScrollState()
-    with(config) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(verticalPadding),
-            modifier = modifier
-                .weight(LAYOUT_WEIGHT_MAX)
-                .fillMaxWidth()
-                .testTag(BODY_LAZY_COLUMN_TEST_TAG)
-                .keyboardScroll(scrollState)
-                .verticalScroll(scrollState)
-                .padding(vertical = verticalPadding),
-        ) {
-            titleContent?.invoke(horizontalPadding)
-            bodyContent?.invoke(this, horizontalPadding)
-            bottomContent?.invoke()
-        }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(config.verticalPadding),
+        modifier = config.modifier
+            .weight(LAYOUT_WEIGHT_MAX)
+            .fillMaxWidth()
+            .testTag(BODY_LAZY_COLUMN_TEST_TAG)
+            .keyboardScroll(scrollState)
+            .verticalScroll(scrollState)
+            .padding(top = config.verticalPadding)
+            .let {
+                val windowInsets = WindowInsets.safeScreen.only(Bottom)
+                if (reachesScreenBottom) {
+                    it.windowInsetsPadding(windowInsets)
+                } else {
+                    // If the main content doesn't reach the bottom of the screen then it isn't
+                    // responsible for displaying safe screen insets because the bottom content is.
+                    // We still need to consume the insets so content can't apply them again.
+                    it.consumeWindowInsets(windowInsets)
+                }
+            },
+    ) {
+        val horizontalPadding = WindowInsets
+            .safeComponent(minHorizontalPadding = config.horizontalPadding)
+            // Exclusion needed because we're resolving the insets as padding values
+            // without knowing about insets that are already consumed in the compose hierarchy
+            .exclude(WindowInsets.safeScreen)
+            .asPaddingValues()
+        titleContent?.invoke(horizontalPadding)
+        bodyContent?.invoke(this, horizontalPadding)
+        bottomContent?.invoke()
     }
 }
 
@@ -91,11 +120,13 @@ internal fun ColumnScope.MainContent(
 @Composable
 internal fun ColumnScope.MainContent(
     parameters: MainContentParameters,
+    reachesScreenBottom: Boolean = true,
     config: MainContentConfig = MainContentConfig(),
     bottomContent: @Composable (() -> Unit)? = null,
 ) = MainContent(
     titleContent = parameters.titleContent,
     bodyContent = parameters.bodyContent,
+    reachesScreenBottom = reachesScreenBottom,
     config = config,
     bottomContent = bottomContent,
 )
@@ -142,9 +173,9 @@ internal class MainContentParametersProvider : PreviewParameterProvider<MainCont
         )
 
     @Composable
-    private fun Heading(horizontalPadding: Dp) = GdsHeading(
+    private fun Heading(horizontalPadding: PaddingValues) = GdsHeading(
         text = TITLE_TEXT,
-        modifier = Modifier.padding(horizontal = horizontalPadding),
+        modifier = Modifier.windowInsetsPadding(horizontalPadding),
         textAlign = GdsHeadingAlignment.LeftAligned,
     )
 
