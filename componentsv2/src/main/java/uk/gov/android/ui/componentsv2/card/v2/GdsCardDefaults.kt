@@ -7,10 +7,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.theme.cardBorderWidth
+import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
 import uk.gov.android.ui.theme.tileCornerRadius
 
@@ -57,13 +60,29 @@ object GdsCardDefaults {
     fun elevation(): CardElevation = CardDefaults.cardElevation()
 
     /**
-     * The elevation to use when a card needs a shadow - **1.dp**, matching the Material Design
-     * elevated card container elevation of `md.sys.elevation.level1`.
-     *
-     * This is not applied by default. Pass it to [GdsCard] as the `elevation` argument.
+     * The elevation of the shadow drawn by [shadow] - **1.dp**, the same value used for the
+     * shadow of the original cards.
      */
-    @Composable
-    fun elevatedElevation(): CardElevation = CardDefaults.elevatedCardElevation()
+    val shadowElevation: Dp = cardShadow
+
+    /**
+     * The shadow to use when a card needs an elevated look - **1.dp** drawn with
+     * [Modifier.shadow], matching the shadow of the original cards.
+     *
+     * GDS cards do not use Material elevation for this, so it is not applied by default and is
+     * deliberately not attached to the underlying Material card. Add it to the `modifier` passed
+     * to [GdsCard]:
+     *
+     * ```
+     * GdsCard(modifier = Modifier.then(GdsCardDefaults.shadow())) { ... }
+     * ```
+     *
+     * @param shape the shape the shadow follows - defaults to [GdsCardDefaults.shape], so pass the
+     *   same shape given to [GdsCard] if it has been overridden
+     * @param elevation the size of the shadow
+     */
+    fun shadow(shape: Shape = this.shape, elevation: Dp = shadowElevation): Modifier =
+        Modifier.shadow(elevation = elevation, shape = shape)
 
     /**
      * The border to use when a card needs one - **1.dp** of the **Card** border colour from the

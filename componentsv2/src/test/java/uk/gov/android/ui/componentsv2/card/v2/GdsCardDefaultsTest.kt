@@ -7,6 +7,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -102,16 +103,18 @@ class GdsCardDefaultsTest {
     }
 
     @Test
-    fun `elevatedElevation is the Material elevated card elevation`() {
-        lateinit var actual: CardElevation
-        lateinit var expected: CardElevation
-        composeTestRule.setContent {
-            actual = GdsCardDefaults.elevatedElevation()
-            expected = CardDefaults.elevatedCardElevation()
-        }
+    fun `shadow elevation is 1dp`() {
+        assertEquals(1.dp, GdsCardDefaults.shadowElevation)
+    }
 
-        composeTestRule.waitForIdle()
-        assertEquals(expected, actual)
+    @Test
+    fun `shadow is a modifier that can be overridden`() {
+        assertNotEquals(Modifier, GdsCardDefaults.shadow())
+        assertNotEquals(GdsCardDefaults.shadow(), GdsCardDefaults.shadow(elevation = 8.dp))
+        assertNotEquals(
+            GdsCardDefaults.shadow(),
+            GdsCardDefaults.shadow(shape = RoundedCornerShape(4.dp)),
+        )
     }
 
     @Test

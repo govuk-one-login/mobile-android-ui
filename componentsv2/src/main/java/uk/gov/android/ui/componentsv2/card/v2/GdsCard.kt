@@ -38,8 +38,8 @@ import uk.gov.android.ui.theme.spacingDouble
  *   of 16.dp, see [GdsCardDefaults.shape]
  * @param colors the container and content colours - defaults to the Design System card background,
  *   see [GdsCardDefaults.colors]
- * @param elevation the elevation controlling the size of the card's shadow - defaults to no
- *   shadow, see [GdsCardDefaults.elevation] and [GdsCardDefaults.elevatedElevation]
+ * @param elevation the Material elevation of the card - defaults to none, see
+ *   [GdsCardDefaults.elevation]. For the GDS shadow add [GdsCardDefaults.shadow] to [modifier]
  * @param border the border drawn around the card - defaults to no border, see
  *   [GdsCardDefaults.border]
  * @param content the content of the card
@@ -77,8 +77,8 @@ fun GdsCard(
  *   of 16.dp, see [GdsCardDefaults.shape]
  * @param colors the container and content colours - defaults to the Design System card background,
  *   see [GdsCardDefaults.colors]
- * @param elevation the elevation controlling the size of the card's shadow - defaults to no
- *   shadow, see [GdsCardDefaults.elevation] and [GdsCardDefaults.elevatedElevation]
+ * @param elevation the Material elevation of the card - defaults to none, see
+ *   [GdsCardDefaults.elevation]. For the GDS shadow add [GdsCardDefaults.shadow] to [modifier]
  * @param border the border drawn around the card - defaults to no border, see
  *   [GdsCardDefaults.border]
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
@@ -132,8 +132,9 @@ internal fun GdsCardWithBorderPreview() = DefaultPreview {
 @PreviewLightDark
 internal fun GdsCardWithShadowPreview() = DefaultPreview {
     GdsCard(
-        modifier = Modifier.padding(spacingDouble),
-        elevation = GdsCardDefaults.elevatedElevation(),
+        modifier = Modifier
+            .padding(spacingDouble)
+            .then(GdsCardDefaults.shadow()),
     ) {
         PreviewContent(title = "Card", body = "A card with a shadow.")
     }

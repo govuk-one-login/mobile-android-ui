@@ -174,10 +174,10 @@ class GdsCardTest {
         composeTestRule.setContent {
             GdsTheme {
                 GdsCard(
-                    modifier = Modifier.testTag(CARD_TAG),
+                    modifier = Modifier.testTag(CARD_TAG).then(GdsCardDefaults.shadow()),
                     shape = RoundedCornerShape(CUSTOM_RADIUS),
                     colors = GdsCardDefaults.colors(containerColor = Color.Red),
-                    elevation = GdsCardDefaults.elevatedElevation(),
+                    elevation = GdsCardDefaults.elevation(),
                     border = GdsCardDefaults.border(),
                 ) {
                     Text(CONTENT)
@@ -195,11 +195,11 @@ class GdsCardTest {
             GdsTheme {
                 GdsCard(
                     onClick = { clicks++ },
-                    modifier = Modifier.testTag(CARD_TAG),
+                    modifier = Modifier.testTag(CARD_TAG).then(GdsCardDefaults.shadow()),
                     enabled = true,
                     shape = RoundedCornerShape(CUSTOM_RADIUS),
                     colors = GdsCardDefaults.colors(containerColor = Color.Red),
-                    elevation = GdsCardDefaults.elevatedElevation(),
+                    elevation = GdsCardDefaults.elevation(),
                     border = GdsCardDefaults.border(),
                     interactionSource = remember { MutableInteractionSource() },
                 ) {
