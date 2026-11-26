@@ -67,7 +67,7 @@ private const val FONT_SCALE_DOUBLE = 2f
 @Suppress("LongMethod")
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
+    message = "Use LeftAlignedScreen V3 instead - aimed to be removed by 11/01/2026 (DCMAW-24458)",
     replaceWith = ReplaceWith(
         "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
@@ -178,7 +178,7 @@ fun LeftAlignedScreen(
  */
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
+    message = "Use LeftAlignedScreen V3 instead - aimed to be removed by 11/01/2026 (DCMAW-24458)",
     replaceWith = ReplaceWith(
         "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
@@ -257,7 +257,7 @@ fun LeftAlignedScreenV2(
  */
 @Composable
 @Deprecated(
-    message = "Use LeftAlignedScreenV3 instead - aimed to be removed by 11/01/2026",
+    message = "Use LeftAlignedScreen V3 instead - aimed to be removed by 11/01/2026 (DCMAW-24458)",
     replaceWith = ReplaceWith(
         "uk.gov.android.ui.patterns.leftalignedscreen.v3.LeftAlignedScreen",
     ),
