@@ -13,6 +13,10 @@ android {
 apply(from = rootProject.file("gradle/snapshot-test-filter.gradle.kts"))
 
 dependencies {
+    listOf(
+        projects.accessibilityTesting,
+    ).forEach(::androidTestImplementation)
+
     implementation(libs.accompanist.permissions)
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
