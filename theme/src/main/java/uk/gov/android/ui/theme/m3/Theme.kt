@@ -593,6 +593,11 @@ fun ThemeV2CustomPreview() {
         val bordersCustomColors = with(GdsLocalColorScheme.current) {
             listOf(
                 SwatchColor(cardBorder, "Borders - Card"),
+                SwatchColor(
+                    Borders.qrScanner.toMappedColors(),
+                    "Borders - QR Scanner",
+                    Color.Black,
+                ),
             )
         }
 
