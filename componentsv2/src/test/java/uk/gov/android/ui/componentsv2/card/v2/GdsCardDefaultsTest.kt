@@ -108,12 +108,12 @@ class GdsCardDefaultsTest {
     }
 
     @Test
-    fun `shadow is a modifier that can be overridden`() {
-        assertNotEquals(Modifier, GdsCardDefaults.shadow())
-        assertNotEquals(GdsCardDefaults.shadow(), GdsCardDefaults.shadow(elevation = 8.dp))
+    fun `gdsCardShadow is a modifier that can be overridden`() {
+        assertNotEquals(Modifier, Modifier.gdsCardShadow())
+        assertNotEquals(Modifier.gdsCardShadow(), Modifier.gdsCardShadow(elevation = 8.dp))
         assertNotEquals(
-            GdsCardDefaults.shadow(),
-            GdsCardDefaults.shadow(shape = RoundedCornerShape(4.dp)),
+            Modifier.gdsCardShadow(),
+            Modifier.gdsCardShadow(shape = RoundedCornerShape(4.dp)),
         )
     }
 

@@ -83,7 +83,7 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                 body = true,
                 titleStyle = Typography.titleSmall,
                 button = VariantButton.Primary,
-                modifier = Modifier.then(GdsCardDefaults.shadow()),
+                modifier = Modifier.gdsCardShadow(),
             )
             CardPreview.DismissBodyPrimary -> VariantCard(
                 showDismiss = true,

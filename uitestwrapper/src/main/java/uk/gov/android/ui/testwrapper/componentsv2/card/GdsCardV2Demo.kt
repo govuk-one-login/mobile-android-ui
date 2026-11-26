@@ -26,6 +26,7 @@ import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.card.v2.GdsCard
 import uk.gov.android.ui.componentsv2.card.v2.GdsCardDefaults
+import uk.gov.android.ui.componentsv2.card.v2.gdsCardShadow
 import uk.gov.android.ui.testwrapper.DemoTemplate
 import uk.gov.android.ui.theme.m3.Typography
 import uk.gov.android.ui.theme.spacingDouble
@@ -59,10 +60,10 @@ fun GdsCardV2Demo(modifier: Modifier = Modifier) {
                 )
             }
 
-            GdsCard(modifier = GdsCardDefaults.shadow()) {
+            GdsCard(modifier = Modifier.gdsCardShadow()) {
                 CardText(
                     title = "With shadow",
-                    body = "1.dp shadow, applied with GdsCardDefaults.shadow().",
+                    body = "1.dp shadow, applied with Modifier.gdsCardShadow().",
                 )
             }
 

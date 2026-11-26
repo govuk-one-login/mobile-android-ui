@@ -7,8 +7,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
@@ -59,29 +57,10 @@ object GdsCardDefaults {
     fun elevation(): CardElevation = CardDefaults.cardElevation()
 
     /**
-     * The elevation of the shadow drawn by [shadow] - **1.dp**, the same value used for the
-     * shadow of the original cards.
+     * The elevation of the shadow drawn by [gdsCardShadow] - **1.dp**, the same value used for
+     * the shadow of the original cards.
      */
     val shadowElevation: Dp = cardShadow
-
-    /**
-     * The shadow to use when a card needs an elevated look - **1.dp** drawn with
-     * [Modifier.shadow], matching the shadow of the original cards.
-     *
-     * GDS cards do not use Material elevation for this, so it is not applied by default and is
-     * deliberately not attached to the underlying Material card. Add it to the `modifier` passed
-     * to [GdsCard]:
-     *
-     * ```
-     * GdsCard(modifier = Modifier.then(GdsCardDefaults.shadow())) { ... }
-     * ```
-     *
-     * @param shape the shape the shadow follows - defaults to [GdsCardDefaults.shape], so pass the
-     *   same shape given to [GdsCard] if it has been overridden
-     * @param elevation the size of the shadow
-     */
-    fun shadow(shape: Shape = this.shape, elevation: Dp = shadowElevation): Modifier =
-        Modifier.shadow(elevation = elevation, shape = shape)
 
     /**
      * The border to use when a card needs one - **1.dp** of the **Card** border colour from the
