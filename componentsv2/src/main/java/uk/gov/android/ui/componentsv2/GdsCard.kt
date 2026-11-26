@@ -78,6 +78,10 @@ import uk.gov.android.ui.theme.xsmallPadding
  */
 @Suppress("LongMethod")
 @Composable
+@Deprecated(
+    message = "Use the GdsCard in uk.gov.android.ui.componentsv2.card.v2 instead. " +
+        "DCMAW-25023 - Will be removed on 27th January 2027.",
+)
 fun GdsCard(
     title: String,
     onClick: () -> Unit,

@@ -137,6 +137,7 @@ sealed class ComponentsDestination(open val label: String) {
                 items =
                     listOf(
                         DetailItem(label = CARD, name = "Card with button and image"),
+                        DetailItem(label = CARD_V2, name = "Card v2 (Material 3 wrapper)"),
                     ),
             ),
             DetailedItem(

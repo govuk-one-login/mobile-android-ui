@@ -22,6 +22,7 @@ import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryButt
 import uk.gov.android.ui.testwrapper.componentsv2.button.secondary.SecondaryOutlinedButtonDemo
 import uk.gov.android.ui.testwrapper.componentsv2.camera.CameraContentDemo
 import uk.gov.android.ui.testwrapper.componentsv2.card.GdsCardDemo
+import uk.gov.android.ui.testwrapper.componentsv2.card.GdsCardV2Demo
 import uk.gov.android.ui.testwrapper.componentsv2.dialogue.GdsDialogueDemo
 import uk.gov.android.ui.testwrapper.componentsv2.heading.GdsHeadingDemo
 import uk.gov.android.ui.testwrapper.componentsv2.inputs.radio.GdsRadiosDemo
@@ -107,6 +108,8 @@ fun ComponentDetail(detailItem: DetailItem, onNavigate: (Any) -> Unit = {}) {
 
         CARD -> GdsCardDemo()
 
+        CARD_V2 -> GdsCardV2Demo()
+
         WARNING -> GdsWarningDemo()
 
         HEADING -> GdsHeadingDemo()
@@ -137,6 +140,7 @@ const val QR_CODE_CENTRALISED_SCANNING = "QR Scanning: Centrally cropping"
 const val QR_CODE_SCANNING = "QR Scanning: Full image scanning"
 const val ROW_LIST = "rowList"
 const val CARD = "card"
+const val CARD_V2 = "cardV2"
 const val WARNING = "warning"
 const val HEADING = "heading"
 const val ANNOTATED_STRING = "annotatedString"

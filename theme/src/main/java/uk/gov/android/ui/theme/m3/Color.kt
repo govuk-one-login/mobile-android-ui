@@ -100,6 +100,7 @@ object Menu {
 }
 
 object Borders {
+    val card = ColorPair(Color(0xFFB1B4B6))
     val qrScanner = ColorPair(Color(0xFFFFFFFF))
 }
 
