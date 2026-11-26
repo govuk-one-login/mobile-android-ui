@@ -59,10 +59,10 @@ fun GdsCardV2Demo(modifier: Modifier = Modifier) {
                 )
             }
 
-            GdsCard(elevation = GdsCardDefaults.elevatedElevation()) {
+            GdsCard(modifier = GdsCardDefaults.shadow()) {
                 CardText(
                     title = "With shadow",
-                    body = "1.dp elevation, applied with GdsCardDefaults.elevatedElevation().",
+                    body = "1.dp shadow, applied with GdsCardDefaults.shadow().",
                 )
             }
 
