@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2.card.v2
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -10,8 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -81,10 +88,21 @@ fun GdsCard(
  *   [GdsCardDefaults.elevation]. For the GDS shadow add [gdsCardShadow] to [modifier]
  * @param border the border drawn around the card - defaults to no border, see
  *   [GdsCardDefaults.border]
+ * @param focusedColors the container and content colours used while the card has focus - defaults
+ *   to the GDS focus state, see [GdsCardDefaults.focusedColors]. Pass [colors] to remove the
+ *   colour change
+ * @param focusedBorder the border drawn while the card has focus - defaults to [border]. Pass a
+ *   visible border here if the focus state must not rely on colour alone
+ * @param rippleConfiguration the ripple (colour and alpha, which also covers the hovered and
+ *   dragged states) shown when the card is interacted with - see
+ *   [GdsCardDefaults.rippleConfiguration]
+ * @param focusedRippleConfiguration the ripple used while the card has focus - see
+ *   [GdsCardDefaults.focusedRippleConfiguration]
  * @param interactionSource an optional hoisted [MutableInteractionSource] for observing and
  *   emitting interactions for the card
  * @param content the content of the card
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GdsCard(
     onClick: () -> Unit,
@@ -94,19 +112,74 @@ fun GdsCard(
     colors: CardColors = GdsCardDefaults.colors(),
     elevation: CardElevation = GdsCardDefaults.elevation(),
     border: BorderStroke? = null,
+    focusedColors: CardColors = GdsCardDefaults.focusedColors(),
+    focusedBorder: BorderStroke? = border,
+    rippleConfiguration: RippleConfiguration = GdsCardDefaults.rippleConfiguration(),
+    focusedRippleConfiguration: RippleConfiguration = GdsCardDefaults.focusedRippleConfiguration(),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable ColumnScope.() -> Unit,
-) = Card(
-    onClick = onClick,
-    modifier = modifier,
-    enabled = enabled,
-    shape = shape,
-    colors = colors,
-    elevation = elevation,
-    border = border,
-    interactionSource = interactionSource,
-    content = content,
-)
+) {
+    val source = interactionSource ?: remember { MutableInteractionSource() }
+    val isFocused by source.collectIsFocusedAsState()
+
+    GdsCardWithFocusState(
+        isFocused = isFocused,
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        shape = shape,
+        colors = colors,
+        elevation = elevation,
+        border = border,
+        focusedColors = focusedColors,
+        focusedBorder = focusedBorder,
+        rippleConfiguration = rippleConfiguration,
+        focusedRippleConfiguration = focusedRippleConfiguration,
+        interactionSource = source,
+        content = content,
+    )
+}
+
+/**
+ * Applies the focused or unfocused styling to a clickable card. Split out of the public overload
+ * so that the [isFocused] state can be set directly, e.g. in screenshot tests.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+@Suppress("LongParameterList")
+internal fun GdsCardWithFocusState(
+    isFocused: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier,
+    enabled: Boolean,
+    shape: Shape,
+    colors: CardColors,
+    elevation: CardElevation,
+    border: BorderStroke?,
+    focusedColors: CardColors,
+    focusedBorder: BorderStroke?,
+    rippleConfiguration: RippleConfiguration,
+    focusedRippleConfiguration: RippleConfiguration,
+    interactionSource: MutableInteractionSource,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalRippleConfiguration provides
+            if (isFocused) focusedRippleConfiguration else rippleConfiguration,
+    ) {
+        Card(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            shape = shape,
+            colors = if (isFocused) focusedColors else colors,
+            elevation = elevation,
+            border = if (isFocused) focusedBorder else border,
+            interactionSource = interactionSource,
+            content = content,
+        )
+    }
+}
 
 @Composable
 @PreviewLightDark

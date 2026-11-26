@@ -1,7 +1,9 @@
 package uk.gov.android.ui.componentsv2.card.v2
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -115,6 +118,10 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                 caption = true,
                 button = VariantButton.Secondary,
             )
+
+            CardPreview.CustomColors -> CustomColorsCard(focused = false)
+
+            CardPreview.CustomFocusedColors -> CustomColorsCard(focused = true)
         }
     }
 
@@ -260,6 +267,41 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
         }
     }
 
+    /**
+     * A clickable card with custom colours overriding the GDS defaults, to show the card is
+     * configurable. When [focused] the custom focused colours and border are shown.
+     */
+    @Composable
+    private fun CustomColorsCard(focused: Boolean) {
+        GdsCardWithFocusState(
+            isFocused = focused,
+            onClick = {},
+            modifier = Modifier.padding(spacingDouble),
+            enabled = true,
+            shape = GdsCardDefaults.shape,
+            colors = GdsCardDefaults.colors(
+                containerColor = CUSTOM_CONTAINER,
+                contentColor = Color.White,
+            ),
+            elevation = GdsCardDefaults.elevation(),
+            border = GdsCardDefaults.border(color = CUSTOM_BORDER),
+            focusedColors = GdsCardDefaults.focusedColors(
+                containerColor = CUSTOM_FOCUSED_CONTAINER,
+                contentColor = Color.White,
+            ),
+            focusedBorder = BorderStroke(CUSTOM_FOCUSED_BORDER_WIDTH, CUSTOM_FOCUSED_BORDER),
+            rippleConfiguration = GdsCardDefaults.rippleConfiguration(),
+            focusedRippleConfiguration = GdsCardDefaults.focusedRippleConfiguration(),
+            interactionSource = remember { MutableInteractionSource() },
+        ) {
+            Column(modifier = Modifier.padding(smallPadding)) {
+                Text(text = CAPTION_TEXT, style = Typography.bodySmall)
+                Text(text = TITLE_TEXT, style = Typography.headlineMedium)
+                Text(text = BODY_TEXT, style = Typography.bodyLarge)
+            }
+        }
+    }
+
     internal enum class CardPreview {
         Default,
         Border,
@@ -274,12 +316,19 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
         DismissBodyPrimary,
         LargeTitleDividerArrowSecondary,
         CaptionSecondary,
+        CustomColors,
+        CustomFocusedColors,
     }
 
     companion object {
         private val LARGE_ELEVATION = 40.dp
         private val SHADOW_PADDING = 80.dp
         private val CONTENT_PADDING = 32.dp
+        private val CUSTOM_CONTAINER = Color(0xFF1D70B8)
+        private val CUSTOM_BORDER = Color(0xFF0B0C0C)
+        private val CUSTOM_FOCUSED_CONTAINER = Color(0xFF003078)
+        private val CUSTOM_FOCUSED_BORDER = Color(0xFFFFDD00)
+        private val CUSTOM_FOCUSED_BORDER_WIDTH = 4.dp
 
         // Plain text rather than the shared strings, which carry misleading (required)/(optional)
         private const val CAPTION_TEXT = "Caption"

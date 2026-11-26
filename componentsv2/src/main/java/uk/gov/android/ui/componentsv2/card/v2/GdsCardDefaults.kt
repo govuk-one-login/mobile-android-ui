@@ -5,11 +5,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
+import uk.gov.android.ui.componentsv2.button.GdsButtonDefaults
 import uk.gov.android.ui.theme.cardBorderWidth
 import uk.gov.android.ui.theme.cardShadow
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
@@ -48,6 +51,44 @@ object GdsCardDefaults {
         disabledContainerColor = containerColor,
         disabledContentColor = contentColor,
     )
+
+    /**
+     * The colours of a clickable card while it is focused - the GDS focus state colours (yellow
+     * container, black content), the same as GDS buttons. Applied automatically by the clickable
+     * [GdsCard] when it has focus.
+     *
+     * @param containerColor the background colour of the focused card
+     * @param contentColor the colour applied to content that does not set its own colour
+     */
+    @Composable
+    fun focusedColors(
+        containerColor: Color = GdsLocalColorScheme.current.focusState,
+        contentColor: Color = GdsLocalColorScheme.current.focusStateContent,
+    ): CardColors = colors(containerColor = containerColor, contentColor = contentColor)
+
+    /**
+     * The ripple shown when a clickable card is pressed (and, through its alpha, hovered or
+     * dragged) - the GDS highlighted colour. Applied by the clickable [GdsCard].
+     *
+     * @param color the colour of the ripple
+     */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun rippleConfiguration(
+        color: Color = GdsLocalColorScheme.current.secondaryTextAndSymbolButtonHighlighted,
+    ): RippleConfiguration = GdsButtonDefaults.gdsRippleConfig(color)
+
+    /**
+     * The ripple shown on a clickable card while it has focus - the GDS focus highlight. Applied
+     * by the clickable [GdsCard].
+     *
+     * @param color the colour of the ripple
+     */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun focusedRippleConfiguration(
+        color: Color = GdsLocalColorScheme.current.focusButtonHighlighted,
+    ): RippleConfiguration = GdsButtonDefaults.gdsRippleConfig(color)
 
     /**
      * The default elevation of a card - no shadow, matching the Material Design filled card
