@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import uk.gov.android.ui.theme.cardBorderWidth
-import uk.gov.android.ui.theme.cardV2TileCornerRadius
 import uk.gov.android.ui.theme.m3.GdsLocalColorScheme
+import uk.gov.android.ui.theme.tileCornerRadius
 
 /**
  * The GDS Design System defaults applied by [GdsCard].
@@ -25,7 +25,7 @@ object GdsCardDefaults {
     /**
      * The default shape of a card - a [RoundedCornerShape] with a radius of **16.dp**.
      */
-    val shape: Shape = RoundedCornerShape(cardV2TileCornerRadius)
+    val shape: Shape = RoundedCornerShape(tileCornerRadius)
 
     /**
      * The default colours of a card - the **Card** background use case from the Design System,

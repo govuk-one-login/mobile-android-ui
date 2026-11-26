@@ -61,12 +61,11 @@ val swatchSize = 200.dp
 val dividerThickness = 1.dp
 
 // Content Tile
-val tileCornerRadius = 12.dp
+val tileCornerRadius = 16.dp
 val cardShadow = 1.dp
 const val ROW_DISTRIBUTION = .1f
 
 // Card v2
-val cardV2TileCornerRadius = 16.dp
 val cardBorderWidth = 1.dp
 
 // Bulleted and numbered list dimensions
