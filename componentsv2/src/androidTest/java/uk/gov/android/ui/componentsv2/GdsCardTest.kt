@@ -20,10 +20,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.card.GdsCard
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParameters
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParametersProvider
-import uk.gov.android.ui.componentsv2.card.GdsCardUpdatedPreview
 
 class GdsCardTest {
     private val context: Context = ApplicationProvider.getApplicationContext()

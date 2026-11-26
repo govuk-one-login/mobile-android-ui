@@ -23,10 +23,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import uk.gov.android.ui.componentsv2.card.GdsCard
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParameters
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParametersProvider
-import uk.gov.android.ui.componentsv2.card.GdsCardUpdatedPreview
 
 @RunWith(RobolectricTestRunner::class)
 class GdsCardV2Test {

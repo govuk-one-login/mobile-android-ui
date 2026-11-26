@@ -6,9 +6,6 @@ import androidx.compose.ui.res.stringResource
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import uk.gov.android.ui.componentsv2.card.GdsCard
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParameters
-import uk.gov.android.ui.componentsv2.card.GdsCardPreviewParametersProvider
 
 @RunWith(Parameterized::class)
 internal class GdsCardV2ScreenshotTest(

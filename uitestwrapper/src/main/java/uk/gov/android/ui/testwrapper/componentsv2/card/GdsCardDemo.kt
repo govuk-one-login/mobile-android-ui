@@ -2,8 +2,8 @@ package uk.gov.android.ui.testwrapper.componentsv2.card
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import uk.gov.android.ui.componentsv2.GdsCard
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.card.GdsCard
 import uk.gov.android.ui.testwrapper.DemoTemplate
 
 @Composable

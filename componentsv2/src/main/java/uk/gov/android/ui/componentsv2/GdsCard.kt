@@ -1,4 +1,4 @@
-package uk.gov.android.ui.componentsv2.card
+package uk.gov.android.ui.componentsv2
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -38,7 +38,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import uk.gov.android.ui.componentsv2.R
 import uk.gov.android.ui.componentsv2.button.ButtonIcon
 import uk.gov.android.ui.componentsv2.button.ButtonTypeV2
 import uk.gov.android.ui.componentsv2.button.GdsButton
