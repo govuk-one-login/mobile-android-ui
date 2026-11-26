@@ -31,8 +31,7 @@ object GdsCardDefaults {
     val shape: Shape = RoundedCornerShape(tileCornerRadius)
 
     /**
-     * The default colours of a card - the **Card** background use case from the Design System,
-     * which is Grey 4 in light mode and Charcoal in dark mode.
+     * The default colours of a card - the **Card** background use case from the Design System.
      *
      * No disabled state is specified for a GDS card, so the disabled colours deliberately match
      * the enabled ones. Passing [enabled][GdsCard] as `false` therefore removes the click handling
