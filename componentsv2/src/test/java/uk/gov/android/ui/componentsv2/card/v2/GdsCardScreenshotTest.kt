@@ -47,8 +47,11 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
     override val generateComposeLayout: @Composable () -> Unit = {
         when (parameters.first) {
             CardPreview.Default -> GdsCardPreview()
+
             CardPreview.Border -> GdsCardWithBorderPreview()
+
             CardPreview.Shadow -> LargeShadowCard()
+
             CardPreview.ImageDismissBodyPrimary -> VariantCard(
                 showImage = true,
                 showDismiss = true,
@@ -56,27 +59,33 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                 body = true,
                 button = VariantButton.Primary,
             )
+
             CardPreview.ImageDividerSecondary -> VariantCard(
                 showImage = true,
                 divider = true,
                 button = VariantButton.Secondary,
             )
+
             CardPreview.CaptionBodyPrimary -> VariantCard(
                 caption = true,
                 body = true,
                 button = VariantButton.Primary,
             )
+
             CardPreview.CaptionPrimary -> VariantCard(
                 caption = true,
                 button = VariantButton.Primary,
             )
+
             CardPreview.CaptionOnly -> VariantCard(caption = true)
+
             CardPreview.DismissBodySecondaryNoIcon -> VariantCard(
                 showDismiss = true,
                 caption = true,
                 body = true,
                 button = VariantButton.SecondaryNoIcon,
             )
+
             CardPreview.SmallTitleShadowPrimary -> VariantCard(
                 showDismiss = true,
                 caption = true,
@@ -85,12 +94,14 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                 button = VariantButton.Primary,
                 modifier = Modifier.gdsCardShadow(),
             )
+
             CardPreview.DismissBodyPrimary -> VariantCard(
                 showDismiss = true,
                 caption = true,
                 body = true,
                 button = VariantButton.Primary,
             )
+
             CardPreview.LargeTitleDividerArrowSecondary -> VariantCard(
                 showDismiss = true,
                 caption = true,
@@ -99,6 +110,7 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                 divider = true,
                 button = VariantButton.SecondaryArrow,
             )
+
             CardPreview.CaptionSecondary -> VariantCard(
                 caption = true,
                 button = VariantButton.Secondary,
@@ -194,6 +206,7 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                     .padding(top = xsmallPadding, bottom = smallPadding),
                 contentModifier = Modifier.fillMaxWidth(),
             )
+
             else -> GdsButton(
                 text = stringResource(R.string.secondary_button),
                 buttonType = ButtonTypeV2.Secondary(),
@@ -206,10 +219,12 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                         icon = ImageVector.vectorResource(R.drawable.ic_external_site),
                         contentDescription = stringResource(R.string.opens_in_external_browser),
                     )
+
                     VariantButton.SecondaryArrow -> ButtonIcon(
                         icon = ImageVector.vectorResource(R.drawable.arrow_forward),
                         contentDescription = stringResource(R.string.icon_content_desc),
                     )
+
                     else -> null
                 },
             )
