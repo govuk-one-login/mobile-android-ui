@@ -42,27 +42,28 @@ class MainActivity : ComponentActivity() {
                         ),
                     ),
                     topBar = {
-                    PrimaryTabRow(
-                        selectedTabIndex = selectedDestination,
-                    ) {
-                        TabDestination.entries().forEachIndexed { index, destination ->
-                            Tab(
-                                selected = selectedDestination == index,
-                                onClick = {
-                                    navController.navigate(route = destination)
-                                    selectedDestination = index
-                                },
-                                text = {
-                                    Text(
-                                        text = destination.label,
-                                        maxLines = 2,
-                                        overflow = TextOverflow.Ellipsis,
-                                    )
-                                },
-                            )
+                        PrimaryTabRow(
+                            selectedTabIndex = selectedDestination,
+                        ) {
+                            TabDestination.entries().forEachIndexed { index, destination ->
+                                Tab(
+                                    selected = selectedDestination == index,
+                                    onClick = {
+                                        navController.navigate(route = destination)
+                                        selectedDestination = index
+                                    },
+                                    text = {
+                                        Text(
+                                            text = destination.label,
+                                            maxLines = 2,
+                                            overflow = TextOverflow.Ellipsis,
+                                        )
+                                    },
+                                )
+                            }
                         }
-                    }
-                }) { contentPadding ->
+                    },
+                ) { contentPadding ->
                     AppNavHost(
                         navController,
                         startDestination,
