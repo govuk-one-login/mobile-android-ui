@@ -152,19 +152,19 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
                     Column(modifier = Modifier.padding(horizontal = smallPadding)) {
                         if (caption) {
                             Text(
-                                text = stringResource(R.string.caption),
+                                text = CAPTION_TEXT,
                                 style = Typography.bodySmall,
                                 modifier = Modifier.padding(top = xsmallPadding),
                             )
                         }
                         Text(
-                            text = stringResource(R.string.title),
+                            text = TITLE_TEXT,
                             style = titleStyle,
                             modifier = Modifier.padding(vertical = xsmallPadding),
                         )
                         if (body) {
                             Text(
-                                text = stringResource(R.string.body),
+                                text = BODY_TEXT,
                                 style = Typography.bodyLarge,
                                 modifier = Modifier.padding(vertical = xsmallPadding),
                             )
@@ -280,6 +280,11 @@ internal class GdsCardScreenshotTest(private val parameters: Pair<CardPreview, N
         private val LARGE_ELEVATION = 40.dp
         private val SHADOW_PADDING = 80.dp
         private val CONTENT_PADDING = 32.dp
+
+        // Plain text rather than the shared strings, which carry misleading (required)/(optional)
+        private const val CAPTION_TEXT = "Caption"
+        private const val TITLE_TEXT = "Title"
+        private const val BODY_TEXT = "Body"
 
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsCard")
