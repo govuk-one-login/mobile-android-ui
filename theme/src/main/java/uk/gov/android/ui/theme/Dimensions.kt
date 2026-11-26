@@ -65,6 +65,10 @@ val tileCornerRadius = 12.dp
 val cardShadow = 1.dp
 const val ROW_DISTRIBUTION = .1f
 
+// Card v2
+val cardV2TileCornerRadius = 16.dp
+val cardBorderWidth = 1.dp
+
 // Bulleted and numbered list dimensions
 val listItemLeftPadding = 10.dp
 val listItemRightPadding = 20.dp

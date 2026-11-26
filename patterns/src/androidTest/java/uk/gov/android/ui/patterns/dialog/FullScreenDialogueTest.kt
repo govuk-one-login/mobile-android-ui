@@ -20,8 +20,8 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
-import uk.gov.android.ui.componentsv2.GdsCard
 import uk.gov.android.ui.componentsv2.R
+import uk.gov.android.ui.componentsv2.card.GdsCard
 import uk.gov.android.ui.patterns.utils.FragmentActivityTestCase
 
 class FullScreenDialogueTest : FragmentActivityTestCase() {

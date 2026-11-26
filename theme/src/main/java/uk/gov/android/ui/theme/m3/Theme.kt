@@ -167,6 +167,7 @@ class CustomColorsScheme(
     val destructiveNativeButtonText: Color = Color.Unspecified,
     val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
     val secondaryOutlinedBackground: Color = Color.Unspecified,
+    val cardBorder: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -232,6 +233,7 @@ object GdsThemeDefaults {
         destructiveNativeButtonTextHighlighted: Color =
             Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
         secondaryOutlinedBackground: Color = Buttons.secondaryOutlined.toMappedColors(),
+        cardBorder: Color = Borders.card.toMappedColors(),
     ): CustomColorsScheme = CustomColorsScheme(
         cardBackground = cardBackground,
         listBackground = listBackground,
@@ -281,6 +283,7 @@ object GdsThemeDefaults {
         destructiveNativeButtonText = destructiveNativeButtonText,
         destructiveNativeButtonTextHighlighted = destructiveNativeButtonTextHighlighted,
         secondaryOutlinedBackground = secondaryOutlinedBackground,
+        cardBorder = cardBorder,
     )
 }
 
@@ -298,7 +301,7 @@ private fun customColors(): CustomColorsScheme = GdsThemeDefaults.extendedColorS
 internal const val SWATCH_SIZE = 200
 internal const val PALETTE_PADDING = 20
 internal const val PALETTE_WIDTH_V2 = (SWATCH_SIZE * 7) + (PALETTE_PADDING * 2)
-internal const val PALETTE_HEIGHT_V2 = 1700
+internal const val PALETTE_HEIGHT_V2 = 2000
 
 @ExcludeFromJacocoGeneratedReport
 @Preview(
@@ -587,6 +590,12 @@ fun ThemeV2CustomPreview() {
             )
         }
 
+        val bordersCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(cardBorder, "Borders - Card"),
+            )
+        }
+
         Column {
             Text(
                 "Custom Colors",
@@ -652,6 +661,13 @@ fun ThemeV2CustomPreview() {
                 color = Color.White,
             )
             Row { dividersCustomColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Border Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { bordersCustomColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
         }
     }
