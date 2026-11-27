@@ -101,6 +101,7 @@ object Menu {
 
 object Borders {
     val qrScanner = ColorPair(Color(0xFFFFFFFF))
+    val card = ColorPair(Color(0xFFB1B4B6))
 }
 
 @Suppress("ForbiddenComment")

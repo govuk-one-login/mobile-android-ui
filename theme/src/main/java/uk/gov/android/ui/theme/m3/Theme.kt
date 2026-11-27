@@ -167,6 +167,8 @@ class CustomColorsScheme(
     val destructiveNativeButtonText: Color = Color.Unspecified,
     val destructiveNativeButtonTextHighlighted: Color = Color.Unspecified,
     val secondaryOutlinedBackground: Color = Color.Unspecified,
+    val borderQrScanner: Color = Color.Unspecified,
+    val borderCard: Color = Color.Unspecified,
 )
 
 @SuppressLint("CompositionLocalNaming")
@@ -232,6 +234,8 @@ object GdsThemeDefaults {
         destructiveNativeButtonTextHighlighted: Color =
             Buttons.destructiveNativeButtonTextHighlighted.toMappedColors(),
         secondaryOutlinedBackground: Color = Buttons.secondaryOutlined.toMappedColors(),
+        borderQrScanner: Color = Borders.qrScanner.toMappedColors(),
+        borderCard: Color = Borders.card.toMappedColors(),
     ): CustomColorsScheme = CustomColorsScheme(
         cardBackground = cardBackground,
         listBackground = listBackground,
@@ -281,6 +285,8 @@ object GdsThemeDefaults {
         destructiveNativeButtonText = destructiveNativeButtonText,
         destructiveNativeButtonTextHighlighted = destructiveNativeButtonTextHighlighted,
         secondaryOutlinedBackground = secondaryOutlinedBackground,
+        borderQrScanner = borderQrScanner,
+        borderCard = borderCard,
     )
 }
 
@@ -587,6 +593,13 @@ fun ThemeV2CustomPreview() {
             )
         }
 
+        val bordersCustomColors = with(GdsLocalColorScheme.current) {
+            listOf(
+                SwatchColor(borderQrScanner, "Border - QR Scanner"),
+                SwatchColor(borderCard, "Border - Card"),
+            )
+        }
+
         Column {
             Text(
                 "Custom Colors",
@@ -652,6 +665,13 @@ fun ThemeV2CustomPreview() {
                 color = Color.White,
             )
             Row { dividersCustomColors.forEach { Swatch(data = it) } }
+            Spacer(Modifier.height(PALETTE_PADDING.dp))
+            Text(
+                "Border Colors",
+                style = Typography.headlineSmall,
+                color = Color.White,
+            )
+            Row { bordersCustomColors.forEach { Swatch(data = it) } }
             Spacer(Modifier.height(PALETTE_PADDING.dp))
         }
     }
